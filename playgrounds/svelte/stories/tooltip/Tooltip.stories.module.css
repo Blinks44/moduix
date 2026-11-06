@@ -1,0 +1,111 @@
+.triggerContent {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--moduix-spacing-2);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--moduix-spacing-3);
+}
+
+.toolbar {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--moduix-border-width-sm);
+  padding: var(--moduix-spacing-1);
+  border: var(--moduix-border-width-sm) solid var(--moduix-border);
+  border-radius: var(--moduix-radius-lg);
+  background: var(--moduix-muted);
+}
+
+.sideButtons {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--moduix-spacing-1);
+  padding: var(--moduix-spacing-1);
+  border: var(--moduix-border-width-sm) solid var(--moduix-border);
+  border-radius: var(--moduix-radius-md);
+  background: var(--moduix-muted);
+}
+
+.sideButton {
+  min-width: 4.75rem;
+  min-height: 2rem;
+  padding: 0 var(--moduix-spacing-3);
+  border: var(--moduix-border-width-sm) solid var(--moduix-border);
+  border-radius: var(--moduix-radius-sm);
+  background: var(--moduix-background);
+  color: var(--moduix-foreground);
+  font-size: var(--moduix-text-sm);
+  line-height: var(--moduix-line-height-text-sm);
+  font-weight: var(--moduix-weight-medium);
+  text-transform: capitalize;
+  cursor: pointer;
+  transition:
+    background-color var(--moduix-transition-default),
+    color var(--moduix-transition-default);
+
+  &[data-active] {
+    background: var(--moduix-primary);
+    color: var(--moduix-primary-foreground);
+  }
+}
+
+.icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.customContent {
+  min-width: 10rem;
+  padding: var(--moduix-spacing-2) var(--moduix-spacing-3);
+  border-color: var(--moduix-primary);
+  background-color: var(--moduix-primary);
+  color: var(--moduix-primary-foreground);
+  text-align: left;
+}
+
+.customPositioner {
+  filter: drop-shadow(0 0.5rem 1rem rgb(0 0 0 / 0.14));
+}
+
+.customTrigger {
+  border-color: var(--moduix-primary);
+  background-color: var(--moduix-primary);
+  color: var(--moduix-primary-foreground);
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: color-mix(in oklab, var(--moduix-primary) 90%, transparent);
+    }
+  }
+}
+
+.shortcut {
+  color: var(--moduix-muted-foreground);
+  font-size: var(--moduix-text-xs);
+  line-height: var(--moduix-line-height-text-xs);
+}
+
+.output {
+  color: var(--moduix-muted-foreground);
+  font-size: var(--moduix-text-sm);
+  line-height: var(--moduix-line-height-text-sm);
+}
+
+.fixedContainer {
+  position: fixed;
+  top: 2.5rem;
+  left: 2.5rem;
+  display: grid;
+  place-items: center;
+  min-width: 16rem;
+  min-height: 8rem;
+  border: var(--moduix-border-width-sm) solid var(--moduix-border);
+  border-radius: var(--moduix-radius-lg);
+  background: var(--moduix-muted);
+}

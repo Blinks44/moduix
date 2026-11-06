@@ -1920,6 +1920,816 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "popover",
+      "type": "registry:item",
+      "title": "Popover",
+      "description": "moduix Svelte Popover component.",
+      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "registryDependencies": [
+        "@moduix-svelte/a11y-labels",
+        "@moduix-svelte/close-button",
+        "@moduix-svelte/foundation",
+        "@moduix-svelte/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/popover/Popover.svelte",
+          "target": "@components/ui/popover/Popover.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/popover/PopoverRootProvider.svelte",
+          "target": "@components/ui/popover/PopoverRootProvider.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/popover/PopoverAnchor.svelte",
+          "target": "@components/ui/popover/PopoverAnchor.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/popover/PopoverArrow.svelte",
+          "target": "@components/ui/popover/PopoverArrow.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/popover/PopoverArrowTip.svelte",
+          "target": "@components/ui/popover/PopoverArrowTip.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/popover/PopoverBody.svelte",
+          "target": "@components/ui/popover/PopoverBody.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/popover/PopoverCloseIcon.svelte",
+          "target": "@components/ui/popover/PopoverCloseIcon.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/popover/PopoverCloseTrigger.svelte",
+          "target": "@components/ui/popover/PopoverCloseTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/popover/PopoverContent.svelte",
+          "target": "@components/ui/popover/PopoverContent.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/popover/PopoverDescription.svelte",
+          "target": "@components/ui/popover/PopoverDescription.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/popover/PopoverFooter.svelte",
+          "target": "@components/ui/popover/PopoverFooter.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/popover/PopoverHeader.svelte",
+          "target": "@components/ui/popover/PopoverHeader.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/popover/PopoverIndicator.svelte",
+          "target": "@components/ui/popover/PopoverIndicator.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/popover/PopoverPositioner.svelte",
+          "target": "@components/ui/popover/PopoverPositioner.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/popover/PopoverTitle.svelte",
+          "target": "@components/ui/popover/PopoverTitle.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/popover/PopoverTrigger.svelte",
+          "target": "@components/ui/popover/PopoverTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/popover/Popover.module.css",
+          "target": "@components/ui/popover/Popover.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/popover/index.ts",
+          "target": "@components/ui/popover/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:item",
+      "title": "Tooltip",
+      "description": "moduix Svelte Tooltip component.",
+      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "registryDependencies": ["@moduix-svelte/foundation", "@moduix-svelte/overlay-portal"],
+      "files": [
+        {
+          "path": "src/components/tooltip/Tooltip.svelte",
+          "target": "@components/ui/tooltip/Tooltip.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tooltip/TooltipRootProvider.svelte",
+          "target": "@components/ui/tooltip/TooltipRootProvider.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tooltip/TooltipTrigger.svelte",
+          "target": "@components/ui/tooltip/TooltipTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tooltip/TooltipDisabledTrigger.svelte",
+          "target": "@components/ui/tooltip/TooltipDisabledTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tooltip/TooltipPositioner.svelte",
+          "target": "@components/ui/tooltip/TooltipPositioner.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tooltip/TooltipContent.svelte",
+          "target": "@components/ui/tooltip/TooltipContent.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tooltip/TooltipBody.svelte",
+          "target": "@components/ui/tooltip/TooltipBody.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tooltip/TooltipArrow.svelte",
+          "target": "@components/ui/tooltip/TooltipArrow.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tooltip/TooltipArrowTip.svelte",
+          "target": "@components/ui/tooltip/TooltipArrowTip.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tooltip/Tooltip.module.css",
+          "target": "@components/ui/tooltip/Tooltip.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/tooltip/index.ts",
+          "target": "@components/ui/tooltip/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "hover-card",
+      "type": "registry:item",
+      "title": "HoverCard",
+      "description": "moduix Svelte HoverCard component.",
+      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "registryDependencies": ["@moduix-svelte/foundation", "@moduix-svelte/overlay-portal"],
+      "files": [
+        {
+          "path": "src/components/hover-card/HoverCard.svelte",
+          "target": "@components/ui/hover-card/HoverCard.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/hover-card/HoverCardRootProvider.svelte",
+          "target": "@components/ui/hover-card/HoverCardRootProvider.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/hover-card/HoverCardTrigger.svelte",
+          "target": "@components/ui/hover-card/HoverCardTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/hover-card/HoverCardPositioner.svelte",
+          "target": "@components/ui/hover-card/HoverCardPositioner.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/hover-card/HoverCardContent.svelte",
+          "target": "@components/ui/hover-card/HoverCardContent.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/hover-card/HoverCardArrow.svelte",
+          "target": "@components/ui/hover-card/HoverCardArrow.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/hover-card/HoverCardArrowTip.svelte",
+          "target": "@components/ui/hover-card/HoverCardArrowTip.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/hover-card/HoverCardBody.svelte",
+          "target": "@components/ui/hover-card/HoverCardBody.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/hover-card/HoverCard.module.css",
+          "target": "@components/ui/hover-card/HoverCard.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/hover-card/index.ts",
+          "target": "@components/ui/hover-card/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "menu",
+      "type": "registry:item",
+      "title": "Menu",
+      "description": "moduix Svelte Menu component.",
+      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "registryDependencies": [
+        "@moduix-svelte/foundation",
+        "@moduix-svelte/icons",
+        "@moduix-svelte/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/menu/Menu.svelte",
+          "target": "@components/ui/menu/Menu.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuArrow.svelte",
+          "target": "@components/ui/menu/MenuArrow.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuArrowTip.svelte",
+          "target": "@components/ui/menu/MenuArrowTip.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuCheckboxItem.svelte",
+          "target": "@components/ui/menu/MenuCheckboxItem.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuContextTrigger.svelte",
+          "target": "@components/ui/menu/MenuContextTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuContent.svelte",
+          "target": "@components/ui/menu/MenuContent.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuIndicator.svelte",
+          "target": "@components/ui/menu/MenuIndicator.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuItem.svelte",
+          "target": "@components/ui/menu/MenuItem.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuItemGroup.svelte",
+          "target": "@components/ui/menu/MenuItemGroup.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuItemGroupLabel.svelte",
+          "target": "@components/ui/menu/MenuItemGroupLabel.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuItemIndicator.svelte",
+          "target": "@components/ui/menu/MenuItemIndicator.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuItemShortcut.svelte",
+          "target": "@components/ui/menu/MenuItemShortcut.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuItemText.svelte",
+          "target": "@components/ui/menu/MenuItemText.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuPositioner.svelte",
+          "target": "@components/ui/menu/MenuPositioner.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuRadioItem.svelte",
+          "target": "@components/ui/menu/MenuRadioItem.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuRadioItemGroup.svelte",
+          "target": "@components/ui/menu/MenuRadioItemGroup.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuRootProvider.svelte",
+          "target": "@components/ui/menu/MenuRootProvider.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuSeparator.svelte",
+          "target": "@components/ui/menu/MenuSeparator.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuTrigger.svelte",
+          "target": "@components/ui/menu/MenuTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuTriggerItem.svelte",
+          "target": "@components/ui/menu/MenuTriggerItem.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuTriggerItemIcon.svelte",
+          "target": "@components/ui/menu/MenuTriggerItemIcon.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/MenuViewport.svelte",
+          "target": "@components/ui/menu/MenuViewport.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/Menu.module.css",
+          "target": "@components/ui/menu/Menu.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/menu/index.ts",
+          "target": "@components/ui/menu/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "drawer",
+      "type": "registry:item",
+      "title": "Drawer",
+      "description": "moduix Svelte Drawer component.",
+      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "registryDependencies": [
+        "@moduix-svelte/close-button",
+        "@moduix-svelte/foundation",
+        "@moduix-svelte/overlay-portal",
+        "@moduix-svelte/a11y-labels"
+      ],
+      "files": [
+        {
+          "path": "src/components/drawer/Drawer.svelte",
+          "target": "@components/ui/drawer/Drawer.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerRootProvider.svelte",
+          "target": "@components/ui/drawer/DrawerRootProvider.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerTrigger.svelte",
+          "target": "@components/ui/drawer/DrawerTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerBackdrop.svelte",
+          "target": "@components/ui/drawer/DrawerBackdrop.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerPositioner.svelte",
+          "target": "@components/ui/drawer/DrawerPositioner.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerContent.svelte",
+          "target": "@components/ui/drawer/DrawerContent.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerGrabber.svelte",
+          "target": "@components/ui/drawer/DrawerGrabber.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerGrabberIndicator.svelte",
+          "target": "@components/ui/drawer/DrawerGrabberIndicator.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerTitle.svelte",
+          "target": "@components/ui/drawer/DrawerTitle.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerDescription.svelte",
+          "target": "@components/ui/drawer/DrawerDescription.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerCloseTrigger.svelte",
+          "target": "@components/ui/drawer/DrawerCloseTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerCloseIcon.svelte",
+          "target": "@components/ui/drawer/DrawerCloseIcon.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerSwipeArea.svelte",
+          "target": "@components/ui/drawer/DrawerSwipeArea.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerIndent.svelte",
+          "target": "@components/ui/drawer/DrawerIndent.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerIndentBackground.svelte",
+          "target": "@components/ui/drawer/DrawerIndentBackground.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerHeader.svelte",
+          "target": "@components/ui/drawer/DrawerHeader.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerBody.svelte",
+          "target": "@components/ui/drawer/DrawerBody.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerFooter.svelte",
+          "target": "@components/ui/drawer/DrawerFooter.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/Drawer.module.css",
+          "target": "@components/ui/drawer/Drawer.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/drawer/index.ts",
+          "target": "@components/ui/drawer/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "floating-panel",
+      "type": "registry:item",
+      "title": "FloatingPanel",
+      "description": "moduix Svelte FloatingPanel component.",
+      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "registryDependencies": [
+        "@moduix-svelte/a11y-labels",
+        "@moduix-svelte/close-button",
+        "@moduix-svelte/foundation",
+        "@moduix-svelte/icons",
+        "@moduix-svelte/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/floating-panel/FloatingPanel.svelte",
+          "target": "@components/ui/floating-panel/FloatingPanel.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelRootProvider.svelte",
+          "target": "@components/ui/floating-panel/FloatingPanelRootProvider.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelTrigger.svelte",
+          "target": "@components/ui/floating-panel/FloatingPanelTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelPositioner.svelte",
+          "target": "@components/ui/floating-panel/FloatingPanelPositioner.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelContent.svelte",
+          "target": "@components/ui/floating-panel/FloatingPanelContent.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelDragTrigger.svelte",
+          "target": "@components/ui/floating-panel/FloatingPanelDragTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelHeader.svelte",
+          "target": "@components/ui/floating-panel/FloatingPanelHeader.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelTitle.svelte",
+          "target": "@components/ui/floating-panel/FloatingPanelTitle.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelControl.svelte",
+          "target": "@components/ui/floating-panel/FloatingPanelControl.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelStageTrigger.svelte",
+          "target": "@components/ui/floating-panel/FloatingPanelStageTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelCloseTrigger.svelte",
+          "target": "@components/ui/floating-panel/FloatingPanelCloseTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelCloseIcon.svelte",
+          "target": "@components/ui/floating-panel/FloatingPanelCloseIcon.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelBody.svelte",
+          "target": "@components/ui/floating-panel/FloatingPanelBody.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelFooter.svelte",
+          "target": "@components/ui/floating-panel/FloatingPanelFooter.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelResizeTrigger.svelte",
+          "target": "@components/ui/floating-panel/FloatingPanelResizeTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelResizeTriggerGroup.svelte",
+          "target": "@components/ui/floating-panel/FloatingPanelResizeTriggerGroup.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanelDragIndicator.svelte",
+          "target": "@components/ui/floating-panel/FloatingPanelDragIndicator.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/floating-panel/FloatingPanel.module.css",
+          "target": "@components/ui/floating-panel/FloatingPanel.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/floating-panel/floating-panel.types.ts",
+          "target": "@components/ui/floating-panel/floating-panel.types.ts",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/floating-panel/index.ts",
+          "target": "@components/ui/floating-panel/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "lightbox",
+      "type": "registry:item",
+      "title": "Lightbox",
+      "description": "moduix Svelte Lightbox component.",
+      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "registryDependencies": [
+        "@moduix-svelte/a11y-labels",
+        "@moduix-svelte/close-button",
+        "@moduix-svelte/foundation",
+        "@moduix-svelte/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/lightbox/Lightbox.svelte",
+          "target": "@components/ui/lightbox/Lightbox.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/lightbox/LightboxRootProvider.svelte",
+          "target": "@components/ui/lightbox/LightboxRootProvider.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/lightbox/LightboxTrigger.svelte",
+          "target": "@components/ui/lightbox/LightboxTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/lightbox/LightboxBackdrop.svelte",
+          "target": "@components/ui/lightbox/LightboxBackdrop.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/lightbox/LightboxPositioner.svelte",
+          "target": "@components/ui/lightbox/LightboxPositioner.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/lightbox/LightboxContent.svelte",
+          "target": "@components/ui/lightbox/LightboxContent.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/lightbox/LightboxTitle.svelte",
+          "target": "@components/ui/lightbox/LightboxTitle.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/lightbox/LightboxDescription.svelte",
+          "target": "@components/ui/lightbox/LightboxDescription.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/lightbox/LightboxCloseTrigger.svelte",
+          "target": "@components/ui/lightbox/LightboxCloseTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/lightbox/LightboxCloseIcon.svelte",
+          "target": "@components/ui/lightbox/LightboxCloseIcon.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/lightbox/LightboxHeader.svelte",
+          "target": "@components/ui/lightbox/LightboxHeader.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/lightbox/LightboxBody.svelte",
+          "target": "@components/ui/lightbox/LightboxBody.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/lightbox/LightboxFooter.svelte",
+          "target": "@components/ui/lightbox/LightboxFooter.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/lightbox/LightboxImage.svelte",
+          "target": "@components/ui/lightbox/LightboxImage.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/lightbox/LightboxGallery.svelte",
+          "target": "@components/ui/lightbox/LightboxGallery.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/lightbox/LightboxBind.svelte",
+          "target": "@components/ui/lightbox/LightboxBind.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/lightbox/lightbox.ts",
+          "target": "@components/ui/lightbox/lightbox.ts",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/lightbox/Lightbox.module.css",
+          "target": "@components/ui/lightbox/Lightbox.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/lightbox/index.ts",
+          "target": "@components/ui/lightbox/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "tour",
+      "type": "registry:item",
+      "title": "Tour",
+      "description": "moduix Svelte Tour component.",
+      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "registryDependencies": [
+        "@moduix-svelte/a11y-labels",
+        "@moduix-svelte/close-button",
+        "@moduix-svelte/foundation",
+        "@moduix-svelte/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/tour/Tour.svelte",
+          "target": "@components/ui/tour/Tour.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tour/TourActionList.svelte",
+          "target": "@components/ui/tour/TourActionList.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tour/TourActionTrigger.svelte",
+          "target": "@components/ui/tour/TourActionTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tour/TourArrow.svelte",
+          "target": "@components/ui/tour/TourArrow.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tour/TourArrowTip.svelte",
+          "target": "@components/ui/tour/TourArrowTip.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tour/TourBackdrop.svelte",
+          "target": "@components/ui/tour/TourBackdrop.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tour/TourBody.svelte",
+          "target": "@components/ui/tour/TourBody.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tour/TourCloseIcon.svelte",
+          "target": "@components/ui/tour/TourCloseIcon.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tour/TourCloseTrigger.svelte",
+          "target": "@components/ui/tour/TourCloseTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tour/TourContent.svelte",
+          "target": "@components/ui/tour/TourContent.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tour/TourControl.svelte",
+          "target": "@components/ui/tour/TourControl.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tour/TourDescription.svelte",
+          "target": "@components/ui/tour/TourDescription.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tour/Tour.module.css",
+          "target": "@components/ui/tour/Tour.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/tour/TourPositioner.svelte",
+          "target": "@components/ui/tour/TourPositioner.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tour/TourProgressText.svelte",
+          "target": "@components/ui/tour/TourProgressText.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tour/TourSpotlight.svelte",
+          "target": "@components/ui/tour/TourSpotlight.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tour/TourTitle.svelte",
+          "target": "@components/ui/tour/TourTitle.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tour/index.ts",
+          "target": "@components/ui/tour/index.ts",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }

@@ -1,0 +1,157 @@
+@layer moduix.components {
+  .trigger,
+  .closeTrigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--moduix-size-md);
+    margin: 0;
+    padding: var(--moduix-spacing-1) var(--moduix-spacing-3-5);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
+    border-radius: var(--moduix-radius-md);
+    background-color: var(--moduix-background);
+    color: var(--moduix-foreground);
+    font: inherit;
+    font-size: var(--moduix-text-md);
+    line-height: var(--moduix-line-height-text-md);
+    user-select: none;
+    outline: 0;
+    cursor: pointer;
+    transition:
+      background-color var(--moduix-transition-default),
+      border-color var(--moduix-transition-default),
+      color var(--moduix-transition-default);
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--moduix-accent);
+      }
+    }
+
+    &:active,
+    &[data-state='open']:not([data-value]),
+    &[data-state='open'][data-current] {
+      background-color: var(--moduix-accent);
+    }
+
+    &:focus-visible {
+      outline: var(--moduix-focus-ring-inset-width) solid var(--moduix-ring);
+      outline-offset: calc(var(--moduix-focus-ring-inset-width) * -1);
+    }
+
+    &:disabled {
+      pointer-events: none;
+      opacity: var(--moduix-opacity-disabled);
+    }
+  }
+
+  .positioner {
+    z-index: var(--z-index, var(--moduix-z-popup));
+    max-width: var(--available-width);
+    outline: 0;
+  }
+
+  .content {
+    position: relative;
+    z-index: calc(var(--moduix-z-popup) + var(--layer-index, 0));
+    min-width: min(16rem, var(--available-width));
+    max-width: min(28rem, var(--available-width));
+    max-height: min(24rem, var(--available-height, 100dvh));
+    overflow-wrap: anywhere;
+    padding: var(--moduix-spacing-4);
+    border-radius: var(--moduix-radius-md);
+    background-color: var(--moduix-popover);
+    color: var(--moduix-popover-foreground);
+    outline: var(--moduix-border-width-sm) solid var(--moduix-border);
+    box-shadow: var(--moduix-shadow-lg);
+    transform-origin: var(--transform-origin);
+
+    /* Lets PopoverBody scroll within the height limit while the surface stays overflow-visible for the arrow. */
+    &:has(> .body) {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &[data-state='open'] {
+      animation: global(moduix-popup-in)
+        var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
+        var(--moduix-popup-motion-easing, var(--moduix-ease-in-out));
+    }
+
+    &[data-state='closed'] {
+      animation: global(moduix-popup-out)
+        var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
+        var(--moduix-popup-motion-easing, var(--moduix-ease-in-out)) forwards;
+    }
+  }
+
+  .arrow {
+    --arrow-size: var(--moduix-spacing-2-5);
+    --arrow-background: var(--moduix-popover);
+  }
+
+  .arrowTip {
+    border-top: var(--moduix-border-width-sm) solid var(--moduix-border);
+    border-left: var(--moduix-border-width-sm) solid var(--moduix-border);
+  }
+
+  .header {
+    display: grid;
+    gap: var(--moduix-spacing-1);
+
+    /* Keeps the title clear of the absolutely positioned close icon. */
+    .content:has(.closeIcon) & {
+      padding-inline-end: calc(var(--moduix-spacing-7) + var(--moduix-spacing-3));
+    }
+  }
+
+  .title {
+    margin: 0;
+    font-size: var(--moduix-text-md);
+    font-weight: var(--moduix-weight-semibold);
+    line-height: var(--moduix-line-height-text-md);
+  }
+
+  .description {
+    margin: 0;
+    color: var(--moduix-muted-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
+  }
+
+  .body {
+    min-block-size: 0;
+    overflow: auto;
+
+    .header + & {
+      margin-block-start: var(--moduix-spacing-3);
+    }
+  }
+
+  .footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--moduix-spacing-2);
+    margin-block-start: var(--moduix-spacing-3);
+  }
+
+  .closeIcon {
+    --moduix-close-button-bg-hover: var(--moduix-accent);
+    --moduix-close-button-color-hover: var(--moduix-popover-foreground);
+    position: absolute;
+    inset-block-start: var(--moduix-spacing-3);
+    inset-inline-end: var(--moduix-spacing-3);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .trigger,
+    .closeTrigger {
+      transition: none;
+    }
+
+    .content[data-state] {
+      animation: none;
+    }
+  }
+}

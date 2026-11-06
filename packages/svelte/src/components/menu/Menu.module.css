@@ -1,0 +1,246 @@
+@layer moduix.components {
+  .indicator,
+  .triggerItemIcon,
+  .itemIndicator {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+
+    & > svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .indicator {
+    width: var(--moduix-spacing-4);
+    height: var(--moduix-spacing-4);
+  }
+
+  .positioner {
+    z-index: var(--z-index);
+  }
+
+  .content {
+    --arrow-size: var(--moduix-spacing-2-5);
+    --arrow-background: var(--moduix-popover);
+
+    position: relative;
+    z-index: calc(var(--moduix-z-popup) + var(--layer-index, 0));
+    display: flex;
+    flex-direction: column;
+    min-width: min(
+      max(var(--reference-width, 0px), var(--moduix-menu-popup-min-width, 12rem)),
+      var(--available-width, 100vw)
+    );
+    max-width: min(var(--moduix-menu-popup-max-width, 20rem), var(--available-width, 100vw));
+    padding-block: var(--moduix-popup-list-padding-y, var(--moduix-spacing-1));
+    border-radius: var(--moduix-radius-md);
+    background-color: var(--moduix-popover);
+    color: var(--moduix-popover-foreground);
+    /* An outline instead of a border lets MenuArrow paint over the edge and join it. */
+    outline: var(--moduix-border-width-sm) solid var(--moduix-border);
+    box-shadow: var(--moduix-shadow-lg);
+    transform-origin: var(--transform-origin);
+
+    &[data-state='open'] {
+      animation: global(moduix-popup-in)
+        var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
+        var(--moduix-popup-motion-easing, var(--moduix-ease-in-out));
+    }
+
+    &[data-state='closed'] {
+      animation: global(moduix-popup-out)
+        var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
+        var(--moduix-popup-motion-easing, var(--moduix-ease-in-out)) forwards;
+    }
+  }
+
+  .viewport {
+    display: flex;
+    max-height: min(var(--moduix-menu-popup-max-height, 24rem), var(--available-height, 100dvh));
+    flex-direction: column;
+    overflow: auto;
+  }
+
+  .arrowTip {
+    border-block-start: var(--moduix-border-width-sm) solid var(--moduix-border);
+    border-inline-start: var(--moduix-border-width-sm) solid var(--moduix-border);
+  }
+
+  .item,
+  .triggerItem,
+  .radioItem,
+  .checkboxItem {
+    position: relative;
+    min-height: var(--moduix-popup-item-min-height, var(--moduix-size-sm));
+    margin: 0;
+    border: 0;
+    border-radius: var(--moduix-radius-sm);
+    padding-block: var(--moduix-popup-item-padding-y, var(--moduix-spacing-1));
+    padding-inline: var(--moduix-popup-item-padding-x-start, var(--moduix-spacing-3))
+      var(--moduix-popup-item-padding-x-end, var(--moduix-spacing-3));
+    outline: 0;
+    color: inherit;
+    font: inherit;
+    font-size: var(--moduix-popup-item-font-size, var(--moduix-text-sm));
+    line-height: var(--moduix-popup-item-line-height, var(--moduix-line-height-text-sm));
+    text-decoration: none;
+    user-select: none;
+    cursor: default;
+
+    /* The highlight is inset from the row, so the whole row stays clickable. */
+    &:is([data-highlighted], [data-state='open']) {
+      z-index: 0;
+      color: var(--moduix-accent-foreground);
+
+      &::before {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        inset-block: 0;
+        inset-inline: var(--moduix-popup-highlight-inset-x, var(--moduix-spacing-1));
+        border-radius: var(--moduix-popup-highlight-radius, var(--moduix-radius-sm));
+        background-color: var(--moduix-accent);
+      }
+    }
+
+    &[data-tone='destructive'] {
+      color: var(--moduix-destructive);
+
+      &[data-highlighted]::before {
+        background-color: color-mix(in oklab, var(--moduix-destructive) 12%, transparent);
+      }
+    }
+
+    /* After the tone, so a disabled destructive item is muted too. */
+    &[data-disabled] {
+      pointer-events: none;
+      color: var(--moduix-muted-foreground);
+    }
+  }
+
+  .item {
+    display: flex;
+    align-items: center;
+    gap: var(--moduix-spacing-2);
+  }
+
+  .triggerItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--moduix-spacing-3);
+  }
+
+  .triggerItemIcon {
+    width: var(--moduix-spacing-3-5);
+    height: var(--moduix-spacing-3-5);
+
+    &:dir(rtl) {
+      transform: scaleX(-1);
+    }
+  }
+
+  .itemGroup,
+  .radioItemGroup {
+    display: grid;
+  }
+
+  .itemGroupLabel {
+    margin: 0;
+    padding-block: var(--moduix-popup-group-label-padding-y, var(--moduix-spacing-1));
+    padding-inline: var(--moduix-popup-group-label-padding-x-start, var(--moduix-spacing-2-5))
+      var(--moduix-popup-group-label-padding-x-end, var(--moduix-spacing-3));
+    color: var(--moduix-popup-group-label-color, var(--moduix-muted-foreground));
+    font-size: var(--moduix-popup-group-label-font-size, var(--moduix-text-xs));
+    font-weight: var(--moduix-popup-group-label-font-weight, var(--moduix-weight-regular));
+    line-height: var(--moduix-popup-group-label-line-height, var(--moduix-line-height-text-xs));
+    user-select: none;
+    cursor: default;
+  }
+
+  .radioItem,
+  .checkboxItem {
+    --_menu-indicator-size: var(--moduix-popup-check-indicator-size, var(--moduix-spacing-3));
+
+    display: grid;
+    grid-template-columns: var(--_menu-indicator-size) minmax(0, 1fr);
+    align-items: center;
+    gap: var(--moduix-popup-check-gap, var(--moduix-spacing-2));
+    padding-inline-start: var(--moduix-popup-check-padding-x-start, var(--moduix-spacing-2-5));
+
+    &[data-indicator-position='none'] {
+      grid-template-columns: minmax(0, 1fr);
+      padding-inline-start: var(--moduix-popup-item-padding-x-start, var(--moduix-spacing-3));
+
+      & > .itemIndicator {
+        display: none;
+      }
+
+      & > .itemText {
+        grid-column-start: 1;
+      }
+    }
+
+    &[data-indicator-position='end'] {
+      grid-template-columns: minmax(0, 1fr) var(--_menu-indicator-size);
+
+      & > .itemText {
+        grid-column-start: 1;
+      }
+
+      & > .itemIndicator {
+        grid-column-start: 2;
+        justify-self: end;
+      }
+    }
+  }
+
+  .itemIndicator {
+    grid-column-start: 1;
+    width: var(--_menu-indicator-size, var(--moduix-spacing-3));
+    height: var(--_menu-indicator-size, var(--moduix-spacing-3));
+  }
+
+  .itemText {
+    grid-column-start: 2;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    & > svg {
+      display: inline-block;
+      width: var(--moduix-spacing-4);
+      height: var(--moduix-spacing-4);
+      margin-inline-end: var(--moduix-spacing-2);
+      vertical-align: middle;
+    }
+  }
+
+  .itemShortcut {
+    margin-inline-start: auto;
+    padding-inline-start: var(--moduix-spacing-4);
+    color: var(--moduix-muted-foreground);
+    font-size: var(--moduix-text-xs);
+    line-height: var(--moduix-line-height-text-xs);
+    white-space: nowrap;
+  }
+
+  .separator {
+    height: var(--moduix-border-width-sm);
+    margin-block: var(--moduix-popup-separator-margin-y, var(--moduix-spacing-1-5));
+    margin-inline: var(--moduix-popup-separator-margin-x-start, var(--moduix-spacing-3))
+      var(--moduix-popup-separator-margin-x-end, var(--moduix-spacing-3));
+    border: 0;
+    background-color: var(--moduix-border);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .content[data-state] {
+      animation: none;
+    }
+  }
+}

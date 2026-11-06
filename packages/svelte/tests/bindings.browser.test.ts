@@ -2,6 +2,7 @@ import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render } from '@testing-library/svelte';
 import Bindings from './bindings/Bindings.svelte';
+import OverlayBindings from './bindings/OverlayBindings.svelte';
 
 const input = (selector: string) => document.querySelector<HTMLInputElement>(selector)!;
 const pressArrowRight = (selector: string) => {
@@ -74,4 +75,46 @@ test('user changes reach bound state', async () => {
       text: 'typed',
       vis: true,
     });
+});
+
+test.each([
+  { key: 'popover', testid: 'popover-content' },
+  { key: 'tooltip', testid: 'tooltip-content' },
+  { key: 'hoverCard', testid: 'hover-card-content' },
+  { key: 'menu', testid: 'menu-content' },
+  { key: 'drawer', testid: 'drawer-content' },
+  { key: 'panel', testid: 'panel-content' },
+  { key: 'lightbox', testid: 'lightbox-content' },
+] as const)('writes to bound overlay state reach the overlay ($key)', async ({ key, testid }) => {
+  const { component } = render(OverlayBindings);
+  component.write(key);
+  await expect.element(page.getByTestId(testid)).toBeAttached();
+  if (key === 'popover') {
+    await expect
+      .element(page.getByRole('button', { name: 'Popover b' }))
+      .toHaveAttribute('data-current');
+  }
+  if (key === 'panel') {
+    const panel = () => document.querySelector<HTMLElement>('[data-testid="panel-content"]')!;
+    const initialWidth = panel().offsetWidth;
+    component.resizePanel();
+    await expect.poll(() => panel().offsetWidth).not.toBe(initialWidth);
+  }
+});
+
+test.each([
+  { key: 'popover', action: 'click', name: 'Popover a' },
+  { key: 'tooltip', action: 'focus', name: 'Tooltip trigger' },
+  { key: 'hoverCard', action: 'focus', name: 'Hover card trigger' },
+  { key: 'menu', action: 'click', name: 'Menu trigger' },
+  { key: 'drawer', action: 'click', name: 'Drawer trigger' },
+  { key: 'panel', action: 'click', name: 'Panel trigger' },
+  { key: 'lightbox', action: 'click', name: 'Lightbox trigger' },
+] as const)('user actions reach bound overlay state ($key)', async ({ key, action, name }) => {
+  const { component } = render(OverlayBindings);
+  const trigger = page.getByRole('button', { name, exact: true });
+  if (action === 'click') await trigger.click();
+  else await trigger.focus();
+  await expect.poll(() => component.read()[key]).toBe(true);
+  if (key === 'popover') expect(component.read().popoverTrigger).toBe('a');
 });

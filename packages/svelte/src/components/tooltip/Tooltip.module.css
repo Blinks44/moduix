@@ -1,0 +1,114 @@
+@layer moduix.components {
+  .trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--moduix-size-md);
+    margin: 0;
+    padding: var(--moduix-spacing-1) var(--moduix-spacing-3-5);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
+    border-radius: var(--moduix-radius-md);
+    background-color: var(--moduix-background);
+    color: var(--moduix-foreground);
+    font: inherit;
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
+    user-select: none;
+    outline: 0;
+    cursor: pointer;
+    transition:
+      background-color var(--moduix-transition-default),
+      border-color var(--moduix-transition-default),
+      color var(--moduix-transition-default);
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--moduix-accent);
+      }
+    }
+
+    &:active,
+    &[data-state='open']:not([data-value]),
+    &[data-state='open'][data-current] {
+      background-color: var(--moduix-accent);
+    }
+
+    &:focus-visible {
+      outline: var(--moduix-focus-ring-inset-width) solid var(--moduix-ring);
+      outline-offset: var(--moduix-focus-ring-inset-offset);
+    }
+
+    &:disabled {
+      pointer-events: none;
+      opacity: var(--moduix-opacity-disabled);
+    }
+  }
+
+  .disabledTrigger {
+    display: inline-flex;
+    cursor: not-allowed;
+
+    & > :is(:disabled, [data-disabled]) {
+      pointer-events: none;
+    }
+  }
+
+  .positioner {
+    z-index: var(--z-index, var(--moduix-z-popup));
+    max-width: var(--available-width);
+    outline: 0;
+  }
+
+  .content {
+    position: relative;
+    max-width: min(20rem, var(--available-width));
+    overflow-wrap: anywhere;
+    padding: var(--moduix-spacing-1) var(--moduix-spacing-2);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
+    border-radius: var(--moduix-radius-md);
+    background-color: var(--moduix-popover);
+    color: var(--moduix-popover-foreground);
+    box-shadow: var(--moduix-shadow-md);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
+    text-align: center;
+    transform-origin: var(--transform-origin);
+
+    &[data-state='open'] {
+      animation: global(moduix-popup-in)
+        var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
+        var(--moduix-popup-motion-easing, var(--moduix-ease-in-out));
+    }
+
+    &[data-state='closed'] {
+      animation: global(moduix-popup-out)
+        var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
+        var(--moduix-popup-motion-easing, var(--moduix-ease-in-out)) forwards;
+    }
+
+    /* Ark marks a tooltip that replaces another one while the pointer moves between triggers. */
+    &[data-instant] {
+      animation: none;
+    }
+  }
+
+  .arrow {
+    --arrow-size: var(--moduix-spacing-2-5);
+    --arrow-background: var(--moduix-popover);
+  }
+
+  .arrowTip {
+    border-top: var(--moduix-border-width-sm) solid var(--moduix-border);
+    border-left: var(--moduix-border-width-sm) solid var(--moduix-border);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .trigger {
+      transition: none;
+    }
+
+    .content[data-state] {
+      animation: none;
+    }
+  }
+}
