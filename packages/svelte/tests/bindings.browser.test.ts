@@ -2,7 +2,13 @@ import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render } from '@testing-library/svelte';
 import Bindings from './bindings/Bindings.svelte';
+import ComboboxBindings from './bindings/ComboboxBindings.svelte';
+import JsonTreeViewBindings from './bindings/JsonTreeViewBindings.svelte';
+import ListboxBindings from './bindings/ListboxBindings.svelte';
 import OverlayBindings from './bindings/OverlayBindings.svelte';
+import PaginationBindings from './bindings/PaginationBindings.svelte';
+import TagsInputBindings from './bindings/TagsInputBindings.svelte';
+import TreeViewBindings from './bindings/TreeViewBindings.svelte';
 
 const input = (selector: string) => document.querySelector<HTMLInputElement>(selector)!;
 const pressArrowRight = (selector: string) => {
@@ -117,4 +123,164 @@ test.each([
   else await trigger.focus();
   await expect.poll(() => component.read()[key]).toBe(true);
   if (key === 'popover') expect(component.read().popoverTrigger).toBe('a');
+});
+
+test('writes to bound combobox state reach the control', async () => {
+  const { component } = render(ComboboxBindings);
+  const input = page.getByRole('combobox', { name: 'Fruit', exact: true });
+  component.write('inputValue');
+  await expect.element(input).toHaveValue('ext');
+  component.write('open');
+  await expect.element(page.getByRole('option', { name: 'Apple', exact: true })).toBeVisible();
+  component.write('value');
+  await expect
+    .element(page.getByRole('option', { name: 'Mango', exact: true }))
+    .toHaveAttribute('aria-selected', 'true');
+  component.write('highlightedValue');
+  await expect
+    .element(page.getByRole('option', { name: 'Apple', exact: true }))
+    .toHaveAttribute('data-highlighted');
+});
+
+test('user actions reach bound combobox state', async () => {
+  const { component } = render(ComboboxBindings);
+  await page.getByRole('button', { name: 'Open fruits', exact: true }).click();
+  await expect.poll(() => component.read().open).toBe(true);
+  await page.getByRole('option', { name: 'Mango', exact: true }).hover();
+  await expect.poll(() => component.read().highlightedValue).toBe('mango');
+  await page.getByRole('option', { name: 'Mango', exact: true }).click();
+  await expect.poll(() => component.read().value).toEqual(['mango']);
+  await page.getByRole('combobox', { name: 'Fruit', exact: true }).fill('ap');
+  await expect.poll(() => component.read().inputValue).toBe('ap');
+});
+
+test('writes to bound listbox state reach the control', async () => {
+  const { component } = render(ListboxBindings);
+  component.write('value');
+  await expect
+    .element(page.getByRole('option', { name: 'Mango', exact: true }))
+    .toHaveAttribute('data-selected');
+  component.write('highlightedValue');
+  await page.getByRole('listbox', { name: 'Fruit', exact: true }).focus();
+  await expect
+    .element(page.getByRole('listbox', { name: 'Fruit', exact: true }))
+    .toHaveAttribute('aria-activedescendant', /item:mango$/);
+});
+
+test('user actions reach bound listbox state', async () => {
+  const { component } = render(ListboxBindings);
+  await page.getByRole('option', { name: 'Apple', exact: true }).click();
+  await expect.poll(() => component.read().value).toEqual(['apple']);
+  await expect.poll(() => component.read().highlightedValue).toBe('apple');
+});
+
+test('writes to bound tags input state reach the control', async () => {
+  const { component } = render(TagsInputBindings);
+  component.write('value');
+  await expect.element(page.getByText('Solid', { exact: true })).toBeAttached();
+  await expect.element(page.getByText('Vue', { exact: true })).toBeAttached();
+  await expect.element(page.getByText('React', { exact: true })).toHaveCount(0);
+  component.write('inputValue');
+  await expect
+    .element(page.getByRole('textbox', { name: 'Frameworks', exact: true }))
+    .toHaveValue('ext');
+});
+
+test('user actions reach bound tags input state', async () => {
+  const { component } = render(TagsInputBindings);
+  const input = page.getByRole('textbox', { name: 'Frameworks', exact: true });
+  await input.fill('Solid');
+  await expect.poll(() => component.read().inputValue).toBe('Solid');
+  await input.press('Enter');
+  await expect.poll(() => component.read().value).toEqual(['React', 'Solid']);
+  await expect.poll(() => component.read().inputValue).toBe('');
+});
+
+const readmeItem = page.locator(
+  '[data-scope="tree-view"][data-part="item"][data-value="README.md"]',
+);
+
+test.each([
+  {
+    key: 'expandedValue',
+    assert: async () => {
+      await expect
+        .element(page.getByRole('treeitem', { name: 'App.tsx', exact: true }))
+        .toBeVisible();
+    },
+  },
+  {
+    key: 'selectedValue',
+    assert: async () => {
+      await expect.element(readmeItem).toHaveAttribute('aria-selected', 'true');
+    },
+  },
+  {
+    key: 'focusedValue',
+    assert: async () => {
+      await expect.element(readmeItem).toHaveAttribute('tabindex', '0');
+    },
+  },
+  {
+    key: 'checkedValue',
+    assert: async () => {
+      await expect
+        .element(page.getByRole('checkbox', { name: 'Check README', exact: true }))
+        .toHaveAttribute('aria-checked', 'true');
+    },
+  },
+] as const)('writes to bound tree view state reach the control ($key)', async ({ key, assert }) => {
+  const { component } = render(TreeViewBindings);
+  component.write(key);
+  await assert();
+});
+
+test('user actions reach bound tree view state', async () => {
+  const { component } = render(TreeViewBindings);
+  await page.getByRole('button', { name: 'src', exact: true }).click();
+  await expect.poll(() => component.read().expandedValue).toEqual(['src']);
+  await readmeItem.click();
+  await expect.poll(() => component.read().selectedValue).toEqual(['README.md']);
+  await expect.poll(() => component.read().focusedValue).toBe('README.md');
+  await page.getByRole('checkbox', { name: 'Check README', exact: true }).click();
+  await expect.poll(() => component.read().checkedValue).toEqual(['README.md']);
+});
+
+test('bound JSON tree view state round-trips', async () => {
+  const { component } = render(JsonTreeViewBindings);
+  const branch = page.getByRole('button').nth(0);
+  const nodeValue = document
+    .querySelector('[data-part="branch-control"]')!
+    .getAttribute('data-value')!;
+  expect(nodeValue).not.toBeNull();
+
+  await expect.element(branch).toHaveAttribute('data-state', 'closed');
+  await branch.click();
+  await expect.element(branch).toHaveAttribute('data-state', 'open');
+  await expect.poll(() => component.read().expandedValue).toEqual([nodeValue]);
+  await expect.poll(() => component.read().selectedValue).toEqual([nodeValue]);
+  await expect.poll(() => component.read().focusedValue).toBe(nodeValue);
+
+  component.write('expandedValue', 'missing');
+  await expect.element(branch).toHaveAttribute('data-state', 'closed');
+  component.write('selectedValue', nodeValue);
+  await expect.element(branch).toHaveAttribute('data-selected');
+  component.write('checkedValue', nodeValue);
+  await expect.poll(() => component.read().checkedValue).toEqual([nodeValue]);
+});
+
+test('writes to bound pagination state reach the control', async () => {
+  const { component } = render(PaginationBindings);
+  component.write('page');
+  await expect.element(page.getByText('Page 3 of 5')).toBeAttached();
+  component.write('pageSize');
+  await expect.element(page.getByText('Page 3 of 10')).toBeAttached();
+});
+
+test('user actions reach bound pagination state', async () => {
+  const { component } = render(PaginationBindings);
+  await page.getByRole('button', { name: /page 2/i, exact: true }).click();
+  await expect.poll(() => component.read().page).toBe(2);
+  await page.getByRole('button', { name: 'Change page size', exact: true }).click();
+  await expect.poll(() => component.read().pageSize).toBe(20);
 });

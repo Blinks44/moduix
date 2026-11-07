@@ -1,0 +1,81 @@
+@layer moduix.storybook {
+  .stack {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--moduix-spacing-2);
+  }
+
+  .state {
+    color: var(--moduix-muted-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
+  }
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2rem;
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
+    border-radius: var(--moduix-radius-md);
+    padding-inline: var(--moduix-spacing-3);
+    background: var(--moduix-background);
+    color: var(--moduix-foreground);
+    font: inherit;
+    cursor: pointer;
+    transition:
+      background-color var(--moduix-transition-default),
+      border-color var(--moduix-transition-default);
+
+    &:hover {
+      background-color: var(--moduix-accent);
+    }
+
+    &:focus-visible {
+      outline: var(--moduix-border-width-sm) solid var(--moduix-ring);
+      outline-offset: var(--moduix-border-width-sm);
+    }
+  }
+
+  .horizontalRoot {
+    --moduix-listbox-width: min(100%, 34rem);
+  }
+
+  /* A second line under the title; ItemText truncates only its own first line. */
+  .artist {
+    display: block;
+    overflow: hidden;
+    margin-block-start: var(--moduix-spacing-1);
+    color: var(--moduix-muted-foreground);
+    font-size: var(--moduix-text-xs);
+    line-height: var(--moduix-line-height-text-xs);
+    text-overflow: ellipsis;
+  }
+
+  .customRoot {
+    --moduix-listbox-width: 18rem;
+  }
+
+  .customLabel {
+    color: var(--moduix-primary);
+  }
+
+  .customContent {
+    border-color: var(--moduix-primary);
+    background-color: var(--moduix-muted);
+    box-shadow: var(--moduix-shadow-sm);
+  }
+
+  .customItem {
+    &[data-highlighted] {
+      background-color: var(--moduix-primary);
+      color: var(--moduix-primary-foreground);
+    }
+
+    &[data-selected] {
+      color: var(--moduix-primary);
+      background-color: color-mix(in oklab, var(--moduix-primary), transparent 90%);
+    }
+  }
+}

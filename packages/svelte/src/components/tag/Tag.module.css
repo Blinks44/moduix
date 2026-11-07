@@ -1,0 +1,99 @@
+@layer moduix.components {
+  .root {
+    display: inline-flex;
+    width: fit-content;
+    max-width: 100%;
+    min-width: 0;
+    align-items: center;
+    gap: var(--moduix-spacing-1-5);
+    border: var(--moduix-border-width-sm) solid var(--moduix-tag-border-color, transparent);
+    border-radius: var(--moduix-radius-full);
+    background-color: var(--moduix-tag-bg, var(--moduix-primary));
+    color: var(--moduix-tag-color, var(--moduix-primary-foreground));
+    font-size: var(--moduix-text-xs);
+    font-weight: var(--moduix-weight-medium);
+    line-height: var(--moduix-line-height-text-xs);
+    min-height: var(--moduix-size-xs);
+    padding-block: var(--moduix-spacing-0-5);
+    padding-inline: var(--moduix-spacing-2);
+    white-space: nowrap;
+    vertical-align: middle;
+    transition:
+      color var(--moduix-transition-default),
+      background-color var(--moduix-transition-default),
+      border-color var(--moduix-transition-default);
+
+    &:is(a, button) {
+      cursor: pointer;
+    }
+
+    &[data-size='sm'] {
+      gap: var(--moduix-spacing-1);
+      min-height: 1.25rem;
+      padding-block: 0;
+      padding-inline: var(--moduix-spacing-1-5);
+    }
+
+    &[data-size='lg'] {
+      min-height: 1.75rem;
+      padding-inline: var(--moduix-spacing-2-5);
+      font-size: var(--moduix-text-sm);
+      line-height: var(--moduix-line-height-text-sm);
+    }
+
+    &[data-variant='secondary'] {
+      background-color: var(--moduix-tag-bg, var(--moduix-secondary));
+      color: var(--moduix-tag-color, var(--moduix-secondary-foreground));
+    }
+
+    &[data-variant='outline'] {
+      border-color: var(--moduix-tag-border-color, var(--moduix-border));
+      background-color: var(--moduix-tag-bg, transparent);
+      color: var(--moduix-tag-color, var(--moduix-foreground));
+    }
+
+    &[data-variant='ghost'] {
+      background-color: var(--moduix-tag-bg, transparent);
+      color: var(--moduix-tag-color, var(--moduix-foreground));
+    }
+
+    &[data-variant='destructive'] {
+      background-color: var(--moduix-tag-bg, var(--moduix-destructive));
+      color: var(--moduix-tag-color, var(--moduix-destructive-foreground));
+    }
+  }
+
+  .label {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .startElement,
+  .endElement {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .root > svg,
+  .startElement > svg,
+  .endElement > svg {
+    width: var(--moduix-spacing-3);
+    height: var(--moduix-spacing-3);
+    flex-shrink: 0;
+    pointer-events: none;
+  }
+
+  .closeTrigger {
+    --moduix-close-button-size: var(--moduix-spacing-4);
+    --moduix-close-button-radius: var(--moduix-radius-full);
+    --moduix-close-button-icon-size: var(--moduix-spacing-3);
+    --moduix-close-button-bg-hover: color-mix(in oklab, currentColor 12%, transparent);
+    --moduix-close-button-color: currentColor;
+    --moduix-close-button-color-hover: currentColor;
+    --moduix-close-button-focus-ring-width: var(--moduix-focus-ring-inset-width);
+    --moduix-close-button-focus-ring-offset: 0;
+  }
+}

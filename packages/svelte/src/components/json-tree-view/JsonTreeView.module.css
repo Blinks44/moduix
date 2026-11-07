@@ -1,0 +1,177 @@
+@layer moduix.components {
+  .root {
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    flex-direction: column;
+    color: var(--moduix-foreground);
+    font-family: var(--moduix-font-mono);
+    font-size: var(--moduix-text-xs);
+    line-height: var(--moduix-line-height-text-xs);
+  }
+
+  .tree,
+  .root
+    :where([data-scope='json-tree-view']:is([data-part='branch'], [data-part='branch-content'])) {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: var(--moduix-spacing-1);
+  }
+
+  .root :where([data-scope='json-tree-view'][data-part='branch-content']) {
+    overflow: hidden;
+
+    &[data-state='open'] {
+      animation: global(moduix-collapsible-content-open) var(--moduix-transition-default);
+    }
+
+    &[data-state='closed'] {
+      animation: global(moduix-collapsible-content-closed) var(--moduix-transition-default);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      &[data-state] {
+        animation: none;
+      }
+    }
+  }
+
+  .root :where([data-scope='json-tree-view']:is([data-part='branch-control'], [data-part='item'])) {
+    /* Nesting offset; Ark sets --depth on every generated row. */
+    --_json-tree-view-indent: calc((var(--depth) - 1) * var(--moduix-spacing-4));
+
+    position: relative;
+    z-index: 0;
+    display: flex;
+    min-width: 0;
+    /* Keeps the indicator on the first line when a long preview wraps. */
+    align-items: flex-start;
+    gap: var(--moduix-spacing-0-5);
+    border-radius: var(--moduix-radius-xs);
+    outline: none;
+    padding-block: var(--moduix-spacing-0-5);
+    padding-inline: calc(var(--_json-tree-view-indent) + var(--moduix-spacing-2))
+      var(--moduix-spacing-1);
+    cursor: pointer;
+
+    &::before {
+      position: absolute;
+      z-index: -1;
+      inset-block: 0;
+      inset-inline: calc(var(--_json-tree-view-indent) + var(--moduix-spacing-1)) 0;
+      border-radius: inherit;
+      box-shadow: inset 0 0 0 var(--moduix-focus-ring-inset-width) transparent;
+      content: '';
+      pointer-events: none;
+      transition:
+        background-color var(--moduix-transition-default),
+        box-shadow var(--moduix-transition-default);
+    }
+
+    @media (hover: hover) {
+      &:hover::before {
+        background-color: color-mix(in oklab, var(--moduix-accent) 72%, var(--moduix-background));
+      }
+    }
+
+    &[data-selected]::before {
+      background-color: color-mix(in oklab, var(--moduix-accent) 72%, var(--moduix-background));
+    }
+
+    &:focus-visible::before,
+    &[data-focus]::before {
+      box-shadow: inset 0 0 0 var(--moduix-focus-ring-inset-width) var(--moduix-ring);
+    }
+  }
+
+  .root :where([data-scope='json-tree-view'][data-part='branch-indicator']) {
+    display: inline-flex;
+    width: var(--moduix-spacing-3);
+    height: 1lh;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    color: color-mix(in oklab, var(--moduix-muted-foreground) 42%, var(--moduix-foreground));
+    transition: transform var(--moduix-transition-default);
+
+    &[data-state='open'] {
+      transform: rotate(90deg);
+    }
+
+    & svg {
+      width: var(--moduix-spacing-3);
+      height: var(--moduix-spacing-3);
+    }
+  }
+
+  .root
+    :where([data-scope='json-tree-view']:is([data-part='branch-text'], [data-part='item-text'])) {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .root :where([data-kind='key']) {
+    color: color-mix(in oklab, var(--moduix-chart-1) 72%, var(--moduix-foreground));
+  }
+
+  .root
+    :where(
+      [data-kind='colon'],
+      [data-kind='brace'],
+      [data-kind='preview-text'],
+      [data-kind='constructor']
+    ) {
+    color: var(--moduix-muted-foreground);
+  }
+
+  .root :where([data-kind='colon']) {
+    margin-inline-end: var(--moduix-spacing-0-5);
+  }
+
+  .root
+    :where(
+      [data-kind='key'],
+      [data-kind='brace'],
+      [data-kind='constructor'],
+      [data-kind='preview']:is([data-type='boolean'], [data-type='null'], [data-type='undefined'])
+    ) {
+    font-weight: var(--moduix-weight-medium);
+  }
+
+  .root :where([data-kind='preview'][data-type='string']) {
+    color: color-mix(in oklab, var(--moduix-success) 78%, var(--moduix-foreground));
+  }
+
+  .root :where([data-kind='preview']:is([data-type='number'], [data-type='bigint'])) {
+    color: color-mix(in oklab, var(--moduix-chart-3) 78%, var(--moduix-foreground));
+  }
+
+  .root :where([data-kind='preview'][data-type='boolean']) {
+    color: color-mix(in oklab, var(--moduix-chart-4) 74%, var(--moduix-foreground));
+  }
+
+  .root :where([data-kind='preview']:is([data-type='null'], [data-type='undefined'])) {
+    color: var(--moduix-muted-foreground);
+    font-style: italic;
+  }
+
+  .root
+    :where(
+      [data-kind='preview'][data-type='error'],
+      [data-kind='error-stack'],
+      [data-kind='operator']
+    ) {
+    color: var(--moduix-destructive);
+  }
+
+  .root
+    :where(
+      [data-kind='preview'][data-type='function'],
+      [data-kind='function-type'],
+      [data-kind='function-body']
+    ) {
+    color: color-mix(in oklab, var(--moduix-chart-5) 72%, var(--moduix-foreground));
+    font-style: italic;
+  }
+}

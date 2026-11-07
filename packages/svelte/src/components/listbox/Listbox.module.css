@@ -1,0 +1,313 @@
+@layer moduix.components {
+  .root {
+    --_listbox-gap: var(--moduix-spacing-3);
+
+    display: flex;
+    width: var(--moduix-listbox-width, 16rem);
+    max-width: 100%;
+    min-width: 0;
+    flex-direction: column;
+    gap: var(--_listbox-gap);
+    color: var(--moduix-foreground);
+
+    &[data-disabled] {
+      opacity: var(--moduix-opacity-disabled);
+
+      :where(
+          [data-slot='field-root'][data-disabled],
+          [data-slot='field-root-provider'][data-disabled],
+          [data-slot='fieldset-root'][data-disabled],
+          [data-slot='fieldset-root-provider'][data-disabled]
+        )
+        & {
+        opacity: 1;
+      }
+    }
+  }
+
+  /* A disabled root already dims its parts. */
+  .root[data-disabled] :is(.input, .item) {
+    opacity: 1;
+  }
+
+  .label {
+    font-size: var(--moduix-text-sm);
+    font-weight: var(--moduix-weight-medium);
+    line-height: var(--moduix-line-height-text-sm);
+    user-select: none;
+  }
+
+  .input {
+    width: 100%;
+    min-height: var(--moduix-size-md);
+    margin: 0;
+    border: var(--moduix-border-width-sm) solid var(--moduix-input);
+    border-radius: var(--moduix-radius-md);
+    padding: var(--moduix-spacing-1) var(--moduix-spacing-3);
+    background-color: var(--moduix-background);
+    color: inherit;
+    font: inherit;
+    font-size: var(--moduix-text-md);
+    line-height: var(--moduix-line-height-text-md);
+    outline: var(--moduix-focus-ring-halo-width) solid transparent;
+    transition:
+      border-color var(--moduix-transition-default),
+      outline-color var(--moduix-transition-default),
+      opacity var(--moduix-transition-default);
+
+    &::placeholder {
+      color: var(--moduix-muted-foreground);
+    }
+
+    &:focus-visible {
+      border-color: var(--moduix-ring);
+      outline-color: color-mix(in oklab, var(--moduix-ring) 50%, transparent);
+    }
+
+    &:disabled {
+      opacity: var(--moduix-opacity-disabled);
+      cursor: default;
+    }
+  }
+
+  .filter {
+    position: relative;
+    width: 100%;
+  }
+
+  /* Above the input, whose clip-path gives it its own stacking context. */
+  .filterIcon {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    inset-inline-start: var(--moduix-spacing-3);
+    width: var(--moduix-spacing-4);
+    height: var(--moduix-spacing-4);
+    color: var(--moduix-muted-foreground);
+    pointer-events: none;
+    transform: translateY(-50%);
+  }
+
+  /* Room for the icon and the clear action, each with an 8px gap before the text. */
+  .filter .input {
+    padding-inline: calc(
+        var(--moduix-spacing-3) + var(--moduix-spacing-4) + var(--moduix-spacing-2)
+      )
+      calc(var(--moduix-spacing-3) + var(--moduix-size-xs) + var(--moduix-spacing-2));
+  }
+
+  .clearTrigger {
+    --moduix-close-button-size: var(--moduix-size-xs);
+
+    position: absolute;
+    top: 50%;
+    inset-inline-end: var(--moduix-spacing-3);
+    transform: translateY(-50%);
+  }
+
+  /* A filter right before the content joins it into one surface with a neutral divider.
+     Each part clips its halo at the divider, so the two halves read as one ring. */
+  .filter:has(+ .content) .input {
+    border-bottom: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    clip-path: inset(
+      calc(var(--moduix-focus-ring-halo-width) * -1) calc(var(--moduix-focus-ring-halo-width) * -1)
+        0
+    );
+  }
+
+  .filter + .content {
+    margin-block-start: calc(-1 * var(--_listbox-gap));
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    clip-path: inset(
+      0 calc(var(--moduix-focus-ring-halo-width) * -1)
+        calc(var(--moduix-focus-ring-halo-width) * -1)
+    );
+
+    &:focus-visible {
+      border-top-color: var(--moduix-input);
+    }
+  }
+
+  .filter:has(+ .content):has(.input:focus-visible, + .content:focus-visible) {
+    .input {
+      border-color: var(--moduix-ring);
+      outline-color: color-mix(in oklab, var(--moduix-ring) 50%, transparent);
+    }
+
+    + .content {
+      border-inline-color: var(--moduix-ring);
+      border-bottom-color: var(--moduix-ring);
+      outline-color: color-mix(in oklab, var(--moduix-ring) 50%, transparent);
+    }
+  }
+
+  .content {
+    display: flex;
+    min-height: 0;
+    max-height: var(--moduix-listbox-content-max-height, 14rem);
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border: var(--moduix-border-width-sm) solid var(--moduix-input);
+    border-radius: var(--moduix-radius-md);
+    padding-block: var(--moduix-popup-list-padding-y, var(--moduix-spacing-1));
+    background-color: var(--moduix-background);
+    outline: var(--moduix-focus-ring-halo-width) solid transparent;
+    scrollbar-gutter: stable;
+    scroll-padding-block: var(--moduix-popup-list-padding-y, var(--moduix-spacing-1));
+    transition:
+      border-color var(--moduix-transition-default),
+      outline-color var(--moduix-transition-default);
+
+    &:focus-visible {
+      border-color: var(--moduix-ring);
+      outline-color: color-mix(in oklab, var(--moduix-ring) 50%, transparent);
+    }
+
+    &[data-layout='grid'] {
+      display: grid;
+      grid-template-columns: repeat(var(--column-count), minmax(0, 1fr));
+      gap: var(--moduix-spacing-1);
+      padding: var(--moduix-spacing-2);
+    }
+
+    &[data-orientation='horizontal']:not([data-layout='grid']) {
+      max-height: none;
+      flex-direction: row;
+      gap: var(--moduix-spacing-2);
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding-inline: var(--moduix-spacing-1);
+    }
+  }
+
+  .empty {
+    padding-block: var(--moduix-spacing-1);
+    padding-inline: var(--moduix-spacing-3);
+    color: var(--moduix-muted-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
+    text-align: center;
+  }
+
+  .itemGroup {
+    display: flex;
+    flex-direction: column;
+
+    & + & {
+      margin-block-start: var(--moduix-spacing-2);
+    }
+  }
+
+  .itemGroupLabel {
+    padding-block: var(--moduix-popup-group-label-padding-y, var(--moduix-spacing-1));
+    padding-inline: var(--moduix-spacing-2);
+    color: var(--moduix-popup-group-label-color, var(--moduix-muted-foreground));
+    font-size: var(--moduix-popup-group-label-font-size, var(--moduix-text-xs));
+    font-weight: var(--moduix-popup-group-label-font-weight, var(--moduix-weight-regular));
+    line-height: var(--moduix-popup-group-label-line-height, var(--moduix-line-height-text-xs));
+    user-select: none;
+  }
+
+  /* The second column reserves indicator space, so selecting an item does not shift its text. */
+  .item {
+    display: grid;
+    min-height: var(--moduix-popup-item-min-height, var(--moduix-size-sm));
+    grid-template-columns: minmax(0, 1fr) var(--moduix-spacing-4);
+    align-items: center;
+    gap: var(--moduix-spacing-2);
+    margin-inline: var(--moduix-spacing-1);
+    border-radius: var(--moduix-radius-sm);
+    padding-block: var(--moduix-popup-item-padding-y, var(--moduix-spacing-1));
+    padding-inline: var(--moduix-popup-item-padding-x-start, var(--moduix-spacing-3));
+    font-size: var(--moduix-popup-item-font-size, var(--moduix-text-sm));
+    line-height: var(--moduix-popup-item-line-height, var(--moduix-line-height-text-sm));
+    outline: 0;
+    user-select: none;
+    cursor: pointer;
+    transition:
+      background-color var(--moduix-transition-default),
+      color var(--moduix-transition-default);
+
+    @media (hover: hover) {
+      &:where(:not([data-disabled]):hover) {
+        background-color: var(--moduix-accent);
+        color: var(--moduix-accent-foreground);
+      }
+    }
+
+    &[data-highlighted] {
+      background-color: var(--moduix-accent);
+      color: var(--moduix-accent-foreground);
+    }
+
+    &[data-disabled] {
+      pointer-events: none;
+      opacity: var(--moduix-opacity-disabled);
+      cursor: default;
+    }
+
+    /* Grid items show selection with a neutral fill instead of the indicator column. */
+    &[data-layout='grid'] {
+      min-width: 0;
+      grid-template-columns: minmax(0, 1fr);
+      justify-items: center;
+      margin-inline: 0;
+      text-align: center;
+
+      &[data-selected] {
+        background-color: var(--moduix-muted);
+        color: var(--moduix-foreground);
+      }
+    }
+
+    &[data-orientation='horizontal']:not([data-layout='grid']) {
+      width: 11rem;
+      min-width: 11rem;
+      align-items: flex-start;
+    }
+  }
+
+  .itemText {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    & > svg {
+      display: inline-block;
+      width: var(--moduix-spacing-4);
+      height: var(--moduix-spacing-4);
+      margin-inline-end: var(--moduix-spacing-2);
+      vertical-align: middle;
+    }
+  }
+
+  .itemIndicator {
+    display: inline-flex;
+    width: var(--moduix-spacing-4);
+    height: var(--moduix-spacing-4);
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+
+    & > svg {
+      width: var(--moduix-spacing-3);
+      height: var(--moduix-spacing-3);
+    }
+
+    /* Ark also sets `hidden`; this keeps the space when an app reset does not hide it. */
+    &[data-state='unchecked'] {
+      visibility: hidden;
+    }
+  }
+
+  .valueText {
+    color: var(--moduix-muted-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
+  }
+}

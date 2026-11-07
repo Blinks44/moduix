@@ -1,0 +1,91 @@
+@layer moduix.components {
+  .root {
+    display: inline-flex;
+    align-items: center;
+    max-inline-size: 100%;
+    gap: var(--moduix-spacing-1);
+    overflow-x: auto;
+    color: var(--moduix-foreground);
+  }
+
+  .item,
+  .trigger,
+  .ellipsis {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: var(--moduix-pagination-item-size, var(--moduix-size-md));
+    height: var(--moduix-pagination-item-size, var(--moduix-size-md));
+    border-radius: var(--moduix-radius-md);
+    font-size: var(--moduix-text-sm);
+    font-weight: var(--moduix-weight-medium);
+    line-height: var(--moduix-line-height-text-sm);
+    font-variant-numeric: tabular-nums;
+    user-select: none;
+
+    & svg {
+      flex-shrink: 0;
+      width: var(--moduix-spacing-4);
+      height: var(--moduix-spacing-4);
+    }
+  }
+
+  .item,
+  .trigger {
+    cursor: pointer;
+    gap: var(--moduix-spacing-2);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
+    padding-inline: var(--moduix-spacing-2);
+    background-color: var(--moduix-background);
+    color: var(--moduix-foreground);
+    font-family: inherit;
+    text-decoration: none;
+    white-space: nowrap;
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--moduix-accent);
+      }
+    }
+
+    &:focus-visible {
+      outline: var(--moduix-focus-ring-width) solid var(--moduix-ring);
+      outline-offset: var(--moduix-focus-ring-inset-offset);
+    }
+
+    &:is([data-disabled], :disabled) {
+      opacity: var(--moduix-opacity-disabled);
+      pointer-events: none;
+    }
+  }
+
+  .item[data-selected] {
+    border-color: var(--moduix-foreground);
+    background-color: var(--moduix-foreground);
+    color: var(--moduix-background);
+  }
+
+  .trigger {
+    padding-inline: var(--moduix-spacing-3);
+  }
+
+  .iconTrigger {
+    padding-inline: 0;
+
+    &:dir(rtl) svg {
+      transform: scaleX(-1);
+    }
+  }
+
+  .ellipsis {
+    color: var(--moduix-muted-foreground);
+  }
+
+  .edgeIcon {
+    display: inline-flex;
+
+    & svg + svg {
+      margin-inline-start: calc(var(--moduix-spacing-4) * -0.5);
+    }
+  }
+}
