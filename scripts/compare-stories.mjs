@@ -1,7 +1,7 @@
 // Screenshots built playground stories and compares every adapter with React CSS Modules.
 // Usage: pnpm run compare:stories [--open] [component...]   (run build:storybook in the playgrounds first)
 // --open opens the overlay of each story (hover for tooltips and hover cards, click on the first
-// button otherwise) and captures the viewport instead of the initial full page.
+// visible button otherwise) and captures the viewport instead of the initial full page.
 import { mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import pixelmatch from 'pixelmatch';
@@ -23,12 +23,8 @@ const skipped = new Set([
 ]);
 // Skipped only with --open.
 const openSkipped = new Set([
-  // The Tailwind tracks match each other here, but React Tailwind styles the open layer differently.
-  'components-drawer--non-modal',
-  'components-drawer--snap-points',
+  // CSS Modules restyle the open panel through a class and Tailwind through utilities.
   'components-floatingpanel--custom-styling',
-  'components-popover--modal',
-  'components-tooltip--custom-composition',
   // Svelte has no Carousel yet, so the open lightbox uses a temporary replacement.
   'components-lightbox--gallery-from-server-data',
 ]);
@@ -57,7 +53,7 @@ async function screenshot(page, playground, id) {
   await page.evaluate(() => document.fonts.ready);
   await page.waitForLoadState('networkidle');
   if (open) {
-    const trigger = page.locator('#storybook-root button:enabled').first();
+    const trigger = page.locator('#storybook-root button:enabled:visible').first();
     if (await trigger.count()) {
       if (/^components-(tooltip|hovercard)--/.test(id)) await trigger.hover();
       else {

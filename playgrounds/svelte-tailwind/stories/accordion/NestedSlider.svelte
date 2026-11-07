@@ -1,19 +1,18 @@
 <script lang="ts">
-  // Ark Slider parts stand in until the moduix Slider is ported to Svelte.
   import {
+    Slider,
     SliderControl,
     SliderHiddenInput,
     SliderLabel,
     SliderRange,
-    SliderRoot,
     SliderThumb,
     SliderTrack,
-  } from '@ark-ui/svelte/slider';
+  } from '@/components/slider';
 
   let { label }: { label: string } = $props();
 </script>
 
-<SliderRoot defaultValue={[40]} class="grid gap-2">
+<Slider defaultValue={[40]} class="grid gap-2">
   <SliderLabel class="text-sm">{label}</SliderLabel>
   <SliderControl class="relative flex h-5 items-center">
     <SliderTrack class="relative h-1 w-full rounded-full bg-muted">
@@ -26,4 +25,4 @@
       <SliderHiddenInput />
     </SliderThumb>
   </SliderControl>
-</SliderRoot>
+</Slider>

@@ -278,7 +278,7 @@ export const CustomComposition: Story = {
   render: () => {
     return (
       <Tooltip>
-        <TooltipTrigger className="border-primary bg-primary text-primary-foreground [@media(hover:hover)]:hover:bg-primary/90">
+        <TooltipTrigger className="border-primary bg-primary text-primary-foreground active:bg-primary data-[state=open]:not-data-[value]:bg-primary data-[current]:data-[state=open]:bg-primary [@media(hover:hover)]:hover:bg-primary/90!">
           Custom style
         </TooltipTrigger>
         <TooltipPositioner className="drop-shadow-[0_0.5rem_1rem_rgb(0_0_0_/_14%)]">

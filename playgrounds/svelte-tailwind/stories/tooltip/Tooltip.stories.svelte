@@ -48,7 +48,7 @@
   const fixedContainerClass =
     'fixed top-10 left-10 grid min-h-32 min-w-64 place-items-center rounded-lg border border-border bg-muted';
   const customTriggerClass =
-    'border-primary bg-primary text-primary-foreground [@media(hover:hover)]:hover:bg-primary/90';
+    'border-primary bg-primary text-primary-foreground active:bg-primary data-[state=open]:not-data-[value]:bg-primary data-[current]:data-[state=open]:bg-primary [@media(hover:hover)]:hover:bg-primary/90!';
   const customPositionerClass = 'drop-shadow-[0_0.5rem_1rem_rgb(0_0_0_/_14%)]';
   const customContentClass =
     'min-w-40 border-primary bg-primary px-3 py-2 text-left text-primary-foreground';

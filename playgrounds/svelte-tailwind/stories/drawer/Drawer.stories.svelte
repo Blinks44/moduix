@@ -42,7 +42,8 @@
 
   const scrollBodyClass = 'max-h-[50dvh] grid gap-4';
   const nonModalContentClass = 'max-h-[min(28rem,80dvh)]';
-  const nonModalGrabberClass = 'flex-col items-stretch gap-2';
+  const nonModalGrabberClass =
+    "flex-col items-stretch gap-2 [&>[data-slot='drawer-grabber-indicator']]:self-center [&>[data-slot='drawer-header']]:w-full";
   const nonModalScrollRegionClass = 'min-h-0 flex-1 overflow-hidden';
   const nonModalScrollAreaClass = 'h-full min-h-0';
   const nonModalScrollViewportClass = 'h-full min-h-0 pe-2';

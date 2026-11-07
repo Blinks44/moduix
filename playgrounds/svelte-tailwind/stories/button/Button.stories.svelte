@@ -2,6 +2,7 @@
   import Plus from '@lucide/svelte/icons/plus';
   import { defineMeta } from '@storybook/addon-svelte-csf';
   import { Button } from '@/components/button';
+  import { Spinner } from '@/components/spinner';
   import StarIcon from './StarIcon.svelte';
 
   const { Story } = defineMeta({
@@ -105,8 +106,10 @@
 </Story>
 
 <Story name="Pending State" asChild>
-  <!-- The other adapters render Spinner while pending; add it once Spinner is ported. -->
-  <Button loading={pending} onclick={save}>{pending ? 'Saving' : 'Save Changes'}</Button>
+  <Button loading={pending} onclick={save}>
+    {#if pending}<Spinner decorative size="sm" />{/if}
+    {pending ? 'Saving' : 'Save Changes'}
+  </Button>
 </Story>
 
 <Story name="Content Stress" asChild>
