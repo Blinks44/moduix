@@ -1,0 +1,86 @@
+@layer moduix.components {
+  .root {
+    display: inline-grid;
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    gap: var(--moduix-spacing-3);
+    width: min(var(--moduix-qr-code-size, 8rem), 100%);
+  }
+
+  .frame {
+    width: 100%;
+    aspect-ratio: 1;
+    fill: currentColor;
+  }
+
+  /* Ark centers the overlay on its containing block; the first grid cell keeps it on the frame,
+     so percentages also resolve against the frame. */
+  .overlay {
+    grid-area: 1 / 1 / 2 / 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(100% / 3);
+    aspect-ratio: 1;
+    padding: var(--moduix-spacing-1);
+    border-radius: var(--moduix-radius-sm);
+    background-color: var(--moduix-background);
+    color: var(--moduix-foreground);
+
+    & :where(img, svg) {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  .downloadTrigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--moduix-spacing-2);
+    min-height: var(--moduix-size-md);
+    padding-inline: var(--moduix-spacing-4);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
+    border-radius: var(--moduix-radius-md);
+    background-color: var(--moduix-background);
+    color: var(--moduix-foreground);
+    appearance: none;
+    font: inherit;
+    font-size: var(--moduix-text-sm);
+    font-weight: var(--moduix-weight-medium);
+    line-height: var(--moduix-line-height-text-sm);
+    user-select: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      background-color var(--moduix-transition-default),
+      opacity var(--moduix-transition-default);
+
+    & :where(svg) {
+      width: var(--moduix-spacing-4);
+      height: var(--moduix-spacing-4);
+      flex-shrink: 0;
+    }
+
+    @media (hover: hover) {
+      &:hover:not(:disabled) {
+        background-color: var(--moduix-accent);
+      }
+    }
+
+    &:focus-visible {
+      outline: var(--moduix-focus-ring-width) solid var(--moduix-ring);
+      outline-offset: calc(var(--moduix-border-width-sm) * -1);
+    }
+
+    &:active:not(:disabled) {
+      opacity: 0.94;
+    }
+
+    &:disabled {
+      pointer-events: none;
+      opacity: var(--moduix-opacity-disabled);
+    }
+  }
+}

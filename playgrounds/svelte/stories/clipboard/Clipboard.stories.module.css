@@ -1,0 +1,60 @@
+@layer storybook {
+  .demo {
+    width: 20rem;
+  }
+
+  .stack {
+    display: grid;
+    gap: var(--moduix-spacing-3);
+  }
+
+  .action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--moduix-size-lg);
+    padding-inline: 1rem;
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
+    border-radius: var(--moduix-radius-md);
+    background-color: var(--moduix-background);
+    color: var(--moduix-foreground);
+    font: inherit;
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: var(--moduix-border-width-md) solid var(--moduix-ring);
+      outline-offset: calc(var(--moduix-border-width-sm) * -1);
+    }
+  }
+
+  .status {
+    margin: 0;
+    color: var(--moduix-muted-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
+  }
+
+  .valueText {
+    flex: 1 1 auto;
+  }
+
+  .customInput[data-copied] {
+    border-color: color-mix(in srgb, var(--moduix-primary) 22%, var(--moduix-border));
+
+    &:focus-visible {
+      outline-color: var(--moduix-primary);
+    }
+  }
+
+  .customTrigger[data-copied] {
+    border-color: color-mix(in srgb, var(--moduix-primary) 22%, var(--moduix-border));
+    background-color: color-mix(in srgb, var(--moduix-primary) 4%, var(--moduix-background));
+    color: color-mix(in srgb, var(--moduix-primary) 70%, var(--moduix-foreground));
+
+    &:focus-visible {
+      outline-color: var(--moduix-primary);
+    }
+  }
+}

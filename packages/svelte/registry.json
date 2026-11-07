@@ -3838,6 +3838,620 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "avatar",
+      "type": "registry:item",
+      "title": "Avatar",
+      "description": "moduix Svelte Avatar component.",
+      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "registryDependencies": ["@moduix-svelte/foundation"],
+      "files": [
+        {
+          "path": "src/components/avatar/Avatar.svelte",
+          "target": "@components/ui/avatar/Avatar.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/avatar/AvatarRootProvider.svelte",
+          "target": "@components/ui/avatar/AvatarRootProvider.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/avatar/AvatarFallback.svelte",
+          "target": "@components/ui/avatar/AvatarFallback.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/avatar/AvatarGroup.svelte",
+          "target": "@components/ui/avatar/AvatarGroup.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/avatar/AvatarImage.svelte",
+          "target": "@components/ui/avatar/AvatarImage.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/avatar/Avatar.module.css",
+          "target": "@components/ui/avatar/Avatar.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/avatar/index.ts",
+          "target": "@components/ui/avatar/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "image",
+      "type": "registry:item",
+      "title": "Image",
+      "description": "moduix Svelte Image component.",
+      "dependencies": ["@unpic/core", "clsx", "unpic"],
+      "registryDependencies": ["@moduix-svelte/foundation"],
+      "files": [
+        {
+          "path": "src/components/image/Image.svelte",
+          "target": "@components/ui/image/Image.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/image/ImageSource.svelte",
+          "target": "@components/ui/image/ImageSource.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/image/Image.module.css",
+          "target": "@components/ui/image/Image.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/image/index.ts",
+          "target": "@components/ui/image/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "image-cropper",
+      "type": "registry:item",
+      "title": "ImageCropper",
+      "description": "moduix Svelte ImageCropper component.",
+      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "registryDependencies": ["@moduix-svelte/foundation"],
+      "files": [
+        {
+          "path": "src/components/image-cropper/ImageCropper.svelte",
+          "target": "@components/ui/image-cropper/ImageCropper.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/image-cropper/ImageCropperRootProvider.svelte",
+          "target": "@components/ui/image-cropper/ImageCropperRootProvider.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/image-cropper/ImageCropperViewport.svelte",
+          "target": "@components/ui/image-cropper/ImageCropperViewport.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/image-cropper/ImageCropperImage.svelte",
+          "target": "@components/ui/image-cropper/ImageCropperImage.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/image-cropper/ImageCropperSelection.svelte",
+          "target": "@components/ui/image-cropper/ImageCropperSelection.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/image-cropper/ImageCropperGrid.svelte",
+          "target": "@components/ui/image-cropper/ImageCropperGrid.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/image-cropper/ImageCropperHandle.svelte",
+          "target": "@components/ui/image-cropper/ImageCropperHandle.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/image-cropper/ImageCropperCropArea.svelte",
+          "target": "@components/ui/image-cropper/ImageCropperCropArea.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/image-cropper/ImageCropper.module.css",
+          "target": "@components/ui/image-cropper/ImageCropper.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/image-cropper/index.ts",
+          "target": "@components/ui/image-cropper/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "carousel",
+      "type": "registry:item",
+      "title": "Carousel",
+      "description": "moduix Svelte Carousel component.",
+      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "registryDependencies": ["@moduix-svelte/foundation", "@moduix-svelte/icons"],
+      "files": [
+        {
+          "path": "src/components/carousel/Carousel.svelte",
+          "target": "@components/ui/carousel/Carousel.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/carousel/CarouselRootProvider.svelte",
+          "target": "@components/ui/carousel/CarouselRootProvider.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/carousel/CarouselControl.svelte",
+          "target": "@components/ui/carousel/CarouselControl.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/carousel/CarouselItemGroup.svelte",
+          "target": "@components/ui/carousel/CarouselItemGroup.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/carousel/CarouselItem.svelte",
+          "target": "@components/ui/carousel/CarouselItem.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/carousel/CarouselPrevTrigger.svelte",
+          "target": "@components/ui/carousel/CarouselPrevTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/carousel/CarouselNextTrigger.svelte",
+          "target": "@components/ui/carousel/CarouselNextTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/carousel/CarouselIndicatorGroup.svelte",
+          "target": "@components/ui/carousel/CarouselIndicatorGroup.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/carousel/CarouselIndicator.svelte",
+          "target": "@components/ui/carousel/CarouselIndicator.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/carousel/CarouselIndicators.svelte",
+          "target": "@components/ui/carousel/CarouselIndicators.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/carousel/CarouselAutoplayTrigger.svelte",
+          "target": "@components/ui/carousel/CarouselAutoplayTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/carousel/CarouselAutoplayIndicator.svelte",
+          "target": "@components/ui/carousel/CarouselAutoplayIndicator.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/carousel/CarouselProgressText.svelte",
+          "target": "@components/ui/carousel/CarouselProgressText.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/carousel/Carousel.module.css",
+          "target": "@components/ui/carousel/Carousel.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/carousel/index.ts",
+          "target": "@components/ui/carousel/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "marquee",
+      "type": "registry:item",
+      "title": "Marquee",
+      "description": "moduix Svelte Marquee component.",
+      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "registryDependencies": ["@moduix-svelte/foundation"],
+      "files": [
+        {
+          "path": "src/components/marquee/Marquee.svelte",
+          "target": "@components/ui/marquee/Marquee.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/marquee/MarqueeRootProvider.svelte",
+          "target": "@components/ui/marquee/MarqueeRootProvider.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/marquee/MarqueeViewport.svelte",
+          "target": "@components/ui/marquee/MarqueeViewport.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/marquee/MarqueeContent.svelte",
+          "target": "@components/ui/marquee/MarqueeContent.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/marquee/MarqueeItem.svelte",
+          "target": "@components/ui/marquee/MarqueeItem.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/marquee/MarqueeEdge.svelte",
+          "target": "@components/ui/marquee/MarqueeEdge.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/marquee/Marquee.module.css",
+          "target": "@components/ui/marquee/Marquee.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/marquee/index.ts",
+          "target": "@components/ui/marquee/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "qr-code",
+      "type": "registry:item",
+      "title": "QR Code",
+      "description": "moduix Svelte QR Code component.",
+      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "registryDependencies": ["@moduix-svelte/foundation"],
+      "files": [
+        {
+          "path": "src/components/qr-code/QrCode.svelte",
+          "target": "@components/ui/qr-code/QrCode.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/qr-code/QrCodeRootProvider.svelte",
+          "target": "@components/ui/qr-code/QrCodeRootProvider.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/qr-code/QrCodeFrame.svelte",
+          "target": "@components/ui/qr-code/QrCodeFrame.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/qr-code/QrCodePattern.svelte",
+          "target": "@components/ui/qr-code/QrCodePattern.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/qr-code/QrCodeOverlay.svelte",
+          "target": "@components/ui/qr-code/QrCodeOverlay.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/qr-code/QrCodeDownloadTrigger.svelte",
+          "target": "@components/ui/qr-code/QrCodeDownloadTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/qr-code/QrCode.module.css",
+          "target": "@components/ui/qr-code/QrCode.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/qr-code/index.ts",
+          "target": "@components/ui/qr-code/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "signature-pad",
+      "type": "registry:item",
+      "title": "SignaturePad",
+      "description": "moduix Svelte SignaturePad component.",
+      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "registryDependencies": [
+        "@moduix-svelte/foundation",
+        "@moduix-svelte/icons",
+        "@moduix-svelte/close-button"
+      ],
+      "files": [
+        {
+          "path": "src/components/signature-pad/SignaturePad.svelte",
+          "target": "@components/ui/signature-pad/SignaturePad.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/signature-pad/SignaturePadRootProvider.svelte",
+          "target": "@components/ui/signature-pad/SignaturePadRootProvider.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/signature-pad/SignaturePadLabel.svelte",
+          "target": "@components/ui/signature-pad/SignaturePadLabel.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/signature-pad/SignaturePadCanvas.svelte",
+          "target": "@components/ui/signature-pad/SignaturePadCanvas.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/signature-pad/SignaturePadControl.svelte",
+          "target": "@components/ui/signature-pad/SignaturePadControl.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/signature-pad/SignaturePadSegment.svelte",
+          "target": "@components/ui/signature-pad/SignaturePadSegment.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/signature-pad/SignaturePadClearTrigger.svelte",
+          "target": "@components/ui/signature-pad/SignaturePadClearTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/signature-pad/SignaturePadGuide.svelte",
+          "target": "@components/ui/signature-pad/SignaturePadGuide.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/signature-pad/context.ts",
+          "target": "@components/ui/signature-pad/context.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/components/signature-pad/useSignaturePad.ts",
+          "target": "@components/ui/signature-pad/useSignaturePad.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/components/signature-pad/SignaturePad.module.css",
+          "target": "@components/ui/signature-pad/SignaturePad.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/signature-pad/index.ts",
+          "target": "@components/ui/signature-pad/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "file-upload",
+      "type": "registry:item",
+      "title": "FileUpload",
+      "description": "moduix Svelte FileUpload component.",
+      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "registryDependencies": ["@moduix-svelte/foundation", "@moduix-svelte/icons"],
+      "files": [
+        {
+          "path": "src/components/file-upload/FileUpload.svelte",
+          "target": "@components/ui/file-upload/FileUpload.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadRootProvider.svelte",
+          "target": "@components/ui/file-upload/FileUploadRootProvider.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadLabel.svelte",
+          "target": "@components/ui/file-upload/FileUploadLabel.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadDropzone.svelte",
+          "target": "@components/ui/file-upload/FileUploadDropzone.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadDropzoneIcon.svelte",
+          "target": "@components/ui/file-upload/FileUploadDropzoneIcon.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadTrigger.svelte",
+          "target": "@components/ui/file-upload/FileUploadTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadItemGroup.svelte",
+          "target": "@components/ui/file-upload/FileUploadItemGroup.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadItem.svelte",
+          "target": "@components/ui/file-upload/FileUploadItem.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadItemPreview.svelte",
+          "target": "@components/ui/file-upload/FileUploadItemPreview.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadItemPreviewImage.svelte",
+          "target": "@components/ui/file-upload/FileUploadItemPreviewImage.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadItemPreviewIcon.svelte",
+          "target": "@components/ui/file-upload/FileUploadItemPreviewIcon.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadItemName.svelte",
+          "target": "@components/ui/file-upload/FileUploadItemName.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadItemSizeText.svelte",
+          "target": "@components/ui/file-upload/FileUploadItemSizeText.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadItemMetadata.svelte",
+          "target": "@components/ui/file-upload/FileUploadItemMetadata.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadItemDeleteTrigger.svelte",
+          "target": "@components/ui/file-upload/FileUploadItemDeleteTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadItems.svelte",
+          "target": "@components/ui/file-upload/FileUploadItems.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUploadClearTrigger.svelte",
+          "target": "@components/ui/file-upload/FileUploadClearTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/file-upload/FileUpload.module.css",
+          "target": "@components/ui/file-upload/FileUpload.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/file-upload/index.ts",
+          "target": "@components/ui/file-upload/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "clipboard",
+      "type": "registry:item",
+      "title": "Clipboard",
+      "description": "moduix Svelte Clipboard component.",
+      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "registryDependencies": ["@moduix-svelte/foundation", "@moduix-svelte/icons"],
+      "files": [
+        {
+          "path": "src/components/clipboard/Clipboard.svelte",
+          "target": "@components/ui/clipboard/Clipboard.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/clipboard/ClipboardRootProvider.svelte",
+          "target": "@components/ui/clipboard/ClipboardRootProvider.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/clipboard/ClipboardLabel.svelte",
+          "target": "@components/ui/clipboard/ClipboardLabel.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/clipboard/ClipboardControl.svelte",
+          "target": "@components/ui/clipboard/ClipboardControl.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/clipboard/ClipboardInput.svelte",
+          "target": "@components/ui/clipboard/ClipboardInput.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/clipboard/ClipboardTrigger.svelte",
+          "target": "@components/ui/clipboard/ClipboardTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/clipboard/ClipboardIndicator.svelte",
+          "target": "@components/ui/clipboard/ClipboardIndicator.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/clipboard/ClipboardValueText.svelte",
+          "target": "@components/ui/clipboard/ClipboardValueText.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/clipboard/Clipboard.module.css",
+          "target": "@components/ui/clipboard/Clipboard.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/clipboard/index.ts",
+          "target": "@components/ui/clipboard/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "chart",
+      "type": "registry:item",
+      "title": "Chart",
+      "description": "moduix Svelte Chart component backed by TanStack Charts.",
+      "dependencies": ["@ark-ui/svelte", "@tanstack/charts", "clsx"],
+      "registryDependencies": ["@moduix-svelte/foundation"],
+      "files": [
+        {
+          "path": "src/components/chart/Chart.svelte",
+          "target": "@components/ui/chart/Chart.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/chart/ChartPlot.svelte",
+          "target": "@components/ui/chart/ChartPlot.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/chart/ChartHeader.svelte",
+          "target": "@components/ui/chart/ChartHeader.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/chart/ChartTitle.svelte",
+          "target": "@components/ui/chart/ChartTitle.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/chart/ChartDescription.svelte",
+          "target": "@components/ui/chart/ChartDescription.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/chart/ChartLegend.svelte",
+          "target": "@components/ui/chart/ChartLegend.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/chart/ChartLegendItem.svelte",
+          "target": "@components/ui/chart/ChartLegendItem.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/chart/Chart.module.css",
+          "target": "@components/ui/chart/Chart.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/chart/index.ts",
+          "target": "@components/ui/chart/index.ts",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }

@@ -5,6 +5,7 @@ import Bindings from './bindings/Bindings.svelte';
 import ComboboxBindings from './bindings/ComboboxBindings.svelte';
 import JsonTreeViewBindings from './bindings/JsonTreeViewBindings.svelte';
 import ListboxBindings from './bindings/ListboxBindings.svelte';
+import MediaBindings from './bindings/MediaBindings.svelte';
 import OverlayBindings from './bindings/OverlayBindings.svelte';
 import PaginationBindings from './bindings/PaginationBindings.svelte';
 import PickerBindings from './bindings/PickerBindings.svelte';
@@ -363,4 +364,62 @@ test('user actions reach bound color picker state', async () => {
   await expect.poll(() => component.read().colorOpen).toBe(true);
   await page.getByRole('combobox', { name: 'Bound format', exact: true }).selectOption('hsla');
   await expect.poll(() => component.read().colorFormat).toBe('hsla');
+});
+
+test('writes to bound media state reach the controls', async () => {
+  const { component } = render(MediaBindings);
+  const cropper = () =>
+    document.querySelector('[data-testid="cropper-state"]')?.textContent?.trim();
+  await expect
+    .element(page.locator('[data-slot="image-cropper-image"]'))
+    .toHaveAttribute('data-ready');
+  component.write('zoom');
+  await expect.poll(() => cropper()).toBe('2|0|false');
+  component.write('rotation');
+  await expect.poll(() => cropper()).toBe('2|90|false');
+  component.write('flip');
+  await expect.poll(() => cropper()).toBe('2|90|true');
+
+  component.write('page');
+  await expect.element(page.getByTestId('carousel-progress')).toContainText('2 / 3');
+  component.write('paused');
+  await expect
+    .element(page.getByRole('region', { name: 'Bound marquee', exact: true }))
+    .toHaveAttribute('data-paused');
+  component.write('qrValue');
+  await expect.element(page.getByTestId('qr-value')).toContainText('https://moduix.dev');
+  component.write('paths');
+  await expect.poll(() => document.querySelectorAll('[data-part="segment-path"]').length).toBe(2);
+  component.write('acceptedFiles');
+  await expect.element(page.getByText('moduix.txt', { exact: true })).toHaveCount(0);
+  component.write('clipboardValue');
+  await expect
+    .element(page.getByRole('textbox', { name: 'Bound clipboard', exact: true }))
+    .toHaveValue('second');
+});
+
+test('user actions reach bound media state', async () => {
+  const { component } = render(MediaBindings);
+  await expect
+    .element(page.locator('[data-slot="image-cropper-image"]'))
+    .toHaveAttribute('data-ready');
+  await page.getByRole('button', { name: 'Zoom cropper', exact: true }).click();
+  await expect.poll(() => component.read().zoom).toBe(1.5);
+  await page.getByRole('button', { name: 'Rotate cropper', exact: true }).click();
+  await expect.poll(() => component.read().rotation).toBe(90);
+  await page.getByRole('button', { name: 'Flip cropper', exact: true }).click();
+  await expect.poll(() => component.read().flip.horizontal).toBe(true);
+
+  await page.getByRole('button', { name: 'Next slide', exact: true }).click();
+  await expect.poll(() => component.read().page).toBe(1);
+  await page.getByRole('button', { name: 'Pause marquee', exact: true }).click();
+  await expect.poll(() => component.read().paused).toBe(true);
+  await page.getByRole('button', { name: 'Change QR value', exact: true }).click();
+  await expect.poll(() => component.read().qrValue).toBe('https://chakra-ui.com');
+  await page.getByRole('button', { name: 'Clear bound signature', exact: true }).click();
+  await expect.poll(() => component.read().paths).toEqual([]);
+  await page.getByRole('button', { name: 'Clear bound files', exact: true }).click();
+  await expect.poll(() => component.read().acceptedFiles).toEqual([]);
+  await page.getByRole('button', { name: 'Change clipboard', exact: true }).click();
+  await expect.poll(() => component.read().clipboardValue).toBe('typed');
 });

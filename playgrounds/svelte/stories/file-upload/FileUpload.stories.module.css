@@ -1,0 +1,59 @@
+@layer moduix.storybook {
+  .stack {
+    display: grid;
+    gap: var(--moduix-spacing-3);
+    width: min(28rem, 100%);
+  }
+
+  .simpleDemo {
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
+    border-radius: var(--moduix-radius-lg);
+    padding: var(--moduix-spacing-4);
+    background-color: color-mix(in oklab, var(--moduix-muted) 32%, var(--moduix-background));
+  }
+
+  .dropzoneContent {
+    display: grid;
+    justify-items: center;
+    gap: var(--moduix-spacing-1);
+
+    & [data-slot='file-upload-trigger'] {
+      margin-top: var(--moduix-spacing-2);
+    }
+  }
+
+  .dropzoneTitle {
+    color: var(--moduix-foreground);
+    font-size: var(--moduix-text-sm);
+    font-weight: var(--moduix-weight-medium);
+    line-height: var(--moduix-line-height-text-sm);
+  }
+
+  .dropzoneDescription {
+    color: var(--moduix-muted-foreground);
+    font-size: var(--moduix-text-xs);
+    line-height: var(--moduix-line-height-text-xs);
+  }
+
+  .state,
+  .errorText {
+    margin: 0;
+    color: var(--moduix-muted-foreground);
+    font-size: var(--moduix-text-xs);
+    line-height: var(--moduix-line-height-text-xs);
+  }
+
+  .errorText {
+    color: var(--moduix-destructive);
+  }
+
+  .customDropzone {
+    border-color: var(--moduix-primary);
+    background-color: color-mix(in oklab, var(--moduix-primary) 5%, var(--moduix-background));
+  }
+
+  .customTrigger {
+    background-color: var(--moduix-foreground);
+    color: var(--moduix-background);
+  }
+}

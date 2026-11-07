@@ -1,0 +1,69 @@
+@layer moduix.components {
+  .root {
+    width: 100%;
+
+    &[data-orientation='vertical'] {
+      height: 15rem;
+    }
+
+    &[data-paused] .content {
+      animation-play-state: paused;
+    }
+  }
+
+  .content {
+    animation: global(moduix-marquee-x) var(--marquee-duration) linear var(--marquee-delay)
+      var(--marquee-loop-count);
+
+    /* :where keeps the reduced-motion reset below at the same specificity. */
+    &:where([data-orientation='vertical']) {
+      animation-name: global(moduix-marquee-y);
+    }
+
+    &[data-reverse] {
+      animation-direction: reverse;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+
+  .item {
+    flex-shrink: 0;
+  }
+
+  .edge {
+    --_edge-color: var(--moduix-marquee-edge-color, var(--moduix-background));
+    --_edge-size: var(--moduix-marquee-edge-size, 20%);
+    z-index: 1;
+
+    &[data-side='start'] {
+      width: var(--_edge-size);
+      background: linear-gradient(to right, var(--_edge-color), transparent);
+
+      &[dir='rtl'] {
+        background: linear-gradient(to left, var(--_edge-color), transparent);
+      }
+    }
+
+    &[data-side='end'] {
+      width: var(--_edge-size);
+      background: linear-gradient(to left, var(--_edge-color), transparent);
+
+      &[dir='rtl'] {
+        background: linear-gradient(to right, var(--_edge-color), transparent);
+      }
+    }
+
+    &[data-side='top'] {
+      height: var(--_edge-size);
+      background: linear-gradient(to bottom, var(--_edge-color), transparent);
+    }
+
+    &[data-side='bottom'] {
+      height: var(--_edge-size);
+      background: linear-gradient(to top, var(--_edge-color), transparent);
+    }
+  }
+}

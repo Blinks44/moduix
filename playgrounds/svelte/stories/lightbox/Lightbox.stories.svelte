@@ -1,6 +1,16 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
   import {
+    Carousel,
+    CarouselControl,
+    CarouselIndicator,
+    CarouselIndicatorGroup,
+    CarouselItem,
+    CarouselItemGroup,
+    CarouselNextTrigger,
+    CarouselPrevTrigger,
+  } from '@/components/carousel';
+  import {
     Lightbox,
     LightboxBackdrop,
     LightboxBind,
@@ -160,8 +170,31 @@
         <LightboxCloseIcon />
         <LightboxBody>
           <LightboxGallery>
-            <!-- The other adapters render a Carousel here; switch once it is ported. -->
-            <img src={serverImage.src} alt={serverImage.alt} />
+            <Carousel
+              aria-label="Server-driven image carousel"
+              page={activeIndex}
+              slideCount={images.length}
+              onPageChange={(details) => (activeIndex = details.page)}
+            >
+              <CarouselControl>
+                <CarouselPrevTrigger />
+                <CarouselItemGroup>
+                  {#each images as image, index (image.id)}
+                    <CarouselItem {index}>
+                      <img src={image.src} alt={image.alt} />
+                    </CarouselItem>
+                  {/each}
+                </CarouselItemGroup>
+                <CarouselNextTrigger />
+              </CarouselControl>
+              <CarouselIndicatorGroup>
+                {#each images as image, index (image.id)}
+                  <CarouselIndicator {index}>
+                    <img src={image.src} alt="" />
+                  </CarouselIndicator>
+                {/each}
+              </CarouselIndicatorGroup>
+            </Carousel>
           </LightboxGallery>
         </LightboxBody>
       </LightboxContent>
