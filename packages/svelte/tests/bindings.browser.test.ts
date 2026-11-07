@@ -7,6 +7,7 @@ import JsonTreeViewBindings from './bindings/JsonTreeViewBindings.svelte';
 import ListboxBindings from './bindings/ListboxBindings.svelte';
 import OverlayBindings from './bindings/OverlayBindings.svelte';
 import PaginationBindings from './bindings/PaginationBindings.svelte';
+import PickerBindings from './bindings/PickerBindings.svelte';
 import TagsInputBindings from './bindings/TagsInputBindings.svelte';
 import TreeViewBindings from './bindings/TreeViewBindings.svelte';
 
@@ -283,4 +284,83 @@ test('user actions reach bound pagination state', async () => {
   await expect.poll(() => component.read().page).toBe(2);
   await page.getByRole('button', { name: 'Change page size', exact: true }).click();
   await expect.poll(() => component.read().pageSize).toBe(20);
+});
+test('writes to bound date input state reach the control', async () => {
+  const { component } = render(PickerBindings);
+  const month = page.getByRole('spinbutton', { name: /month/i }).first();
+  await expect.element(month).toHaveAttribute('aria-valuenow', '6');
+  component.write('dateInputValue');
+  await expect.element(month).toHaveAttribute('aria-valuenow', '7');
+});
+
+test('writes to the bound date input placeholder reach the segments', async () => {
+  const { component } = render(PickerBindings);
+  const month = page
+    .getByRole('group', { name: 'Placeholder date input' })
+    .getByRole('spinbutton')
+    .first();
+  component.write('placeholderValue');
+  // An empty segment takes its first value from the placeholder date. Ark only reports
+  // placeholder changes that come from the consumer, so there is no user path back to the variable.
+  await month.press('ArrowUp');
+  await expect.element(month).toHaveAttribute('aria-valuenow', '3');
+  expect(component.read().placeholderValue).toBe('2027-03-15');
+});
+
+test('writes to bound date picker state reach the control', async () => {
+  const { component } = render(PickerBindings);
+  const input = page.getByRole('textbox', { name: 'Bound date', exact: true });
+  await expect.element(input).toHaveValue('06/22/2026');
+  component.write('pickerValue');
+  await expect.element(input).toHaveValue('07/04/2026');
+  component.write('pickerOpen');
+  await expect.element(page.getByTestId('date-picker-content')).toBeVisible();
+  component.write('focusedValue');
+  await expect
+    .element(page.locator('[data-slot="date-picker-table-cell-trigger"][data-value="2026-06-10"]'))
+    .toHaveAttribute('tabindex', '0');
+  component.write('pickerView');
+  await expect
+    .poll(() => document.querySelectorAll('[data-slot="date-picker-table-cell-trigger"]').length)
+    .toBe(12);
+});
+
+test('user actions reach bound date picker state', async () => {
+  const { component } = render(PickerBindings);
+  await page.getByRole('button', { name: 'Open bound date picker', exact: true }).click();
+  await expect.poll(() => component.read().pickerOpen).toBe(true);
+  await page
+    .locator('[data-slot="date-picker-table-cell-trigger"][data-value="2026-06-10"]')
+    .click();
+  await expect.poll(() => component.read().pickerValue).toEqual(['2026-06-10']);
+  await expect.poll(() => component.read().focusedValue).toBe('2026-06-10');
+  await page.locator('[data-slot="date-picker-view-trigger"]').click();
+  await expect.poll(() => component.read().pickerView).toBe('month');
+  await page.getByTestId('date-picker-content').press('Escape');
+  await expect.poll(() => component.read().pickerOpen).toBe(false);
+});
+
+test('writes to bound color picker state reach the control', async () => {
+  const { component } = render(PickerBindings);
+  const hex = page.getByRole('textbox', { name: 'Bound hex', exact: true });
+  component.write('colorValue');
+  await expect.element(hex).toHaveValue('#16A34A');
+  component.write('colorOpen');
+  await expect.element(page.getByTestId('color-picker-content')).toBeVisible();
+  component.write('colorFormat');
+  await expect
+    .element(page.getByRole('combobox', { name: 'Bound format', exact: true }))
+    .toHaveValue('hsla');
+});
+
+test('user actions reach bound color picker state', async () => {
+  const { component } = render(PickerBindings);
+  const hex = page.getByRole('textbox', { name: 'Bound hex', exact: true });
+  await hex.fill('#2563eb');
+  await hex.press('Enter');
+  await expect.poll(() => component.read().colorValue).toBe('rgba(37, 99, 235, 1)');
+  await page.getByRole('button', { name: 'Open bound color picker', exact: true }).click();
+  await expect.poll(() => component.read().colorOpen).toBe(true);
+  await page.getByRole('combobox', { name: 'Bound format', exact: true }).selectOption('hsla');
+  await expect.poll(() => component.read().colorFormat).toBe('hsla');
 });

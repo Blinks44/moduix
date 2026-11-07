@@ -3207,6 +3207,472 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "timer",
+      "type": "registry:item",
+      "title": "Timer",
+      "description": "moduix Svelte Tailwind Timer component.",
+      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/timer/Timer.svelte",
+          "target": "@components/ui/timer/Timer.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/timer/TimerRootProvider.svelte",
+          "target": "@components/ui/timer/TimerRootProvider.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/timer/TimerArea.svelte",
+          "target": "@components/ui/timer/TimerArea.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/timer/TimerItem.svelte",
+          "target": "@components/ui/timer/TimerItem.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/timer/TimerSeparator.svelte",
+          "target": "@components/ui/timer/TimerSeparator.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/timer/TimerControl.svelte",
+          "target": "@components/ui/timer/TimerControl.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/timer/TimerActionTrigger.svelte",
+          "target": "@components/ui/timer/TimerActionTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/timer/TimerSegments.svelte",
+          "target": "@components/ui/timer/TimerSegments.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/timer/index.ts",
+          "target": "@components/ui/timer/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "date-input",
+      "type": "registry:item",
+      "title": "DateInput",
+      "description": "moduix Svelte Tailwind DateInput component.",
+      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/date-input/DateInput.svelte",
+          "target": "@components/ui/date-input/DateInput.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-input/DateInputRootProvider.svelte",
+          "target": "@components/ui/date-input/DateInputRootProvider.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-input/DateInputLabel.svelte",
+          "target": "@components/ui/date-input/DateInputLabel.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-input/DateInputControl.svelte",
+          "target": "@components/ui/date-input/DateInputControl.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-input/DateInputSegmentGroup.svelte",
+          "target": "@components/ui/date-input/DateInputSegmentGroup.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-input/DateInputSegment.svelte",
+          "target": "@components/ui/date-input/DateInputSegment.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-input/DateInputSegments.svelte",
+          "target": "@components/ui/date-input/DateInputSegments.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-input/DateInputSeparator.svelte",
+          "target": "@components/ui/date-input/DateInputSeparator.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-input/index.ts",
+          "target": "@components/ui/date-input/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "color-picker",
+      "type": "registry:item",
+      "title": "ColorPicker",
+      "description": "moduix Svelte Tailwind ColorPicker component.",
+      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-svelte-tailwind/foundation",
+        "@moduix-svelte-tailwind/cn",
+        "@moduix-svelte-tailwind/icons",
+        "@moduix-svelte-tailwind/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/color-picker/ColorPicker.svelte",
+          "target": "@components/ui/color-picker/ColorPicker.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPicker.variants.ts",
+          "target": "@components/ui/color-picker/ColorPicker.variants.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerRootProvider.svelte",
+          "target": "@components/ui/color-picker/ColorPickerRootProvider.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerLabel.svelte",
+          "target": "@components/ui/color-picker/ColorPickerLabel.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerControl.svelte",
+          "target": "@components/ui/color-picker/ColorPickerControl.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerTrigger.svelte",
+          "target": "@components/ui/color-picker/ColorPickerTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerPositioner.svelte",
+          "target": "@components/ui/color-picker/ColorPickerPositioner.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerContent.svelte",
+          "target": "@components/ui/color-picker/ColorPickerContent.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerArea.svelte",
+          "target": "@components/ui/color-picker/ColorPickerArea.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerAreaBackground.svelte",
+          "target": "@components/ui/color-picker/ColorPickerAreaBackground.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerAreaThumb.svelte",
+          "target": "@components/ui/color-picker/ColorPickerAreaThumb.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerChannelSlider.svelte",
+          "target": "@components/ui/color-picker/ColorPickerChannelSlider.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerSliders.svelte",
+          "target": "@components/ui/color-picker/ColorPickerSliders.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerChannelSliderTrack.svelte",
+          "target": "@components/ui/color-picker/ColorPickerChannelSliderTrack.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerChannelSliderThumb.svelte",
+          "target": "@components/ui/color-picker/ColorPickerChannelSliderThumb.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerChannelSliderLabel.svelte",
+          "target": "@components/ui/color-picker/ColorPickerChannelSliderLabel.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerChannelSliderValueText.svelte",
+          "target": "@components/ui/color-picker/ColorPickerChannelSliderValueText.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerChannelInput.svelte",
+          "target": "@components/ui/color-picker/ColorPickerChannelInput.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerEyeDropperTrigger.svelte",
+          "target": "@components/ui/color-picker/ColorPickerEyeDropperTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerFormatSelect.svelte",
+          "target": "@components/ui/color-picker/ColorPickerFormatSelect.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerFormatTrigger.svelte",
+          "target": "@components/ui/color-picker/ColorPickerFormatTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerSwatchGroup.svelte",
+          "target": "@components/ui/color-picker/ColorPickerSwatchGroup.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerSwatchTrigger.svelte",
+          "target": "@components/ui/color-picker/ColorPickerSwatchTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerSwatch.svelte",
+          "target": "@components/ui/color-picker/ColorPickerSwatch.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerSwatchIndicator.svelte",
+          "target": "@components/ui/color-picker/ColorPickerSwatchIndicator.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerTransparencyGrid.svelte",
+          "target": "@components/ui/color-picker/ColorPickerTransparencyGrid.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerValueSwatch.svelte",
+          "target": "@components/ui/color-picker/ColorPickerValueSwatch.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerValueText.svelte",
+          "target": "@components/ui/color-picker/ColorPickerValueText.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPickerView.svelte",
+          "target": "@components/ui/color-picker/ColorPickerView.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/index.ts",
+          "target": "@components/ui/color-picker/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "date-picker",
+      "type": "registry:item",
+      "title": "DatePicker",
+      "description": "moduix Svelte Tailwind DatePicker component.",
+      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-svelte-tailwind/foundation",
+        "@moduix-svelte-tailwind/cn",
+        "@moduix-svelte-tailwind/icons",
+        "@moduix-svelte-tailwind/overlay-portal",
+        "@moduix-svelte-tailwind/close-button"
+      ],
+      "files": [
+        {
+          "path": "src/components/date-picker/DatePicker.svelte",
+          "target": "@components/ui/date-picker/DatePicker.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePicker.variants.ts",
+          "target": "@components/ui/date-picker/DatePicker.variants.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerClearTrigger.svelte",
+          "target": "@components/ui/date-picker/DatePickerClearTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerContent.svelte",
+          "target": "@components/ui/date-picker/DatePickerContent.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerControl.svelte",
+          "target": "@components/ui/date-picker/DatePickerControl.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerDayTable.svelte",
+          "target": "@components/ui/date-picker/DatePickerDayTable.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerField.svelte",
+          "target": "@components/ui/date-picker/DatePickerField.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerInput.svelte",
+          "target": "@components/ui/date-picker/DatePickerInput.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerLabel.svelte",
+          "target": "@components/ui/date-picker/DatePickerLabel.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerMonthSelect.svelte",
+          "target": "@components/ui/date-picker/DatePickerMonthSelect.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerMonthTable.svelte",
+          "target": "@components/ui/date-picker/DatePickerMonthTable.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerNextTrigger.svelte",
+          "target": "@components/ui/date-picker/DatePickerNextTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerPositioner.svelte",
+          "target": "@components/ui/date-picker/DatePickerPositioner.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerPresetTrigger.svelte",
+          "target": "@components/ui/date-picker/DatePickerPresetTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerPrevTrigger.svelte",
+          "target": "@components/ui/date-picker/DatePickerPrevTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerRangeField.svelte",
+          "target": "@components/ui/date-picker/DatePickerRangeField.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerRangeText.svelte",
+          "target": "@components/ui/date-picker/DatePickerRangeText.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerRootProvider.svelte",
+          "target": "@components/ui/date-picker/DatePickerRootProvider.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerTable.svelte",
+          "target": "@components/ui/date-picker/DatePickerTable.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerTableBody.svelte",
+          "target": "@components/ui/date-picker/DatePickerTableBody.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerTableCell.svelte",
+          "target": "@components/ui/date-picker/DatePickerTableCell.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerTableCellTrigger.svelte",
+          "target": "@components/ui/date-picker/DatePickerTableCellTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerTableHead.svelte",
+          "target": "@components/ui/date-picker/DatePickerTableHead.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerTableHeader.svelte",
+          "target": "@components/ui/date-picker/DatePickerTableHeader.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerTableRow.svelte",
+          "target": "@components/ui/date-picker/DatePickerTableRow.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerTrigger.svelte",
+          "target": "@components/ui/date-picker/DatePickerTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerValueText.svelte",
+          "target": "@components/ui/date-picker/DatePickerValueText.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerView.svelte",
+          "target": "@components/ui/date-picker/DatePickerView.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerViewControl.svelte",
+          "target": "@components/ui/date-picker/DatePickerViewControl.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerViewTrigger.svelte",
+          "target": "@components/ui/date-picker/DatePickerViewTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerWeekNumberCell.svelte",
+          "target": "@components/ui/date-picker/DatePickerWeekNumberCell.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerWeekNumberHeaderCell.svelte",
+          "target": "@components/ui/date-picker/DatePickerWeekNumberHeaderCell.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerYearSelect.svelte",
+          "target": "@components/ui/date-picker/DatePickerYearSelect.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerYearTable.svelte",
+          "target": "@components/ui/date-picker/DatePickerYearTable.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/index.ts",
+          "target": "@components/ui/date-picker/index.ts",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }

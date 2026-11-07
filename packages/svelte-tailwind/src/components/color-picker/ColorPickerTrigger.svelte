@@ -1,0 +1,28 @@
+<script lang="ts">
+  import { ColorPickerTrigger, type ColorPickerTriggerProps } from '@ark-ui/svelte/color-picker';
+  import { cn } from '@/lib/moduix/cn';
+  import ColorPickerValueSwatch from './ColorPickerValueSwatch.svelte';
+
+  let {
+    children,
+    class: className,
+    ref = $bindable(null),
+    ...props
+  }: ColorPickerTriggerProps = $props();
+</script>
+
+<ColorPickerTrigger
+  {...props}
+  bind:ref
+  class={cn(
+    'grid size-control-md shrink-0 cursor-pointer place-items-center overflow-hidden rounded-md border border-input bg-background p-1 text-sm outline-focus-halo outline-transparent transition-[border-color,outline-color,background-color] duration-normal ease-in-out select-none focus-visible:border-ring focus-visible:outline-ring/50 disabled:cursor-default data-invalid:border-destructive data-invalid:focus-visible:outline-destructive/20 data-readonly:cursor-default data-[fit-content]:inline-flex data-[fit-content]:w-auto data-[fit-content]:min-w-control-md data-[fit-content]:gap-2 data-[fit-content]:px-3 data-[state=open]:border-ring data-[state=open]:outline-ring/50 data-invalid:data-[state=open]:outline-destructive/20 [&>[data-slot=color-picker-value-swatch]]:size-full [&>[data-slot=color-picker-value-swatch]]:rounded-[inherit] [&>[data-slot=color-picker-value-swatch]]:[grid-area:1/1/2/2] data-[fit-content]:[&>[data-slot=color-picker-value-swatch]]:size-4 data-[fit-content]:[&>[data-slot=color-picker-value-swatch]]:rounded-sm',
+    className,
+  )}
+  data-slot="color-picker-trigger"
+>
+  {#if children}
+    {@render children()}
+  {:else}
+    <ColorPickerValueSwatch />
+  {/if}
+</ColorPickerTrigger>

@@ -1,0 +1,446 @@
+@layer moduix.components {
+  .root {
+    display: flex;
+    width: var(--moduix-color-picker-width, 16rem);
+    max-width: 100%;
+    min-width: 0;
+    flex-direction: column;
+    gap: var(--moduix-spacing-2);
+    color: var(--moduix-foreground);
+
+    &[data-disabled] {
+      opacity: var(--moduix-opacity-disabled);
+
+      :where(
+          [data-slot='field-root'][data-disabled],
+          [data-slot='field-root-provider'][data-disabled],
+          [data-slot='fieldset-root'][data-disabled],
+          [data-slot='fieldset-root-provider'][data-disabled]
+        )
+        & {
+        opacity: 1;
+      }
+    }
+  }
+
+  .label {
+    display: inline-flex;
+    align-items: center;
+    font-size: var(--moduix-text-sm);
+    font-weight: var(--moduix-weight-medium);
+    line-height: var(--moduix-line-height-text-sm);
+    user-select: none;
+  }
+
+  .control {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: var(--moduix-spacing-2);
+  }
+
+  .trigger,
+  .channelInput,
+  .formatSelect,
+  .eyeDropperTrigger,
+  .formatTrigger {
+    margin: 0;
+    border: var(--moduix-border-width-sm) solid var(--moduix-input);
+    border-radius: var(--moduix-color-picker-radius, var(--moduix-radius-md));
+    outline: var(--moduix-focus-ring-halo-width) solid transparent;
+    font: inherit;
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
+    transition:
+      border-color var(--moduix-transition-default),
+      outline-color var(--moduix-transition-default),
+      background-color var(--moduix-transition-default),
+      color var(--moduix-transition-default);
+
+    &:is(:disabled, [data-readonly]) {
+      cursor: default;
+    }
+  }
+
+  .trigger {
+    display: grid;
+    width: var(--moduix-color-picker-trigger-size, var(--moduix-size-md));
+    height: var(--moduix-color-picker-trigger-size, var(--moduix-size-md));
+    flex-shrink: 0;
+    place-items: center;
+    overflow: hidden;
+    padding: var(--moduix-spacing-1);
+    background: var(--moduix-background);
+    color: inherit;
+    cursor: pointer;
+
+    &:is(:focus-visible, [data-state='open']) {
+      border-color: var(--moduix-ring);
+      outline-color: color-mix(in oklab, var(--moduix-ring) 50%, transparent);
+    }
+
+    &[data-fit-content] {
+      display: inline-flex;
+      width: auto;
+      min-width: var(--moduix-color-picker-trigger-size, var(--moduix-size-md));
+      gap: var(--moduix-spacing-2);
+      padding-inline: var(--moduix-spacing-3);
+    }
+  }
+
+  .positioner {
+    z-index: var(--z-index);
+    outline: 0;
+  }
+
+  .content {
+    z-index: calc(var(--moduix-z-popup) + var(--layer-index, 0));
+    display: flex;
+    width: var(--moduix-color-picker-content-width, 16rem);
+    max-width: var(--available-width);
+    max-height: min(32rem, var(--available-height));
+    flex-direction: column;
+    gap: var(--moduix-spacing-3);
+    overflow: auto;
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
+    border-radius: var(--moduix-color-picker-radius, var(--moduix-radius-md));
+    padding: var(--moduix-spacing-4);
+    background-color: var(--moduix-popover);
+    box-shadow: var(--moduix-shadow-lg);
+    color: var(--moduix-popover-foreground);
+    transform-origin: var(--transform-origin);
+    outline: 0;
+    overscroll-behavior: contain;
+
+    &[data-state='open'] {
+      animation: global(moduix-popup-in)
+        var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
+        var(--moduix-popup-motion-easing, var(--moduix-ease-in-out));
+    }
+
+    &[data-state='closed'] {
+      animation: global(moduix-popup-out)
+        var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
+        var(--moduix-popup-motion-easing, var(--moduix-ease-in-out)) forwards;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .content[data-state] {
+      animation: none;
+    }
+  }
+
+  .area {
+    width: 100%;
+    height: var(--moduix-color-picker-area-height, 10rem);
+    overflow: hidden;
+    border-radius: var(--moduix-radius-md);
+    box-shadow: inset 0 0 0 var(--moduix-border-width-sm)
+      color-mix(in oklab, black 14%, transparent);
+    user-select: none;
+  }
+
+  .areaBackground {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+  }
+
+  /* Ark positions both thumbs by their top-left corner and paints them with the current color. */
+  .thumb {
+    width: var(--moduix-color-picker-thumb-size, var(--moduix-spacing-4));
+    height: var(--moduix-color-picker-thumb-size, var(--moduix-spacing-4));
+    border-radius: var(--moduix-radius-full);
+    box-shadow:
+      0 0 0 var(--moduix-border-width-md) var(--moduix-background),
+      0 0 0 var(--moduix-border-width-lg) var(--_color-picker-thumb-ring),
+      var(--moduix-shadow-sm);
+    transform: translate(-50%, -50%);
+    outline: 0;
+    --_color-picker-thumb-ring: color-mix(in oklab, black 18%, transparent);
+
+    &:focus-visible {
+      --_color-picker-thumb-ring: var(--moduix-ring);
+    }
+  }
+
+  .channelSlider {
+    display: flex;
+    height: var(--moduix-color-picker-channel-slider-height, var(--moduix-spacing-3));
+    align-items: center;
+    border-radius: var(--moduix-radius-full);
+    user-select: none;
+
+    &[data-orientation='vertical'] {
+      width: var(--moduix-color-picker-channel-slider-height, var(--moduix-spacing-3));
+      height: 10rem;
+      align-items: stretch;
+      justify-content: center;
+    }
+  }
+
+  .sliders {
+    display: flex;
+    min-width: 0;
+    flex: 1;
+    flex-direction: column;
+    gap: var(--moduix-spacing-2);
+  }
+
+  .channelSliderTrack {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 var(--moduix-border-width-sm)
+      color-mix(in oklab, black 14%, transparent);
+  }
+
+  .channelSliderLabel {
+    font-size: var(--moduix-text-sm);
+    font-weight: var(--moduix-weight-medium);
+    line-height: var(--moduix-line-height-text-sm);
+  }
+
+  .channelSliderValueText,
+  .valueText {
+    min-width: 0;
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
+  }
+
+  .channelSliderValueText {
+    color: var(--moduix-muted-foreground);
+  }
+
+  .channelInput,
+  .formatSelect {
+    width: 100%;
+    min-width: 0;
+    height: var(--moduix-size-md);
+    padding-inline: var(--moduix-spacing-3);
+    background: var(--moduix-background);
+    color: var(--moduix-foreground);
+
+    &:focus {
+      border-color: var(--moduix-ring);
+      outline-color: color-mix(in oklab, var(--moduix-ring) 50%, transparent);
+    }
+  }
+
+  /* After the focus rules: an invalid control keeps its error color while focused. */
+  :is(.trigger, .channelInput, .formatSelect)[data-invalid] {
+    border-color: var(--moduix-destructive);
+  }
+
+  .trigger[data-invalid]:is(:focus-visible, [data-state='open']),
+  :is(.channelInput, .formatSelect)[data-invalid]:focus {
+    outline-color: color-mix(in oklab, var(--moduix-destructive) 20%, transparent);
+  }
+
+  .channelInput {
+    flex: 1;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      margin: 0;
+      appearance: none;
+    }
+
+    &[data-channel='alpha'] {
+      width: 4rem;
+      flex: none;
+    }
+  }
+
+  .formatSelectControl {
+    position: relative;
+    display: inline-grid;
+    width: fit-content;
+    max-width: 100%;
+    min-width: 0;
+    flex-shrink: 0;
+  }
+
+  .formatSelect {
+    width: auto;
+    padding-inline-end: calc(
+      var(--moduix-spacing-3) + var(--moduix-spacing-4) + var(--moduix-spacing-1)
+    );
+    appearance: none;
+    cursor: pointer;
+    text-transform: uppercase;
+
+    @media (forced-colors: active) {
+      padding-inline-end: var(--moduix-spacing-3);
+      appearance: auto;
+    }
+  }
+
+  .formatSelectIndicator {
+    position: absolute;
+    top: 50%;
+    inset-inline-end: var(--moduix-spacing-3);
+    display: inline-flex;
+    width: var(--moduix-spacing-4);
+    height: var(--moduix-spacing-4);
+    border-radius: var(--moduix-radius-sm);
+    color: var(--moduix-muted-foreground);
+    pointer-events: none;
+    transform: translateY(-50%);
+    transition:
+      background-color var(--moduix-transition-default),
+      color var(--moduix-transition-default);
+
+    & > svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    @media (forced-colors: active) {
+      display: none;
+    }
+  }
+
+  @media (hover: hover) {
+    .formatSelect:not(:disabled):hover + .formatSelectIndicator {
+      background-color: var(--moduix-muted);
+      color: var(--moduix-foreground);
+    }
+  }
+
+  .eyeDropperTrigger,
+  .formatTrigger {
+    display: inline-flex;
+    height: var(--moduix-size-md);
+    min-width: var(--moduix-size-md);
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    gap: var(--moduix-spacing-2);
+    padding-inline: var(--moduix-spacing-2);
+    background: transparent;
+    color: var(--moduix-muted-foreground);
+    cursor: pointer;
+
+    & > svg {
+      width: var(--moduix-spacing-4);
+      height: var(--moduix-spacing-4);
+      flex-shrink: 0;
+    }
+
+    &:focus-visible {
+      border-color: var(--moduix-ring);
+      outline-color: color-mix(in oklab, var(--moduix-ring) 50%, transparent);
+    }
+
+    @media (hover: hover) {
+      &:not(:disabled, [data-readonly]):hover {
+        background-color: var(--moduix-muted);
+        color: var(--moduix-foreground);
+      }
+    }
+  }
+
+  .swatchGroup {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--moduix-spacing-2);
+  }
+
+  .swatchTrigger {
+    display: inline-flex;
+    margin: 0;
+    border: 0;
+    border-radius: var(--moduix-radius-sm);
+    padding: 0;
+    background: transparent;
+    outline: 0;
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: var(--moduix-focus-ring-width) solid var(--moduix-ring);
+      outline-offset: var(--moduix-focus-ring-offset);
+    }
+
+    &:disabled {
+      cursor: default;
+      opacity: var(--moduix-opacity-disabled);
+
+      .root[data-disabled] & {
+        opacity: 1;
+      }
+    }
+  }
+
+  /* Ark paints swatches with an inline background color. The pseudo-element repaints that color over
+     a checkerboard, so translucent values read as translucent without a TransparencyGrid part. */
+  .swatch,
+  .valueSwatch {
+    display: grid;
+    width: var(--moduix-color-picker-swatch-size, var(--moduix-size-sm));
+    height: var(--moduix-color-picker-swatch-size, var(--moduix-size-sm));
+    flex-shrink: 0;
+    place-items: center;
+    border-radius: var(--moduix-radius-sm);
+    isolation: isolate;
+
+    &::before {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      border-radius: inherit;
+      background:
+        linear-gradient(var(--color), var(--color)),
+        repeating-conic-gradient(var(--moduix-muted) 0 25%, var(--moduix-background) 0 50%) 0 0 /
+          0.5rem 0.5rem;
+      box-shadow: inset 0 0 0 var(--moduix-border-width-sm)
+        color-mix(in oklab, black 14%, transparent);
+      content: '';
+    }
+  }
+
+  .swatchIndicator {
+    display: inline-flex;
+    color: white;
+    filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.45));
+
+    &[hidden] {
+      display: none;
+    }
+
+    & > svg {
+      width: var(--moduix-spacing-4);
+      height: var(--moduix-spacing-4);
+    }
+  }
+
+  .transparencyGrid {
+    grid-area: 1 / 1 / 2 / 2;
+    border-radius: inherit;
+  }
+
+  .trigger > .valueSwatch {
+    grid-area: 1 / 1 / 2 / 2;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+  }
+
+  .trigger[data-fit-content] > .valueSwatch {
+    width: var(--moduix-spacing-4);
+    height: var(--moduix-spacing-4);
+    border-radius: var(--moduix-radius-sm);
+  }
+
+  .view {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: var(--moduix-spacing-2);
+
+    &[hidden] {
+      display: none;
+    }
+  }
+}

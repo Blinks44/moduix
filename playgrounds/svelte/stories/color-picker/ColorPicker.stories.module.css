@@ -1,0 +1,31 @@
+.demoRoot {
+  --moduix-color-picker-width: 18rem;
+}
+
+.inlineRoot {
+  --moduix-color-picker-width: 17rem;
+}
+
+.valueRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--moduix-spacing-3);
+}
+
+.sliderGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--moduix-spacing-3);
+}
+
+.inputRow {
+  display: flex;
+  min-width: 0;
+  gap: var(--moduix-spacing-2);
+}
+
+.customRoot {
+  --moduix-color-picker-width: 18rem;
+  --moduix-color-picker-radius: var(--moduix-radius-lg);
+}
