@@ -25,8 +25,6 @@ const skipped = new Set([
 const openSkipped = new Set([
   // CSS Modules restyle the open panel through a class and Tailwind through utilities.
   'components-floatingpanel--custom-styling',
-  // Svelte has no Carousel yet, so the open lightbox uses a temporary replacement.
-  'components-lightbox--gallery-from-server-data',
 ]);
 const args = process.argv.slice(2);
 const open = args.includes('--open');
@@ -62,7 +60,8 @@ async function screenshot(page, playground, id) {
         await page.mouse.move(0, 0);
       }
     }
-    await page.waitForTimeout(500);
+    // The carousel scrolls smoothly after the click and needs longer to settle.
+    await page.waitForTimeout(id.startsWith('components-carousel--') ? 2000 : 500);
     return PNG.sync.read(await page.screenshot());
   }
   // A full-page capture of an overflowing story widens the viewport mid-shot, and vw-based layouts

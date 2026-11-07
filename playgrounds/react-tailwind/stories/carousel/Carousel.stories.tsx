@@ -73,7 +73,7 @@ const frameClass = 'w-[min(52rem,calc(100vw-4rem))]';
 const carouselClass = 'w-full max-w-128';
 const wideCarouselClass = 'w-full max-w-192';
 const imageClass =
-  'block h-84 w-full overflow-hidden rounded-xl border border-border bg-card shadow-sm';
+  'block h-84 w-full overflow-hidden rounded-xl border border-[color-mix(in_oklab,var(--color-border)_88%,black_12%)] bg-card shadow-sm';
 const shortImageClass = 'h-60';
 const statusClass = 'm-0 text-sm text-muted-foreground tabular-nums';
 const controlsClass = 'justify-center';
