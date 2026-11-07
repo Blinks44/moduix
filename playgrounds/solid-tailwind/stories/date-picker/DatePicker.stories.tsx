@@ -367,13 +367,12 @@ export const RootProvider: Story = {
 
 export const CustomStyling: Story = {
   render: () => (
-    <DatePicker defaultValue={[parseDate('2026-06-22')]}>
+    <DatePicker
+      class="[&_[data-slot=date-picker-input]]:border-primary [&_[data-slot=date-picker-input]]:bg-muted"
+      defaultValue={[parseDate('2026-06-22')]}
+    >
       <DatePickerLabel>Styled date</DatePickerLabel>
-      <DatePickerField
-        inputProps={{
-          class: 'bg-muted border-primary focus:border-primary focus:outline-primary',
-        }}
-      />
+      <DatePickerField />
       <DatePickerPopup />
     </DatePicker>
   ),

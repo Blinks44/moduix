@@ -198,6 +198,7 @@ const storyComponents = {
   ...datePickerComponents,
   AdvancedDatePickerDayTable,
   DatePickerPopup,
+  DatePickerViews,
   InlineDatePickerContent,
   MultipleDatePickerField,
   MultipleMonthsDatePickerContent,
