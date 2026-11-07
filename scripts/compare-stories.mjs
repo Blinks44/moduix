@@ -1,5 +1,7 @@
 // Screenshots built playground stories and compares every adapter with React CSS Modules.
-// Usage: pnpm run compare:stories [component...]   (run build:storybook in the playgrounds first)
+// Usage: pnpm run compare:stories [--open] [component...]   (run build:storybook in the playgrounds first)
+// --open opens the overlay of each story (hover for tooltips and hover cards, click on the first
+// button otherwise) and captures the viewport instead of the initial full page.
 import { mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import pixelmatch from 'pixelmatch';
@@ -19,8 +21,24 @@ const skipped = new Set([
   'utilities-jsontreeview--basic',
   'utilities-jsontreeview--compact-previews',
 ]);
+// Skipped only with --open.
+const openSkipped = new Set([
+  // The Tailwind tracks match each other here, but React Tailwind styles the open layer differently.
+  'components-drawer--non-modal',
+  'components-drawer--snap-points',
+  'components-floatingpanel--custom-styling',
+  'components-popover--modal',
+  'components-tooltip--custom-composition',
+  // Svelte has no Carousel yet, so the open lightbox uses a temporary replacement.
+  'components-lightbox--gallery-from-server-data',
+]);
+const args = process.argv.slice(2);
+const open = args.includes('--open');
 const outDir = '.local/story-diffs';
-const stories = storyIds(reference, process.argv.slice(2)).filter((id) => !skipped.has(id));
+const stories = storyIds(
+  reference,
+  args.filter((arg) => arg !== '--open'),
+).filter((id) => !skipped.has(id) && !(open && openSkipped.has(id)));
 const server = await servePlaygrounds();
 
 const viewport = { width: 1024, height: 768 };
@@ -38,6 +56,19 @@ async function screenshot(page, playground, id) {
   });
   await page.evaluate(() => document.fonts.ready);
   await page.waitForLoadState('networkidle');
+  if (open) {
+    const trigger = page.locator('#storybook-root button:enabled').first();
+    if (await trigger.count()) {
+      if (/^components-(tooltip|hovercard)--/.test(id)) await trigger.hover();
+      else {
+        await trigger.click();
+        // The pointer must not rest over the layer, where hover-revealed parts differ by timing.
+        await page.mouse.move(0, 0);
+      }
+    }
+    await page.waitForTimeout(500);
+    return PNG.sync.read(await page.screenshot());
+  }
   // A full-page capture of an overflowing story widens the viewport mid-shot, and vw-based layouts
   // such as Sidebar may or may not reflow in time. Resize first and let observers settle.
   await page.setViewportSize(

@@ -57,7 +57,7 @@
     <DrawerTrigger>
       {#snippet asChild(props)}<Button {...props()}>Open drawer</Button>{/snippet}
     </DrawerTrigger>
-    <DrawerSurface title="Notifications" description="You are all caught up. Good job.">
+    <DrawerSurface title="Notifications" description="You are all caught up. Good job!">
       <DrawerBody>Bottom drawers are draggable by default.</DrawerBody>
       <DrawerFooter>
         <DrawerCloseTrigger>
@@ -73,7 +73,9 @@
     <DrawerTrigger>
       {#snippet asChild(props)}<Button {...props()}>Open right drawer</Button>{/snippet}
     </DrawerTrigger>
-    <DrawerSurface title="Details" description="Logical directions resolve for LTR and RTL." />
+    <DrawerSurface title="Details" description={'This drawer uses swipeDirection="end".'}>
+      <DrawerBody>Logical directions resolve for both LTR and RTL layouts.</DrawerBody>
+    </DrawerSurface>
   </Drawer>
 </Story>
 
@@ -108,7 +110,7 @@
       title="Floating drawer"
       description="This compact drawer stays inset from the viewport edge."
     >
-      <DrawerBody>Use the island variant for a detached surface.</DrawerBody>
+      <DrawerBody>Use the island variant for a detached drawer surface.</DrawerBody>
     </DrawerSurface>
   </Drawer>
 </Story>
@@ -126,7 +128,7 @@
             <DrawerTitle>Non-modal drawer</DrawerTitle>
             <DrawerCloseIcon data-no-drag />
             <DrawerDescription
-              >Drag this header while the page remains interactive.</DrawerDescription
+              >Drag this header; the page and the scrollable content stay interactive.</DrawerDescription
             >
           </DrawerHeader>
         </DrawerGrabber>
@@ -179,7 +181,7 @@
     </DrawerTrigger>
     <DrawerSurface
       title="Grabber-only dragging"
-      description="Content dragging is disabled."
+      description="Content dragging is disabled; the grabber remains draggable."
       draggable={false}
     />
   </Drawer>
