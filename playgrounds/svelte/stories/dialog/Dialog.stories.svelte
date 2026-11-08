@@ -17,6 +17,14 @@
     DialogTrigger,
     useDialog,
   } from '@/components/dialog';
+  import {
+    ScrollArea,
+    ScrollAreaContent,
+    ScrollAreaCorner,
+    ScrollAreaScrollbar,
+    ScrollAreaThumb,
+    ScrollAreaViewport,
+  } from '@/components/scroll-area';
   import { insideScrollSections } from '../data/insideScrollSections';
   import storyStyles from './Dialog.stories.module.css';
   import DialogStatusText from './DialogStatusText.svelte';
@@ -132,17 +140,22 @@
           <DialogDescription>Review all items before publishing to production.</DialogDescription>
         </DialogHeader>
         <DialogBody class={storyStyles.scrollBody}>
-          <!-- The other adapters wrap this list in ScrollArea; switch once it is ported. -->
-          <div class={storyStyles.scrollArea} style="overflow-y: auto">
-            <div class={storyStyles.scrollSections}>
-              {#each insideScrollSections as item (item.title)}
-                <section>
-                  <h3>{item.title}</h3>
-                  <p>{item.body}</p>
-                </section>
-              {/each}
-            </div>
-          </div>
+          <ScrollArea class={storyStyles.scrollArea}>
+            <ScrollAreaViewport>
+              <ScrollAreaContent>
+                <div class={storyStyles.scrollSections}>
+                  {#each insideScrollSections as item (item.title)}
+                    <section>
+                      <h3>{item.title}</h3>
+                      <p>{item.body}</p>
+                    </section>
+                  {/each}
+                </div>
+              </ScrollAreaContent>
+            </ScrollAreaViewport>
+            <ScrollAreaScrollbar><ScrollAreaThumb /></ScrollAreaScrollbar>
+            <ScrollAreaCorner />
+          </ScrollArea>
         </DialogBody>
       </DialogContent>
     </DialogPositioner>

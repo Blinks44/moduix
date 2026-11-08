@@ -1,0 +1,155 @@
+@layer moduix.components {
+  .root {
+    display: grid;
+    width: 100%;
+    min-width: 0;
+    grid-template-columns: minmax(0, 1fr) minmax(12rem, 16rem);
+    gap: var(--moduix-spacing-6);
+    color: var(--moduix-foreground);
+    /* Read Ark measurements here: parents of the list, such as Collapsible, redefine --top and --height. */
+    --_toc-indicator-top: var(--top);
+    --_toc-indicator-height: var(--height);
+
+    &:has(.nav[data-placement='left']) {
+      grid-template-columns: minmax(12rem, 16rem) minmax(0, 1fr);
+    }
+
+    @media (width < 48rem) {
+      &,
+      &:has(.nav[data-placement='left']) {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  }
+
+  .content {
+    min-width: 0;
+  }
+
+  .nav {
+    position: sticky;
+    top: var(--moduix-spacing-4);
+    align-self: start;
+    max-height: calc(100dvh - 2rem);
+    overflow: auto;
+    padding: var(--moduix-spacing-4);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
+    border-radius: var(--moduix-radius-lg);
+    background-color: var(--moduix-card);
+    color: var(--moduix-card-foreground);
+
+    /* The content takes the next free cell, so only the nav needs explicit placement. */
+    &[data-placement='left'] {
+      grid-row: 1;
+      grid-column: 1;
+
+      @media (width < 48rem) {
+        grid-area: auto;
+      }
+    }
+  }
+
+  .title {
+    margin: 0 0 var(--moduix-spacing-2);
+    color: var(--moduix-foreground);
+    font-size: var(--moduix-text-sm);
+    font-weight: var(--moduix-weight-semibold);
+    line-height: var(--moduix-line-height-text-sm);
+  }
+
+  .list {
+    position: relative;
+    display: grid;
+    gap: var(--moduix-spacing-0-5);
+    margin: 0;
+    padding-inline-start: var(--moduix-spacing-1);
+    list-style: none;
+
+    &:has(.indicator)::before {
+      position: absolute;
+      top: var(--moduix-spacing-0-5);
+      bottom: var(--moduix-spacing-0-5);
+      inset-inline-start: 0;
+      width: var(--moduix-border-width-md);
+      border-radius: var(--moduix-radius-full);
+      background-color: var(--moduix-border);
+      content: '';
+      pointer-events: none;
+    }
+  }
+
+  .item {
+    min-width: 0;
+  }
+
+  .link {
+    position: relative;
+    display: block;
+    padding-block: var(--moduix-spacing-1);
+    padding-inline-end: var(--moduix-spacing-1);
+    padding-inline-start: calc(
+      var(--moduix-spacing-1) + var(--moduix-border-width-md) + var(--moduix-spacing-2) +
+        max(0px, calc((var(--depth) - 2) * var(--moduix-spacing-2)))
+    );
+    /* Clip only horizontally so TocRail can reach the neighbouring items. */
+    overflow-x: clip;
+    border-radius: var(--moduix-radius-sm);
+    color: var(--moduix-muted-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
+    text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    outline: none;
+    transition: color var(--moduix-transition-default);
+
+    @media (hover: hover) {
+      &:hover {
+        color: var(--moduix-foreground);
+      }
+    }
+
+    &:focus-visible {
+      box-shadow: 0 0 0 var(--moduix-focus-ring-inset-width) var(--moduix-ring);
+    }
+
+    &[data-active] {
+      color: var(--moduix-foreground);
+      font-weight: var(--moduix-weight-medium);
+
+      .rail {
+        color: var(--moduix-muted-foreground);
+        opacity: 0.7;
+        translate: 0 var(--moduix-spacing-0-5);
+      }
+    }
+  }
+
+  .indicator {
+    z-index: 1;
+    top: calc(var(--_toc-indicator-top) + var(--moduix-spacing-0-5));
+    inset-inline-start: 0;
+    width: var(--moduix-border-width-md);
+    height: calc(var(--_toc-indicator-height) - var(--moduix-spacing-1));
+    border-radius: var(--moduix-radius-full);
+    background-color: var(--moduix-muted-foreground);
+    opacity: 0.7;
+    pointer-events: none;
+    transition:
+      top var(--moduix-transition-default),
+      height var(--moduix-transition-default);
+  }
+
+  .rail {
+    position: absolute;
+    top: calc(-1 * var(--moduix-spacing-1-5));
+    inset-inline-start: 0;
+    overflow: visible;
+    color: var(--moduix-border);
+    pointer-events: none;
+
+    & :is(line, path) {
+      stroke-width: var(--moduix-border-width-sm);
+    }
+  }
+}

@@ -1,0 +1,122 @@
+@layer moduix.components {
+  .root {
+    width: 100%;
+    height: 100%;
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
+    border-radius: var(--moduix-radius-md);
+    background-color: var(--moduix-card);
+    color: var(--moduix-card-foreground);
+    box-shadow: var(--moduix-shadow-sm);
+  }
+
+  .panel {
+    padding: var(--moduix-spacing-4);
+
+    &[data-dragging] {
+      user-select: none;
+    }
+  }
+
+  .resizeTrigger {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    appearance: none;
+    outline: 0;
+
+    &::before {
+      position: absolute;
+      width: 0.5px;
+      height: 100%;
+      background-color: var(--moduix-splitter-resize-trigger-line-color, var(--moduix-border));
+      content: '';
+      transition: background-color var(--moduix-transition-default);
+    }
+
+    &::after {
+      position: absolute;
+      width: var(--moduix-splitter-resize-trigger-size, var(--moduix-spacing-2-5));
+      height: 100%;
+      content: '';
+    }
+
+    &[data-orientation='vertical'] {
+      width: 100%;
+      height: 1px;
+
+      &::before {
+        width: 100%;
+        height: 0.5px;
+      }
+
+      &::after {
+        width: 100%;
+        height: var(--moduix-splitter-resize-trigger-size, var(--moduix-spacing-2-5));
+      }
+    }
+
+    &[data-dragging]::before {
+      background-color: color-mix(in oklab, var(--moduix-muted-foreground) 40%, transparent);
+    }
+
+    &[data-disabled] {
+      opacity: var(--moduix-opacity-disabled);
+    }
+
+    &:focus-visible:not([data-dragging]):not(:has(.resizeTriggerIndicator))::after {
+      outline: var(--moduix-focus-ring-width) solid var(--moduix-ring);
+      outline-offset: var(--moduix-border-width-sm);
+    }
+  }
+
+  .resizeTriggerIndicator {
+    position: absolute;
+    width: var(--moduix-spacing-1-5);
+    height: var(--moduix-size-xs);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
+    border-radius: var(--moduix-radius-full);
+    background-color: var(--moduix-background);
+    box-shadow: var(--moduix-shadow-sm);
+    pointer-events: none;
+    transition:
+      border-color var(--moduix-transition-default),
+      box-shadow var(--moduix-transition-default),
+      transform var(--moduix-transition-default);
+
+    &[data-orientation='vertical'] {
+      width: var(--moduix-size-xs);
+      height: var(--moduix-spacing-1-5);
+    }
+
+    &[data-dragging] {
+      box-shadow: var(--moduix-shadow-md);
+      transform: scale(1.08);
+    }
+
+    &[data-disabled] {
+      visibility: hidden;
+    }
+  }
+
+  .resizeTrigger:focus-visible:not([data-dragging]) .resizeTriggerIndicator {
+    outline: var(--moduix-focus-ring-width) solid var(--moduix-ring);
+    outline-offset: var(--moduix-border-width-sm);
+  }
+
+  @media (hover: hover) {
+    .resizeTrigger:hover::before {
+      background-color: color-mix(in oklab, var(--moduix-muted-foreground) 40%, transparent);
+    }
+
+    .resizeTrigger:hover .resizeTriggerIndicator {
+      border-color: color-mix(in oklab, var(--moduix-muted-foreground) 40%, transparent);
+      box-shadow: var(--moduix-shadow-md);
+    }
+  }
+}

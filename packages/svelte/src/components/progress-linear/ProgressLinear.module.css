@@ -1,0 +1,78 @@
+@layer moduix.components {
+  .root {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--moduix-spacing-2);
+    width: 100%;
+
+    &[data-orientation='vertical'] {
+      grid-template-rows: auto minmax(0, 1fr);
+      width: max-content;
+      height: 12rem;
+    }
+  }
+
+  .label,
+  .valueText {
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
+    overflow-wrap: anywhere;
+  }
+
+  .valueText {
+    justify-self: end;
+    text-align: end;
+  }
+
+  .track {
+    grid-column: 1 / -1;
+    overflow: hidden;
+    height: var(--moduix-progress-linear-track-size, var(--moduix-spacing-2));
+    border-radius: var(--moduix-radius-full);
+    background-color: var(--moduix-progress-linear-track-bg, var(--moduix-muted));
+    box-shadow: inset 0 0 0 var(--moduix-border-width-sm) var(--moduix-border);
+
+    &[data-orientation='vertical'] {
+      display: flex;
+      align-items: end;
+      justify-self: center;
+      width: var(--moduix-progress-linear-track-size, var(--moduix-spacing-2));
+      height: 100%;
+    }
+  }
+
+  .range {
+    height: 100%;
+    border-radius: inherit;
+    background-color: var(--moduix-progress-linear-range-bg, var(--moduix-primary));
+    transition:
+      width var(--moduix-transition-default),
+      height var(--moduix-transition-default);
+
+    /* Ark leaves the range size unset while the value is unknown. */
+    &[data-state='indeterminate'] {
+      width: 35%;
+      animation: global(moduix-progress-linear-indeterminate) 1.5s ease-in-out infinite;
+    }
+
+    &[data-orientation='vertical'] {
+      width: 100%;
+    }
+
+    &[data-state='indeterminate'][data-orientation='vertical'] {
+      height: 35%;
+      animation: global(moduix-progress-linear-indeterminate-vertical) 1.5s ease-in-out infinite;
+    }
+
+    /* The RTL range starts at the right edge; mirroring it turns the sweep right-to-left. */
+    &[data-state='indeterminate'][data-orientation='horizontal']:dir(rtl) {
+      scale: -1 1;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      &[data-state='indeterminate'] {
+        animation: none;
+      }
+    }
+  }
+}

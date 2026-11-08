@@ -1,0 +1,82 @@
+@layer moduix.storybook {
+  .demoRoot {
+    width: 22rem;
+
+    @media (min-width: 32rem) {
+      width: 32rem;
+    }
+  }
+
+  .panelText {
+    margin: 0;
+  }
+
+  .inlineRoot {
+    display: flex;
+    flex-direction: row;
+    width: 22rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--moduix-spacing-4);
+    color: var(--moduix-foreground);
+
+    @media (min-width: 32rem) {
+      width: 32rem;
+    }
+  }
+
+  .inlineList {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--moduix-spacing-1);
+    flex-shrink: 0;
+    padding: 0;
+    border-width: 0;
+    background-color: transparent;
+  }
+
+  .providerStack {
+    display: grid;
+    gap: var(--moduix-spacing-3);
+
+    & output {
+      color: var(--moduix-muted-foreground);
+      font-size: var(--moduix-text-sm);
+      line-height: var(--moduix-line-height-text-sm);
+    }
+  }
+
+  .inlineTrigger {
+    border-radius: var(--moduix-radius-sm);
+  }
+
+  .inlineIndicator {
+    top: auto;
+    bottom: 0;
+    height: var(--moduix-border-width-md);
+    border-radius: var(--moduix-radius-full);
+    background: var(--moduix-foreground);
+    box-shadow: none;
+  }
+
+  .inlineContent {
+    flex: 1;
+    min-width: 0;
+    padding: 0;
+    border-width: 0;
+    background-color: transparent;
+  }
+
+  .inlineInput {
+    width: 100%;
+    height: var(--moduix-size-md);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
+    border-radius: var(--moduix-radius-sm);
+    padding-inline: var(--moduix-spacing-2);
+    background: var(--moduix-background);
+    color: var(--moduix-foreground);
+    font: inherit;
+    font-size: var(--moduix-text-sm);
+  }
+}

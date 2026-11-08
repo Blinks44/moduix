@@ -6,6 +6,7 @@ import ComboboxBindings from './bindings/ComboboxBindings.svelte';
 import JsonTreeViewBindings from './bindings/JsonTreeViewBindings.svelte';
 import ListboxBindings from './bindings/ListboxBindings.svelte';
 import MediaBindings from './bindings/MediaBindings.svelte';
+import NavigationBindings from './bindings/NavigationBindings.svelte';
 import OverlayBindings from './bindings/OverlayBindings.svelte';
 import PaginationBindings from './bindings/PaginationBindings.svelte';
 import PickerBindings from './bindings/PickerBindings.svelte';
@@ -422,4 +423,74 @@ test('user actions reach bound media state', async () => {
   await expect.poll(() => component.read().acceptedFiles).toEqual([]);
   await page.getByRole('button', { name: 'Change clipboard', exact: true }).click();
   await expect.poll(() => component.read().clipboardValue).toBe('typed');
+});
+test('writes to bound navigation and disclosure state reach the controls', async () => {
+  const { component } = render(NavigationBindings);
+
+  component.write('open');
+  await expect
+    .element(page.getByRole('button', { name: 'Bound collapsible', exact: true }))
+    .toHaveAttribute('aria-expanded', 'true');
+  component.write('tab');
+  await expect
+    .element(page.getByRole('tab', { name: 'Projects', exact: true }))
+    .toHaveAttribute('aria-selected', 'true');
+  component.write('step');
+  await expect.element(page.getByText('Second step')).toBeVisible();
+  component.write('activeIds');
+  await expect
+    .element(page.getByRole('link', { name: 'configuration', exact: true }))
+    .toHaveAttribute('aria-current', 'location');
+  component.write('menu');
+  await expect
+    .element(page.getByRole('button', { name: 'Products', exact: true }))
+    .toHaveAttribute('data-state', 'open');
+  component.write('size');
+  await expect
+    .element(page.getByRole('separator', { name: 'Resize bound panels' }))
+    .toHaveAttribute('aria-valuenow', '60');
+  component.write('linear');
+  await expect
+    .element(page.getByRole('progressbar', { name: 'Bound linear' }))
+    .toHaveAttribute('aria-valuenow', '80');
+  component.write('circular');
+  await expect
+    .element(page.getByRole('progressbar', { name: 'Bound circular' }))
+    .toHaveAttribute('aria-valuenow', '80');
+  component.write('pressed');
+  await expect
+    .element(page.getByRole('button', { name: 'Bound toggle', exact: true }))
+    .toHaveAttribute('aria-pressed', 'true');
+});
+
+test('user actions reach bound navigation and disclosure state', async () => {
+  const { component } = render(NavigationBindings);
+
+  await page.getByRole('button', { name: 'Bound collapsible', exact: true }).click();
+  await expect.poll(() => component.read().open).toBe(true);
+
+  await page.getByRole('tab', { name: 'Projects', exact: true }).click();
+  await expect.poll(() => component.read().tab).toBe('projects');
+
+  await page.getByRole('button', { name: 'Next step', exact: true }).click();
+  await expect.poll(() => component.read().step).toBe(1);
+
+  await page.getByRole('button', { name: 'Activate both sections', exact: true }).click();
+  await expect.poll(() => component.read().activeIds).toEqual(['introduction', 'configuration']);
+
+  await page.getByRole('button', { name: 'Products', exact: true }).press('Enter');
+  await expect.poll(() => component.read().menu).toBe('products');
+
+  const resize = page.getByRole('separator', { name: 'Resize bound panels' });
+  await resize.click();
+  await resize.press('ArrowRight');
+  await expect.poll(() => component.read().size[0]).toBeGreaterThan(40);
+
+  await page.getByRole('button', { name: 'Set linear', exact: true }).click();
+  await expect.poll(() => component.read().linear).toBe(30);
+  await page.getByRole('button', { name: 'Set circular', exact: true }).click();
+  await expect.poll(() => component.read().circular).toBe(30);
+
+  await page.getByRole('button', { name: 'Bound toggle', exact: true }).click();
+  await expect.poll(() => component.read().pressed).toBe(true);
 });

@@ -21,6 +21,14 @@
     DrawerTrigger,
     useDrawer,
   } from '@/components/drawer';
+  import {
+    ScrollArea,
+    ScrollAreaContent,
+    ScrollAreaCorner,
+    ScrollAreaScrollbar,
+    ScrollAreaThumb,
+    ScrollAreaViewport,
+  } from '@/components/scroll-area';
   import { insideScrollSections } from '../data/insideScrollSections';
   import DrawerContextReadout from './DrawerContextReadout.svelte';
   import DrawerSurface from './DrawerSurface.svelte';
@@ -147,19 +155,20 @@
           </DrawerHeader>
         </DrawerGrabber>
         <DrawerBody class={nonModalScrollRegionClass}>
-          <!-- The other adapters wrap this list in ScrollArea; switch once it is ported. -->
-          <div class={nonModalScrollAreaClass} style="overflow-y: auto">
-            <div class={nonModalScrollViewportClass}>
-              <div class={nonModalScrollContentClass}>
+          <ScrollArea class={nonModalScrollAreaClass}>
+            <ScrollAreaViewport class={nonModalScrollViewportClass}>
+              <ScrollAreaContent class={nonModalScrollContentClass}>
                 {#each insideScrollSections as item (item.title)}
                   <section>
                     <h3 class="m-0 text-sm leading-6 font-semibold">{item.title}</h3>
                     <p class="m-0 text-sm leading-6 text-muted-foreground">{item.body}</p>
                   </section>
                 {/each}
-              </div>
-            </div>
-          </div>
+              </ScrollAreaContent>
+            </ScrollAreaViewport>
+            <ScrollAreaScrollbar><ScrollAreaThumb /></ScrollAreaScrollbar>
+            <ScrollAreaCorner />
+          </ScrollArea>
         </DrawerBody>
       </DrawerContent>
     </DrawerPositioner>

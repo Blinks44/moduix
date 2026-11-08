@@ -1,0 +1,122 @@
+@layer moduix.components {
+  .root {
+    max-width: 100%;
+    color: var(--moduix-breadcrumbs-color, var(--moduix-muted-foreground));
+    font-size: var(--moduix-breadcrumbs-font-size, var(--moduix-text-sm));
+    line-height: var(--moduix-breadcrumbs-line-height, var(--moduix-line-height-text-sm));
+  }
+
+  .list {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: var(--moduix-breadcrumbs-gap, var(--moduix-spacing-1));
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    white-space: nowrap;
+
+    > .item:last-child {
+      flex: 1 1 auto;
+      max-width: var(--moduix-breadcrumbs-item-max-width, 16rem);
+    }
+  }
+
+  .item {
+    display: inline-flex;
+    min-width: 0;
+    align-items: center;
+  }
+
+  .link,
+  .page {
+    display: block;
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    padding-inline: var(--moduix-breadcrumbs-item-padding-x, var(--moduix-spacing-1));
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .link {
+    color: inherit;
+    text-decoration: none;
+    border-radius: var(--moduix-radius-sm);
+    outline: none;
+    transition: color var(--moduix-transition-default);
+
+    @media (hover: hover) {
+      &:hover {
+        color: var(--moduix-breadcrumbs-link-color-hover, var(--moduix-foreground));
+      }
+    }
+
+    &:focus-visible {
+      box-shadow: 0 0 0 var(--moduix-focus-ring-inset-width) var(--moduix-ring);
+    }
+  }
+
+  .page {
+    color: var(--moduix-breadcrumbs-page-color, var(--moduix-foreground));
+    font-weight: var(--moduix-breadcrumbs-page-font-weight, var(--moduix-weight-medium));
+  }
+
+  .separator {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.875em;
+    line-height: 1;
+    user-select: none;
+  }
+
+  .separatorIcon {
+    width: var(--moduix-breadcrumbs-separator-icon-size, 1em);
+    height: var(--moduix-breadcrumbs-separator-icon-size, 1em);
+    flex: none;
+  }
+
+  .separatorIcon:dir(rtl) {
+    transform: rotate(180deg);
+  }
+
+  .ellipsis {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: var(--moduix-spacing-4);
+    min-height: var(--moduix-spacing-4);
+    padding-inline: var(--moduix-breadcrumbs-item-padding-x, var(--moduix-spacing-1));
+    border-radius: var(--moduix-radius-sm);
+    transition: color var(--moduix-transition-default);
+  }
+
+  .ellipsisIcon {
+    width: 1em;
+    height: 1em;
+    flex: none;
+  }
+
+  /* A native button that wraps the ellipsis, such as a collapsed-path MenuTrigger. */
+  button:has(> .ellipsis) {
+    display: inline-flex;
+    align-items: center;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    outline: none;
+  }
+
+  @media (hover: hover) {
+    button:hover > .ellipsis {
+      color: var(--moduix-breadcrumbs-link-color-hover, var(--moduix-foreground));
+    }
+  }
+
+  button:focus-visible > .ellipsis {
+    box-shadow: 0 0 0 var(--moduix-focus-ring-inset-width) var(--moduix-ring);
+  }
+}

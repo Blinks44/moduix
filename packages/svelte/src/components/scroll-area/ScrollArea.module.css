@@ -1,0 +1,151 @@
+@layer moduix.components {
+  .root {
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+  }
+
+  .viewport {
+    --_scroll-area-fade-size: var(--moduix-scroll-area-fade-size, var(--moduix-spacing-10));
+
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    border-radius: inherit;
+    outline: 0;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .root[data-fade] & {
+      mask-image: linear-gradient(
+        to bottom,
+        transparent,
+        black min(var(--_scroll-area-fade-size), var(--scroll-area-overflow-y-start, 0px)),
+        black
+          calc(100% - min(var(--_scroll-area-fade-size), var(--scroll-area-overflow-y-end, 0px))),
+        transparent
+      );
+      mask-repeat: no-repeat;
+    }
+
+    &:focus-visible {
+      outline: var(--moduix-focus-ring-inset-width) solid var(--moduix-ring);
+      outline-offset: var(--moduix-focus-ring-inset-offset);
+    }
+  }
+
+  /* Ark positions the scrollbar inline; this rule only sizes, hides, and reveals it. */
+  .scrollbar {
+    --_scroll-area-scrollbar-size: var(
+      --moduix-scroll-area-scrollbar-size,
+      var(--moduix-spacing-1)
+    );
+
+    margin: var(--moduix-spacing-1);
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      opacity var(--moduix-transition-default),
+      width var(--moduix-transition-fast),
+      height var(--moduix-transition-fast);
+
+    /* Wider invisible hit area for grabbing the thin track. */
+    &::before {
+      content: '';
+      position: absolute;
+    }
+
+    &[data-orientation='vertical'] {
+      width: var(--_scroll-area-scrollbar-size);
+      margin-inline-start: 0;
+
+      &::before {
+        inset-block: 0;
+        inset-inline: calc(var(--moduix-spacing-2) * -1);
+      }
+
+      &:not([data-overflow-y]) {
+        display: none;
+      }
+
+      &[data-dragging] {
+        width: calc(var(--_scroll-area-scrollbar-size) + 2px);
+      }
+
+      @media (hover: hover) {
+        &:hover {
+          width: calc(var(--_scroll-area-scrollbar-size) + 2px);
+        }
+      }
+    }
+
+    &[data-orientation='horizontal'] {
+      height: var(--_scroll-area-scrollbar-size);
+      margin-block-start: 0;
+
+      &::before {
+        inset-inline: 0;
+        inset-block: calc(var(--moduix-spacing-2) * -1);
+      }
+
+      &:not([data-overflow-x]) {
+        display: none;
+      }
+
+      &[data-dragging] {
+        height: calc(var(--_scroll-area-scrollbar-size) + 2px);
+      }
+
+      @media (hover: hover) {
+        &:hover {
+          height: calc(var(--_scroll-area-scrollbar-size) + 2px);
+        }
+      }
+    }
+
+    &[data-hover],
+    &[data-scrolling],
+    .root[data-variant='always'] & {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    &[data-scrolling] {
+      transition-duration: 0ms;
+    }
+  }
+
+  .thumb {
+    border-radius: var(--moduix-radius-full);
+    background-color: var(--moduix-scroll-area-thumb-bg, var(--moduix-border));
+
+    &[data-orientation='vertical'] {
+      width: 100%;
+      min-height: var(--moduix-size-xs);
+    }
+
+    &[data-orientation='horizontal'] {
+      height: 100%;
+      min-width: var(--moduix-size-xs);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .root[data-fade] .viewport {
+      mask-image: none;
+    }
+
+    .viewport:focus-visible {
+      outline-color: Highlight;
+    }
+
+    .thumb {
+      background-color: ButtonText;
+    }
+  }
+}
