@@ -1,0 +1,10 @@
+.triggerMeta {
+  opacity: 0.7;
+}
+
+.footerHint {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--moduix-spacing-1);
+  min-width: 0;
+}

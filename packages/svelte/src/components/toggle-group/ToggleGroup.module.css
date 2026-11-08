@@ -1,0 +1,50 @@
+@layer moduix.components {
+  .root {
+    --_toggle-group-bg: var(--moduix-muted);
+    --_toggle-group-border-color: var(--moduix-border);
+    --moduix-toggle-color: var(--moduix-foreground);
+
+    display: inline-flex;
+    align-items: center;
+    gap: var(--moduix-border-width-sm);
+    max-inline-size: 100%;
+    padding: var(--moduix-border-width-md);
+    border: var(--moduix-border-width-sm) solid
+      var(--moduix-toggle-group-border-color, var(--_toggle-group-border-color));
+    border-radius: var(--moduix-radius-lg);
+    background-color: var(--moduix-toggle-group-bg, var(--_toggle-group-bg));
+    color: var(--moduix-foreground);
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    &[data-orientation='vertical'] {
+      flex-direction: column;
+      align-items: stretch;
+
+      & > .item {
+        width: 100%;
+        justify-content: flex-start;
+      }
+    }
+
+    &[data-variant='outline'] {
+      --_toggle-group-bg: var(--moduix-background);
+    }
+
+    &[data-variant='ghost'] {
+      --_toggle-group-bg: transparent;
+      --_toggle-group-border-color: transparent;
+
+      padding: 0;
+    }
+  }
+
+  .item {
+    flex: 0 0 auto;
+  }
+}

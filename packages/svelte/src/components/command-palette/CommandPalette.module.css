@@ -1,0 +1,311 @@
+@layer moduix.components {
+  .backdrop {
+    position: fixed;
+    z-index: calc(var(--z-index, var(--moduix-z-popup)) - 1);
+    inset: 0;
+    background-color: var(--moduix-backdrop-bg, var(--moduix-overlay));
+    backdrop-filter: var(--moduix-backdrop-filter, blur(4px));
+
+    &[data-state='open'] {
+      animation: global(moduix-command-palette-backdrop-in) var(--moduix-transition-default);
+    }
+
+    &[data-state='closed'] {
+      animation: global(moduix-command-palette-backdrop-out) var(--moduix-transition-default)
+        forwards;
+    }
+  }
+
+  .positioner {
+    position: fixed;
+    z-index: var(--z-index, var(--moduix-z-popup));
+    inset: 0;
+    display: grid;
+    align-items: start;
+    justify-items: center;
+    overflow: hidden;
+    overscroll-behavior: contain;
+    padding: 10dvh var(--moduix-spacing-4) var(--moduix-spacing-4);
+  }
+
+  .content {
+    z-index: calc(var(--moduix-z-popup) + var(--layer-index, 0));
+    display: flex;
+    width: var(--moduix-command-palette-width, 37.5rem);
+    max-width: 100%;
+    max-height: min(var(--moduix-command-palette-max-height, 34rem), calc(100dvh - 5rem));
+    flex-direction: column;
+    overflow: hidden;
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
+    border-radius: var(--moduix-radius-lg);
+    background-color: var(--moduix-popover);
+    color: var(--moduix-popover-foreground);
+    box-shadow: var(--moduix-shadow-lg);
+    outline: 0;
+    transform-origin: top center;
+
+    &[data-state='open'] {
+      animation: global(moduix-command-palette-content-in)
+        var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
+        var(--moduix-popup-motion-easing, var(--moduix-ease-in-out));
+    }
+
+    &[data-state='closed'] {
+      animation: global(moduix-command-palette-content-out)
+        var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
+        var(--moduix-popup-motion-easing, var(--moduix-ease-in-out)) forwards;
+    }
+  }
+
+  .header {
+    display: grid;
+    gap: var(--moduix-spacing-1);
+    padding: var(--moduix-spacing-4) var(--moduix-spacing-4) 0;
+  }
+
+  .title {
+    margin: 0;
+    font-size: var(--moduix-text-md);
+    font-weight: var(--moduix-weight-semibold);
+    line-height: var(--moduix-line-height-text-md);
+  }
+
+  .description {
+    margin: 0;
+    color: var(--moduix-muted-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
+  }
+
+  .combobox {
+    display: flex;
+    min-height: 0;
+    flex: 1 1 auto;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .control {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: var(--moduix-spacing-2);
+    min-height: var(--moduix-size-md);
+    margin: var(--moduix-spacing-3) var(--moduix-spacing-3) 0;
+    border: var(--moduix-border-width-sm) solid var(--moduix-input);
+    border-radius: var(--moduix-radius-md);
+    padding: var(--moduix-spacing-1) var(--moduix-spacing-3);
+    background-color: var(--moduix-background);
+    color: var(--moduix-foreground);
+    transition: border-color var(--moduix-transition-default);
+
+    &[data-invalid] {
+      border-color: var(--moduix-destructive);
+    }
+  }
+
+  .searchIcon {
+    flex: none;
+    width: var(--moduix-spacing-4);
+    height: var(--moduix-spacing-4);
+    color: var(--moduix-muted-foreground);
+    pointer-events: none;
+  }
+
+  .input {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
+    outline: 0;
+
+    &::placeholder {
+      color: var(--moduix-muted-foreground);
+    }
+  }
+
+  .clearTrigger {
+    --moduix-close-button-size: var(--moduix-size-xs);
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .list {
+    display: flex;
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+    outline: 0;
+  }
+
+  /* `.list >` outranks the ScrollArea root `height: 100%`, which would not stretch in a list capped by max-height. */
+  .list > .scrollArea {
+    flex: 1 1 auto;
+    height: auto;
+    min-height: 0;
+  }
+
+  .scrollViewport {
+    scroll-padding-block: var(--moduix-spacing-2);
+  }
+
+  .scrollContent {
+    min-height: 100%;
+    padding: var(--moduix-spacing-3);
+  }
+
+  /* The list already pads the result area; this adds the remaining inline inset. */
+  .empty {
+    padding-inline: var(--moduix-spacing-1);
+    color: var(--moduix-muted-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
+  }
+
+  .itemGroup {
+    display: grid;
+    gap: var(--moduix-spacing-1);
+
+    &:not(:last-child) {
+      padding-bottom: var(--moduix-spacing-2);
+    }
+  }
+
+  .itemGroupLabel {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    padding: var(--moduix-popup-group-label-padding-y, var(--moduix-spacing-1))
+      var(--moduix-spacing-3);
+    background-color: var(--moduix-popover);
+    color: var(--moduix-popup-group-label-color, var(--moduix-muted-foreground));
+    font-size: var(--moduix-popup-group-label-font-size, var(--moduix-text-xs));
+    font-weight: var(--moduix-popup-group-label-font-weight, var(--moduix-weight-regular));
+    line-height: var(--moduix-popup-group-label-line-height, var(--moduix-line-height-text-xs));
+  }
+
+  .item {
+    display: flex;
+    align-items: center;
+    gap: var(--moduix-spacing-3);
+    min-height: var(--moduix-popup-item-min-height, var(--moduix-size-sm));
+    padding-block: var(--moduix-popup-item-padding-y, var(--moduix-spacing-1));
+    padding-inline: var(--moduix-popup-item-padding-x-start, var(--moduix-spacing-3));
+    border-radius: var(--moduix-radius-md);
+    font-size: var(--moduix-popup-item-font-size, var(--moduix-text-sm));
+    line-height: var(--moduix-popup-item-line-height, var(--moduix-line-height-text-sm));
+    outline: 0;
+    cursor: default;
+    user-select: none;
+
+    &[data-highlighted] {
+      background-color: var(--moduix-accent);
+      color: var(--moduix-accent-foreground);
+    }
+
+    &[data-disabled] {
+      opacity: var(--moduix-opacity-disabled);
+      pointer-events: none;
+    }
+  }
+
+  .itemIcon {
+    display: inline-flex;
+    flex: none;
+    width: var(--moduix-spacing-8);
+    height: var(--moduix-spacing-8);
+    align-items: center;
+    justify-content: center;
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
+    border-radius: var(--moduix-radius-md);
+    background-color: var(--moduix-muted);
+    color: var(--moduix-muted-foreground);
+  }
+
+  .itemText {
+    display: grid;
+    flex: 1 1 auto;
+    min-width: 0;
+    gap: var(--moduix-spacing-1);
+  }
+
+  .itemLabel,
+  .itemDescription {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .itemLabel {
+    font-weight: var(--moduix-weight-medium);
+  }
+
+  .itemDescription {
+    color: var(--moduix-muted-foreground);
+    font-size: var(--moduix-text-xs);
+    line-height: var(--moduix-line-height-text-xs);
+  }
+
+  .itemMeta,
+  .itemIndicator {
+    flex: none;
+    margin-inline-start: auto;
+    color: var(--moduix-muted-foreground);
+  }
+
+  .itemMeta {
+    font-size: var(--moduix-text-xs);
+    line-height: var(--moduix-line-height-text-xs);
+    white-space: nowrap;
+  }
+
+  .itemIndicator {
+    display: inline-flex;
+  }
+
+  .itemIcon > svg,
+  .itemIndicator > svg {
+    width: var(--moduix-spacing-4);
+    height: var(--moduix-spacing-4);
+  }
+
+  .separator {
+    height: var(--moduix-border-width-sm);
+    margin: var(--moduix-spacing-2);
+    background-color: var(--moduix-border);
+  }
+
+  .footer {
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--moduix-spacing-3);
+    padding: var(--moduix-spacing-2) var(--moduix-spacing-4);
+    border-top: var(--moduix-border-width-sm) solid var(--moduix-border);
+    color: var(--moduix-muted-foreground);
+    font-size: var(--moduix-text-xs);
+    line-height: var(--moduix-line-height-text-xs);
+  }
+
+  .kbd {
+    --moduix-kbd-height: var(--moduix-spacing-5);
+    --moduix-kbd-padding-x: var(--moduix-spacing-1);
+    --moduix-kbd-color: var(--moduix-muted-foreground);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .backdrop[data-state],
+    .content[data-state] {
+      animation: none;
+    }
+  }
+}

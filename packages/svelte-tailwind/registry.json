@@ -4898,6 +4898,561 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "command-palette",
+      "type": "registry:item",
+      "title": "CommandPalette",
+      "description": "moduix Svelte Tailwind CommandPalette component.",
+      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-svelte-tailwind/foundation",
+        "@moduix-svelte-tailwind/icons",
+        "@moduix-svelte-tailwind/close-button",
+        "@moduix-svelte-tailwind/kbd",
+        "@moduix-svelte-tailwind/overlay-portal",
+        "@moduix-svelte-tailwind/scroll-area",
+        "@moduix-svelte-tailwind/a11y-labels"
+      ],
+      "files": [
+        {
+          "path": "src/components/command-palette/CommandPalette.svelte",
+          "target": "@components/ui/command-palette/CommandPalette.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteRootProvider.svelte",
+          "target": "@components/ui/command-palette/CommandPaletteRootProvider.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteTrigger.svelte",
+          "target": "@components/ui/command-palette/CommandPaletteTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteBackdrop.svelte",
+          "target": "@components/ui/command-palette/CommandPaletteBackdrop.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPalettePositioner.svelte",
+          "target": "@components/ui/command-palette/CommandPalettePositioner.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteContent.svelte",
+          "target": "@components/ui/command-palette/CommandPaletteContent.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPalettePanel.svelte",
+          "target": "@components/ui/command-palette/CommandPalettePanel.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteTitle.svelte",
+          "target": "@components/ui/command-palette/CommandPaletteTitle.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteDescription.svelte",
+          "target": "@components/ui/command-palette/CommandPaletteDescription.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteHeader.svelte",
+          "target": "@components/ui/command-palette/CommandPaletteHeader.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteShortcut.svelte",
+          "target": "@components/ui/command-palette/CommandPaletteShortcut.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteCombobox.svelte",
+          "target": "@components/ui/command-palette/CommandPaletteCombobox.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteControl.svelte",
+          "target": "@components/ui/command-palette/CommandPaletteControl.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteInput.svelte",
+          "target": "@components/ui/command-palette/CommandPaletteInput.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteSearch.svelte",
+          "target": "@components/ui/command-palette/CommandPaletteSearch.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteClearTrigger.svelte",
+          "target": "@components/ui/command-palette/CommandPaletteClearTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteList.svelte",
+          "target": "@components/ui/command-palette/CommandPaletteList.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteEmpty.svelte",
+          "target": "@components/ui/command-palette/CommandPaletteEmpty.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteItemGroup.svelte",
+          "target": "@components/ui/command-palette/CommandPaletteItemGroup.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteItemGroupLabel.svelte",
+          "target": "@components/ui/command-palette/CommandPaletteItemGroupLabel.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteItem.svelte",
+          "target": "@components/ui/command-palette/CommandPaletteItem.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteItemText.svelte",
+          "target": "@components/ui/command-palette/CommandPaletteItemText.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteItemIndicator.svelte",
+          "target": "@components/ui/command-palette/CommandPaletteItemIndicator.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteItemIcon.svelte",
+          "target": "@components/ui/command-palette/CommandPaletteItemIcon.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteItemLabel.svelte",
+          "target": "@components/ui/command-palette/CommandPaletteItemLabel.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteItemDescription.svelte",
+          "target": "@components/ui/command-palette/CommandPaletteItemDescription.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteItemMeta.svelte",
+          "target": "@components/ui/command-palette/CommandPaletteItemMeta.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteSeparator.svelte",
+          "target": "@components/ui/command-palette/CommandPaletteSeparator.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteFooter.svelte",
+          "target": "@components/ui/command-palette/CommandPaletteFooter.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/CommandPaletteKbd.svelte",
+          "target": "@components/ui/command-palette/CommandPaletteKbd.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/command-palette/index.ts",
+          "target": "@components/ui/command-palette/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "input-group",
+      "type": "registry:item",
+      "title": "InputGroup",
+      "description": "moduix Svelte Tailwind InputGroup component.",
+      "dependencies": ["@ark-ui/svelte", "class-variance-authority", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-svelte-tailwind/icons",
+        "@moduix-svelte-tailwind/close-button",
+        "@moduix-svelte-tailwind/foundation",
+        "@moduix-svelte-tailwind/cn",
+        "@moduix-svelte-tailwind/a11y-labels",
+        "@moduix-svelte-tailwind/button",
+        "@moduix-svelte-tailwind/input",
+        "@moduix-svelte-tailwind/textarea"
+      ],
+      "files": [
+        {
+          "path": "src/components/input-group/InputGroupClearTrigger.svelte",
+          "target": "@components/ui/input-group/InputGroupClearTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/input-group/InputGroup.svelte",
+          "target": "@components/ui/input-group/InputGroup.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/input-group/InputGroupAddon.svelte",
+          "target": "@components/ui/input-group/InputGroupAddon.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/input-group/InputGroupButton.svelte",
+          "target": "@components/ui/input-group/InputGroupButton.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/input-group/InputGroupInput.svelte",
+          "target": "@components/ui/input-group/InputGroupInput.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/input-group/InputGroupText.svelte",
+          "target": "@components/ui/input-group/InputGroupText.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/input-group/InputGroupTextarea.svelte",
+          "target": "@components/ui/input-group/InputGroupTextarea.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/input-group/context.ts",
+          "target": "@components/ui/input-group/context.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/input-group/variants.ts",
+          "target": "@components/ui/input-group/variants.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/input-group/index.ts",
+          "target": "@components/ui/input-group/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "sidebar",
+      "type": "registry:item",
+      "title": "Sidebar",
+      "description": "moduix Svelte Tailwind Sidebar component.",
+      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-svelte-tailwind/foundation",
+        "@moduix-svelte-tailwind/cn",
+        "@moduix-svelte-tailwind/a11y-labels",
+        "@moduix-svelte-tailwind/icons",
+        "@moduix-svelte-tailwind/input",
+        "@moduix-svelte-tailwind/separator",
+        "@moduix-svelte-tailwind/splitter",
+        "@moduix-svelte-tailwind/tooltip"
+      ],
+      "files": [
+        {
+          "path": "src/components/sidebar/Sidebar.svelte",
+          "target": "@components/ui/sidebar/Sidebar.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarPanel.svelte",
+          "target": "@components/ui/sidebar/SidebarPanel.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarInset.svelte",
+          "target": "@components/ui/sidebar/SidebarInset.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarResizeTrigger.svelte",
+          "target": "@components/ui/sidebar/SidebarResizeTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarTrigger.svelte",
+          "target": "@components/ui/sidebar/SidebarTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarLabel.svelte",
+          "target": "@components/ui/sidebar/SidebarLabel.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarHeader.svelte",
+          "target": "@components/ui/sidebar/SidebarHeader.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarContent.svelte",
+          "target": "@components/ui/sidebar/SidebarContent.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarExpandedContent.svelte",
+          "target": "@components/ui/sidebar/SidebarExpandedContent.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarCollapsedContent.svelte",
+          "target": "@components/ui/sidebar/SidebarCollapsedContent.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarFooter.svelte",
+          "target": "@components/ui/sidebar/SidebarFooter.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarGroup.svelte",
+          "target": "@components/ui/sidebar/SidebarGroup.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarGroupHeader.svelte",
+          "target": "@components/ui/sidebar/SidebarGroupHeader.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarGroupLabel.svelte",
+          "target": "@components/ui/sidebar/SidebarGroupLabel.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarGroupAction.svelte",
+          "target": "@components/ui/sidebar/SidebarGroupAction.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarInput.svelte",
+          "target": "@components/ui/sidebar/SidebarInput.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarSeparator.svelte",
+          "target": "@components/ui/sidebar/SidebarSeparator.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarNavigationList.svelte",
+          "target": "@components/ui/sidebar/SidebarNavigationList.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarNavigationItem.svelte",
+          "target": "@components/ui/sidebar/SidebarNavigationItem.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarNavigationButton.svelte",
+          "target": "@components/ui/sidebar/SidebarNavigationButton.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarNavigationBadge.svelte",
+          "target": "@components/ui/sidebar/SidebarNavigationBadge.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarNavigationSubList.svelte",
+          "target": "@components/ui/sidebar/SidebarNavigationSubList.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarNavigationSubItem.svelte",
+          "target": "@components/ui/sidebar/SidebarNavigationSubItem.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarNavigationSubButton.svelte",
+          "target": "@components/ui/sidebar/SidebarNavigationSubButton.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/SidebarTooltip.svelte",
+          "target": "@components/ui/sidebar/SidebarTooltip.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/context.ts",
+          "target": "@components/ui/sidebar/context.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/sidebar/index.ts",
+          "target": "@components/ui/sidebar/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "split-button",
+      "type": "registry:item",
+      "title": "SplitButton",
+      "description": "moduix Svelte SplitButton component.",
+      "dependencies": ["@ark-ui/svelte", "class-variance-authority"],
+      "registryDependencies": [
+        "@moduix-svelte-tailwind/foundation",
+        "@moduix-svelte-tailwind/button",
+        "@moduix-svelte-tailwind/menu",
+        "@moduix-svelte-tailwind/icons",
+        "@moduix-svelte-tailwind/overlay-portal",
+        "@moduix-svelte-tailwind/cn",
+        "@moduix-svelte-tailwind/a11y-labels"
+      ],
+      "files": [
+        {
+          "path": "src/components/split-button/SplitButton.svelte",
+          "target": "@components/ui/split-button/SplitButton.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/split-button/SplitButtonAction.svelte",
+          "target": "@components/ui/split-button/SplitButtonAction.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/split-button/SplitButtonTrigger.svelte",
+          "target": "@components/ui/split-button/SplitButtonTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/split-button/SplitButtonPositioner.svelte",
+          "target": "@components/ui/split-button/SplitButtonPositioner.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/split-button/SplitButtonContent.svelte",
+          "target": "@components/ui/split-button/SplitButtonContent.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/split-button/context.ts",
+          "target": "@components/ui/split-button/context.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/split-button/index.ts",
+          "target": "@components/ui/split-button/index.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/split-button/SplitButton.variants.ts",
+          "target": "@components/ui/split-button/SplitButton.variants.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "toast",
+      "type": "registry:item",
+      "title": "Toast",
+      "description": "moduix Svelte Tailwind Toast component.",
+      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-svelte-tailwind/foundation",
+        "@moduix-svelte-tailwind/cn",
+        "@moduix-svelte-tailwind/a11y-labels",
+        "@moduix-svelte-tailwind/close-button",
+        "@moduix-svelte-tailwind/spinner",
+        "@moduix-svelte-tailwind/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/toast/Toast.svelte",
+          "target": "@components/ui/toast/Toast.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toast/ToastTitle.svelte",
+          "target": "@components/ui/toast/ToastTitle.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toast/ToastValue.svelte",
+          "target": "@components/ui/toast/ToastValue.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toast/ToastDescription.svelte",
+          "target": "@components/ui/toast/ToastDescription.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toast/ToastActionTrigger.svelte",
+          "target": "@components/ui/toast/ToastActionTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toast/ToastCloseTrigger.svelte",
+          "target": "@components/ui/toast/ToastCloseTrigger.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toast/ToastToaster.svelte",
+          "target": "@components/ui/toast/ToastToaster.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toast/index.ts",
+          "target": "@components/ui/toast/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "toggle-group",
+      "type": "registry:item",
+      "title": "ToggleGroup",
+      "description": "moduix Svelte Tailwind ToggleGroup component.",
+      "dependencies": ["@ark-ui/svelte", "class-variance-authority", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-svelte-tailwind/foundation",
+        "@moduix-svelte-tailwind/cn",
+        "@moduix-svelte-tailwind/toggle"
+      ],
+      "files": [
+        {
+          "path": "src/components/toggle-group/ToggleGroup.svelte",
+          "target": "@components/ui/toggle-group/ToggleGroup.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toggle-group/ToggleGroupRootProvider.svelte",
+          "target": "@components/ui/toggle-group/ToggleGroupRootProvider.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toggle-group/ToggleGroupItem.svelte",
+          "target": "@components/ui/toggle-group/ToggleGroupItem.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toggle-group/context.ts",
+          "target": "@components/ui/toggle-group/context.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toggle-group/ToggleGroup.variants.ts",
+          "target": "@components/ui/toggle-group/ToggleGroup.variants.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toggle-group/index.ts",
+          "target": "@components/ui/toggle-group/index.ts",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }

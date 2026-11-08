@@ -1,0 +1,134 @@
+.demo {
+  --moduix-sidebar-width: min(68rem, calc(100vw - 4rem));
+  --moduix-sidebar-height: 38rem;
+
+  border-radius: var(--moduix-radius-lg);
+  box-shadow: var(--moduix-shadow-md);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--moduix-spacing-2);
+  min-width: 0;
+  font-weight: var(--moduix-weight-semibold);
+}
+
+.headerStack {
+  display: grid;
+  gap: var(--moduix-spacing-3);
+  width: 100%;
+}
+
+.footerStack {
+  display: grid;
+  width: 100%;
+}
+
+.brandMark {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: var(--moduix-size-sm);
+  height: var(--moduix-size-sm);
+  border-radius: var(--moduix-radius-sm);
+  background: var(--moduix-primary);
+  color: var(--moduix-primary-foreground);
+  font-size: var(--moduix-text-xs);
+}
+
+.collapsible {
+  --moduix-collapsible-content-color: inherit;
+
+  color: inherit;
+}
+
+.scrollAreaContent {
+  overflow: hidden;
+}
+
+[data-slot='sidebar-panel'][data-state='collapsed'] {
+  .sidebarScrollArea [data-slot='scroll-area-scrollbar'] {
+    display: none;
+  }
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: var(--moduix-spacing-3);
+  min-height: 3.5rem;
+  padding-inline: var(--moduix-spacing-6);
+  border-block-end: var(--moduix-border-width-sm) solid var(--moduix-border);
+}
+
+.main {
+  display: grid;
+  gap: var(--moduix-spacing-4);
+  padding: var(--moduix-spacing-6);
+}
+
+.main h2,
+.main p {
+  margin: 0;
+}
+
+.placeholder {
+  min-height: 18rem;
+  border: var(--moduix-border-width-sm) dashed var(--moduix-border);
+  border-radius: var(--moduix-radius-lg);
+  background: color-mix(in oklab, var(--moduix-muted) 55%, transparent);
+}
+
+.accountButton {
+  height: auto;
+}
+
+.workspaceMark {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: var(--moduix-size-sm);
+  height: var(--moduix-size-sm);
+  border-radius: var(--moduix-radius-sm);
+  background-color: var(--moduix-accent);
+  color: var(--moduix-accent-foreground);
+  font-size: var(--moduix-text-xs);
+  font-weight: var(--moduix-weight-semibold);
+}
+
+.workspaceSelect {
+  width: 100%;
+}
+
+.accountMenu {
+  --moduix-menu-popup-min-width: 14rem;
+  --moduix-menu-popup-max-width: 18rem;
+}
+
+.accountMeta {
+  display: grid;
+  flex: 1;
+  text-align: start;
+
+  & > strong,
+  & > span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  & > strong {
+    font-weight: var(--moduix-weight-medium);
+  }
+
+  & > span {
+    color: var(--moduix-muted-foreground);
+    font-size: var(--moduix-text-xs);
+  }
+}
+
+.custom {
+  --moduix-sidebar: color-mix(in oklab, var(--moduix-primary) 5%, var(--moduix-card));
+  --moduix-sidebar-accent: color-mix(in oklab, var(--moduix-primary) 14%, var(--moduix-accent));
+}

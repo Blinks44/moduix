@@ -1,6 +1,7 @@
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render } from '@testing-library/svelte';
+import ActionBindings from './bindings/ActionBindings.svelte';
 import Bindings from './bindings/Bindings.svelte';
 import ComboboxBindings from './bindings/ComboboxBindings.svelte';
 import JsonTreeViewBindings from './bindings/JsonTreeViewBindings.svelte';
@@ -493,4 +494,81 @@ test('user actions reach bound navigation and disclosure state', async () => {
 
   await page.getByRole('button', { name: 'Bound toggle', exact: true }).click();
   await expect.poll(() => component.read().pressed).toBe(true);
+});
+test('writes to bound action and layout state reach the controls', async () => {
+  const { component } = render(ActionBindings);
+
+  component.write('toggleValue');
+  await expect
+    .element(page.getByRole('radio', { name: 'Toggle B', exact: true }))
+    .toHaveAttribute('aria-checked', 'true');
+  component.write('splitOpen');
+  await expect.element(page.getByTestId('split-content')).toBeVisible();
+  component.write('splitHighlight');
+  await expect
+    .element(page.getByRole('menuitem', { name: 'Draft', exact: true }))
+    .toHaveAttribute('data-highlighted');
+  component.write('sidebarSize');
+  await expect
+    .element(page.getByRole('separator', { name: 'Resize bound sidebar' }))
+    .toHaveAttribute('aria-valuenow', '30');
+  component.write('groupInput');
+  await expect
+    .element(page.getByRole('textbox', { name: 'Bound group input', exact: true }))
+    .toHaveValue('ext');
+  component.write('groupTextarea');
+  await expect
+    .element(page.getByRole('textbox', { name: 'Bound group textarea', exact: true }))
+    .toHaveValue('ext');
+  component.write('sidebarInput');
+  await expect
+    .element(page.getByRole('textbox', { name: 'Bound sidebar input', exact: true }))
+    .toHaveValue('ext');
+  component.write('paletteOpen');
+  await expect.element(page.getByRole('dialog', { name: 'Bound palette' })).toBeVisible();
+  component.write('paletteInput');
+  await expect
+    .element(page.getByRole('combobox', { name: 'Search commands', exact: true }))
+    .toHaveValue('ext');
+  component.write('paletteValue');
+  await expect
+    .element(page.getByRole('option', { name: 'Open files', exact: true }))
+    .toHaveAttribute('aria-selected', 'true');
+  component.write('paletteHighlight');
+  await expect
+    .element(page.getByRole('option', { name: 'Open files', exact: true }))
+    .toHaveAttribute('data-highlighted');
+});
+
+test('user actions reach bound action and layout state', async () => {
+  const { component } = render(ActionBindings);
+
+  await page.getByRole('radio', { name: 'Toggle B', exact: true }).click();
+  await expect.poll(() => component.read().toggleValue).toEqual(['b']);
+
+  await page.getByRole('button', { name: 'Bound split menu', exact: true }).click();
+  await expect.poll(() => component.read().splitOpen).toBe(true);
+  expect(component.read().splitTrigger).not.toBeUndefined();
+  await page.getByRole('menuitem', { name: 'Draft', exact: true }).hover();
+  await expect.poll(() => component.read().splitHighlight).toBe('draft');
+  await page.getByRole('menu').press('Escape');
+
+  const resize = page.getByRole('separator', { name: 'Resize bound sidebar' });
+  await resize.click();
+  await resize.press('ArrowRight');
+  await expect.poll(() => component.read().sidebarSize[0]).toBeGreaterThan(20);
+
+  await page.getByRole('textbox', { name: 'Bound group input', exact: true }).fill('typed');
+  await expect.poll(() => component.read().groupInput).toBe('typed');
+  await page.getByRole('textbox', { name: 'Bound group textarea', exact: true }).fill('typed');
+  await expect.poll(() => component.read().groupTextarea).toBe('typed');
+  await page.getByRole('textbox', { name: 'Bound sidebar input', exact: true }).fill('typed');
+  await expect.poll(() => component.read().sidebarInput).toBe('typed');
+  await page.getByRole('button', { name: 'Bound palette trigger', exact: true }).click();
+  await expect.poll(() => component.read().paletteOpen).toBe(true);
+  await page.getByRole('combobox', { name: 'Search commands', exact: true }).fill('open');
+  await expect.poll(() => component.read().paletteInput).toBe('open');
+  await page.getByRole('option', { name: 'Open files', exact: true }).click();
+  await expect.poll(() => component.read().paletteValue).toEqual(['files']);
+  await expect.poll(() => component.read().paletteHighlight).toBe('files');
 });

@@ -1,0 +1,59 @@
+<script module lang="ts">
+  import type { HTMLProps, PolymorphicProps, RefAttribute } from '@ark-ui/svelte';
+
+  export interface SidebarTriggerProps
+    extends HTMLProps<'button'>, PolymorphicProps<'button'>, RefAttribute {}
+</script>
+
+<script lang="ts">
+  import { Ark } from '@ark-ui/svelte/factory';
+  import { a11yLabels } from '@/lib/moduix/a11yLabels';
+  import { cn } from '@/lib/moduix/cn';
+  import { ChevronLeftIcon } from '@/lib/moduix/icons/ui';
+  import { useSidebar } from './context';
+
+  let {
+    children,
+    class: className,
+    onclick,
+    ref = $bindable(null),
+    type = 'button',
+    'aria-label': ariaLabel,
+    ...props
+  }: SidebarTriggerProps = $props();
+
+  const sidebar = useSidebar();
+
+  const handleClick: SidebarTriggerProps['onclick'] = (event) => {
+    onclick?.(event);
+    if (!event.defaultPrevented) sidebar.toggleSidebar();
+  };
+
+  const triggerClass = [
+    'relative z-4 -mx-3.5 inline-flex size-7 flex-none translate-y-10 cursor-pointer items-center justify-center rounded-full border border-sidebar-border bg-background p-0 text-muted-foreground shadow-sm outline-0 transition-colors duration-normal ease-in-out hover:bg-sidebar-accent hover:text-sidebar-accent-foreground',
+    'focus-visible:outline-focus focus-visible:outline-offset-focus focus-visible:outline-sidebar-ring disabled:pointer-events-none disabled:opacity-disabled aria-disabled:pointer-events-none aria-disabled:opacity-disabled',
+    "[&>svg:not([class*='size-'])]:size-4 [&>svg]:transition-transform [&>svg]:duration-normal [&>svg]:ease-in-out data-[side=left]:data-[state=collapsed]:[&>svg]:rotate-180 data-[side=right]:data-[state=expanded]:[&>svg]:rotate-180",
+  ];
+</script>
+
+<Ark
+  as="button"
+  {...props}
+  bind:ref
+  {type}
+  aria-label={typeof ariaLabel === 'string' ? ariaLabel : a11yLabels.toggleSidebar}
+  aria-expanded={!sidebar.collapsed}
+  class={cn(triggerClass, className)}
+  onclick={handleClick}
+  data-side={sidebar.side}
+  data-state={sidebar.state}
+  data-scope="sidebar"
+  data-part="trigger"
+  data-slot="sidebar-trigger"
+>
+  {#if children}
+    {@render children()}
+  {:else}
+    <ChevronLeftIcon />
+  {/if}
+</Ark>
