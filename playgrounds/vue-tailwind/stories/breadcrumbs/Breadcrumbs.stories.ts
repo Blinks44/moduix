@@ -29,13 +29,6 @@ const defaultPage = 'Go Developer';
 const longCurrentLabel =
   'Go lang developer to production team with cross-functional ownership and platform support';
 
-const collapsedMenuContentStyle = {
-  '--moduix-popup-item-font-size': 'var(--moduix-text-xs)',
-  '--moduix-popup-item-padding-x-end': '0.5rem',
-  '--moduix-popup-item-padding-x-start': '0.5rem',
-  '--moduix-popup-item-padding-y': '0.25rem',
-};
-
 const storyComponents = {
   Breadcrumbs,
   BreadcrumbsEllipsis,
@@ -70,7 +63,6 @@ function renderStory(template: string, setup?: () => Record<string, unknown>) {
       components: storyComponents,
       setup() {
         return {
-          collapsedMenuContentStyle,
           defaultLinks,
           defaultPage,
           longCurrentLabel,
@@ -109,11 +101,11 @@ export const Collapsed: Story = {
                 </button>
               </MenuTrigger>
               <MenuPositioner>
-                <MenuContent :style="collapsedMenuContentStyle">
+                <MenuContent>
                   <MenuViewport>
-                    <MenuItem value="engineering" as-child><a href="#">Engineering</a></MenuItem>
-                    <MenuItem value="backend" as-child><a href="#">Backend</a></MenuItem>
-                    <MenuItem value="golang" as-child><a href="#">Golang</a></MenuItem>
+                    <MenuItem value="engineering" as-child class="px-2 text-xs"><a href="#">Engineering</a></MenuItem>
+                    <MenuItem value="backend" as-child class="px-2 text-xs"><a href="#">Backend</a></MenuItem>
+                    <MenuItem value="golang" as-child class="px-2 text-xs"><a href="#">Golang</a></MenuItem>
                   </MenuViewport>
                 </MenuContent>
               </MenuPositioner>
