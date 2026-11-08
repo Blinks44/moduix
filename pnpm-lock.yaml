@@ -1426,21 +1426,36 @@ importers:
       '@ark-ui/solid':
         specifier: 'catalog:'
         version: 5.40.0(solid-js@1.9.18)
+      '@ark-ui/svelte':
+        specifier: 'catalog:'
+        version: 5.25.1(svelte@5.57.3)
       '@ark-ui/vue':
         specifier: 'catalog:'
         version: 5.40.0(vue@3.5.44(typescript@6.0.3))
       '@formisch/solid':
         specifier: ^1.3.0
         version: 1.3.0(solid-js@1.9.18)(typescript@6.0.3)(valibot@1.5.0(typescript@6.0.3))
+      '@formisch/svelte':
+        specifier: ^1.2.0
+        version: 1.2.0(svelte@5.57.3)(typescript@6.0.3)(valibot@1.5.0(typescript@6.0.3))
       '@formisch/vue':
         specifier: ^1.2.0
         version: 1.2.0(typescript@6.0.3)(valibot@1.5.0(typescript@6.0.3))(vue@3.5.44(typescript@6.0.3))
+      '@lucide/svelte':
+        specifier: 'catalog:'
+        version: 1.69.0(svelte@5.57.3)
       '@lucide/vue':
         specifier: 'catalog:'
         version: 1.66.0(vue@3.5.44(typescript@6.0.3))
       '@moduix/solid':
         specifier: workspace:*
         version: link:../packages/solid
+      '@moduix/svelte':
+        specifier: workspace:*
+        version: link:../packages/svelte
+      '@moduix/svelte-tailwind':
+        specifier: workspace:*
+        version: link:../packages/svelte-tailwind
       '@moduix/vue':
         specifier: workspace:*
         version: link:../packages/vue
@@ -1462,6 +1477,15 @@ importers:
       '@tanstack/solid-virtual':
         specifier: ^3.13.52
         version: 3.13.52(solid-js@1.9.18)
+      '@tanstack/svelte-form':
+        specifier: ^1.33.5
+        version: 1.33.5(svelte@5.57.3)
+      '@tanstack/svelte-table':
+        specifier: ^9.3.1
+        version: 9.3.1(svelte@5.57.3)
+      '@tanstack/svelte-virtual':
+        specifier: ^3.13.52
+        version: 3.13.52(svelte@5.57.3)
       '@tanstack/vue-form':
         specifier: ^1.33.5
         version: 1.33.5(vue@3.5.44(typescript@6.0.3))
@@ -1489,6 +1513,12 @@ importers:
       solid-js:
         specifier: 'catalog:'
         version: 1.9.18
+      svelte:
+        specifier: 'catalog:'
+        version: 5.57.3
+      svelte-check:
+        specifier: 'catalog:'
+        version: 4.7.8(picomatch@4.0.7)(svelte@5.57.3)(typescript@6.0.3)
       typescript:
         specifier: ~6.0.3
         version: 6.0.3
@@ -2142,6 +2172,16 @@ packages:
     peerDependenciesMeta:
       '@solidjs/web':
         optional: true
+      typescript:
+        optional: true
+
+  '@formisch/svelte@1.2.0':
+    resolution: {integrity: sha512-qLBQjTc8FdLE8i7V9rQ+cLGfPGpl3jRJ1JhfWyKoNi0tSrI+6jmAVH1RoN1BB2mCEghM0ROcIMAD4Bpd8OhcvA==}
+    peerDependencies:
+      svelte: '>=5.29 <6'
+      typescript: '>=5 <8'
+      valibot: '>=1.4.1 <2'
+    peerDependenciesMeta:
       typescript:
         optional: true
 
@@ -4126,12 +4166,36 @@ packages:
   '@tanstack/store@0.11.2':
     resolution: {integrity: sha512-sJ4mjol8uQsHV0gOJzzjwXfh2Fwm+Sz0+8deqiTm4jGbMdjzNSW+xZCFm0kUa870uhd8yi+DpKnZb5Kc4apa0Q==}
 
+  '@tanstack/svelte-form@1.33.5':
+    resolution: {integrity: sha512-GGlLocQwc4f15EoslfSKSiFwGy1Wz8CPTl6LXcykg4XUEGOmgs8Dg4/RjNyHeN/qrbIMemWuwzbt2wXBq50eXg==}
+    peerDependencies:
+      svelte: ^5.0.0
+
+  '@tanstack/svelte-store@0.12.3':
+    resolution: {integrity: sha512-mF0Pe+OUmhMYjbX6jm0Ox6Zdhloi28piFekz6BWJn6oDhEY8SzJsjJKTfcT5/4JS0TSi74tDVWlF/NTM+jtfDw==}
+    peerDependencies:
+      svelte: ^5.0.0
+
+  '@tanstack/svelte-table@9.3.1':
+    resolution: {integrity: sha512-4GenQN3ymVTJvsoRTzK64IlponjX17Db9FL2A+07kjdZBvHqhZiOFspsRqwN4QBmI1+yycnBH5k9w73z8ocUrg==}
+    engines: {node: '>=20'}
+    peerDependencies:
+      svelte: ^5.0.0
+
+  '@tanstack/svelte-virtual@3.13.52':
+    resolution: {integrity: sha512-GBP08+GfuAtrcfCEkhZ8qg7At0m1ty82WTVC92YDjmYuU9yU+XD9LoCGUbrwl5m0V05ySgDS6JzmxqwoVdlt5Q==}
+    peerDependencies:
+      svelte: ^3.48.0 || ^4.0.0 || ^5.0.0
+
   '@tanstack/table-core@9.3.1':
     resolution: {integrity: sha512-zQvlxSNi2qGM3L4jh85Z6hqMfdIR5qOfD9KHOU32nuKFJGN0RlJ7UvV1lsPb1fPVhpFYI0VP3jJGxLdLDpTKjQ==}
     engines: {node: '>=20'}
 
   '@tanstack/virtual-core@3.19.10':
     resolution: {integrity: sha512-/ltpH0qUCs5XQYE7fIhgA+aqgC5NzSfLTDQkC+N1wOOdvIYx1FH/kz2LGfSeanNbekqy3WBu6mNIbqXhxE/pew==}
+
+  '@tanstack/virtual-core@3.19.11':
+    resolution: {integrity: sha512-/5iHb0RHBvj8Di59FDs4ESNm45jls33aZAi4zccVXZjc/6ZvwQP6nzEYeT6weXjTf9E6/vrp2JhYWRyO+ZP13A==}
 
   '@tanstack/vue-form@1.33.5':
     resolution: {integrity: sha512-IvNlJ1LGFqt2pkwwCM+ltMWeBpF/qUeP9vlQwknMJphrIjJtZfmVr+VaN4BsOEbZQVK2vDkglqT+u64LTTjyoA==}
@@ -9492,6 +9556,13 @@ snapshots:
     optionalDependencies:
       typescript: 6.0.3
 
+  '@formisch/svelte@1.2.0(svelte@5.57.3)(typescript@6.0.3)(valibot@1.5.0(typescript@6.0.3))':
+    dependencies:
+      svelte: 5.57.3
+      valibot: 1.5.0(typescript@6.0.3)
+    optionalDependencies:
+      typescript: 6.0.3
+
   '@formisch/vue@1.2.0(typescript@6.0.3)(valibot@1.5.0(typescript@6.0.3))(vue@3.5.44(typescript@6.0.3))':
     dependencies:
       valibot: 1.5.0(typescript@6.0.3)
@@ -11193,11 +11264,35 @@ snapshots:
 
   '@tanstack/store@0.11.2': {}
 
+  '@tanstack/svelte-form@1.33.5(svelte@5.57.3)':
+    dependencies:
+      '@tanstack/form-core': 1.33.5
+      '@tanstack/svelte-store': 0.12.3(svelte@5.57.3)
+      svelte: 5.57.3
+
+  '@tanstack/svelte-store@0.12.3(svelte@5.57.3)':
+    dependencies:
+      '@tanstack/store': 0.11.2
+      svelte: 5.57.3
+
+  '@tanstack/svelte-table@9.3.1(svelte@5.57.3)':
+    dependencies:
+      '@tanstack/svelte-store': 0.12.3(svelte@5.57.3)
+      '@tanstack/table-core': 9.3.1
+      svelte: 5.57.3
+
+  '@tanstack/svelte-virtual@3.13.52(svelte@5.57.3)':
+    dependencies:
+      '@tanstack/virtual-core': 3.19.11
+      svelte: 5.57.3
+
   '@tanstack/table-core@9.3.1':
     dependencies:
       '@tanstack/store': 0.11.2
 
   '@tanstack/virtual-core@3.19.10': {}
+
+  '@tanstack/virtual-core@3.19.11': {}
 
   '@tanstack/vue-form@1.33.5(vue@3.5.44(typescript@6.0.3))':
     dependencies:

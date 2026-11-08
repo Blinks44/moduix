@@ -117,6 +117,9 @@ import * as TabsDocs from '@/components/examples/tabs/css-properties';
 В Vue используйте `v-model` для управляемого выбора и `@value-change` для получения того же объекта
 с данными события. `TabsContext` передаёт состояние через scoped slot по умолчанию.
 
+В Svelte используйте `bind:value` для управляемого выбора или `onValueChange(details)`. `TabsContext` передаёт
+геттер состояния в сниппет `render`, поэтому читайте его как `context().value`.
+
 Используйте `TabsRootProvider` вместе с `useTabs()`, если состояние нужно создать вне дерева
 компонента или разделить с соседним интерфейсом. Передайте хранилище в `TabsRootProvider` и не
 создавайте для него ещё один корень `Tabs`. Для ссылки или компонента роутера используйте
@@ -135,7 +138,7 @@ import * as TabsDocs from '@/components/examples/tabs/css-properties';
     ["TabsIndicator", "tabs-indicator", "Необязательный индикатор выбранной вкладки.", 2],
     ["TabsContent", "tabs-content", "Панель содержимого, связанная с триггером с таким же `value`.", 1],
     ["TabsRootProvider", "tabs-root-provider", "Подключает части к состоянию, созданному с помощью `useTabs()` в moduix.", 0],
-    ["TabsContext", null, "Передаёт текущее состояние вкладок через render prop или scoped slot в Vue.", 0],
+    ["TabsContext", null, "Передаёт текущее состояние вкладок через render prop, scoped slot в Vue или сниппет `render` в Svelte.", 0],
   ]}
 >
   <AnatomyScene />
@@ -143,7 +146,7 @@ import * as TabsDocs from '@/components/examples/tabs/css-properties';
 
 ## Стилизация
 
-Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях для структурных
+Используйте `className` в React или `class` в Solid, Vue и Svelte на экспортируемых частях для структурных
 стилей. Для стилей состояний предпочитайте атрибуты Ark, такие как `data-selected`,
 `data-disabled` и `data-orientation`, вместе с селекторами moduix `data-slot`. Варианты на Tailwind
 используют нативные утилиты и классы потребителя, а переменные ниже настраивают варианты с CSS Modules.

@@ -54,7 +54,7 @@ Use `<SimpleGrid>` as the root. Choose either `minChildWidth` for an intrinsic c
 Use `asChild` when the grid root should be a semantic element such as `ul`, `section`, or `nav`.
 It requires exactly one element child, which becomes the rendered root. In React, pass `asChild` as
 a boolean; in Vue, use `as-child` with a single default-slot element; in Solid, use its render-function
-form to return that element. For named grid areas,
+form to return that element; in Svelte, use an `asChild` snippet that spreads `props()` on that element. For named grid areas,
 unequal tracks, or items that span tracks, omit both layout props and define the grid template in
 your own class, including responsive templates in media queries.
 
@@ -79,7 +79,7 @@ one-column template come from the component stylesheet (or the `grid grid-cols-1
 Tailwind variants), so your classes can replace them. Layout props that you pass are written as
 inline styles on the rendered root.
 
-Use `className` in React or `class` in Solid and Vue for structural styles. Tailwind variants use native
+Use `className` in React or `class` in Solid, Vue, and Svelte for structural styles. Tailwind variants use native
 utility classes and consumer class overrides; the data attributes and `data-slot` hook are shared by
 both styling tracks.
 

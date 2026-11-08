@@ -73,7 +73,7 @@ import * as RatingGroupDocs from '@/components/examples/rating-group/css-propert
 
 ### Управляемое состояние
 
-Передайте `value` и `onValueChange` (`v-model` во Vue), если оценка зависит от другого состояния или
+Передайте `value` и `onValueChange` (`v-model` во Vue, `bind:value` в Svelte), если оценка зависит от другого состояния или
 сбрасывается родителем. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
 
 <Example name="rating-group/controlled" />
@@ -103,8 +103,7 @@ import * as RatingGroupDocs from '@/components/examples/rating-group/css-propert
 
 Для собственного дерева элементов используйте `RatingGroupContext` вместе с `RatingGroupItem`.
 Если хранилище нужно создать вне дерева, используйте `RatingGroupRootProvider` и
-`useRatingGroup()`. В React состояние доступно как объект. В Solid вызывайте возвращаемую функцию, а в Vue читайте
-реактивное состояние непосредственно в шаблоне.
+`useRatingGroup()`. В React состояние доступно как объект. В Solid вызывайте возвращаемую функцию, в Vue читайте реактивное состояние непосредственно в шаблоне, а в Svelte хук возвращает геттер: состояние читается через `ratingGroup().value`.
 
 ## Анатомия
 
@@ -129,7 +128,7 @@ import * as RatingGroupDocs from '@/components/examples/rating-group/css-propert
 
 ## Стилизация
 
-Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях для структурных
+Используйте `className` в React или `class` в Solid, Vue и Svelte на экспортируемых частях для структурных
 стилей. Ark также предоставляет атрибуты `data-scope="rating-group"` и `data-part`. Для стилей по состоянию используйте атрибуты данных, например `data-disabled`,
 `data-readonly`, `data-checked`, `data-highlighted` и `data-half`, вместе с хуками `data-slot` moduix.
 Варианты Tailwind используют нативные utility-классы и классы потребителя, а варианты CSS Modules

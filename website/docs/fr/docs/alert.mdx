@@ -31,7 +31,7 @@ flux normal du document.
 - Utilisez **`Toast`** pour les notifications temporaires qui s’affichent au-dessus de la page, n’occupent pas de place dans le flux du document et se ferment automatiquement.
 
 Les mêmes exports sont disponibles depuis `@moduix/solid/alert` pour Solid et depuis
-`@moduix/vue/alert` pour Vue.
+`@moduix/vue/alert` pour Vue et `@moduix/svelte/alert` pour Svelte.
 
 ## Exemples
 
@@ -77,7 +77,7 @@ Ark UI ne fournit pas de primitive `alert` dédiée. moduix construit `Alert` av
 d’Ark, en suivant les recommandations d’Ark en matière de [composition](https://ark-ui.com/docs/guides/composition), de
 [styles](https://ark-ui.com/docs/guides/styling) et de [gestion des refs](https://ark-ui.com/docs/guides/ref).
 
-Importez `Alert` depuis `@moduix/react/alert`, `@moduix/solid/alert` ou `@moduix/vue/alert`. `Alert` est la partie racine, et les autres parties
+Importez `Alert` depuis `@moduix/react/alert`, `@moduix/solid/alert`, `@moduix/vue/alert` ou `@moduix/svelte/alert`. `Alert` est la partie racine, et les autres parties
 publiques sont `AlertIndicator`, `AlertContent`, `AlertTitle`,
 `AlertDescription` et `AlertActions`.
 
@@ -89,7 +89,7 @@ d’assistance : l’essentiel du message doit donc figurer dans le titre ou la 
 
 `Alert` est un composant de présentation : le composant qui l’affiche gère sa visibilité et sa fermeture. Il ne prend pas en charge le focus ni le clavier des boutons et des liens qu’il contient. `AlertContent` est obligatoire et regroupe le titre, la description, les contrôles et le reste du contenu. Placez les contrôles dans `AlertActions` lorsqu’ils doivent bénéficier de la mise en ligne avec retour à la ligne.
 
-Si le titre doit utiliser un autre élément sémantique, utilisez `AlertTitle asChild` avec un seul enfant sémantique. En Solid, `asChild` utilise la forme avec fonction de rendu d’Ark UI, comme dans l’exemple « Titre personnalisé ». En Vue, on utilise l’attribut `as-child` avec un seul élément enfant.
+Si le titre doit utiliser un autre élément sémantique, utilisez `AlertTitle asChild` avec un seul enfant sémantique. En Solid, `asChild` utilise la forme avec fonction de rendu d’Ark UI, comme dans l’exemple « Titre personnalisé ». En Vue, on utilise l’attribut `as-child` avec un seul élément enfant. En Svelte, on passe un snippet `asChild` qui répartit les propriétés reçues sur un seul élément.
 
 ## Anatomie
 
@@ -113,7 +113,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 ## Styles
 
-Utilisez `className` en React ou `class` en Solid et Vue sur la racine et ses différentes parties pour
+Utilisez `className` en React ou `class` en Solid, Vue et Svelte sur la racine et ses différentes parties pour
 appliquer des styles locaux. Les variantes Tailwind se personnalisent avec des utilitaires et des
 classes supplémentaires. Dans les variantes CSS Modules, définissez les variables
 `--moduix-alert-*` sur la racine lorsqu’une alerte nécessite un thème local.

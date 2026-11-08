@@ -7,6 +7,7 @@ block: app-header
 import { AppHeader } from '@/components/blocks/app-header';
 import appHeaderSolid from '../../../snippets/blocks/solid/app-header.tsx?raw';
 import appHeaderVue from '../../../snippets/blocks/vue/app-header.vue?raw';
+import appHeaderSvelte from '../../../snippets/blocks/svelte/app-header.svelte?raw';
 import appHeaderReact from '../../../src/components/blocks/app-header.tsx?raw';
 import appHeaderCss from '../../../src/components/blocks/app-header.module.css?raw';
 
@@ -14,7 +15,7 @@ import appHeaderCss from '../../../src/components/blocks/app-header.module.css?r
 
 <ExamplePanel
   clientOnly
-  sources={{ react: appHeaderReact, solid: appHeaderSolid, vue: appHeaderVue }}
+  sources={{ react: appHeaderReact, solid: appHeaderSolid, vue: appHeaderVue, svelte: appHeaderSvelte }}
   files={[{ name: 'app-header.module.css', code: appHeaderCss }]}
 >
   <AppHeader />
@@ -36,7 +37,7 @@ dépendances, puis remplacez la navigation et les données de compte d’exemple
 - Un `Menu` distinct pour la navigation principale sur les petits écrans.
 - Des noms accessibles pour les contrôles composés uniquement d’une icône et un affichage de secours pour l’avatar.
 
-L’aperçu utilise React. Les onglets présentent le code React, Solid et Vue avec une feuille de style commune.
+L’aperçu utilise React. Les onglets présentent le code React, Solid, Vue et Svelte avec une feuille de style commune.
 
 ## Installation
 

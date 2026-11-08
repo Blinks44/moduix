@@ -19,8 +19,8 @@ des graphiques TanStack Charts](https://tanstack.com/charts/latest/docs/framewor
 Définissez les éléments graphiques, les échelles, les interactions et les callbacks avec TanStack
 Charts ; moduix fournit la composition accessible qui les entoure.
 
-`@tanstack/charts` est une dépendance peer facultative de moduix. Les paquets React, Solid et Vue
-exposent la même API de définition des graphiques ; les paquets Solid et Vue utilisent l’adaptateur
+`@tanstack/charts` est une dépendance peer facultative de moduix. Les paquets React, Solid, Vue et Svelte
+exposent la même API de définition des graphiques ; les paquets Solid, Vue et Svelte utilisent l’adaptateur
 de rendu de TanStack.
 
 ## Utilisation
@@ -140,7 +140,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 <AnatomyInspector
   parts={[
-    ["Chart", "chart-tooltip-value", "Racine `figure` composée. Accepte les propriétés natives, `asChild` et une ref `HTMLElement` (`$el` de la ref de composant en Vue).", 0],
+    ["Chart", "chart-tooltip-value", "Racine `figure` composée. Accepte les propriétés natives, `asChild` et une ref `HTMLElement` (`$el` de la ref de composant en Vue, valeur de `bind:ref` en Svelte).", 0],
     ["ChartHeader", "chart-header", "Structure `figcaption` du titre et de la description.", 1],
     ["ChartTitle", "chart-title", "Titre du graphique, rendu dans un `h3` par défaut.", 2],
     ["ChartDescription", "chart-description", "Explication visible qui accompagne le graphique.", 2],
@@ -164,7 +164,7 @@ définissent les variables TanStack `--ts-chart-tooltip-*` sur l’hôte `ChartP
 attributs de données et les sélecteurs `data-slot`.
 
 Pour modifier l’enveloppe de l’info-bulle, remplacez ces variables avec une classe sur `ChartPlot`
-(`className` en React ou `class` en Solid et Vue) :
+(`className` en React ou `class` en Solid, Vue et Svelte) :
 
 ```css
 .sales-plot {
@@ -203,7 +203,7 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 - `Chart`, `ChartHeader`, `ChartTitle`, `ChartDescription`, `ChartLegend` et
   `ChartLegendItem` exposent `data-scope="chart"`, `data-part` et `data-slot`.
-- `className` en React et `class` en Solid et Vue sur `ChartPlot` atteignent l’élément externe `.ts-chart-host`.
+- `className` en React et `class` en Solid, Vue et Svelte sur `ChartPlot` atteignent l’élément externe `.ts-chart-host`.
 - Utilisez `--moduix-chart-1` à `--moduix-chart-5` dans les échelles de couleurs TanStack.
 - Les lignes de l’info-bulle que TanStack marque comme `active` reçoivent `data-active`.
 - L’enveloppe de l’info-bulle lit les variables TanStack `--ts-chart-tooltip-*` sur l’hôte

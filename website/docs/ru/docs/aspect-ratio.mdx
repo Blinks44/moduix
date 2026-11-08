@@ -74,15 +74,15 @@ import AnatomyScene from '@/components/examples/aspect-ratio/basic';
 ## Композиция
 
 Импортируйте `AspectRatio` из пакета, соответствующего фреймворку и способу стилизации: для CSS Modules это
-`@moduix/react/aspect-ratio`, `@moduix/solid/aspect-ratio` или `@moduix/vue/aspect-ratio`, а для Tailwind - по
-соответствующему пути `@moduix/react-tailwind/aspect-ratio`, `@moduix/solid-tailwind/aspect-ratio` или
-`@moduix/vue-tailwind/aspect-ratio`.
+`@moduix/react/aspect-ratio`, `@moduix/solid/aspect-ratio`, `@moduix/vue/aspect-ratio` или `@moduix/svelte/aspect-ratio`, а для Tailwind - по
+соответствующему пути `@moduix/react-tailwind/aspect-ratio`, `@moduix/solid-tailwind/aspect-ratio`,
+`@moduix/vue-tailwind/aspect-ratio` или `@moduix/svelte-tailwind/aspect-ratio`.
 
 `AspectRatio` отвечает только за раскладку и не хранит состояние. У
 компонента одна корневая часть, и дополнительные части не нужно комбинировать. Используйте `asChild` только если
 корневым элементом должен стать другой семантический элемент: передайте ровно одного дочернего
 элемента в React или используйте показанную в примере «Пользовательский элемент» функцию рендера Solid. Во Vue
-используйте атрибут `as-child` с одним дочерним элементом. Размеры,
+используйте атрибут `as-child` с одним дочерним элементом, а в Svelte - сниппет `asChild`, который разворачивает `props()` на одном элементе. Размеры,
 вписывание, границы, радиус и обрезка дочернего содержимого остаются ответственностью приложения.
 
 В Solid передавайте `ref` элементу, созданному внутри функции рендера для `asChild`. Сам компонент

@@ -21,7 +21,7 @@ import * as BreadcrumbsDocs from '@/components/examples/breadcrumbs/css-properti
 Utilisez `BreadcrumbsPath` lorsque vous disposez déjà des segments du chemin à afficher. Le composant génère la liste
 ordonnée, les éléments, les liens, la page actuelle et les séparateurs à partir des props requises `links` et `page`.
 
-React, Solid et Vue utilisent les mêmes noms de valeurs à plat. Importez `Breadcrumbs` comme racine et importez chaque
+React, Solid, Vue et Svelte utilisent les mêmes noms de valeurs à plat. Importez `Breadcrumbs` comme racine et importez chaque
 partie additionnelle directement, comme `BreadcrumbsPath` et `BreadcrumbsLink`. Les mêmes noms fonctionnent avec les
 paquets npm et la source du registre shadcn.
 
@@ -67,11 +67,11 @@ supplémentaire ou de séparateurs différents.
 
 ## Composition
 
-Les mêmes exports sont disponibles depuis `@moduix/solid/breadcrumbs` pour Solid et `@moduix/vue/breadcrumbs` pour Vue.
+Les mêmes exports sont disponibles depuis `@moduix/solid/breadcrumbs` pour Solid et `@moduix/vue/breadcrumbs` pour Vue et `@moduix/svelte/breadcrumbs` pour Svelte.
 
 `Breadcrumbs` ne gère aucun état interactif ni état de formulaire : il n’a donc ni propriétés contrôlées, ni callbacks, ni hooks de contexte, ni `RootProvider`. L’état d’un chemin condensé appartient au `Menu` composé, tandis que la navigation du routeur reste gérée par le composant de lien de l’application.
 
-Utilisez `BreadcrumbsPath` pour un chemin fondé sur des ancres. Il génère les éléments de liste, rend chaque entrée de `links` sous forme d’ancre, rend `page` comme page courante et n’accepte ni `children` ni `asChild`. Utilisez les parties explicites lorsqu’un chemin doit intégrer des liens du routeur, masquer des segments intermédiaires ou produire un balisage différent. Pour un lien de routeur, passez un seul enfant sémantique à `BreadcrumbsLink asChild` afin de conserver le `href`, le focus et le comportement clavier attendus.
+Utilisez `BreadcrumbsPath` pour un chemin fondé sur des ancres. Il génère les éléments de liste, rend chaque entrée de `links` sous forme d’ancre, rend `page` comme page courante et n’accepte ni `children` ni `asChild`. Utilisez les parties explicites lorsqu’un chemin doit intégrer des liens du routeur, masquer des segments intermédiaires ou produire un balisage différent. Pour un lien de routeur, passez un seul enfant sémantique à `BreadcrumbsLink asChild` afin de conserver le `href`, le focus et le comportement clavier attendus. En Svelte, transmettez le lien avec un snippet `asChild` qui étale `props()` sur l’élément ; `BreadcrumbsPath` accepte une chaîne ou un snippet pour `page`, le `label` d’un lien et `separator`.
 
 Pour un chemin condensé, placez `BreadcrumbsEllipsis` dans `MenuTrigger`, puis laissez explicites les parties `Positioner`, `Content` et `Item asChild` du menu. `BreadcrumbsEllipsis` est purement visuel ; le trigger porte le libellé accessible et l’interaction. Un `button` natif qui enveloppe directement `BreadcrumbsEllipsis` reçoit les styles de déclencheur (réinitialisation, curseur pointeur, couleur au survol et anneau de focus) et n’a donc pas besoin de styles propres.
 

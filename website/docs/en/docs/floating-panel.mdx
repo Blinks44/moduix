@@ -21,8 +21,9 @@ Keep the Ark UI parts explicit. `FloatingPanelPositioner` applies the position a
 by Ark, while `FloatingPanelContent` is the visible window surface. The header acts as the drag
 handle, and `FloatingPanelResizeTriggerGroup` adds the resize handles around the panel.
 
-React, Solid, and Vue use the same flat component names. In Vue, compose the parts with slots and
-use `v-model` when the open, position, or size state is controlled.
+React, Solid, Vue, and Svelte use the same flat component names. In Vue, compose the parts with slots and
+use `v-model` when the open, position, or size state is controlled. In Svelte, nest the parts directly and
+use `bind:open`, `bind:position`, or `bind:size`.
 
 ## Choosing the right component
 
@@ -81,14 +82,14 @@ exit animation.
 
 Use `FloatingPanelContext` or `useFloatingPanelContext` to read panel state and methods inside the
 component tree. Vue receives the context value through its scoped slot, while Solid exposes it as
-an accessor.
+an accessor and Svelte passes a getter to the `render` snippet, so read `panel().open`.
 
 <Example name="floating-panel/context" />
 
 ### Root provider
 
 Use `useFloatingPanel` with `FloatingPanelRootProvider` when controls outside the panel tree need
-methods such as `minimize`, `maximize`, and `setOpen`. The Solid store is read through an accessor. See [Share state outside the tree](/docs/composition-patterns#root-provider).
+methods such as `minimize`, `maximize`, and `setOpen`. The Solid store is read through an accessor, and the Svelte one through a getter. See [Share state outside the tree](/docs/composition-patterns#root-provider).
 
 <Example name="floating-panel/root-provider" />
 
@@ -111,8 +112,8 @@ When state must live outside the panel tree, create it with `useFloatingPanel()`
 pass it to `FloatingPanelRootProvider`. Do not render `FloatingPanel` and `FloatingPanelRootProvider` for the same state
 instance. `position` and `size` are controlled independently. Use `FloatingPanelResizeTriggerGroup axes` or
 individual `FloatingPanelResizeTrigger` parts only when the default set of handles is not appropriate. With
-`asChild`, pass one semantic child. Vue uses the child slot, while Solid uses the render-function
-form of this prop.
+`asChild`, pass one semantic child. Vue uses the child slot, Solid uses the render-function
+form of this prop, and Svelte uses an `asChild` snippet that spreads `props()` onto the child.
 
 ## Anatomy
 
@@ -150,7 +151,7 @@ without replacing them.
 size from Ark state, so set `defaultSize`, `minSize`, and `maxSize` on the root instead of CSS sizes
 on `FloatingPanelContent`. Content motion reads the shared `--moduix-popup-motion-*` variables.
 
-Use `className` in React or `class` in Solid and Vue on exported parts. Tailwind variants use native
+Use `className` in React or `class` in Solid, Vue, and Svelte on exported parts. Tailwind variants use native
 utilities and consumer classes. CSS Modules variants build on foundation tokens and have no component
 variables: a class on the part overrides the layered component styles.
 

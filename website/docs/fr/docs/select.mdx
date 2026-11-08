@@ -58,7 +58,7 @@ valeurs envoyées depuis `FormData`.
 
 ### État contrôlé
 
-Passez `value` et `onValueChange` (`v-model` en Vue). La valeur est toujours un tableau de chaînes,
+Passez `value` et `onValueChange` (`v-model` en Vue, `bind:value` en Svelte). La valeur est toujours un tableau de chaînes,
 même sans `multiple`. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
 
 <Example name="select/controlled" />
@@ -141,7 +141,7 @@ options.
 
 Ajoutez explicitement `SelectHiddenSelect` dans `Select` ou `SelectRootProvider` lorsque la sélection doit participer à la soumission native, à la validation, au remplissage automatique ou à la réinitialisation du formulaire. La racine ne l’affiche pas automatiquement. `Positioner` est rendu dans un portail par défaut ; utilisez `portalled={false}` pour le rendre dans le flux normal ou `portalRef` pour un conteneur personnalisé.
 
-Utilisez `useSelect` avec `SelectRootProvider` lorsque l’état doit être partagé avec des contrôles situés en dehors de l’arborescence Select. Le store renvoyé est un objet en React, un accessor en Solid et une ref en Vue.
+Utilisez `useSelect` avec `SelectRootProvider` lorsque l’état doit être partagé avec des contrôles situés en dehors de l’arborescence Select. Le store renvoyé est un objet en React, un accessor en Solid, une ref en Vue et un getter en Svelte.
 
 ## Anatomie
 
@@ -177,7 +177,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 ## Styles
 
-Stylisez Select avec `className` en React, `class` en Solid et Vue, les hooks stables `data-slot="select-*"` et les attributs Ark. Les variantes Tailwind utilisent des classes utilitaires natives et les classes du consommateur. Les variantes CSS Modules conservent cinq variables de dimensions, listées ci-dessous ; les couleurs, les bordures, l’anneau de focus, l’espacement des options et l’animation proviennent des tokens de foundation et des variables partagées `--moduix-popup-*`, donc remplacez-les avec une classe sur la partie concernée.
+Stylisez Select avec `className` en React, `class` en Solid, Vue et Svelte, les hooks stables `data-slot="select-*"` et les attributs Ark. Les variantes Tailwind utilisent des classes utilitaires natives et les classes du consommateur. Les variantes CSS Modules conservent cinq variables de dimensions, listées ci-dessous ; les couleurs, les bordures, l’anneau de focus, l’espacement des options et l’animation proviennent des tokens de foundation et des variables partagées `--moduix-popup-*`, donc remplacez-les avec une classe sur la partie concernée.
 
 ### Variables CSS
 

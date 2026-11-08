@@ -61,6 +61,7 @@ When `asChild` should give the rendered root to one semantic element, provide ex
 props and a ref in React, or use the Solid render-function form. React refs target the rendered root or child;
 the Solid form does not forward the component ref through the custom host.
 In Vue, Ark's factory renders one semantic child for `asChild`; read a component ref's rendered host through `$el`.
+In Svelte, use an `asChild` snippet that spreads `props()` on one semantic element.
 
 Combine `inline` and `block` when a surface should extend through padding on both logical axes. `inline="full"`
 is viewport-relative: it assumes the constrained parent is centered in the viewport. Inside a nested or off-center
@@ -83,7 +84,7 @@ Hover or focus a part to find it in the preview.
 
 ## Styling
 
-`Bleed` exposes stable data attributes on its root. Use `className` in React or `class` in Solid and Vue for
+`Bleed` exposes stable data attributes on its root. Use `className` in React or `class` in Solid, Vue, and Svelte for
 structural styles. The fixed amounts follow the spacing tokens (`xs` to `xl` map to `--moduix-spacing-1`, `2`, `3`,
 `4`, and `6`), so presets change them together with the rest of the spacing. For a custom amount, set `margin-inline`
 or `margin-block` in your own class. Data attributes and `data-slot` hooks are shared by both styling tracks.

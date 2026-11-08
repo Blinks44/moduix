@@ -1,11 +1,12 @@
 ---
 title: Presence
-description: Управляйте монтированием, скрытием, анимацией и размонтированием содержимого приложения в React, Solid и Vue.
+description: Управляйте монтированием, скрытием, анимацией и размонтированием содержимого приложения в React, Solid, Vue и Svelte.
 ark: https://ark-ui.com/docs/utilities/presence
 ---
 
 import presenceSolidExitAnimations from '../../../snippets/presence/solid/exit-animations.tsx?raw';
 import presenceVueExitAnimations from '../../../snippets/presence/vue/exit-animations.vue?raw';
+import presenceSvelteExitAnimations from '../../../snippets/presence/svelte/exit-animations.svelte?raw';
 
 ## Импорт
 
@@ -17,6 +18,7 @@ import presenceVueExitAnimations from '../../../snippets/presence/vue/exit-anima
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -38,6 +40,13 @@ import { Presence } from '@ark-ui/solid/presence';
 
 ```ts
 import { Presence } from '@ark-ui/vue/presence';
+```
+
+  </Tab>
+  <Tab value="svelte">
+
+```ts
+import { Presence } from '@ark-ui/svelte/presence';
 ```
 
   </Tab>
@@ -77,6 +86,7 @@ import { Presence } from '@ark-ui/vue/presence';
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
       { label: 'Vue', value: 'vue' },
+      { label: 'Svelte', value: 'svelte' },
     ]}
     className="docs-tabs"
   >
@@ -94,6 +104,11 @@ import { Presence } from '@ark-ui/vue/presence';
   <Tab value="vue">
 
 <CodeBlockRuntime lang="vue" code={presenceVueExitAnimations} />
+
+    </Tab>
+  <Tab value="svelte">
+
+<CodeBlockRuntime lang="svelte" code={presenceSvelteExitAnimations} />
 
     </Tab>
   </Tabs>
@@ -119,8 +134,8 @@ import { Presence } from '@ark-ui/vue/presence';
 | `immediate` | Применяет изменение `present` сразу, не дожидаясь следующего кадра. |
 | `hideMode` | Только React. `display-none` использует `hidden`, а `activity` приостанавливает эффекты через `Activity` из React 19. |
 
-Общие параметры жизненного цикла имеют одинаковый смысл в React, Solid и Vue. В Vue используйте
-`@enter-complete` и `@exit-complete` для событий жизненного цикла. Ark Solid и Vue не экспортируют
+Общие параметры жизненного цикла имеют одинаковый смысл в React, Solid, Vue и Svelte. В Vue используйте
+`@enter-complete` и `@exit-complete` для событий жизненного цикла. Ark Solid, Vue и Svelte не экспортируют
 `hideMode`: смонтированное, но отсутствующее содержимое скрывается атрибутом `hidden`.
 
 ## Композиция и доступность
@@ -133,7 +148,7 @@ Drawer, Menu, Popover, Tooltip, Tour и других интерактивных 
 По умолчанию `Presence` рендерит `<div>` с атрибутами `data-scope="presence"` и `data-part="root"`. Укажите
 `asChild`, если эти свойства должен получить существующий элемент без дополнительной обёртки. Дочерний элемент React
 должен принимать передаваемые ref, `hidden`, `data-*` и класс. В Solid используется форма с render-функцией:
-`asChild={(props) => <article {...props()} />}`. Vue использует `<Presence as-child><article>…</article></Presence>`.
+`asChild={(props) => <article {...props()} />}`. Vue использует `<Presence as-child><article>…</article></Presence>`. Svelte использует сниппет `asChild`: `{#snippet asChild(props)}<article {...props()}>…</article>{/snippet}`.
 В каждом адаптере сохраняйте один семантический корень и его
 доступное имя и содержимое. Не заменяйте поведение `hidden` одной только прозрачностью, если неактивное содержимое
 должно исчезать из дерева доступности.

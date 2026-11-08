@@ -105,6 +105,9 @@ import { splitterOverrideCssProperties } from '@/components/examples/splitter/cs
 реактивное состояние, которое можно напрямую передать в `SplitterRootProvider`; вызывайте его методы
 в шаблоне и не создавайте второй контейнер состояния.
 
+В Svelte используйте `bind:size` для управляемого Ark состояния размеров. `useSplitter()` возвращает геттер: передавайте
+его в `value` и читайте API через `splitter()`. Передавайте `id` в `useSplitter()` (например, `$props.id()`), иначе хук выбросит ошибку.
+
 ## Анатомия
 
 Наведите на часть или выберите её, чтобы найти её в превью.
@@ -123,7 +126,7 @@ import { splitterOverrideCssProperties } from '@/components/examples/splitter/cs
 
 ## Стилизация
 
-Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях, чтобы изменить их
+Используйте `className` в React или `class` в Solid, Vue и Svelte на экспортируемых частях, чтобы изменить их
 стили. Классом меняется и размер корня: moduix убирает inline `width` и `height` от Ark, а по умолчанию
 корень занимает контейнер (`width: 100%` и `height: 100%`, как в Ark). Если у родителя нет высоты,
 задайте её корню.

@@ -100,6 +100,10 @@ In Vue, use `v-model:size` for the Ark-controlled size contract. `useSplitter()`
 store that can be passed directly to `SplitterRootProvider`; read its methods in the template without
 creating a second state container.
 
+In Svelte, use `bind:size` for the Ark-controlled size contract. `useSplitter()` returns a getter, so pass it
+to `value` and read the API as `splitter()`. Pass an `id` to `useSplitter()` (for example `$props.id()`);
+the hook throws without one.
+
 ## Anatomy
 
 Hover or focus a part to find it in the preview.
@@ -118,7 +122,7 @@ Hover or focus a part to find it in the preview.
 
 ## Styling
 
-Use `className` in React or `class` in Solid and Vue on exported parts to change their styles. A class
+Use `className` in React or `class` in Solid, Vue, and Svelte on exported parts to change their styles. A class
 also changes the root size: moduix removes Ark's inline `width` and `height`, and the root fills its container
 with `width: 100%` and `height: 100%`, like Ark. Give the root a height when its parent has none.
 

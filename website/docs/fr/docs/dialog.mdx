@@ -98,7 +98,7 @@ confirmation.
 
 ### État contrôlé
 
-Passez `open` et `onOpenChange` (`v-model:open` en Vue) et lisez `details.open` pour synchroniser le
+Passez `open` et `onOpenChange` (`v-model:open` en Vue, `bind:open` en Svelte) et lisez `details.open` pour synchroniser le
 dialogue avec le reste de l’application. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
 
 <Example name="dialog/controlled" />
@@ -170,7 +170,7 @@ mettez-le à jour avec `DialogContext` ou `useDialogContext()` depuis le paquet 
 
 ## Styles
 
-Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées pour appliquer les styles
+Utilisez `className` en React ou `class` en Solid, Vue et Svelte sur les parties exportées pour appliquer les styles
 structurels. Pour les styles liés à l’état, privilégiez les attributs de données Ark comme
 `data-state` et `data-has-nested`, ainsi que les sélecteurs `data-slot` de moduix. Les variantes
 Tailwind se personnalisent avec des utilitaires et des classes supplémentaires ; les variables ci-

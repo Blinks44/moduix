@@ -1,0 +1,16 @@
+<script lang="ts">
+  import { Skeleton } from '@moduix/svelte/skeleton';
+  import { Stack } from '@moduix/svelte/stack';
+  import styles from '@/components/examples/skeleton/skeleton-media-object.module.css';
+
+  const userRowSkeleton = { avatarSize: 48, titleWidth: '46%', bodyWidth: '72%' };
+</script>
+
+<Stack class={styles.root} direction="row" align="center" gap={12}>
+  <Skeleton boxSize={userRowSkeleton.avatarSize} borderRadius="var(--moduix-radius-full)" />
+  <Stack direction="column" gap={8} fill>
+    <Skeleton width={userRowSkeleton.titleWidth} height={16} />
+    <Skeleton height={14} />
+    <Skeleton width={userRowSkeleton.bodyWidth} height={14} />
+  </Stack>
+</Stack>

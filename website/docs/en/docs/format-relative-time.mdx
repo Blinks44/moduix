@@ -1,11 +1,12 @@
 ---
 title: Format Relative Time
-description: Format dates relative to now with Ark UI in React, Solid, and Vue, with locale-aware output and compact display options.
+description: Format dates relative to now with Ark UI in React, Solid, Vue, and Svelte, with locale-aware output and compact display options.
 ark: https://ark-ui.com/docs/utilities/format-relative-time
 ---
 
 import formatRelativeTimeSolidLocale from '../../../snippets/format-relative-time/solid/locale.tsx?raw';
 import formatRelativeTimeVueLocale from '../../../snippets/format-relative-time/vue/locale.vue?raw';
+import formatRelativeTimeSvelteLocale from '../../../snippets/format-relative-time/svelte/locale.svelte?raw';
 
 ## Import
 
@@ -17,6 +18,7 @@ Import the utility from the matching Ark UI package:
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -41,6 +43,13 @@ import { Format } from '@ark-ui/vue';
 ```
 
   </Tab>
+  <Tab value="svelte">
+
+```ts
+import { Format } from '@ark-ui/svelte';
+```
+
+  </Tab>
 </Tabs>
 
 ## When to use it
@@ -55,7 +64,7 @@ timestamp, use a semantic `<time>` element with its exact ISO value in `dateTime
 ## Basic
 
 Set `numeric="auto"` when nearby dates should use natural words such as “tomorrow” or “yesterday”. The preview is
-rendered with React in the documentation app; the Solid and Vue tabs contain native equivalents for the same composition.
+rendered with React in the documentation app; the Solid, Vue, and Svelte tabs contain native equivalents for the same composition.
 
 <Example name="format-relative-time/basic" />
 
@@ -89,6 +98,7 @@ The unit and numeric distance are derived from the `Date`; you do not pass them 
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
       { label: 'Vue', value: 'vue' },
+      { label: 'Svelte', value: 'svelte' },
     ]}
     className="docs-tabs"
   >
@@ -106,6 +116,11 @@ The unit and numeric distance are derived from the `Date`; you do not pass them 
   <Tab value="vue">
 
 <CodeBlockRuntime lang="vue" code={formatRelativeTimeVueLocale} />
+
+    </Tab>
+  <Tab value="svelte">
+
+<CodeBlockRuntime lang="svelte" code={formatRelativeTimeSvelteLocale} />
 
     </Tab>
   </Tabs>

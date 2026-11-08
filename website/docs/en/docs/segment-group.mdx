@@ -123,8 +123,7 @@ compose those parts yourself and keep exactly one `SegmentGroupItemHiddenInput` 
 `asChild` must remain one semantic `label`.
 
 Use `SegmentGroupRootProvider` with `useSegmentGroup()` when the state must be created outside
-the rendered tree or controlled by another part of the application. React and Vue read the store as
-an object, while Solid reads its reactive state through the returned accessor.
+the rendered tree or controlled by another part of the application. React and Vue read the store as an object, Solid reads its reactive state through the returned accessor, and Svelte returns a getter, so read the state with `segmentGroup().value`.
 
 ## Anatomy
 
@@ -149,7 +148,7 @@ Hover or focus a part to find it in the preview.
 
 ## Styling
 
-Use `className` in React or `class` in Solid/Vue on exported parts for structural styles. For state-based
+Use `className` in React or `class` in Solid, Vue, and Svelte on exported parts for structural styles. For state-based
 styles, prefer Ark data attributes such as `data-state`, `data-disabled`, and `data-orientation`,
 together with moduix `data-slot` selectors. Tailwind variants use native utilities and consumer
 classes; the component variables below customize the CSS Modules variants. Data attributes and

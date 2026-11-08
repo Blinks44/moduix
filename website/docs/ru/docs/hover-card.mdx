@@ -100,8 +100,8 @@ import AnatomyScene from '@/components/examples/hover-card/anatomy';
 `HoverCard` управляет состоянием и по умолчанию выводит `HoverCardPositioner` через портал.
 Передайте `portalled={false}` внутри другого слоя или укажите `portalRef` для собственного
 контейнера. Используйте `HoverCardRootProvider` с `useHoverCard()`, если состояние должно жить
-за пределами дерева карточки: React читает его как объект, Solid через accessor, а Vue напрямую
-предоставляет реактивное состояние шаблону.
+за пределами дерева карточки: React читает его как объект, Solid через accessor, Vue напрямую
+предоставляет реактивное состояние шаблону, а Svelte возвращает геттер, поэтому состояние читается как `hoverCard().open`.
 
 Оставляйте `HoverCardArrow` внутри `HoverCardContent`, а длинный предпросмотр помещайте в
 `HoverCardBody`: `Content` сохраняет видимость стрелки, а `Body` становится областью прокрутки.
@@ -139,7 +139,7 @@ import AnatomyScene from '@/components/examples/hover-card/anatomy';
 высотой не больше 24rem в пределах доступного места. Анимация содержимого читает общие переменные
 `--moduix-popup-motion-*`.
 
-Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях. Варианты Tailwind
+Используйте `className` в React или `class` в Solid, Vue и Svelte на экспортируемых частях. Варианты Tailwind
 используют нативные utility-классы и классы потребителя. Варианты CSS Modules построены на токенах
 foundation и не имеют переменных компонента: класс на части переопределяет стили компонента из слоя.
 Атрибуты состояния и хуки `data-slot` общие для обоих вариантов стилизации.

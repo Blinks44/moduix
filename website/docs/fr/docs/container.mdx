@@ -58,7 +58,8 @@ Utilisez `asChild` lorsqu’un élément sémantique doit devenir la racine rend
 et Vue en font la racine rendue de `Container`, tandis que Solid utilise la forme avec fonction de rendu
 `asChild={(props) => <main {...props()} />}`. En Solid, affectez la ref à l’élément créé dans cette fonction, car une
 ref sur `Container` n’est pas transmise à travers `asChild`. En Vue, l’élément rendu est accessible via `$el` sur la ref
-du composant. Placez `Bleed` dans `Container` lorsqu’un seul enfant doit dépasser la colonne de texte contrainte.
+du composant. En Svelte, transmettez l’élément avec un snippet `asChild` :
+`{#snippet asChild(props)}<main {...props()}>...</main>{/snippet}`. Placez `Bleed` dans `Container` lorsqu’un seul enfant doit dépasser la colonne de texte contrainte.
 
 ## Anatomie
 
@@ -78,7 +79,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 Pour les packages CSS Modules, surchargez les variables CSS sur la racine lorsqu’une enveloppe de page a besoin d’une
 autre largeur ou de valeurs d’espacement différentes. Les packages Tailwind utilisent des utilitaires et les classes du
-consommateur à la place de ces variables. Utilisez `className` en React, `class` en Solid ou `class` en Vue pour les styles locaux du
+consommateur à la place de ces variables. Utilisez `className` en React, `class` en Solid ou `class` en Vue et Svelte pour les styles locaux du
 bloc, comme le padding, les bordures ou les arrière-plans.
 
 ### Variables CSS

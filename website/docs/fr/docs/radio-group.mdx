@@ -97,7 +97,7 @@ Passez `name` à la racine lorsque la valeur sélectionnée doit être envoyée 
 
 ### État contrôlé
 
-Passez `value` et `onValueChange` (`v-model` en Vue) lorsque la valeur sélectionnée suit le routage,
+Passez `value` et `onValueChange` (`v-model` en Vue, `bind:value` en Svelte) lorsque la valeur sélectionnée suit le routage,
 les filtres ou l’interface voisine. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
 
 <Example name="radio-group/controlled" />
@@ -129,20 +129,20 @@ quand le design modifie la mise en page de l’option ou ajoute du contenu à c�
 
 `RadioGroup` suit la primitive radio-group d’Ark UI et ajoute les styles moduix, des attributs
 `data-slot` stables et le composant pratique `RadioGroupOption`. Il est exporté depuis
-`@moduix/react/radio-group`, `@moduix/solid/radio-group` et `@moduix/vue/radio-group`.
+`@moduix/react/radio-group`, `@moduix/solid/radio-group`, `@moduix/vue/radio-group` et `@moduix/svelte/radio-group`.
 
 Utilisez `defaultValue` pour un groupe non contrôlé. Utilisez `value` avec `onValueChange(details)`
 lorsqu’une autre partie de l’application contrôle la valeur sélectionnée. Lorsque l’état doit être
 créé en dehors de l’arbre rendu, utilisez `RadioGroupRootProvider` avec `useRadioGroup()` depuis le package du
 framework correspondant. Ne rendez pas `RadioGroup` et `RadioGroupRootProvider` pour la même instance
 d’état. React lit le store comme un objet ; Solid lit son état réactif via l’accessor retourné ; Vue expose le store
-réactif directement dans le template.
+réactif directement dans le template ; Svelte renvoie un getter, donc lisez l’état avec `radioGroup().value`.
 
 `RadioGroupOption` inclut `RadioGroupItemHiddenInput` dans sa composition fixe. Avec une composition directe de
 `RadioGroupItem`, ajoutez vous-même `RadioGroupItemHiddenInput`. Utilisez l’arbre explicite lorsque
 les parties imbriquées doivent être placées ou configurées séparément, ou lorsque `asChild` doit
 laisser un autre élément posséder le nœud DOM de l’option. Dans Solid, `asChild` utilise une fonction
-de rendu ; dans Vue, utilisez `as-child`. Dans les deux cas, l’enfant direct doit rester un `label` sémantique.
+de rendu ; dans Vue, utilisez `as-child` ; dans Svelte, passez un snippet `asChild` et étalez `props()` sur l’élément. Dans tous les cas, l’enfant direct doit rester un `label` sémantique.
 
 `Field` fournit un libellé visible, un texte d’aide et un message d’erreur, mais ne transmet pas
 son état à `RadioGroup`. Passez `disabled`, `invalid`, `readOnly` et `required` directement au groupe.
@@ -170,7 +170,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 ## Styles
 
-Utilisez `className` dans React ou `class` dans Solid et Vue sur les parties exportées pour les styles
+Utilisez `className` dans React ou `class` dans Solid, Vue et Svelte sur les parties exportées pour les styles
 structurels. Pour les styles liés à l’état, préférez les attributs de données Ark comme `data-state`,
 `data-disabled` et `data-orientation`, avec les sélecteurs `data-slot` de moduix. Les variantes
 Tailwind utilisent les utilitaires natifs et les classes du consommateur ; les variables ci-dessous

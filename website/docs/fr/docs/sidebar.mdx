@@ -102,6 +102,7 @@ déplacer l’état dans Sidebar. Pour conserver la largeur, contrôlez `size`, 
 utilise une fonction de rendu qui reçoit les props fusionnées.
 Dans Vue, utilisez `as-child` avec un seul élément dans le slot par défaut et une référence de template pour accéder à l’instance du composant.
 Pour contrôler les dimensions, utilisez `v-model:size` ou gérez `@resize` ; enregistrez la valeur finale avec `@resize-end`.
+En Svelte, `asChild` est un snippet qui reçoit les props fusionnées (`{#snippet asChild(props)}<a {...props()}>`). Pour contrôler les dimensions, utilisez `bind:size` et enregistrez la valeur finale avec `onResizeEnd`.
 Placez `SidebarNavigationBadge` après un `SidebarNavigationButton` ou un `SidebarNavigationSubButton` simple. Le composant
 réserve l’espace nécessaire au compteur et disparaît avec les autres icônes dans la barre compacte.
 
@@ -111,6 +112,7 @@ et `state`, plus un callback `toggleSidebar()`. Dans Solid, ce sont des accessor
 utilisez-le uniquement à l’intérieur de l’arborescence de la barre.
 Dans Vue, les valeurs d’état sont des refs : lisez `collapsed.value`, `side.value` et
 `state.value` dans le script ; Vue accède automatiquement à leur valeur dans les templates.
+En Svelte, `useSidebar()` renvoie un objet avec des getters : lisez `sidebar.collapsed`, `sidebar.side` et `sidebar.state`.
 
 Avec Ark Vue 5.39.3 / Zag 1.45.0, le premier repli en mode contrôlé peut mettre à jour `size`
 sans émettre `@collapse`. Le modèle et `useSidebar().collapsed` reflètent toutefois le nouvel état.
@@ -143,7 +145,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 ## Styles
 
-Chaque partie sémantique accepte `className` en React et `class` en Solid et Vue et expose un hook stable
+Chaque partie sémantique accepte `className` en React et `class` en Solid, Vue et Svelte et expose un hook stable
 `data-slot="sidebar-*"`. `SidebarPanel` ajoute `data-state="expanded"` ou `"collapsed"`, tandis
 que les parties de mise en page exposent `data-side`. `SidebarNavigationButton` et `SidebarNavigationSubButton`
 exposent `data-active`, et `SidebarNavigationButton` expose aussi `data-size`.

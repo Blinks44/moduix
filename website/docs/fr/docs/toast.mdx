@@ -99,11 +99,11 @@ page.
 ## Composition
 
 moduix exporte `Toast`, `ToastToaster`, `createToaster` et `useToastContext` depuis
-`@moduix/react/toast`, `@moduix/solid/toast` et `@moduix/vue/toast`. La référence Ark décrit l’API
+`@moduix/react/toast`, `@moduix/solid/toast`, `@moduix/vue/toast` et `@moduix/svelte/toast`. La référence Ark décrit l’API
 complète du store et de ses parties.
 
 Créez le toaster une seule fois, puis passez la même instance à `ToastToaster`. En Vue, créez-le dans
-`<script setup>` pour que chaque instance du composant possède son propre store ; un store partagé
+`<script setup>` (ou dans le `<script>` d’un composant Svelte) pour que chaque instance du composant possède son propre store ; un store partagé
 par l’application peut résider dans un module séparé. Pour le rendu côté serveur, créez un store
 distinct pour chaque requête. Le store gère le placement, la pile, la file d’attente, les minuteurs et le focus. Par
 défaut, `ToastToaster` rend le groupe via un portail vers `document.body` ; utilisez `portalled={false}` ou
@@ -111,9 +111,9 @@ défaut, `ToastToaster` rend le groupe via un portail vers `document.body` ; uti
 
 Pour une notification standard, utilisez le rendu par défaut de `ToastToaster`, qui affiche le titre, la
 description, l’action et le bouton de fermeture. Pour une autre structure ou des contrôles personnalisés,
-passez une render prop en React/Solid ou un slot par défaut avec portée en Vue, gardez `Toast`
+passez une render prop en React/Solid un slot par défaut avec portée en Vue ou un snippet `children` en Svelte, gardez `Toast`
 comme élément extérieur et composez ses parties à l’intérieur. Le slot Vue reçoit les options de
-la notification ; `useToastContext()` renvoie une computed ref. Pour `asChild` sur les boutons
+la notification ; `useToastContext()` renvoie une computed ref. Le snippet Svelte reçoit un getter des options de la notification. Pour `asChild` sur les boutons
 d’action et de fermeture, utilisez un enfant bouton sémantique, et
 `useToastContext()` lorsqu’un enfant personnalisé doit accéder directement à la notification courante.
 

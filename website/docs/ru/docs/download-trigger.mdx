@@ -17,6 +17,7 @@ ark: https://ark-ui.com/docs/utilities/download-trigger
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -41,6 +42,13 @@ import { DownloadTrigger } from '@ark-ui/vue/download-trigger';
 ```
 
   </Tab>
+  <Tab value="svelte">
+
+```ts
+import { DownloadTrigger } from '@ark-ui/svelte/download-trigger';
+```
+
+  </Tab>
 </Tabs>
 
 ## Базовый пример
@@ -48,7 +56,7 @@ import { DownloadTrigger } from '@ark-ui/vue/download-trigger';
 Передайте готовое содержимое через `data`. Поддерживаются строка, `Blob` и `File`. Параметры `fileName` и `mimeType`
 описывают файл, который сохранит браузер.
 
-Предпросмотр использует React. Вкладки с исходным кодом содержат нативные примеры React, Solid и Vue с одинаковым
+Предпросмотр использует React. Вкладки с исходным кодом содержат нативные примеры React, Solid, Vue и Svelte с одинаковым
 поведением.
 
 <Example name="download-trigger/basic" clientOnly />

@@ -71,13 +71,12 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 ## Styles
 
-Utilisez `className` en React, ou `class` en Solid et Vue, sur `JsonTreeView`, `JsonTreeViewRootProvider` ou `JsonTreeViewTree` pour modifier localement la
+Utilisez `className` en React, ou `class` en Solid, Vue et Svelte, sur `JsonTreeView`, `JsonTreeViewRootProvider` ou `JsonTreeViewTree` pour modifier localement la
 mise en page. Les variantes Tailwind utilisent des classes utilitaires et les classes de l’application ; les
 variantes CSS Modules utilisent leurs styles et les tokens de base.
 
-Lorsque `arrow` est omis, `JsonTreeViewTree` utilise le `ChevronRightIcon` fourni par moduix en React et Solid. En
-Vue, fournissez votre propre icône via le slot nommé `#arrow` si la vue d’inspection utilise un autre indicateur
-d’ouverture.
+Lorsque `arrow` est omis, `JsonTreeViewTree` utilise le `ChevronRightIcon` fourni par moduix en React, Solid et Svelte. Si la vue d’inspection
+utilise un autre indicateur d’ouverture, fournissez votre icône via le slot nommé `#arrow` en Vue, ou via le snippet `arrow` en Svelte.
 
 Les nœuds générés conservent les attributs Ark `data-scope="json-tree-view"` et `data-part`.
 
@@ -85,7 +84,7 @@ Les nœuds générés conservent les attributs Ark `data-scope="json-tree-view"`
 style pas les éléments `[data-part='branch-indent-guide']` générés ; ciblez cet attribut avec vos propres styles
 lorsque les guides sont activés.
 
-En Vue, utilisez le slot nommé `#indentGuide` pour personnaliser le contenu des guides.
+En Vue, utilisez le slot nommé `#indentGuide` pour personnaliser le contenu des guides. En Svelte, passez un snippet `indentGuide`.
 
 Le composant utilise directement les tokens de base, sans couche de variables
 `--moduix-json-tree-view-*`. Ajoutez une classe ou ciblez les attributs des parties Ark lorsqu’une vue

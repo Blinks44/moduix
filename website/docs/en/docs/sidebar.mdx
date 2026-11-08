@@ -97,6 +97,8 @@ Sidebar. For a persisted width, control `size`, update it from `onResize(details
 `onResizeEnd(details)`. In Solid, `asChild` uses a render function that receives the merged props.
 In Vue, use `as-child` with a single element in the default slot and a template ref to access the component instance.
 For controlled sizes, use `v-model:size` or handle `@resize`; persist the final value with `@resize-end`.
+In Svelte, `asChild` is a snippet that receives the merged props (`{#snippet asChild(props)}<a {...props()}>`).
+For controlled sizes, use `bind:size` and persist the final value from `onResizeEnd`.
 Place `SidebarNavigationBadge` after a simple `SidebarNavigationButton` or `SidebarNavigationSubButton`; it reserves
 trailing space for the counter and hides with the other trailing affordances in the compact rail.
 
@@ -106,6 +108,7 @@ and `state`, plus a `toggleSidebar()` callback. In Solid these are accessors rea
 use it only inside the sidebar tree.
 In Vue, the state values are refs: read `collapsed.value`, `side.value`, and `state.value`
 in script; templates unwrap them automatically.
+In Svelte, `useSidebar()` returns an object with getters: read `sidebar.collapsed`, `sidebar.side`, and `sidebar.state`.
 
 With Ark Vue 5.39.3 / Zag 1.45.0, the first controlled collapse can update `size` without
 emitting `@collapse`. The model and `useSidebar().collapsed` still reflect the new state.
@@ -138,7 +141,7 @@ Hover or focus a part to find it in the preview.
 
 ## Styling
 
-Every semantic part accepts `className` in React and `class` in Solid and Vue and exposes a stable
+Every semantic part accepts `className` in React and `class` in Solid, Vue, and Svelte and exposes a stable
 `data-slot="sidebar-*"` hook. `SidebarPanel` adds `data-state="expanded"` or `"collapsed"`, and
 layout parts expose `data-side`. `SidebarNavigationButton` and `SidebarNavigationSubButton` expose
 `data-active`; `SidebarNavigationButton` also exposes `data-size`.

@@ -18,6 +18,7 @@ Use the Formisch package for your framework:
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -40,6 +41,14 @@ Solid creates the store with `createForm` and updates compound controls with `fi
 <PackageManagerTabs command="install @formisch/vue valibot" />
 
 Vue uses `useForm` and the scoped slot of `Field`. Assign compound values to `field.input`; unwrap component refs to `$el` when registering focus targets.
+
+  </Tab>
+  <Tab value="svelte">
+
+<PackageManagerTabs command="install @formisch/svelte valibot" />
+
+Svelte uses `createForm` and the `children` snippet of `Field`. Spread `field.props` onto native inputs, call `field.onInput` for compound values, and forward the `ref`, `onfocus`, and `onblur` props to the element users focus.
+
 
   </Tab>
 </Tabs>
@@ -90,6 +99,6 @@ form-level error. Keep the current input so the user can correct and resubmit it
 
 - Forward `field.props.ref`, `onFocus`, and `onBlur` to the element users actually focus.
 - In React, use `field.onChange` for compound values. In Solid, use `field.onInput`. In Vue, update
-  `field.input` from the component's value-change details, or use `v-model` for native-value controls.
+  `field.input` from the component's value-change details, or use `v-model` for native-value controls. In Svelte, call `field.onInput` from the value-change details.
 - Keep the current value controlled so `initialInput`, `setInput`, and `reset` update the UI.
 - Do not pass an Ark details object to a native event handler from `field.props`.

@@ -108,7 +108,7 @@ Gardez `EditableInput` et `EditablePreview` comme éléments frères dans `Edita
 annulation. Utilisez `EditableRootProvider` à la place de `Editable` lorsque l’état créé par
 `useEditable()` doit être partagé avec des commandes situées en dehors de l’arbre rendu. Utilisez
 `EditableContext` ou `useEditableContext()` pour un contenu personnalisé qui dépend du mode actuel.
-Dans Solid, l’état exposé par `useEditable()` et le contexte est accessible via un accesseur : il se
+Dans Solid et Svelte, l’état exposé par `useEditable()` et le contexte est accessible via un accesseur : il se
 lit avec `editable().editing`.
 
 ## Anatomie
@@ -135,7 +135,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 ## Styles
 
-Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées pour les styles
+Utilisez `className` en React ou `class` en Solid, Vue et Svelte sur les parties exportées pour les styles
 structurels. Les variantes Tailwind utilisent des utilitaires natifs et les classes du consommateur.
 Les variantes CSS Modules exposent aussi la variable ci-dessous, qui garde la même hauteur pour la
 zone et les déclencheurs carrés. Les attributs de données et les points d’accroche `data-slot` sont

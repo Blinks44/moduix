@@ -10,16 +10,18 @@ import { AppShellExample } from '@/components/blocks/app-shell/app-shell-example
 import shellReact from '../../../src/components/blocks/app-shell/app-shell.tsx?raw';
 import shellSolid from '../../../snippets/blocks/solid/app-shell.tsx?raw';
 import shellVue from '../../../snippets/blocks/vue/app-shell.vue?raw';
+import shellSvelte from '../../../snippets/blocks/svelte/app-shell.svelte?raw';
 import shellCss from '../../../src/components/blocks/app-shell/app-shell.module.css?raw';
 import routeReact from '../../../snippets/blocks/react/app-shell-route.tsx?raw';
 import routeSolid from '../../../snippets/blocks/solid/app-shell-route.tsx?raw';
 import routeVue from '../../../snippets/blocks/vue/app-shell-route.vue?raw';
+import routeSvelte from '../../../snippets/blocks/svelte/app-shell-route.svelte?raw';
 
 # Structure d’application
 
 <ExamplePanel
   clientOnly
-  sources={{ react: shellReact, solid: shellSolid, vue: shellVue }}
+  sources={{ react: shellReact, solid: shellSolid, vue: shellVue, svelte: shellSvelte }}
   files={[{ name: 'app-shell.module.css', code: shellCss }]}
 >
   <AppShellExample />
@@ -32,12 +34,12 @@ import routeVue from '../../../snippets/blocks/vue/app-shell-route.vue?raw';
 ## Ajoutez votre contenu
 
 Importez le composant copié `AppShell` dans une page placée à côté de `app-shell.tsx` (ou
-`app-shell.vue`). Le contenu est rendu dans `<main>`. Le bloc inclut sa feuille de style commune
+`app-shell.vue` ou `app-shell.svelte`). Le contenu est rendu dans `<main>`. Le bloc inclut sa feuille de style commune
 et le dossier `icons`.
 
 <FrameworkCode
   name="app-shell-route"
-  sources={{ react: routeReact, solid: routeSolid, vue: routeVue }}
+  sources={{ react: routeReact, solid: routeSolid, vue: routeVue, svelte: routeSvelte }}
 />
 
 L’exemple utilise un état local. Dans votre application, déduisez `page` de la route active et
@@ -46,12 +48,15 @@ sur le lien actif. Remplacez le nom de l’espace de travail, les liens et les i
 dans le code copié. `AppShell` est une composition que vous pouvez modifier, pas un composant
 exporté par le paquet moduix.
 
-## Navigation Vue
+## Navigation Vue et Svelte
 
-Le bloc Vue inclut `app-shell-navigation.vue` pour partager la navigation entre la barre latérale
-et le menu mobile. La CLI l’installe à côté de `app-shell.vue`.
+Les blocs Vue et Svelte incluent `app-shell-navigation.vue` et `app-shell-navigation.svelte` pour partager la navigation entre la barre latérale
+et le menu mobile. La CLI l’installe à côté de `app-shell.vue` ou `app-shell.svelte`. Avec Svelte, `AppShell` reçoit `children` sous forme de snippet et signale la navigation par le callback `onnavigate`.
 
 ```vue pure file="../../../snippets/blocks/vue/app-shell-navigation.vue"
+```
+
+```svelte pure file="../../../snippets/blocks/svelte/app-shell-navigation.svelte"
 ```
 
 ## Comportement adaptatif

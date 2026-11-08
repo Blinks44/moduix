@@ -115,6 +115,9 @@ selection, pass `value` and `onValueChange(details)` and read the selected value
 In Vue, use `v-model` for controlled selection and `@value-change` to receive the same details
 object. `TabsContext` exposes that state through its default scoped slot.
 
+In Svelte, use `bind:value` for controlled selection or `onValueChange(details)`. `TabsContext` passes the
+state getter to its `render` snippet, so read it as `context().value`.
+
 Use `TabsRootProvider` with `useTabs()` when the state must be created outside the rendered tree
 or shared with adjacent UI. Pass the store to `TabsRootProvider` and do not render another `Tabs` root
 for the same state. Use `asChild` on `TabsTrigger` for a link or router component, and render
@@ -132,7 +135,7 @@ Hover or focus a part to find it in the preview.
     ["TabsIndicator", "tabs-indicator", "Optional indicator for the selected tab.", 2],
     ["TabsContent", "tabs-content", "Content panel associated with a matching trigger value.", 1],
     ["TabsRootProvider", "tabs-root-provider", "Connects the parts to state created with moduix `useTabs()`.", 0],
-    ["TabsContext", null, "Exposes the current tab state through a render prop or Vue scoped slot.", 0],
+    ["TabsContext", null, "Exposes the current tab state through a render prop, Vue scoped slot, or Svelte `render` snippet.", 0],
   ]}
 >
   <AnatomyScene />
@@ -140,7 +143,7 @@ Hover or focus a part to find it in the preview.
 
 ## Styling
 
-Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. For state-based
+Use `className` in React or `class` in Solid, Vue, and Svelte on exported parts for structural styles. For state-based
 styles, prefer Ark data attributes such as `data-selected`, `data-disabled`, and `data-orientation`,
 together with moduix `data-slot` selectors. Tailwind variants use native utilities and consumer
 classes; the variables below customize the CSS Modules variants.

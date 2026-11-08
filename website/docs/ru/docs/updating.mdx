@@ -41,8 +41,9 @@ changelog. Изменения поддерживаемого диапазона 
 | React | `@moduix/react` | `@moduix/react-tailwind` |
 | Solid | `@moduix/solid` | `@moduix/solid-tailwind` |
 | Vue | `@moduix/vue` | `@moduix/vue-tailwind` |
+| Svelte | `@moduix/svelte` | `@moduix/svelte-tailwind` |
 
-Не обновляйте похожий адаптер, который приложение не использует. React, Solid и Vue предоставляют
+Не обновляйте похожий адаптер, который приложение не использует. React, Solid, Vue и Svelte предоставляют
 одинаковый каталог компонентов в вариантах CSS Modules и Tailwind.
 
 ## Обновите пакеты
@@ -70,6 +71,11 @@ changelog. Изменения поддерживаемого диапазона 
 <PackageManagerTabs command="install @moduix/vue@latest @ark-ui/vue@latest" />
 
   </Tab>
+  <Tab label="Svelte" value="svelte">
+
+<PackageManagerTabs command="install @moduix/svelte@latest @ark-ui/svelte@latest" />
+
+  </Tab>
 </Tabs>
 
   </Tab>
@@ -91,6 +97,11 @@ changelog. Изменения поддерживаемого диапазона 
 <PackageManagerTabs command="install @moduix/vue-tailwind@latest @ark-ui/vue@latest" />
 
   </Tab>
+  <Tab label="Svelte" value="svelte">
+
+<PackageManagerTabs command="install @moduix/svelte-tailwind@latest @ark-ui/svelte@latest" />
+
+  </Tab>
 </Tabs>
 
   </Tab>
@@ -109,6 +120,7 @@ Ark UI является peer-зависимостью. Перед мажорны
 | React | `@moduix-react` | `@moduix-react-tailwind` |
 | Solid | `@moduix-solid` | `@moduix-solid-tailwind` |
 | Vue | `@moduix-vue` | `@moduix-vue-tailwind` |
+| Svelte | `@moduix-svelte` | `@moduix-svelte-tailwind` |
 
 Сначала просмотрите компонент, не изменяя локальные файлы: `view` выводит исходный элемент реестра,
 а `add --dry-run` и `add --diff` показывают, что именно запишет обновление:

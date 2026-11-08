@@ -49,7 +49,7 @@ est contrôlé et `Send` ne devient disponible qu’après la saisie d’une val
 
 Utilisez `InputGroupClearTrigger` pour afficher un bouton d’effacement avec une icône de croix
 et un libellé accessible par défaut. Il hérite de la taille du groupe et utilise `type="button"`
-par défaut. Gérez l’effacement et le retour du focus dans `onClick` (`@click` en Vue), et affichez
+par défaut. Gérez l’effacement et le retour du focus dans `onClick` (`@click` en Vue, `onclick` en Svelte), et affichez
 le bouton uniquement lorsque le champ contient une valeur. L’effacement et le masquage ne sont pas
 automatiques. Désactivez le bouton pour un champ désactivé ou en lecture seule. Fournissez
 un `aria-label` dans la langue souhaitée ou `aria-labelledby` ; le contenu enfant remplace l’icône.
@@ -107,7 +107,7 @@ comportement du formulaire, l’état de validation et la `ref` ; les props cont
 se placent donc sur ce champ, tandis que le libellé et les messages de validation vont dans `Field`.
 La taille de la racine est héritée par `InputGroupInput` et `InputGroupButton` ; les boutons ont
 par défaut `type="button"` et n’héritent pas de `disabled` depuis `Field`. En React, utilisez
-`onChange` pour un champ contrôlé ; en Solid, utilisez `onInput` ; en Vue, utilisez `v-model`.
+`onChange` pour un champ contrôlé ; en Solid, utilisez `onInput` ; en Vue, utilisez `v-model` ; en Svelte, utilisez `bind:value`.
 
 Utilisez `InputGroupAddon` et `InputGroupText` pour du contenu intégré non interactif, et `InputGroupButton` pour les actions. La
 racine, `InputGroupAddon` et `InputGroupText` prennent en charge `asChild` avec un seul enfant sémantique qui accepte les
@@ -139,7 +139,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 ## Styles
 
-Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées pour appliquer les styles
+Utilisez `className` en React ou `class` en Solid, Vue et Svelte sur les parties exportées pour appliquer les styles
 structurels. Pour les styles liés à l’état, privilégiez les attributs de données Ark comme
 `data-invalid`, `data-disabled` et `data-readonly`, ainsi que les sélecteurs `data-slot` de moduix.
 Les variantes Tailwind se personnalisent avec des utilitaires et des classes supplémentaires. Les
@@ -174,7 +174,7 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 - les états imbriqués `data-invalid`, `aria-invalid="true"` et `data-disabled`/`:disabled` sont reflétés sur la racine via `:has(...)`
 
 Les hooks `data-slot`, `data-scope`, `data-part` et `data-size` gérés par le composant restent
-stables même si vous fournissez vos propres propriétés. `className` en React et `class` en Solid et Vue
+stables même si vous fournissez vos propres propriétés. `className` en React et `class` en Solid, Vue et Svelte
 s’ajoutent toujours aux styles du composant.
 
 ## Référence de l’API

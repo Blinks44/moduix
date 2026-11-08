@@ -7,7 +7,7 @@ import { TokensOverview } from '@/components/docs/tokens-overview';
 
 # Tokens
 
-moduix styling is built on the same CSS custom properties in React, Solid, and Vue. Start with semantic
+moduix styling is built on the same CSS custom properties in React, Solid, Vue, and Svelte. Start with semantic
 color tokens for surfaces, text, borders, focus rings, and overlays. Then adjust spacing, radius,
 size, typography, motion, shadows, and layers when your product needs a different visual rhythm.
 
@@ -79,6 +79,29 @@ import '@moduix/vue/style.css';
 @import 'tailwindcss';
 
 @source '../node_modules/@moduix/vue-tailwind/dist/components';
+```
+
+  </StyleTrackCard>
+</StyleTrackCards>
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+<StyleTrackCards>
+  <StyleTrackCard label="CSS Modules">
+
+```ts
+import '@moduix/svelte/style.css';
+```
+
+  </StyleTrackCard>
+  <StyleTrackCard label="Tailwind CSS">
+
+```css
+@import '@moduix/svelte-tailwind/style.css';
+@import 'tailwindcss';
+
+@source '../node_modules/@moduix/svelte-tailwind/dist/components';
 ```
 
   </StyleTrackCard>

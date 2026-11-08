@@ -61,6 +61,7 @@
   },
   "scripts": {
     "build": "svelte-package --input src && node ../../scripts/copy-foundation-styles.mjs",
+    "build:dev": "svelte-package --input src && node ../../scripts/copy-foundation-styles.mjs",
     "check:package": "publint",
     "dev": "svelte-package --input src --watch",
     "test": "rstest run",

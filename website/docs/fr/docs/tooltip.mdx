@@ -111,15 +111,17 @@ pour une infobulle non contrôlée, ou `open` avec `onOpenChange(details)` lorsq
 l’application en est responsable. Utilisez `TooltipRootProvider` avec `useTooltip()` lorsque le
 store est créé en dehors de l’arbre rendu, et `TooltipContext` ou `useTooltipContext()` lorsqu’un
 descendant doit lire cet état. `asChild` attend un unique enfant pouvant recevoir le focus ; Solid
-utilise une fonction de rendu. `TooltipDisabledTrigger` est prévu pour un seul contrôle natif
+utilise une fonction de rendu et Svelte un snippet `asChild` qui diffuse `props()` sur l’enfant. `TooltipDisabledTrigger` est prévu pour un seul contrôle natif
 désactivé. Le portail est activé par défaut : définissez `portalled={false}` ou passez `portalRef`
 uniquement lorsque l’infobulle doit rester dans une limite DOM précise. En Vue, utilisez
-`v-model:open` pour l’état contrôlé et les événements Vue en kebab-case, comme `@open-change`.
+`v-model:open` pour l’état contrôlé et les événements Vue en kebab-case, comme `@open-change`. En Svelte, utilisez `bind:open` pour l’état contrôlé et des props
+callback comme `onOpenChange`.
 
 Par défaut, le contenu est monté à la première ouverture et retiré après l’animation de fermeture.
 Définissez `unmountOnExit` sur `false` pour le conserver après la première ouverture ;
 définissez aussi `lazyMount` sur `false` pour le monter dès le départ. En Vue, passez ces
-options avec `:unmount-on-exit="false"` et `:lazy-mount="false"`.
+options avec `:unmount-on-exit="false"` et `:lazy-mount="false"` ; en Svelte, passez-les comme des props ordinaires :
+`unmountOnExit={false}` et `lazyMount={false}`.
 
 ## Anatomie
 
@@ -139,7 +141,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
     ["TooltipArrowTip", "tooltip-arrow-tip", "Pointe visible de la flèche.", 4],
     ["TooltipBody", "", "Raccourci qui rend `TooltipPositioner` et `TooltipContent` ensemble.", 1],
     ["TooltipRootProvider", null, "Affiche une infobulle à partir d’un objet d’état `useTooltip()` créé en dehors de l’arbre.", 0],
-    ["TooltipContext", null, "Expose l’état courant aux descendants personnalisés via une fonction de rendu ou un slot avec portée en Vue.", 0],
+    ["TooltipContext", null, "Expose l’état courant aux descendants personnalisés via une fonction de rendu, un slot avec portée en Vue ou un snippet `render` en Svelte.", 0],
   ]}
 >
   <AnatomyScene />
@@ -154,7 +156,7 @@ sans espace et s’agrandit avec son texte. L’animation du contenu lit les var
 `--moduix-popup-motion-*` et est ignorée quand Ark bascule l’infobulle instantanément entre
 déclencheurs (`data-instant`) ou quand l’utilisateur préfère réduire les animations.
 
-Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées. Les variantes
+Utilisez `className` en React ou `class` en Solid, Vue et Svelte sur les parties exportées. Les variantes
 Tailwind utilisent les utilitaires natifs et les classes du consommateur. Les variantes CSS Modules
 reposent sur les jetons de foundation et n’ont pas de variables de composant : une classe sur la partie
 remplace les styles du composant en couche. Les attributs d’état et les hooks `data-slot` sont communs

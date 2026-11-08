@@ -66,7 +66,7 @@ l’élément de navigation actif ne peut pas faire défiler un conteneur ancêt
 Utilisez `TocRootProvider` avec `useToc()` uniquement lorsque des contrôles extérieurs à l’arbre
 ont besoin du même état de suivi, par exemple `activeIds` ou `scrollTo`. React expose le store comme
 un objet ; Solid donne accès à son état réactif au moyen de la fonction retournée, tandis que Vue
-expose directement cet état réactif au modèle. Utilisez `TocContext` si une composition environnante,
+expose directement cet état réactif au modèle. En Svelte, `useToc()` renvoie un getter : lisez l’état avec `toc().activeIds` et transmettez un `id` au hook (par exemple `$props.id()`). Utilisez `TocContext` si une composition environnante,
 comme `Collapsible`, a besoin des éléments actifs.
 Pour les liens d’un routeur, utilisez `TocLink asChild` avec un seul enfant `<a>` sémantique ; en
 Solid, transmettez cet enfant avec la fonction de rendu attendue par `asChild`. Choisissez
@@ -103,7 +103,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 ## Styles
 
-Utilisez `className` en React ou `class` en Solid et en Vue sur n’importe quel élément exporté. Les variantes
+Utilisez `className` en React ou `class` en Solid, Vue et Svelte sur n’importe quel élément exporté. Les variantes
 Tailwind utilisent des classes utilitaires et vos propres classes. Les variantes CSS Modules s’appuient sur les
 jetons de foundation et n’ont pas de variables propres : une classe sur un élément, ou un sélecteur `data-slot`,
 remplace les styles du composant placés dans une couche. Pour modifier la colonne de navigation, remplacez

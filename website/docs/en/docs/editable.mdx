@@ -104,8 +104,7 @@ Keep `EditableInput` and `EditablePreview` as siblings inside `EditableArea`, th
 `EditableControls` after the area for the standard edit, submit, and cancel flow. Use
 `EditableRootProvider` instead of `Editable` when state created by `useEditable()` must be
 shared with controls outside the rendered tree. Use `EditableContext` or `useEditableContext()` for
-custom content that depends on the current edit state. In Solid, the store exposed by `useEditable()`
-and context is an accessor, so read state as `editable().editing`.
+custom content that depends on the current edit state. In Solid and Svelte, the store exposed by `useEditable()` and context is an accessor, so read state as `editable().editing`.
 
 ## Anatomy
 
@@ -131,7 +130,7 @@ Hover or focus a part to find it in the preview.
 
 ## Styling
 
-Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. Tailwind
+Use `className` in React or `class` in Solid, Vue, and Svelte on exported parts for structural styles. Tailwind
 variants use native utilities and consumer classes. CSS Modules variants also expose the variable
 below, which keeps the area and the square triggers the same height. Data attributes and `data-slot`
 hooks are shared by both styling tracks.

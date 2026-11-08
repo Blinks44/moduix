@@ -53,7 +53,8 @@ the parent keeps control of dismissal and focus return.
 
 Use `asChild` when one semantic button from another component must own the DOM node. The child must render the icon;
 set `type="button"` on it when needed, especially inside a form. In Vue, place that button in the default slot. In
-Solid, pass a render function to `asChild` and spread `props()` onto the child.
+Solid, pass a render function to `asChild` and spread `props()` onto the child. In Svelte, pass an `asChild`
+snippet and spread `props()` onto the child.
 
 ## Anatomy
 
@@ -71,7 +72,7 @@ Hover or focus a part to find it in the preview.
 
 ## Styling
 
-Use `className` in React or `class` in Solid and Vue on the root for structural styles. Tailwind variants use native
+Use `className` in React or `class` in Solid, Vue, and Svelte on the root for structural styles. Tailwind variants use native
 utility classes and consumer class overrides; the variables below apply to the CSS Modules variants. Data attributes
 and `data-slot` hooks are shared by both styling tracks.
 

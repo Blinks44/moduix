@@ -105,7 +105,7 @@ import * as DateInputDocs from '@/components/examples/date-input/css-properties'
 
 ### Root Provider
 
-Используйте `useDateInput()` из `@moduix/react`, `@moduix/solid` или `@moduix/vue` вместе с `DateInputRootProvider`, когда
+Используйте `useDateInput()` из `@moduix/react`, `@moduix/solid`, `@moduix/vue` или `@moduix/svelte` вместе с `DateInputRootProvider`, когда
 методы управления состоянием нужны за пределами дерева корневого компонента. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
 
 <Example name="date-input/root-provider" />
@@ -123,7 +123,7 @@ import * as DateInputDocs from '@/components/examples/date-input/css-properties'
 Для обычного поля используйте `DateInput` с `DateInputControl` и `DateInputSegments`. Оставьте состояние
 неконтролируемым через `defaultValue`, управляйте им через `value` и `onValueChange(details)` или создайте
 его с помощью `useDateInput()` и подключите части через `DateInputRootProvider`. В Vue для управляемого
-значения используйте `v-model`. Значения имеют форму
+значения используйте `v-model`, в Svelte `bind:value`. Значения имеют форму
 `DateInputDateValue[]` из `@internationalized/date`, а не строк.
 
 `DateInputHiddenInput` нужно добавлять явно: корневой компонент не создаёт нативные поля. Добавьте по одному
@@ -155,7 +155,7 @@ import * as DateInputDocs from '@/components/examples/date-input/css-properties'
 
 ## Стилизация
 
-В React используйте `className`, а в Solid и Vue `class` на экспортируемых частях для структурных стилей. Варианты
+В React используйте `className`, а в Solid, Vue и Svelte `class` на экспортируемых частях для структурных стилей. Варианты
 Tailwind используют обычные utility-классы и классы потребителя. Варианты CSS Modules также предоставляют
 перечисленные ниже переменные компонентов. Атрибуты данных и хуки `data-slot` общие для обоих вариантов.
 

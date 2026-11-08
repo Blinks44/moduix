@@ -1,11 +1,12 @@
 ---
 title: Format Byte
-description: Formatez des tailles en React, Solid et Vue avec Ark UI, en choisissant un système décimal ou binaire et un affichage localisé.
+description: Formatez des tailles en React, Solid, Vue et Svelte avec Ark UI, en choisissant un système décimal ou binaire et un affichage localisé.
 ark: https://ark-ui.com/docs/utilities/format-byte
 ---
 
 import formatByteSolidLocale from '../../../snippets/format-byte/solid/locale.tsx?raw';
 import formatByteVueLocale from '../../../snippets/format-byte/vue/locale.vue?raw';
+import formatByteSvelteLocale from '../../../snippets/format-byte/svelte/locale.svelte?raw';
 
 `Format.Byte` transforme un nombre d’octets en texte lisible. Importez-le depuis le package Ark correspondant à votre
 framework.
@@ -20,6 +21,7 @@ Importez `Format` depuis le package Ark UI correspondant :
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -41,6 +43,13 @@ import { Format } from '@ark-ui/solid';
 
 ```ts
 import { Format } from '@ark-ui/vue';
+```
+
+  </Tab>
+  <Tab value="svelte">
+
+```ts
+import { Format } from '@ark-ui/svelte';
 ```
 
   </Tab>
@@ -76,6 +85,7 @@ partie localisée de l’interface avec le provider du package Ark UI correspond
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -93,6 +103,11 @@ partie localisée de l’interface avec le provider du package Ark UI correspond
   <Tab value="vue">
 
 <CodeBlockRuntime lang="vue" code={formatByteVueLocale} />
+
+  </Tab>
+  <Tab value="svelte">
+
+<CodeBlockRuntime lang="svelte" code={formatByteSvelteLocale} />
 
   </Tab>
 </Tabs>

@@ -133,7 +133,7 @@ d’autres contrôles ou a besoin d’un contenu personnalisé.
 
 ## Composition
 
-Les mêmes exports sont disponibles depuis `@moduix/solid/carousel` pour Solid.
+Les mêmes exports sont disponibles depuis `@moduix/solid/carousel` pour Solid et `@moduix/svelte/carousel` pour Svelte.
 
 `Carousel` gère son état à l’intérieur de la racine. Utilisez `defaultPage` pour un carrousel non contrôlé ; utilisez `page` avec `onPageChange(details)` lorsque la page courante est gérée par le routage, des filtres ou une autre partie de l’application. `slideCount` est obligatoire et doit rester synchronisé avec les éléments rendus lorsque la collection change.
 
@@ -144,6 +144,8 @@ Utilisez `CarouselRootProvider` avec `useCarousel()` lorsque le store doit être
 En Solid, assignez la ref à l’élément créé dans la fonction de rendu `asChild` ; une ref posée sur une partie Carousel elle-même n’est pas transmise par ce chemin de composition.
 
 En Vue, une ref de template sur une partie pointe vers son hôte rendu via `$el`, y compris l’hôte de substitution créé par `asChild`.
+
+En Svelte, utilisez `bind:ref` sur une partie pour obtenir son élément hôte rendu, et passez le snippet `asChild` pour remplacer l’hôte : il reçoit un getter, donc étalez `{...props()}` sur l’élément.
 
 ## Anatomie
 
@@ -183,7 +185,7 @@ aussi importer le composant depuis `@moduix/react/carousel`.
 
 ## Styles
 
-Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées pour appliquer les styles
+Utilisez `className` en React ou `class` en Solid, Vue et Svelte sur les parties exportées pour appliquer les styles
 structurels. Pour les styles liés à l’état, privilégiez les attributs de données Ark (`data-part`,
 `data-orientation`, `data-current`, `data-dragging`) et les points d’accroche `data-slot` de moduix.
 

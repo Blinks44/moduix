@@ -73,7 +73,7 @@ Passez `name` et rendez `RatingGroupHiddenInput` lorsque la note sélectionnée 
 
 ### État contrôlé
 
-Passez `value` et `onValueChange` (`v-model` en Vue) lorsque la note dépend d’un autre état ou est
+Passez `value` et `onValueChange` (`v-model` en Vue, `bind:value` en Svelte) lorsque la note dépend d’un autre état ou est
 réinitialisée par le parent. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
 
 <Example name="rating-group/controlled" />
@@ -104,7 +104,7 @@ Utilisez `RatingGroupItems` pour l’arbre standard généré. Pour remplacer le
 Pour un arbre d’éléments personnalisé, utilisez `RatingGroupContext` avec `RatingGroupItem`.
 Utilisez `RatingGroupRootProvider` avec `useRatingGroup()` lorsque l’état doit être créé en dehors
 de l’arbre rendu. React lit le store comme un objet, Solid lit son état réactif via la fonction
-retournée, et Vue expose directement le store réactif dans le template.
+retournée, Vue expose directement le store réactif dans le template, et Svelte renvoie un getter : lisez l’état avec `ratingGroup().value`.
 
 ## Anatomie
 
@@ -129,7 +129,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 ## Styles
 
-Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées pour les styles
+Utilisez `className` en React ou `class` en Solid, Vue et Svelte sur les parties exportées pour les styles
 structurels. Ark expose aussi les attributs `data-scope="rating-group"` et `data-part`. Pour les styles liés à l’état, utilisez les attributs de données tels que
 `data-disabled`, `data-readonly`, `data-checked`, `data-highlighted` et `data-half`, avec les hooks
 `data-slot` de moduix. Les variantes Tailwind utilisent des utilitaires natifs et les classes du

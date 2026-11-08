@@ -35,7 +35,7 @@ l’option `arrow` de l’étape pour qu’Ark positionne la flèche.
 
 Appelez `tour.next()` depuis le gestionnaire du champ lorsque la valeur contient deux caractères. Pour des étapes qui
 dépendent d’une condition asynchrone, `waitForElement`, `waitForElementValue`, `waitForEvent` et `waitForPromise` sont
-aussi exportés depuis `@moduix/react/tour`, `@moduix/solid/tour` et `@moduix/vue/tour`.
+aussi exportés depuis `@moduix/react/tour`, `@moduix/solid/tour`, `@moduix/vue/tour` et `@moduix/svelte/tour`.
 
 <Example name="tour/wait-for-input" />
 
@@ -60,7 +60,7 @@ la navigation et la fermeture fonctionnent encore si vous remplacez son contenu 
 
 Créez l’état avec `useTour` et transmettez-le à `Tour`. En Solid, la valeur renvoyée est un accessor : appelez donc
 `tour()` pour utiliser des méthodes comme `start()` et `next()`. Avec Vue, la valeur renvoyée est une référence (`ref`) : sa valeur est
-directement accessible dans les templates, tandis que le script appelle les méthodes via `tour.value`. Gardez les parties structurelles explicites et
+directement accessible dans les templates, tandis que le script appelle les méthodes via `tour.value`. En Svelte, la valeur renvoyée est un getter, comme en Solid : appelez `tour()`. Gardez les parties structurelles explicites et
 incluez `TourTitle` et `TourDescription` pour donner un nom et une description accessibles à `dialog`. `TourBackdrop`,
 `TourSpotlight` et `TourPositioner` sont rendus dans un portail par défaut ; utilisez `portalled={false}` ou `portalRef` seulement
 si la couche doit rester dans le balisage ou rejoindre un conteneur précis. Utilisez `TourActionList` pour les actions
@@ -103,7 +103,7 @@ notifications. `TourCloseTrigger` n’a pas de style ;
 variables partagées `--moduix-popup-motion-*`, et les animations de l’arrière-plan et du contenu sont
 désactivées lorsque l’utilisateur préfère réduire les animations.
 
-Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées. Les variantes Tailwind
+Utilisez `className` en React ou `class` en Solid, Vue et Svelte sur les parties exportées. Les variantes Tailwind
 utilisent des utilitaires natifs et les classes du consommateur. Les variantes CSS Modules reposent sur les
 jetons de foundation et n’ont pas de variables de composant : une classe sur la partie remplace les styles
 du composant placés dans une couche. Passez `className` (ou `class`) à `TourActionList` pour styliser

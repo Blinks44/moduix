@@ -129,7 +129,7 @@ Placez `SliderDraggingIndicator` dans une poignée pour afficher sa valeur activ
 
 ### Événements de modification
 
-Utilisez `onValueChange` (ou l’événement Vue `value-change`) pour mettre à jour l’interface pendant
+Utilisez `onValueChange` (ou l’événement Vue `value-change` ; Svelte utilise les mêmes props de rappel) pour mettre à jour l’interface pendant
 l’interaction et `onValueChangeEnd` (ou `value-change-end`) lorsque le glissement ou l’interaction
 au clavier est terminé.
 
@@ -138,7 +138,7 @@ au clavier est terminé.
 ### État contrôlé
 
 Contrôlez le slider depuis l’état du framework en conservant le tableau fourni par `details.value` ;
-dans Vue, liez `v-model` à une ref pour le même contrat contrôlé.
+dans Vue, liez `v-model` à une ref, et dans Svelte utilisez `bind:value`, pour le même contrat contrôlé.
 
 <Example name="slider/controlled" width="sm" />
 
@@ -165,11 +165,11 @@ personnalisés, porter un nom accessible ou suivre un ordre précis, composez ex
 soumission du formulaire.
 
 Pour un état contrôlé, stockez `details.value` fourni par `onValueChange` ou
-`onValueChangeEnd` ; dans Vue, liez `v-model` à une ref pour le même contrat contrôlé. Utilisez
+`onValueChangeEnd` ; dans Vue, liez `v-model` à une ref, et dans Svelte utilisez `bind:value`, pour le même contrat contrôlé. Utilisez
 `useSliderContext` dans les descendants pour lire l’état. Si l’état doit être créé en dehors de
 l’arbre rendu, créez-le avec `useSlider` et transmettez-le à `SliderRootProvider` ; ne rendez pas
 une autre racine pour le même store. React lit le store comme un objet, Solid via l’accessor
-retourné, et Vue expose directement le store réactif dans le template.
+retourné, Vue expose directement le store réactif dans le template, et Svelte renvoie un getter : lisez l’état avec `slider().value`.
 
 ## Anatomie
 
@@ -196,7 +196,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 ## Styles
 
-Personnalisez l’apparence de `Slider` avec `className` (ou `class` dans Vue), les attributs Ark, les points d’accroche stables
+Personnalisez l’apparence de `Slider` avec `className` (ou `class` dans Vue et Svelte), les attributs Ark, les points d’accroche stables
 `data-slot="slider-*"`, les variables CSS d’Ark et les variables CSS publiques de moduix ci-dessous.
 
 ### Variables CSS

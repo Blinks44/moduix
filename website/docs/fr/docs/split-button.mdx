@@ -99,6 +99,8 @@ personnalisé du déclencheur passe par `children`, afin que le déclencheur Ark
 
 Dans Vue, utilisez `@click` pour l’action principale, `@open-change` ou `v-model:open` pour l’état du menu, et le slot par défaut pour le contenu du déclencheur.
 
+En Svelte, utilisez `onclick` sur l’action, `bind:open` pour l’état du menu et passez le contenu du déclencheur en `children`. `SplitButtonAction asChild` reçoit un snippet qui diffuse `props()` sur le lien.
+
 `SplitButtonPositioner` enveloppe un portail : le `$el` de sa référence de composant Vue pointe donc vers le nœud d’ancrage du portail. L’élément positionné porte l’attribut `data-slot="split-button-positioner"`.
 
 ## Anatomie
@@ -119,7 +121,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 ## Styles
 
-Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées pour appliquer les styles structurels.
+Utilisez `className` en React ou `class` en Solid, Vue et Svelte sur les parties exportées pour appliquer les styles structurels.
 Les variantes Tailwind se personnalisent avec des utilitaires et des classes supplémentaires ; les variables
 ci-dessous concernent les variantes CSS Modules. Les attributs de données et les hooks `data-slot` sont communs
 aux deux modes de style.

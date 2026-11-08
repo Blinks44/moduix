@@ -20,7 +20,7 @@ import * as ProgressLinearDocs from '@/components/examples/progress-linear/css-p
 
 Composez la barre de progression avec les parties explicites `ProgressLinearLabel`, `ProgressLinearValueText`, `ProgressLinearTrack` et
 `ProgressLinearRange`. Donnez à `ProgressLinearTrack` un nom accessible qui décrit la tâche.
-React, Solid et Vue exposent les mêmes noms de parties plats ; Vue utilise `class`, les slots et `v-model` lorsque le contrat le prévoit.
+React, Solid, Vue et Svelte exposent les mêmes noms de parties plats ; Vue utilise `class`, les slots et `v-model`, et Svelte `class`, les snippets et `bind:value`, lorsque le contrat le prévoit.
 
 ## Choisir le bon composant
 
@@ -94,7 +94,7 @@ Utilisez `defaultValue` pour une progression non contrôlée. Pour une progressi
 `useProgress()`, rendez les parties dans `ProgressLinearRootProvider` plutôt que dans
 `ProgressLinear`. Utilisez `ProgressLinearView` pour le contenu dépendant de
 l’état et `ProgressLinearContext` lorsque votre texte personnalisé doit accéder à l’état courant.
-Dans Vue, utilisez `v-model` pour la même valeur contrôlée.
+Dans Vue, utilisez `v-model` pour la même valeur contrôlée ; dans Svelte, utilisez `bind:value`.
 
 ## Anatomie
 
@@ -117,7 +117,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 ## Styles
 
-Utilisez `className` dans React ou `class` dans Solid et Vue sur les parties exportées pour modifier la
+Utilisez `className` dans React ou `class` dans Solid, Vue et Svelte sur les parties exportées pour modifier la
 structure visuelle. Pour les styles dépendants de l’état, utilisez les attributs de données Ark et
 les points d’accroche `data-slot` de moduix. Les variantes Tailwind utilisent des utilitaires natifs et
 des classes du consommateur ; les variables ci-dessous personnalisent les variantes CSS Modules.

@@ -1,17 +1,17 @@
 ---
 title: Astro
-description: Подключение компонентов moduix для React, Solid и Vue к Astro через пакеты или shadcn, включая стили, алиасы и клиентские директивы.
+description: Подключение компонентов moduix для React, Solid, Vue и Svelte к Astro через пакеты или shadcn, включая стили, алиасы и клиентские директивы.
 ---
 
 # Astro
 
-Руководство предполагает существующий Astro-проект с уже настроенной официальной интеграцией React, Solid
-или Vue. По умолчанию компонент превращается в статический HTML. Чтобы он работал в браузере,
+Руководство предполагает существующий Astro-проект с уже настроенной официальной интеграцией React, Solid,
+Vue или Svelte. По умолчанию компонент превращается в статический HTML. Чтобы он работал в браузере,
 добавьте директиву `client:*`.
 
 ## Выберите вариант настройки
 
-- **Среда:** React, Solid или Vue с соответствующей официальной интеграцией Astro.
+- **Среда:** React, Solid, Vue или Svelte с соответствующей официальной интеграцией Astro.
 - **Стилизация:** CSS Modules или Tailwind CSS v4.
 - **Поставка:** пакет или исходный код, добавленный через shadcn CLI.
 
@@ -40,6 +40,11 @@ description: Подключение компонентов moduix для React, 
   <Tab label="Vue" value="vue">
 
 <PackageManagerTabs command="install @moduix/vue @ark-ui/vue" />
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+<PackageManagerTabs command="install @moduix/svelte @ark-ui/svelte" />
 
   </Tab>
 </Tabs>
@@ -89,6 +94,20 @@ import '@moduix/vue/style.css';
 ```
 
   </Tab>
+  <Tab label="Svelte" value="svelte">
+
+```astro title="src/layouts/Layout.astro"
+---
+import '@moduix/svelte/reset.css';
+import '@moduix/svelte/style.css';
+---
+
+<html lang="en">
+  <body><slot /></body>
+</html>
+```
+
+  </Tab>
 </Tabs>
 
 Создайте компонент для выбранного фреймворка:
@@ -129,12 +148,37 @@ import { Button } from '@moduix/vue/button';
 ```
 
   </Tab>
+  <Tab label="Svelte" value="svelte">
+
+```svelte title="src/components/ContinueButton.svelte"
+<script lang="ts">
+  import { Button } from '@moduix/svelte/button';
+</script>
+
+<Button>Continue</Button>
+```
+
+  </Tab>
 </Tabs>
 
 Импортируйте компонент непосредственно в страницу Astro и добавьте клиентскую директиву:
 
 <Tabs groupId="framework">
-  <Tab label="React / Solid" value="react-solid">
+  <Tab label="React" value="react">
+
+```astro title="src/pages/index.astro"
+---
+import Layout from '../layouts/Layout.astro';
+import { ContinueButton } from '../components/ContinueButton';
+---
+
+<Layout>
+  <ContinueButton client:load />
+</Layout>
+```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
 
 ```astro title="src/pages/index.astro"
 ---
@@ -154,6 +198,20 @@ import { ContinueButton } from '../components/ContinueButton';
 ---
 import Layout from '../layouts/Layout.astro';
 import ContinueButton from '../components/ContinueButton.vue';
+---
+
+<Layout>
+  <ContinueButton client:load />
+</Layout>
+```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+```astro title="src/pages/index.astro"
+---
+import Layout from '../layouts/Layout.astro';
+import ContinueButton from '../components/ContinueButton.svelte';
 ---
 
 <Layout>
@@ -190,6 +248,11 @@ import ContinueButton from '../components/ContinueButton.vue';
 <ShadcnInstallOptions options={[{ label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/button' }, { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/button' }]} />
 
   </Tab>
+  <Tab label="Svelte" value="svelte">
+
+<ShadcnInstallOptions options={[{ label: 'CSS Modules', command: 'shadcn@latest add @moduix-svelte/button' }, { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-svelte-tailwind/button' }]} />
+
+  </Tab>
 </Tabs>
 
 Для CSS Modules импортируйте `@/lib/moduix/styles/style.css` из `src/layouts/Layout.astro`;
@@ -204,4 +267,4 @@ Tailwind и импортируйте этот файл из layout. В комп�
 
 Подробности есть в руководстве Astro по [компонентам разных фреймворков](https://docs.astro.build/en/guides/framework-components/)
 и официальных инструкциях для [React](https://docs.astro.build/en/guides/integrations-guide/react/)
-и [Solid](https://docs.astro.build/en/guides/integrations-guide/solid-js/) / [Vue](https://docs.astro.build/en/guides/integrations-guide/vue/).
+и [Solid](https://docs.astro.build/en/guides/integrations-guide/solid-js/) / [Vue](https://docs.astro.build/en/guides/integrations-guide/vue/) / [Svelte](https://docs.astro.build/en/guides/integrations-guide/svelte/).

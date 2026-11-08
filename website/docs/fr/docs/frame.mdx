@@ -1,15 +1,17 @@
 ---
 title: Frame
-description: Rendez du contenu React, Solid ou Vue dans une iframe isolée avec Frame d’Ark UI.
+description: Rendez du contenu React, Solid, Vue ou Svelte dans une iframe isolée avec Frame d’Ark UI.
 ark: https://ark-ui.com/docs/utilities/frame
 ---
 
 import frameSolidLifecycle from '../../../snippets/frame/solid/lifecycle.tsx?raw';
 import frameVueLifecycle from '../../../snippets/frame/vue/lifecycle.vue?raw';
+import frameSvelteLifecycle from '../../../snippets/frame/svelte/lifecycle.svelte?raw';
 import frameSolidStaticDocument from '../../../snippets/frame/solid/static-document.tsx?raw';
 import frameVueStaticDocument from '../../../snippets/frame/vue/static-document.vue?raw';
+import frameSvelteStaticDocument from '../../../snippets/frame/svelte/static-document.svelte?raw';
 
-`Frame` rend du contenu React, Solid ou Vue dans le document séparé d’une iframe.
+`Frame` rend du contenu React, Solid, Vue ou Svelte dans le document séparé d’une iframe.
 
 ## Importation
 
@@ -21,6 +23,7 @@ Importez l’utilitaire depuis le paquet Ark UI correspondant à votre framework
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -45,6 +48,13 @@ import { Frame } from '@ark-ui/vue';
 ```
 
   </Tab>
+  <Tab value="svelte">
+
+```ts
+import { Frame } from '@ark-ui/svelte/frame';
+```
+
+  </Tab>
 </Tabs>
 
 ## Exemple de base
@@ -57,7 +67,7 @@ traversent pas la limite de l’iframe.
 
 ## Styles et dimensions du contenu
 
-La prop `head` accepte du contenu JSX et l’insère dans le `<head>` de l’iframe. Utilisez-la pour les styles, les polices
+La prop `head` accepte du contenu JSX (un snippet en Svelte) et l’insère dans le `<head>` de l’iframe. Utilisez-la pour les styles, les polices
 et les métadonnées. Les feuilles de style nécessaires au contenu intégré doivent également être chargées via cette prop.
 
 `Frame` observe la taille du contenu monté et l’écrit en pixels dans les propriétés CSS personnalisées `--width` et
@@ -70,7 +80,7 @@ contenu. La variable `--width` peut être utilisée de la même manière pour sa
 
 Utilisez `onMount` et `onUnmount` pour les ressources gérées par l’expérience intégrée. Ces deux callbacks sont appelés
 sans argument. Une `ref` permet à l’application d’accéder au document de l’iframe lorsque la configuration doit
-interagir avec celui-ci.
+interagir avec celui-ci ; en Svelte, utilisez `bind:ref`.
 
 N’injectez que des scripts contrôlés par votre application. Pour les styles et les métadonnées, préférez `head`.
 
@@ -82,6 +92,7 @@ N’injectez que des scripts contrôlés par votre application. Pour les styles 
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
       { label: 'Vue', value: 'vue' },
+      { label: 'Svelte', value: 'svelte' },
     ]}
     className="docs-tabs"
   >
@@ -101,13 +112,18 @@ N’injectez que des scripts contrôlés par votre application. Pour les styles 
 <CodeBlockRuntime lang="vue" code={frameVueLifecycle} />
 
     </Tab>
+  <Tab value="svelte">
+
+<CodeBlockRuntime lang="svelte" code={frameSvelteLifecycle} />
+
+    </Tab>
   </Tabs>
 </div>
 </ExampleCode>
 
 ## Documents HTML statiques
 
-Utilisez `srcDoc` en React ou `srcdoc` en Solid et Vue lorsque l’iframe doit commencer par un document HTML complet plutôt que
+Utilisez `srcDoc` en React ou `srcdoc` en Solid, Vue et Svelte lorsque l’iframe doit commencer par un document HTML complet plutôt que
 par des enfants rendus par le framework. Ce sont les écritures natives du même attribut d’iframe dans chaque framework.
 
 Pour du HTML non fiable, définissez l’attribut natif `sandbox` et n’accordez que les permissions nécessaires au contenu.
@@ -121,6 +137,7 @@ N’associez pas `allow-scripts` et `allow-same-origin` dans une sandbox destin�
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
       { label: 'Vue', value: 'vue' },
+      { label: 'Svelte', value: 'svelte' },
     ]}
     className="docs-tabs"
   >
@@ -138,6 +155,11 @@ N’associez pas `allow-scripts` et `allow-same-origin` dans une sandbox destin�
   <Tab value="vue">
 
 <CodeBlockRuntime lang="vue" code={frameVueStaticDocument} />
+
+    </Tab>
+  <Tab value="svelte">
+
+<CodeBlockRuntime lang="svelte" code={frameSvelteStaticDocument} />
 
     </Tab>
   </Tabs>

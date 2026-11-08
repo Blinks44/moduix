@@ -1503,8 +1503,8 @@ body .rp-doc .rp-table-scroll-container:has(> table > tbody > tr:nth-child(15)) 
       --moduix-doc-framework-color: #34c38f;
     }
 
-    &[data-index='3']::before {
-      display: none;
+    &[data-index='3'] {
+      --moduix-doc-framework-color: #ff3e00;
     }
   }
 
@@ -1525,11 +1525,12 @@ body .rp-doc .rp-table-scroll-container:has(> table > tbody > tr:nth-child(15)) 
   }
 }
 
-.moduix-tabs[data-group='framework'][data-values='react-solid vue']
+/* A trailing Styles tab shows source CSS, not a framework, so it has no dot. */
+.moduix-tabs[data-group='framework'][data-values$=' styles']
   > .rp-tabs
   > .rp-tabs__label
-  > [data-index='1'] {
-  --moduix-doc-framework-color: #34c38f;
+  > :last-child::before {
+  display: none;
 }
 
 /* Inside these unboxed groups, a single code block or package manager card keeps its own frame. */

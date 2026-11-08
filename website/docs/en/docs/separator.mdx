@@ -64,8 +64,7 @@ that informed this API.
 `Separator` is a root-only component, so it does not own state or require a provider. Use
 `<Separator />` for the usual divider. When another element must host the divider, use `asChild`
 with one child that accepts the merged role, ARIA,
-`data-*`, class, and ref props. React and Vue pass the child element directly, while Solid uses
-`asChild={(props) => <hr {...props()} />}`.
+`data-*`, class, and ref props. React and Vue pass the child element directly, while Solid uses `asChild={(props) => <hr {...props()} />}` and Svelte uses an `asChild` snippet: `{#snippet asChild(props)}<hr {...props()} />{/snippet}`.
 
 ## Anatomy
 
@@ -83,7 +82,7 @@ Hover or focus a part to find it in the preview.
 
 ## Styling
 
-Use `className` in React or `class` in Solid and Vue on the root. Tailwind variants use native utility
+Use `className` in React or `class` in Solid, Vue, and Svelte on the root. Tailwind variants use native utility
 classes and consumer classes; the CSS properties below customize the CSS Modules variants. Data
 attributes and `data-slot` hooks are shared by both styling tracks.
 

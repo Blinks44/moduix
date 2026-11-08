@@ -1,0 +1,18 @@
+<script lang="ts">
+  import { Format } from '@ark-ui/svelte/format';
+</script>
+
+<dl>
+  <div>
+    <dt>Last sync</dt>
+    <dd>
+      <Format.Time value="09:08:12" withSeconds />
+    </dd>
+  </div>
+  <div>
+    <dt>Support window</dt>
+    <dd>
+      <Format.Time value="17:15" format="12h" amLabel="morning" pmLabel="evening" />
+    </dd>
+  </div>
+</dl>

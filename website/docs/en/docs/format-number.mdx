@@ -6,6 +6,7 @@ ark: https://ark-ui.com/docs/utilities/format-number
 
 import formatNumberSolidLocale from '../../../snippets/format-number/solid/locale.tsx?raw';
 import formatNumberVueLocale from '../../../snippets/format-number/vue/locale.vue?raw';
+import formatNumberSvelteLocale from '../../../snippets/format-number/svelte/locale.svelte?raw';
 
 `Format.Number` formats a numeric value with the browser's `Intl.NumberFormat` rules. It is a read-only formatter, not
 an input control.
@@ -20,6 +21,7 @@ Import the utility from the matching Ark UI package:
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -44,6 +46,13 @@ import { Format } from '@ark-ui/vue';
 ```
 
   </Tab>
+  <Tab value="svelte">
+
+```ts
+import { Format } from '@ark-ui/svelte';
+```
+
+  </Tab>
 </Tabs>
 
 ## Basic
@@ -51,7 +60,7 @@ import { Format } from '@ark-ui/vue';
 Pass a number to `value`. Without formatting options, the result follows the active locale. `Format.Number` renders
 only text, so keep its label and surrounding layout in your own markup.
 
-The preview uses React because the documentation site runs React. The Solid and Vue tabs contain
+The preview uses React because the documentation site runs React. The Solid, Vue, and Svelte tabs contain
 native implementations of the same example.
 
 <Example name="format-number/basic" />
@@ -81,6 +90,7 @@ the default locale is `en-US`. Import the provider from the matching Ark framewo
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
       { label: 'Vue', value: 'vue' },
+      { label: 'Svelte', value: 'svelte' },
     ]}
     className="docs-tabs"
   >
@@ -98,6 +108,11 @@ the default locale is `en-US`. Import the provider from the matching Ark framewo
   <Tab value="vue">
 
 <CodeBlockRuntime lang="vue" code={formatNumberVueLocale} />
+
+    </Tab>
+  <Tab value="svelte">
+
+<CodeBlockRuntime lang="svelte" code={formatNumberSvelteLocale} />
 
     </Tab>
   </Tabs>

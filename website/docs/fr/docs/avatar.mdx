@@ -21,7 +21,7 @@ import * as AvatarDocs from '@/components/examples/avatar/css-properties';
 Utilisez `Avatar`, `AvatarFallback` et `AvatarImage` ensemble. Gardez `AvatarFallback` dans l’arbre
 pour qu’Ark UI puisse basculer entre le contenu de remplacement et l’image lorsque l’état de chargement change.
 
-React, Solid et Vue partagent les mêmes noms de valeurs à plat. Importez `Avatar` comme racine et chaque
+React, Solid, Vue et Svelte partagent les mêmes noms de valeurs à plat. Importez `Avatar` comme racine et chaque
 partie supplémentaire directement, par exemple `AvatarImage` et `AvatarFallback`. Ces mêmes noms
 fonctionnent avec les paquets npm et les sources du registre shadcn.
 
@@ -46,7 +46,7 @@ un nom accessible si ce contenu apporte une information absente du texte voisin.
 
 Utilisez `useAvatarContext()` depuis moduix avec React ou Solid lorsqu’un composant d’image ou un
 moteur de rendu personnalisé doit s’intégrer au cycle de chargement géré par Ark. En Vue, le slot de
-`AvatarContext` fournit l’état de l’image.
+`AvatarContext` fournit l’état de l’image. En Svelte, utilisez le snippet `render` de `AvatarContext`, qui reçoit un getter : `avatar().getImageProps()`.
 
 <Example name="avatar/custom-image" />
 
@@ -89,9 +89,9 @@ interagir avec lui. Transmettez-le à `AvatarRootProvider` à la place de `Avata
 
 ## Composition
 
-Gardez `AvatarFallback` et `AvatarImage` sous la même racine afin qu’Ark UI puisse gérer leur visibilité. Lorsqu’une autre partie de l’application contrôle l’état, créez-le avec `useAvatar()` du framework concerné et transmettez-le directement à `AvatarRootProvider` ; ne rendez pas une seconde racine pour le même store. React reçoit le store comme un objet, tandis que Solid fournit un accesseur réactif. En Vue, transmettez directement le résultat de `useAvatar()` à `AvatarRootProvider`. React et Solid peuvent utiliser `useAvatarContext()` pour un rendu d’image personnalisé et conserver les états masqué et visible de `getImageProps()`. En Vue, le slot de `AvatarContext` expose le même état. Utilisez `asChild` avec un seul enfant sémantique lorsqu’un autre élément doit porter le nœud DOM racine.
+Gardez `AvatarFallback` et `AvatarImage` sous la même racine afin qu’Ark UI puisse gérer leur visibilité. Lorsqu’une autre partie de l’application contrôle l’état, créez-le avec `useAvatar()` du framework concerné et transmettez-le directement à `AvatarRootProvider` ; ne rendez pas une seconde racine pour le même store. React reçoit le store comme un objet, tandis que Solid fournit un accesseur réactif. En Vue, transmettez directement le résultat de `useAvatar()` à `AvatarRootProvider`. En Svelte, transmettez de la même façon le getter renvoyé par `useAvatar({ id })`. React et Solid peuvent utiliser `useAvatarContext()` pour un rendu d’image personnalisé et conserver les états masqué et visible de `getImageProps()`. En Vue, le slot de `AvatarContext` expose le même état, en Svelte le snippet `render`. Utilisez `asChild` avec un seul enfant sémantique lorsqu’un autre élément doit porter le nœud DOM racine.
 
-En Solid, attribuez la ref à l’élément créé dans la fonction de rendu `asChild` : une ref posée sur `Avatar` lui-même n’est pas transmise par cette composition. En Vue, les refs pointent vers l’instance du composant ; utilisez `$el` pour accéder à l’élément rendu.
+En Solid, attribuez la ref à l’élément créé dans la fonction de rendu `asChild` : une ref posée sur `Avatar` lui-même n’est pas transmise par cette composition. En Vue, les refs pointent vers l’instance du composant ; utilisez `$el` pour accéder à l’élément rendu. En Svelte, utilisez `bind:ref` sur `Avatar` pour obtenir l’élément hôte et le snippet `asChild` pour rendre votre propre élément.
 
 ## Anatomie
 
@@ -111,7 +111,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 ## Styles
 
-Utilisez `className` dans React ou `class` dans Solid et Vue, ainsi que les variables CSS de moduix, pour modifier l’apparence. Utilisez les attributs de
+Utilisez `className` dans React ou `class` dans Solid, Vue et Svelte, ainsi que les variables CSS de moduix, pour modifier l’apparence. Utilisez les attributs de
 données fournis par Ark lorsque le style dépend de l’état de l’image.
 
 ### Variables CSS

@@ -140,8 +140,8 @@ use separate stores and separate `DrawerRootProvider` trees so each drawer keeps
 
 Wrap surfaces that should move together in `DrawerStack`, then pair `DrawerIndentBackground` with
 `DrawerIndent`. Use `asChild` for a custom trigger or close host: React receives one focusable child,
-Solid uses a render function that spreads `props()` onto the child, and Vue uses the `as-child`
-attribute with a single child element. Ark callbacks receive detail
+Solid uses a render function that spreads `props()` onto the child, Vue uses the `as-child`
+attribute with a single child element, and Svelte uses an `asChild` snippet that spreads `props()` onto the child. Ark callbacks receive detail
 objects, such as `details.open`, `details.snapPoint`, and `details.value`.
 
 ## Anatomy
@@ -174,7 +174,7 @@ Hover or focus a part to find it in the preview.
 
 ## Styling
 
-Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. For state-based
+Use `className` in React or `class` in Solid, Vue, and Svelte on exported parts for structural styles. For state-based
 styles, prefer Ark data attributes such as `data-state`, `data-swipe-direction`, and `data-dragging`,
 together with moduix `data-slot` selectors. Tailwind variants use native utilities and consumer
 classes; the component variables below customize the CSS Modules variants. Data attributes and

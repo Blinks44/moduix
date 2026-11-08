@@ -1,11 +1,12 @@
 ---
 title: Locale
-description: Provide locale and text direction to Ark formatters and locale-aware content in React, Solid, or Vue.
+description: Provide locale and text direction to Ark formatters and locale-aware content in React, Solid, Vue, or Svelte.
 ark: https://ark-ui.com/docs/utilities/locale
 ---
 
 import localeSolidDocument from '../../../snippets/locale/solid/document.tsx?raw';
 import localeVueDocument from '../../../snippets/locale/vue/document.vue?raw';
+import localeSvelteDocument from '../../../snippets/locale/svelte/document.svelte?raw';
 
 `LocaleProvider` supplies a locale and its text direction to a subtree. Ark formatters and locale-aware content use
 that context.
@@ -20,6 +21,7 @@ Import the utility from the matching moduix package, which re-exports the Ark UI
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -44,9 +46,16 @@ import { LocaleProvider, useLocaleContext } from '@moduix/vue/locale';
 ```
 
   </Tab>
+  <Tab value="svelte">
+
+```ts
+import { LocaleProvider, useLocaleContext } from '@moduix/svelte/locale';
+```
+
+  </Tab>
 </Tabs>
 
-`Format.Number`, `Format.Time`, and other `Format` utilities remain imports from `@ark-ui/react`, `@ark-ui/solid`, or `@ark-ui/vue`.
+`Format.Number`, `Format.Time`, and other `Format` utilities remain imports from `@ark-ui/react`, `@ark-ui/solid`, `@ark-ui/vue`, or `@ark-ui/svelte`.
 
 ## Set a locale
 
@@ -61,7 +70,7 @@ the same context.
 
 `useLocaleContext` returns `locale` and `dir` from the nearest provider. Use them when custom content must follow the
 same language and direction as locale-aware components. React reads the values directly; Solid reads them from an
-accessor. Vue returns a computed ref: use `.value` in setup code; templates unwrap it automatically.
+accessor. Vue returns a computed ref: use `.value` in setup code; templates unwrap it automatically. Svelte returns a getter: call `locale()` to read `locale` and `dir`.
 
 <Example name="locale/context" />
 
@@ -77,6 +86,7 @@ attributes. Set both on the document root when the whole application uses one di
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
       { label: 'Vue', value: 'vue' },
+      { label: 'Svelte', value: 'svelte' },
     ]}
     className="docs-tabs"
   >
@@ -94,6 +104,11 @@ attributes. Set both on the document root when the whole application uses one di
   <Tab value="vue">
 
 <CodeBlockRuntime lang="vue" code={localeVueDocument} />
+
+    </Tab>
+  <Tab value="svelte">
+
+<CodeBlockRuntime lang="svelte" code={localeSvelteDocument} />
 
     </Tab>
   </Tabs>

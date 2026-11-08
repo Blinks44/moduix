@@ -57,7 +57,7 @@ navigation.
 
 ### Controlled
 
-Pass `value` and `onValueChange` (`v-model` in Vue) when open items follow routing, filters, or
+Pass `value` and `onValueChange` (`v-model` in Vue, `bind:value` in Svelte) when open items follow routing, filters, or
 surrounding UI. `value` is an array of item values, also without `multiple`. See [Control state from the application](/docs/composition-patterns#controlled-state).
 
 <Example name="accordion/controlled" />
@@ -103,7 +103,8 @@ can be open.
 Use `AccordionRootProvider` with `useAccordion()` from the matching framework package when the
 accordion state must be created outside the rendered tree. Do not render `Accordion` for the same
 store. React reads the store as an object; Solid reads its reactive state through the returned
-accessor; Vue exposes the reactive store directly to the template.
+accessor; Vue exposes the reactive store directly to the template; Svelte returns a getter, so read
+the state with `accordion().value`.
 
 ## Anatomy
 
@@ -125,7 +126,7 @@ Hover or focus a part to find it in the preview.
 
 ## Styling
 
-Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. For
+Use `className` in React or `class` in Solid, Vue, and Svelte on exported parts for structural styles. For
 state-based styles, prefer Ark data attributes such as `data-state`, `data-disabled`, and
 `data-orientation`, together with moduix `data-slot` selectors. Tailwind variants use native
 utilities and consumer classes; the component variables below customize the CSS Modules variants.

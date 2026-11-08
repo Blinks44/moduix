@@ -16,6 +16,7 @@ framework-native adapters. This guide focuses on mapping that state to moduix co
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -38,6 +39,14 @@ Solid creates the form with `createForm`; field and subscription render callback
 <PackageManagerTabs command="install @tanstack/vue-form" />
 
 Vue uses `useForm` and the `{ field, state }` scoped slot of `form.Field`. Read `state.value` and call `field.handleChange`.
+
+  </Tab>
+  <Tab value="svelte">
+
+<PackageManagerTabs command="install @tanstack/svelte-form" />
+
+Svelte uses `createForm` and the `children` snippet of `form.Field`. Read `field.state.value` and call `field.handleChange`.
+
 
   </Tab>
 </Tabs>

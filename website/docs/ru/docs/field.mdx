@@ -121,6 +121,8 @@ import AnatomyScene from '@/components/examples/field/basic';
 в обработчике сброса формы. У Vue-компонентов `Input` и `NativeSelect` нет React-подобного свойства `defaultValue`.
 Сейчас Ark очищает нативные начальные значения этих элементов без модели; до исправления используйте `v-model`.
 
+В Svelte управляемые нативные элементы привязывайте через `bind:value`.
+
 ## Анатомия
 
 Публичный API `Field` использует плоские имена с префиксом семейства. `Field` не рисует собственный
@@ -149,7 +151,7 @@ import AnatomyScene from '@/components/examples/field/basic';
 Отключённый `Field` или `FieldRootProvider` приглушает всё поле один раз: элементы ввода внутри него
 не приглушаются повторно, как и `Field` внутри отключённого `Fieldset`.
 
-Используйте `className` в React или `class` в Solid и Vue для структурной стилизации экспортируемых частей.
+Используйте `className` в React или `class` в Solid, Vue и Svelte для структурной стилизации экспортируемых частей.
 Для стилей состояний применяйте атрибуты Ark, такие как `data-disabled`, `data-invalid`, `data-readonly`
 и `data-required`, вместе с селекторами moduix `data-slot`. Варианты на Tailwind используют нативные
 утилиты и классы потребителя. Варианты на CSS Modules построены на токенах foundation и не имеют

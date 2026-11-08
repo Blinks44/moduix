@@ -23,6 +23,7 @@ Importez les utilitaires depuis le point d'entrée Ark UI correspondant à votre
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -47,6 +48,13 @@ import { createListCollection, useListCollection } from '@ark-ui/vue/collection'
 ```
 
   </Tab>
+  <Tab value="svelte">
+
+```ts
+import { createListCollection, useListCollection } from '@ark-ui/svelte/collection';
+```
+
+  </Tab>
 </Tabs>
 
 ## Exemple de base
@@ -56,7 +64,7 @@ module. Par défaut, Ark utilise les propriétés `label`, `value` et `disabled`
 à un composant basé sur Ark UI et affichez ses éléments à partir de `collection.items`.
 
 L'aperçu utilise React avec la variante de styles CSS Modules. Les onglets contiennent le code natif
-React, Solid et Vue du même exemple. Le code Solid est affiché comme du code, car l'aperçu de la
+React, Solid, Vue et Svelte du même exemple. Le code Solid est affiché comme du code, car l'aperçu de la
 documentation s'exécute avec React.
 
 <Example name="select/basic" />
@@ -65,7 +73,7 @@ Conservez une collection statique en dehors du composant. Lorsque les éléments
 de l'état ou d'une requête, ne recréez la collection que lorsque les données sources changent.
 Lorsque le filtrage ou les mises à jour doivent suivre l'état du framework, utilisez le hook
 dynamique présenté ci-dessous.
-Dans React, utilisez `useMemo`; dans Solid, `createMemo`; dans Vue, `computed` lorsque les données sources sont réactives.
+Dans React, utilisez `useMemo`; dans Solid, `createMemo`; dans Vue, `computed`; dans Svelte, `$derived` lorsque les données sources sont réactives.
 
 ## Formes d'éléments personnalisées
 
@@ -151,7 +159,7 @@ const nextValue = collection.search('p', {
 
 Conservez `searchState` pendant toute l'interaction. Dans React, `useRef` est un emplacement adapté.
 Dans Solid, gardez le même objet dans le composant ou dans un autre stockage stable. Dans Vue,
-créez-le une fois dans `<script setup>`.
+créez-le une fois dans `<script setup>`. Dans Svelte, créez-le une fois dans le `<script>` du composant.
 
 ## Collections dynamiques
 
@@ -169,6 +177,7 @@ ne correspond.
 Dans React, `collection` est une `ListCollection`. Dans Solid, c'est un accessor : appelez donc
 `collection()` pour le passer à un composant ou lisez `collection().items` dans une boucle `<For>`.
 Dans Vue, c’est une ref : utilisez `collection.value` dans le script ou `collection` dans le template.
+Dans Svelte, c’est un getter : passez `collection()` au composant et lisez `collection().items`.
 Le hook expose `filter`, `set`, `reset`, `clear`, `insert`, `insertBefore`, `insertAfter`, `remove`,
 `move`, `moveBefore`, `moveAfter`, `reorder`, `append`, `prepend`, `update` et `upsert`.
 

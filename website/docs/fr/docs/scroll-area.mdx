@@ -76,7 +76,7 @@ indépendante pour les zones imbriquées.
 Utilisez `ScrollAreaRootProvider` avec `useScrollArea()` lorsque des contrôles externes
 doivent accéder à l’API de défilement. Passez le store renvoyé à `ScrollAreaRootProvider` et ne
 rendez pas `ScrollArea` et `ScrollAreaRootProvider` pour le même store. Dans Solid, lisez et utilisez le store
-via l’accesseur renvoyé par `useScrollArea()`.
+via l’accesseur renvoyé par `useScrollArea()`. En Svelte, `useScrollArea()` renvoie un getter : appelez `scrollArea()` et transmettez un `id` au hook (par exemple `$props.id()`).
 
 ## Anatomie
 

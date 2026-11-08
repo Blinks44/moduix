@@ -102,8 +102,7 @@ Use `defaultValue` for an uncontrolled slider and `value` with `onValueChange(de
 another part of the application controls the angle. Use `AngleSliderRootProvider` with
 `useAngleSlider()` from the matching framework package only when the store must be created outside
 the rendered slider tree; do not render the root and `AngleSliderRootProvider` for the same
-state instance. In
-Solid, read the provider store through its accessor, for example `angleSlider().value`.
+state instance. In Solid and Svelte, read the provider store through its accessor or getter, for example `angleSlider().value`. Svelte also supports `bind:value` on `AngleSlider` for a controlled angle.
 
 `AngleSliderDial` and `AngleSliderMarks` are convenience compositions. Use `AngleSliderControl` with
 `AngleSliderThumb`, or `AngleSliderMarkerGroup` with `AngleSliderMarker`, when you need custom
@@ -135,7 +134,7 @@ Hover or focus a part to find it in the preview.
 
 ## Styling
 
-Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. For state-based
+Use `className` in React or `class` in Solid, Vue, and Svelte on exported parts for structural styles. For state-based
 styles, prefer Ark data attributes such as `data-state`, `data-disabled`, `data-invalid`, and
 `data-readonly`, together with moduix `data-slot` selectors. Tailwind variants use native utilities
 and consumer classes; the component variables below customize the CSS Modules variants. Ark runtime

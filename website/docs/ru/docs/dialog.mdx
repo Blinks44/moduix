@@ -97,7 +97,7 @@ moduix использует это состояние, чтобы отодвин
 
 ### Управляемое состояние
 
-Передайте `open` и `onOpenChange` (`v-model:open` во Vue) и читайте `details.open`, чтобы
+Передайте `open` и `onOpenChange` (`v-model:open` во Vue, `bind:open` в Svelte) и читайте `details.open`, чтобы
 синхронизировать диалог с остальным приложением. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
 
 <Example name="dialog/controlled" />
@@ -169,7 +169,7 @@ moduix использует это состояние, чтобы отодвин
 
 ## Стилизация
 
-Для структурных стилей передавайте экспортируемым частям `className` в React или `class` в Solid и Vue.
+Для структурных стилей передавайте экспортируемым частям `className` в React или `class` в Solid, Vue и Svelte.
 Для стилей состояний используйте атрибуты данных Ark, например `data-state` и `data-has-nested`,
 вместе с селекторами `data-slot` moduix. Варианты на Tailwind настраиваются обычными утилитами и
 пользовательскими классами; перечисленные ниже переменные относятся к вариантам с CSS Modules.

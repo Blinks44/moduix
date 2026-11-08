@@ -139,7 +139,7 @@ the locale-aware placeholder and translated action labels unless you override th
 ### Controlled
 
 Control the selected `DateValue[]` by updating it with `details.value`. In Vue, use `v-model` for
-the controlled value. See [Control state from the application](/docs/composition-patterns#controlled-state).
+the controlled value; in Svelte, use `bind:value`. See [Control state from the application](/docs/composition-patterns#controlled-state).
 
 <Example name="date-picker/controlled" />
 
@@ -216,7 +216,7 @@ Hover or focus a part to find it in the preview.
 
 ## Styling
 
-Use `className` in React, `class` in Solid, or `class` in Vue on exported parts for structural styles. Tailwind
+Use `className` in React, `class` in Solid, `class` in Vue, or `class` in Svelte on exported parts for structural styles. Tailwind
 variants use native utilities and consumer classes; CSS Modules variants expose the variables
 below. Both styling tracks share Ark state attributes and moduix `data-slot` hooks.
 

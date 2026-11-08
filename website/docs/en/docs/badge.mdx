@@ -30,7 +30,7 @@ for a control that lets the user select or edit a value.
 - Choose **`Badge`** for short metadata such as status, category, version, or count.
 - Choose **`Tag`** for selected values, filters, assignments, or labels that are part of the current interface state.
 
-The Vue exports are available from `@moduix/vue/badge` for CSS Modules and `@moduix/vue-tailwind/badge` for Tailwind CSS.
+The Vue exports are available from `@moduix/vue/badge` for CSS Modules and `@moduix/vue-tailwind/badge` for Tailwind CSS. The Svelte exports are available from `@moduix/svelte/badge` for CSS Modules and `@moduix/svelte-tailwind/badge` for Tailwind CSS.
 
 ## Examples
 
@@ -91,7 +91,7 @@ a render function to `asChild`; the rendered child keeps its native semantics.
 In Solid, assign a ref to the element created inside the `asChild` render function. A ref on `Badge`
 itself is not forwarded through that composition path.
 
-In Vue, place exactly one child in the default slot when using `as-child`; the child keeps its native semantics.
+In Vue, place exactly one child in the default slot when using `as-child`; the child keeps its native semantics. In Svelte, pass an `asChild` snippet and spread the received props onto exactly one element.
 
 ## Anatomy
 
@@ -117,7 +117,7 @@ and text color of every variant; to theme one variant across the application, se
 dot sizes use foundation tokens; change them with a class on the part. These CSS variables apply to the
 CSS Modules packages; Tailwind packages use native utilities and consumer classes instead.
 
-Use `className` in React or `class` in Solid and Vue on exported parts. The stable `data-slot` hooks and
+Use `className` in React or `class` in Solid, Vue, and Svelte on exported parts. The stable `data-slot` hooks and
 Ark data attributes are shared by all styling tracks.
 
 ### CSS variables

@@ -50,7 +50,7 @@ Utilisez `onComplete` (`@complete` en Vue) pour passer du travail à la pause et
 ### Événements
 
 Utilisez `onTick` et `onComplete` pour les effets de bord liés au cycle de vie du minuteur. En Vue, écoutez les
-événements avec `@tick` et `@complete`.
+événements avec `@tick` et `@complete`. En Svelte, passez `onTick` et `onComplete` comme props.
 
 <Example name="timer/events" />
 
@@ -79,7 +79,7 @@ Utilisez `TimerRootProvider` avec `useTimer()` lorsque l’état doit être cré
 rendu. `TimerContext` et `useTimerContext()` conviennent lorsque d’autres éléments de l’interface doivent accéder à
 l’état ou aux méthodes du minuteur. En Solid, l’état et le contexte se lisent via des fonctions réactives : utilisez
 `timer()` et `api()`. En Vue, les refs sont automatiquement déballées dans les templates et s’utilisent avec `.value`
-dans le code du script.
+dans le code du script. En Svelte, `useTimer()` renvoie un getter : lisez-le avec `timer()` ; `TimerContext` transmet le même type de getter à son snippet `render`.
 
 Dans la version installée d’Ark UI, `TimerItem` remplace son contenu enfant par la valeur formatée avant de traiter
 `asChild`. L’élément fourni est donc perdu en Vue et en React. Utilisez l’élément par défaut de `TimerItem` en attendant
@@ -106,7 +106,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 ## Styles
 
-Utilisez `className` en React ou `class` en Solid et en Vue sur n’importe quel élément exporté. Les variantes
+Utilisez `className` en React ou `class` en Solid, Vue et Svelte sur n’importe quel élément exporté. Les variantes
 Tailwind utilisent des classes utilitaires et vos propres classes. Les variantes CSS Modules s’appuient sur les
 jetons de foundation et n’ont pas de variables propres : une classe sur un élément, ou un sélecteur `data-slot`,
 remplace les styles du composant placés dans une couche.

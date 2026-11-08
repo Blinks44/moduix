@@ -7,7 +7,7 @@ import { Card, Cards } from '@/components/mdx/Components';
 
 # moduix
 
-moduix est une bibliothèque de composants accessibles pour React, Solid et Vue.
+moduix est une bibliothèque de composants accessibles pour React, Solid, Vue et Svelte.
 [Ark UI](https://ark-ui.com/) gère les interactions au clavier, le focus et la sémantique ARIA ;
 moduix ajoute les styles, les tokens de design et des compositions prêtes à l’emploi. Chaque paquet
 utilise les propriétés, les événements et la réactivité de son framework.
@@ -29,7 +29,7 @@ combinaisons.
 
 | Choix | Options | Quand le choisir |
 | ----- | ------- | ---------------- |
-| Framework | React, Solid, Vue | Celui de votre application. Les composants et leurs parties portent les mêmes noms dans les trois. |
+| Framework | React, Solid, Vue, Svelte | Celui de votre application. Les composants et leurs parties portent les mêmes noms dans chaque framework. |
 | Styles | CSS Modules, Tailwind CSS | CSS Modules si l’application n’utilise pas Tailwind ; Tailwind CSS v4 si elle est stylée avec des utilitaires. |
 | Installation | Paquet, shadcn CLI | Un paquet pour les mises à jour via le gestionnaire de paquets ; la CLI shadcn pour copier le code et le modifier. |
 
@@ -45,8 +45,9 @@ Les plages déclarées dans `peerDependencies` définissent les versions prises 
 | React et React DOM | 18 et 19 | `@moduix/react`, `@moduix/react-tailwind` |
 | Solid | 1.9 et versions 1.x ultérieures | `@moduix/solid`, `@moduix/solid-tailwind` |
 | Vue | 3.5 et versions ultérieures de la branche 3.x | `@moduix/vue`, `@moduix/vue-tailwind` |
+| Svelte | 5.29 et versions ultérieures de la branche 5.x | `@moduix/svelte`, `@moduix/svelte-tailwind` |
 | Tailwind CSS | 4.x | Paquets et registres Tailwind uniquement |
-| Ark UI | `^5.39.3` | Le paquet React, Solid ou Vue correspondant |
+| Ark UI | `^5.40.0` pour React, Solid et Vue ; `^5.25.1` pour Svelte | Le paquet React, Solid, Vue ou Svelte correspondant |
 
 Votre gestionnaire de paquets vérifie ces plages à l’installation. Les paquets CSS Modules ne
 requièrent pas Tailwind CSS.
@@ -57,7 +58,7 @@ Les deux approches partagent les couleurs sémantiques, les tokens, les animatio
 des composants. Importez `style.css` une seule fois pour charger les tokens et les styles de base,
 puis :
 
-- passez `className` avec React ou `class` avec Solid et Vue à n’importe quelle racine ou partie ;
+- passez `className` avec React ou `class` avec Solid, Vue et Svelte à n’importe quelle racine ou partie ;
 - ciblez `data-slot` et les attributs d’état d’Ark, comme `data-state`, pour styler un état précis ;
 - redéfinissez les tokens `--moduix-*` pour changer le thème de toute la bibliothèque.
 
@@ -97,7 +98,7 @@ redéfinitions.
   />
   <Card
     title="Blocs"
-    description="Installez des interfaces complètes avec des implémentations natives pour React, Solid et Vue."
+    description="Installez des interfaces complètes avec des implémentations natives pour React, Solid, Vue et Svelte."
     href="/blocks"
   />
 </Cards>

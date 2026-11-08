@@ -22,7 +22,7 @@ Créez la collection de données avec `createTreeCollection`, puis transmettez-l
 `TreeViewNode` fournit au rendu récursif les valeurs courantes `node`, `indexPath` et `state`, ce qui
 permet d’afficher une branche ou une feuille tout en gardant la structure des parties explicite.
 
-React, Solid et Vue utilisent les mêmes noms plats pour TreeView ; les onglets ci-dessous conservent la composition native de chaque framework.
+React, Solid, Vue et Svelte utilisent les mêmes noms plats pour TreeView ; les onglets ci-dessous conservent la composition native de chaque framework.
 
 ## Exemples
 
@@ -40,7 +40,8 @@ couvre déjà les états coché et indéterminé.
 
 En Vue, le slot par défaut définit l’icône de l’état coché, et les slots nommés `indeterminate`
 et `fallback` celles des états indéterminé et non coché. Personnalisez ces états avec les slots,
-et non avec des props.
+et non avec des props. Svelte utilise les trois mêmes sous forme de snippets :
+`children`, `indeterminate` et `fallback`.
 
 <Example name="tree-view/checkboxes" />
 
@@ -91,6 +92,9 @@ Contrôlez les valeurs avec `v-model:expanded-value`, `v-model:selected-value`,
 conservent les objets de détails Ark. Stockez une collection remplaçable dans une `shallowRef`
 pour que Vue préserve son instance de classe.
 
+En Svelte, `TreeViewNode` transmet `{ node, indexPath, state }` à un snippet `children`. Contrôlez les valeurs avec
+`bind:expandedValue`, `bind:selectedValue`, `bind:checkedValue` et `bind:focusedValue`.
+
 ## Anatomie
 
 Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
@@ -114,7 +118,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 ## Styles
 
-Utilisez `className` en React, `class` en Solid ou `class` en Vue sur chaque partie exportée pour les styles
+Utilisez `className` en React, ou `class` en Solid, Vue et Svelte sur chaque partie exportée pour les styles
 structurels. Les parties de branche exposent `data-state="open|closed"`, celles des cases à cocher
 `data-state="checked|unchecked|indeterminate"`, et celles des nœuds exposent `data-focus`,
 `data-selected`, `data-disabled`, `data-loading`, `data-renaming`, `data-depth`, `data-path` et

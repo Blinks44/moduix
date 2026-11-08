@@ -837,14 +837,14 @@
     "fr": "Suivant"
   },
   "seoHomeTitle": {
-    "en": "moduix - Accessible UI components for React, Solid, and Vue",
-    "ru": "moduix - доступные UI-компоненты для React, Solid и Vue",
-    "fr": "moduix - composants UI accessibles pour React, Solid et Vue"
+    "en": "moduix - Accessible UI components for React, Solid, Vue, and Svelte",
+    "ru": "moduix - доступные UI-компоненты для React, Solid, Vue и Svelte",
+    "fr": "moduix - composants UI accessibles pour React, Solid, Vue et Svelte"
   },
   "seoComponentTitle": {
-    "en": "{name} component for React, Solid, and Vue | moduix",
-    "ru": "{name}: компонент для React, Solid и Vue | moduix",
-    "fr": "Composant {name} pour React, Solid et Vue | moduix"
+    "en": "{name} component for React, Solid, Vue, and Svelte | moduix",
+    "ru": "{name}: компонент для React, Solid, Vue и Svelte | moduix",
+    "fr": "Composant {name} pour React, Solid, Vue et Svelte | moduix"
   },
   "presetMenuLabel": {
     "en": "Theme preset",
@@ -932,9 +932,9 @@
     "fr": "Composants accessibles pour chaque framework"
   },
   "homeHeroText": {
-    "en": "{count} components and blocks built on Ark UI. One API for React, Solid and Vue, styled with CSS Modules or Tailwind CSS. Install from npm or own the source with shadcn.",
-    "ru": "{count} компонентов и блоков на Ark UI. Один API для React, Solid и Vue, стили на CSS Modules или Tailwind CSS. Установите из npm или заберите исходники через shadcn.",
-    "fr": "{count} composants et blocs basés sur Ark UI. Une seule API pour React, Solid et Vue, stylée avec CSS Modules ou Tailwind CSS. Installez depuis npm ou récupérez la source avec shadcn."
+    "en": "{count} components and blocks built on Ark UI. One API for React, Solid, Vue and Svelte, styled with CSS Modules or Tailwind CSS. Install from npm or own the source with shadcn.",
+    "ru": "{count} компонентов и блоков на Ark UI. Один API для React, Solid, Vue и Svelte, стили на CSS Modules или Tailwind CSS. Установите из npm или заберите исходники через shadcn.",
+    "fr": "{count} composants et blocs basés sur Ark UI. Une seule API pour React, Solid, Vue et Svelte, stylée avec CSS Modules ou Tailwind CSS. Installez depuis npm ou récupérez la source avec shadcn."
   },
   "homeBrowseComponents": {
     "en": "Browse components",
@@ -992,9 +992,9 @@
     "fr": "Une seule API"
   },
   "homeApiTitle": {
-    "en": "Same names in React, Solid and Vue",
-    "ru": "Одинаковые имена в React, Solid и Vue",
-    "fr": "Les mêmes noms en React, Solid et Vue"
+    "en": "Same names in React, Solid, Vue and Svelte",
+    "ru": "Одинаковые имена в React, Solid, Vue и Svelte",
+    "fr": "Les mêmes noms en React, Solid, Vue et Svelte"
   },
   "homeApiText": {
     "en": "Every component has the same parts and props in each adapter.\nOnly the syntax is native, so a team can switch frameworks without relearning the library.",
@@ -1047,9 +1047,9 @@
     "fr": "Classes utilitaires,\nTailwind v4"
   },
   "homeInstallArk": {
-    "en": "npm packages also need the matching Ark UI package, for example @ark-ui/react. Same for Solid and Vue.",
-    "ru": "npm-пакетам нужен и соответствующий пакет Ark UI, например @ark-ui/react. Так же для Solid и Vue.",
-    "fr": "Les paquets npm ont aussi besoin du paquet Ark UI correspondant, par exemple @ark-ui/react. De même pour Solid et Vue."
+    "en": "npm packages also need the matching Ark UI package, for example @ark-ui/react. Same for Solid, Vue and Svelte.",
+    "ru": "npm-пакетам нужен и соответствующий пакет Ark UI, например @ark-ui/react. Так же для Solid, Vue и Svelte.",
+    "fr": "Les paquets npm ont aussi besoin du paquet Ark UI correspondant, par exemple @ark-ui/react. De même pour Solid, Vue et Svelte."
   },
   "homeComponentsEyebrow": {
     "en": "Components",
@@ -1157,9 +1157,9 @@
     "fr": "Migrer depuis shadcn"
   },
   "homeStartAll": {
-    "en": "All three",
-    "ru": "Все три",
-    "fr": "Les trois"
+    "en": "All frameworks",
+    "ru": "Все фреймворки",
+    "fr": "Tous les frameworks"
   },
   "homeFooterIntroduction": {
     "en": "Introduction",
@@ -1217,9 +1217,9 @@
     "fr": "Communauté"
   },
   "homeFooterText": {
-    "en": "Accessible components for React, Solid and Vue. MIT licensed. Built on Ark UI.",
-    "ru": "Доступные компоненты для React, Solid и Vue. Лицензия MIT. Построены на Ark UI.",
-    "fr": "Composants accessibles pour React, Solid et Vue. Licence MIT. Basés sur Ark UI."
+    "en": "Accessible components for React, Solid, Vue and Svelte. MIT licensed. Built on Ark UI.",
+    "ru": "Доступные компоненты для React, Solid, Vue и Svelte. Лицензия MIT. Построены на Ark UI.",
+    "fr": "Composants accessibles pour React, Solid, Vue et Svelte. Licence MIT. Basés sur Ark UI."
   },
   "viewAsMarkdown": {
     "en": "View as Markdown",

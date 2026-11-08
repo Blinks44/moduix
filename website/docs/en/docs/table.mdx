@@ -106,7 +106,7 @@ layout full control of the shell.
 ## Composition
 
 Each part renders its corresponding native HTML element by default, accepts native element props and
-`className` in React or `class` in Solid and Vue, forwards its ref, and supports Ark's `asChild`. When using
+`className` in React or `class` in Solid, Vue, and Svelte, forwards its ref, and supports Ark's `asChild`. When using
 `asChild`, pass one semantic element as the child. `TableEmpty` is the exception to the usual
 one-element composition: its `asChild` replaces only the generated `td`.
 
@@ -154,7 +154,7 @@ Hover or focus a part to find it in the preview.
 
 ## Styling
 
-Style `Table` through `className` in React or `class` in Solid and Vue, the public `data-slot`, `data-scope`,
+Style `Table` through `className` in React or `class` in Solid, Vue, and Svelte, the public `data-slot`, `data-scope`,
 and `data-part` hooks, the `data-side` and `data-numeric` attributes, and the `--moduix-table-*`
 CSS variables shown below. Tailwind variants use native utility classes and consumer classes; the
 variables below apply to CSS Modules variants.

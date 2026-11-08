@@ -1,0 +1,208 @@
+---
+title: SvelteKit
+description: Intégrez moduix à SvelteKit avec les paquets Svelte ou shadcn, avec les styles globaux, les sources Tailwind, les alias, le SSR et l’hydratation.
+---
+
+import svelteCssModules from '../../../../snippets/quick-start/svelte-css-modules.svelte?raw';
+import svelteTailwind from '../../../../snippets/quick-start/svelte-tailwind.svelte?raw';
+import shadcnAccordionSvelte from '../../../../snippets/quick-start/shadcn-accordion-svelte.svelte?raw';
+
+# SvelteKit
+
+Ce guide part d’une application SvelteKit 3 existante, créée avec `sv create`. SvelteKit rend les
+composants Svelte sur le serveur et les hydrate dans le navigateur.
+
+## Choisir votre configuration
+
+- **Framework :** Svelte 5.29 ou une version ultérieure de la branche 5.x, fourni par SvelteKit.
+- **Styles :** CSS Modules ou Tailwind CSS v4, déjà configuré dans l’application.
+- **Distribution :** paquet ou code source copié avec la CLI shadcn.
+
+Choisissez Svelte dans la [configuration du paquet](/docs/quick-start#installer-le-paquet) ou la
+[configuration shadcn](/docs/quick-start#installer-avec-la-cli-shadcn) commune. SvelteKit utilise
+`@moduix/svelte` et `@moduix/svelte-tailwind`, ou les espaces de noms de registre `@moduix-svelte` et
+`@moduix-svelte-tailwind`.
+
+Les paquets Svelte publient le code source `.svelte` sous la condition d’export `svelte`. Le plugin
+Vite de SvelteKit le compile avec l’application pour le serveur et le navigateur, CSS Modules des
+composants compris : le paquet n’a donc besoin d’aucune configuration Vite ou SSR supplémentaire.
+
+## Installation par paquet
+
+<Tabs groupId="styling">
+  <Tab label="CSS Modules" value="css-modules">
+
+<PackageManagerTabs command="install @moduix/svelte @ark-ui/svelte" />
+
+Importez une seule fois la réinitialisation et la feuille de styles de base dans le layout racine :
+
+```svelte title="src/routes/+layout.svelte"
+<script lang="ts">
+  import '@moduix/svelte/reset.css';
+  import '@moduix/svelte/style.css';
+
+  let { children } = $props();
+</script>
+
+{@render children()}
+```
+
+Si l’application possède déjà une réinitialisation équivalente, omettez `@moduix/svelte/reset.css`.
+
+Importez explicitement les parties du composant depuis le sous-chemin du paquet :
+
+<CodeBlockRuntime lang="svelte" title="src/routes/+page.svelte" code={svelteCssModules} />
+
+  </Tab>
+  <Tab label="Tailwind CSS" value="tailwind">
+
+<PackageManagerTabs command="install @moduix/svelte-tailwind @ark-ui/svelte" />
+
+Conservez l’intégration Tailwind CSS v4 existante et l’import de sa feuille de styles dans le layout
+racine. Chargez la base moduix avant Tailwind et analysez les utilitaires des composants installés :
+
+```css title="src/routes/layout.css"
+@import '@moduix/svelte-tailwind/style.css';
+@import 'tailwindcss';
+
+@source '../../node_modules/@moduix/svelte-tailwind/dist/components';
+```
+
+Le chemin `@source` est relatif à cette feuille de styles. Tailwind Preflight fournit la réinitialisation.
+
+<CodeBlockRuntime lang="svelte" title="src/routes/+page.svelte" code={svelteTailwind} />
+
+  </Tab>
+</Tabs>
+
+L’exemple Accordion prend en charge le SSR et n’a pas besoin d’un conteneur réservé au navigateur.
+Gardez le code de l’application propre au navigateur dans `onMount` ou `$effect`.
+
+## Installation avec la CLI shadcn
+
+Effectuez la [configuration shadcn](/docs/quick-start#installer-avec-la-cli-shadcn) commune avec
+l’espace de noms Svelte correspondant à vos styles. Conservez `rsc: false` ; utilisez la CLI `shadcn`
+présentée ici avec le registre moduix.
+
+Le code du registre importe les fichiers partagés via `@/lib/moduix`, tandis que SvelteKit fournit
+`#lib` pour `src/lib`. Associez `@/*` à `src/*` dans le fichier racine `tsconfig.json` pour
+TypeScript et la CLI, et conservez la configuration générée par SvelteKit dans `extends` :
+
+```json title="tsconfig.json"
+{
+  "extends": "$app/tsconfig",
+  "compilerOptions": {
+    "strict": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src", "vite.config.ts"]
+}
+```
+
+SvelteKit 3 lit sa configuration dans `sveltekit({...})` de `vite.config.ts`, et non dans
+`svelte.config.js`. Ajoutez l’alias d’exécution à la configuration Vite en conservant les options
+existantes du plugin :
+
+```ts title="vite.config.ts"
+import { fileURLToPath, URL } from 'node:url';
+import { sveltekit } from '@sveltejs/kit/vite';
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+  plugins: [
+    sveltekit({
+      // Keep your adapter and other SvelteKit options here.
+    }),
+  ],
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    },
+  },
+});
+```
+
+Pour Tailwind, définissez `tailwind.css` sur `src/routes/layout.css` dans `components.json` avant
+d’ajouter un composant, et laissez `tailwind.config` vide pour la v4.
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-svelte/accordion' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-svelte-tailwind/accordion' },
+  ]}
+/>
+
+La CLI place le code source du composant dans `src/components/ui/accordion` et les fichiers partagés
+dans `src/lib/moduix`.
+
+<Tabs groupId="styling">
+  <Tab label="CSS Modules" value="css-modules">
+
+Si l’application a besoin de la réinitialisation moduix, ajoutez-la séparément :
+
+<PackageManagerTabs command="shadcn@latest add @moduix-svelte/reset" dlx />
+
+Chargez les styles générés à la place des styles du paquet :
+
+```svelte title="src/routes/+layout.svelte"
+<script lang="ts">
+  import '@/lib/moduix/styles/reset.css';
+  import '@/lib/moduix/styles/style.css';
+
+  let { children } = $props();
+</script>
+
+{@render children()}
+```
+
+Omettez l’import de la réinitialisation si vous utilisez celle de l’application.
+
+  </Tab>
+  <Tab label="Tailwind CSS" value="tailwind">
+
+Utilisez les styles de base générés dans la feuille de styles Tailwind de l’application :
+
+```css title="src/routes/layout.css"
+@import '../lib/moduix/styles/style.css';
+@import 'tailwindcss';
+```
+
+Les composants générés se trouvent dans le code source de l’application : la directive `@source`
+du paquet n’est donc pas nécessaire.
+
+  </Tab>
+</Tabs>
+
+Importez explicitement l’API plate du composant depuis le fichier de réexportation généré :
+
+<CodeBlockRuntime lang="svelte" title="src/routes/+page.svelte" code={shadcnAccordionSvelte} />
+
+Pour la [configuration des couches de portails](/docs/quick-start#configurer-la-superposition-des-portails),
+enveloppez le contenu des pages dans le layout racine et isolez cet élément. Le contenu des portails
+est rendu en dehors, à la fin de `body` :
+
+```svelte title="src/routes/+layout.svelte"
+<div class="app-root">
+  {@render children()}
+</div>
+
+<style>
+  .app-root {
+    isolation: isolate;
+  }
+</style>
+```
+
+## Vérifier
+
+Démarrez le serveur de développement, puis compilez l’application pour la production et vérifiez-la
+en mode aperçu. La réponse initiale du serveur doit contenir l’Accordion et ses styles. Dans le
+navigateur, le composant doit s’hydrater sans avertissement et répondre au clavier et au pointeur.
+Avec le registre, vérifiez que les imports se résolvent dans `src/components` et `src/lib`.
+
+Consultez la documentation officielle de SvelteKit sur la
+[création de projet](https://svelte.dev/docs/kit/creating-a-project), la
+[configuration](https://svelte.dev/docs/kit/configuration) et les
+[adaptateurs](https://svelte.dev/docs/kit/adapters).

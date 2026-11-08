@@ -17,7 +17,7 @@ import AnatomyScene from '@/components/examples/json-tree-view/basic';
 
 <Usage />
 
-Адаптеры фреймворков сохраняют одинаковые плоские имена компонентов; в примере Vue используются нативный SFC и
+Адаптеры фреймворков сохраняют одинаковые плоские имена компонентов; в примере Svelte используются сниппеты, в примере Vue - нативный SFC и
 именованные слоты.
 
 Передайте через `data` любое JSON-подобное JavaScript-значение, а внутри компонента добавьте
@@ -75,13 +75,12 @@ import AnatomyScene from '@/components/examples/json-tree-view/basic';
 
 ## Стилизация
 
-Используйте `className` в React или `class` в Solid и Vue на `JsonTreeView`, `JsonTreeViewRootProvider` или `JsonTreeViewTree`, чтобы локально изменить
+Используйте `className` в React или `class` в Solid, Vue и Svelte на `JsonTreeView`, `JsonTreeViewRootProvider` или `JsonTreeViewTree`, чтобы локально изменить
 компоновку. Варианты Tailwind используют классы Tailwind и классы приложения. Варианты с CSS Modules используют
 свои стили и базовые токены.
 
-Если не передать `arrow`, `JsonTreeViewTree` использует `ChevronRightIcon` из moduix в React и Solid. В Vue
-передайте собственную иконку через именованный слот `#arrow`, если для области просмотра нужна другая стрелка
-раскрытия.
+Если не передать `arrow`, `JsonTreeViewTree` использует `ChevronRightIcon` из moduix в React, Solid и Svelte. Если для области просмотра нужна
+другая стрелка раскрытия, в Vue передайте иконку через именованный слот `#arrow`, а в Svelte - через сниппет `arrow`.
 
 Сгенерированные узлы сохраняют атрибуты Ark `data-scope="json-tree-view"` и `data-part`.
 
@@ -89,7 +88,7 @@ import AnatomyScene from '@/components/examples/json-tree-view/basic';
 стилизует сгенерированные элементы `[data-part='branch-indent-guide']`; при включённых направляющих задайте им
 стили самостоятельно через этот атрибут.
 
-В Vue используйте именованный слот `#indentGuide`, чтобы задать свою разметку направляющих.
+В Vue используйте именованный слот `#indentGuide`, чтобы задать свою разметку направляющих. В Svelte передайте сниппет `indentGuide`.
 
 Компонент напрямую использует базовые токены и не вводит отдельный слой переменных
 `--moduix-json-tree-view-*`. Если области просмотра нужно другое оформление, добавьте класс или обратитесь к

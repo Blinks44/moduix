@@ -67,6 +67,10 @@
   &[data-framework='vue'] {
     background: #34c38f;
   }
+
+  &[data-framework='svelte'] {
+    background: #ff3e00;
+  }
 }
 
 .eyebrow,
@@ -389,7 +393,7 @@
 /* 01 · One API */
 .apiGrid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 16px;
   margin-top: 40px;
 }
@@ -886,6 +890,7 @@
     width: 100%;
   }
 
+  .apiGrid,
   .tiles,
   .themeGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));

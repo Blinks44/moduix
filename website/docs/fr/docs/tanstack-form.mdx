@@ -32,6 +32,14 @@ Solid crée le formulaire avec `createForm` et fournit des accesseurs aux callba
 Vue utilise `useForm` et le slot de portée `{ field, state }` de `form.Field`. Lisez `state.value` et appelez `field.handleChange`.
 
   </Tab>
+  <Tab value="svelte">
+
+<PackageManagerTabs command="install @tanstack/svelte-form" />
+
+Svelte utilise `createForm` et le snippet `children` de `form.Field`. Lisez `field.state.value` et appelez `field.handleChange`.
+
+
+  </Tab>
 </Tabs>
 
 ## Relier les composants

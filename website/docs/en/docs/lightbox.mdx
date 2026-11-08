@@ -35,7 +35,7 @@ Use `Lightbox` when you primarily need to view images or other media in a modal 
 ### Gallery
 
 When a CMS or API returns a structured array of images, keep the selected image and Carousel page in
-React, Solid, or Vue state, then compose `Carousel` inside `LightboxGallery`. Use `LightboxTrigger.value`
+React, Solid, Vue, or Svelte state, then compose `Carousel` inside `LightboxGallery`. Use `LightboxTrigger.value`
 to choose the initial slide and keep the Carousel page in sync as the user navigates.
 
 <Example name="lightbox/gallery" />
@@ -85,7 +85,7 @@ surface needs its own look.
 ### Controlled
 
 Use Ark's `onOpenChange(details)` callback when synchronizing lightbox state with React or Solid, or
-use `v-model:open` in Vue. See [Control state from the application](/docs/composition-patterns#controlled-state).
+use `v-model:open` in Vue and `bind:open` in Svelte. See [Control state from the application](/docs/composition-patterns#controlled-state).
 
 <Example name="lightbox/controlled" />
 
@@ -125,7 +125,8 @@ to target a custom container. Render `LightboxCloseIcon` inside `LightboxContent
 so it remains accessible and part of the focus trap. Content fades; Body scales and translates while
 the close icon stays pinned to the viewport. Without Body, the content only fades. Use `asChild` with one semantic
 element; in Solid, `asChild` is a render function that receives the props for that element. In Vue,
-use the boolean `as-child` prop and place the semantic element in the slot.
+use the boolean `as-child` prop and place the semantic element in the slot. In Svelte, pass an
+`asChild` snippet that receives a props getter and spread `{...props()}` onto the semantic element.
 
 For galleries, keep the selected image and Carousel page in application state. Pass the image key to
 `LightboxTrigger value` and update that state from `onTriggerValueChange(details)` or

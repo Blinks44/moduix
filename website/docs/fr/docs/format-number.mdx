@@ -6,6 +6,7 @@ ark: https://ark-ui.com/docs/utilities/format-number
 
 import formatNumberSolidLocale from '../../../snippets/format-number/solid/locale.tsx?raw';
 import formatNumberVueLocale from '../../../snippets/format-number/vue/locale.vue?raw';
+import formatNumberSvelteLocale from '../../../snippets/format-number/svelte/locale.svelte?raw';
 
 `Format.Number` formate une valeur numérique selon les règles `Intl.NumberFormat` du navigateur. C’est un formateur en
 lecture seule, pas un champ de saisie.
@@ -20,6 +21,7 @@ Importez l’utilitaire depuis le paquet Ark UI correspondant à votre framework
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -44,6 +46,13 @@ import { Format } from '@ark-ui/vue';
 ```
 
   </Tab>
+  <Tab value="svelte">
+
+```ts
+import { Format } from '@ark-ui/svelte';
+```
+
+  </Tab>
 </Tabs>
 
 ## Exemple de base
@@ -51,7 +60,7 @@ import { Format } from '@ark-ui/vue';
 Passez un nombre à `value`. Sans option de formatage, le résultat suit la locale active. `Format.Number` ne rend que
 du texte : ajoutez vous-même le libellé et la structure qui l’entourent.
 
-L’aperçu utilise React, car le site de documentation fonctionne avec React. Les onglets Solid et Vue
+L’aperçu utilise React, car le site de documentation fonctionne avec React. Les onglets Solid, Vue et Svelte
 contiennent les versions natives du même exemple.
 
 <Example name="format-number/basic" />
@@ -81,6 +90,7 @@ la locale par défaut est `en-US`. Importez le fournisseur depuis le package Ark
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
       { label: 'Vue', value: 'vue' },
+      { label: 'Svelte', value: 'svelte' },
     ]}
     className="docs-tabs"
   >
@@ -98,6 +108,11 @@ la locale par défaut est `en-US`. Importez le fournisseur depuis le package Ark
   <Tab value="vue">
 
 <CodeBlockRuntime lang="vue" code={formatNumberVueLocale} />
+
+    </Tab>
+  <Tab value="svelte">
+
+<CodeBlockRuntime lang="svelte" code={formatNumberSvelteLocale} />
 
     </Tab>
   </Tabs>

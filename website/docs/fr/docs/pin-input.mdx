@@ -101,7 +101,7 @@ Composez explicitement `PinInputHiddenInput` dans `PinInput` ou `PinInputRootPro
 avec des index continus commençant à zéro, ainsi que `PinInputSeparator` lorsque le code doit être divisé en groupes. Les
 valeurs sont des tableaux de chaînes. Utilisez `PinInputRootProvider` avec `usePinInput` lorsque l’état ou les méthodes
 impératives doivent être gérés en dehors de l’arbre rendu ; React reçoit un objet store, Solid reçoit un accessor
-réactif, et Vue expose directement le store réactif au template.
+réactif, Vue expose directement le store réactif au template, et Svelte renvoie un getter : lisez l’état avec `pinInput().value`.
 
 Ark gère le transfert du focus, la répartition du texte collé, la saisie au clavier et le remplissage automatique
 des codes à usage unique ; ajoutez `PinInputLabel` pour donner un nom accessible au groupe. `PinInputSeparator`

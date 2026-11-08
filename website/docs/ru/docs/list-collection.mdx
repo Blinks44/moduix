@@ -23,6 +23,7 @@ ark: https://ark-ui.com/docs/collections/list-collection
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -47,6 +48,13 @@ import { createListCollection, useListCollection } from '@ark-ui/vue/collection'
 ```
 
   </Tab>
+  <Tab value="svelte">
+
+```ts
+import { createListCollection, useListCollection } from '@ark-ui/svelte/collection';
+```
+
+  </Tab>
 </Tabs>
 
 ## Базовый пример
@@ -55,8 +63,8 @@ import { createListCollection, useListCollection } from '@ark-ui/vue/collection'
 По умолчанию Ark использует свойства `label`, `value` и `disabled`. Передайте коллекцию компоненту
 на базе Ark UI и отрисуйте элементы из `collection.items`.
 
-В превью используется React с CSS Modules. Во вкладках показан нативный исходный код React и
-Solid для одного и того же примера. Исходник Solid отображается как код, потому что превью
+В превью используется React с CSS Modules. Во вкладках показан нативный исходный код React,
+Solid, Vue и Svelte для одного и того же примера. Исходник Solid отображается как код, потому что превью
 документации работает на React.
 
 <Example name="select/basic" />
@@ -65,7 +73,7 @@ Solid для одного и того же примера. Исходник Soli
 состояния или запроса, создавайте коллекцию заново только при изменении исходных данных. Если
 фильтрация или обновления должны управляться состоянием фреймворка, используйте динамический хук
 ниже.
-Если исходные данные реактивны, используйте `useMemo` в React, `createMemo` в Solid или `computed` в Vue.
+Если исходные данные реактивны, используйте `useMemo` в React, `createMemo` в Solid, `computed` в Vue или `$derived` в Svelte.
 
 ## Нестандартная структура элементов
 
@@ -150,7 +158,7 @@ const nextValue = collection.search('p', {
 
 Храните `searchState` в течение всего взаимодействия. В React для этого удобно использовать
 `useRef`. В Solid оставьте тот же объект в области компонента или в другом стабильном хранилище.
-В Vue создайте его один раз в `<script setup>`.
+В Vue создайте его один раз в `<script setup>`, а в Svelte - один раз в `<script>` компонента.
 
 ## Динамические коллекции
 
@@ -166,7 +174,7 @@ const nextValue = collection.search('p', {
 
 В React `collection` - это `ListCollection`. В Solid это accessor, поэтому при передаче коллекции
 компоненту или чтении `collection().items` в цикле `<For>` вызывайте `collection()`. В Vue это ref:
-используйте `collection.value` в скрипте или распакованный `collection` в шаблоне. Хук предоставляет
+используйте `collection.value` в скрипте или распакованный `collection` в шаблоне. В Svelte это геттер: передавайте компоненту `collection()` и читайте `collection().items`. Хук предоставляет
 `filter`, `set`, `reset`, `clear`, `insert`, `insertBefore`, `insertAfter`, `remove`, `move`,
 `moveBefore`, `moveAfter`, `reorder`, `append`, `prepend`, `update` и `upsert`.
 

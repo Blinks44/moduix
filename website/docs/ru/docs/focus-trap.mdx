@@ -16,6 +16,7 @@ ark: https://ark-ui.com/docs/utilities/focus-trap
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -40,6 +41,13 @@ import { FocusTrap } from '@ark-ui/vue/focus-trap';
 ```
 
   </Tab>
+  <Tab value="svelte">
+
+```ts
+import { FocusTrap } from '@ark-ui/svelte/focus-trap';
+```
+
+  </Tab>
 </Tabs>
 
 Для модального окна используйте `Dialog`, а для модальной панели, прикреплённой к краю экрана, `Drawer`. Эти компоненты
@@ -50,7 +58,7 @@ import { FocusTrap } from '@ark-ui/vue/focus-trap';
 Оставьте ловушку смонтированной и переключайте `disabled` при начале и завершении сценария. В примере `initialFocus`
 переводит фокус на **Review details**, `isReviewing` синхронизируется через `onDeactivate`, а после отключения ловушки
 фокус возвращается на **Start review**. В интерактивном примере через `PreviewMeta` показано, активна ли ловушка. Вкладки
-с исходным кодом показывают одинаковое поведение с нативными примерами для React, Solid и Vue.
+с исходным кодом показывают одинаковое поведение с нативными примерами для React, Solid, Vue и Svelte.
 
 <Example name="focus-trap/basic" />
 

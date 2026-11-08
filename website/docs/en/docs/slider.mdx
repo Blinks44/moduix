@@ -133,15 +133,14 @@ Place `SliderDraggingIndicator` inside a thumb to show its active value while dr
 
 ### Change events
 
-Use `onValueChange` (or Vue's `value-change` event) for updates during interaction and
+Use `onValueChange` (or Vue's `value-change` event; Svelte uses the same callback props) for updates during interaction and
 `onValueChangeEnd` (or `value-change-end`) when the drag or keyboard interaction ends.
 
 <Example name="slider/change-events" width="sm" />
 
 ### Controlled
 
-Control the slider from framework state by storing Ark's `details.value`; in Vue, bind `v-model` to
-a ref for the same controlled contract.
+Control the slider from framework state by storing Ark's `details.value`; in Vue, bind `v-model` to a ref, and in Svelte use `bind:value`, for the same controlled contract.
 
 <Example name="slider/controlled" width="sm" />
 
@@ -167,12 +166,10 @@ Use `SliderThumbs` for the standard one-thumb-per-value composition; it also ren
 specific order, compose `SliderThumb` explicitly and place one `SliderHiddenInput` inside it.
 Set `name` on the root for form submission.
 
-For controlled state, store `details.value` from `onValueChange` or `onValueChangeEnd`; in Vue,
-bind `v-model` to a ref for the same controlled contract. Use `useSliderContext` inside descendants
+For controlled state, store `details.value` from `onValueChange` or `onValueChangeEnd`; in Vue, bind `v-model` to a ref, and in Svelte use `bind:value`, for the same controlled contract. Use `useSliderContext` inside descendants
 to read state. If state must live outside the rendered tree, create it with `useSlider` and pass it
 to `SliderRootProvider`; do not render another root for the same store. React reads the store as an
-object, Solid reads it through the returned accessor, and Vue exposes the reactive store directly in
-the template.
+object, Solid reads it through the returned accessor, Vue exposes the reactive store directly in the template, and Svelte returns a getter, so read the state with `slider().value`.
 
 ## Anatomy
 
@@ -199,7 +196,7 @@ Hover or focus a part to find it in the preview.
 
 ## Styling
 
-Customize `Slider` with `className` (or Vue's `class`), Ark attributes, stable
+Customize `Slider` with `className` (or `class` in Vue and Svelte), Ark attributes, stable
 `data-slot="slider-*"` hooks, Ark CSS variables, and the public moduix CSS variables below.
 
 ### CSS variables

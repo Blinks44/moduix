@@ -121,6 +121,8 @@ gestionnaire de réinitialisation du formulaire. Dans Vue, `Input` et `NativeSel
 `defaultValue` de React. Ark efface actuellement les valeurs initiales natives de ces contrôles sans
 modèle ; utilisez `v-model` en attendant la correction.
 
+Dans Svelte, liez les contrôles natifs contrôlés avec `bind:value`.
+
 ## Anatomie
 
 L’API publique `Field` utilise des valeurs plates préfixées par le nom de la famille. `Field` ne rend
@@ -149,7 +151,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 Un `Field` ou `FieldRootProvider` désactivé atténue l’ensemble du champ une seule fois : les
 contrôles qu’il contient ne sont pas atténués à nouveau, pas plus qu’un `Field` dans un `Fieldset` désactivé.
 
-Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées pour la structure. Pour les
+Utilisez `className` en React ou `class` en Solid, Vue et Svelte sur les parties exportées pour la structure. Pour les
 styles liés à l’état, préférez les attributs de données Ark comme `data-disabled`, `data-invalid`,
 `data-readonly` et `data-required`, avec les sélecteurs `data-slot` de moduix. Les variantes Tailwind
 utilisent les utilitaires natifs et les classes du consommateur. Les variantes CSS Modules s’appuient sur

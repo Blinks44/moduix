@@ -53,7 +53,7 @@ the screen. `Empty` is presentational and does not own application state or live
 
 Use `asChild` on `Empty` or `EmptyTitle` when the surrounding section needs a semantic container or
 a different heading level. Pass exactly one child to an `asChild` part so it can receive that part's
-props and ref. In Vue, a component ref exposes the rendered host through `$el`. Then add any
+props and ref. In Vue, a component ref exposes the rendered host through `$el`. In Svelte, the `asChild` snippet receives the props to spread onto the host, and `bind:ref` exposes the rendered element. Then add any
 required landmark, role, focus management, or `aria-live` behavior in the surrounding interface.
 
 ## Anatomy
@@ -75,7 +75,7 @@ Hover or focus a part to find it in the preview.
 
 ## Styling
 
-Customize `Empty` with `className` in React or `class` in Solid and Vue, Ark `data-scope="empty"` /
+Customize `Empty` with `className` in React or `class` in Solid, Vue, and Svelte, Ark `data-scope="empty"` /
 `data-part` selectors, and stable `data-slot="empty-*"` hooks. The CSS Modules packages expose the
 `--moduix-empty-*` variables below for the root surface, so a theme can retune every empty state at
 once. Style the other parts with a class: it overrides the layered component styles.

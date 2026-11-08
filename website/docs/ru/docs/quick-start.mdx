@@ -1,6 +1,6 @@
 ---
 title: Быстрый старт
-description: Выберите React, Solid или Vue, CSS Modules или Tailwind, затем установите moduix как пакет или добавьте исходный код через shadcn CLI.
+description: Выберите React, Solid, Vue или Svelte, CSS Modules или Tailwind, затем установите moduix как пакет или добавьте исходный код через shadcn CLI.
 ---
 
 import { StarterEntry } from '@/components/docs/starters';
@@ -16,6 +16,9 @@ import solidCssModules from '../../../snippets/quick-start/solid-css-modules.tsx
 import VueCssModules from '../../../snippets/quick-start/vue-css-modules.vue?raw';
 import solidTailwind from '../../../snippets/quick-start/solid-tailwind.tsx?raw';
 import VueTailwind from '../../../snippets/quick-start/vue-tailwind.vue?raw';
+import svelteCssModules from '../../../snippets/quick-start/svelte-css-modules.svelte?raw';
+import svelteTailwind from '../../../snippets/quick-start/svelte-tailwind.svelte?raw';
+import shadcnAccordionSvelte from '../../../snippets/quick-start/shadcn-accordion-svelte.svelte?raw';
 
 import styles from '@/components/docs/starters.module.css';
 
@@ -45,7 +48,7 @@ import styles from '@/components/docs/starters.module.css';
 <StarterEntry />
 
 :::info Перед началом
-Нужно готовое приложение на React 18 или 19, Solid 1.9+ или Vue 3.5+. Для пакетов и реестров Tailwind уже должен быть настроен Tailwind CSS v4.
+Нужно готовое приложение на React 18 или 19, Solid 1.9+, Vue 3.5+ или Svelte 5.29+. Для пакетов и реестров Tailwind уже должен быть настроен Tailwind CSS v4.
 :::
 
 ## Установить как пакет
@@ -77,6 +80,11 @@ import styles from '@/components/docs/starters.module.css';
 <PackageManagerTabs command="install @moduix/vue @ark-ui/vue" />
 
   </Tab>
+  <Tab label="Svelte" value="svelte">
+
+<PackageManagerTabs command="install @moduix/svelte @ark-ui/svelte" />
+
+  </Tab>
 </Tabs>
 
   </Tab>
@@ -96,6 +104,11 @@ import styles from '@/components/docs/starters.module.css';
   <Tab label="Vue" value="vue">
 
 <PackageManagerTabs command="install @moduix/vue-tailwind @ark-ui/vue" />
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+<PackageManagerTabs command="install @moduix/svelte-tailwind @ark-ui/svelte" />
 
   </Tab>
 </Tabs>
@@ -135,6 +148,14 @@ import '@moduix/vue/style.css';
 ```
 
   </Tab>
+  <Tab label="Svelte" value="svelte">
+
+```ts title="main.ts"
+import '@moduix/svelte/reset.css';
+import '@moduix/svelte/style.css';
+```
+
+  </Tab>
 </Tabs>
 
   </Tab>
@@ -170,6 +191,15 @@ import '@moduix/vue/style.css';
 ```
 
   </Tab>
+  <Tab label="Svelte" value="svelte">
+
+```css title="styles.css"
+@import '@moduix/svelte-tailwind/style.css';
+@import 'tailwindcss';
+@source '../node_modules/@moduix/svelte-tailwind/dist/components';
+```
+
+  </Tab>
 </Tabs>
 
   </Tab>
@@ -198,6 +228,11 @@ Accordion есть во всех фреймворках и вариантах с
 <CodeBlockRuntime lang="vue" title="App.vue" code={VueCssModules} />
 
   </Tab>
+  <Tab label="Svelte" value="svelte">
+
+<CodeBlockRuntime lang="svelte" title="App.svelte" code={svelteCssModules} />
+
+  </Tab>
 </Tabs>
 
   </Tab>
@@ -217,6 +252,11 @@ Accordion есть во всех фреймворках и вариантах с
   <Tab label="Vue" value="vue">
 
 <CodeBlockRuntime lang="vue" title="App.vue" code={VueTailwind} />
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+<CodeBlockRuntime lang="svelte" title="App.svelte" code={svelteTailwind} />
 
   </Tab>
 </Tabs>
@@ -278,6 +318,11 @@ Accordion есть во всех фреймворках и вариантах с
 <PackageManagerTabs command="shadcn@latest add @moduix-vue/accordion" dlx />
 
   </Tab>
+  <Tab label="Svelte" value="svelte">
+
+<PackageManagerTabs command="shadcn@latest add @moduix-svelte/accordion" dlx />
+
+  </Tab>
 </Tabs>
 
   </Tab>
@@ -297,6 +342,11 @@ Accordion есть во всех фреймворках и вариантах с
   <Tab label="Vue" value="vue">
 
 <PackageManagerTabs command="shadcn@latest add @moduix-vue-tailwind/accordion" dlx />
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+<PackageManagerTabs command="shadcn@latest add @moduix-svelte-tailwind/accordion" dlx />
 
   </Tab>
 </Tabs>
@@ -325,6 +375,11 @@ Accordion есть во всех фреймворках и вариантах с
   <Tab label="Vue" value="vue">
 
 <PackageManagerTabs command="shadcn@latest add @moduix-vue/reset" dlx />
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+<PackageManagerTabs command="shadcn@latest add @moduix-svelte/reset" dlx />
 
   </Tab>
 </Tabs>
@@ -363,6 +418,11 @@ import '@/lib/moduix/styles/style.css';
   <Tab label="Vue" value="vue">
 
 <CodeBlockRuntime lang="vue" title="App.vue" code={shadcnAccordionVue} />
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+<CodeBlockRuntime lang="svelte" title="App.svelte" code={shadcnAccordionSvelte} />
 
   </Tab>
 </Tabs>

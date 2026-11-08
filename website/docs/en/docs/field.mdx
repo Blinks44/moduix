@@ -120,6 +120,8 @@ In Vue, initialize native controls with `v-model` and reset the bound refs in th
 Vue `Input` and `NativeSelect` do not provide React's `defaultValue` prop. Ark currently clears native
 uncontrolled defaults on these controls; use `v-model` until that upstream behavior is fixed.
 
+In Svelte, bind controlled native controls with `bind:value`.
+
 ## Anatomy
 
 The public `Field` API uses flat, family-prefixed values. `Field` does not render its own control: put
@@ -148,7 +150,7 @@ Hover or focus a part to find it in the preview.
 A disabled `Field` or `FieldRootProvider` dims the whole field once; the controls inside it do not dim
 again, and neither does a `Field` inside a disabled `Fieldset`.
 
-Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. For state-based
+Use `className` in React or `class` in Solid, Vue, and Svelte on exported parts for structural styles. For state-based
 styles, prefer Ark data attributes such as `data-disabled`, `data-invalid`, `data-readonly`, and
 `data-required`, together with moduix `data-slot` selectors. Tailwind variants use native utilities and
 consumer classes. CSS Modules variants build on foundation tokens and have no component variables: a

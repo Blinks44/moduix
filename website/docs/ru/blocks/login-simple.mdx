@@ -8,16 +8,18 @@ import { LoginSimple } from '@/components/blocks/login-simple/login-simple';
 import loginSimpleReact from '../../../src/components/blocks/login-simple/login-simple.tsx?raw';
 import loginSimpleSolid from '../../../snippets/blocks/solid/login-simple.tsx?raw';
 import loginSimpleVue from '../../../snippets/blocks/vue/login-simple.vue?raw';
+import loginSimpleSvelte from '../../../snippets/blocks/svelte/login-simple.svelte?raw';
 import loginSimpleCss from '../../../src/components/blocks/login-simple/login-simple-form.module.css?raw';
 import loginRouteReact from '../../../snippets/blocks/react/login-route.tsx?raw';
 import loginRouteSolid from '../../../snippets/blocks/solid/login-route.tsx?raw';
 import loginRouteVue from '../../../snippets/blocks/vue/login-route.vue?raw';
+import loginRouteSvelte from '../../../snippets/blocks/svelte/login-route.svelte?raw';
 
 # Вход
 
 <ExamplePanel
   clientOnly
-  sources={{ react: loginSimpleReact, solid: loginSimpleSolid, vue: loginSimpleVue }}
+  sources={{ react: loginSimpleReact, solid: loginSimpleSolid, vue: loginSimpleVue, svelte: loginSimpleSvelte }}
   files={[{ name: 'login-simple-form.module.css', code: loginSimpleCss }]}
 >
   <PreviewFrame maxWidth="sm">
@@ -37,7 +39,7 @@ import loginRouteVue from '../../../snippets/blocks/vue/login-route.vue?raw';
 
 <FrameworkCode
   name="sign-in-route"
-  sources={{ react: loginRouteReact, solid: loginRouteSolid, vue: loginRouteVue }}
+  sources={{ react: loginRouteReact, solid: loginRouteSolid, vue: loginRouteVue, svelte: loginRouteSvelte }}
 />
 
 Замените `/api/sign-in` и `/dashboard` маршрутами своего приложения, а в скопированном блоке

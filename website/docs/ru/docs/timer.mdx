@@ -49,7 +49,7 @@ import AnatomyScene from '@/components/examples/timer/basic';
 ### События
 
 Используйте `onTick` и `onComplete` для побочных эффектов, связанных с жизненным циклом таймера. В Vue события
-подключаются через `@tick` и `@complete`.
+подключаются через `@tick` и `@complete`. В Svelte передавайте `onTick` и `onComplete` как свойства.
 
 <Example name="timer/events" />
 
@@ -77,7 +77,7 @@ import AnatomyScene from '@/components/examples/timer/basic';
 Используйте `TimerRootProvider` с `useTimer()`, когда состояние нужно создать отдельно от отображаемого дерева.
 `TimerContext` и `useTimerContext()` подходят, если другим элементам интерфейса нужны состояние или методы таймера.
 В Solid состояние и контекст читаются через реактивные функции, поэтому обращайтесь к ним как к `timer()` и
-`api()`. В Vue refs автоматически разворачиваются в шаблонах, а в коде `<script>` используются через `.value`.
+`api()`. В Vue refs автоматически разворачиваются в шаблонах, а в коде `<script>` используются через `.value`. В Svelte `useTimer()` возвращает геттер, поэтому читайте его как `timer()`; `TimerContext` передаёт такой же геттер в сниппет `render`.
 
 В установленной версии Ark UI `TimerItem` заменяет дочернее содержимое отформатированным значением до обработки
 `asChild`, поэтому переданный элемент теряется в Vue и React. До исправления в Ark используйте стандартный
@@ -104,7 +104,7 @@ import AnatomyScene from '@/components/examples/timer/basic';
 
 ## Стилизация
 
-Передайте `className` в React или `class` в Solid и Vue на любую экспортируемую часть. Варианты Tailwind
+Передайте `className` в React или `class` в Solid, Vue и Svelte на любую экспортируемую часть. Варианты Tailwind
 используют утилиты и классы приложения. Варианты CSS Modules построены на токенах foundation и не имеют
 собственных переменных: класс на части или селектор по `data-slot` переопределяет стили компонента из слоя.
 

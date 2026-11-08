@@ -89,7 +89,7 @@ directement `ListItem className` ou `class`.
 
 Utilisez `List asChild` lorsqu’un composant de votre application doit rendre lui-même l’élément sémantique de la liste.
 En React, il doit transmettre les props et la ref reçues à un seul `<ul>` ou `<ol>` ; en Solid, utilisez la forme avec
-fonction de rendu ; en Vue, passez un seul enfant sémantique.
+fonction de rendu ; en Vue, passez un seul enfant sémantique ; en Svelte, utilisez un snippet `asChild`.
 
 <Example name="list/root-as-child" />
 
@@ -100,7 +100,7 @@ car l’espacement de la racine et le style des marqueurs ciblent les éléments
 si vous avez besoin de sa partie stable, de `className`/`class` ou de `asChild` ; sinon, de simples éléments `li`
 suffisent. Utilisez `asChild` uniquement lorsqu’un composant de l’application rend un seul élément sémantique `ul`,
 `ol` ou `li` et transmet les props et la ref reçues. En Solid, utilisez la forme d’`asChild` avec une fonction de rendu ;
-en Vue, passez l’élément sémantique dans le slot du composant. `List` ne fournit ni machine à états ni callbacks : la
+en Vue, passez l’élément sémantique dans le slot du composant ; en Svelte, utilisez un snippet `asChild`. `List` ne fournit ni machine à états ni callbacks : la
 sélection au clavier relève de `Listbox`.
 
 ## Anatomie
@@ -119,7 +119,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 ## Styles
 
-Appliquez des styles à `List` avec la propriété de classe (`className` en React et `class` en Solid et Vue), les attributs
+Appliquez des styles à `List` avec la propriété de classe (`className` en React et `class` en Solid, Vue et Svelte), les attributs
 `data-*` alignés sur Ark et le sélecteur natif `li::marker`. Les variantes CSS Modules reposent sur les tokens de
 foundation et n’ont pas de variables de composant : une classe sur la racine remplace les styles de la couche des
 composants.

@@ -34,7 +34,7 @@ option so Ark can position it.
 
 Call `tour.next()` from an input handler after the value reaches two characters. For steps that depend on an
 asynchronous condition, `waitForElement`, `waitForElementValue`, `waitForEvent`, and `waitForPromise` are also
-exported from `@moduix/react/tour`, `@moduix/solid/tour`, and `@moduix/vue/tour`.
+exported from `@moduix/react/tour`, `@moduix/solid/tour`, `@moduix/vue/tour`, and `@moduix/svelte/tour`.
 
 <Example name="tour/wait-for-input" />
 
@@ -58,7 +58,7 @@ dismissal still work when you replace its children with your own buttons.
 
 Create state with `useTour` and pass its return value to `Tour`; in Solid, the return value is an accessor, so call
 `tour()` to use methods such as `start()` and `next()`. In Vue, the return value is a ref: templates unwrap it, while
-script code calls methods through `tour.value`. Keep the structural parts explicit and include `TourTitle` and
+script code calls methods through `tour.value`. In Svelte, the return value is a getter like in Solid, so call `tour()`. Keep the structural parts explicit and include `TourTitle` and
 `TourDescription` so the alert dialog has an accessible name and description. `TourBackdrop`, `TourSpotlight`, and `TourPositioner`
 are portalled by default; use `portalled={false}` or `portalRef` only when the overlay must stay in or target a specific
 container. Use `TourActionList` for the actions declared in `steps`, or replace it with `TourActions` and
@@ -98,7 +98,7 @@ that order, above dialogs and popovers and below toasts. `TourCloseTrigger` is u
 Content motion reads the shared `--moduix-popup-motion-*` variables, and backdrop and content
 animations are skipped when the user prefers reduced motion.
 
-Use `className` in React or `class` in Solid and Vue on exported parts. Tailwind variants use native
+Use `className` in React or `class` in Solid, Vue, and Svelte on exported parts. Tailwind variants use native
 utilities and consumer classes. CSS Modules variants build on foundation tokens and have no component
 variables: a class on the part overrides the layered component styles. Pass `className` (or `class`)
 to `TourActionList` to style every generated trigger.

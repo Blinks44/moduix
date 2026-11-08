@@ -99,7 +99,7 @@ outside the component tree.
 `PinInputInputs` renders one indexed input for every item in the Ark context. Use explicit `PinInputInput` parts with
 continuous zero-based indexes and `PinInputSeparator` when the code needs groups. Values are string arrays. Use
 `PinInputRootProvider` with `usePinInput` when state or imperative methods must live outside the rendered tree; React
-receives a store object, Solid receives an accessor, and Vue exposes the reactive store directly to the template.
+receives a store object, Solid receives an accessor, Vue exposes the reactive store directly to the template, and Svelte returns a getter, so read the state with `pinInput().value`.
 
 Ark manages focus transfer, paste distribution, keyboard editing, and one-time-code autocomplete; add
 `PinInputLabel` so the group has an accessible name. `PinInputSeparator` is decorative and renders with

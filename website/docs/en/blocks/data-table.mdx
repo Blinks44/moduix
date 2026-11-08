@@ -10,9 +10,12 @@ import InteractiveDataTable from '@/components/blocks/data-table/sorting-filteri
 import dataTableSolid from '../../../snippets/blocks/solid/data-table.tsx?raw';
 import dataTableCatalogSolid from '../../../snippets/blocks/solid/data-table-component-catalog.tsx?raw';
 import dataTableVue from '../../../snippets/blocks/vue/data-table.vue?raw';
+import dataTableSvelte from '../../../snippets/blocks/svelte/data-table.svelte?raw';
 import dataTableControlsVue from '../../../snippets/blocks/vue/data-table-controls.vue?raw';
+import dataTableControlsSvelte from '../../../snippets/blocks/svelte/data-table-controls.svelte?raw';
 import dataTableBasicSolid from '../../../snippets/blocks/solid/data-table-basic.tsx?raw';
 import dataTableBasicVue from '../../../snippets/blocks/vue/data-table-basic.vue?raw';
+import dataTableBasicSvelte from '../../../snippets/blocks/svelte/data-table-basic.svelte?raw';
 import dataTableCatalogReact from '../../../src/components/blocks/data-table.tsx?raw';
 import dataTableCatalogCss from '../../../src/components/blocks/data-table.module.css?raw';
 import dataTableBasicReact from '../../../src/components/blocks/data-table/basic.tsx?raw';
@@ -24,7 +27,7 @@ import dataTableCss from '../../../src/components/blocks/data-table/payment-tabl
 
 <ExamplePanel
   clientOnly
-  sources={{ react: dataTableCatalogReact, solid: dataTableCatalogSolid, vue: dataTableVue }}
+  sources={{ react: dataTableCatalogReact, solid: dataTableCatalogSolid, vue: dataTableVue, svelte: dataTableSvelte }}
   files={[{ name: 'data-table.module.css', code: dataTableCatalogCss }]}
 >
   <DataTable />
@@ -52,7 +55,7 @@ example records and actions with your product data.
 Use only the controls your table needs. Remove selection, column visibility, actions, or pagination
 when users cannot use that capability.
 
-The live previews use the React package. The source tabs show native React, Solid, and Vue implementations for TanStack Table v9.
+The live previews use the React package. The source tabs show native React, Solid, Vue, and Svelte implementations for TanStack Table v9.
 
 ## Install
 
@@ -78,6 +81,11 @@ Install TanStack Table in the application or feature that implements the data-gr
 <PackageManagerTabs command="install @tanstack/vue-table@^9.2.4" />
 
   </Tab>
+  <Tab label="Svelte" value="svelte">
+
+<PackageManagerTabs command="install @tanstack/svelte-table@^9.3.1" />
+
+  </Tab>
 </Tabs>
 
 `Table` is available from the matching `@moduix/<framework>/table` package. It deliberately does not include TanStack Table, so
@@ -88,13 +96,13 @@ applications that only need a semantic table do not load data-grid logic.
 Declare the feature set with `tableFeatures()` and define typed `ColumnDef<typeof features, Payment>`
 entries. React creates the instance with `useTable` and renders definitions with `flexRender`; Solid
 uses `createTable` and `table.FlexRender`; Vue uses `useTable` and the `FlexRender` component with
-`:header` or `:cell`. In every adapter, map header groups and visible cells into the moduix table anatomy.
+`:header` or `:cell`; Svelte uses `createTable` and the `FlexRender` component with `{header}` or `{cell}`. In every adapter, map header groups and visible cells into the moduix table anatomy.
 
 The snippet renders visible columns and cells, so it registers `columnVisibilityFeature`. Add other
 features only when the table needs them.
 
 <ExamplePanel
-  sources={{ react: dataTableBasicReact, solid: dataTableBasicSolid, vue: dataTableBasicVue }}
+  sources={{ react: dataTableBasicReact, solid: dataTableBasicSolid, vue: dataTableBasicVue, svelte: dataTableBasicSvelte }}
   files={[{ name: 'payment-table.module.css', code: dataTableBasicCss }]}
 >
   <PreviewFrame maxWidth="lg">
@@ -108,11 +116,11 @@ alignment, row actions, and business-specific filter definitions.
 ## Stable references
 
 Keep `features`, records, and `columns` stable for the lifetime of the table. React and Solid declare
-static inputs outside their components; Vue declares them once in `<script setup>`. In React, memoize
+static inputs outside their components; Vue declares them once in `<script setup>`; Svelte declares them once in the component `<script>`. In React, memoize
 arrays derived from props or state instead of passing a new
 reference to `useTable` on every render. In Solid, expose changing data through the reactive `data`
 getter passed to `createTable`. In Vue, pass a `ref` or `computed` directly as `data`, not a one-time
-`data.value` snapshot. See the TanStack
+`data.value` snapshot. In Svelte, pass a getter (`get data() { return rows; }`) so the table reads the current `$state` value. See the TanStack
 [FAQ](https://tanstack.com/table/latest/docs/faq) for the full explanation.
 
 ## Column widths
@@ -132,7 +140,7 @@ Import the individual built-in filter and sort functions that a table uses and r
 `includesString`, `alphanumeric`, and `text` instead of a full registry.
 
 <ExamplePanel
-  sources={{ react: dataTableReact, solid: dataTableSolid, vue: dataTableControlsVue }}
+  sources={{ react: dataTableReact, solid: dataTableSolid, vue: dataTableControlsVue, svelte: dataTableControlsSvelte }}
   files={[{ name: 'payment-table.module.css', code: dataTableCss }]}
 >
   <InteractiveDataTable />
@@ -236,6 +244,51 @@ const table = useTable({
     pagination: pagination.value,
     sorting: sorting.value,
   })),
+});
+```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+```ts
+import { createTableState, type ColumnFiltersState, type PaginationState, type SortingState } from '@tanstack/svelte-table';
+
+const features = tableFeatures({
+  columnFilteringFeature,
+  rowPaginationFeature,
+  rowSortingFeature,
+});
+
+const [columnFilters, setColumnFilters] = createTableState<ColumnFiltersState>([]);
+const [pagination, setPagination] = createTableState<PaginationState>({ pageIndex: 0, pageSize: 10 });
+const [sorting, setSorting] = createTableState<SortingState>([]);
+
+const table = createTable({
+  features,
+  get data() {
+    return response.rows;
+  },
+  columns,
+  manualFiltering: true,
+  manualPagination: true,
+  manualSorting: true,
+  get rowCount() {
+    return response.rowCount;
+  },
+  onColumnFiltersChange: setColumnFilters,
+  onPaginationChange: setPagination,
+  onSortingChange: setSorting,
+  state: {
+    get columnFilters() {
+      return columnFilters();
+    },
+    get pagination() {
+      return pagination();
+    },
+    get sorting() {
+      return sorting();
+    },
+  },
 });
 ```
 

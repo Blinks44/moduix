@@ -17,6 +17,7 @@ Importez l’utilitaire depuis le paquet Ark UI correspondant à votre framework
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -41,6 +42,13 @@ import { DownloadTrigger } from '@ark-ui/vue/download-trigger';
 ```
 
   </Tab>
+  <Tab value="svelte">
+
+```ts
+import { DownloadTrigger } from '@ark-ui/svelte/download-trigger';
+```
+
+  </Tab>
 </Tabs>
 
 ## Exemple de base
@@ -48,7 +56,7 @@ import { DownloadTrigger } from '@ark-ui/vue/download-trigger';
 Passez les données déjà prêtes via `data`. La prop accepte une chaîne, un `Blob` ou un `File`. `fileName` et `mimeType`
 décrivent le fichier enregistré par le navigateur.
 
-L’aperçu utilise React. Les onglets de code contiennent des exemples natifs React, Solid et Vue avec le même comportement.
+L’aperçu utilise React. Les onglets de code contiennent des exemples natifs React, Solid, Vue et Svelte avec le même comportement.
 
 <Example name="download-trigger/basic" clientOnly />
 

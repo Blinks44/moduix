@@ -74,7 +74,7 @@ import { CssPropertiesSection } from '@/components/mdx/Components';
 
 ### Управляемое состояние
 
-Управляйте `value` в React и Solid или используйте `v-model` во Vue, если выбранные элементы должны
+Управляйте `value` в React и Solid, используйте `v-model` во Vue или `bind:value` в Svelte, если выбранные элементы должны
 оставаться синхронизированными с состоянием остального приложения. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
 
 <Example name="toggle-group/controlled" />
@@ -91,7 +91,7 @@ import { CssPropertiesSection } from '@/components/mdx/Components';
 
 Используйте `useToggleGroupContext()` в пользовательском элементе, если его содержимому нужно текущее
 состояние группы. `ToggleGroupContext` предоставляет то же состояние через функцию рендера в React и
-Solid или scoped slot во Vue.
+Solid, scoped slot во Vue или сниппет `render` в Svelte (`context().value`).
 
 <Example name="toggle-group/context" />
 
@@ -107,22 +107,19 @@ Solid или scoped slot во Vue.
 `ToggleGroup` оборачивает примитив Toggle Group из Ark UI и добавляет визуальные свойства moduix для
 вариантов и размеров. Импортируйте его из пакета нужного фреймворка: `@moduix/react/toggle-group`,
 `@moduix/solid/toggle-group`, `@moduix/react-tailwind/toggle-group` или
-`@moduix/solid-tailwind/toggle-group`. Vue-пакеты: `@moduix/vue/toggle-group` и
-`@moduix/vue-tailwind/toggle-group`.
+`@moduix/solid-tailwind/toggle-group`. Vue-пакеты: `@moduix/vue/toggle-group` и `@moduix/vue-tailwind/toggle-group`; Svelte-пакеты: `@moduix/svelte/toggle-group` и `@moduix/svelte-tailwind/toggle-group`.
 
 Используйте `defaultValue` для неконтролируемой группы, а `value` вместе с `onValueChange(details)`,
 если состояние выбора хранится в другой части приложения на React или Solid. Во Vue используйте
-`v-model`, а детали Ark получайте через `@value-change`; в скрипте хранилище читается через `.value`.
+`v-model`, а детали Ark получайте через `@value-change`; в скрипте хранилище читается через `.value`. В Svelte используйте `bind:value` и callback `onValueChange`; хук возвращает геттер, поэтому состояние читается через `toggleGroup().value`.
 Выбранные значения имеют тип `string[]` в режимах
 одиночного и множественного выбора. Используйте `ToggleGroupRootProvider` с `useToggleGroup()` из
 пакета нужного фреймворка, если состояние нужно создать вне дерева. В React хранилище читается как
-объект, в Solid его реактивное состояние доступно через возвращаемую функцию, а во Vue реактивное
-хранилище доступно непосредственно в шаблоне.
+объект, в Solid его реактивное состояние доступно через возвращаемую функцию, во Vue реактивное хранилище доступно непосредственно в шаблоне, а в Svelte хук возвращает геттер.
 
 Используйте `ToggleGroupContext` или `useToggleGroupContext()`, если пользовательскому элементу нужно
 текущее состояние группы. При использовании `asChild` React получает одного потомка, который ведёт себя
-как кнопка, Solid получает функцию рендера, возвращающую элемент с поведением Ark, а Vue получает один
-элемент-потомок. Не используйте
+как кнопка, Solid получает функцию рендера, возвращающую элемент с поведением Ark, Vue получает один элемент-потомок, а Svelte получает сниппет `asChild`, который передаёт `props()` элементу. Не используйте
 `ToggleGroup` и `ToggleGroupRootProvider` одновременно для одного экземпляра состояния.
 
 ## Анатомия
@@ -132,7 +129,7 @@ Solid или scoped slot во Vue.
 <AnatomyInspector
   parts={[
     ["ToggleGroup", "toggle-group-root", "Корневая часть, управляющая выбранными значениями, фокусом, ориентацией и отключённым состоянием.", 0],
-    ["ToggleGroupContext", null, "Передаёт текущее состояние группы через функцию рендера или scoped slot во Vue.", 1],
+    ["ToggleGroupContext", null, "Передаёт текущее состояние группы через функцию рендера, scoped slot во Vue или сниппет `render` в Svelte.", 1],
     ["ToggleGroupItem", "toggle-group-item", "Интерактивный элемент с обязательным `value` и состоянием выбора, которым управляет Ark.", 1],
     ["ToggleGroupRootProvider", "toggle-group-root-provider", "Подключает дерево элементов к состоянию, созданному с помощью `useToggleGroup()`.", 0],
   ]}
@@ -142,7 +139,7 @@ Solid или scoped slot во Vue.
 
 ## Стилизация
 
-Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях для структурных стилей.
+Используйте `className` в React или `class` в Solid, Vue и Svelte на экспортируемых частях для структурных стилей.
 Варианты Tailwind используют нативные утилиты и классы потребителя, а варианты CSS Modules
 предоставляют токены `--moduix-toggle-group-*`. Элементы наследуют `variant` и `size` от корневой
 части и могут переопределить любое из этих свойств для отдельного оформления.

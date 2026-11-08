@@ -16,6 +16,7 @@ Import the utility from the matching Ark UI package:
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -40,6 +41,13 @@ import { FocusTrap } from '@ark-ui/vue/focus-trap';
 ```
 
   </Tab>
+  <Tab value="svelte">
+
+```ts
+import { FocusTrap } from '@ark-ui/svelte/focus-trap';
+```
+
+  </Tab>
 </Tabs>
 
 Use `Dialog` for a modal window and `Drawer` for a modal panel attached to the edge of the viewport. They already provide
@@ -50,7 +58,7 @@ the surrounding modal behavior. Do not add `FocusTrap` inside either component.
 Keep the trap mounted and toggle `disabled` when the workflow starts and ends. The example sends focus to **Review details**
 with `initialFocus`, keeps `isReviewing` in sync from `onDeactivate`, and restores focus to **Start review** when the trap
 is released. The preview uses the React CSS Modules package and reports whether the trap is active. The source tabs show
-the same behavior with native React, Solid, and Vue code.
+the same behavior with native React, Solid, Vue, and Svelte code.
 
 <Example name="focus-trap/basic" />
 

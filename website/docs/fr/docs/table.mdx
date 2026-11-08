@@ -108,7 +108,7 @@ conteneur.
 ## Composition
 
 Chaque partie rend par défaut l’élément HTML natif correspondant, accepte ses propriétés, `className`
-en React ou `class` en Solid et Vue, transmet sa ref et prend en charge `asChild`. Avec `asChild`, fournissez
+en React ou `class` en Solid, Vue et Svelte, transmet sa ref et prend en charge `asChild`. Avec `asChild`, fournissez
 un seul élément sémantique. `TableEmpty` fait exception à cette composition habituelle : `asChild` y
 remplace uniquement la cellule `td` générée.
 
@@ -157,7 +157,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 ## Styles
 
-Stylisez `Table` avec `className` en React ou `class` en Solid et Vue, les hooks publics `data-slot`,
+Stylisez `Table` avec `className` en React ou `class` en Solid, Vue et Svelte, les hooks publics `data-slot`,
 `data-scope` et `data-part`, les attributs `data-side` et `data-numeric`, ainsi que les variables
 CSS `--moduix-table-*` présentées ci-dessous. Les variantes Tailwind utilisent des classes utilitaires
 natives et les classes du consommateur ; les variables ci-dessous s’appliquent aux variantes CSS Modules.

@@ -60,7 +60,7 @@ bouton afin que le composant parent conserve la gestion de la fermeture et du re
 
 Utilisez `asChild` lorsqu’un bouton sémantique fourni par un autre composant doit posséder le nœud DOM. L’enfant doit
 rendre l’icône ; définissez-y `type="button"` si nécessaire, notamment dans un formulaire. En Vue, placez ce bouton
-dans le slot par défaut. Avec Solid, passez une fonction de rendu à `asChild` et propagez `props()` à l’enfant.
+dans le slot par défaut. Avec Solid, passez une fonction de rendu à `asChild` et propagez `props()` à l’enfant. Avec Svelte, passez un snippet `asChild` et propagez `props()` à l’enfant.
 
 ## Anatomie
 
@@ -78,7 +78,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 ## Styles
 
-Utilisez `className` avec React ou `class` avec Solid et Vue sur la racine pour les styles structurels. Les variantes
+Utilisez `className` avec React ou `class` avec Solid, Vue et Svelte sur la racine pour les styles structurels. Les variantes
 Tailwind utilisent des classes utilitaires natives et les classes de l’application ; les variables ci-dessous
 s’appliquent aux variantes CSS Modules. Les attributs d’état et les hooks `data-slot` sont communs aux deux solutions
 de styles.

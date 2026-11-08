@@ -97,7 +97,7 @@ need to read or update its state. See [Share state outside the tree](/docs/compo
 `HoverCard` manages the state and portals `HoverCardPositioner` by default. Set `portalled={false}`
 inside another overlay, or pass `portalRef` for a custom container. Use `HoverCardRootProvider`
 with `useHoverCard()` when state belongs outside the card tree; React reads the store as an object,
-while Solid reads it through its accessor, and Vue exposes the reactive store directly to the template.
+while Solid reads it through its accessor, Vue exposes the reactive store directly to the template, and Svelte returns a getter, so read the state with `hoverCard().open`.
 
 Keep `HoverCardArrow` inside `HoverCardContent` and wrap long previews in `HoverCardBody`:
 `Content` stays overflow-visible for the arrow, while `Body` provides the scroll region. Use
@@ -134,7 +134,7 @@ follows `currentColor`, so a `color` class recolors both. `HoverCardContent` is 
 most 24rem tall within the available viewport space. Content motion reads the shared
 `--moduix-popup-motion-*` variables.
 
-Use `className` in React or `class` in Solid and Vue on exported parts. Tailwind variants use native
+Use `className` in React or `class` in Solid, Vue, and Svelte on exported parts. Tailwind variants use native
 utilities and consumer classes. CSS Modules variants build on foundation tokens and have no component
 variables: a class on the part overrides the layered component styles. Data attributes and
 `data-slot` hooks are shared by both styling tracks.

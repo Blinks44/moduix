@@ -1,11 +1,12 @@
 ---
 title: Format Byte
-description: Форматируйте размеры в React, Solid и Vue с помощью Ark UI, выбирая десятичную или двоичную систему единиц и локализованный вывод.
+description: Форматируйте размеры в React, Solid, Vue и Svelte с помощью Ark UI, выбирая десятичную или двоичную систему единиц и локализованный вывод.
 ark: https://ark-ui.com/docs/utilities/format-byte
 ---
 
 import formatByteSolidLocale from '../../../snippets/format-byte/solid/locale.tsx?raw';
 import formatByteVueLocale from '../../../snippets/format-byte/vue/locale.vue?raw';
+import formatByteSvelteLocale from '../../../snippets/format-byte/svelte/locale.svelte?raw';
 
 `Format.Byte` форматирует число байтов в понятный текст. Импортируйте его из пакета Ark для нужного фреймворка.
 
@@ -19,6 +20,7 @@ import formatByteVueLocale from '../../../snippets/format-byte/vue/locale.vue?ra
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -43,6 +45,13 @@ import { Format } from '@ark-ui/vue';
 ```
 
   </Tab>
+  <Tab value="svelte">
+
+```ts
+import { Format } from '@ark-ui/svelte';
+```
+
+  </Tab>
 </Tabs>
 
 ## Базовый пример
@@ -51,7 +60,7 @@ import { Format } from '@ark-ui/vue';
 с подписью или другим элементом, который объясняет значение. В примерах для одного значения используется абзац, а
 для нескольких значений с общим контекстом - список определений.
 
-Предпросмотр использует React, потому что документация работает на React. Во вкладках Solid и Vue
+Предпросмотр использует React, потому что документация работает на React. Во вкладках Solid, Vue и Svelte
 показаны нативные исходники с тем же результатом и API.
 
 <Example name="format-byte/basic" />
@@ -74,6 +83,7 @@ import { Format } from '@ark-ui/vue';
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -91,6 +101,11 @@ import { Format } from '@ark-ui/vue';
   <Tab value="vue">
 
 <CodeBlockRuntime lang="vue" code={formatByteVueLocale} />
+
+  </Tab>
+  <Tab value="svelte">
+
+<CodeBlockRuntime lang="svelte" code={formatByteSvelteLocale} />
 
   </Tab>
 </Tabs>

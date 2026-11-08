@@ -57,7 +57,7 @@ The explicitly composed `SelectHiddenSelect` keeps native form submission workin
 
 ### Controlled
 
-Pass `value` and `onValueChange` (`v-model` in Vue). The value is always a string array, also
+Pass `value` and `onValueChange` (`v-model` in Vue, `bind:value` in Svelte). The value is always a string array, also
 without `multiple`. See [Control state from the application](/docs/composition-patterns#controlled-state).
 
 <Example name="select/controlled" />
@@ -135,7 +135,7 @@ design changes the trigger or the item layout.
 
 Add `SelectHiddenSelect` explicitly inside `Select` or `SelectRootProvider` when the selection must participate in native form submission, validation, autofill, or reset. The root does not render it automatically. `Positioner` is portalled automatically; set `portalled={false}` for inline rendering or use `portalRef` for a custom container.
 
-Use `useSelect` with `SelectRootProvider` when state must be shared with controls outside the Select tree. The returned store is an object in React, an accessor in Solid, and a ref in Vue.
+Use `useSelect` with `SelectRootProvider` when state must be shared with controls outside the Select tree. The returned store is an object in React, an accessor in Solid, a ref in Vue, and a getter in Svelte.
 
 ## Anatomy
 
@@ -171,7 +171,7 @@ Hover or focus a part to find it in the preview.
 
 ## Styling
 
-Style Select with `className` in React, `class` in Solid and Vue, stable `data-slot="select-*"` hooks, and Ark attributes. Tailwind variants use native utility classes and consumer classes. CSS Modules variants keep five size variables, listed below; colors, borders, focus rings, item spacing, and motion come from foundation tokens and the shared `--moduix-popup-*` variables, so override them with a class on the part.
+Style Select with `className` in React, `class` in Solid, Vue, and Svelte, stable `data-slot="select-*"` hooks, and Ark attributes. Tailwind variants use native utility classes and consumer classes. CSS Modules variants keep five size variables, listed below; colors, borders, focus rings, item spacing, and motion come from foundation tokens and the shared `--moduix-popup-*` variables, so override them with a class on the part.
 
 ### CSS variables
 

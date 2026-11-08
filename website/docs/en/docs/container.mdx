@@ -57,7 +57,8 @@ Use `asChild` when a semantic element should own the rendered root. Pass exactly
 child as the Container root, while Solid uses the render-function form
 `asChild={(props) => <main {...props()} />}`. In Solid, assign a ref to the element created inside that render
 function, because a ref on `Container` itself is not forwarded through `asChild`; in Vue, read the rendered element
-from the component ref's `$el`. Use `Bleed` inside `Container` when only one child needs to extend beyond the
+from the component ref's `$el`. In Svelte, pass the element through an `asChild` snippet:
+`{#snippet asChild(props)}<main {...props()}>...</main>{/snippet}`. Use `Bleed` inside `Container` when only one child needs to extend beyond the
 constrained text column.
 
 ## Anatomy
@@ -78,7 +79,7 @@ Hover or focus a part to find it in the preview.
 
 For CSS Modules packages, override the CSS variables on the root when a page shell needs different width or gutter
 values. Tailwind packages use utility classes and consumer class overrides instead of these CSS variables. Use
-`className` in React, `class` in Solid, or `class` in Vue for local block styles such as padding, borders, or
+`className` in React, `class` in Solid, or `class` in Vue and Svelte for local block styles such as padding, borders, or
 backgrounds.
 
 ### CSS variables

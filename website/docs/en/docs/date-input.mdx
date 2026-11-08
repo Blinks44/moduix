@@ -104,7 +104,7 @@ Pass the selected date array to `value` and update it from `details.value` in `o
 
 ### Root provider
 
-Use `useDateInput()` from `@moduix/react`, `@moduix/solid`, or `@moduix/vue` with
+Use `useDateInput()` from `@moduix/react`, `@moduix/solid`, `@moduix/vue`, or `@moduix/svelte` with
 `DateInputRootProvider` when state actions need to be available outside the rendered root tree. See [Share state outside the tree](/docs/composition-patterns#root-provider).
 
 <Example name="date-input/root-provider" />
@@ -122,7 +122,7 @@ segments or literals need their own markup.
 Use `DateInput` with `DateInputControl` and `DateInputSegments` for the standard field. Keep the
 state uncontrolled with `defaultValue`, control it with `value` and `onValueChange(details)`, or
 create it with `useDateInput()` and connect the parts through `DateInputRootProvider`. In Vue, use
-`v-model` for the controlled value. Values use
+`v-model` for the controlled value; in Svelte, use `bind:value`. Values use
 the `DateInputDateValue[]` shape from `@internationalized/date`, not strings.
 
 `DateInputHiddenInput` is explicit because the root does not add native inputs. Render one hidden
@@ -154,7 +154,7 @@ Hover or focus a part to find it in the preview.
 
 ## Styling
 
-Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. Tailwind
+Use `className` in React or `class` in Solid, Vue, and Svelte on exported parts for structural styles. Tailwind
 variants use native utilities and consumer classes. CSS Modules variants also expose the component
 variables below. Data attributes and `data-slot` hooks are shared by both styling tracks.
 

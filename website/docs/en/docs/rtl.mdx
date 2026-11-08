@@ -6,6 +6,7 @@ description: Configure document direction, Ark locale context, portals, and logi
 import reactSection from '../../../snippets/rtl/react/section.tsx?raw';
 import solidSection from '../../../snippets/rtl/solid/section.tsx?raw';
 import VueSection from '../../../snippets/rtl/vue/section.vue?raw';
+import SvelteSection from '../../../snippets/rtl/svelte/section.svelte?raw';
 
 # Right-to-left (RTL)
 
@@ -55,6 +56,20 @@ import { LocaleProvider } from '@moduix/vue/locale';
 ```
 
   </Tab>
+  <Tab label="Svelte" value="svelte">
+
+```svelte
+<script lang="ts">
+  import { LocaleProvider } from '@moduix/svelte/locale';
+  import type { Snippet } from 'svelte';
+
+  let { children }: { children?: Snippet } = $props();
+</script>
+
+<LocaleProvider locale="ar-EG">{@render children?.()}</LocaleProvider>
+```
+
+  </Tab>
 </Tabs>
 
 `LocaleProvider` derives Ark's direction from the locale, but it does not change native document
@@ -82,11 +97,16 @@ components with `LocaleProvider`.
 <CodeBlockRuntime lang="vue" code={VueSection} />
 
   </Tab>
+  <Tab label="Svelte" value="svelte">
+
+<CodeBlockRuntime lang="svelte" code={SvelteSection} />
+
+  </Tab>
 
 </Tabs>
 
-The example builds its collection with `createListCollection` from `@ark-ui/react/collection` or
-`@ark-ui/solid/collection`, `@ark-ui/vue/collection`. Select, Button, and LocaleProvider come from the matching moduix
+The example builds its collection with `createListCollection` from `@ark-ui/react/collection`,
+`@ark-ui/solid/collection`, `@ark-ui/vue/collection`, or `@ark-ui/svelte/collection`. Select, Button, and LocaleProvider come from the matching moduix
 adapter. Components read direction from the locale context and do not need a separate RTL prop.
 
 ## Handle portals and mixed direction

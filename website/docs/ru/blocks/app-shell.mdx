@@ -10,16 +10,18 @@ import { AppShellExample } from '@/components/blocks/app-shell/app-shell-example
 import shellReact from '../../../src/components/blocks/app-shell/app-shell.tsx?raw';
 import shellSolid from '../../../snippets/blocks/solid/app-shell.tsx?raw';
 import shellVue from '../../../snippets/blocks/vue/app-shell.vue?raw';
+import shellSvelte from '../../../snippets/blocks/svelte/app-shell.svelte?raw';
 import shellCss from '../../../src/components/blocks/app-shell/app-shell.module.css?raw';
 import routeReact from '../../../snippets/blocks/react/app-shell-route.tsx?raw';
 import routeSolid from '../../../snippets/blocks/solid/app-shell-route.tsx?raw';
 import routeVue from '../../../snippets/blocks/vue/app-shell-route.vue?raw';
+import routeSvelte from '../../../snippets/blocks/svelte/app-shell-route.svelte?raw';
 
 # Каркас приложения
 
 <ExamplePanel
   clientOnly
-  sources={{ react: shellReact, solid: shellSolid, vue: shellVue }}
+  sources={{ react: shellReact, solid: shellSolid, vue: shellVue, svelte: shellSvelte }}
   files={[{ name: 'app-shell.module.css', code: shellCss }]}
 >
   <AppShellExample />
@@ -31,13 +33,13 @@ import routeVue from '../../../snippets/blocks/vue/app-shell-route.vue?raw';
 
 ## Добавьте содержимое
 
-Импортируйте скопированный `AppShell` в компонент страницы рядом с `app-shell.tsx` (или
-`app-shell.vue`). Содержимое выводится внутри `<main>`. Вместе с блоком устанавливаются общая
+Импортируйте скопированный `AppShell` в компонент страницы рядом с `app-shell.tsx` (`app-shell.vue` или
+`app-shell.svelte`). Содержимое выводится внутри `<main>`. Вместе с блоком устанавливаются общая
 таблица стилей и каталог `icons`.
 
 <FrameworkCode
   name="app-shell-route"
-  sources={{ react: routeReact, solid: routeSolid, vue: routeVue }}
+  sources={{ react: routeReact, solid: routeSolid, vue: routeVue, svelte: routeSvelte }}
 />
 
 В примере используется локальное состояние. В приложении определяйте `page` по текущему маршруту
@@ -45,12 +47,15 @@ import routeVue from '../../../snippets/blocks/vue/app-shell-route.vue?raw';
 активной ссылки. Замените название рабочего пространства, ссылки на ресурсы и данные пользователя
 в скопированной навигации. `AppShell` — композиция, которую можно менять, а не экспорт пакета moduix.
 
-## Навигация во Vue
+## Навигация во Vue и Svelte
 
-Vue-блок включает `app-shell-navigation.vue`: один компонент навигации используется в сайдбаре и
-мобильном меню. CLI устанавливает его рядом с `app-shell.vue`.
+Блоки Vue и Svelte включают `app-shell-navigation.vue` и `app-shell-navigation.svelte`: один компонент навигации используется в сайдбаре и
+мобильном меню. CLI устанавливает его рядом с `app-shell.vue` или `app-shell.svelte`. В Svelte `AppShell` принимает `children` как сниппет, а о навигации сообщает через колбэк `onnavigate`.
 
 ```vue pure file="../../../snippets/blocks/vue/app-shell-navigation.vue"
+```
+
+```svelte pure file="../../../snippets/blocks/svelte/app-shell-navigation.svelte"
 ```
 
 ## Адаптивное поведение

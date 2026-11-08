@@ -32,6 +32,14 @@ Solid crée le store avec `createForm` et met à jour les composants composés a
 Vue utilise `useForm` et le slot de portée de `Field`. Affectez les valeurs à `field.input` et transmettez `$el` pour enregistrer le focus.
 
   </Tab>
+  <Tab value="svelte">
+
+<PackageManagerTabs command="install @formisch/svelte valibot" />
+
+Svelte utilise `createForm` et le snippet `children` de `Field`. Répartissez `field.props` sur les champs natifs, appelez `field.onInput` pour les valeurs composées et transmettez `ref`, `onfocus` et `onblur` à l’élément qui reçoit le focus.
+
+
+  </Tab>
 </Tabs>
 
 ## Relier les composants
@@ -80,6 +88,6 @@ chemin pour une erreur du formulaire. Conservez la saisie afin que l’utilisate
 
 - Transmettez `field.props.ref`, `onFocus` et `onBlur` à l’élément réellement focalisé.
 - Dans React, utilisez `field.onChange` pour les valeurs composées. Dans Solid, utilisez `field.onInput`.
-  Dans Vue, mettez à jour `field.input` à partir des détails de changement, ou utilisez `v-model` pour les valeurs natives.
+  Dans Vue, mettez à jour `field.input` à partir des détails de changement, ou utilisez `v-model` pour les valeurs natives. Dans Svelte, appelez `field.onInput` à partir des détails de changement.
 - Gardez la valeur contrôlée afin que `initialInput`, `setInput` et `reset` mettent l’interface à jour.
 - Ne transmettez pas un objet de détails Ark à un gestionnaire d’événement natif de `field.props`.

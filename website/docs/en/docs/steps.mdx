@@ -26,8 +26,8 @@ For example, `count={3}` uses indexes `0`, `1`, and `2`. When the step value rea
 The `Steps` export is the root component. Use `StepsRootProvider` with `useSteps()` when state must
 be created outside the rendered part tree.
 
-React, Solid, and Vue use the same flat value names. In Vue, bind controlled state with
-`v-model:step` and pass a `useSteps()` store to `StepsRootProvider` when it is created outside the
+React, Solid, Vue, and Svelte use the same flat value names. In Vue, bind controlled state with
+`v-model:step`; in Svelte, use `bind:step`. Pass a `useSteps()` store to `StepsRootProvider` when it is created outside the
 rendered part tree.
 
 ## Examples
@@ -115,7 +115,7 @@ Hover or focus a part to find it in the preview.
 
 ## Styling
 
-Style `Steps` with `className` in React or `class` in Solid and Vue, Ark's `data-scope="steps"` and
+Style `Steps` with `className` in React or `class` in Solid, Vue, and Svelte, Ark's `data-scope="steps"` and
 `data-part` attributes, Ark state attributes, moduix `data-slot` hooks, and the public
 `--moduix-steps-*` CSS variables listed below.
 
@@ -151,7 +151,7 @@ Hover or focus a variable to see it in the preview.
 
 The useful public hooks are:
 
-- `className` in React or `class` in Solid and Vue on `Steps`, `StepsRootProvider`, `StepsList`, `StepsItem`, `StepsTrigger`, `StepsIndicator`, `StepsSeparator`, `StepsContent`, `StepsCompletedContent`, `StepsPrevTrigger`, `StepsNextTrigger`, and `StepsProgress`
+- `className` in React or `class` in Solid, Vue, and Svelte on `Steps`, `StepsRootProvider`, `StepsList`, `StepsItem`, `StepsTrigger`, `StepsIndicator`, `StepsSeparator`, `StepsContent`, `StepsCompletedContent`, `StepsPrevTrigger`, `StepsNextTrigger`, and `StepsProgress`
 - Ark's `data-scope="steps"` and `data-part` values for every primitive part
 - `data-orientation="horizontal" | "vertical"` on the root, list, item, trigger, content, and separator parts
 - `data-current`, `data-complete`, and `data-incomplete` on indicator, separator, and trigger state surfaces

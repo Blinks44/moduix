@@ -7,6 +7,7 @@ block: verification-code
 import { VerificationCode } from '@/components/blocks/verification-code/verification-code';
 import verificationCodeSolid from '../../../snippets/blocks/solid/verification-code.tsx?raw';
 import verificationCodeVue from '../../../snippets/blocks/vue/verification-code.vue?raw';
+import verificationCodeSvelte from '../../../snippets/blocks/svelte/verification-code.svelte?raw';
 import verificationCodeReact from '../../../src/components/blocks/verification-code/verification-code.tsx?raw';
 import verificationCodeCss from '../../../src/components/blocks/verification-code/verification-code-form.module.css?raw';
 
@@ -14,7 +15,7 @@ import verificationCodeCss from '../../../src/components/blocks/verification-cod
 
 <ExamplePanel
   clientOnly
-  sources={{ react: verificationCodeReact, solid: verificationCodeSolid, vue: verificationCodeVue }}
+  sources={{ react: verificationCodeReact, solid: verificationCodeSolid, vue: verificationCodeVue, svelte: verificationCodeSvelte }}
   files={[{ name: 'verification-code-form.module.css', code: verificationCodeCss }]}
 >
   <PreviewFrame maxWidth="sm">

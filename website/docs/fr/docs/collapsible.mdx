@@ -110,7 +110,7 @@ l’icône ou l’espacement du contenu.
 
 `Collapsible` conserve son état dans la racine. Utilisez `defaultOpen` pour une zone non contrôlée, ou
 `open` avec `onOpenChange(details)` lorsqu’une autre partie de l’application gère l’état. En Vue,
-utilisez `v-model:open` pour ce même contrat contrôlé. Le callback conserve l’objet `details` d’Ark :
+utilisez `v-model:open` pour ce même contrat contrôlé ; en Svelte, utilisez `bind:open`. Le callback conserve l’objet `details` d’Ark :
 l’état contrôlé se lit donc avec `details.open`.
 
 Utilisez `CollapsibleRootProvider` avec `useCollapsible()` du paquet correspondant au framework lorsque
@@ -123,7 +123,8 @@ est facultatif et affiche par défaut le chevron moduix.
 
 Utilisez `asChild` uniquement lorsqu’un élément sémantique appartenant à l’application doit recevoir le
 comportement du déclencheur ; il doit rester un bouton accessible au clavier. Avec Solid, transmettez une
-fonction de rendu, par exemple `asChild={(props) => <button {...props()} />}`.
+fonction de rendu, par exemple `asChild={(props) => <button {...props()} />}`. En Svelte, utilisez le snippet `asChild` :
+`{#snippet asChild(props)}<button {...props()}>...</button>{/snippet}`.
 
 ## Anatomie
 
@@ -144,7 +145,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 ## Styles
 
-Utilisez `className` avec React ou `class` avec Solid et Vue sur les parties exportées pour les styles
+Utilisez `className` avec React ou `class` avec Solid, Vue et Svelte sur les parties exportées pour les styles
 structurels. Pour les styles qui dépendent de l’état, privilégiez les attributs de données Ark tels
 que `data-state` et `data-disabled`, ainsi que les sélecteurs `data-slot` de moduix. Les variantes
 Tailwind utilisent les utilitaires natifs et les classes de l’application ; les variables ci-dessous

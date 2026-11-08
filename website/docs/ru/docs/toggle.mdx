@@ -85,7 +85,7 @@ import * as ToggleDocs from '@/components/examples/toggle/css-properties';
 ## Композиция
 
 `Toggle` оборачивает примитив Toggle из Ark UI и добавляет визуальные свойства moduix для вариантов и размеров.
-Импортируйте его из `@moduix/react/toggle`, `@moduix/solid/toggle` или `@moduix/vue/toggle`.
+Импортируйте его из `@moduix/react/toggle`, `@moduix/solid/toggle`, `@moduix/vue/toggle` или `@moduix/svelte/toggle`.
 
 Используйте `defaultPressed` для неконтролируемого состояния или передавайте `pressed` вместе с
 `onPressedChange`, если значение хранится в состоянии приложения. Используйте `ToggleIndicator`, когда содержимое
@@ -96,7 +96,7 @@ import * as ToggleDocs from '@/components/examples/toggle/css-properties';
 такой элемент в слот по умолчанию.
 В Vue используйте `v-model:pressed` для управляемого значения, именованный слот `fallback` с `ToggleIndicator` и слот
 `ToggleContext`, если пользовательскому потомку нужно текущее состояние. Событие `@pressed-change`
-передаёт новое булево значение, если вы хотите обработать изменение без привязки через `v-model:pressed`.
+передаёт новое булево значение, если вы хотите обработать изменение без привязки через `v-model:pressed`. В Svelte `asChild` принимает сниппет, который передаёт `props()` элементу, совместимому с кнопкой, управляемое значение привязывается через `bind:pressed`, `ToggleIndicator` принимает сниппет `fallback`, а `ToggleContext` передаёт состояние в сниппет `render` как геттер (`context().pressed`).
 
 ## Анатомия
 
@@ -114,7 +114,7 @@ import * as ToggleDocs from '@/components/examples/toggle/css-properties';
 
 ## Стилизация
 
-Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях. В пакетах с CSS Modules задавайте
+Используйте `className` в React или `class` в Solid, Vue и Svelte на экспортируемых частях. В пакетах с CSS Modules задавайте
 цветовые переменные `--moduix-toggle-*` на переключателе, на `[data-slot='toggle-root'][data-variant='<variant>']`, чтобы
 изменить один вариант, или на контейнере, например `ToggleGroup`. Размеры, отступы, скругление и типографика берутся из
 токенов foundation; меняйте их классом. Пакеты Tailwind вместо этого используют нативные утилиты и классы потребителя.

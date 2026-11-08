@@ -21,7 +21,7 @@ Pass any JSON-like JavaScript value through `data`, then render `<JsonTreeViewTr
 `JsonTreeView` generates the object, array, and value nodes for you. moduix styles the rows, indentation, focus
 states, and default disclosure icon.
 
-The framework adapters keep the same flat public names; the Vue example uses native SFC syntax and named slots.
+The framework adapters keep the same flat public names; the Vue example uses native SFC syntax and named slots, and the Svelte example uses snippets.
 
 The example starts with two levels expanded. Use `defaultExpandedDepth` to choose how much of a response or
 configuration should be visible on the first render.
@@ -72,12 +72,12 @@ Hover or focus a part to find it in the preview.
 
 ## Styling
 
-Use `className` in React, or `class` in Solid and Vue, on `JsonTreeView`, `JsonTreeViewRootProvider`, or `JsonTreeViewTree` for local layout changes. Tailwind
+Use `className` in React, or `class` in Solid, Vue, and Svelte, on `JsonTreeView`, `JsonTreeViewRootProvider`, or `JsonTreeViewTree` for local layout changes. Tailwind
 variants use utility classes and consumer classes; CSS Modules variants use their bundled styles and foundation
 tokens.
 
-`JsonTreeViewTree` uses the `ChevronRightIcon` supplied by moduix when `arrow` is omitted in React or Solid. In Vue,
-provide the `#arrow` slot when the inspection surface needs a different disclosure icon.
+`JsonTreeViewTree` uses the `ChevronRightIcon` supplied by moduix when `arrow` is omitted in React, Solid, or Svelte. In Vue,
+provide the `#arrow` slot when the inspection surface needs a different disclosure icon; in Svelte, pass an `arrow` snippet.
 
 Generated nodes preserve Ark's `data-scope="json-tree-view"` and `data-part` attributes.
 
@@ -85,7 +85,7 @@ Generated nodes preserve Ark's `data-scope="json-tree-view"` and `data-part` att
 generated `[data-part='branch-indent-guide']` elements; target that attribute with your own styles when guides are
 enabled.
 
-In Vue, use the native `#indentGuide` slot to provide custom guide content.
+In Vue, use the native `#indentGuide` slot to provide custom guide content. In Svelte, pass an `indentGuide` snippet.
 
 The component uses foundation tokens directly, without a separate `--moduix-json-tree-view-*` variable layer. Add a
 class or target Ark part attributes when an inspection surface needs different styling.

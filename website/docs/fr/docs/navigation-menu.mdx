@@ -53,7 +53,7 @@ ouvrirait les panneaux par accident.
 
 ### Valeur contrôlée
 
-Passez `value` et `onValueChange` (`v-model:value` en Vue) lorsque le panneau ouvert pilote aussi
+Passez `value` et `onValueChange` (`v-model:value` en Vue, `bind:value` en Svelte) lorsque le panneau ouvert pilote aussi
 l’interface voisine. La sortie sous l’exemple affiche la valeur de l’élément ouvert. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
 
 <Example name="navigation-menu/controlled-value" />
@@ -66,7 +66,7 @@ de l’élément ouvert ou une chaîne vide lorsque tous les panneaux sont ferm�
 `useNavigationMenu()` et transmettez-le à `NavigationMenuRootProvider` lorsqu’il doit vivre en dehors de
 l’arbre rendu ; ne rendez pas une autre racine pour ce même store. React lit le store comme un objet,
 tandis que Solid lit son état réactif via la fonction retournée, et Vue expose son état réactif via des
-refs et des liaisons de template. Dans Vue, utilisez `v-model:value` pour contrôler la valeur. Utilisez
+refs et des liaisons de template. Dans Vue, utilisez `v-model:value` pour contrôler la valeur ; en Svelte, utilisez `bind:value`. Svelte renvoie un getter : lisez l’état avec `navigationMenu().value`. Utilisez
 `NavigationMenuContext` lorsqu’un descendant a besoin de l’état courant via une fonction de rendu plutôt
 que via le store.
 
@@ -102,7 +102,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 ## Styles
 
-Utilisez `className` dans React, `class` dans Solid ou `class` dans Vue sur les parties exportées pour les styles
+Utilisez `className` dans React, `class` dans Solid ou `class` dans Vue et Svelte sur les parties exportées pour les styles
 structurels. Pour les styles liés à l’état, privilégiez les attributs de données Ark comme `data-state`,
 `data-current` et `data-orientation`, avec les sélecteurs moduix `data-slot`. Les variantes Tailwind
 utilisent des utilitaires natifs et les classes du consommateur. Les variantes CSS Modules prennent les

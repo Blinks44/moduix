@@ -7,6 +7,8 @@ description: Passez d’une application shadcn à moduix composant par composant
 
 import vueAccordion from '../../../snippets/quick-start/vue-css-modules.vue?raw';
 import vueControlledAccordion from '../../../snippets/migrate-from-shadcn/vue/controlled-accordion.vue?raw';
+import svelteAccordion from '../../../snippets/quick-start/svelte-css-modules.svelte?raw';
+import svelteControlledAccordion from '../../../snippets/migrate-from-shadcn/svelte/controlled-accordion.svelte?raw';
 
 Si votre application utilise déjà shadcn, vous pouvez passer à moduix composant par composant. Les
 deux bibliothèques peuvent cohabiter pendant que vous remplacez certains écrans ou certaines
@@ -16,14 +18,14 @@ Le choix principal concerne l’emplacement du code source. Utilisez le paquet n
 recevoir les mises à jour par votre gestionnaire de paquets. Utilisez le registre compatible avec
 shadcn si vous voulez conserver le code source et les styles dans votre dépôt.
 Choisissez React pour remplacer des composants dans une application shadcn existante. Choisissez
-Solid uniquement si l’application utilise déjà Solid ou si la migration comprend aussi un changement
-de framework volontaire.
+Solid, Vue ou Svelte uniquement si l’application utilise déjà ce framework ou si la migration
+comprend aussi un changement de framework volontaire.
 
 ## Choisissez où conserver le code source
 
 | Installation moduix | À privilégier si | Fonctionnement des mises à jour |
 | --- | --- | --- |
-| Paquet npm | Vous voulez que les composants restent une dépendance et utiliser des imports depuis `@moduix/react/*`, `@moduix/solid/*` ou `@moduix/vue/*`. | Mettez le paquet à jour avec votre gestionnaire de paquets. |
+| Paquet npm | Vous voulez que les composants restent une dépendance et utiliser des imports depuis `@moduix/react/*`, `@moduix/solid/*`, `@moduix/vue/*` ou `@moduix/svelte/*`. | Mettez le paquet à jour avec votre gestionnaire de paquets. |
 | Registre compatible avec shadcn | Vous voulez versionner, consulter et modifier le code source des composants dans votre application. | Examinez et fusionnez vous-même chaque mise à jour du registre. |
 
 Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète. Si votre projet
@@ -57,6 +59,13 @@ import { Dialog } from '@moduix/vue/dialog';
 ```
 
   </Tab>
+  <Tab label="Svelte" value="svelte">
+
+```ts
+import { Dialog } from '@moduix/svelte/dialog';
+```
+
+  </Tab>
 </Tabs>
 
 Avec le code copié dans votre projet, terminez la [configuration du CLI shadcn](/docs/quick-start#installer-avec-la-cli-shadcn),
@@ -76,6 +85,11 @@ puis ajoutez les éléments du registre un par un :
   <Tab label="Vue" value="vue">
 
 <PackageManagerTabs command="shadcn@latest add @moduix-vue/dialog" dlx />
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+<PackageManagerTabs command="shadcn@latest add @moduix-svelte/dialog" dlx />
 
   </Tab>
 </Tabs>
@@ -160,6 +174,10 @@ Vue utilise des SFC natifs avec `script setup`, les props du template et `v-mode
 
 <CodeBlockRuntime lang="vue" code={vueAccordion} />
 
+Svelte utilise des composants Svelte 5 avec les props dans le balisage et `bind:value` pour l’état contrôlé.
+
+<CodeBlockRuntime lang="svelte" code={svelteAccordion} />
+
 Avec une installation qui copie le code dans le projet, gardez la composition et changez seulement
 le chemin d’import :
 
@@ -196,6 +214,13 @@ import '@moduix/solid/style.css';
 
 ```ts
 import '@moduix/vue/style.css';
+```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+```ts
+import '@moduix/svelte/style.css';
 ```
 
   </Tab>
@@ -237,7 +262,7 @@ les autres tokens ; voir [Mode sombre](/docs/dark-mode#brancher-un-sélecteur-de
 
 Tailwind peut rester dans l’application pour la mise en page et les classes ponctuelles pendant une
 migration vers les paquets CSS Modules. Si les styles des composants doivent rester en Tailwind,
-utilisez le paquet Tailwind React, Solid ou Vue lorsque le composant y est disponible. Consultez sa page
+utilisez le paquet Tailwind React, Solid, Vue ou Svelte lorsque le composant y est disponible. Consultez sa page
 pour connaître ses slots stables, ses variables CSS et ses propriétés `className` ou `class`.
 
 ## Adaptez les callbacks Ark et les collections
@@ -274,6 +299,10 @@ import { Accordion, AccordionItem, AccordionItemContent, AccordionItemTrigger } 
 Vue utilise des SFC natifs avec `script setup`, les props du template et `v-model` pour l’état contrôlé.
 
 <CodeBlockRuntime lang="vue" code={vueControlledAccordion} />
+
+Avec Svelte, gardez la valeur dans `$state` et liez-la avec `bind:value`.
+
+<CodeBlockRuntime lang="svelte" code={svelteControlledAccordion} />
 
 Les composants qui utilisent des collections, notamment `Combobox` et `Select`, s’appuient sur un
 état de collection Ark explicite. Pour des éléments-objets, définissez avec `itemToString` et

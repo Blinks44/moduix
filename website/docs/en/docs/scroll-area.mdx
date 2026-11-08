@@ -73,7 +73,8 @@ scroll areas.
 Use `ScrollAreaRootProvider` with `useScrollArea()` when controls outside the root need
 the scrolling API. Pass the returned store to `ScrollAreaRootProvider`, and do not render `ScrollArea`
 and `ScrollAreaRootProvider` for the same store. In Solid, read and call the store through the accessor
-returned by `useScrollArea()`.
+returned by `useScrollArea()`; in Svelte, `useScrollArea()` returns a getter, so call `scrollArea()` and pass an `id`
+(for example `$props.id()`) to the hook.
 
 ## Anatomy
 

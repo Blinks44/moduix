@@ -70,7 +70,9 @@ Use `BreadcrumbsPath` for an anchor-based path. It generates the list children, 
 needs router links, hidden middle segments, or different markup. For a router link, pass one semantic
 child to `BreadcrumbsLink asChild` so the link keeps the expected `href`, focus, and keyboard behavior.
 In Solid, assign a ref to the element created inside the `asChild` render function, because a ref on
-`BreadcrumbsLink` itself is not forwarded through that composition path.
+`BreadcrumbsLink` itself is not forwarded through that composition path. In Svelte, pass the link through an
+`asChild` snippet that spreads `props()` on the element; `BreadcrumbsPath` accepts a string or a snippet for `page`, a
+link `label`, and `separator`.
 
 For collapsed paths, put `BreadcrumbsEllipsis` inside the `MenuTrigger`, then keep the menu's
 `Positioner`, `Content`, and `Item asChild` parts explicit. `BreadcrumbsEllipsis` is presentational;
@@ -101,7 +103,7 @@ Hover or focus a part to find it in the preview.
 
 ## Styling
 
-Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. Tailwind variants
+Use `className` in React or `class` in Solid, Vue, and Svelte on exported parts for structural styles. Tailwind variants
 use native utility classes and consumer classes; the CSS Variables reference below applies to CSS Modules
 variants. For state-based styles, prefer Ark data attributes together with moduix `data-slot` selectors.
 

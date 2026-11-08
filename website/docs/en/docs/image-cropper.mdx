@@ -116,7 +116,7 @@ the component tree. For one state instance, render either `ImageCropper` or
 `ImageCropperRootProvider`.
 
 Use controlled `zoom`, `rotation`, or `flip` with the matching change callback when another part of
-the application controls that state. Ark passes the updated value in the callback's `details` object. The Vue examples use native SFC syntax with the same parts, events, and controlled state.
+the application controls that state. Ark passes the updated value in the callback's `details` object. The Vue and Svelte examples use native SFC syntax with the same parts, events, and controlled state. In Svelte, bind `zoom`, `rotation`, and `flip` with `bind:`, and pass `onCropChange` and `onZoomChange` as props.
 `fixedCropArea` keeps the selection fixed and makes the viewport the panning surface.
 
 ## Anatomy
@@ -153,7 +153,7 @@ The root is 32rem wide and shrinks with its container. The viewport keeps an 8:5
 checkerboard where the image does not cover it. The image keeps its own ratio: it shrinks to fit the
 viewport and stays centered, so the crop always matches the visible pixels.
 
-Use `className` in React or `class` in Solid and Vue on exported parts. Tailwind variants use native
+Use `className` in React or `class` in Solid, Vue, and Svelte on exported parts. Tailwind variants use native
 utilities and consumer classes. CSS Modules variants build on foundation tokens and have no component
 variables: a class on the part overrides the layered component styles, for example a different
 viewport `aspect-ratio` or `height`. Data attributes and `data-slot` hooks are shared by both styling

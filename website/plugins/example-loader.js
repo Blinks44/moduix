@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { exampleProject } from './example-project.js';
 
 // Expands `<Example name="button/basic" />` in MDX into an `ExamplePanel` with the live React
-// preview and the raw React, Solid, Vue, and CSS sources, and `<Usage />` into the raw sources of the
+// preview and the raw React, Solid, Vue, Svelte, and CSS sources, and `<Usage />` into the raw sources of the
 // Basic example named after the page file (`button.mdx` uses `button/basic`). It runs as a loader,
 // not a remark plugin, because Rspress skips custom remark plugins when it renders the Markdown pages
 // used by llms.txt.
@@ -39,7 +39,8 @@ export default function exampleLoader(source) {
     const reactFile = path.join(websiteRoot, 'src/components/examples', dir, `${base}.tsx`);
     const solidFile = path.join(websiteRoot, 'snippets', dir, 'solid', `${base}.tsx`);
     const vueFile = path.join(websiteRoot, 'snippets', dir, 'vue', `${base}.vue`);
-    for (const file of [reactFile, solidFile, vueFile]) {
+    const svelteFile = path.join(websiteRoot, 'snippets', dir, 'svelte', `${base}.svelte`);
+    for (const file of [reactFile, solidFile, vueFile, svelteFile]) {
       if (!existsSync(file)) throw new Error(`<Example name="${name}"> cannot find ${file}.`);
       this.addDependency(file);
     }
@@ -48,10 +49,11 @@ export default function exampleLoader(source) {
     imports.add(`import ${identifier}React from '${relative(reactFile)}?raw';`);
     imports.add(`import ${identifier}Solid from '${relative(solidFile)}?raw';`);
     imports.add(`import ${identifier}Vue from '${relative(vueFile)}?raw';`);
+    imports.add(`import ${identifier}Svelte from '${relative(svelteFile)}?raw';`);
     return { identifier, reactFile, dir, base };
   };
   const sources = (identifier) =>
-    `{{ react: ${identifier}React, solid: ${identifier}Solid, vue: ${identifier}Vue }}`;
+    `{{ react: ${identifier}React, solid: ${identifier}Solid, vue: ${identifier}Vue, svelte: ${identifier}Svelte }}`;
 
   const page = path.basename(this.resourcePath, '.mdx');
   const content = source

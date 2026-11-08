@@ -19,8 +19,8 @@ Charts](https://tanstack.com/charts/latest/docs/framework/react/reference/chart)
 элементы, шкалы, взаимодействия и колбэки вы по-прежнему задаёте средствами TanStack Charts, а
 moduix предоставляет доступную оболочку композиции.
 
-`@tanstack/charts` - необязательная peer-зависимость moduix. Пакеты для React, Solid и Vue
-используют одинаковый API определения графика; пакеты Solid и Vue работают через адаптер рендерера
+`@tanstack/charts` - необязательная peer-зависимость moduix. Пакеты для React, Solid, Vue и Svelte
+используют одинаковый API определения графика; пакеты Solid, Vue и Svelte работают через адаптер рендерера
 TanStack.
 
 ## Использование
@@ -140,7 +140,7 @@ TanStack.
 
 <AnatomyInspector
   parts={[
-    ["Chart", "chart-tooltip-value", "Составной корневой элемент `figure`. Принимает нативные свойства, `asChild` и ref на `HTMLElement` (у Vue это `$el` компонента).", 0],
+    ["Chart", "chart-tooltip-value", "Составной корневой элемент `figure`. Принимает нативные свойства, `asChild` и ref на `HTMLElement` (у Vue это `$el` компонента, у Svelte - значение `bind:ref`).", 0],
     ["ChartHeader", "chart-header", "Разметка `figcaption` для заголовка и описания.", 1],
     ["ChartTitle", "chart-title", "Заголовок графика, по умолчанию рендерится как `h3`.", 2],
     ["ChartDescription", "chart-description", "Видимое пояснение к графику.", 2],
@@ -163,7 +163,7 @@ CSS-свойства настраивают варианты с CSS Modules. О�
 `--ts-chart-tooltip-*` на хосте `ChartPlot`, а атрибуты данных и селекторы `data-slot` у них общие.
 
 Чтобы изменить оболочку подсказки, переопределите эти переменные классом на `ChartPlot` (`className`
-в React или `class` в Solid и Vue):
+в React или `class` в Solid, Vue и Svelte):
 
 ```css
 .sales-plot {
@@ -202,7 +202,7 @@ CSS-свойства настраивают варианты с CSS Modules. О�
 
 - `Chart`, `ChartHeader`, `ChartTitle`, `ChartDescription`, `ChartLegend` и
   `ChartLegendItem` предоставляют `data-scope="chart"`, `data-part` и `data-slot`.
-- `className` в React и `class` в Solid и Vue у `ChartPlot` применяются к внешнему элементу `.ts-chart-host`.
+- `className` в React и `class` в Solid, Vue и Svelte у `ChartPlot` применяются к внешнему элементу `.ts-chart-host`.
 - Используйте `--moduix-chart-1` - `--moduix-chart-5` в цветовых шкалах TanStack.
 - Строки подсказки, которые TanStack помечает как `active`, получают `data-active`.
 - Оболочка подсказки читает переменные TanStack `--ts-chart-tooltip-*` с хоста `ChartPlot`. Для

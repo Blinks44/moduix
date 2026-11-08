@@ -1,15 +1,17 @@
 ---
 title: Frame
-description: Render React, Solid, or Vue content in an isolated iframe with Ark UI Frame.
+description: Render React, Solid, Vue, or Svelte content in an isolated iframe with Ark UI Frame.
 ark: https://ark-ui.com/docs/utilities/frame
 ---
 
 import frameSolidLifecycle from '../../../snippets/frame/solid/lifecycle.tsx?raw';
 import frameVueLifecycle from '../../../snippets/frame/vue/lifecycle.vue?raw';
+import frameSvelteLifecycle from '../../../snippets/frame/svelte/lifecycle.svelte?raw';
 import frameSolidStaticDocument from '../../../snippets/frame/solid/static-document.tsx?raw';
 import frameVueStaticDocument from '../../../snippets/frame/vue/static-document.vue?raw';
+import frameSvelteStaticDocument from '../../../snippets/frame/svelte/static-document.svelte?raw';
 
-`Frame` renders React, Solid, or Vue content in an isolated iframe document.
+`Frame` renders React, Solid, Vue, or Svelte content in an isolated iframe document.
 
 ## Import
 
@@ -21,6 +23,7 @@ Import the utility from the matching Ark UI package:
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -45,6 +48,13 @@ import { Frame } from '@ark-ui/vue';
 ```
 
   </Tab>
+  <Tab value="svelte">
+
+```ts
+import { Frame } from '@ark-ui/svelte/frame';
+```
+
+  </Tab>
 </Tabs>
 
 ## Basic
@@ -57,7 +67,7 @@ document do not cross the iframe boundary.
 
 ## Content styles and size
 
-The `head` prop accepts JSX content and inserts it into the iframe's `<head>`. Use it for embedded styles, fonts, or
+The `head` prop accepts JSX content (a snippet in Svelte) and inserts it into the iframe's `<head>`. Use it for embedded styles, fonts, or
 metadata. Styles needed by the embedded UI must also be loaded through this prop.
 
 `Frame` observes the mounted content and writes its size to the iframe as `--width` and `--height` in pixels. Use
@@ -69,7 +79,7 @@ the same way for inline size.
 ## Lifecycle callbacks
 
 Use `onMount` and `onUnmount` for resources created by the embedded experience. Both callbacks are called without
-arguments. A ref gives the application access to the iframe document when setup needs to interact with it.
+arguments. A ref gives the application access to the iframe document when setup needs to interact with it; in Svelte, use `bind:ref`.
 
 Only inject scripts that your application controls. Prefer `head` for styles and metadata.
 
@@ -81,6 +91,7 @@ Only inject scripts that your application controls. Prefer `head` for styles and
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
       { label: 'Vue', value: 'vue' },
+      { label: 'Svelte', value: 'svelte' },
     ]}
     className="docs-tabs"
   >
@@ -100,13 +111,18 @@ Only inject scripts that your application controls. Prefer `head` for styles and
 <CodeBlockRuntime lang="vue" code={frameVueLifecycle} />
 
     </Tab>
+  <Tab value="svelte">
+
+<CodeBlockRuntime lang="svelte" code={frameSvelteLifecycle} />
+
+    </Tab>
   </Tabs>
 </div>
 </ExampleCode>
 
 ## Static HTML documents
 
-Use `srcDoc` in React or `srcdoc` in Solid and Vue when the iframe should start from a complete HTML document instead of
+Use `srcDoc` in React or `srcdoc` in Solid, Vue, and Svelte when the iframe should start from a complete HTML document instead of
 rendered framework children. These are the native spellings of the same iframe attribute in each framework.
 
 For untrusted HTML, set the native `sandbox` attribute and grant only the permissions the content needs. Keep
@@ -120,6 +136,7 @@ For untrusted HTML, set the native `sandbox` attribute and grant only the permis
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
       { label: 'Vue', value: 'vue' },
+      { label: 'Svelte', value: 'svelte' },
     ]}
     className="docs-tabs"
   >
@@ -137,6 +154,11 @@ For untrusted HTML, set the native `sandbox` attribute and grant only the permis
   <Tab value="vue">
 
 <CodeBlockRuntime lang="vue" code={frameVueStaticDocument} />
+
+    </Tab>
+  <Tab value="svelte">
+
+<CodeBlockRuntime lang="svelte" code={frameSvelteStaticDocument} />
 
     </Tab>
   </Tabs>

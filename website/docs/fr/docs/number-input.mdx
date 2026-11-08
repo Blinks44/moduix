@@ -129,7 +129,7 @@ cet exemple quand le design déplace les déclencheurs ou modifie la mise en pag
 Utilisez `NumberInputField` pour le contrôle standard en trois parties. Conservez `value` et `defaultValue` sous forme
 de chaînes et utilisez `details.value` de `onValueChange` lorsque le champ est contrôlé. Lorsque l’état doit être créé
 en dehors de l’arbre des parties rendues, appelez `useNumberInput()` et transmettez le store correspondant à
-`NumberInputRootProvider`. Ne rendez pas `NumberInput` ou `NumberInputRootProvider` pour ce même store. React lit directement les propriétés du store, Solid les lit via l’accesseur renvoyé, et Vue expose directement le store réactif au template.
+`NumberInputRootProvider`. Ne rendez pas `NumberInput` ou `NumberInputRootProvider` pour ce même store. React lit directement les propriétés du store, Solid les lit via l’accesseur renvoyé, Vue expose directement le store réactif au template, et Svelte renvoie un getter : lisez l’état avec `numberInput().value`.
 
 Utilisez `NumberInputControl` avec les parties individuelles lorsque l’ordre des boutons, les icônes ou le style du
 champ doit changer. Ajoutez `NumberInputScrubber` à côté du champ pour permettre la modification par glissement.
@@ -160,7 +160,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 ## Styles
 
-Utilisez `className` dans React ou `class` dans Solid et Vue pour les styles structurels des parties exportées. Les variantes
+Utilisez `className` dans React ou `class` dans Solid, Vue et Svelte pour les styles structurels des parties exportées. Les variantes
 Tailwind utilisent des utilitaires natifs et les classes du consommateur ; les variables CSS ci-dessous personnalisent
 les variantes CSS Modules. Les attributs de données et les hooks `data-slot` sont partagés par les deux modes de style.
 

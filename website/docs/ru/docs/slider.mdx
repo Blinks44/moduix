@@ -130,7 +130,7 @@ import * as SliderDocs from '@/components/examples/slider/css-properties';
 
 ### События изменения
 
-Используйте `onValueChange` (или событие Vue `value-change`), чтобы обновлять интерфейс во время
+Используйте `onValueChange` (или событие Vue `value-change`; в Svelte те же callback-свойства), чтобы обновлять интерфейс во время
 взаимодействия, а `onValueChangeEnd` (или `value-change-end`) - когда перетаскивание или
 взаимодействие с клавиатурой завершено.
 
@@ -139,7 +139,7 @@ import * as SliderDocs from '@/components/examples/slider/css-properties';
 ### Управляемое состояние
 
 Управляйте слайдером из состояния выбранного фреймворка, сохраняя массив из `details.value`; во
-Vue для управляемого контракта можно связать `v-model` с ref.
+Vue для управляемого контракта можно связать `v-model` с ref, а в Svelte использовать `bind:value`.
 
 <Example name="slider/controlled" width="sm" />
 
@@ -166,11 +166,11 @@ Vue для управляемого контракта можно связать
 компоненте.
 
 Для управляемого состояния сохраняйте `details.value` из `onValueChange` или
-`onValueChangeEnd`; во Vue для того же контракта можно связать `v-model` с ref. Используйте
+`onValueChangeEnd`; во Vue для того же контракта можно связать `v-model` с ref, а в Svelte использовать `bind:value`. Используйте
 `useSliderContext` во вложенных компонентах, чтобы читать состояние. Если состояние нужно создать
 вне дерева, создайте его через `useSlider` и передайте в `SliderRootProvider`; не создавайте
 второй корневой компонент для того же store. В React store читается как объект, в Solid через
-возвращённый реактивный accessor, а во Vue реактивный store доступен прямо в шаблоне.
+возвращённый реактивный accessor, во Vue реактивный store доступен прямо в шаблоне, а в Svelte хук возвращает геттер: состояние читается через `slider().value`.
 
 ## Анатомия
 
@@ -197,7 +197,7 @@ Vue для управляемого контракта можно связать
 
 ## Стилизация
 
-Настраивайте внешний вид `Slider` через `className` (или `class` во Vue), атрибуты Ark, стабильные точки настройки `data-slot="slider-*"`,
+Настраивайте внешний вид `Slider` через `className` (или `class` во Vue и Svelte), атрибуты Ark, стабильные точки настройки `data-slot="slider-*"`,
 CSS-переменные Ark и публичные CSS-переменные moduix ниже.
 
 ### CSS-переменные

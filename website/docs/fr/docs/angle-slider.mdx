@@ -99,7 +99,7 @@ a besoin d’enfants supplémentaires ou de repères personnalisés.
 
 ## Composition
 
-Utilisez `defaultValue` pour un curseur non contrôlé et `value` avec `onValueChange(details)` lorsque l’angle est géré par une autre partie de l’application. Utilisez `AngleSliderRootProvider` avec `useAngleSlider()` du framework concerné uniquement lorsque le store doit être créé en dehors de l’arbre du curseur ; ne rendez pas la racine et `AngleSliderRootProvider` pour la même instance d’état. En Solid, lisez le store fourni via son accessor, par exemple `angleSlider().value`.
+Utilisez `defaultValue` pour un curseur non contrôlé et `value` avec `onValueChange(details)` lorsque l’angle est géré par une autre partie de l’application. Utilisez `AngleSliderRootProvider` avec `useAngleSlider()` du framework concerné uniquement lorsque le store doit être créé en dehors de l’arbre du curseur ; ne rendez pas la racine et `AngleSliderRootProvider` pour la même instance d’état. En Solid et Svelte, lisez le store fourni via son accessor ou son getter, par exemple `angleSlider().value`. Dans Svelte, `bind:value` sur `AngleSlider` permet aussi de contrôler l’angle.
 
 `AngleSliderDial` et `AngleSliderMarks` sont des compositions pratiques. Utilisez `AngleSliderControl` avec `AngleSliderThumb`, ou `AngleSliderMarkerGroup` avec `AngleSliderMarker`, lorsque vous avez besoin d’enfants personnalisés, d’un ordre différent ou de propriétés propres à chaque marqueur. Composez explicitement `AngleSliderHiddenInput` pour les formulaires natifs. Définissez `name` sur la racine si le formulaire se trouve dans le même arbre, ou `form` sur `AngleSliderHiddenInput` si le formulaire est ailleurs.
 
@@ -130,7 +130,7 @@ doit participer à un formulaire natif.
 
 ## Styles
 
-Personnalisez l’apparence du composant avec `className` en React et `class` en Solid ou Vue, les sélecteurs
+Personnalisez l’apparence du composant avec `className` en React et `class` en Solid, Vue ou Svelte, les sélecteurs
 stables `data-slot="angle-slider-*"`, les attributs Ark `data-scope="angle-slider"` / `data-part` et
 les attributs d’état. Les variantes Tailwind se personnalisent avec des utilitaires et des classes
 supplémentaires ; les variables de composant ci-dessous concernent uniquement les variantes CSS

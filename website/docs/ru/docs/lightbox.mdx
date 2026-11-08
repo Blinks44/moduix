@@ -35,7 +35,7 @@ import * as LightboxDocs from '@/components/examples/lightbox/css-properties';
 ### Галерея
 
 Если CMS или API возвращает структурированный массив изображений, храните выбранное изображение и
-текущую страницу `Carousel` в состоянии React, Solid или Vue, а сам `Carousel` поместите внутрь
+текущую страницу `Carousel` в состоянии React, Solid, Vue или Svelte, а сам `Carousel` поместите внутрь
 `LightboxGallery`. Используйте `LightboxTrigger.value`, чтобы выбрать начальный слайд, и
 синхронизируйте страницу `Carousel` во время навигации.
 
@@ -86,7 +86,7 @@ Lightbox, но не создаёт его подложку, содержимое
 ### Управляемое состояние
 
 Используйте callback `onOpenChange(details)` из Ark UI, если состояние Lightbox нужно синхронизировать
-с состоянием приложения на React или Solid. Во Vue используйте `v-model:open`. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
+с состоянием приложения на React или Solid. Во Vue используйте `v-model:open`, в Svelte - `bind:open`. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
 
 <Example name="lightbox/controlled" />
 
@@ -128,7 +128,8 @@ Lightbox, но не создаёт его подложку, содержимое
 Content плавно появляется и исчезает, а Body меняет масштаб и положение; кнопка остаётся в углу окна.
 Без Body содержимое анимируется только изменением прозрачности.
 Для `asChild` передавайте один семантический элемент. В Solid это render-функция, получающая его props,
-а в Vue передавайте булево свойство `as-child` и элемент в слоте.
+а в Vue передавайте булево свойство `as-child` и элемент в слоте. В Svelte передайте snippet `asChild`,
+который получает геттер props: разверните `{...props()}` на семантическом элементе.
 
 В галереях храните выбранное изображение и страницу `Carousel` в состоянии приложения. Передавайте
 ключ изображения в `LightboxTrigger value` и обновляйте состояние из `onTriggerValueChange(details)`

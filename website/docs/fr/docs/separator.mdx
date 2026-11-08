@@ -65,8 +65,7 @@ Ses propriétés `orientation`, `variant` et `size` reprennent le modèle famili
 provider. Pour un séparateur courant, utilisez `<Separator />`. Lorsqu’un autre élément doit porter
 le séparateur, utilisez `asChild` avec
 un seul enfant capable d’accepter les propriétés fusionnées de rôle, ARIA, `data-*`, de classe et de
-ref. En React et Vue, l’élément enfant est transmis directement ; en Solid, utilisez
-`asChild={(props) => <hr {...props()} />}`.
+ref. En React et Vue, l’élément enfant est transmis directement ; en Solid, utilisez `asChild={(props) => <hr {...props()} />}` ; en Svelte, utilisez un snippet `asChild` : `{#snippet asChild(props)}<hr {...props()} />{/snippet}`.
 
 ## Anatomie
 
@@ -84,7 +83,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 ## Styles
 
-Utilisez `className` en React ou `class` en Solid et Vue sur la racine. Les variantes Tailwind utilisent
+Utilisez `className` en React ou `class` en Solid, Vue et Svelte sur la racine. Les variantes Tailwind utilisent
 des classes utilitaires natives et les classes du consommateur ; les propriétés CSS ci-dessous
 personnalisent les variantes CSS Modules. Les attributs de données et les sélecteurs `data-slot`
 sont communs aux deux modes de style.

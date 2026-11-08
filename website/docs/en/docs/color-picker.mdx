@@ -143,13 +143,13 @@ indicator receive explicit icons. Start here when a design rearranges the popup.
 
 ## Composition
 
-Use `defaultValue` for local state. When application state controls the selected color or popup, pass `value` with `onValueChange(details)` or `open` with `onOpenChange(details)`. In Vue, bind the same state with `v-model`, `v-model:open`, and `v-model:format`. For state created outside the rendered tree, pass `useColorPicker()` to `ColorPickerRootProvider`; do not render `ColorPicker` and `ColorPickerRootProvider` for the same store.
+Use `defaultValue` for local state. When application state controls the selected color or popup, pass `value` with `onValueChange(details)` or `open` with `onOpenChange(details)`. In Vue, bind the same state with `v-model`, `v-model:open`, and `v-model:format`. In Svelte, use `bind:value`, `bind:open`, and `bind:format`. For state created outside the rendered tree, pass `useColorPicker()` to `ColorPickerRootProvider`; do not render `ColorPicker` and `ColorPickerRootProvider` for the same store.
 
 `ColorPickerPositioner` is portalled by default. Set `portalled={false}` for an overlay inside another stacking context. To submit the color with a native form, set `name` on the root and render `ColorPickerHiddenInput` explicitly. Parts such as `ColorPickerArea`, `ColorPickerChannelSlider`, and `ColorPickerSwatchTrigger` provide default visual children; pass children only when changing their structure.
 
 In Solid, assign a ref to the element created inside the `asChild` render function. A ref on a
 ColorPicker part itself is not forwarded through that composition path. In Vue, use the ordinary
-template `ref` on a part and read the rendered element through `$el`.
+template `ref` on a part and read the rendered element through `$el`. In Svelte, use `bind:ref` on a part to get its element.
 
 ## Anatomy
 
@@ -186,7 +186,7 @@ normal advanced state path.
 
 ## Styling
 
-Use `className` in React or `class` in Solid and Vue on exported parts. Tailwind variants use native utilities and consumer classes; CSS Modules variants expose a short list of `--moduix-color-picker-*` variables for sizes that several parts or default children share; colors, spacing, and typography follow foundation tokens, so change them with a class on the part. Both styling tracks expose stable `data-slot="color-picker-*"` hooks and Ark `data-scope` / `data-part` attributes.
+Use `className` in React or `class` in Solid, Vue, and Svelte on exported parts. Tailwind variants use native utilities and consumer classes; CSS Modules variants expose a short list of `--moduix-color-picker-*` variables for sizes that several parts or default children share; colors, spacing, and typography follow foundation tokens, so change them with a class on the part. Both styling tracks expose stable `data-slot="color-picker-*"` hooks and Ark `data-scope` / `data-part` attributes.
 ### CSS variables
 
 Hover or focus a variable to see it in the preview.

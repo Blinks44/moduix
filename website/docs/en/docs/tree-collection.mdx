@@ -6,8 +6,10 @@ ark: https://ark-ui.com/docs/collections/tree-collection
 
 import treeCollectionSolidCustomNodes from '../../../snippets/tree-collection/solid/custom-nodes.tsx?raw';
 import treeCollectionVueCustomNodes from '../../../snippets/tree-collection/vue/custom-nodes.ts?raw';
+import treeCollectionSvelteCustomNodes from '../../../snippets/tree-collection/svelte/custom-nodes.ts?raw';
 import treeCollectionSolidFilePaths from '../../../snippets/tree-collection/solid/file-paths.tsx?raw';
 import treeCollectionVueFilePaths from '../../../snippets/tree-collection/vue/file-paths.ts?raw';
+import treeCollectionSvelteFilePaths from '../../../snippets/tree-collection/svelte/file-paths.ts?raw';
 
 # Tree Collection
 
@@ -25,6 +27,7 @@ Import the collection helpers from the Ark UI entry point for your framework:
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -46,6 +49,13 @@ import { createFileTreeCollection, createTreeCollection } from '@ark-ui/solid/co
 
 ```ts
 import { createFileTreeCollection, createTreeCollection } from '@ark-ui/vue/collection';
+```
+
+  </Tab>
+  <Tab value="svelte">
+
+```ts
+import { createFileTreeCollection, createTreeCollection } from '@ark-ui/svelte/collection';
 ```
 
   </Tab>
@@ -81,6 +91,7 @@ known count before its children are loaded.
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -98,6 +109,11 @@ known count before its children are loaded.
   <Tab value="vue">
 
 <CodeBlockRuntime lang="ts" code={treeCollectionVueCustomNodes} />
+
+  </Tab>
+  <Tab value="svelte">
+
+<CodeBlockRuntime lang="ts" code={treeCollectionSvelteCustomNodes} />
 
   </Tab>
 </Tabs>
@@ -260,6 +276,7 @@ state that holds the tree and render its new `rootNode`.
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -277,6 +294,11 @@ state that holds the tree and render its new `rootNode`.
   <Tab value="vue">
 
 <CodeBlockRuntime lang="ts" code={treeCollectionVueFilePaths} />
+
+  </Tab>
+  <Tab value="svelte">
+
+<CodeBlockRuntime lang="ts" code={treeCollectionSvelteFilePaths} />
 
   </Tab>
 </Tabs>

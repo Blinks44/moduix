@@ -125,6 +125,7 @@ const blockSources = {
   react: (block: string) => `website/src/components/blocks/${block}`,
   solid: (block: string) => `website/snippets/blocks/solid/${block}.tsx`,
   vue: (block: string) => `website/snippets/blocks/vue/${block}.vue`,
+  svelte: (block: string) => `website/snippets/blocks/svelte/${block}.svelte`,
 };
 
 export function BlockLinks({ block }: { block: string }) {

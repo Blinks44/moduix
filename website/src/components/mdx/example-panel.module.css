@@ -125,6 +125,10 @@
   --moduix-doc-framework-color: #34c38f;
 }
 
+.select[data-dot='svelte'] {
+  --moduix-doc-framework-color: #ff3e00;
+}
+
 .iconButton {
   display: grid;
   width: 32px;
