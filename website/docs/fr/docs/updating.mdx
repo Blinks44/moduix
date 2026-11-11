@@ -42,9 +42,10 @@ Gardez le framework et la méthode de style explicites :
 | React | `@moduix/react` | `@moduix/react-tailwind` |
 | Solid | `@moduix/solid` | `@moduix/solid-tailwind` |
 | Vue | `@moduix/vue` | `@moduix/vue-tailwind` |
+| Svelte | `@moduix/svelte` | `@moduix/svelte-tailwind` |
 
-Ne mettez pas à jour un adaptateur au nom proche que l’application n’utilise pas. React, Solid et Vue
-proposent le même catalogue de composants avec CSS Modules et Tailwind.
+Ne mettez pas à jour un adaptateur au nom proche que l’application n’utilise pas. React, Solid, Vue et
+Svelte proposent le même catalogue de composants avec CSS Modules et Tailwind.
 
 ## Mettre les packages à jour
 
@@ -71,6 +72,11 @@ gestionnaire de packages déjà choisi par l’application.
 <PackageManagerTabs command="install @moduix/vue@latest @ark-ui/vue@latest" />
 
   </Tab>
+  <Tab label="Svelte" value="svelte">
+
+<PackageManagerTabs command="install @moduix/svelte@latest @ark-ui/svelte@latest" />
+
+  </Tab>
 </Tabs>
 
   </Tab>
@@ -92,6 +98,11 @@ gestionnaire de packages déjà choisi par l’application.
 <PackageManagerTabs command="install @moduix/vue-tailwind@latest @ark-ui/vue@latest" />
 
   </Tab>
+  <Tab label="Svelte" value="svelte">
+
+<PackageManagerTabs command="install @moduix/svelte-tailwind@latest @ark-ui/svelte@latest" />
+
+  </Tab>
 </Tabs>
 
   </Tab>
@@ -111,6 +122,7 @@ le namespace qui correspond aux deux axes :
 | React | `@moduix-react` | `@moduix-react-tailwind` |
 | Solid | `@moduix-solid` | `@moduix-solid-tailwind` |
 | Vue | `@moduix-vue` | `@moduix-vue-tailwind` |
+| Svelte | `@moduix-svelte` | `@moduix-svelte-tailwind` |
 
 Prévisualisez un composant avant de modifier les fichiers locaux : `view` affiche l’élément amont,
 tandis que `add --dry-run` et `add --diff` montrent ce qu’une mise à jour écrirait :

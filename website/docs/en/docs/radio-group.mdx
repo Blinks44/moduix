@@ -93,7 +93,7 @@ contains the input; add `RadioGroupItemHiddenInput` to every custom item.
 
 ### Controlled
 
-Pass `value` and `onValueChange` (`v-model` in Vue) when the selected value follows routing, filters,
+Pass `value` and `onValueChange` (`v-model` in Vue, `bind:value` in Svelte) when the selected value follows routing, filters,
 or surrounding UI. See [Control state from the application](/docs/composition-patterns#controlled-state).
 
 <Example name="radio-group/controlled" />
@@ -124,19 +124,19 @@ design changes the item layout or adds content next to the label.
 
 `RadioGroup` follows the Ark UI radio-group primitive and adds moduix styling, stable `data-slot`
 attributes, and the `RadioGroupOption` convenience component. It is exported from
-`@moduix/react/radio-group`, `@moduix/solid/radio-group`, and `@moduix/vue/radio-group`.
+`@moduix/react/radio-group`, `@moduix/solid/radio-group`, `@moduix/vue/radio-group`, and `@moduix/svelte/radio-group`.
 
 Use `defaultValue` for an uncontrolled group. Use `value` with `onValueChange(details)` when another
 part of the application controls the selected value. When state must be created outside the rendered
 tree, use `RadioGroupRootProvider` with `useRadioGroup()` from the matching framework package. Do not render
 `RadioGroup` and `RadioGroupRootProvider` for the same state instance. React reads the store as an
 object; Solid reads its reactive state through the returned accessor; Vue exposes the reactive store directly to the
-template.
+template; Svelte returns a getter, so read the state with `radioGroup().value`.
 
 `RadioGroupOption` includes `RadioGroupItemHiddenInput` in its fixed composition. When composing
 `RadioGroupItem` directly, add `RadioGroupItemHiddenInput` yourself. Use the explicit item tree
 when nested parts need custom placement or when `asChild` should let another element own the item
-DOM node. In Solid, `asChild` uses a render function; in Vue, use `as-child`. In both cases the
+DOM node. In Solid, `asChild` uses a render function; in Vue, use `as-child`; in Svelte, pass an `asChild` snippet and spread `props()` onto the element. In every case the
 direct child must remain a semantic `label`.
 
 `Field` provides a visible label, helper text, and error text, but it does not pass its state to
@@ -165,7 +165,7 @@ Hover or focus a part to find it in the preview.
 
 ## Styling
 
-Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. For state-based
+Use `className` in React or `class` in Solid, Vue, and Svelte on exported parts for structural styles. For state-based
 styles, prefer Ark data attributes such as `data-state`, `data-disabled`, and `data-orientation`,
 together with moduix `data-slot` selectors. Tailwind variants use native utilities and consumer
 classes; the component variables below customize the CSS Modules variants. Data attributes and

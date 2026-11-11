@@ -142,7 +142,7 @@ import * as DatePickerDocs from '@/components/examples/date-picker/css-propertie
 ### Управляемое состояние
 
 Управляйте выбранным `DateValue[]`, обновляя его через `details.value`. В Vue для управляемого
-значения используйте `v-model`. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
+значения используйте `v-model`, в Svelte `bind:value`. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
 
 <Example name="date-picker/controlled" />
 
@@ -221,7 +221,7 @@ import * as DatePickerDocs from '@/components/examples/date-picker/css-propertie
 
 ## Стилизация
 
-Используйте `className` в React, `class` в Solid и `class` в Vue на экспортируемых частях для структурных стилей.
+Используйте `className` в React или `class` в Solid, Vue и Svelte на экспортируемых частях для структурных стилей.
 Варианты Tailwind используют нативные utility-классы и классы потребителя, а варианты CSS Modules
 предоставляют переменные ниже. Оба подхода используют атрибуты состояния Ark и хуки `data-slot`
 moduix.

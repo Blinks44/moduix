@@ -1,0 +1,114 @@
+@layer moduix.components {
+  .root {
+    display: flex;
+    flex-direction: column;
+    gap: var(--moduix-clipboard-gap, var(--moduix-spacing-1-5));
+    width: 100%;
+    color: var(--moduix-foreground);
+  }
+
+  .label {
+    font-size: var(--moduix-text-sm);
+    font-weight: var(--moduix-weight-medium);
+    line-height: var(--moduix-line-height-text-sm);
+  }
+
+  .control {
+    display: flex;
+    align-items: center;
+    gap: var(--moduix-clipboard-control-gap, var(--moduix-spacing-2));
+    width: 100%;
+  }
+
+  .input,
+  .trigger {
+    min-height: var(--moduix-clipboard-height, var(--moduix-size-md));
+    margin: 0;
+    border: var(--moduix-border-width-sm) solid
+      var(--moduix-clipboard-border-color, var(--moduix-border));
+    border-radius: var(--moduix-clipboard-radius, var(--moduix-radius-md));
+    color: var(--moduix-foreground);
+    font: inherit;
+    transition:
+      background-color var(--moduix-transition-default),
+      border-color var(--moduix-transition-default),
+      outline-color var(--moduix-transition-default),
+      opacity var(--moduix-transition-default);
+
+    &:disabled {
+      pointer-events: none;
+      opacity: var(--moduix-opacity-disabled);
+    }
+  }
+
+  .input {
+    width: 100%;
+    min-width: 0;
+    padding: var(--moduix-spacing-1) var(--moduix-spacing-3);
+    background-color: var(--moduix-clipboard-input-bg, var(--moduix-background));
+    font-size: var(--moduix-text-md);
+    line-height: var(--moduix-line-height-text-md);
+    outline: var(--moduix-focus-ring-inset-width) solid transparent;
+    outline-offset: calc(var(--moduix-border-width-sm) * -1);
+
+    &::placeholder {
+      color: var(--moduix-muted-foreground);
+    }
+
+    &:focus-visible {
+      outline-color: var(--moduix-ring);
+    }
+  }
+
+  .trigger {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    gap: var(--moduix-spacing-2);
+    padding-inline: var(--moduix-spacing-4);
+    background-color: var(--moduix-clipboard-trigger-bg, var(--moduix-background));
+    appearance: none;
+    font-size: var(--moduix-text-sm);
+    font-weight: var(--moduix-weight-medium);
+    line-height: var(--moduix-line-height-text-sm);
+    user-select: none;
+    white-space: nowrap;
+    cursor: pointer;
+
+    & :where(svg) {
+      width: var(--moduix-clipboard-icon-size, var(--moduix-spacing-4));
+      height: var(--moduix-clipboard-icon-size, var(--moduix-spacing-4));
+      flex-shrink: 0;
+    }
+
+    @media (hover: hover) {
+      &:hover:not(:disabled) {
+        background-color: var(--moduix-clipboard-trigger-bg-hover, var(--moduix-accent));
+      }
+    }
+
+    &:focus-visible {
+      outline: var(--moduix-focus-ring-width) solid var(--moduix-ring);
+      outline-offset: calc(var(--moduix-border-width-sm) * -1);
+    }
+
+    &:active:not(:disabled) {
+      opacity: 0.94;
+    }
+  }
+
+  .indicator {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .valueText {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

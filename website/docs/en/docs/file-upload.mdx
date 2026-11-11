@@ -131,12 +131,10 @@ icon. Start here when rows need MIME-specific previews, extra metadata, or a dif
 
 ## Composition
 
-`FileUpload` is available from `@moduix/react/file-upload` and `@moduix/vue/file-upload`. `FileUpload`, `useFileUpload`, and
-`useFileUploadContext` are also exported from `@moduix/react`.
-
-The same component is available from `@moduix/solid/file-upload`, `@moduix/react-tailwind/file-upload`,
-`@moduix/solid-tailwind/file-upload`, and `@moduix/vue-tailwind/file-upload`. The six package variants expose the same component parts and state model.
-Choose the package that matches your framework and styling path.
+Import `FileUpload`, its parts, `useFileUpload`, and `useFileUploadContext` from the `file-upload`
+subpath of your package, for example `@moduix/react/file-upload` or
+`@moduix/svelte-tailwind/file-upload`. Every framework and styling package exposes the same parts and
+state model.
 
 `FileUpload` keeps file state internally by default. Use `defaultAcceptedFiles` for an uncontrolled initial value, or pair
 `acceptedFiles` with `onFileChange(details)` when the application controls the files. Use `useFileUpload()` with
@@ -181,7 +179,7 @@ Hover or focus a part to find it in the preview.
 
 ## Styling
 
-Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. Tailwind variants use native
+Use `className` in React or `class` in Solid, Vue, and Svelte on exported parts for structural styles. Tailwind variants use native
 utilities and consumer classes. CSS Modules variants build on foundation tokens and have no component variables:
 a class on the part overrides the layered component styles. Both styling tracks share Ark state attributes and moduix
 `data-slot` hooks.

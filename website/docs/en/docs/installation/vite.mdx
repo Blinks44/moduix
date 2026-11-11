@@ -1,16 +1,16 @@
 ---
 title: Vite
-description: Integrate moduix with a Vite React, Solid, or Vue app through packages or shadcn, including global styles, TypeScript paths, and Vite aliases.
+description: Integrate moduix with a Vite React, Solid, Vue, or Svelte app through packages or shadcn, including global styles, TypeScript paths, and Vite aliases.
 ---
 
 # Vite
 
-This guide assumes an existing app created from Vite's React, React + TypeScript, Vue, Vue + TypeScript, Solid, or Solid +
-TypeScript template.
+This guide assumes an existing app created from Vite's React, React + TypeScript, Vue, Vue + TypeScript, Solid, Solid +
+TypeScript, Svelte, or Svelte + TypeScript template.
 
 ## Choose your setup
 
-- **Runtime:** React, Solid, or Vue with the matching Vite plugin.
+- **Runtime:** React, Solid, Vue, or Svelte with the matching Vite plugin.
 - **Styling:** CSS Modules or Tailwind CSS v4.
 - **Distribution:** a package or source copied with the shadcn CLI.
 
@@ -77,6 +77,24 @@ import { Button } from '@moduix/vue/button';
 <template>
   <Button>Continue</Button>
 </template>
+```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+<PackageManagerTabs command="install @moduix/svelte @ark-ui/svelte" />
+
+```ts title="src/main.ts"
+import '@moduix/svelte/reset.css';
+import '@moduix/svelte/style.css';
+```
+
+```svelte title="src/App.svelte"
+<script lang="ts">
+  import { Button } from '@moduix/svelte/button';
+</script>
+
+<Button>Continue</Button>
 ```
 
   </Tab>
@@ -169,10 +187,32 @@ export default defineConfig({
 />
 
   </Tab>
+  <Tab label="Svelte" value="svelte">
+
+```ts title="vite.config.ts"
+import { svelte } from '@sveltejs/vite-plugin-svelte';
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+  plugins: [svelte()],
+  resolve: {
+    tsconfigPaths: true,
+  },
+});
+```
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-svelte/button' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-svelte-tailwind/button' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
-For Vue, keep `src/**/*.vue` in the app configuration’s `include` so Vite can associate SFCs with
-their TypeScript paths. For Vite 7 or earlier, use an explicit
+For Vue and Svelte, keep `src/**/*.vue` or `src/**/*.svelte` in the app configuration’s `include`
+so Vite can associate component files with their TypeScript paths. For Vite 7 or earlier, use an explicit
 [`resolve.alias`](https://vite.dev/config/shared-options#resolve-alias) instead.
 
 Import the generated foundation stylesheet from the framework entry point instead of the package
@@ -194,6 +234,13 @@ import '@/lib/moduix/styles/style.css';
 
   </Tab>
   <Tab label="Vue" value="vue">
+
+```ts title="src/main.ts"
+import '@/lib/moduix/styles/style.css';
+```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
 
 ```ts title="src/main.ts"
 import '@/lib/moduix/styles/style.css';

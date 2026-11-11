@@ -106,7 +106,7 @@ with `usePagination()` and pass it to `PaginationRootProvider`. For URL navigati
 `type="link"`, provide `getPageUrl(details)`, and render semantic anchors with `asChild`.
 
 In Vue, use `v-model:page` and `v-model:page-size` for controlled state. The `pageChange` and
-`pageSizeChange` events are exposed as `@page-change` and `@page-size-change`.
+`pageSizeChange` events are exposed as `@page-change` and `@page-size-change`. In Svelte, use `bind:page` and `bind:pageSize`.
 
 ## Anatomy
 
@@ -138,7 +138,7 @@ use tabular figures and compact inline padding. One- and two-digit labels keep t
 footprint, while longer labels can expand without being clipped.
 
 Colors, borders, radius, and typography come from foundation tokens. Override them with `className` in
-React or `class` in Solid and Vue on the part; target `[data-selected]` on `PaginationItem` to restyle the
+React or `class` in Solid, Vue, and Svelte on the part; target `[data-selected]` on `PaginationItem` to restyle the
 current page. The CSS variable below sets the shared size of items, ellipses, and triggers in the CSS
 Modules variants.
 

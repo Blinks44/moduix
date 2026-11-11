@@ -22,7 +22,7 @@ import * as TreeViewDocs from '@/components/examples/tree-view/css-properties';
 `TreeViewNode` передаёт в рекурсивный рендерер текущие `node`, `indexPath` и `state`, поэтому можно
 вывести ветку или конечный узел, сохранив явную структуру частей.
 
-React, Solid и Vue используют одинаковые плоские имена TreeView; вкладки ниже сохраняют нативную композицию каждого фреймворка.
+React, Solid, Vue и Svelte используют одинаковые плоские имена TreeView; вкладки ниже сохраняют нативную композицию каждого фреймворка.
 
 ## Примеры
 
@@ -40,7 +40,8 @@ React, Solid и Vue используют одинаковые плоские и�
 
 В Vue слот по умолчанию задаёт значок отмеченного состояния, а именованные слоты
 `indeterminate` и `fallback` задают значки частично отмеченного и неотмеченного состояний. Для настройки
-этих состояний используются слоты, а не props.
+этих состояний используются слоты, а не props. В Svelte те же три варианта задаются сниппетами
+`children`, `indeterminate` и `fallback`.
 
 <Example name="tree-view/checkboxes" />
 
@@ -90,6 +91,9 @@ React, Solid и Vue используют одинаковые плоские и�
 объекты с подробностями Ark. Если коллекция может заменяться, храните её в `shallowRef`, чтобы
 Vue сохранял экземпляр класса.
 
+В Svelte `TreeViewNode` передаёт `{ node, indexPath, state }` в сниппет `children`. Управляйте значениями через
+`bind:expandedValue`, `bind:selectedValue`, `bind:checkedValue` и `bind:focusedValue`.
+
 ## Анатомия
 
 Наведите на часть или выберите её, чтобы найти её в превью.
@@ -113,7 +117,7 @@ Vue сохранял экземпляр класса.
 
 ## Стилизация
 
-Используйте `className` в React, `class` в Solid или `class` в Vue на любой экспортируемой части для структурной
+Используйте `className` в React или `class` в Solid, Vue и Svelte на любой экспортируемой части для структурной
 стилизации. Части ветки имеют `data-state="open|closed"`, части флажка имеют
 `data-state="checked|unchecked|indeterminate"`, а части узлов имеют `data-focus`, `data-selected`,
 `data-disabled`, `data-loading`, `data-renaming`, `data-depth`, `data-path` и `data-value`. Обёртка

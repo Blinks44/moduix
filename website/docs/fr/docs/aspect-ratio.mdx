@@ -73,11 +73,11 @@ sur un conteneur extérieur. La même racine fonctionne avec `Image` de Next.js 
 
 ## Composition
 
-Les exports CSS Modules sont disponibles depuis `@moduix/react/aspect-ratio`, `@moduix/solid/aspect-ratio`
-et `@moduix/vue/aspect-ratio`. Pour Tailwind, utilisez respectivement `@moduix/react-tailwind/aspect-ratio`,
-`@moduix/solid-tailwind/aspect-ratio` ou `@moduix/vue-tailwind/aspect-ratio`.
+Les exports CSS Modules sont disponibles depuis `@moduix/react/aspect-ratio`, `@moduix/solid/aspect-ratio`,
+`@moduix/vue/aspect-ratio` et `@moduix/svelte/aspect-ratio`. Pour Tailwind, utilisez respectivement `@moduix/react-tailwind/aspect-ratio`,
+`@moduix/solid-tailwind/aspect-ratio`, `@moduix/vue-tailwind/aspect-ratio` ou `@moduix/svelte-tailwind/aspect-ratio`.
 
-`AspectRatio` est un composant de présentation et ne gère aucun état. Le composant ne possède qu’une racine et aucune partie enfant à combiner. Utilisez `asChild` uniquement lorsqu’un autre élément sémantique doit porter la racine rendue, avec exactement un enfant en React ou la fonction de rendu Solid présentée dans l’exemple « Élément personnalisé ». En Vue, utilisez l’attribut `as-child` avec un seul élément enfant. Le dimensionnement, l’ajustement, les bordures, les rayons et le masquage du contenu restent sous la responsabilité de l’application.
+`AspectRatio` est un composant de présentation et ne gère aucun état. Le composant ne possède qu’une racine et aucune partie enfant à combiner. Utilisez `asChild` uniquement lorsqu’un autre élément sémantique doit porter la racine rendue, avec exactement un enfant en React ou la fonction de rendu Solid présentée dans l’exemple « Élément personnalisé ». En Vue, utilisez l’attribut `as-child` avec un seul élément enfant ; en Svelte, utilisez un snippet `asChild` qui étale `props()` sur un seul élément. Le dimensionnement, l’ajustement, les bordures, les rayons et le masquage du contenu restent sous la responsabilité de l’application.
 En Solid, affectez le `ref` à l’élément créé dans la fonction de rendu utilisée avec `asChild`. Le `ref` placé sur `AspectRatio` n’est pas transmis dans cette composition.
 
 ## Anatomie

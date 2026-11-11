@@ -17,6 +17,7 @@ Import the utility from the matching Ark UI package:
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -41,6 +42,13 @@ import { DownloadTrigger } from '@ark-ui/vue/download-trigger';
 ```
 
   </Tab>
+  <Tab value="svelte">
+
+```ts
+import { DownloadTrigger } from '@ark-ui/svelte/download-trigger';
+```
+
+  </Tab>
 </Tabs>
 
 ## Basic
@@ -48,7 +56,7 @@ import { DownloadTrigger } from '@ark-ui/vue/download-trigger';
 Pass ready-to-use content through `data`. It accepts a string, `Blob`, or `File`. `fileName` and `mimeType` describe the
 file saved by the browser.
 
-The preview uses React. The source tabs contain native React, Solid, and Vue examples with the same behavior.
+The preview uses React. The source tabs contain native React, Solid, Vue, and Svelte examples with the same behavior.
 
 <Example name="download-trigger/basic" clientOnly />
 
@@ -74,7 +82,7 @@ the requested MIME type as well.
 
 `DownloadTrigger` renders a native button by default. Use `asChild` when a moduix `Button` should own the button element
 and its states. React uses a boolean `asChild` prop with a child element; Solid uses a render-function `asChild` prop.
-Vue uses `as-child` with one button component in the default slot. Every composition keeps one
+Vue uses `as-child` with one button component in the default slot. Svelte uses an `asChild` snippet that spreads the received props onto the `Button`. Every composition keeps one
 accessible button in the DOM.
 
 For QR code images, use `QrCodeDownloadTrigger` on the [QrCode](/docs/qr-code) page. It reads the image from the

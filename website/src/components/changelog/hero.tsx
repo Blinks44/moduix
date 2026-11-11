@@ -22,9 +22,13 @@ export function ChangelogNewsItem({
   children: ReactNode;
 }) {
   const lang = useLang();
-  const date = new Intl.DateTimeFormat(lang, { dateStyle: 'long', timeZone: 'UTC' }).format(
-    new Date(dateTime),
-  );
+  const monthOnly = /^\d{4}-\d{2}$/.test(dateTime);
+  const date = new Intl.DateTimeFormat(lang, {
+    ...(monthOnly
+      ? ({ month: 'long', year: 'numeric' } as const)
+      : ({ dateStyle: 'long' } as const)),
+    timeZone: 'UTC',
+  }).format(new Date(monthOnly ? `${dateTime}-01` : dateTime));
 
   return (
     <article className={styles.newsItem}>

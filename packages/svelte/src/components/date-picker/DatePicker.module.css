@@ -1,0 +1,431 @@
+@layer moduix.components {
+  .root {
+    display: inline-flex;
+    width: var(--moduix-date-picker-width, 18.75rem);
+    max-width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--moduix-spacing-1);
+    color: var(--moduix-foreground);
+
+    &:has(.input[data-index='1']) {
+      width: var(--moduix-date-picker-width, 24rem);
+    }
+
+    &[data-disabled] {
+      opacity: var(--moduix-opacity-disabled);
+
+      :where(
+          [data-slot='field-root'][data-disabled],
+          [data-slot='field-root-provider'][data-disabled],
+          [data-slot='fieldset-root'][data-disabled],
+          [data-slot='fieldset-root-provider'][data-disabled]
+        )
+        & {
+        opacity: 1;
+      }
+    }
+  }
+
+  .label {
+    color: var(--moduix-foreground);
+    font-size: var(--moduix-text-sm);
+    font-weight: var(--moduix-weight-medium);
+    line-height: var(--moduix-line-height-text-sm);
+    user-select: none;
+  }
+
+  .control {
+    position: relative;
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    align-items: center;
+    gap: var(--moduix-spacing-2);
+  }
+
+  .input {
+    flex: 1 1 0;
+    width: 100%;
+    min-width: min(7.5rem, 100%);
+    height: var(--moduix-date-picker-control-height, var(--moduix-size-md));
+    margin: 0;
+    border: var(--moduix-border-width-sm) solid var(--moduix-input);
+    border-radius: var(--moduix-date-picker-radius, var(--moduix-radius-md));
+    padding-block: var(--moduix-spacing-1);
+    padding-inline: var(--moduix-spacing-3-5) 4.25rem;
+    background-color: var(--moduix-background);
+    color: inherit;
+    font: inherit;
+    font-size: var(--moduix-text-md);
+    line-height: var(--moduix-line-height-text-md);
+    outline: var(--moduix-focus-ring-halo-width) solid transparent;
+    transition:
+      border-color var(--moduix-transition-default),
+      outline-color var(--moduix-transition-default);
+
+    &::placeholder {
+      color: var(--moduix-muted-foreground);
+      opacity: 1;
+    }
+
+    &:focus {
+      border-color: var(--moduix-ring);
+      outline-color: color-mix(in oklab, var(--moduix-ring) 50%, transparent);
+    }
+
+    &[data-invalid] {
+      border-color: var(--moduix-destructive);
+
+      &:focus {
+        outline-color: color-mix(in oklab, var(--moduix-destructive) 20%, transparent);
+      }
+    }
+
+    &:is(:disabled, :read-only) {
+      cursor: default;
+    }
+  }
+
+  .control:has(.input[data-index='1']) .input:not([data-index='1']) {
+    padding-inline-end: var(--moduix-spacing-3-5);
+  }
+
+  .trigger,
+  .navTrigger,
+  .viewTrigger,
+  .presetTrigger {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    border: 0;
+    border-radius: var(--moduix-radius-sm);
+    padding: 0;
+    background: transparent;
+    color: var(--moduix-muted-foreground);
+    font: inherit;
+    line-height: 0;
+    outline: var(--moduix-focus-ring-inset-width) solid transparent;
+    outline-offset: var(--moduix-focus-ring-inset-offset);
+    cursor: pointer;
+    transition:
+      background-color var(--moduix-transition-default),
+      color var(--moduix-transition-default),
+      outline-color var(--moduix-transition-default);
+
+    & > svg {
+      display: block;
+      width: var(--moduix-spacing-4);
+      height: var(--moduix-spacing-4);
+    }
+
+    &:focus-visible {
+      outline-color: var(--moduix-ring);
+    }
+
+    &:disabled {
+      cursor: default;
+    }
+
+    &:not(:disabled) {
+      @media (hover: hover) {
+        &:hover {
+          background-color: var(--moduix-muted);
+          color: var(--moduix-foreground);
+        }
+      }
+    }
+  }
+
+  /* The calendar trigger is dimmed with the root, so only the popup actions dim themselves. */
+  .navTrigger,
+  .viewTrigger,
+  .presetTrigger {
+    &:disabled {
+      opacity: var(--moduix-opacity-disabled);
+    }
+  }
+
+  .trigger,
+  .clearTrigger {
+    position: absolute;
+    top: 50%;
+    inset-inline-end: var(--moduix-spacing-2);
+    transform: translateY(-50%);
+  }
+
+  .trigger {
+    width: var(--moduix-size-xs);
+    height: var(--moduix-size-xs);
+  }
+
+  .clearTrigger {
+    --moduix-close-button-size: var(--moduix-size-xs);
+    inset-inline-end: calc(
+      var(--moduix-spacing-2) + var(--moduix-size-xs) + var(--moduix-spacing-0-5)
+    );
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .positioner {
+    z-index: var(--z-index);
+  }
+
+  .content {
+    z-index: calc(var(--moduix-z-popup) + var(--layer-index, 0));
+    width: var(--moduix-date-picker-content-width, 20rem);
+    max-width: min(100vw - 2rem, var(--available-width, 100%));
+    max-height: min(var(--available-height, 100dvh), 100dvh - 2rem);
+    overflow: auto;
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
+    border-radius: var(--moduix-radius-md);
+    padding: var(--moduix-spacing-3);
+    background-color: var(--moduix-popover);
+    box-shadow: var(--moduix-shadow-lg);
+    color: var(--moduix-popover-foreground);
+    transform-origin: var(--transform-origin);
+    outline: 0;
+
+    &[data-inline] {
+      box-shadow: none;
+    }
+
+    &[data-state='open'] {
+      animation: global(moduix-popup-in)
+        var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
+        var(--moduix-popup-motion-easing, var(--moduix-ease-in-out));
+    }
+
+    &[data-state='closed'] {
+      animation: global(moduix-popup-out)
+        var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
+        var(--moduix-popup-motion-easing, var(--moduix-ease-in-out)) forwards;
+      pointer-events: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      &[data-state] {
+        animation: none;
+      }
+    }
+  }
+
+  .view {
+    display: grid;
+    gap: var(--moduix-spacing-3);
+  }
+
+  .viewControl {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--moduix-spacing-2);
+  }
+
+  .navTrigger {
+    width: var(--moduix-size-sm);
+    height: var(--moduix-size-sm);
+  }
+
+  .viewTrigger {
+    min-width: 0;
+    min-height: var(--moduix-size-sm);
+    flex: 1;
+    gap: var(--moduix-spacing-2);
+    padding-inline: var(--moduix-spacing-2);
+    color: var(--moduix-foreground);
+    font-size: var(--moduix-text-sm);
+    font-weight: var(--moduix-weight-medium);
+    line-height: var(--moduix-line-height-text-sm);
+  }
+
+  .rangeText,
+  .valueText {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: var(--moduix-spacing-0-5);
+    table-layout: fixed;
+  }
+
+  .tableHeader,
+  .weekNumberCell {
+    width: var(--moduix-date-picker-table-cell-size, var(--moduix-size-sm));
+    height: 1.75rem;
+    color: var(--moduix-muted-foreground);
+    font-size: var(--moduix-text-xs);
+    font-weight: var(--moduix-weight-medium);
+    line-height: var(--moduix-line-height-text-xs);
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+  }
+
+  .tableCell {
+    width: var(--moduix-date-picker-table-cell-size, var(--moduix-size-sm));
+    height: var(--moduix-date-picker-table-cell-size, var(--moduix-size-sm));
+    padding: 0;
+    text-align: center;
+  }
+
+  .tableCellTrigger {
+    display: inline-flex;
+    width: 100%;
+    min-width: var(--moduix-date-picker-table-cell-size, var(--moduix-size-sm));
+    height: var(--moduix-date-picker-table-cell-size, var(--moduix-size-sm));
+    align-items: center;
+    justify-content: center;
+    border: var(--moduix-border-width-sm) solid transparent;
+    border-radius: var(--moduix-radius-sm);
+    padding: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
+    outline: var(--moduix-focus-ring-inset-width) solid transparent;
+    outline-offset: var(--moduix-focus-ring-inset-offset);
+    cursor: pointer;
+    transition:
+      background-color var(--moduix-transition-default),
+      border-color var(--moduix-transition-default),
+      color var(--moduix-transition-default),
+      outline-color var(--moduix-transition-default);
+
+    &:focus-visible {
+      outline-color: var(--moduix-ring);
+    }
+
+    &[data-today] {
+      border-color: var(--moduix-ring);
+    }
+
+    &:is([data-in-range], [data-in-hover-range]) {
+      background-color: var(--moduix-muted);
+      color: var(--moduix-foreground);
+    }
+
+    &[data-selected] {
+      background-color: var(--moduix-primary);
+      color: var(--moduix-primary-foreground);
+    }
+
+    &[data-outside-range]:not([data-disabled]) {
+      color: var(--moduix-muted-foreground);
+    }
+
+    &[data-disabled] {
+      cursor: default;
+      opacity: var(--moduix-opacity-disabled);
+    }
+
+    &:not([data-disabled], [data-selected]) {
+      @media (hover: hover) {
+        &:hover {
+          background-color: var(--moduix-accent);
+          color: var(--moduix-accent-foreground);
+        }
+      }
+    }
+  }
+
+  .selectControl {
+    position: relative;
+    display: grid;
+    min-width: 0;
+  }
+
+  .select {
+    width: 100%;
+    min-width: 0;
+    height: var(--moduix-size-sm);
+    border: var(--moduix-border-width-sm) solid var(--moduix-input);
+    border-radius: var(--moduix-radius-md);
+    padding-block: var(--moduix-spacing-1);
+    padding-inline: var(--moduix-spacing-3-5)
+      calc(var(--moduix-spacing-2) + var(--moduix-size-xs) + var(--moduix-spacing-3-5));
+    appearance: none;
+    background-color: var(--moduix-background);
+    color: var(--moduix-foreground);
+    font: inherit;
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
+    outline: var(--moduix-focus-ring-halo-width) solid transparent;
+    cursor: pointer;
+    transition:
+      border-color var(--moduix-transition-default),
+      outline-color var(--moduix-transition-default);
+
+    &:focus-visible {
+      border-color: var(--moduix-ring);
+      outline-color: color-mix(in oklab, var(--moduix-ring) 50%, transparent);
+    }
+
+    &:disabled {
+      cursor: default;
+      opacity: var(--moduix-opacity-disabled);
+    }
+
+    @media (forced-colors: active) {
+      padding-inline-end: var(--moduix-spacing-3-5);
+      appearance: auto;
+    }
+  }
+
+  .selectIndicator {
+    position: absolute;
+    top: 50%;
+    inset-inline-end: var(--moduix-spacing-2);
+    display: inline-flex;
+    width: var(--moduix-size-xs);
+    height: var(--moduix-size-xs);
+    align-items: center;
+    justify-content: center;
+    color: var(--moduix-muted-foreground);
+    pointer-events: none;
+    transform: translateY(-50%);
+
+    & > svg {
+      display: block;
+      width: var(--moduix-spacing-4);
+      height: var(--moduix-spacing-4);
+    }
+
+    @media (forced-colors: active) {
+      display: none;
+    }
+  }
+
+  .select:disabled + .selectIndicator {
+    opacity: var(--moduix-opacity-disabled);
+  }
+
+  .presetTrigger {
+    min-height: var(--moduix-size-sm);
+    padding-inline: var(--moduix-spacing-2);
+    background-color: var(--moduix-muted);
+    color: var(--moduix-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
+
+    &:not(:disabled) {
+      @media (hover: hover) {
+        &:hover {
+          background-color: var(--moduix-accent);
+          color: var(--moduix-accent-foreground);
+        }
+      }
+    }
+  }
+}

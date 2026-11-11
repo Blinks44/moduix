@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import type { CSSProperties } from 'react';
 import {
   Breadcrumbs,
   BreadcrumbsEllipsis,
@@ -26,13 +25,6 @@ const defaultLinks = [
 ] as const;
 
 const defaultPage = 'Go Developer';
-
-const collapsedMenuContentStyle = {
-  '--moduix-popup-item-font-size': 'var(--moduix-text-xs)',
-  '--moduix-popup-item-padding-x-end': '0.5rem',
-  '--moduix-popup-item-padding-x-start': '0.5rem',
-  '--moduix-popup-item-padding-y': '0.25rem',
-} as CSSProperties;
 
 function DefaultBreadcrumbs() {
   return (
@@ -75,15 +67,15 @@ export const Collapsed: Story = {
               </button>
             </MenuTrigger>
             <MenuPositioner>
-              <MenuContent style={collapsedMenuContentStyle}>
+              <MenuContent>
                 <MenuViewport>
-                  <MenuItem value="engineering" asChild>
+                  <MenuItem value="engineering" asChild className="px-2 text-xs">
                     <a href="#">Engineering</a>
                   </MenuItem>
-                  <MenuItem value="backend" asChild>
+                  <MenuItem value="backend" asChild className="px-2 text-xs">
                     <a href="#">Backend</a>
                   </MenuItem>
-                  <MenuItem value="golang" asChild>
+                  <MenuItem value="golang" asChild className="px-2 text-xs">
                     <a href="#">Golang</a>
                   </MenuItem>
                 </MenuViewport>

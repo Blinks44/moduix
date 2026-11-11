@@ -65,8 +65,8 @@ input and connects it to the error text.
 ### Native attributes
 
 Use native attributes for browser behavior such as validation, input mode, autocomplete, and form
-submission. Use `htmlSize` for a character-based width and `size` for visual density in React, Solid,
-and Vue.
+submission. Use `htmlSize` for a character-based width and `size` for visual density in React, Solid, Vue,
+and Svelte.
 
 <Example name="input/native-attributes" />
 
@@ -80,7 +80,7 @@ needs to keep selected files in state, show a dropzone, or manage an upload flow
 ### Controlled value
 
 Use this pattern when the surrounding component controls the current value. In React, read the next
-value from native `onChange(event)`; in Solid, use `onInput`; in Vue, use `v-model`. Pass the current
+value from native `onChange(event)`; in Solid, use `onInput`; in Vue, use `v-model`; in Svelte, use `bind:value`. Pass the current
 value back through `value` when the framework uses separate input and value bindings.
 
 <Example name="input/controlled" />
@@ -104,12 +104,14 @@ Use `Field` when the control needs a label, helper or error text, generated ids,
 
 Use `Field` to provide the label, helper or error text, generated ids, and shared `disabled`,
 `invalid`, `required`, or `readOnly` state. `Input` remains the native control: use `value` with
-`onChange(event)` for controlled React state, `v-model` for controlled Vue state, or `defaultValue`
+`onChange(event)` for controlled React state, `v-model` for controlled Vue state, `bind:value` for controlled Svelte state, or `defaultValue`
 for an uncontrolled input. It does not manage validation, focus, or keyboard navigation.
 
 In Vue, initialize the input through `v-model` and reset the bound state in the form's reset handler:
 native reset does not emit an input event. Ark currently clears the native `defaultValue` when no
 model is supplied, so use `v-model` for initial values until that upstream behavior is fixed.
+
+In Svelte, bind the value with `bind:value` and reset the bound state in the form's reset handler for the same reason.
 
 For a standalone control, provide its accessible name yourself. Use `asChild` only with one
 focusable, input-compatible child; Ark merges the `Input` and `Field` props, class, and ref into
@@ -132,7 +134,7 @@ Hover or focus a part to find it in the preview.
 `Input` inherits the `Field` context. Its `size` prop picks a visual size; pass the native numeric
 `size` attribute as `htmlSize`. Inside a disabled moduix `Field` or `FieldRootProvider`, the root applies the disabled opacity once.
 
-Use `className` in React or `class` in Solid and Vue on `Input`. Tailwind variants use native
+Use `className` in React or `class` in Solid, Vue, and Svelte on `Input`. Tailwind variants use native
 utilities and consumer classes. CSS Modules variants build on foundation tokens and expose only the
 three variables below; override colors, padding, and typography with a plain class, which wins over
 the layered component styles. Use the shared data attributes and native state selectors when styling

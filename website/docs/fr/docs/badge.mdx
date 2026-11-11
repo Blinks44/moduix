@@ -30,7 +30,7 @@ pas un contrôle qui permet à l’utilisateur de sélectionner ou de modifier u
 - Choisissez **`Badge`** pour de courtes métadonnées comme un statut, une catégorie, une version ou un nombre.
 - Choisissez **`Tag`** pour des valeurs sélectionnées, des filtres, des affectations ou des libellés qui font partie de l’état actuel de l’interface.
 
-Les exports Vue sont disponibles depuis `@moduix/vue/badge` pour CSS Modules et `@moduix/vue-tailwind/badge` pour Tailwind CSS. Les exports Solid restent disponibles depuis `@moduix/solid/badge`.
+Les exports Vue sont disponibles depuis `@moduix/vue/badge` pour CSS Modules et `@moduix/vue-tailwind/badge` pour Tailwind CSS. Les exports Svelte sont disponibles depuis `@moduix/svelte/badge` pour CSS Modules et `@moduix/svelte-tailwind/badge` pour Tailwind CSS. Les exports Solid restent disponibles depuis `@moduix/solid/badge`.
 
 ## Exemples
 
@@ -84,7 +84,7 @@ ou définissez des variables CSS directement sur le badge.
 
 `Badge` est un composant de présentation et ne gère aucun état. Le texte direct reste inchangé ; utilisez `BadgeLabel` lorsqu’un libellé contraint doit être tronqué ou lorsqu’il est combiné avec `BadgeDot` ou une icône. Pour un lien ou un bouton sémantique, utilisez `asChild` avec exactement un enfant en React. En Solid, passez une fonction de rendu à `asChild` ; l’enfant rendu conserve ses sémantiques natives.
 
-En Vue, placez exactement un enfant dans le slot par défaut avec `as-child` ; l’enfant conserve ses sémantiques natives.
+En Vue, placez exactement un enfant dans le slot par défaut avec `as-child` ; l’enfant conserve ses sémantiques natives. En Svelte, passez un snippet `asChild` et répartissez les propriétés reçues sur exactement un élément.
 
 ## Anatomie
 
@@ -110,7 +110,7 @@ l’application, définissez-les sur `[data-slot='badge-root'][data-variant='<va
 espacements, la typographie, l’arrondi et la taille de l’icône et du point utilisent les tokens de
 foundation ; modifiez-les avec une classe sur la partie.
 
-Ces variables CSS s’appliquent aux packages CSS Modules ; les packages Tailwind utilisent des utilitaires natifs et les classes du consommateur. Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées. Les hooks `data-slot` et les attributs Ark sont communs aux deux approches de style et aux trois frameworks.
+Ces variables CSS s’appliquent aux packages CSS Modules ; les packages Tailwind utilisent des utilitaires natifs et les classes du consommateur. Utilisez `className` en React ou `class` en Solid, Vue et Svelte sur les parties exportées. Les hooks `data-slot` et les attributs Ark sont communs aux deux approches de style et aux trois frameworks.
 
 ### Variables CSS
 

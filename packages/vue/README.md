@@ -97,7 +97,7 @@ to connect the generated foundation stylesheet. The same namespace also installs
 ## Compatibility
 
 The package is ESM-only and ships JavaScript targeting ES2023. Use an application bundler that
-supports package CSS imports. See the [framework guides](https://moduix.dev/docs/quick-start#choose-your-framework)
+supports package CSS imports. See the [framework guides](https://moduix.dev/docs/installation/vite)
 for entry files, aliases, and SSR integration.
 
 ## Links

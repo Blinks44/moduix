@@ -96,6 +96,8 @@ import * as SplitButtonDocs from '@/components/examples/split-button/css-propert
 
 В Vue используйте `@click` для основного действия, `@open-change` или `v-model:open` для состояния меню и стандартный слот для содержимого триггера.
 
+В Svelte используйте `onclick` на действии, `bind:open` для состояния меню и передавайте содержимое триггера как `children`. `SplitButtonAction asChild` принимает сниппет, который передаёт `props()` ссылке.
+
 `SplitButtonPositioner` оборачивает портал, поэтому `$el` его ссылки на компонент Vue указывает на узел-якорь портала. Сам позиционируемый элемент имеет атрибут `data-slot="split-button-positioner"`.
 
 ## Анатомия
@@ -116,7 +118,7 @@ import * as SplitButtonDocs from '@/components/examples/split-button/css-propert
 
 ## Стилизация
 
-Для структурных стилей передавайте экспортируемым частям `className` в React или `class` в Solid и Vue. Варианты на
+Для структурных стилей передавайте экспортируемым частям `className` в React или `class` в Solid, Vue и Svelte. Варианты на
 Tailwind настраиваются обычными утилитами и пользовательскими классами; перечисленные ниже переменные относятся
 к вариантам с CSS Modules. Атрибуты данных и хуки `data-slot` общие для обоих способов стилизации.
 

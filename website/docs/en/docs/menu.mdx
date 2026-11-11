@@ -157,7 +157,8 @@ Set `portalled={false}` inside a dialog or scroll container and use
 `positioning={{ strategy: 'fixed', hideWhenDetached: true }}` when that container can scroll. Use
 `asChild` with exactly one semantic child when a trigger, item, or content host must own the DOM node.
 In Solid, assign a ref to the element created inside the `asChild` render function, because a ref on
-a `Menu` part itself is not forwarded through that composition path.
+a `Menu` part itself is not forwarded through that composition path. In Svelte, `asChild` takes a
+snippet that spreads `props()` onto the child element.
 A `MenuContent` must contain `MenuViewport` around its scrollable items. Keep an optional
 `MenuArrow` directly under `MenuContent`, next to the viewport, so it is not clipped while items scroll.
 A nested menu is another `Menu` root inside the parent content, paired with its own `TriggerItem`,
@@ -195,7 +196,7 @@ Hover or focus a part to find it in the preview.
 
 ## Styling
 
-Style Menu through `className` in React or `class` in Solid and Vue on exported parts. Tailwind
+Style Menu through `className` in React or `class` in Solid, Vue, and Svelte on exported parts. Tailwind
 variants use native utilities and consumer classes. CSS Modules variants take colors, spacing, and
 typography from foundation tokens and expose only the content width limits and the viewport maximum
 height as CSS variables; override other styles with a class on the part. Items, group labels,

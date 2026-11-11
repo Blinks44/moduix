@@ -1,0 +1,574 @@
+import { page } from '@rstest/browser';
+import { expect, test } from '@rstest/core';
+import { render } from '@testing-library/svelte';
+import ActionBindings from './bindings/ActionBindings.svelte';
+import Bindings from './bindings/Bindings.svelte';
+import ComboboxBindings from './bindings/ComboboxBindings.svelte';
+import JsonTreeViewBindings from './bindings/JsonTreeViewBindings.svelte';
+import ListboxBindings from './bindings/ListboxBindings.svelte';
+import MediaBindings from './bindings/MediaBindings.svelte';
+import NavigationBindings from './bindings/NavigationBindings.svelte';
+import OverlayBindings from './bindings/OverlayBindings.svelte';
+import PaginationBindings from './bindings/PaginationBindings.svelte';
+import PickerBindings from './bindings/PickerBindings.svelte';
+import TagsInputBindings from './bindings/TagsInputBindings.svelte';
+import TreeViewBindings from './bindings/TreeViewBindings.svelte';
+
+const input = (selector: string) => document.querySelector<HTMLInputElement>(selector)!;
+const pressArrowRight = (selector: string) => {
+  const element = input(selector);
+  element.focus();
+  element.dispatchEvent(new KeyboardEvent('keydown', { bubbles: true, key: 'ArrowRight' }));
+};
+
+test('writes to bound state reach the controls', async () => {
+  const { component } = render(Bindings);
+
+  component.write();
+
+  await expect.poll(() => input('[data-testid="checkbox"] input').checked).toBe(true);
+  await expect.poll(() => input('[data-testid="switch"] input').checked).toBe(true);
+  await expect.element(page.getByLabel('Input', { exact: true })).toHaveValue('ext');
+  await expect.element(page.getByLabel('Textarea', { exact: true })).toHaveValue('ext');
+  await expect.element(page.getByLabel('Select', { exact: true })).toHaveValue('vue');
+  await expect.element(page.getByLabel('Number', { exact: true })).toHaveValue('5');
+  await expect
+    .element(page.getByLabel('Password', { exact: true }))
+    .toHaveAttribute('type', 'text');
+  await expect.element(page.getByLabel('Editable', { exact: true })).toHaveValue('ext');
+  await expect.poll(() => input('[data-testid="slider"] input').value).toBe('50');
+  await expect.poll(() => input('[data-testid="radio"] input:checked').value).toBe('b');
+  await expect.poll(() => input('[data-testid="segment"] input:checked').value).toBe('b');
+  await expect.poll(() => input('[data-testid="rating"] input').value).toBe('3');
+  await expect.poll(() => input('[data-testid="angle"] input').value).toBe('90');
+  await expect
+    .poll(() =>
+      Array.from(
+        document.querySelectorAll<HTMLInputElement>('[data-testid="pin"] [data-part="input"]'),
+      ).map((pin) => pin.value),
+    )
+    .toEqual(['7', '8', '9']);
+});
+
+test('user changes reach bound state', async () => {
+  const { component } = render(Bindings);
+
+  await page.getByText('Checkbox', { exact: true }).click();
+  await page.getByText('Switch', { exact: true }).click();
+  await page.getByLabel('Input', { exact: true }).fill('typed');
+  await page.getByLabel('Textarea', { exact: true }).fill('typed');
+  await page.getByLabel('Select', { exact: true }).selectOption('vue');
+  await page.getByLabel('Number', { exact: true }).fill('42');
+  input('[aria-label="Number"]').blur();
+  await page.getByText('Radio b', { exact: true }).click();
+  await page.getByText('Segment b', { exact: true }).click();
+  await page.getByLabel('Toggle', { exact: true }).click();
+  await page.locator('[data-testid="pin"] [data-part="input"]').nth(1).fill('4');
+  input('[data-testid="rating"] [data-part="item"]:nth-child(4)').click();
+  pressArrowRight('[data-testid="slider"] [data-part="thumb"]');
+  pressArrowRight('[data-testid="angle"] [data-part="thumb"]');
+
+  await expect
+    .poll(() => component.read())
+    .toMatchObject({
+      angle: 11,
+      area: 'typed',
+      checked: true,
+      num: '42',
+      pin: ['1', '4', ''],
+      radio: 'b',
+      rate: 4,
+      seg: 'b',
+      sel: 'vue',
+      slide: [11],
+      sw: true,
+      text: 'typed',
+      vis: true,
+    });
+});
+
+test.each([
+  { key: 'popover', testid: 'popover-content' },
+  { key: 'tooltip', testid: 'tooltip-content' },
+  { key: 'hoverCard', testid: 'hover-card-content' },
+  { key: 'menu', testid: 'menu-content' },
+  { key: 'drawer', testid: 'drawer-content' },
+  { key: 'panel', testid: 'panel-content' },
+  { key: 'lightbox', testid: 'lightbox-content' },
+] as const)('writes to bound overlay state reach the overlay ($key)', async ({ key, testid }) => {
+  const { component } = render(OverlayBindings);
+  component.write(key);
+  await expect.element(page.getByTestId(testid)).toBeAttached();
+  if (key === 'popover') {
+    await expect
+      .element(page.getByRole('button', { name: 'Popover b' }))
+      .toHaveAttribute('data-current');
+  }
+  if (key === 'panel') {
+    const panel = () => document.querySelector<HTMLElement>('[data-testid="panel-content"]')!;
+    const initialWidth = panel().offsetWidth;
+    component.resizePanel();
+    await expect.poll(() => panel().offsetWidth).not.toBe(initialWidth);
+  }
+});
+
+test.each([
+  { key: 'popover', action: 'click', name: 'Popover a' },
+  { key: 'tooltip', action: 'focus', name: 'Tooltip trigger' },
+  { key: 'hoverCard', action: 'focus', name: 'Hover card trigger' },
+  { key: 'menu', action: 'click', name: 'Menu trigger' },
+  { key: 'drawer', action: 'click', name: 'Drawer trigger' },
+  { key: 'panel', action: 'click', name: 'Panel trigger' },
+  { key: 'lightbox', action: 'click', name: 'Lightbox trigger' },
+] as const)('user actions reach bound overlay state ($key)', async ({ key, action, name }) => {
+  const { component } = render(OverlayBindings);
+  const trigger = page.getByRole('button', { name, exact: true });
+  if (action === 'click') await trigger.click();
+  else await trigger.focus();
+  await expect.poll(() => component.read()[key]).toBe(true);
+  if (key === 'popover') expect(component.read().popoverTrigger).toBe('a');
+});
+
+test('writes to bound combobox state reach the control', async () => {
+  const { component } = render(ComboboxBindings);
+  const input = page.getByRole('combobox', { name: 'Fruit', exact: true });
+  component.write('inputValue');
+  await expect.element(input).toHaveValue('ext');
+  component.write('open');
+  await expect.element(page.getByRole('option', { name: 'Apple', exact: true })).toBeVisible();
+  component.write('value');
+  await expect
+    .element(page.getByRole('option', { name: 'Mango', exact: true }))
+    .toHaveAttribute('aria-selected', 'true');
+  component.write('highlightedValue');
+  await expect
+    .element(page.getByRole('option', { name: 'Apple', exact: true }))
+    .toHaveAttribute('data-highlighted');
+});
+
+test('user actions reach bound combobox state', async () => {
+  const { component } = render(ComboboxBindings);
+  await page.getByRole('button', { name: 'Open fruits', exact: true }).click();
+  await expect.poll(() => component.read().open).toBe(true);
+  await page.getByRole('option', { name: 'Mango', exact: true }).hover();
+  await expect.poll(() => component.read().highlightedValue).toBe('mango');
+  await page.getByRole('option', { name: 'Mango', exact: true }).click();
+  await expect.poll(() => component.read().value).toEqual(['mango']);
+  await page.getByRole('combobox', { name: 'Fruit', exact: true }).fill('ap');
+  await expect.poll(() => component.read().inputValue).toBe('ap');
+});
+
+test('writes to bound listbox state reach the control', async () => {
+  const { component } = render(ListboxBindings);
+  component.write('value');
+  await expect
+    .element(page.getByRole('option', { name: 'Mango', exact: true }))
+    .toHaveAttribute('data-selected');
+  component.write('highlightedValue');
+  await page.getByRole('listbox', { name: 'Fruit', exact: true }).focus();
+  await expect
+    .element(page.getByRole('listbox', { name: 'Fruit', exact: true }))
+    .toHaveAttribute('aria-activedescendant', /item:mango$/);
+});
+
+test('user actions reach bound listbox state', async () => {
+  const { component } = render(ListboxBindings);
+  await page.getByRole('option', { name: 'Apple', exact: true }).click();
+  await expect.poll(() => component.read().value).toEqual(['apple']);
+  await expect.poll(() => component.read().highlightedValue).toBe('apple');
+});
+
+test('writes to bound tags input state reach the control', async () => {
+  const { component } = render(TagsInputBindings);
+  component.write('value');
+  await expect.element(page.getByText('Solid', { exact: true })).toBeAttached();
+  await expect.element(page.getByText('Vue', { exact: true })).toBeAttached();
+  await expect.element(page.getByText('React', { exact: true })).toHaveCount(0);
+  component.write('inputValue');
+  await expect
+    .element(page.getByRole('textbox', { name: 'Frameworks', exact: true }))
+    .toHaveValue('ext');
+});
+
+test('user actions reach bound tags input state', async () => {
+  const { component } = render(TagsInputBindings);
+  const input = page.getByRole('textbox', { name: 'Frameworks', exact: true });
+  await input.fill('Solid');
+  await expect.poll(() => component.read().inputValue).toBe('Solid');
+  await input.press('Enter');
+  await expect.poll(() => component.read().value).toEqual(['React', 'Solid']);
+  await expect.poll(() => component.read().inputValue).toBe('');
+});
+
+const readmeItem = page.locator(
+  '[data-scope="tree-view"][data-part="item"][data-value="README.md"]',
+);
+
+test.each([
+  {
+    key: 'expandedValue',
+    assert: async () => {
+      await expect
+        .element(page.getByRole('treeitem', { name: 'App.tsx', exact: true }))
+        .toBeVisible();
+    },
+  },
+  {
+    key: 'selectedValue',
+    assert: async () => {
+      await expect.element(readmeItem).toHaveAttribute('aria-selected', 'true');
+    },
+  },
+  {
+    key: 'focusedValue',
+    assert: async () => {
+      await expect.element(readmeItem).toHaveAttribute('tabindex', '0');
+    },
+  },
+  {
+    key: 'checkedValue',
+    assert: async () => {
+      await expect
+        .element(page.getByRole('checkbox', { name: 'Check README', exact: true }))
+        .toHaveAttribute('aria-checked', 'true');
+    },
+  },
+] as const)('writes to bound tree view state reach the control ($key)', async ({ key, assert }) => {
+  const { component } = render(TreeViewBindings);
+  component.write(key);
+  await assert();
+});
+
+test('user actions reach bound tree view state', async () => {
+  const { component } = render(TreeViewBindings);
+  await page.getByRole('button', { name: 'src', exact: true }).click();
+  await expect.poll(() => component.read().expandedValue).toEqual(['src']);
+  await readmeItem.click();
+  await expect.poll(() => component.read().selectedValue).toEqual(['README.md']);
+  await expect.poll(() => component.read().focusedValue).toBe('README.md');
+  await page.getByRole('checkbox', { name: 'Check README', exact: true }).click();
+  await expect.poll(() => component.read().checkedValue).toEqual(['README.md']);
+});
+
+test('bound JSON tree view state round-trips', async () => {
+  const { component } = render(JsonTreeViewBindings);
+  const branch = page.getByRole('button').nth(0);
+  const nodeValue = document
+    .querySelector('[data-part="branch-control"]')!
+    .getAttribute('data-value')!;
+  expect(nodeValue).not.toBeNull();
+
+  await expect.element(branch).toHaveAttribute('data-state', 'closed');
+  await branch.click();
+  await expect.element(branch).toHaveAttribute('data-state', 'open');
+  await expect.poll(() => component.read().expandedValue).toEqual([nodeValue]);
+  await expect.poll(() => component.read().selectedValue).toEqual([nodeValue]);
+  await expect.poll(() => component.read().focusedValue).toBe(nodeValue);
+
+  component.write('expandedValue', 'missing');
+  await expect.element(branch).toHaveAttribute('data-state', 'closed');
+  component.write('selectedValue', nodeValue);
+  await expect.element(branch).toHaveAttribute('data-selected');
+  component.write('checkedValue', nodeValue);
+  await expect.poll(() => component.read().checkedValue).toEqual([nodeValue]);
+});
+
+test('writes to bound pagination state reach the control', async () => {
+  const { component } = render(PaginationBindings);
+  component.write('page');
+  await expect.element(page.getByText('Page 3 of 5')).toBeAttached();
+  component.write('pageSize');
+  await expect.element(page.getByText('Page 3 of 10')).toBeAttached();
+});
+
+test('user actions reach bound pagination state', async () => {
+  const { component } = render(PaginationBindings);
+  await page.getByRole('button', { name: /page 2/i, exact: true }).click();
+  await expect.poll(() => component.read().page).toBe(2);
+  await page.getByRole('button', { name: 'Change page size', exact: true }).click();
+  await expect.poll(() => component.read().pageSize).toBe(20);
+});
+test('writes to bound date input state reach the control', async () => {
+  const { component } = render(PickerBindings);
+  const month = page.getByRole('spinbutton', { name: /month/i }).first();
+  await expect.element(month).toHaveAttribute('aria-valuenow', '6');
+  component.write('dateInputValue');
+  await expect.element(month).toHaveAttribute('aria-valuenow', '7');
+});
+
+test('writes to the bound date input placeholder reach the segments', async () => {
+  const { component } = render(PickerBindings);
+  const month = page
+    .getByRole('group', { name: 'Placeholder date input' })
+    .getByRole('spinbutton')
+    .first();
+  component.write('placeholderValue');
+  // An empty segment takes its first value from the placeholder date. Ark only reports
+  // placeholder changes that come from the consumer, so there is no user path back to the variable.
+  await month.press('ArrowUp');
+  await expect.element(month).toHaveAttribute('aria-valuenow', '3');
+  expect(component.read().placeholderValue).toBe('2027-03-15');
+});
+
+test('writes to bound date picker state reach the control', async () => {
+  const { component } = render(PickerBindings);
+  const input = page.getByRole('textbox', { name: 'Bound date', exact: true });
+  await expect.element(input).toHaveValue('06/22/2026');
+  component.write('pickerValue');
+  await expect.element(input).toHaveValue('07/04/2026');
+  component.write('pickerOpen');
+  await expect.element(page.getByTestId('date-picker-content')).toBeVisible();
+  component.write('focusedValue');
+  await expect
+    .element(page.locator('[data-slot="date-picker-table-cell-trigger"][data-value="2026-06-10"]'))
+    .toHaveAttribute('tabindex', '0');
+  component.write('pickerView');
+  await expect
+    .poll(() => document.querySelectorAll('[data-slot="date-picker-table-cell-trigger"]').length)
+    .toBe(12);
+});
+
+test('user actions reach bound date picker state', async () => {
+  const { component } = render(PickerBindings);
+  await page.getByRole('button', { name: 'Open bound date picker', exact: true }).click();
+  await expect.poll(() => component.read().pickerOpen).toBe(true);
+  await page
+    .locator('[data-slot="date-picker-table-cell-trigger"][data-value="2026-06-10"]')
+    .click();
+  await expect.poll(() => component.read().pickerValue).toEqual(['2026-06-10']);
+  await expect.poll(() => component.read().focusedValue).toBe('2026-06-10');
+  await page.locator('[data-slot="date-picker-view-trigger"]').click();
+  await expect.poll(() => component.read().pickerView).toBe('month');
+  await page.getByTestId('date-picker-content').press('Escape');
+  await expect.poll(() => component.read().pickerOpen).toBe(false);
+});
+
+test('writes to bound color picker state reach the control', async () => {
+  const { component } = render(PickerBindings);
+  const hex = page.getByRole('textbox', { name: 'Bound hex', exact: true });
+  component.write('colorValue');
+  await expect.element(hex).toHaveValue('#16A34A');
+  component.write('colorOpen');
+  await expect.element(page.getByTestId('color-picker-content')).toBeVisible();
+  component.write('colorFormat');
+  await expect
+    .element(page.getByRole('combobox', { name: 'Bound format', exact: true }))
+    .toHaveValue('hsla');
+});
+
+test('user actions reach bound color picker state', async () => {
+  const { component } = render(PickerBindings);
+  const hex = page.getByRole('textbox', { name: 'Bound hex', exact: true });
+  await hex.fill('#2563eb');
+  await hex.press('Enter');
+  await expect.poll(() => component.read().colorValue).toBe('rgba(37, 99, 235, 1)');
+  await page.getByRole('button', { name: 'Open bound color picker', exact: true }).click();
+  await expect.poll(() => component.read().colorOpen).toBe(true);
+  await page.getByRole('combobox', { name: 'Bound format', exact: true }).selectOption('hsla');
+  await expect.poll(() => component.read().colorFormat).toBe('hsla');
+});
+
+test('writes to bound media state reach the controls', async () => {
+  const { component } = render(MediaBindings);
+  const cropper = () =>
+    document.querySelector('[data-testid="cropper-state"]')?.textContent?.trim();
+  await expect
+    .element(page.locator('[data-slot="image-cropper-image"]'))
+    .toHaveAttribute('data-ready');
+  component.write('zoom');
+  await expect.poll(() => cropper()).toBe('2|0|false');
+  component.write('rotation');
+  await expect.poll(() => cropper()).toBe('2|90|false');
+  component.write('flip');
+  await expect.poll(() => cropper()).toBe('2|90|true');
+
+  component.write('page');
+  await expect.element(page.getByTestId('carousel-progress')).toContainText('2 / 3');
+  component.write('paused');
+  await expect
+    .element(page.getByRole('region', { name: 'Bound marquee', exact: true }))
+    .toHaveAttribute('data-paused');
+  component.write('qrValue');
+  await expect.element(page.getByTestId('qr-value')).toContainText('https://moduix.dev');
+  component.write('paths');
+  await expect.poll(() => document.querySelectorAll('[data-part="segment-path"]').length).toBe(2);
+  component.write('acceptedFiles');
+  await expect.element(page.getByText('moduix.txt', { exact: true })).toHaveCount(0);
+  component.write('clipboardValue');
+  await expect
+    .element(page.getByRole('textbox', { name: 'Bound clipboard', exact: true }))
+    .toHaveValue('second');
+});
+
+test('user actions reach bound media state', async () => {
+  const { component } = render(MediaBindings);
+  await expect
+    .element(page.locator('[data-slot="image-cropper-image"]'))
+    .toHaveAttribute('data-ready');
+  await page.getByRole('button', { name: 'Zoom cropper', exact: true }).click();
+  await expect.poll(() => component.read().zoom).toBe(1.5);
+  await page.getByRole('button', { name: 'Rotate cropper', exact: true }).click();
+  await expect.poll(() => component.read().rotation).toBe(90);
+  await page.getByRole('button', { name: 'Flip cropper', exact: true }).click();
+  await expect.poll(() => component.read().flip.horizontal).toBe(true);
+
+  await page.getByRole('button', { name: 'Next slide', exact: true }).click();
+  await expect.poll(() => component.read().page).toBe(1);
+  await page.getByRole('button', { name: 'Pause marquee', exact: true }).click();
+  await expect.poll(() => component.read().paused).toBe(true);
+  await page.getByRole('button', { name: 'Change QR value', exact: true }).click();
+  await expect.poll(() => component.read().qrValue).toBe('https://chakra-ui.com');
+  await page.getByRole('button', { name: 'Clear bound signature', exact: true }).click();
+  await expect.poll(() => component.read().paths).toEqual([]);
+  await page.getByRole('button', { name: 'Clear bound files', exact: true }).click();
+  await expect.poll(() => component.read().acceptedFiles).toEqual([]);
+  await page.getByRole('button', { name: 'Change clipboard', exact: true }).click();
+  await expect.poll(() => component.read().clipboardValue).toBe('typed');
+});
+test('writes to bound navigation and disclosure state reach the controls', async () => {
+  const { component } = render(NavigationBindings);
+
+  component.write('open');
+  await expect
+    .element(page.getByRole('button', { name: 'Bound collapsible', exact: true }))
+    .toHaveAttribute('aria-expanded', 'true');
+  component.write('tab');
+  await expect
+    .element(page.getByRole('tab', { name: 'Projects', exact: true }))
+    .toHaveAttribute('aria-selected', 'true');
+  component.write('step');
+  await expect.element(page.getByText('Second step')).toBeVisible();
+  component.write('activeIds');
+  await expect
+    .element(page.getByRole('link', { name: 'configuration', exact: true }))
+    .toHaveAttribute('aria-current', 'location');
+  component.write('menu');
+  await expect
+    .element(page.getByRole('button', { name: 'Products', exact: true }))
+    .toHaveAttribute('data-state', 'open');
+  component.write('size');
+  await expect
+    .element(page.getByRole('separator', { name: 'Resize bound panels' }))
+    .toHaveAttribute('aria-valuenow', '60');
+  component.write('linear');
+  await expect
+    .element(page.getByRole('progressbar', { name: 'Bound linear' }))
+    .toHaveAttribute('aria-valuenow', '80');
+  component.write('circular');
+  await expect
+    .element(page.getByRole('progressbar', { name: 'Bound circular' }))
+    .toHaveAttribute('aria-valuenow', '80');
+  component.write('pressed');
+  await expect
+    .element(page.getByRole('button', { name: 'Bound toggle', exact: true }))
+    .toHaveAttribute('aria-pressed', 'true');
+});
+
+test('user actions reach bound navigation and disclosure state', async () => {
+  const { component } = render(NavigationBindings);
+
+  await page.getByRole('button', { name: 'Bound collapsible', exact: true }).click();
+  await expect.poll(() => component.read().open).toBe(true);
+
+  await page.getByRole('tab', { name: 'Projects', exact: true }).click();
+  await expect.poll(() => component.read().tab).toBe('projects');
+
+  await page.getByRole('button', { name: 'Next step', exact: true }).click();
+  await expect.poll(() => component.read().step).toBe(1);
+
+  await page.getByRole('button', { name: 'Activate both sections', exact: true }).click();
+  await expect.poll(() => component.read().activeIds).toEqual(['introduction', 'configuration']);
+
+  await page.getByRole('button', { name: 'Products', exact: true }).press('Enter');
+  await expect.poll(() => component.read().menu).toBe('products');
+
+  const resize = page.getByRole('separator', { name: 'Resize bound panels' });
+  await resize.click();
+  await resize.press('ArrowRight');
+  await expect.poll(() => component.read().size[0]).toBeGreaterThan(40);
+
+  await page.getByRole('button', { name: 'Set linear', exact: true }).click();
+  await expect.poll(() => component.read().linear).toBe(30);
+  await page.getByRole('button', { name: 'Set circular', exact: true }).click();
+  await expect.poll(() => component.read().circular).toBe(30);
+
+  await page.getByRole('button', { name: 'Bound toggle', exact: true }).click();
+  await expect.poll(() => component.read().pressed).toBe(true);
+});
+test('writes to bound action and layout state reach the controls', async () => {
+  const { component } = render(ActionBindings);
+
+  component.write('toggleValue');
+  await expect
+    .element(page.getByRole('radio', { name: 'Toggle B', exact: true }))
+    .toHaveAttribute('aria-checked', 'true');
+  component.write('splitOpen');
+  await expect.element(page.getByTestId('split-content')).toBeVisible();
+  component.write('splitHighlight');
+  await expect
+    .element(page.getByRole('menuitem', { name: 'Draft', exact: true }))
+    .toHaveAttribute('data-highlighted');
+  component.write('sidebarSize');
+  await expect
+    .element(page.getByRole('separator', { name: 'Resize bound sidebar' }))
+    .toHaveAttribute('aria-valuenow', '30');
+  component.write('groupInput');
+  await expect
+    .element(page.getByRole('textbox', { name: 'Bound group input', exact: true }))
+    .toHaveValue('ext');
+  component.write('groupTextarea');
+  await expect
+    .element(page.getByRole('textbox', { name: 'Bound group textarea', exact: true }))
+    .toHaveValue('ext');
+  component.write('sidebarInput');
+  await expect
+    .element(page.getByRole('textbox', { name: 'Bound sidebar input', exact: true }))
+    .toHaveValue('ext');
+  component.write('paletteOpen');
+  await expect.element(page.getByRole('dialog', { name: 'Bound palette' })).toBeVisible();
+  component.write('paletteInput');
+  await expect
+    .element(page.getByRole('combobox', { name: 'Search commands', exact: true }))
+    .toHaveValue('ext');
+  component.write('paletteValue');
+  await expect
+    .element(page.getByRole('option', { name: 'Open files', exact: true }))
+    .toHaveAttribute('aria-selected', 'true');
+  component.write('paletteHighlight');
+  await expect
+    .element(page.getByRole('option', { name: 'Open files', exact: true }))
+    .toHaveAttribute('data-highlighted');
+});
+
+test('user actions reach bound action and layout state', async () => {
+  const { component } = render(ActionBindings);
+
+  await page.getByRole('radio', { name: 'Toggle B', exact: true }).click();
+  await expect.poll(() => component.read().toggleValue).toEqual(['b']);
+
+  await page.getByRole('button', { name: 'Bound split menu', exact: true }).click();
+  await expect.poll(() => component.read().splitOpen).toBe(true);
+  expect(component.read().splitTrigger).not.toBeUndefined();
+  await page.getByRole('menuitem', { name: 'Draft', exact: true }).hover();
+  await expect.poll(() => component.read().splitHighlight).toBe('draft');
+  await page.getByRole('menu').press('Escape');
+
+  const resize = page.getByRole('separator', { name: 'Resize bound sidebar' });
+  await resize.click();
+  await resize.press('ArrowRight');
+  await expect.poll(() => component.read().sidebarSize[0]).toBeGreaterThan(20);
+
+  await page.getByRole('textbox', { name: 'Bound group input', exact: true }).fill('typed');
+  await expect.poll(() => component.read().groupInput).toBe('typed');
+  await page.getByRole('textbox', { name: 'Bound group textarea', exact: true }).fill('typed');
+  await expect.poll(() => component.read().groupTextarea).toBe('typed');
+  await page.getByRole('textbox', { name: 'Bound sidebar input', exact: true }).fill('typed');
+  await expect.poll(() => component.read().sidebarInput).toBe('typed');
+  await page.getByRole('button', { name: 'Bound palette trigger', exact: true }).click();
+  await expect.poll(() => component.read().paletteOpen).toBe(true);
+  await page.getByRole('combobox', { name: 'Search commands', exact: true }).fill('open');
+  await expect.poll(() => component.read().paletteInput).toBe('open');
+  await page.getByRole('option', { name: 'Open files', exact: true }).click();
+  await expect.poll(() => component.read().paletteValue).toEqual(['files']);
+  await expect.poll(() => component.read().paletteHighlight).toBe('files');
+});

@@ -64,9 +64,9 @@ import * as NativeSelectDocs from '@/components/examples/native-select/css-prope
 Компонент выводит настоящий HTML-элемент `<select>`, поэтому браузер по-прежнему отвечает за отображение
 опций, управление с клавиатуры, отправку формы, автозаполнение, проверку и сброс.
 
-В React неуправляемый select строится на нативной проп `defaultValue`. В Solid и Vue передавайте нативный атрибут
+В React неуправляемый select строится на нативной проп `defaultValue`. В Solid, Vue и Svelte передавайте нативный атрибут
 `selected` тому `<option>`, который должен быть выбран изначально: проп `defaultValue` у `NativeSelect` в Solid и
-Vue не имеет эффекта. Используйте `value` вместе с `onChange` в React и Solid или `v-model` в Vue, когда текущее
+Vue не имеет эффекта. Используйте `value` вместе с `onChange` в React и Solid, `v-model` во Vue или `bind:value` в Svelte, когда текущее
 значение хранится в состоянии приложения. Оборачивайте `NativeSelect` в `Field`, если метка, поясняющий текст,
 проверка или состояние `disabled` должны быть общими для поля и элемента управления. Части `Field` связывают этот
 контент с нативным select, а выбор опций по-прежнему остаётся под управлением браузера. При `multiple` или
@@ -115,7 +115,7 @@ CSS Modules, поэтому размеры обоих селектов меня�
 | `NativeSelect` | `native-select-root` |
 | `NativeSelect`, внутренний элемент | `native-select-indicator` |
 
-- В React используйте `className`, а в Solid и Vue `class` на самом select. Для внешнего контейнера `<span>` используйте
+- В React используйте `className`, а в Solid, Vue и Svelte `class` на самом select. Для внешнего контейнера `<span>` используйте
   `controlProps.className` или `controlProps.class`.
 - Задавайте `--moduix-select-action-size` в `controlProps.style` (или на предке), чтобы ей следовали и отступ
   `<select>`, и индикатор.

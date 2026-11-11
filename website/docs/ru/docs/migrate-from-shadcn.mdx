@@ -7,6 +7,8 @@ description: "Перенесите приложение с shadcn на moduix п
 
 import vueAccordion from '../../../snippets/quick-start/vue-css-modules.vue?raw';
 import vueControlledAccordion from '../../../snippets/migrate-from-shadcn/vue/controlled-accordion.vue?raw';
+import svelteAccordion from '../../../snippets/quick-start/svelte-css-modules.svelte?raw';
+import svelteControlledAccordion from '../../../snippets/migrate-from-shadcn/svelte/controlled-accordion.svelte?raw';
 
 Если приложение уже использует shadcn, переход на moduix можно выполнять по одному компоненту.
 Пока вы переносите отдельные экраны или семейства компонентов, обе библиотеки могут работать
@@ -15,14 +17,15 @@ import vueControlledAccordion from '../../../snippets/migrate-from-shadcn/vue/co
 Главный выбор касается исходников компонентов. Подключите npm-пакет, если хотите получать
 обновления через пакетный менеджер. Выберите совместимый с shadcn реестр, если исходники и стили
 должны храниться в вашем репозитории.
-Выбирайте React для замены компонентов внутри существующего приложения shadcn. Solid подходит,
-только если приложение уже работает на Solid или переход также включает осознанную смену фреймворка.
+Выбирайте React для замены компонентов внутри существующего приложения shadcn. Solid, Vue или Svelte
+подходят, только если приложение уже работает на этом фреймворке или переход также включает
+осознанную смену фреймворка.
 
 ## Где хранить исходники компонентов
 
 | Способ установки moduix | Подходит, если | Как приходят обновления |
 | --- | --- | --- |
-| npm-пакет | Компоненты должны оставаться зависимостью, а импорты идти из `@moduix/react/*`, `@moduix/solid/*` или `@moduix/vue/*`. | Обновляйте пакет через пакетный менеджер. |
+| npm-пакет | Компоненты должны оставаться зависимостью, а импорты идти из `@moduix/react/*`, `@moduix/solid/*`, `@moduix/vue/*` или `@moduix/svelte/*`. | Обновляйте пакет через пакетный менеджер. |
 | Реестр, совместимый с shadcn | Вы хотите хранить исходники в приложении, просматривать их и менять напрямую. | Проверяйте и объединяйте каждое обновление реестра вручную. |
 
 Полная настройка описана в [Быстром старте](/docs/quick-start). Если в проекте уже настроены CLI
@@ -55,6 +58,13 @@ import { Dialog } from '@moduix/vue/dialog';
 ```
 
   </Tab>
+  <Tab label="Svelte" value="svelte">
+
+```ts
+import { Dialog } from '@moduix/svelte/dialog';
+```
+
+  </Tab>
 </Tabs>
 
 При установке с исходниками сначала выполните [настройку CLI shadcn](/docs/quick-start#установить-через-shadcn-cli),
@@ -74,6 +84,11 @@ import { Dialog } from '@moduix/vue/dialog';
   <Tab label="Vue" value="vue">
 
 <PackageManagerTabs command="shadcn@latest add @moduix-vue/dialog" dlx />
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+<PackageManagerTabs command="shadcn@latest add @moduix-svelte/dialog" dlx />
 
   </Tab>
 </Tabs>
@@ -157,6 +172,10 @@ Vue использует нативные SFC с `script setup`, свойств�
 
 <CodeBlockRuntime lang="vue" code={vueAccordion} />
 
+Svelte использует компоненты Svelte 5 со свойствами в разметке и `bind:value` для управляемого состояния.
+
+<CodeBlockRuntime lang="svelte" code={svelteAccordion} />
+
 При установке с исходниками сохраните композицию и замените только путь импорта:
 
 ```tsx
@@ -192,6 +211,13 @@ import '@moduix/solid/style.css';
 
 ```ts
 import '@moduix/vue/style.css';
+```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+```ts
+import '@moduix/svelte/style.css';
 ```
 
   </Tab>
@@ -232,7 +258,7 @@ import '@/lib/moduix/styles/style.css';
 
 Tailwind можно оставить в приложении для раскладки и отдельных утилитарных классов при переходе на
 пакеты с CSS Modules. Если стили компонентов должны остаться на Tailwind, используйте отдельный
-React- или Solid-пакет там, где нужный компонент уже доступен. На его странице указаны стабильные
+Tailwind-пакет для React, Solid, Vue или Svelte там, где нужный компонент уже доступен. На его странице указаны стабильные
 слоты, CSS-переменные и свойства `className` или `class`.
 
 ## Адаптируйте обработчики Ark и коллекции
@@ -269,6 +295,10 @@ import { Accordion, AccordionItem, AccordionItemContent, AccordionItemTrigger } 
 Vue использует нативные SFC с `script setup`, свойствами в template и `v-model` для управляемого состояния.
 
 <CodeBlockRuntime lang="vue" code={vueControlledAccordion} />
+
+В Svelte храните значение в `$state` и связывайте его через `bind:value`.
+
+<CodeBlockRuntime lang="svelte" code={svelteControlledAccordion} />
 
 Компоненты с коллекциями, например `Combobox` и `Select`, используют явное состояние коллекции
 Ark. Для элементов-объектов задайте через `itemToString` и `itemToValue`, как получить видимый

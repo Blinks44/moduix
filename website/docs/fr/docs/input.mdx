@@ -67,7 +67,7 @@ Définissez `invalid` sur `Field` lorsque la validation échoue. Ark ajoute `ari
 
 Utilisez les attributs natifs pour les comportements du navigateur, comme la validation, le mode
 de saisie, l’autocomplétion et l’envoi du formulaire. Utilisez `htmlSize` pour définir une largeur
-en caractères et `size` pour modifier la taille visuelle dans React, Solid et Vue.
+en caractères et `size` pour modifier la taille visuelle dans React, Solid, Vue et Svelte.
 
 <Example name="input/native-attributes" />
 
@@ -83,7 +83,7 @@ une zone de dépôt ou gérer le processus de téléversement.
 
 Utilisez cet exemple lorsque le composant parent doit piloter la valeur courante. Dans React, lisez la
 nouvelle valeur dans l’événement natif `onChange(event)` ; dans Solid, utilisez `onInput` ; dans Vue,
-utilisez `v-model`. Transmettez la valeur courante via `value` lorsque le framework sépare les
+utilisez `v-model` ; dans Svelte, utilisez `bind:value`. Transmettez la valeur courante via `value` lorsque le framework sépare les
 liaisons de l’événement et de la valeur.
 
 <Example name="input/controlled" />
@@ -105,13 +105,15 @@ Utilisez `Field` lorsque le champ doit être relié à un libellé, à un texte 
 `Field` prend en charge le libellé, le texte d’aide ou d’erreur, les identifiants générés et l’état
 partagé `disabled`, `invalid`, `required` ou `readOnly`. `Input` reste le contrôle natif : pour un
 champ React contrôlé, utilisez `value` avec `onChange(event)`, `v-model` pour un champ Vue contrôlé,
-ou `defaultValue` pour un champ non contrôlé. Le composant ne gère ni la validation, ni le focus, ni
+`bind:value` pour un champ Svelte contrôlé, ou `defaultValue` pour un champ non contrôlé. Le composant ne gère ni la validation, ni le focus, ni
 la navigation au clavier.
 
 Dans Vue, initialisez le champ avec `v-model` et réinitialisez l’état lié dans le gestionnaire de
 réinitialisation du formulaire : la réinitialisation native ne déclenche pas d’événement de saisie.
 Ark efface actuellement le `defaultValue` natif sans modèle ; utilisez donc `v-model` pour les valeurs
 initiales en attendant la correction.
+
+Dans Svelte, liez la valeur avec `bind:value` et, pour la même raison, réinitialisez l’état lié dans le gestionnaire de réinitialisation du formulaire.
 
 Pour un champ autonome, fournissez vous-même son nom accessible. Utilisez `asChild` uniquement avec
 un seul enfant focusable et compatible avec un champ de saisie ; Ark fusionne les propriétés de
@@ -135,7 +137,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 natif numérique `size` via `htmlSize`. Dans un `Field` ou `FieldRootProvider` moduix désactivé, seule la racine
 applique l’opacité de l’état désactivé.
 
-Utilisez `className` dans React ou `class` dans Solid et Vue sur `Input`. Les variantes Tailwind
+Utilisez `className` dans React ou `class` dans Solid, Vue et Svelte sur `Input`. Les variantes Tailwind
 utilisent les classes utilitaires natives et les classes du consommateur. Les variantes CSS Modules
 reposent sur les tokens de la fondation et n’exposent que les trois variables ci-dessous ; remplacez
 les couleurs, les espacements et la typographie avec une simple classe, qui l’emporte sur les styles

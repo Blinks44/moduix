@@ -7,6 +7,8 @@ allowBuilds:
   esbuild: true
   fsevents: true
   sharp: true
+  # The postinstall only prints a reminder about optional preprocessors.
+  svelte-preprocess: false
   vue-demi: true
   workerd: true
 
@@ -17,13 +19,16 @@ peerDependencyRules:
 catalog:
   '@ark-ui/react': '^5.40.0'
   '@ark-ui/solid': '^5.40.0'
+  '@ark-ui/svelte': '^5.25.1'
   '@ark-ui/vue': '^5.40.0'
   '@internationalized/date': '^3.12.4'
+  '@lucide/svelte': '^1.69.0'
   '@lucide/vue': '^1.66.0'
   '@rsbuild/core': '^2.3.0'
   '@rsbuild/plugin-babel': '^2.1.0'
   '@rsbuild/plugin-react': '^2.1.1'
   '@rsbuild/plugin-solid': '^1.2.2'
+  '@rsbuild/plugin-svelte': '^2.0.1'
   '@rsbuild/plugin-tailwindcss': '^2.0.3'
   '@rsbuild/plugin-vue': '^2.0.1'
   '@rslib/core': '^1.0.5'
@@ -31,12 +36,17 @@ catalog:
   '@rstest/browser': '0.12.5'
   '@rstest/core': '0.12.5'
   '@solidjs/testing-library': '^0.8.10'
+  '@storybook/addon-svelte-csf': '^5.1.6'
   '@storybook/react-vite': '^10.6.5'
+  '@storybook/svelte-vite': '^10.6.5'
   '@storybook/vue3-vite': '^10.6.5'
+  '@sveltejs/package': '^3.0.2'
+  '@sveltejs/vite-plugin-svelte': '^7.3.1'
   '@tailwindcss/vite': '^4.3.3'
   '@tanstack/charts': '^1.2.0'
   '@testing-library/dom': '^10.4.2'
   '@testing-library/react': '^16.3.3'
+  '@testing-library/svelte': '^5.4.2'
   '@testing-library/vue': '^8.1.0'
   '@types/d3-shape': '^3.2.0'
   '@types/node': '^24.19.2'
@@ -60,6 +70,8 @@ catalog:
   'solid-js': '^1.9.18'
   'storybook': '^10.6.5'
   'storybook-solidjs-vite': '^10.7.2'
+  'svelte': '^5.57.3'
+  'svelte-check': '^4.7.8'
   'tailwind-merge': '^3.7.0'
   'tailwindcss': '^4.3.3'
   'unpic': '^4.2.2'
@@ -68,3 +80,6 @@ catalog:
   'vite-plugin-solid': '^2.11.15'
   'vue': '^3.5.44'
   'vue-tsc': '3.3.11'
+
+minimumReleaseAgeExclude:
+  - '@lucide/svelte@1.69.0'

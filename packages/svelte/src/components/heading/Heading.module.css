@@ -1,0 +1,49 @@
+@layer moduix.components {
+  .root {
+    margin: 0;
+    color: var(--moduix-foreground);
+    font-size: var(--moduix-text-3xl);
+    font-weight: var(--moduix-weight-semibold);
+    line-height: var(--moduix-line-height-text-3xl);
+    letter-spacing: 0;
+    text-wrap: balance;
+    overflow-wrap: anywhere;
+
+    &[data-size='xs'] {
+      font-size: var(--moduix-text-sm);
+      line-height: var(--moduix-line-height-text-sm);
+    }
+
+    &[data-size='sm'] {
+      font-size: var(--moduix-text-md);
+      line-height: var(--moduix-line-height-text-md);
+    }
+
+    &[data-size='md'] {
+      font-size: var(--moduix-text-lg);
+      line-height: var(--moduix-line-height-text-lg);
+    }
+
+    &[data-size='lg'] {
+      font-size: var(--moduix-text-xl);
+      line-height: var(--moduix-line-height-text-xl);
+    }
+
+    &[data-size='xl'] {
+      font-size: var(--moduix-text-2xl);
+      line-height: var(--moduix-line-height-text-2xl);
+    }
+
+    &[data-weight='regular'] {
+      font-weight: var(--moduix-weight-regular);
+    }
+
+    &[data-weight='medium'] {
+      font-weight: var(--moduix-weight-medium);
+    }
+
+    &[data-weight='bold'] {
+      font-weight: var(--moduix-weight-bold);
+    }
+  }
+}

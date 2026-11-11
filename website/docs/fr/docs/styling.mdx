@@ -7,7 +7,9 @@ import { ProjectChecklist } from '@/components/examples/styling/project-checklis
 import solidProjectChecklist from '../../../snippets/styling/solid/project-checklist.tsx?raw';
 import solidBrandButton from '../../../snippets/styling/solid/brand-button.tsx?raw';
 import VueProjectChecklist from '../../../snippets/styling/vue/project-checklist.vue?raw';
+import SvelteProjectChecklist from '../../../snippets/styling/svelte/project-checklist.svelte?raw';
 import vueBrandButton from '../../../snippets/styling/vue/brand-button.vue?raw';
+import svelteBrandButton from '../../../snippets/styling/svelte/brand-button.svelte?raw';
 
 # Styles
 
@@ -20,10 +22,10 @@ Ce guide suppose que le package et la feuille de styles correspondants sont déj
 
 ## Choisir une méthode de style
 
-| Méthode | React | Solid | Vue | Cas adapté |
-| --- | --- | --- | --- | --- |
-| CSS Modules | `@moduix/react` | `@moduix/solid` | `@moduix/vue` | Styles fournis, avec redéfinitions par tokens et classes locales |
-| Tailwind CSS | `@moduix/react-tailwind` | `@moduix/solid-tailwind` | `@moduix/vue-tailwind` | Composants basés sur des utilitaires dans une application Tailwind v4 |
+| Méthode | React | Solid | Vue | Svelte | Cas adapté |
+| --- | --- | --- | --- | --- | --- |
+| CSS Modules | `@moduix/react` | `@moduix/solid` | `@moduix/vue` | `@moduix/svelte` | Styles fournis, avec redéfinitions par tokens et classes locales |
+| Tailwind CSS | `@moduix/react-tailwind` | `@moduix/solid-tailwind` | `@moduix/vue-tailwind` | `@moduix/svelte-tailwind` | Composants basés sur des utilitaires dans une application Tailwind v4 |
 
 CSS Modules et Tailwind sont deux modes de distribution équivalents, pas deux couches à combiner sur
 un même composant. Le package doit correspondre au framework et à la méthode de style.
@@ -79,7 +81,7 @@ Définissez les variables dans une classe, ou en ligne lorsque la valeur est dyn
 }
 ```
 
-Passez la classe à `className` en React ou à `class` en Solid et Vue.
+Passez la classe à `className` en React ou à `class` en Solid, Vue et Svelte.
 
 ### Une variante dans toute l’application
 
@@ -136,6 +138,11 @@ dans un composant, afin que ce choix porte un seul nom dans votre code :
 <CodeBlockRuntime lang="vue" code={vueBrandButton} />
 
     </Tab>
+    <Tab label="Svelte" value="svelte">
+
+<CodeBlockRuntime lang="svelte" code={svelteBrandButton} />
+
+    </Tab>
     <Tab label="Styles" value="styles">
 
 ```css file="../../../src/components/examples/styling/brand-button.module.css"
@@ -183,6 +190,11 @@ même feuille de styles et utilise les props `class` natives.
   <Tab label="Vue" value="vue">
 
 <CodeBlockRuntime lang="vue" code={VueProjectChecklist} />
+
+    </Tab>
+  <Tab label="Svelte" value="svelte">
+
+<CodeBlockRuntime lang="svelte" code={SvelteProjectChecklist} />
 
     </Tab>
     <Tab label="Styles" value="styles">
@@ -283,6 +295,27 @@ import { Accordion, AccordionItem, AccordionItemTrigger, AccordionItemContent } 
     </AccordionItem>
   </Accordion>
 </template>
+```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+```svelte
+<script lang="ts">
+  import {
+    Accordion,
+    AccordionItem,
+    AccordionItemContent,
+    AccordionItemTrigger,
+  } from '@moduix/svelte-tailwind/accordion';
+</script>
+
+<Accordion collapsible>
+  <AccordionItem value="shipping" class="rounded-lg border data-[state=open]:border-blue-500">
+    <AccordionItemTrigger class="px-4">Shipping</AccordionItemTrigger>
+    <AccordionItemContent class="px-4">Usually 2 to 4 days.</AccordionItemContent>
+  </AccordionItem>
+</Accordion>
 ```
 
   </Tab>

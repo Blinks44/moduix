@@ -94,6 +94,8 @@ menu trigger and the moduix Button remain on one element.
 
 In Vue, listen with `@click` on the action, use `@open-change` or `v-model:open` for menu state, and pass trigger content through its default slot.
 
+In Svelte, use `onclick` on the action, `bind:open` for menu state, and pass trigger content as `children`. `SplitButtonAction asChild` takes a snippet that spreads `props()` onto the link.
+
 `SplitButtonPositioner` wraps a portal, so its Vue component ref's `$el` points to the portal anchor. The positioned element carries `data-slot="split-button-positioner"`.
 
 ## Anatomy
@@ -114,7 +116,7 @@ Hover or focus a part to find it in the preview.
 
 ## Styling
 
-Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. Tailwind variants use native
+Use `className` in React or `class` in Solid, Vue, and Svelte on exported parts for structural styles. Tailwind variants use native
 utilities and consumer classes; the CSS variables below customize the CSS Modules variants. Data attributes and
 `data-slot` hooks are shared by both styling tracks.
 

@@ -1,0 +1,258 @@
+@layer moduix.components {
+  .root {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--moduix-spacing-3);
+    width: 100%;
+    color: var(--moduix-foreground);
+  }
+
+  .label {
+    font-size: var(--moduix-text-sm);
+    font-weight: var(--moduix-weight-medium);
+    line-height: var(--moduix-line-height-text-sm);
+  }
+
+  .label,
+  .dropzone,
+  .item {
+    &[data-disabled] {
+      opacity: var(--moduix-opacity-disabled);
+
+      :where(
+          [data-slot='field-root'][data-disabled],
+          [data-slot='field-root-provider'][data-disabled],
+          [data-slot='fieldset-root'][data-disabled],
+          [data-slot='fieldset-root-provider'][data-disabled]
+        )
+        & {
+        opacity: 1;
+      }
+    }
+  }
+
+  .dropzone {
+    display: grid;
+    place-items: center;
+    gap: var(--moduix-spacing-3);
+    width: 100%;
+    min-height: 8rem;
+    border: var(--moduix-border-width-sm) dashed var(--moduix-border);
+    border-radius: var(--moduix-radius-md);
+    padding: var(--moduix-spacing-5);
+    background-color: var(--moduix-background);
+    color: var(--moduix-muted-foreground);
+    text-align: center;
+    transition:
+      border-color var(--moduix-transition-default),
+      background-color var(--moduix-transition-default),
+      color var(--moduix-transition-default);
+
+    &[role='button']:not([aria-disabled]) {
+      cursor: pointer;
+    }
+
+    &[data-dragging] {
+      border-color: var(--moduix-primary);
+      background-color: var(--moduix-accent);
+      color: var(--moduix-foreground);
+    }
+
+    &[data-invalid] {
+      border-color: var(--moduix-destructive);
+    }
+
+    &[data-readonly] {
+      opacity: var(--moduix-opacity-disabled);
+    }
+
+    &:focus-visible {
+      outline: var(--moduix-focus-ring-width) solid var(--moduix-ring);
+      outline-offset: var(--moduix-focus-ring-offset);
+    }
+  }
+
+  .dropzoneIcon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--moduix-spacing-10);
+    height: var(--moduix-spacing-10);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
+    border-radius: var(--moduix-radius-full);
+    background-color: var(--moduix-muted);
+    color: var(--moduix-foreground);
+
+    & > svg {
+      width: var(--moduix-spacing-4);
+      height: var(--moduix-spacing-4);
+    }
+  }
+
+  .itemGroup {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: var(--moduix-spacing-2);
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  /* A file row: name and metadata stacked between an optional preview and the delete button. */
+  .item {
+    display: grid;
+    flex: 1 0 100%;
+    grid-template-areas:
+      'name delete'
+      'meta delete';
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    align-content: center;
+    column-gap: var(--moduix-spacing-3);
+    min-height: var(--moduix-size-md);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
+    border-radius: var(--moduix-radius-md);
+    padding: var(--moduix-spacing-2) var(--moduix-spacing-3);
+    background-color: var(--moduix-background);
+
+    &[data-type='rejected'] {
+      border-color: var(--moduix-destructive);
+    }
+
+    &:has([data-slot='file-upload-item-preview']) {
+      grid-template-areas:
+        'preview name delete'
+        'preview meta delete';
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      min-height: var(--moduix-size-xl);
+    }
+
+    /* Image files become compact cards with the thumbnail on top. */
+    &:has([data-slot='file-upload-item-preview-image']) {
+      flex: 0 1 min(100%, 10rem);
+      grid-template-areas:
+        'preview preview'
+        'name delete'
+        'meta delete';
+      grid-template-columns: minmax(0, 1fr) auto;
+
+      .itemPreview {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1;
+        margin-block-end: var(--moduix-spacing-1);
+      }
+    }
+  }
+
+  .itemPreview {
+    grid-area: preview;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--moduix-spacing-10);
+    height: var(--moduix-spacing-10);
+    border-radius: var(--moduix-radius-sm);
+    background-color: var(--moduix-muted);
+    color: var(--moduix-muted-foreground);
+    overflow: hidden;
+  }
+
+  .itemPreviewImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .itemPreviewIcon {
+    width: var(--moduix-spacing-4);
+    height: var(--moduix-spacing-4);
+  }
+
+  .itemName {
+    grid-area: name;
+    overflow: hidden;
+    font-size: var(--moduix-text-sm);
+    font-weight: var(--moduix-weight-medium);
+    line-height: var(--moduix-line-height-text-sm);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .itemMetadata,
+  .itemSizeText {
+    grid-area: meta;
+    color: var(--moduix-muted-foreground);
+    font-size: var(--moduix-text-xs);
+    line-height: var(--moduix-line-height-text-xs);
+  }
+
+  /* The rows have no gap, so an item without metadata stays a single centered line. */
+  .itemMetadata,
+  .item > .itemSizeText {
+    margin-block-start: var(--moduix-spacing-1);
+  }
+
+  .itemMetadata {
+    display: flex;
+    align-items: center;
+    gap: var(--moduix-spacing-1);
+
+    & > .itemSizeText::before {
+      margin-inline-end: var(--moduix-spacing-1);
+      content: '·';
+    }
+  }
+
+  .itemDeleteTrigger {
+    grid-area: delete;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--moduix-size-xs);
+    height: var(--moduix-size-xs);
+    border: 0;
+    border-radius: var(--moduix-radius-sm);
+    padding: 0;
+    background-color: transparent;
+    color: var(--moduix-muted-foreground);
+    appearance: none;
+    cursor: pointer;
+    transition:
+      background-color var(--moduix-transition-default),
+      color var(--moduix-transition-default);
+
+    & > svg {
+      width: var(--moduix-spacing-4);
+      height: var(--moduix-spacing-4);
+    }
+
+    @media (hover: hover) {
+      &:hover:not(:disabled) {
+        background-color: var(--moduix-muted);
+        color: var(--moduix-foreground);
+      }
+    }
+
+    &:focus-visible {
+      outline: var(--moduix-focus-ring-width) solid var(--moduix-ring);
+      outline-offset: var(--moduix-focus-ring-offset);
+    }
+
+    &:disabled {
+      cursor: default;
+    }
+
+    /* A disabled item is dimmed already; read-only keeps the item and dims only the action. */
+    &[data-readonly] {
+      opacity: var(--moduix-opacity-disabled);
+    }
+  }
+}

@@ -35,7 +35,7 @@ Utilisez `Lightbox` lorsque vous voulez principalement afficher des images ou d�
 ### Galerie
 
 Si un CMS ou une API fournit un tableau d’images structuré, conservez l’image sélectionnée et la page
-actuelle de `Carousel` dans l’état React, Solid ou Vue, puis placez `Carousel` dans `LightboxGallery`.
+actuelle de `Carousel` dans l’état React, Solid, Vue ou Svelte, puis placez `Carousel` dans `LightboxGallery`.
 Utilisez `LightboxTrigger.value` pour choisir la diapositive initiale et synchronisez la page de
 `Carousel` pendant la navigation.
 
@@ -85,7 +85,7 @@ lorsque la zone média a besoin de son propre style.
 ### État contrôlé
 
 Utilisez le callback `onOpenChange(details)` d’Ark lorsque l’état de la Lightbox doit rester synchronisé
-avec l’état de l’application en React ou en Solid. En Vue, utilisez `v-model:open`. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+avec l’état de l’application en React ou en Solid. En Vue, utilisez `v-model:open`, et en Svelte `bind:open`. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
 
 <Example name="lightbox/controlled" />
 
@@ -128,7 +128,7 @@ reste accessible aux lecteurs d’écran et inclus dans la zone de focus du dial
 et disparaît en fondu ; Body change d’échelle et de position, tandis que le bouton reste ancré à la
 fenêtre. Sans Body, le contenu est animé uniquement en fondu.
 Avec `asChild`, fournissez un seul élément sémantique. En Solid, `asChild` est une fonction de rendu qui
-reçoit les props de cet élément ; en Vue, utilisez le booléen `as-child` et placez l’élément dans le slot.
+reçoit les props de cet élément ; en Vue, utilisez le booléen `as-child` et placez l’élément dans le slot ; en Svelte, passez un snippet `asChild` qui reçoit un getter de props et étalez `{...props()}` sur l’élément sémantique.
 
 Pour les galeries, gardez l’image sélectionnée et la page de `Carousel` dans l’état de l’application.
 Passez la clé de l’image à `LightboxTrigger value` et mettez cet état à jour depuis

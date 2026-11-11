@@ -61,8 +61,7 @@ Use `asChild` for navigation so the anchor keeps its link semantics while using 
 
 The forwarded ref points to the rendered root and can be used to focus or measure it programmatically. In Solid,
 assign a ref to the element created inside the `asChild` render function, because a ref on `Button` itself is not
-forwarded through that composition path. In Vue, a template ref points to the component instance; use `$el` for the
-rendered root, which is the semantic child when using `asChild`.
+forwarded through that composition path. In Vue, a template ref points to the component instance; use `$el` for the rendered root, which is the semantic child when using `asChild`. In Svelte, use `bind:ref` on `Button`; it holds the rendered root element, which is the element inside the `asChild` snippet when one is used.
 
 <Example name="button/ref" />
 
@@ -70,7 +69,7 @@ rendered root, which is the semantic child when using `asChild`.
 
 `Button` is a single-part root built with the [Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory).
 Use `asChild` when another semantic element should own the rendered DOM node: React passes exactly one child,
-Solid uses an `asChild` render function, and Vue supplies its semantic element as the default slot child. When an
+Solid uses an `asChild` render function, Vue supplies its semantic element as the default slot child, and Svelte uses an `asChild` snippet that spreads `props()` onto its semantic element. When an
 Ark part composes Button, the parent keeps its own `data-scope` and `data-part`; Button keeps its recipe
 classes and stable `data-slot`.
 
@@ -106,7 +105,7 @@ values and copy the resulting CSS.
 
 ### Styling hooks
 
-Use `className` in React or `class` in Solid and Vue on the root. These attributes are shared by both
+Use `className` in React or `class` in Solid, Vue, and Svelte on the root. These attributes are shared by both
 styling tracks.
 
 | Attribute                 | Present when                                                   |

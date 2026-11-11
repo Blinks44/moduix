@@ -1,0 +1,21 @@
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--moduix-spacing-3);
+}
+
+.constrained {
+  max-width: 18rem;
+}
+
+.customSoft {
+  --moduix-tag-bg: color-mix(in oklab, var(--moduix-primary) 16%, var(--moduix-background));
+  --moduix-tag-border-color: color-mix(in oklab, var(--moduix-primary) 35%, transparent);
+  --moduix-tag-color: var(--moduix-primary);
+}
+
+.customOutline {
+  --moduix-tag-border-color: color-mix(in oklab, var(--moduix-foreground) 18%, transparent);
+  --moduix-tag-color: var(--moduix-primary);
+}

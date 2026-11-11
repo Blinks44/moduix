@@ -120,6 +120,8 @@ dans `details.value`.
 En Vue, utilisez `v-model` pour contrôler la sélection et `@value-change` pour recevoir le même
 objet de détails. `TabsContext` expose cet état dans son scoped slot par défaut.
 
+En Svelte, utilisez `bind:value` pour contrôler la sélection, ou `onValueChange(details)`. `TabsContext` transmet le getter d’état à son snippet `render` : lisez-le avec `context().value`.
+
 Utilisez `TabsRootProvider` avec `useTabs()` lorsque l’état doit être créé en dehors de l’arbre
 rendu ou partagé avec une interface voisine. Transmettez le store à `TabsRootProvider` et ne rendez pas
 une autre racine `Tabs` pour ce même état. Utilisez `asChild` sur `TabsTrigger` pour un lien ou un
@@ -138,7 +140,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
     ["TabsIndicator", "tabs-indicator", "Indicateur facultatif de l’onglet sélectionné.", 2],
     ["TabsContent", "tabs-content", "Panneau associé au déclencheur qui possède la même valeur.", 1],
     ["TabsRootProvider", "tabs-root-provider", "Relie les parties à l’état créé avec `useTabs()` de moduix.", 0],
-    ["TabsContext", null, "Expose l’état courant des onglets via une render prop ou un scoped slot en Vue.", 0],
+    ["TabsContext", null, "Expose l’état courant des onglets via une render prop, un scoped slot en Vue ou un snippet `render` en Svelte.", 0],
   ]}
 >
   <AnatomyScene />
@@ -146,7 +148,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 ## Styles
 
-Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées pour les styles de
+Utilisez `className` en React ou `class` en Solid, Vue et Svelte sur les parties exportées pour les styles de
 structure. Pour les styles liés à l’état, préférez les attributs de données d’Ark tels que
 `data-selected`, `data-disabled` et `data-orientation`, avec les sélecteurs `data-slot` de moduix.
 Les variantes Tailwind utilisent les utilitaires natifs et les classes du consommateur ; les

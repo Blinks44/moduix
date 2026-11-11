@@ -1,0 +1,37 @@
+.status {
+  margin: 0;
+  font-size: var(--moduix-text-sm);
+  line-height: var(--moduix-line-height-text-sm);
+  color: var(--moduix-muted-foreground);
+}
+
+.itemGroup {
+  display: inline-grid;
+  justify-items: center;
+  gap: var(--moduix-spacing-1);
+}
+
+.itemLabel {
+  font-size: var(--moduix-text-xs);
+  font-weight: var(--moduix-weight-regular);
+  line-height: var(--moduix-line-height-text-xs);
+  color: var(--moduix-muted-foreground);
+}
+
+.customTimer [data-slot='timer-area'] {
+  font-size: var(--moduix-text-3xl);
+  line-height: var(--moduix-line-height-text-3xl);
+}
+
+.customTimer [data-slot='timer-item'] {
+  color: var(--moduix-primary);
+}
+
+.customTimer [data-slot='timer-separator'] {
+  color: var(--moduix-chart-2);
+}
+
+.customTimer [data-slot='timer-action-trigger'] {
+  border-color: transparent;
+  background-color: var(--moduix-muted);
+}

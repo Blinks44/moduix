@@ -1,0 +1,57 @@
+<script lang="ts">
+  import {
+    Pagination,
+    PaginationContext,
+    PaginationEllipsis,
+    PaginationItem,
+    PaginationNextTrigger,
+    PaginationPrevTrigger,
+  } from '@moduix/svelte/pagination';
+  import { Stack } from '@moduix/svelte/stack';
+  import styles from '@/components/examples/pagination/pagination-data-slicing.module.css';
+
+  const users = [
+    { id: 1, name: 'Emma Wilson', email: 'emma@example.com' },
+    { id: 2, name: 'Liam Johnson', email: 'liam@example.com' },
+    { id: 3, name: 'Olivia Brown', email: 'olivia@example.com' },
+    { id: 4, name: 'Noah Davis', email: 'noah@example.com' },
+    { id: 5, name: 'Ava Martinez', email: 'ava@example.com' },
+    { id: 6, name: 'Ethan Garcia', email: 'ethan@example.com' },
+    { id: 7, name: 'Sophia Rodriguez', email: 'sophia@example.com' },
+    { id: 8, name: 'Mason Lee', email: 'mason@example.com' },
+    { id: 9, name: 'Isabella Walker', email: 'isabella@example.com' },
+    { id: 10, name: 'James Hall', email: 'james@example.com' },
+    { id: 11, name: 'Mia Allen', email: 'mia@example.com' },
+    { id: 12, name: 'Benjamin Young', email: 'benjamin@example.com' },
+  ];
+</script>
+
+<Pagination count={users.length} pageSize={4}>
+  <PaginationContext>
+    {#snippet render(pagination)}
+      <Stack align="flex-start" gap="3">
+        <div class={styles.users}>
+          {#each pagination().slice(users) as user (user.id)}
+            <div class={styles.user}>
+              <strong>{user.name}</strong>
+              <span class={styles.muted}>{user.email}</span>
+            </div>
+          {/each}
+        </div>
+        <Stack direction="row" align="center" wrap="wrap" gap="3">
+          <PaginationPrevTrigger />
+          {#each pagination().pages as page, index (index)}
+            {#if page.type === 'page'}
+              <PaginationItem type={page.type} value={page.value}>
+                {page.value}
+              </PaginationItem>
+            {:else}
+              <PaginationEllipsis {index} />
+            {/if}
+          {/each}
+          <PaginationNextTrigger />
+        </Stack>
+      </Stack>
+    {/snippet}
+  </PaginationContext>
+</Pagination>

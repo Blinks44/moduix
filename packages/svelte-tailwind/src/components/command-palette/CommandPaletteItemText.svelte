@@ -1,0 +1,12 @@
+<script lang="ts">
+  import { ComboboxItemText, type ComboboxItemTextProps } from '@ark-ui/svelte/combobox';
+  import { cn } from '@/lib/moduix/cn';
+  let { class: className, ref = $bindable(null), ...props }: ComboboxItemTextProps = $props();
+</script>
+
+<ComboboxItemText
+  {...props}
+  bind:ref
+  class={cn('grid min-w-0 flex-1 gap-1', className)}
+  data-slot="command-palette-item-text"
+/>

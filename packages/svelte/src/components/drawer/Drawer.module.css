@@ -1,0 +1,429 @@
+@layer moduix.components {
+  .backdrop {
+    position: fixed;
+    z-index: calc(var(--z-index, var(--moduix-z-popup)) - 1);
+    inset: 0;
+    min-height: 100dvh;
+    background-color: var(--moduix-backdrop-bg, var(--moduix-overlay));
+    backdrop-filter: var(--moduix-backdrop-filter, blur(4px));
+    transition:
+      opacity calc(var(--drawer-swipe-strength, 1) * var(--moduix-duration-slower))
+        var(--moduix-ease-out),
+      backdrop-filter calc(var(--drawer-swipe-strength, 1) * var(--moduix-duration-slower))
+        var(--moduix-ease-out);
+
+    &[data-state='open'] {
+      animation: global(moduix-drawer-backdrop-in) var(--moduix-transition-spring);
+    }
+
+    &[data-state='closed'] {
+      animation: global(moduix-drawer-backdrop-out) var(--moduix-transition-spring) forwards;
+    }
+
+    &[data-state='open'][data-swiping] {
+      transition-duration: 0s;
+    }
+
+    /* Keep the backdrop visible while the positioner is still present for the exit animation. */
+    &[hidden]:has(~ .positioner:not([hidden])) {
+      display: block;
+    }
+  }
+
+  .positioner {
+    --_drawer-island-inset: var(--moduix-drawer-island-inset, var(--moduix-spacing-4));
+    position: fixed;
+    z-index: var(--z-index, var(--moduix-z-popup));
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    overflow: hidden;
+    overscroll-behavior: contain;
+
+    &:has(.content[data-variant='island']) {
+      padding: max(var(--_drawer-island-inset), env(safe-area-inset-top, 0px))
+        max(var(--_drawer-island-inset), env(safe-area-inset-right, 0px))
+        max(var(--_drawer-island-inset), env(safe-area-inset-bottom, 0px))
+        max(var(--_drawer-island-inset), env(safe-area-inset-left, 0px));
+    }
+
+    &[data-swipe-direction='up'] {
+      align-items: flex-start;
+    }
+
+    &[data-swipe-direction='left'] {
+      align-items: stretch;
+      justify-content: flex-start;
+    }
+
+    &[data-swipe-direction='right'] {
+      align-items: stretch;
+      justify-content: flex-end;
+    }
+
+    &:not([hidden]) .content[hidden] {
+      display: flex;
+    }
+  }
+
+  .content {
+    /* Overdrag bleed; the up exit keyframe also travels through it. */
+    --_drawer-bleed: var(--moduix-size-xl);
+    /* Extra travel so an island fully leaves the viewport; set per direction below. */
+    --_drawer-island-offset: 0px;
+    /* Side drawer width, set by `size`. */
+    --_drawer-width: 22rem;
+    z-index: calc(var(--moduix-z-popup) + var(--layer-index, 0));
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    /* A fixed height keeps Ark's snap-point measurement stable; do not switch to auto. */
+    height: 100%;
+    max-height: 80dvh;
+    padding: var(--moduix-spacing-3) var(--moduix-spacing-6)
+      calc(var(--moduix-spacing-4) + env(safe-area-inset-bottom, 0px));
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
+    border-radius: var(--moduix-radius-xl) var(--moduix-radius-xl) 0 0;
+    outline: 0;
+    background-color: var(--moduix-popover);
+    color: var(--moduix-popover-foreground);
+    box-shadow: var(--moduix-shadow-lg);
+    overscroll-behavior: contain;
+    transform-origin: center bottom;
+    /* Nested drawers use `scale` and `translate` so Ark's inline swipe `transform` stays intact. */
+    transition:
+      transform calc(var(--drawer-swipe-strength, 1) * var(--moduix-duration-slower))
+        var(--moduix-ease-out),
+      scale var(--moduix-transition-spring),
+      translate var(--moduix-transition-spring);
+
+    &::after {
+      position: absolute;
+      inset-inline: 0;
+      top: 100%;
+      height: var(--_drawer-bleed);
+      background-color: inherit;
+      content: '';
+      pointer-events: none;
+    }
+
+    /* Do not toggle `animation: none` while swiping: Ark would replay the open keyframe. */
+    &[data-state='open'] {
+      animation: global(moduix-drawer-content-in-down) var(--moduix-transition-spring);
+    }
+
+    &[data-state='closed'] {
+      animation: global(moduix-drawer-content-out-down) var(--moduix-transition-spring) forwards;
+    }
+
+    &[data-state='open'][data-swiping],
+    &[data-nested-drawer-swiping] {
+      transition-duration: 0s;
+    }
+
+    &[data-dragging] {
+      user-select: none;
+    }
+
+    &[data-size='sm'] {
+      --_drawer-width: 18rem;
+    }
+
+    &[data-size='lg'] {
+      --_drawer-width: 28rem;
+    }
+
+    &[data-size='xl'] {
+      --_drawer-width: 36rem;
+    }
+
+    &[data-swipe-direction='up'] {
+      transform-origin: center top;
+      padding-top: calc(var(--moduix-spacing-4) + env(safe-area-inset-top, 0px));
+      padding-bottom: var(--moduix-spacing-4);
+      border-radius: 0 0 var(--moduix-radius-xl) var(--moduix-radius-xl);
+
+      &::after {
+        top: auto;
+        bottom: 100%;
+      }
+
+      &[data-state='open'] {
+        animation-name: global(moduix-drawer-content-in-up);
+      }
+
+      &[data-state='closed'] {
+        animation-name: global(moduix-drawer-content-out-up);
+      }
+    }
+
+    &[data-swipe-direction='left'],
+    &[data-swipe-direction='right'] {
+      width: min(var(--_drawer-width), calc(100vw - var(--moduix-spacing-8)));
+      max-height: none;
+      padding: var(--moduix-spacing-6);
+
+      &::after {
+        inset-block: 0;
+        width: var(--_drawer-bleed);
+        height: auto;
+      }
+    }
+
+    &[data-swipe-direction='left'] {
+      transform-origin: left center;
+      border-radius: 0 var(--moduix-radius-xl) var(--moduix-radius-xl) 0;
+
+      &::after {
+        right: 100%;
+        left: auto;
+      }
+
+      &[data-state='open'] {
+        animation-name: global(moduix-drawer-content-in-left);
+      }
+
+      &[data-state='closed'] {
+        animation-name: global(moduix-drawer-content-out-left);
+      }
+    }
+
+    &[data-swipe-direction='right'] {
+      transform-origin: right center;
+      border-radius: var(--moduix-radius-xl) 0 0 var(--moduix-radius-xl);
+
+      &::after {
+        right: auto;
+        left: 100%;
+      }
+
+      &[data-state='open'] {
+        animation-name: global(moduix-drawer-content-in-right);
+      }
+
+      &[data-state='closed'] {
+        animation-name: global(moduix-drawer-content-out-right);
+      }
+    }
+
+    &[data-nested-drawer-open] {
+      scale: calc(1 - 0.05 * var(--nested-drawers, 0));
+    }
+
+    &[data-swipe-direction='down'][data-nested-drawer-open] {
+      translate: 0 calc(-1 * var(--moduix-spacing-10) * var(--nested-drawers, 0));
+    }
+
+    &[data-swipe-direction='up'][data-nested-drawer-open] {
+      translate: 0 calc(var(--moduix-spacing-10) * var(--nested-drawers, 0));
+    }
+
+    &[data-swipe-direction='left'][data-nested-drawer-open] {
+      translate: calc(var(--moduix-spacing-10) * var(--nested-drawers, 0)) 0;
+    }
+
+    &[data-swipe-direction='right'][data-nested-drawer-open] {
+      translate: calc(-1 * var(--moduix-spacing-10) * var(--nested-drawers, 0)) 0;
+    }
+
+    &[data-variant='island'] {
+      border-radius: var(--moduix-radius-xl);
+
+      &::after {
+        display: none;
+      }
+
+      &[data-swipe-direction='down'] {
+        --_drawer-island-offset: max(var(--_drawer-island-inset), env(safe-area-inset-bottom, 0px));
+      }
+
+      &[data-swipe-direction='up'] {
+        --_drawer-island-offset: max(var(--_drawer-island-inset), env(safe-area-inset-top, 0px));
+      }
+
+      &[data-swipe-direction='left'] {
+        --_drawer-island-offset: max(var(--_drawer-island-inset), env(safe-area-inset-left, 0px));
+      }
+
+      &[data-swipe-direction='right'] {
+        --_drawer-island-offset: max(var(--_drawer-island-inset), env(safe-area-inset-right, 0px));
+      }
+    }
+  }
+
+  .grabber {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding-bottom: var(--moduix-spacing-1);
+    cursor: grab;
+    user-select: none;
+
+    &:active {
+      cursor: grabbing;
+    }
+
+    :where(.content[data-swipe-direction='left'], .content[data-swipe-direction='right']) & {
+      display: none;
+    }
+  }
+
+  .grabberIndicator {
+    width: 3rem;
+    height: 0.25rem;
+    border-radius: var(--moduix-radius-full);
+    background-color: var(--moduix-muted-foreground);
+    opacity: 0.45;
+    transition: opacity var(--moduix-transition-default);
+
+    @media (hover: hover) {
+      .grabber:hover & {
+        opacity: 0.7;
+      }
+    }
+  }
+
+  /* Title and close icon share the first row; the description spans both columns. */
+  .header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: var(--moduix-spacing-1);
+
+    & > [data-slot='drawer-title'] {
+      grid-column: 1;
+    }
+
+    & > [data-slot='drawer-close-icon'] {
+      grid-column: 2;
+    }
+
+    & > [data-slot='drawer-description'] {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .title {
+    margin: 0;
+    font-size: var(--moduix-text-lg);
+    font-weight: var(--moduix-weight-semibold);
+    line-height: var(--moduix-line-height-text-lg);
+  }
+
+  .description {
+    margin: 0;
+    color: var(--moduix-muted-foreground);
+    font-size: var(--moduix-text-md);
+    line-height: var(--moduix-line-height-text-md);
+  }
+
+  /* The body inherits the content color; only the description is muted. */
+  .body {
+    min-height: 0;
+    margin-block-start: var(--moduix-spacing-4);
+    overflow-y: auto;
+    font-size: var(--moduix-text-md);
+    line-height: var(--moduix-line-height-text-md);
+  }
+
+  .footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: var(--moduix-spacing-2);
+    margin-block-start: var(--moduix-spacing-6);
+  }
+
+  .closeIcon {
+    --moduix-close-button-radius: var(--moduix-radius-md);
+    --moduix-close-button-color-hover: var(--moduix-popover-foreground);
+    --moduix-close-button-bg-hover: var(--moduix-accent);
+  }
+
+  /* `data-swipe-direction` is the physical opening direction, so the edges stay physical. */
+  .swipeArea {
+    position: fixed;
+    z-index: var(--moduix-z-modal);
+    touch-action: none;
+
+    &[data-swipe-direction='up'],
+    &[data-swipe-direction='down'] {
+      right: 0;
+      left: 0;
+      height: var(--moduix-spacing-10);
+    }
+
+    &[data-swipe-direction='up'] {
+      bottom: 0;
+    }
+
+    &[data-swipe-direction='down'] {
+      top: 0;
+    }
+
+    &[data-swipe-direction='left'],
+    &[data-swipe-direction='right'] {
+      top: 0;
+      bottom: 0;
+      width: var(--moduix-spacing-10);
+    }
+
+    &[data-swipe-direction='left'] {
+      right: 0;
+    }
+
+    &[data-swipe-direction='right'] {
+      left: 0;
+    }
+
+    &[data-disabled] {
+      pointer-events: none;
+    }
+  }
+
+  .indent {
+    position: relative;
+    transform-origin: center top;
+    transition:
+      transform var(--moduix-transition-spring),
+      border-radius var(--moduix-transition-spring);
+
+    /* Recedes while a drawer is open and follows the swipe back to rest. */
+    &[data-active] {
+      border-radius: var(--moduix-radius-lg) var(--moduix-radius-lg) 0 0;
+      transform: translateY(calc(var(--moduix-spacing-2) * (1 - var(--drawer-swipe-progress, 0))))
+        scale(calc(0.97 + 0.03 * var(--drawer-swipe-progress, 0)));
+    }
+  }
+
+  .indentBackground {
+    position: absolute;
+    inset: 0;
+    background-color: var(--moduix-foreground);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--moduix-transition-spring);
+
+    &[data-active] {
+      opacity: calc(1 - var(--drawer-swipe-progress, 0));
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .backdrop[data-state],
+    .content[data-state] {
+      animation: none;
+    }
+
+    .backdrop,
+    .content,
+    .indent,
+    .indentBackground {
+      transition-duration: 1ms;
+    }
+  }
+}

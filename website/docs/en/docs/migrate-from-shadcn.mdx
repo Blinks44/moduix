@@ -7,6 +7,8 @@ description: Move an existing shadcn app to moduix one component at a time, with
 
 import vueAccordion from '../../../snippets/quick-start/vue-css-modules.vue?raw';
 import vueControlledAccordion from '../../../snippets/migrate-from-shadcn/vue/controlled-accordion.vue?raw';
+import svelteAccordion from '../../../snippets/quick-start/svelte-css-modules.svelte?raw';
+import svelteControlledAccordion from '../../../snippets/migrate-from-shadcn/svelte/controlled-accordion.svelte?raw';
 
 If your application already uses shadcn, you can move to moduix one component at a time. The two
 libraries can coexist while you replace individual screens or component families.
@@ -14,14 +16,14 @@ libraries can coexist while you replace individual screens or component families
 The main choice is where each component's source code should live. Use the npm package when you
 want package-managed updates. Use the shadcn-compatible registry when you want the source and styles
 in your own repository. Choose React when you are replacing components inside the existing shadcn
-application. Choose Solid or Vue only when the application itself already uses Solid or Vue, or the migration also
-includes a deliberate framework change.
+application. Choose Solid, Vue, or Svelte only when the application itself already uses that framework, or the
+migration also includes a deliberate framework change.
 
 ## Choose where the source code lives
 
 | moduix installation | Choose it when | How updates work |
 | --- | --- | --- |
-| npm package | You want components to remain a dependency and use imports from `@moduix/react/*`, `@moduix/solid/*`, or `@moduix/vue/*`. | Update the package with your package manager. |
+| npm package | You want components to remain a dependency and use imports from `@moduix/react/*`, `@moduix/solid/*`, `@moduix/vue/*`, or `@moduix/svelte/*`. | Update the package with your package manager. |
 | shadcn-compatible registry | You want to version, inspect, and edit component source in your application. | Review and merge each registry update yourself. |
 
 Read the [Quick start](/docs/quick-start) for the complete setup. If your project already has a
@@ -55,6 +57,13 @@ import { Dialog } from '@moduix/vue/dialog';
 ```
 
   </Tab>
+  <Tab label="Svelte" value="svelte">
+
+```ts
+import { Dialog } from '@moduix/svelte/dialog';
+```
+
+  </Tab>
 </Tabs>
 
 For the copied-source workflow, finish the [shadcn CLI setup](/docs/quick-start#install-with-the-shadcn-cli),
@@ -74,6 +83,11 @@ then add one registry item at a time:
   <Tab label="Vue" value="vue">
 
 <PackageManagerTabs command="shadcn@latest add @moduix-vue/dialog" dlx />
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+<PackageManagerTabs command="shadcn@latest add @moduix-svelte/dialog" dlx />
 
   </Tab>
 </Tabs>
@@ -158,6 +172,10 @@ Vue uses native SFCs with `script setup`, template props, and `v-model` for cont
 
 <CodeBlockRuntime lang="vue" code={vueAccordion} />
 
+Svelte uses Svelte 5 components with props in markup and `bind:value` for controlled state.
+
+<CodeBlockRuntime lang="svelte" code={svelteAccordion} />
+
 For a copied-source install, keep the composition and change only the import source:
 
 ```tsx
@@ -193,6 +211,13 @@ import '@moduix/solid/style.css';
 
 ```ts
 import '@moduix/vue/style.css';
+```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+```ts
+import '@moduix/svelte/style.css';
 ```
 
   </Tab>
@@ -232,9 +257,9 @@ Mapped tokens switch with your `.dark` rules. The `color-scheme` rule switches e
 not map; see [Dark mode](/docs/dark-mode#use-an-existing-theme-switcher).
 
 Tailwind can stay in the application for layout and one-off utility classes while you migrate to the
-CSS Modules packages. If you want component styling to remain in Tailwind, use the separate React, Solid, or
-Vue Tailwind package where that component is available. Use the target component page for stable
-slots, CSS variables, and React `className` or Solid/Vue `class` props.
+CSS Modules packages. If you want component styling to remain in Tailwind, use the separate React, Solid, Vue,
+or Svelte Tailwind package where that component is available. Use the target component page for
+stable slots, CSS variables, and React `className` or Solid/Vue/Svelte `class` props.
 
 ## Adapt Ark state callbacks and collections
 
@@ -270,6 +295,10 @@ import { Accordion, AccordionItem, AccordionItemContent, AccordionItemTrigger } 
 Vue uses native SFCs with `script setup`, template props, and `v-model` for controlled state.
 
 <CodeBlockRuntime lang="vue" code={vueControlledAccordion} />
+
+In Svelte, keep the value in `$state` and bind it with `bind:value`.
+
+<CodeBlockRuntime lang="svelte" code={svelteControlledAccordion} />
 
 Components with collections, including `Combobox` and `Select`, use explicit Ark collection state.
 For object items, define how an item becomes its visible string and stable value with

@@ -1,0 +1,207 @@
+@layer moduix.components {
+  .root {
+    display: flex;
+    flex-direction: column;
+    gap: var(--moduix-carousel-gap, var(--moduix-spacing-3));
+    min-width: 0;
+    width: 100%;
+  }
+
+  .root[data-orientation='vertical'] {
+    flex-direction: row;
+    height: var(--moduix-carousel-height, 24rem);
+  }
+
+  .control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--moduix-carousel-gap, var(--moduix-spacing-3));
+    min-width: 0;
+  }
+
+  /* A vertical control keeps its trigger width next to wide slides. */
+  .control[data-orientation='vertical'] {
+    flex-direction: column;
+    flex-shrink: 0;
+    justify-content: space-between;
+  }
+
+  /* Ark sets display, overflow, scroll snapping, and scrollbar hiding inline. */
+  .itemGroup {
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 0;
+    border-radius: var(--moduix-radius-xl);
+    outline: 0;
+
+    &:focus-visible {
+      outline: var(--moduix-focus-ring-inset-width) solid var(--moduix-ring);
+      outline-offset: var(--moduix-focus-ring-inset-offset);
+    }
+
+    &[data-dragging] {
+      cursor: grabbing;
+      user-select: none;
+    }
+  }
+
+  .itemGroup[data-orientation='vertical'] {
+    height: 100%;
+    overscroll-behavior-y: contain;
+  }
+
+  .item {
+    min-width: 0;
+    min-height: 0;
+  }
+
+  .trigger {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: var(--moduix-carousel-control-size, var(--moduix-size-md));
+    height: var(--moduix-carousel-control-size, var(--moduix-size-md));
+    border: var(--moduix-border-width-sm) solid
+      var(--moduix-carousel-control-border-color, var(--moduix-border));
+    border-radius: var(--moduix-radius-full);
+    background-color: var(--moduix-carousel-control-bg, var(--moduix-card));
+    box-shadow: var(--moduix-shadow-sm);
+    color: var(--moduix-carousel-control-color, var(--moduix-foreground));
+    cursor: pointer;
+    transition:
+      background-color var(--moduix-transition-fast),
+      color var(--moduix-transition-fast);
+
+    & svg {
+      width: var(--moduix-spacing-4);
+      height: var(--moduix-spacing-4);
+    }
+
+    @media (hover: hover) {
+      &:not(:disabled, [data-disabled]):hover {
+        background-color: var(--moduix-accent);
+        color: var(--moduix-accent-foreground);
+      }
+    }
+
+    &[data-pressed] {
+      background-color: var(--moduix-accent);
+      color: var(--moduix-accent-foreground);
+    }
+
+    &:focus-visible {
+      outline: var(--moduix-focus-ring-width) solid var(--moduix-ring);
+      outline-offset: var(--moduix-focus-ring-offset);
+    }
+
+    &:is(:disabled, [data-disabled]) {
+      cursor: not-allowed;
+      opacity: var(--moduix-opacity-disabled);
+    }
+  }
+
+  /* The autoplay trigger usually holds a text label, so it grows with its content. */
+  .autoplayTrigger {
+    width: auto;
+    min-width: var(--moduix-carousel-control-size, var(--moduix-size-md));
+    padding-inline: var(--moduix-spacing-2);
+  }
+
+  /* Default chevrons point along the paging axis. */
+  .trigger[data-orientation='vertical'] > .icon {
+    rotate: 90deg;
+  }
+
+  .root[dir='rtl'] .trigger[data-orientation='horizontal'] > .icon {
+    rotate: 180deg;
+  }
+
+  .indicatorGroup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--moduix-spacing-2);
+  }
+
+  .indicatorGroup[data-orientation='vertical'] {
+    flex-direction: column;
+  }
+
+  .indicator {
+    width: var(--moduix-carousel-indicator-size, var(--moduix-spacing-2));
+    height: var(--moduix-carousel-indicator-size, var(--moduix-spacing-2));
+    padding: 0;
+    border: 0;
+    border-radius: var(--moduix-radius-full);
+    background-color: var(
+      --moduix-carousel-indicator-bg,
+      color-mix(in oklab, var(--moduix-muted-foreground) 50%, transparent)
+    );
+    cursor: pointer;
+    transition:
+      width var(--moduix-transition-fast),
+      height var(--moduix-transition-fast),
+      background-color var(--moduix-transition-fast);
+
+    @media (hover: hover) {
+      &:not(:disabled, [data-disabled], [data-readonly], [data-current]):hover {
+        background-color: var(--moduix-muted-foreground);
+      }
+    }
+
+    &:focus-visible {
+      outline: var(--moduix-focus-ring-width) solid var(--moduix-ring);
+      outline-offset: var(--moduix-focus-ring-offset);
+    }
+
+    &[data-current] {
+      width: calc(var(--moduix-carousel-indicator-size, var(--moduix-spacing-2)) * 3);
+      background-color: var(--moduix-carousel-indicator-bg-current, var(--moduix-primary));
+    }
+
+    &[data-orientation='vertical'][data-current] {
+      width: var(--moduix-carousel-indicator-size, var(--moduix-spacing-2));
+      height: calc(var(--moduix-carousel-indicator-size, var(--moduix-spacing-2)) * 3);
+    }
+
+    &:is(:disabled, [data-disabled], [data-readonly]) {
+      cursor: not-allowed;
+      opacity: var(--moduix-opacity-disabled);
+    }
+  }
+
+  .autoplayIndicator {
+    font-size: var(--moduix-text-xs);
+    font-weight: var(--moduix-weight-medium);
+    line-height: var(--moduix-line-height-text-xs);
+  }
+
+  /* Keeps "current / total" in reading order inside RTL carousels. */
+  .progressText {
+    color: var(--moduix-muted-foreground);
+    direction: ltr;
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
+    font-variant-numeric: tabular-nums;
+    unicode-bidi: isolate;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .trigger,
+    .indicator {
+      transition: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .indicator {
+      background-color: ButtonText;
+    }
+
+    .indicator[data-current] {
+      background-color: Highlight;
+    }
+  }
+}

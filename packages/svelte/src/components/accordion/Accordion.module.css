@@ -1,0 +1,169 @@
+@layer moduix.components {
+  .root {
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    flex-direction: column;
+    color: var(--moduix-foreground);
+
+    &[data-orientation='horizontal'] {
+      width: auto;
+      height: 20rem;
+      max-height: 100%;
+      flex-direction: row;
+    }
+  }
+
+  .item {
+    overflow-anchor: none;
+
+    &[data-orientation='vertical']:not(:last-child) {
+      border-bottom: var(--moduix-border-width-sm) solid
+        var(--moduix-accordion-item-border-color, var(--moduix-border));
+    }
+
+    &[data-orientation='horizontal'] {
+      display: flex;
+
+      &:not(:last-child) {
+        border-inline-end: var(--moduix-border-width-sm) solid
+          var(--moduix-accordion-item-border-color, var(--moduix-border));
+      }
+    }
+  }
+
+  .itemTrigger {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--moduix-accordion-trigger-gap, var(--moduix-spacing-4));
+    margin: 0;
+    padding-block: var(--moduix-accordion-trigger-padding-y, var(--moduix-spacing-2));
+    padding-inline: var(--moduix-accordion-trigger-padding-x, var(--moduix-spacing-3));
+    border: 0;
+    background-color: transparent;
+    color: inherit;
+    font: inherit;
+    font-size: var(--moduix-accordion-trigger-font-size, var(--moduix-text-md));
+    line-height: var(--moduix-line-height-text-md);
+    text-align: start;
+    user-select: none;
+    outline: 0;
+    cursor: pointer;
+    transition:
+      background-color var(--moduix-transition-default),
+      color var(--moduix-transition-default);
+
+    &:not(:disabled) {
+      @media (hover: hover) {
+        &:hover {
+          background-color: var(--moduix-accordion-trigger-bg-hover, var(--moduix-muted));
+        }
+      }
+
+      &:active {
+        background-color: var(--moduix-accordion-trigger-bg-hover, var(--moduix-muted));
+      }
+    }
+
+    &:focus-visible {
+      position: relative;
+      z-index: 1;
+      outline: var(--moduix-focus-ring-width) solid var(--moduix-ring);
+      outline-offset: var(--moduix-focus-ring-inset-offset);
+    }
+
+    &:disabled {
+      cursor: default;
+      opacity: var(--moduix-opacity-disabled);
+    }
+
+    &[data-orientation='horizontal'] {
+      width: 2.5rem;
+      height: 100%;
+      justify-content: center;
+      writing-mode: sideways-lr;
+    }
+  }
+
+  .itemIndicator {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--moduix-accordion-icon-size, var(--moduix-spacing-3));
+    height: var(--moduix-accordion-icon-size, var(--moduix-spacing-3));
+    flex-shrink: 0;
+    transition: transform var(--moduix-transition-default);
+
+    & svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    &[data-orientation='vertical'][data-state='open'] {
+      transform: rotate(180deg);
+    }
+
+    &[data-orientation='horizontal'] {
+      transform: rotate(-90deg);
+
+      &[data-state='open'],
+      &[dir='rtl'] {
+        transform: rotate(90deg);
+      }
+
+      &[dir='rtl'][data-state='open'] {
+        transform: rotate(-90deg);
+      }
+    }
+  }
+
+  .itemContent {
+    overflow: hidden;
+    color: var(--moduix-accordion-item-content-color, var(--moduix-muted-foreground));
+    font-size: var(--moduix-accordion-item-content-font-size, var(--moduix-text-md));
+    line-height: var(--moduix-line-height-text-md);
+
+    &[data-state='open'][data-orientation='vertical'] {
+      animation: global(moduix-accordion-item-content-open) var(--moduix-transition-default);
+    }
+
+    &[data-state='closed'][data-orientation='vertical'] {
+      animation: global(moduix-accordion-item-content-closed) var(--moduix-transition-default);
+    }
+
+    &[data-state='open'][data-orientation='horizontal'] {
+      animation: global(moduix-accordion-item-content-open-horizontal)
+        var(--moduix-transition-default);
+    }
+
+    &[data-state='closed'][data-orientation='horizontal'] {
+      animation: global(moduix-accordion-item-content-closed-horizontal)
+        var(--moduix-transition-default);
+    }
+
+    &[data-orientation='horizontal'] > * {
+      width: 16rem;
+    }
+  }
+
+  .itemBody {
+    display: grid;
+    gap: var(--moduix-accordion-item-body-gap, var(--moduix-spacing-3));
+    min-width: 0;
+    padding: var(--moduix-accordion-item-body-padding, var(--moduix-spacing-3));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .itemTrigger,
+    .itemIndicator {
+      transition: none;
+    }
+
+    .itemContent[data-state][data-orientation] {
+      animation: none;
+    }
+  }
+}

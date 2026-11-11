@@ -1,0 +1,196 @@
+@layer moduix.components {
+  /* The root and the grouped controls all carry `data-size`, so a local size keeps its own padding. */
+  .root,
+  .input,
+  .textarea {
+    --_input-group-height: var(--moduix-size-md);
+    --_input-group-padding-x: var(--moduix-spacing-3-5);
+    --_input-group-font-size: var(--moduix-text-md);
+    --_input-group-line-height: var(--moduix-line-height-text-md);
+
+    &[data-size='xs'] {
+      --_input-group-height: var(--moduix-size-xs);
+      --_input-group-padding-x: var(--moduix-spacing-2-5);
+      --_input-group-font-size: var(--moduix-text-xs);
+      --_input-group-line-height: var(--moduix-line-height-text-xs);
+    }
+
+    &[data-size='sm'] {
+      --_input-group-height: var(--moduix-size-sm);
+      --_input-group-padding-x: var(--moduix-spacing-3);
+      --_input-group-font-size: var(--moduix-text-sm);
+      --_input-group-line-height: var(--moduix-line-height-text-sm);
+    }
+
+    &[data-size='lg'] {
+      --_input-group-height: var(--moduix-size-lg);
+      --_input-group-padding-x: var(--moduix-spacing-4);
+      --_input-group-font-size: var(--moduix-text-lg);
+      --_input-group-line-height: var(--moduix-line-height-text-lg);
+    }
+
+    &[data-size='xl'] {
+      --_input-group-height: var(--moduix-size-xl);
+      --_input-group-padding-x: var(--moduix-spacing-4-5);
+      --_input-group-font-size: var(--moduix-text-lg);
+      --_input-group-line-height: var(--moduix-line-height-text-lg);
+    }
+  }
+
+  .root {
+    display: flex;
+    width: var(--moduix-input-group-width, 100%);
+    min-height: var(--moduix-input-group-height, var(--_input-group-height));
+    align-items: stretch;
+    overflow: hidden;
+    border: var(--moduix-border-width-sm) solid var(--moduix-input);
+    border-radius: var(--moduix-input-group-radius, var(--moduix-radius-md));
+    background-color: var(--moduix-background);
+    color: var(--moduix-foreground);
+    font-size: var(--_input-group-font-size);
+    line-height: var(--_input-group-line-height);
+    outline: var(--moduix-focus-ring-halo-width) solid transparent;
+    transition:
+      border-color var(--moduix-transition-default),
+      outline-color var(--moduix-transition-default),
+      opacity var(--moduix-transition-default);
+
+    &:has(> [data-align='block']) {
+      flex-direction: column;
+    }
+
+    &:focus-within {
+      border-color: var(--moduix-ring);
+      outline-color: color-mix(in oklab, var(--moduix-ring) 50%, transparent);
+    }
+
+    &:has(
+      :is([data-slot='input-root'], [data-slot='textarea-root']):is(
+        [data-invalid],
+        [aria-invalid='true']
+      )
+    ) {
+      border-color: var(--moduix-destructive);
+
+      &:focus-within {
+        outline-color: color-mix(in oklab, var(--moduix-destructive) 20%, transparent);
+      }
+    }
+
+    &:has(
+      :is([data-slot='input-root'], [data-slot='textarea-root']):is([data-disabled], :disabled)
+    ) {
+      opacity: var(--moduix-opacity-disabled);
+
+      :where(
+          [data-slot='field-root'][data-disabled],
+          [data-slot='field-root-provider'][data-disabled],
+          [data-slot='fieldset-root'][data-disabled],
+          [data-slot='fieldset-root-provider'][data-disabled]
+        )
+        & {
+        opacity: 1;
+      }
+    }
+  }
+
+  /* Wins over the Input root styles regardless of stylesheet order. */
+  .root .input {
+    min-height: 0;
+    flex: 1 1 auto;
+    border: 0;
+    border-radius: 0;
+    background-color: transparent;
+    outline: 0;
+    padding-inline: var(--_input-group-padding-x);
+  }
+
+  /* The slot attribute outranks the Textarea state rules regardless of stylesheet order. */
+  .root .textarea[data-slot='textarea-root'] {
+    min-width: 0;
+    flex: 1 1 auto;
+    border: 0;
+    border-radius: 0;
+    background-color: transparent;
+    outline: 0;
+    padding-inline: var(--_input-group-padding-x);
+    resize: none;
+
+    &:is([data-disabled], :disabled) {
+      opacity: 1;
+    }
+  }
+
+  .addon,
+  .text {
+    display: inline-flex;
+    min-width: 0;
+    align-items: center;
+    justify-content: center;
+    gap: var(--moduix-spacing-2);
+    padding-inline: var(--_input-group-padding-x);
+    color: var(--moduix-muted-foreground);
+    overflow: hidden;
+    white-space: nowrap;
+
+    & > svg {
+      width: var(--moduix-spacing-4);
+      height: var(--moduix-spacing-4);
+      flex-shrink: 0;
+    }
+
+    &[data-align='block'] {
+      justify-content: flex-start;
+      padding-block: var(--moduix-spacing-2);
+    }
+  }
+
+  .addon {
+    border-inline: var(--moduix-border-width-sm) solid var(--moduix-border);
+    background-color: var(--moduix-muted);
+
+    &:first-child {
+      border-inline-start: 0;
+    }
+
+    &:last-child {
+      border-inline-end: 0;
+    }
+
+    &[data-align='block'] {
+      border-inline: 0;
+      border-block: var(--moduix-border-width-sm) solid var(--moduix-border);
+
+      &:first-child {
+        border-block-start: 0;
+      }
+
+      &:last-child {
+        border-block-end: 0;
+      }
+    }
+  }
+
+  .clearTrigger {
+    --moduix-close-button-size: var(--moduix-size-xs);
+    --moduix-close-button-icon-size: var(--moduix-spacing-4);
+    --moduix-close-button-focus-ring-width: var(--moduix-border-width-sm);
+    --moduix-close-button-focus-ring-offset: var(--moduix-border-width-sm);
+    align-self: center;
+    margin-inline-end: var(--moduix-spacing-2);
+
+    &[data-size='xs'] {
+      --moduix-close-button-size: var(--moduix-spacing-5);
+    }
+  }
+
+  /* The slot attribute outranks Button's `[data-size]` rules, which would keep its own height. */
+  .root .button[data-slot='input-group-button'] {
+    min-height: auto;
+    height: auto;
+    align-self: stretch;
+    padding-block: 0;
+    border: 0;
+    border-radius: 0;
+  }
+}

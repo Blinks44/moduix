@@ -22,7 +22,7 @@ import * as ClipboardDocs from '@/components/examples/clipboard/css-properties';
 поверхность значения - `ClipboardInput` или `ClipboardValueText` - и `ClipboardTrigger`.
 `ClipboardLabel` необязателен. Внутри триггера можно разместить `ClipboardIndicator`. В React и
 Solid его `children` и `copied` принимают текст и иконки, а в Vue для этого используются обычный
-слот и именованный слот `copied`.
+слот и именованный слот `copied`, а в Svelte - `children` и сниппет `copied`.
 
 ## Выбор подходящего компонента
 
@@ -97,7 +97,7 @@ Solid его `children` и `copied` принимают текст и иконк�
 `ClipboardIndicator` необязателен внутри триггера. Он следует состоянию копирования, а moduix
 подставляет стандартные иконки копирования и подтверждения, если содержимое не задано. Для
 текстовых подписей в React и Solid передайте `copied="Copied"` и `children`, а в Vue используйте
-обычный и именованный слот `copied`.
+обычный и именованный слот `copied`, а в Svelte - `children` и блок `{#snippet copied()}`.
 
 Используйте `defaultValue` для неконтролируемого значения. Если значение принадлежит другой части
 приложения или интерфейсу нужно реагировать на копирование, используйте `value` вместе с
@@ -109,7 +109,9 @@ Solid его `children` и `copied` принимают текст и иконк�
 `ClipboardContext` или `useClipboardContext()`. В Solid `useClipboard()` возвращает функцию доступа:
 передайте её как `value={clipboard}` и читайте состояние как `clipboard().copied` или
 `clipboard().value`. В Vue `useClipboard()` сразу возвращает реактивное состояние: передайте его
-как `:value="clipboard"` и читайте `clipboard.copied` или `clipboard.value`. У корневого компонента нет состояния `disabled`: передайте нативное свойство
+как `:value="clipboard"` и читайте `clipboard.copied` или `clipboard.value`. В Svelte `useClipboard({ id })` возвращает геттер:
+передайте его как `value={clipboard}` и читайте `clipboard().copied`; для управляемого значения используйте
+`bind:value` на `Clipboard`. У корневого компонента нет состояния `disabled`: передайте нативное свойство
 `disabled` и `ClipboardInput`, и `ClipboardTrigger`. Используйте `asChild` для этих частей только
 если другой семантический элемент должен отрисовать узел DOM.
 
@@ -124,7 +126,7 @@ Solid его `children` и `copied` принимают текст и иконк�
     ["ClipboardControl", "clipboard-control", "Объединяет отображение значения и кнопку копирования.", 1],
     ["ClipboardInput", "clipboard-input", "Показывает значение в поле только для чтения. Для изменения используйте контролируемое состояние или `ClipboardContext.setValue()`.", 2],
     ["ClipboardTrigger", "clipboard-trigger", "Копирует текущее значение при активации. По умолчанию отображается как кнопка.", 2],
-    ["ClipboardIndicator", "clipboard-indicator", "Показывает разное содержимое до и после копирования. По умолчанию это иконки копирования и подтверждения; в React и Solid передайте `copied=\"Copied\"` и `children`, а в Vue используйте соответствующие слоты.", 3],
+    ["ClipboardIndicator", "clipboard-indicator", "Показывает разное содержимое до и после копирования. По умолчанию это иконки копирования и подтверждения; в React и Solid передайте `copied=\"Copied\"` и `children`, в Vue используйте соответствующие слоты, а в Svelte - сниппеты.", 3],
     ["ClipboardValueText", "clipboard-value-text", "Выводит значение как текст, когда поле ввода не подходит.", 1],
     ["ClipboardRootProvider", "clipboard-root-provider", "Связывает части с состоянием, созданным через `useClipboard()`.", 0],
   ]}
@@ -134,7 +136,7 @@ Solid его `children` и `copied` принимают текст и иконк�
 
 ## Стилизация
 
-Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях для структурных стилей.
+Используйте `className` в React или `class` в Solid, Vue и Svelte на экспортируемых частях для структурных стилей.
 Варианты Tailwind используют стандартные утилиты и классы потребителя, а варианты CSS Modules -
 приведённые ниже CSS-переменные. Для стилей состояния после копирования используйте атрибут Ark
 `data-copied` вместе с хуками moduix `data-slot`.

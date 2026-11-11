@@ -1,0 +1,416 @@
+@layer moduix.components {
+  .root {
+    --moduix-splitter-resize-trigger-line-color: var(--moduix-sidebar-border);
+    --moduix-splitter-resize-trigger-size: var(--moduix-spacing-3);
+
+    min-height: 24rem;
+    border-color: var(--moduix-sidebar-border);
+    border-radius: 0;
+    background-color: var(--moduix-background);
+    box-shadow: none;
+    isolation: isolate;
+  }
+
+  .panel {
+    position: relative;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    container-type: inline-size;
+    background-color: var(--moduix-sidebar);
+    color: var(--moduix-sidebar-foreground);
+
+    &[data-state='collapsed'] {
+      .header,
+      .footer,
+      .group {
+        padding-inline: var(--moduix-spacing-1);
+      }
+
+      .header,
+      .footer {
+        justify-content: center;
+      }
+
+      .header > :only-child {
+        width: auto;
+      }
+
+      .content {
+        overflow-x: hidden;
+        scrollbar-gutter: auto;
+        scrollbar-width: none;
+      }
+
+      .label,
+      .groupLabel {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        border: 0;
+        white-space: nowrap;
+        clip-path: inset(50%);
+      }
+
+      .menuSub,
+      .groupAction,
+      .input {
+        display: none;
+      }
+
+      .menuButton {
+        width: var(--moduix-size-md);
+        min-height: var(--moduix-size-md);
+        margin-inline: auto;
+        justify-content: center;
+        padding-inline: 0;
+      }
+    }
+  }
+
+  .inset {
+    position: relative;
+    padding: 0;
+    background-color: var(--moduix-background);
+    color: var(--moduix-foreground);
+  }
+
+  .resizeTrigger {
+    z-index: 2;
+  }
+
+  .trigger {
+    display: inline-flex;
+    flex: none;
+    position: relative;
+    z-index: 4;
+    align-items: center;
+    justify-content: center;
+    width: var(--moduix-spacing-7);
+    height: var(--moduix-spacing-7);
+    margin-inline: calc(var(--moduix-spacing-7) * -0.5);
+    padding: 0;
+    border: var(--moduix-border-width-sm) solid var(--moduix-sidebar-border);
+    border-radius: var(--moduix-radius-full);
+    background-color: var(--moduix-background);
+    color: var(--moduix-muted-foreground);
+    cursor: pointer;
+    translate: 0 var(--moduix-sidebar-trigger-offset-y, 40px);
+    box-shadow: var(--moduix-shadow-sm);
+    transition:
+      background-color var(--moduix-transition-default),
+      color var(--moduix-transition-default);
+
+    > svg {
+      width: var(--moduix-spacing-4);
+      height: var(--moduix-spacing-4);
+      transition: transform var(--moduix-transition-default);
+    }
+
+    &[data-side='left'][data-state='collapsed'] > svg,
+    &[data-side='right'][data-state='expanded'] > svg {
+      transform: rotate(180deg);
+    }
+
+    &:disabled,
+    &[aria-disabled='true'] {
+      opacity: var(--moduix-opacity-disabled);
+      pointer-events: none;
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--moduix-sidebar-accent);
+        color: var(--moduix-sidebar-accent-foreground);
+      }
+    }
+  }
+
+  .label,
+  .groupLabel {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .header,
+  .footer {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: var(--moduix-spacing-2);
+    padding: var(--moduix-spacing-3);
+  }
+
+  .header > :only-child {
+    width: 100%;
+  }
+
+  .content {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-height: 0;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+  }
+
+  .group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--moduix-spacing-1);
+    padding: var(--moduix-spacing-3);
+  }
+
+  .groupLabel {
+    flex: 1;
+    margin: 0;
+    padding-inline: var(--moduix-spacing-2);
+    color: var(--moduix-muted-foreground);
+    font-size: var(--moduix-text-xs);
+    font-weight: var(--moduix-weight-medium);
+    line-height: var(--moduix-line-height-text-xs);
+  }
+
+  .groupHeader {
+    display: flex;
+    align-items: center;
+    gap: var(--moduix-spacing-2);
+    min-width: 0;
+  }
+
+  .groupAction {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--moduix-size-xs);
+    height: var(--moduix-size-xs);
+    margin-inline-end: var(--moduix-spacing-2);
+    padding: 0;
+    border: 0;
+    border-radius: var(--moduix-radius-md);
+    background-color: transparent;
+    color: var(--moduix-muted-foreground);
+    cursor: pointer;
+    transition:
+      background-color var(--moduix-transition-default),
+      color var(--moduix-transition-default);
+
+    > svg {
+      width: var(--moduix-spacing-4);
+      height: var(--moduix-spacing-4);
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--moduix-sidebar-accent);
+        color: var(--moduix-sidebar-accent-foreground);
+      }
+    }
+  }
+
+  .menu,
+  .menuSub {
+    display: flex;
+    flex-direction: column;
+    gap: var(--moduix-spacing-1);
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .menuItem,
+  .menuSubItem {
+    position: relative;
+    min-width: 0;
+  }
+
+  .menuButton:has(+ .menuBadge),
+  .menuSubButton:has(+ .menuBadge) {
+    padding-inline-end: var(--moduix-spacing-10);
+  }
+
+  .menuBadge {
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-end: var(--moduix-spacing-2-5);
+    z-index: 1;
+    display: inline-grid;
+    place-items: center;
+    width: var(--moduix-spacing-5);
+    height: var(--moduix-spacing-5);
+    border-radius: var(--moduix-radius-full);
+    background-color: var(--moduix-primary);
+    color: var(--moduix-primary-foreground);
+    font-size: 0.5625rem;
+    font-weight: var(--moduix-weight-medium);
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+    pointer-events: none;
+    transform: translateY(-50%);
+  }
+
+  .menuButton,
+  .menuSubButton {
+    display: flex;
+    align-items: center;
+    gap: var(--moduix-spacing-2);
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    padding-inline: var(--moduix-spacing-2);
+    border: 0;
+    border-radius: var(--moduix-radius-md);
+    background-color: transparent;
+    color: var(--moduix-sidebar-foreground);
+    font: inherit;
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
+    text-align: start;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      background-color var(--moduix-transition-default),
+      color var(--moduix-transition-default);
+
+    > svg {
+      flex: none;
+      width: var(--moduix-spacing-4);
+      height: var(--moduix-spacing-4);
+    }
+
+    > [data-sidebar-icon] {
+      flex: none;
+    }
+
+    > span:last-child {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    &:disabled,
+    &[aria-disabled='true'] {
+      opacity: var(--moduix-opacity-disabled);
+      pointer-events: none;
+    }
+
+    &[data-active] {
+      background-color: var(--moduix-sidebar-accent);
+      color: var(--moduix-sidebar-accent-foreground);
+      font-weight: var(--moduix-weight-medium);
+    }
+
+    @media (hover: hover) {
+      &:hover:not(:disabled, [aria-disabled='true']) {
+        background-color: var(--moduix-sidebar-accent);
+        color: var(--moduix-sidebar-accent-foreground);
+      }
+    }
+  }
+
+  .menuButton {
+    min-height: var(--moduix-size-md);
+    padding-block: var(--moduix-spacing-1);
+
+    &[data-size='sm'] {
+      min-height: var(--moduix-size-sm);
+      font-size: var(--moduix-text-xs);
+      line-height: var(--moduix-line-height-text-xs);
+    }
+
+    &[data-size='lg'] {
+      min-height: var(--moduix-size-lg);
+    }
+
+    > [data-slot='collapsible-indicator'],
+    > [data-slot='menu-indicator'],
+    > [data-scope='select'][data-part='indicator'] {
+      margin-inline-start: auto;
+    }
+
+    > [data-slot='collapsible-indicator'],
+    > [data-slot='menu-indicator'],
+    > [data-scope='select'][data-part='indicator'] {
+      width: var(--moduix-size-xs);
+      height: var(--moduix-size-xs);
+    }
+
+    /* Select positions its indicator inside SelectControl; here it stays in the flex row. */
+    > [data-scope='select'][data-part='indicator'] {
+      position: static;
+      transform: none;
+    }
+
+    > [data-slot='collapsible-indicator'] > svg {
+      width: var(--moduix-spacing-3);
+      height: var(--moduix-spacing-3);
+    }
+
+    > [data-slot='menu-indicator'] {
+      color: var(--moduix-muted-foreground);
+      line-height: 0;
+
+      > svg {
+        display: block;
+        width: var(--moduix-spacing-4);
+        height: var(--moduix-spacing-4);
+      }
+    }
+  }
+
+  .trigger:focus-visible,
+  .groupAction:focus-visible,
+  .menuButton:focus-visible,
+  .menuSubButton:focus-visible {
+    outline: var(--moduix-focus-ring-width) solid var(--moduix-sidebar-ring);
+    outline-offset: var(--moduix-focus-ring-offset);
+  }
+
+  .menuSub {
+    width: auto;
+    margin-block-start: var(--moduix-spacing-1);
+    margin-inline-start: var(--moduix-spacing-4);
+    padding-inline-start: var(--moduix-spacing-2);
+    border-inline-start: var(--moduix-border-width-sm) solid var(--moduix-sidebar-border);
+  }
+
+  .menuSubButton {
+    min-height: var(--moduix-size-sm);
+  }
+
+  @container (max-width: 7rem) {
+    /* .panel outranks the indicators' own display rules, whatever the stylesheet order. */
+    .groupAction,
+    .menuBadge,
+    .panel [data-slot='collapsible-indicator'],
+    .panel [data-slot='menu-indicator'],
+    .panel [data-slot='select-indicator'] {
+      display: none;
+    }
+
+    .menuButton:has(+ .menuBadge),
+    .menuSubButton:has(+ .menuBadge) {
+      padding-inline-end: var(--moduix-spacing-2);
+    }
+  }
+
+  .input {
+    width: 100%;
+  }
+
+  .separator {
+    --moduix-separator-color: var(--moduix-sidebar-border);
+  }
+}

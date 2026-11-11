@@ -55,8 +55,7 @@ uniquement présentatif et ne gère ni l’état de l’application ni le compor
 
 Utilisez `asChild` sur `Empty` ou `EmptyTitle` lorsque la section qui l’accueille nécessite un
 conteneur sémantique ou un autre niveau de titre. Passez un seul enfant à une partie `asChild` pour
-qu’elle puisse lui transmettre ses propriétés et sa référence. En Vue, la référence du composant
-expose l’élément rendu via `$el`. Ajoutez la région, le rôle, la gestion du focus ou le comportement
+qu’elle puisse lui transmettre ses propriétés et sa référence. En Vue, la référence du composant expose l’élément rendu via `$el`. En Svelte, le snippet `asChild` reçoit les propriétés à répartir sur l’hôte, et `bind:ref` expose l’élément rendu. Ajoutez la région, le rôle, la gestion du focus ou le comportement
 `aria-live` nécessaires dans l’interface environnante.
 
 ## Anatomie
@@ -78,7 +77,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 ## Styles
 
-Personnalisez l’apparence de `Empty` avec `className` en React ou `class` en Solid et Vue, les
+Personnalisez l’apparence de `Empty` avec `className` en React ou `class` en Solid, Vue et Svelte, les
 sélecteurs Ark fondés sur `data-scope="empty"` / `data-part` et les attributs `data-slot="empty-*"`
 stables. Les paquets CSS Modules exposent les variables `--moduix-empty-*` ci-dessous pour la surface
 racine, afin qu’un thème puisse ajuster tous les états vides à la fois. Stylisez les autres parties avec

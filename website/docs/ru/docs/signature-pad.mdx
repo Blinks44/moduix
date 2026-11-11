@@ -90,7 +90,7 @@ Ark показано `simulatePressure: true`), поэтому имитация 
 `onDraw(details)`, когда состояние подписи принадлежит приложению. Используйте `SignaturePadRootProvider` с
 `useSignaturePad()`, когда состояние нужно создать вне выводимого дерева или внешним элементам
 нужен доступ к `paths`, `clear()` или `getDataUrl()`. В Vue управляйте путями через
-`v-model:paths` и получайте сведения о рисовании в обработчиках `@draw` или `@draw-end`.
+`v-model:paths` и получайте сведения о рисовании в обработчиках `@draw` или `@draw-end`. В Svelte используйте `bind:paths` и передавайте `onDraw` или `onDrawEnd`.
 
 В Ark Vue 5.39.3 значение `drawEnd.paths` в управляемом режиме может содержать предыдущие пути.
 `v-model:paths` получает завершённые штрихи.
@@ -141,7 +141,7 @@ Ark показано `simulatePressure: true`), поэтому имитация 
 | `SignaturePadGuide` | `signature-pad-guide` |
 | `SignaturePadClearTrigger` | `signature-pad-clear-trigger` |
 
-Используйте `className` в React или `class` в Solid и Vue на любой экспортируемой части для локальной
+Используйте `className` в React или `class` в Solid, Vue и Svelte на любой экспортируемой части для локальной
 стилизации. moduix также добавляет стабильные атрибуты `data-slot`:
 
 | Часть                                | `data-slot`                   |

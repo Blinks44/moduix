@@ -1,0 +1,40 @@
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--moduix-spacing-2);
+}
+
+.column {
+  display: grid;
+  gap: var(--moduix-spacing-3);
+}
+
+.shortcutRow {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  align-items: center;
+  gap: var(--moduix-spacing-3);
+  color: var(--moduix-muted-foreground);
+  font-size: var(--moduix-text-sm);
+  line-height: var(--moduix-line-height-text-sm);
+}
+
+.customKbd {
+  --moduix-kbd-bg: color-mix(in oklab, var(--moduix-primary) 12%, var(--moduix-background));
+  --moduix-kbd-border-color: color-mix(in oklab, var(--moduix-primary) 32%, transparent);
+  --moduix-kbd-color: var(--moduix-primary);
+  --moduix-kbd-height: 2rem;
+  --moduix-kbd-padding-x: var(--moduix-spacing-3);
+  --moduix-kbd-radius: var(--moduix-radius-md);
+  --moduix-kbd-shadow: inset 0 -1px 0 color-mix(in oklab, var(--moduix-primary) 22%, transparent);
+}
+
+.customGroup {
+  gap: var(--moduix-spacing-2);
+}
+
+.dense {
+  --moduix-kbd-height: 1.25rem;
+  --moduix-kbd-padding-x: var(--moduix-spacing-1);
+}

@@ -64,9 +64,9 @@ Il rend un véritable élément HTML `<select>` : le navigateur reste donc respo
 de la navigation au clavier, de la soumission et de la réinitialisation du formulaire, du remplissage automatique
 et de la validation.
 
-En React, construisez un select non contrôlé avec la prop native `defaultValue`. En Solid et en Vue, transmettez
+En React, construisez un select non contrôlé avec la prop native `defaultValue`. En Solid, Vue et Svelte, transmettez
 l’attribut natif `selected` à l’`<option>` qui doit être présélectionnée : une prop `defaultValue` sur le
-`NativeSelect` Solid ou Vue n’a aucun effet. Utilisez `value` avec `onChange` en React et en Solid, ou `v-model` en Vue,
+`NativeSelect` Solid ou Vue n’a aucun effet. Utilisez `value` avec `onChange` en React et en Solid, `v-model` en Vue, ou `bind:value` en Svelte,
 lorsque l’état de l’application contrôle la valeur courante. Placez `NativeSelect` dans `Field` lorsque le libellé, le texte
 associé, la validation ou l’état `disabled` doivent être partagés avec le contrôle. Les éléments de `Field` relient ce
 contenu au select natif, tandis que le navigateur continue de gérer la sélection des options. Avec `multiple` ou
@@ -114,7 +114,7 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 | `NativeSelect` | `native-select-root` |
 | `NativeSelect`, élément interne | `native-select-indicator` |
 
-- En React, utilisez `className` sur le select et, en Solid ou en Vue, `class`. Utilisez `controlProps.className` ou
+- En React, utilisez `className` sur le select et, en Solid, Vue ou Svelte, `class`. Utilisez `controlProps.className` ou
   `controlProps.class` pour le conteneur externe `<span>`.
 - Définissez `--moduix-select-action-size` dans `controlProps.style` (ou sur un ancêtre) pour que l’espacement
   du `<select>` et l’indicateur la suivent.

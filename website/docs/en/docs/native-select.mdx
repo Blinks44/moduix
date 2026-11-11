@@ -65,10 +65,10 @@ native event and pass it back through `value`.
 browser remains responsible for option rendering, keyboard interaction, form submission, autofill,
 validation, and reset.
 
-React builds an uncontrolled select with the native `defaultValue` prop. In Solid and Vue, pass the
+React builds an uncontrolled select with the native `defaultValue` prop. In Solid, Vue, and Svelte, pass the
 native `selected` attribute to the `<option>` that should be initially selected: a `defaultValue` prop
 on the Solid or Vue `NativeSelect` has no effect. Use `value` with `onChange` in React and Solid, or
-`v-model` in Vue, when application state controls the current value. Wrap `NativeSelect` in `Field` when
+`v-model` in Vue, or `bind:value` in Svelte, when application state controls the current value. Wrap `NativeSelect` in `Field` when
 the label, supporting text, validation, or disabled state should be shared with the control. The
 `Field` parts connect that content to the native select while the browser still handles option selection.
 With `multiple` or `size > 1`, the browser handles the list interaction and the decorative indicator is
@@ -117,7 +117,7 @@ Hover or focus a variable to see it in the preview.
 | `NativeSelect` | `native-select-root` |
 | `NativeSelect`, inner element | `native-select-indicator` |
 
-- In React use `className` on the select, and in Solid or Vue use `class`. Use
+- In React use `className` on the select, and in Solid, Vue, or Svelte use `class`. Use
   `controlProps.className` or `controlProps.class` for the outer wrapper `<span>`.
 - Set `--moduix-select-action-size` in `controlProps.style` (or on an ancestor) so both the select
   padding and the indicator follow it.

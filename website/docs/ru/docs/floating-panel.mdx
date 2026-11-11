@@ -21,8 +21,9 @@ import AnatomyScene from '@/components/examples/floating-panel/anatomy';
 и размера, а `FloatingPanelContent` представляет видимую поверхность окна. Заголовок становится
 областью перетаскивания, а `FloatingPanelResizeTriggerGroup` добавляет ручки изменения размера по краям панели.
 
-React, Solid и Vue используют одинаковые плоские имена компонентов. В Vue части компонента
+React, Solid, Vue и Svelte используют одинаковые плоские имена компонентов. В Vue части компонента
 соединяются через слоты, а для управляемых состояний открытия, позиции или размера используется `v-model`.
+В Svelte части вкладываются друг в друга напрямую, а состояние управляется через `bind:open`, `bind:position` или `bind:size`.
 
 ## Выбор подходящего компонента
 
@@ -81,7 +82,7 @@ React, Solid и Vue используют одинаковые плоские и�
 
 Используйте `FloatingPanelContext` или `useFloatingPanelContext`, чтобы читать состояние и методы
 панели внутри дерева компонентов. Vue получает значение контекста через scoped slot, а Solid
-предоставляет его как accessor-функцию.
+предоставляет его как accessor-функцию. В Svelte геттер передаётся в сниппет `render`, поэтому читайте `panel().open`.
 
 <Example name="floating-panel/context" />
 
@@ -89,7 +90,7 @@ React, Solid и Vue используют одинаковые плоские и�
 
 Используйте `useFloatingPanel` вместе с `FloatingPanelRootProvider`, если элементам управления за
 пределами дерева панели нужны методы `minimize`, `maximize` и `setOpen`. В Solid состояние хранилища
-читается через accessor-функцию. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
+читается через accessor-функцию, а в Svelte через геттер. Подробнее в разделе [Выносите состояние за пределы дерева](/docs/composition-patterns#root-provider).
 
 <Example name="floating-panel/root-provider" />
 
@@ -115,7 +116,7 @@ React, Solid и Vue используют одинаковые плоские и�
 `FloatingPanelRootProvider` для одного экземпляра состояния. `position` и `size` управляются независимо. Используйте
 `FloatingPanelResizeTriggerGroup axes` или отдельные `FloatingPanelResizeTrigger`, только если стандартный набор ручек не подходит.
 Для `asChild` передавайте один семантически подходящий дочерний элемент. В Vue поместите дочерний элемент
-в слот, а в Solid передайте функцию рендера.
+в слот, в Solid передайте функцию рендера, а в Svelte сниппет `asChild`, который передаёт `props()` дочернему элементу.
 
 ## Анатомия
 
@@ -153,7 +154,7 @@ React, Solid и Vue используют одинаковые плоские и�
 состояния Ark, поэтому задавайте `defaultSize`, `minSize` и `maxSize` на корне, а не CSS-размеры на
 `FloatingPanelContent`. Анимация содержимого читает общие переменные `--moduix-popup-motion-*`.
 
-Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях. Варианты на Tailwind
+Используйте `className` в React или `class` в Solid, Vue и Svelte на экспортируемых частях. Варианты на Tailwind
 используют нативные утилиты и классы потребителя. Варианты на CSS Modules построены на токенах foundation
 и не имеют переменных компонента: класс на части перекрывает стили компонента из слоя.
 

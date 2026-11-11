@@ -139,12 +139,10 @@ import AnatomyScene from '@/components/examples/file-upload/basic';
 
 ## Композиция
 
-`FileUpload` можно импортировать из `@moduix/react/file-upload` и `@moduix/vue/file-upload`. Компонент и хуки `useFileUpload` и
-`useFileUploadContext` также доступны из `@moduix/react`.
-
-Тот же компонент доступен из `@moduix/solid/file-upload`, `@moduix/react-tailwind/file-upload`,
-`@moduix/solid-tailwind/file-upload` и `@moduix/vue-tailwind/file-upload`. Все шесть вариантов используют одинаковые части компонента и модель
-состояния. Выберите пакет, который соответствует вашему фреймворку и варианту стилизации.
+Импортируйте `FileUpload`, его части, `useFileUpload` и `useFileUploadContext` из подпути
+`file-upload` вашего пакета, например `@moduix/react/file-upload` или
+`@moduix/svelte-tailwind/file-upload`. Во всех фреймворках и вариантах стилизации части и модель
+состояния одинаковые.
 
 `FileUpload` по умолчанию хранит состояние выбранных файлов внутри себя. Используйте `defaultAcceptedFiles` для начального
 значения в неуправляемом режиме, а `acceptedFiles` вместе с `onFileChange(details)`, если состояние принадлежит приложению.
@@ -189,7 +187,7 @@ import AnatomyScene from '@/components/examples/file-upload/basic';
 
 ## Стилизация
 
-Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях для структурных стилей. Варианты Tailwind
+Используйте `className` в React или `class` в Solid, Vue и Svelte на экспортируемых частях для структурных стилей. Варианты Tailwind
 используют нативные utility-классы и классы потребителя. CSS Modules построены на токенах foundation и не имеют
 переменных компонента: класс на части перекрывает стили из слоя компонентов. Оба варианта стилизации используют общие
 атрибуты состояния Ark и хуки moduix `data-slot`.

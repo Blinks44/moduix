@@ -1,4 +1,3 @@
-import type { JSX } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
 import {
   Breadcrumbs,
@@ -26,13 +25,6 @@ const defaultLinks = [
 ] as const;
 
 const defaultPage = 'Go Developer';
-
-const collapsedMenuContentStyle = {
-  '--moduix-popup-item-font-size': 'var(--moduix-text-xs)',
-  '--moduix-popup-item-padding-x-end': '0.5rem',
-  '--moduix-popup-item-padding-x-start': '0.5rem',
-  '--moduix-popup-item-padding-y': '0.25rem',
-} as JSX.CSSProperties;
 
 function DefaultBreadcrumbs() {
   return (
@@ -77,10 +69,11 @@ export const Collapsed: Story = {
               )}
             />
             <MenuPositioner>
-              <MenuContent style={collapsedMenuContentStyle}>
+              <MenuContent>
                 <MenuViewport>
                   <MenuItem
                     value="engineering"
+                    class="px-2 text-xs"
                     asChild={(props) => (
                       <a {...props()} href="#">
                         Engineering
@@ -89,6 +82,7 @@ export const Collapsed: Story = {
                   />
                   <MenuItem
                     value="backend"
+                    class="px-2 text-xs"
                     asChild={(props) => (
                       <a {...props()} href="#">
                         Backend
@@ -97,6 +91,7 @@ export const Collapsed: Story = {
                   />
                   <MenuItem
                     value="golang"
+                    class="px-2 text-xs"
                     asChild={(props) => (
                       <a {...props()} href="#">
                         Golang

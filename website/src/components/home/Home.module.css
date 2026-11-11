@@ -67,6 +67,10 @@
   &[data-framework='vue'] {
     background: #34c38f;
   }
+
+  &[data-framework='svelte'] {
+    background: #ff3e00;
+  }
 }
 
 .eyebrow,
@@ -218,8 +222,8 @@
   font-weight: 500;
 }
 
-.worksNote {
-  margin: 0 0 0 8px;
+.works .worksNote {
+  margin: 12px 0 0;
   color: var(--rp-c-text-3);
   font-family: var(--rp-font-family-mono);
   font-size: 12px;
@@ -389,7 +393,7 @@
 /* 01 · One API */
 .apiGrid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 16px;
   margin-top: 40px;
 }
@@ -425,10 +429,6 @@
     border-radius: 0;
     background: transparent;
   }
-}
-
-.apiFile {
-  margin-left: auto;
 }
 
 /* 02 · Install */
@@ -886,6 +886,7 @@
     width: 100%;
   }
 
+  .apiGrid,
   .tiles,
   .themeGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));

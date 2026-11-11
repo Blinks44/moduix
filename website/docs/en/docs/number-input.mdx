@@ -130,7 +130,7 @@ Use `NumberInputField` for the standard three-part control. Keep `value` and `de
 strings, and read `details.value` from `onValueChange` when the input is controlled. When state must
 be created outside the rendered part tree, call `useNumberInput()` and pass the matching store to
 `NumberInputRootProvider`; do not render `NumberInput` or `NumberInputRootProvider` for the same store.
-React reads store properties directly, Solid reads them through the returned accessor, and Vue exposes the reactive store directly to the template.
+React reads store properties directly, Solid reads them through the returned accessor, Vue exposes the reactive store directly to the template, and Svelte returns a getter, so read the state with `numberInput().value`.
 
 Use `NumberInputControl` with individual parts when the trigger order, icons, or input styling must
 differ. Add `NumberInputScrubber` alongside the field for drag-to-change behavior. Use
@@ -161,7 +161,7 @@ Hover or focus a part to find it in the preview.
 
 ## Styling
 
-Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. Tailwind variants
+Use `className` in React or `class` in Solid, Vue, and Svelte on exported parts for structural styles. Tailwind variants
 use native utilities and consumer classes; the CSS variables below customize the CSS Modules variants.
 Data attributes and `data-slot` hooks are shared by both styling tracks.
 

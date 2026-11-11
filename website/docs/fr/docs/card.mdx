@@ -96,7 +96,7 @@ Faites de la racine un formulaire lorsque la carte regroupe des champs et des ac
 
 ## Composition
 
-Les mêmes exports sont disponibles depuis `@moduix/solid/card` pour Solid.
+Les mêmes exports sont disponibles depuis `@moduix/solid/card` pour Solid, `@moduix/vue/card` pour Vue et `@moduix/svelte/card` pour Svelte.
 
 Card ne gère aucun état, fonction de rappel, contexte, comportement clavier ni champ masqué. Utilisez ses parties simples pour le contenu de présentation. Utilisez `asChild` lorsqu’un élément sémantique doit porter la racine ou une autre partie ; il doit rendre exactement un enfant capable de recevoir les propriétés fusionnées. En Solid, `asChild` utilise une fonction de rendu telle que `asChild={(props) => <a {...props()} />}`.
 

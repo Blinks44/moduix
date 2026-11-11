@@ -7,6 +7,7 @@ block: parallax-card
 import { ParallaxCard } from '@/components/blocks/parallax-card';
 import parallaxCardSolid from '../../../snippets/blocks/solid/parallax-card.tsx?raw';
 import parallaxCardVue from '../../../snippets/blocks/vue/parallax-card.vue?raw';
+import parallaxCardSvelte from '../../../snippets/blocks/svelte/parallax-card.svelte?raw';
 import parallaxCardReact from '../../../src/components/blocks/parallax-card.tsx?raw';
 import parallaxCardCss from '../../../src/components/blocks/parallax-card.module.css?raw';
 
@@ -14,7 +15,7 @@ import parallaxCardCss from '../../../src/components/blocks/parallax-card.module
 
 <ExamplePanel
   clientOnly
-  sources={{ react: parallaxCardReact, solid: parallaxCardSolid, vue: parallaxCardVue }}
+  sources={{ react: parallaxCardReact, solid: parallaxCardSolid, vue: parallaxCardVue, svelte: parallaxCardSvelte }}
   files={[{ name: 'parallax-card.module.css', code: parallaxCardCss }]}
 >
   <PreviewFrame maxWidth="sm">

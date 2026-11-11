@@ -73,7 +73,7 @@ Pass `name` and render `RatingGroupHiddenInput` when the selected score should b
 
 ### Controlled
 
-Pass `value` and `onValueChange` (`v-model` in Vue) when the score depends on other state or a parent
+Pass `value` and `onValueChange` (`v-model` in Vue, `bind:value` in Svelte) when the score depends on other state or a parent
 resets it. See [Control state from the application](/docs/composition-patterns#controlled-state).
 
 <Example name="rating-group/controlled" />
@@ -102,8 +102,7 @@ root when the value should be submitted by a native form.
 
 For a custom item tree, use `RatingGroupContext` with `RatingGroupItem`; use
 `RatingGroupRootProvider` with `useRatingGroup()` when the store must be created outside the
-rendered tree. React reads the store as an object, Solid reads its reactive state through the
-returned accessor, and Vue exposes the reactive store directly to the template.
+rendered tree. React reads the store as an object, Solid reads its reactive state through the returned accessor, Vue exposes the reactive store directly to the template, and Svelte returns a getter, so read the state with `ratingGroup().value`.
 
 ## Anatomy
 
@@ -128,7 +127,7 @@ Hover or focus a part to find it in the preview.
 
 ## Styling
 
-Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. Ark also exposes
+Use `className` in React or `class` in Solid, Vue, and Svelte on exported parts for structural styles. Ark also exposes
 `data-scope="rating-group"` and `data-part` attributes. For state-based styles, use data attributes such as `data-disabled`, `data-readonly`, `data-checked`,
 `data-highlighted`, and `data-half`, together with moduix `data-slot` hooks. Tailwind variants use
 native utilities and consumer classes; the CSS Modules variants also expose the registered

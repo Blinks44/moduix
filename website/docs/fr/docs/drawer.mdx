@@ -146,8 +146,8 @@ store. Les panneaux imbriqués utilisent des stores et des arborescences
 Regroupez dans `DrawerStack` les surfaces qui doivent se déplacer ensemble, puis associez
 `DrawerIndentBackground` et `DrawerIndent`. Utilisez `asChild` pour un hôte personnalisé du trigger
 ou de la fermeture : React reçoit un seul enfant pouvant recevoir le focus, Solid utilise
-une fonction de rendu qui diffuse `props()` sur l'enfant, et Vue utilise l'attribut `as-child`
-avec un seul élément enfant. Les callbacks Ark reçoivent des objets de
+une fonction de rendu qui diffuse `props()` sur l'enfant, Vue utilise l'attribut `as-child`
+avec un seul élément enfant, et Svelte un snippet `asChild` qui diffuse `props()` sur l'enfant. Les callbacks Ark reçoivent des objets de
 détails, comme `details.open`, `details.snapPoint` et `details.value`.
 
 ## Anatomie
@@ -180,7 +180,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 ## Styles
 
-Utilisez `className` dans React ou `class` dans Solid et Vue sur les parties exportées pour les styles
+Utilisez `className` dans React ou `class` dans Solid, Vue et Svelte sur les parties exportées pour les styles
 structurels. Pour les styles liés à l'état, préférez les attributs de données d'Ark tels que
 `data-state`, `data-swipe-direction` et `data-dragging`, avec les sélecteurs `data-slot` de moduix.
 Les variantes Tailwind utilisent des utilitaires natifs et les classes du consommateur ; les

@@ -1,0 +1,87 @@
+@layer moduix.stories {
+  .stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--moduix-spacing-3);
+  }
+
+  .triggerGroup {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--moduix-spacing-2);
+  }
+
+  .titleText {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .bodyStack {
+    display: grid;
+    gap: var(--moduix-spacing-3);
+  }
+
+  .bodyStack p {
+    margin: 0;
+  }
+
+  .status {
+    color: var(--moduix-muted-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
+  }
+
+  .metricGrid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--moduix-spacing-2);
+  }
+
+  .metric {
+    display: grid;
+    gap: var(--moduix-spacing-1);
+    padding: var(--moduix-spacing-3);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
+    border-radius: var(--moduix-radius-md);
+    background: var(--moduix-background);
+  }
+
+  .metric span {
+    color: var(--moduix-muted-foreground);
+    font-size: var(--moduix-text-xs);
+  }
+
+  .metric strong {
+    font-size: var(--moduix-text-lg);
+  }
+
+  .customPanel {
+    border-color: color-mix(in oklab, var(--moduix-primary), black 18%);
+    border-radius: var(--moduix-radius-lg);
+    background-color: var(--moduix-primary);
+    color: var(--moduix-primary-foreground);
+
+    & [data-slot='floating-panel-header'] {
+      border-bottom-color: inherit;
+      background-color: color-mix(in oklab, var(--moduix-primary), white 12%);
+    }
+
+    & [data-slot='floating-panel-drag-indicator'] {
+      color: inherit;
+    }
+
+    & :is([data-slot='floating-panel-stage-trigger'], [data-slot='floating-panel-close-icon']) {
+      border-color: color-mix(in oklab, var(--moduix-primary), white 22%);
+      background-color: color-mix(in oklab, var(--moduix-primary), white 8%);
+      color: inherit;
+
+      &:hover {
+        background-color: color-mix(in oklab, var(--moduix-primary), white 18%);
+      }
+    }
+  }
+}

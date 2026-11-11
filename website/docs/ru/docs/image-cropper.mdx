@@ -30,7 +30,7 @@ import AnatomyScene from '@/components/examples/image-cropper/basic';
 ### Соотношение сторон
 
 Задайте `aspectRatio`, чтобы сохранять фиксированное соотношение ширины и высоты области. Если
-пользователь выбирает формат результата, меняйте это свойство из состояния React, Solid или Vue.
+пользователь выбирает формат результата, меняйте это свойство из состояния React, Solid, Vue или Svelte.
 
 <Example name="image-cropper/aspect-ratio" />
 
@@ -63,7 +63,7 @@ import AnatomyScene from '@/components/examples/image-cropper/basic';
 ### Поворот, отражение и сброс
 
 Используйте `ImageCropperContext`, чтобы подключить к панели инструментов действия масштабирования,
-поворота, отражения и сброса. В этом примере состояние поворота и отражения контролируется из React, Solid или Vue.
+поворота, отражения и сброса. В этом примере состояние поворота и отражения контролируется из React, Solid, Vue или Svelte.
 
 <Example name="image-cropper/rotation-flip-and-reset" />
 
@@ -116,7 +116,7 @@ import AnatomyScene from '@/components/examples/image-cropper/basic';
 `useImageCropper()` и передайте его в `ImageCropperRootProvider`, если панели инструментов,
 предварительному просмотру или логике формы нужен экземпляр кадрирования за пределами дерева
 компонентов. Для одного экземпляра состояния выбирайте либо `ImageCropper`, либо
-`ImageCropperRootProvider`. Примеры Vue используют нативные SFC с теми же частями, событиями и управляемым состоянием.
+`ImageCropperRootProvider`. Примеры Vue и Svelte написаны в родном синтаксисе компонентов, с теми же частями, событиями и управляемым состоянием. В Svelte привязывайте `zoom`, `rotation` и `flip` через `bind:`, а `onCropChange` и `onZoomChange` передавайте как свойства.
 
 Используйте управляемые `zoom`, `rotation` или `flip` с соответствующим обратным вызовом, если
 состоянием управляет другая часть приложения. Ark передаёт новое значение в объекте `details`.
@@ -157,7 +157,7 @@ import AnatomyScene from '@/components/examples/image-cropper/basic';
 пропорции: оно уменьшается до размеров области и остаётся по центру, поэтому кадр всегда совпадает с
 видимыми пикселями.
 
-Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях. Варианты Tailwind
+Используйте `className` в React или `class` в Solid, Vue и Svelte на экспортируемых частях. Варианты Tailwind
 используют нативные утилиты и пользовательские классы. Варианты CSS Modules построены на токенах
 foundation и не имеют переменных компонента: класс на части переопределяет стили компонента из слоя,
 например другие `aspect-ratio` или `height` области просмотра. Data-атрибуты и значения `data-slot`

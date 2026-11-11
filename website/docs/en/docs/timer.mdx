@@ -47,7 +47,7 @@ Use `onComplete` (`@complete` in Vue) to switch between work and break durations
 
 ### Events
 
-Use `onTick` and `onComplete` for side effects tied to the timer lifecycle. In Vue, listen with `@tick` and `@complete`.
+Use `onTick` and `onComplete` for side effects tied to the timer lifecycle. In Vue, listen with `@tick` and `@complete`. In Svelte, pass `onTick` and `onComplete` as props.
 
 <Example name="timer/events" />
 
@@ -74,7 +74,7 @@ custom separators, or per-item layout.
 Use `TimerRootProvider` with `useTimer()` when the state must be created outside the rendered part tree. Use
 `TimerContext` or `useTimerContext()` when other UI needs the timer state or methods. In Solid, the store and context
 are accessors, so read them as `timer()` and `api()`. In Vue, refs are unwrapped in templates, while script logic
-uses the usual `.value` access.
+uses the usual `.value` access. In Svelte, `useTimer()` returns a getter, so read it as `timer()`; `TimerContext` passes the same kind of getter to its `render` snippet.
 
 In the installed Ark UI version, `TimerItem` replaces child content with the formatted value before `asChild`
 composition. Its replacement host is therefore lost in Vue and React. Use the default `TimerItem` host until
@@ -101,7 +101,7 @@ Hover or focus a part to find it in the preview.
 
 ## Styling
 
-Use `className` in React or `class` in Solid and Vue on any exported part. Tailwind variants use native
+Use `className` in React or `class` in Solid, Vue, and Svelte on any exported part. Tailwind variants use native
 utilities and consumer classes. CSS Modules variants build on foundation tokens and have no component
 variables: a class on a part, or a `data-slot` selector, overrides the layered component styles.
 

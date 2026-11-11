@@ -127,7 +127,7 @@ directement, composez ces parties vous-même et conservez exactement un
 
 Utilisez `SegmentGroupRootProvider` avec `useSegmentGroup()` lorsque l'état doit être créé en dehors
 de l'arbre rendu ou contrôlé par une autre partie de l'application. React et Vue exposent le store comme un
-objet, tandis que Solid lit son état réactif à travers la fonction d'accès renvoyée.
+objet, Solid lit son état réactif à travers la fonction d'accès renvoyée, et Svelte renvoie un getter : lisez l'état avec `segmentGroup().value`.
 
 ## Anatomie
 
@@ -152,7 +152,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 ## Styles
 
-Dans React, utilisez `className` et, dans Solid/Vue, `class` sur les parties exportées pour les styles
+Dans React, utilisez `className` et, dans Solid, Vue et Svelte, `class` sur les parties exportées pour les styles
 structurels. Pour les styles fondés sur l'état, préférez les attributs Ark comme `data-state`,
 `data-disabled` et `data-orientation`, avec les sélecteurs moduix `data-slot`. Les variantes
 Tailwind utilisent des utilitaires natifs et les classes du consommateur ; les variables ci-dessous

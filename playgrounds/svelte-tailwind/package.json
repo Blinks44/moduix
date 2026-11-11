@@ -1,0 +1,30 @@
+{
+  "name": "@moduix/playground-svelte-tailwind",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:storybook": "storybook build",
+    "storybook": "storybook dev -p 7014 --no-open",
+    "tsc:check": "svelte-check --tsconfig ./tsconfig.json --fail-on-warnings"
+  },
+  "devDependencies": {
+    "@ark-ui/svelte": "catalog:",
+    "@internationalized/date": "catalog:",
+    "@lucide/svelte": "catalog:",
+    "@storybook/addon-svelte-csf": "catalog:",
+    "@storybook/svelte-vite": "catalog:",
+    "@sveltejs/vite-plugin-svelte": "catalog:",
+    "@tailwindcss/vite": "catalog:",
+    "@tanstack/charts": "catalog:",
+    "@types/d3-shape": "catalog:",
+    "@types/node": "catalog:",
+    "d3-shape": "catalog:",
+    "storybook": "catalog:",
+    "svelte": "catalog:",
+    "svelte-check": "catalog:",
+    "tailwind-merge": "catalog:",
+    "tailwindcss": "catalog:",
+    "typescript": "~6.0.3",
+    "vite": "catalog:"
+  }
+}

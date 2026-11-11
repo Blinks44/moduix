@@ -133,7 +133,7 @@ une icône de la même façon. Partez de cet exemple quand le design remplace le
 
 Utilisez `defaultOpen` pour un menu non contrôlé. Lorsque l’ouverture ou l’élément mis en surbrillance est géré par une autre partie de l’application, passez `open` ou `highlightedValue` avec la fonction de rappel correspondante. Utilisez `useMenu()` avec `MenuRootProvider` lorsque le store doit être créé en dehors de l’arbre rendu ; ne rendez pas une seconde racine `Menu` pour le même store.
 
-`MenuPositioner`, `MenuContent` et `MenuViewport` sont des parties distinctes, mais le positionneur est automatiquement rendu dans un portail. Définissez `portalled={false}` dans une boîte de dialogue ou un conteneur défilant, et utilisez `positioning={{ strategy: 'fixed', hideWhenDetached: true }}` lorsque ce conteneur peut défiler. Utilisez `asChild` avec exactement un enfant sémantique lorsqu’un déclencheur, un élément ou l’hôte du contenu doit porter le nœud DOM. En Solid, assignez la ref à l’élément créé dans la fonction de rendu `asChild`, car une ref posée sur une partie `Menu` elle-même n’est pas transmise par ce chemin de composition. Dans `MenuContent`, entourez les éléments défilants avec `MenuViewport`. Conservez l’éventuel `MenuArrow` comme enfant direct de `MenuContent`, à côté du viewport, afin qu’il ne soit pas rogné pendant le défilement. Un menu imbriqué est une autre racine `Menu` dans le contenu parent, avec ses propres parties `TriggerItem`, `Positioner` et `Content`.
+`MenuPositioner`, `MenuContent` et `MenuViewport` sont des parties distinctes, mais le positionneur est automatiquement rendu dans un portail. Définissez `portalled={false}` dans une boîte de dialogue ou un conteneur défilant, et utilisez `positioning={{ strategy: 'fixed', hideWhenDetached: true }}` lorsque ce conteneur peut défiler. Utilisez `asChild` avec exactement un enfant sémantique lorsqu’un déclencheur, un élément ou l’hôte du contenu doit porter le nœud DOM. En Solid, assignez la ref à l’élément créé dans la fonction de rendu `asChild`, car une ref posée sur une partie `Menu` elle-même n’est pas transmise par ce chemin de composition. En Svelte, `asChild` reçoit un snippet qui diffuse `props()` sur l’élément enfant. Dans `MenuContent`, entourez les éléments défilants avec `MenuViewport`. Conservez l’éventuel `MenuArrow` comme enfant direct de `MenuContent`, à côté du viewport, afin qu’il ne soit pas rogné pendant le défilement. Un menu imbriqué est une autre racine `Menu` dans le contenu parent, avec ses propres parties `TriggerItem`, `Positioner` et `Content`.
 
 ## Anatomie
 
@@ -167,7 +167,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 ## Styles
 
-Stylisez Menu avec `className` dans React ou `class` dans Solid et Vue sur les parties exportées.
+Stylisez Menu avec `className` dans React ou `class` dans Solid, Vue et Svelte sur les parties exportées.
 Les variantes Tailwind utilisent des utilitaires natifs et les classes du consommateur. Les variantes
 CSS Modules prennent les couleurs, les espacements et la typographie dans les jetons de foundation et
 n’exposent en variables CSS que les limites de largeur du contenu et la hauteur maximale du viewport ;

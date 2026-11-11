@@ -21,7 +21,8 @@ import * as ClipboardDocs from '@/components/examples/clipboard/css-properties';
 Use `Clipboard` as the root. Put one value surface, `ClipboardInput` or `ClipboardValueText`, and
 `ClipboardTrigger` inside `ClipboardControl`. `ClipboardLabel` is optional. The trigger can contain
 `ClipboardIndicator`, whose children and `copied` content accept text as well as icons in React and
-Solid. In Vue, use its default and named `copied` slots for the same content.
+Solid. In Vue, use its default and named `copied` slots for the same content; in Svelte, pass children
+and a `copied` snippet.
 
 ## Choosing the right component
 
@@ -93,7 +94,8 @@ needs to be shared or created separately from the rendered component tree. See [
 `ClipboardValueText`) and `ClipboardTrigger` inside `ClipboardControl`; `ClipboardIndicator` is
 optional in the trigger. It follows the same copied state, and moduix supplies the default
 copy/check icons when its content is omitted. Pass `copied="Copied"` and children for text labels
-in React and Solid; in Vue, use the default and named `copied` slots.
+in React and Solid; in Vue, use the default and named `copied` slots; in Svelte, use children and a
+`{#snippet copied()}` block.
 
 Use `defaultValue` for an uncontrolled value. When another part of the application controls the value
 or needs to react to copying, use `value` with `onValueChange(details)` and
@@ -104,7 +106,9 @@ shared outside the rendered tree. Descendants can read that state through `Clipb
 `useClipboardContext()`. In Solid, `useClipboard()` returns an accessor, so pass it as
 `value={clipboard}` and read state as `clipboard().copied` or `clipboard().value`. In Vue,
 `useClipboard()` returns the reactive store directly, so pass it with `:value="clipboard"` and read
-state as `clipboard.copied` or `clipboard.value`. The root has no disabled state: pass the native
+state as `clipboard.copied` or `clipboard.value`. In Svelte, `useClipboard({ id })` returns a getter,
+so pass it as `value={clipboard}` and read state as `clipboard().copied`; use `bind:value` on `Clipboard` for a
+controlled value. The root has no disabled state: pass the native
 `disabled` prop to both `ClipboardInput` and `ClipboardTrigger`.
 Use `asChild` on those parts only when another semantic element should own the rendered DOM node.
 
@@ -119,7 +123,7 @@ Hover or focus a part to find it in the preview.
     ["ClipboardControl", "clipboard-control", "Groups the value surface and the copy button.", 1],
     ["ClipboardInput", "clipboard-input", "Renders the value in a read-only input. Use controlled state or `ClipboardContext.setValue()` to change it.", 2],
     ["ClipboardTrigger", "clipboard-trigger", "Copies the current value when activated. It renders a button by default.", 2],
-    ["ClipboardIndicator", "clipboard-indicator", "Shows different content for the idle and copied states. Its defaults are the copy/check icons; pass `copied=\"Copied\"` and children in React/Solid, or use the matching Vue slots.", 3],
+    ["ClipboardIndicator", "clipboard-indicator", "Shows different content for the idle and copied states. Its defaults are the copy/check icons; pass `copied=\"Copied\"` and children in React/Solid, or use the matching Vue slots and Svelte snippets.", 3],
     ["ClipboardValueText", "clipboard-value-text", "Renders the value as text when an input is not the right surface.", 1],
     ["ClipboardRootProvider", "clipboard-root-provider", "Connects the parts to a store created with `useClipboard()`.", 0],
   ]}
@@ -129,7 +133,7 @@ Hover or focus a part to find it in the preview.
 
 ## Styling
 
-Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. Tailwind
+Use `className` in React or `class` in Solid, Vue, and Svelte on exported parts for structural styles. Tailwind
 variants use native utilities and consumer classes; the CSS Modules variants use the CSS variables
 below. For copied-state styles, use Ark's `data-copied` attribute together with moduix's
 `data-slot` hooks.

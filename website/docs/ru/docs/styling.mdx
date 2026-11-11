@@ -7,7 +7,9 @@ import { ProjectChecklist } from '@/components/examples/styling/project-checklis
 import solidProjectChecklist from '../../../snippets/styling/solid/project-checklist.tsx?raw';
 import solidBrandButton from '../../../snippets/styling/solid/brand-button.tsx?raw';
 import VueProjectChecklist from '../../../snippets/styling/vue/project-checklist.vue?raw';
+import SvelteProjectChecklist from '../../../snippets/styling/svelte/project-checklist.svelte?raw';
 import vueBrandButton from '../../../snippets/styling/vue/brand-button.vue?raw';
+import svelteBrandButton from '../../../snippets/styling/svelte/brand-button.svelte?raw';
 
 # Стилизация
 
@@ -20,10 +22,10 @@ moduix выпускает отдельные CSS Modules- и Tailwind-пакет
 
 ## Выберите способ стилизации
 
-| Способ | React | Solid | Vue | Когда подходит |
-| --- | --- | --- | --- | --- |
-| CSS Modules | `@moduix/react` | `@moduix/solid` | `@moduix/vue` | Готовые стили компонентов с переопределениями через токены и локальные классы |
-| Tailwind CSS | `@moduix/react-tailwind` | `@moduix/solid-tailwind` | `@moduix/vue-tailwind` | Компоненты на utility-классах в приложении с Tailwind v4 |
+| Способ | React | Solid | Vue | Svelte | Когда подходит |
+| --- | --- | --- | --- | --- | --- |
+| CSS Modules | `@moduix/react` | `@moduix/solid` | `@moduix/vue` | `@moduix/svelte` | Готовые стили компонентов с переопределениями через токены и локальные классы |
+| Tailwind CSS | `@moduix/react-tailwind` | `@moduix/solid-tailwind` | `@moduix/vue-tailwind` | `@moduix/svelte-tailwind` | Компоненты на utility-классах в приложении с Tailwind v4 |
 
 CSS Modules и Tailwind являются равноправными вариантами поставки, а не слоями одного компонента.
 Пакет должен соответствовать и фреймворку, и способу стилизации.
@@ -78,7 +80,7 @@ CSS Modules и Tailwind являются равноправными вариан
 }
 ```
 
-Передайте класс в `className` в React или в `class` в Solid и Vue.
+Передайте класс в `className` в React или в `class` в Solid, Vue и Svelte.
 
 ### Один вариант во всём приложении
 
@@ -134,6 +136,11 @@ CSS-переменные наследуются, поэтому значения
 <CodeBlockRuntime lang="vue" code={vueBrandButton} />
 
     </Tab>
+    <Tab label="Svelte" value="svelte">
+
+<CodeBlockRuntime lang="svelte" code={svelteBrandButton} />
+
+    </Tab>
     <Tab label="Styles" value="styles">
 
 ```css file="../../../src/components/examples/styling/brand-button.module.css"
@@ -180,6 +187,11 @@ CSS-переменные наследуются, поэтому значения
   <Tab label="Vue" value="vue">
 
 <CodeBlockRuntime lang="vue" code={VueProjectChecklist} />
+
+    </Tab>
+  <Tab label="Svelte" value="svelte">
+
+<CodeBlockRuntime lang="svelte" code={SvelteProjectChecklist} />
 
     </Tab>
     <Tab label="Styles" value="styles">
@@ -280,6 +292,27 @@ import { Accordion, AccordionItem, AccordionItemTrigger, AccordionItemContent } 
     </AccordionItem>
   </Accordion>
 </template>
+```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+```svelte
+<script lang="ts">
+  import {
+    Accordion,
+    AccordionItem,
+    AccordionItemContent,
+    AccordionItemTrigger,
+  } from '@moduix/svelte-tailwind/accordion';
+</script>
+
+<Accordion collapsible>
+  <AccordionItem value="shipping" class="rounded-lg border data-[state=open]:border-blue-500">
+    <AccordionItemTrigger class="px-4">Shipping</AccordionItemTrigger>
+    <AccordionItemContent class="px-4">Usually 2 to 4 days.</AccordionItemContent>
+  </AccordionItem>
+</Accordion>
 ```
 
   </Tab>

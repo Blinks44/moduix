@@ -69,12 +69,12 @@ rend ni n’analyse le Markdown, ne filtre pas le contenu non fiable et ne défi
 texte. Ces choix restent du ressort de l’application.
 
 Dans Vue, utilisez l’attribut natif `tabindex` pour modifier l’ordre de tabulation de la zone de
-défilement. L’élément rendu est accessible via `$el` sur la ref du composant.
+défilement. L’élément rendu est accessible via `$el` sur la ref du composant. En Svelte, passez `tabindex` à `TypesetScroll` et lisez l’élément avec `bind:ref`.
 
 Le contrat CSS-first de Typeset suit l’approche présentée dans
 [shadcn/typeset](https://ui.shadcn.com/docs/typeset). Comme dans cette référence, trois variables
 contrôlent le rythme, tandis que le rendu du contenu et sa largeur restent à la charge de
-l’application ; moduix ajoute des composants natifs pour React, Solid et Vue ainsi que
+l’application ; moduix ajoute des composants natifs pour React, Solid, Vue et Svelte ainsi que
 `TypesetScroll`.
 
 `Typeset` ne gère aucun état, n’analyse ni ne filtre le contenu et n’en définit pas la largeur.
@@ -116,7 +116,7 @@ viennent du thème moduix actif. Les règles des éléments se trouvent dans la 
 `:where()` peu spécifiques, donc le CSS ordinaire de l’application peut remplacer certains éléments
 sans `!important`.
 
-Utilisez `className` dans React et `class` dans Solid et Vue pour les styles structurels des
+Utilisez `className` dans React et `class` dans Solid, Vue et Svelte pour les styles structurels des
 parties exportées. Les variantes CSS Modules et Tailwind livrent le même CSS Module ; les
 variantes Tailwind fusionnent les classes avec `cn`, en plaçant la classe du consommateur en
 dernier ; les six variables CSS personnalisent donc les deux variantes.

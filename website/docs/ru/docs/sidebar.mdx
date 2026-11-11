@@ -101,6 +101,8 @@ import { sidebarOverrideCssProperties } from '@/components/examples/sidebar/css-
 получающую объединенные props.
 В Vue используйте `as-child` с одним элементом в слоте по умолчанию и шаблонную ссылку для доступа к экземпляру компонента.
 Для управления размерами используйте `v-model:size` или обработчик `@resize`; сохраняйте итоговое значение в `@resize-end`.
+В Svelte `asChild` - это сниппет, получающий объединённые props (`{#snippet asChild(props)}<a {...props()}>`).
+Для управления размерами используйте `bind:size`, а итоговое значение сохраняйте в `onResizeEnd`.
 Помещайте `SidebarNavigationBadge` после обычного `SidebarNavigationButton` или `SidebarNavigationSubButton`. Компонент
 оставляет справа место для счётчика и скрывается вместе с остальными иконками в компактном режиме.
 
@@ -110,6 +112,7 @@ import { sidebarOverrideCssProperties } from '@/components/examples/sidebar/css-
 используйте его только внутри дерева Sidebar.
 В Vue значения состояния хранятся в ref: в скрипте читайте `collapsed.value`, `side.value` и
 `state.value`; в шаблоне Vue разворачивает их автоматически.
+В Svelte `useSidebar()` возвращает объект с геттерами: читайте `sidebar.collapsed`, `sidebar.side` и `sidebar.state`.
 
 В Ark Vue 5.39.3 / Zag 1.45.0 первое сворачивание в управляемом режиме может обновить `size`
 без события `@collapse`. Модель и `useSidebar().collapsed` при этом отражают новое состояние.
@@ -142,7 +145,7 @@ import { sidebarOverrideCssProperties } from '@/components/examples/sidebar/css-
 
 ## Стилизация
 
-Каждая семантическая часть принимает `className` в React и `class` в Solid и Vue и предоставляет стабильный
+Каждая семантическая часть принимает `className` в React и `class` в Solid, Vue и Svelte и предоставляет стабильный
 хук `data-slot="sidebar-*"`. `SidebarPanel` добавляет `data-state="expanded"` или `"collapsed"`,
 а части раскладки получают `data-side`. `SidebarNavigationButton` и `SidebarNavigationSubButton` получают
 `data-active`, а `SidebarNavigationButton` также `data-size`.

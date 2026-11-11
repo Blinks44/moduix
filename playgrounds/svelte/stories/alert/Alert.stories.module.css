@@ -1,0 +1,15 @@
+.stack {
+  display: grid;
+  width: min(38rem, calc(100vw - 2rem));
+  gap: var(--moduix-spacing-3);
+}
+
+.customAlert {
+  --moduix-alert-bg: color-mix(in oklab, var(--moduix-primary) 12%, var(--moduix-background));
+  --moduix-alert-border-color: color-mix(in oklab, var(--moduix-primary) 38%, transparent);
+  --moduix-alert-indicator-color: var(--moduix-primary);
+  border-radius: var(--moduix-radius-md);
+  box-shadow: var(--moduix-shadow-sm);
+
+  max-width: 32rem;
+}

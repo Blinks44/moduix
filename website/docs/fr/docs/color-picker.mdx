@@ -146,13 +146,13 @@ Partez de cet exemple quand le design réorganise la fenêtre.
 
 ## Composition
 
-Utilisez `defaultValue` pour un état local. Lorsque l’application doit contrôler la couleur sélectionnée ou l’ouverture, passez `value` avec `onValueChange(details)` ou `open` avec `onOpenChange(details)`. En Vue, liez le même état nativement avec `v-model`, `v-model:open` et `v-model:format`. Pour créer l’état en dehors de l’arbre rendu, passez le résultat de `useColorPicker()` à `ColorPickerRootProvider`; ne rendez pas `ColorPicker` et `ColorPickerRootProvider` pour le même état.
+Utilisez `defaultValue` pour un état local. Lorsque l’application doit contrôler la couleur sélectionnée ou l’ouverture, passez `value` avec `onValueChange(details)` ou `open` avec `onOpenChange(details)`. En Vue, liez le même état nativement avec `v-model`, `v-model:open` et `v-model:format`. En Svelte, utilisez `bind:value`, `bind:open` et `bind:format`. Pour créer l’état en dehors de l’arbre rendu, passez le résultat de `useColorPicker()` à `ColorPickerRootProvider`; ne rendez pas `ColorPicker` et `ColorPickerRootProvider` pour le même état.
 
 `ColorPickerPositioner` est rendu dans un portail par défaut. Définissez `portalled={false}` lorsque la palette doit rester dans un autre contexte d’empilement. Pour inclure la couleur dans un formulaire natif, définissez `name` sur la racine et rendez explicitement `ColorPickerHiddenInput`. `ColorPickerArea`, `ColorPickerChannelSlider` et `ColorPickerSwatchTrigger` fournissent leurs parties visuelles par défaut; ne passez des enfants que pour modifier leur structure.
 
 En Solid, affectez un `ref` à l’élément créé dans la fonction de rendu `asChild` : un `ref` sur la
 partie ColorPicker elle-même n’est pas transmis via ce chemin de composition. En Vue, utilisez le
-`ref` de template ordinaire sur une partie et lisez l’élément rendu via `$el`.
+`ref` de template ordinaire sur une partie et lisez l’élément rendu via `$el`. En Svelte, utilisez `bind:ref` sur une partie pour obtenir son élément.
 
 ## Anatomie
 
@@ -189,7 +189,7 @@ habituels de gestion d’état.
 
 ## Styles
 
-Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées. Les variantes Tailwind utilisent les utilitaires natifs et les classes de votre application; les variantes CSS Modules exposent quelques variables `--moduix-color-picker-*` pour les tailles partagées par plusieurs parties ou par les enfants par défaut; les couleurs, espacements et typographies suivent les tokens de la fondation, modifiez-les avec une classe sur la partie. Les deux versions exposent les hooks stables `data-slot="color-picker-*"` et les attributs Ark `data-scope` / `data-part`.
+Utilisez `className` en React ou `class` en Solid, Vue et Svelte sur les parties exportées. Les variantes Tailwind utilisent les utilitaires natifs et les classes de votre application; les variantes CSS Modules exposent quelques variables `--moduix-color-picker-*` pour les tailles partagées par plusieurs parties ou par les enfants par défaut; les couleurs, espacements et typographies suivent les tokens de la fondation, modifiez-les avec une classe sur la partie. Les deux versions exposent les hooks stables `data-slot="color-picker-*"` et les attributs Ark `data-scope` / `data-part`.
 ### Variables CSS
 
 Survolez ou sélectionnez une variable pour la voir dans l’aperçu.

@@ -140,12 +140,10 @@ MIME, de métadonnées supplémentaires ou d’une autre mise en page.
 
 ## Composition
 
-`FileUpload` est disponible depuis `@moduix/react/file-upload` et `@moduix/vue/file-upload`. Le composant ainsi que les hooks `useFileUpload` et
-`useFileUploadContext` sont également exportés par `@moduix/react`.
-
-Le même composant est disponible depuis `@moduix/solid/file-upload`, `@moduix/react-tailwind/file-upload`,
-`@moduix/solid-tailwind/file-upload` et `@moduix/vue-tailwind/file-upload`. Les six variantes exposent les mêmes parties et le même modèle d’état.
-Choisissez le paquet correspondant à votre framework et à votre solution de styles.
+Importez `FileUpload`, ses parties, `useFileUpload` et `useFileUploadContext` depuis le sous-chemin
+`file-upload` de votre paquet, par exemple `@moduix/react/file-upload` ou
+`@moduix/svelte-tailwind/file-upload`. Tous les frameworks et toutes les variantes de styles exposent
+les mêmes parties et le même modèle d’état.
 
 `FileUpload` conserve l’état des fichiers en interne par défaut. Utilisez `defaultAcceptedFiles` pour une valeur initiale
 non contrôlée, ou associez `acceptedFiles` à `onFileChange(details)` lorsque l’application contrôle cet état. Utilisez
@@ -190,7 +188,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 ## Styles
 
-Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées pour les styles structurels. Les variantes Tailwind
+Utilisez `className` en React ou `class` en Solid, Vue et Svelte sur les parties exportées pour les styles structurels. Les variantes Tailwind
 utilisent les utilitaires natifs et les classes du consommateur. Les variantes CSS Modules reposent sur les jetons de
 foundation et n’ont pas de variables de composant : une classe sur la partie remplace les styles de la couche des composants.
 Les deux solutions de styles partagent les attributs d’état d’Ark et les hooks `data-slot` de moduix.

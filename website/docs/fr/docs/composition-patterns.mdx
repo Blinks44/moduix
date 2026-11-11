@@ -6,12 +6,16 @@ description: Composez les parties moduix dans tous les frameworks sans masquer l
 import reactAsChild from '../../../snippets/composition-patterns/react/as-child.tsx?raw';
 import solidAsChild from '../../../snippets/composition-patterns/solid/as-child.tsx?raw';
 import VueAsChild from '../../../snippets/composition-patterns/vue/as-child.vue?raw';
+import SvelteAsChild from '../../../snippets/composition-patterns/svelte/as-child.svelte?raw';
 import reactExternalState from '../../../snippets/composition-patterns/react/external-state.tsx?raw';
 import solidExternalState from '../../../snippets/composition-patterns/solid/external-state.tsx?raw';
 import VueExternalState from '../../../snippets/composition-patterns/vue/external-state.vue?raw';
+import SvelteExternalState from '../../../snippets/composition-patterns/svelte/external-state.svelte?raw';
 import solidProductDialog from '../../../snippets/composition-patterns/solid/product-dialog.tsx?raw';
 import VueProductDialog from '../../../snippets/composition-patterns/vue/product-dialog.vue?raw';
+import SvelteProductDialog from '../../../snippets/composition-patterns/svelte/product-dialog.svelte?raw';
 import VueProductDialogHelper from '../../../snippets/composition-patterns/vue/product-dialog.ts?raw';
+import SvelteProductDialogHelper from '../../../snippets/composition-patterns/svelte/product-dialog.ts?raw';
 
 # Patrons de composition
 
@@ -58,8 +62,7 @@ le composant les prend en charge. `DialogRootProvider` sert uniquement à un ét
 ## Composer un élément sémantique
 
 Utilisez `asChild` lorsque l’élément existant doit rester le nœud DOM. React reçoit un enfant unique.
-Solid reçoit une fonction de rendu qui transmet les propriétés d’Ark à l’élément retourné. Vue utilise
-`as-child` avec exactement un élément ou composant dans le slot par défaut.
+Solid reçoit une fonction de rendu qui transmet les propriétés d’Ark à l’élément retourné. Vue utilise `as-child` avec exactement un élément ou composant dans le slot par défaut. Svelte reçoit un snippet `asChild` et exige de répartir les propriétés reçues sur l’élément retourné.
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
@@ -75,6 +78,11 @@ Solid reçoit une fonction de rendu qui transmet les propriétés d’Ark à l�
   <Tab label="Vue" value="vue">
 
 <CodeBlockRuntime lang="vue" code={VueAsChild} />
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+<CodeBlockRuntime lang="svelte" code={SvelteAsChild} />
 
   </Tab>
 </Tabs>
@@ -114,6 +122,15 @@ export { Dialog, DialogTrigger, DialogContent };
 ```
 
   </Tab>
+  <Tab label="Svelte" value="svelte">
+
+```ts
+import { Dialog, DialogContent, DialogTrigger } from '@moduix/svelte/dialog';
+
+export { Dialog, DialogTrigger, DialogContent };
+```
+
+  </Tab>
 </Tabs>
 
 Le passage entre les imports du package et le code du registre reste alors simple.
@@ -144,6 +161,13 @@ traduit en variables publiques de Dialog sans modifier le reste de l’arbre.
 <CodeBlockRuntime lang="ts" code={VueProductDialogHelper} title="product-dialog.ts" />
 
     </Tab>
+  <Tab label="Svelte" value="svelte">
+
+<CodeBlockRuntime lang="svelte" code={SvelteProductDialog} title="product-dialog.svelte" />
+
+<CodeBlockRuntime lang="ts" code={SvelteProductDialogHelper} title="product-dialog.ts" />
+
+    </Tab>
     <Tab label="Styles" value="styles">
 
 ```css file="../../../src/components/examples/composition-patterns/product-dialog.module.css"
@@ -169,6 +193,7 @@ autre composant.
 | React | Gardez l’état dans `useState`, passez `value={value}` et `onValueChange={(details) => setValue(details.value)}`. |
 | Solid | Gardez l’état dans `createSignal`, passez `value={value()}` et `onValueChange={(details) => setValue(details.value)}`. |
 | Vue | Liez `v-model` pour `value`, ou `v-model:open`, `v-model:checked` et similaires pour les autres props d’état. |
+| Svelte | Utilisez `bind:value`, `bind:open`, `bind:checked` et similaires pour les props liables, ou passez la prop avec son callback de changement. |
 
 Le nom du callback suit la prop : `value` et `onValueChange`, `open` et `onOpenChange`, `checked` et
 `onCheckedChange`. Lisez le nouvel état dans l’objet details (`details.value`, `details.open`).
@@ -194,6 +219,11 @@ des contrôles extérieurs au Dialog en ont besoin.
   <Tab label="Vue" value="vue">
 
 <CodeBlockRuntime lang="vue" code={VueExternalState} />
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+<CodeBlockRuntime lang="svelte" code={SvelteExternalState} />
 
   </Tab>
 </Tabs>

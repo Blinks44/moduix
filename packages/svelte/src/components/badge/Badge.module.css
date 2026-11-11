@@ -1,0 +1,133 @@
+@layer moduix.components {
+  .root {
+    display: inline-flex;
+    width: fit-content;
+    max-width: 100%;
+    min-width: 0;
+    align-items: center;
+    justify-content: center;
+    gap: var(--moduix-spacing-1-5);
+    overflow: hidden;
+    border: var(--moduix-border-width-sm) solid var(--moduix-badge-border-color, transparent);
+    border-radius: var(--moduix-radius-full);
+    padding-inline: var(--moduix-spacing-2-5);
+    background-color: var(--moduix-badge-bg, var(--moduix-primary));
+    color: var(--moduix-badge-color, var(--moduix-primary-foreground));
+    font-size: var(--moduix-text-xs);
+    font-weight: var(--moduix-weight-medium);
+    font-variant-numeric: tabular-nums;
+    line-height: var(--moduix-line-height-text-xs);
+    min-height: 1.25rem;
+    user-select: none;
+    white-space: nowrap;
+    text-decoration: none;
+    vertical-align: middle;
+    transition:
+      color var(--moduix-transition-default),
+      background-color var(--moduix-transition-default),
+      border-color var(--moduix-transition-default),
+      opacity var(--moduix-transition-default);
+
+    &:focus-visible {
+      outline: var(--moduix-focus-ring-width) solid var(--moduix-ring);
+      outline-offset: var(--moduix-focus-ring-offset);
+    }
+
+    &:is(a) {
+      cursor: pointer;
+
+      @media (hover: hover) {
+        &:is(
+            [data-variant='default'],
+            [data-variant='secondary'],
+            [data-variant='destructive']
+          ):hover {
+          opacity: var(--moduix-opacity-hover);
+        }
+
+        &[data-variant='outline']:hover {
+          border-color: var(--moduix-badge-border-color, var(--moduix-primary));
+          color: var(--moduix-badge-color, var(--moduix-primary));
+        }
+
+        &[data-variant='ghost']:hover {
+          color: var(--moduix-badge-color, var(--moduix-primary));
+        }
+
+        &[data-variant='link']:hover {
+          text-decoration-color: currentColor;
+        }
+      }
+    }
+
+    & > svg {
+      width: var(--moduix-spacing-3);
+      height: var(--moduix-spacing-3);
+      flex-shrink: 0;
+      pointer-events: none;
+    }
+
+    &[data-size='sm'] {
+      min-height: 1rem;
+      padding-inline: var(--moduix-spacing-2);
+      font-size: 0.625rem;
+      line-height: 0.875rem;
+    }
+
+    &[data-size='lg'] {
+      min-height: 1.5rem;
+      padding-inline: var(--moduix-spacing-3);
+      font-size: var(--moduix-text-sm);
+      line-height: var(--moduix-line-height-text-sm);
+    }
+
+    &[data-variant='secondary'] {
+      background-color: var(--moduix-badge-bg, var(--moduix-secondary));
+      color: var(--moduix-badge-color, var(--moduix-secondary-foreground));
+    }
+
+    &[data-variant='destructive'] {
+      background-color: var(--moduix-badge-bg, var(--moduix-destructive));
+      color: var(--moduix-badge-color, var(--moduix-destructive-foreground));
+    }
+
+    &[data-variant='outline'] {
+      border-color: var(--moduix-badge-border-color, var(--moduix-border));
+      background-color: var(--moduix-badge-bg, transparent);
+      color: var(--moduix-badge-color, var(--moduix-foreground));
+    }
+
+    &[data-variant='ghost'] {
+      background-color: var(--moduix-badge-bg, transparent);
+      color: var(--moduix-badge-color, var(--moduix-foreground));
+    }
+
+    /* Placed after the sizes so the link keeps its own height and padding at every size. */
+    &[data-variant='link'] {
+      min-height: auto;
+      border-radius: 0;
+      padding-block: 0.125em;
+      padding-inline: 0;
+      background-color: var(--moduix-badge-bg, transparent);
+      color: var(--moduix-badge-color, var(--moduix-primary));
+      text-decoration: underline;
+      text-decoration-color: color-mix(in oklab, currentColor 55%, transparent);
+      text-underline-offset: 0.15em;
+      text-decoration-thickness: from-font;
+    }
+  }
+
+  .dot {
+    width: var(--moduix-spacing-1-5);
+    height: var(--moduix-spacing-1-5);
+    flex-shrink: 0;
+    border-radius: 50%;
+    background-color: currentColor;
+  }
+
+  .label {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

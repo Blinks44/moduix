@@ -106,7 +106,7 @@ import * as TableDocs from '@/components/examples/table/css-properties';
 ## Композиция
 
 Каждая часть по умолчанию рендерит соответствующий нативный HTML-элемент, принимает его свойства,
-`className` в React или `class` в Solid и Vue, передаёт `ref` и поддерживает `asChild`. При использовании
+`className` в React или `class` в Solid, Vue и Svelte, передаёт `ref` и поддерживает `asChild`. При использовании
 `asChild` передавайте один семантический элемент. У `TableEmpty` есть особенность: это свойство
 заменяет только созданную `td`-ячейку.
 
@@ -155,7 +155,7 @@ import * as TableDocs from '@/components/examples/table/css-properties';
 
 ## Стилизация
 
-Настраивайте `Table` через `className` в React или `class` в Solid и Vue, публичные хуки `data-slot`,
+Настраивайте `Table` через `className` в React или `class` в Solid, Vue и Svelte, публичные хуки `data-slot`,
 `data-scope` и `data-part`, атрибуты `data-side` и `data-numeric`, а также перечисленные ниже
 CSS-переменные `--moduix-table-*`. Варианты Tailwind используют нативные utility-классы и классы
 потребителя, а переменные ниже относятся к вариантам CSS Modules.

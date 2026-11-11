@@ -95,7 +95,7 @@ Control `open` from a menu item when a contextual action should open a confirmat
 
 ### Controlled
 
-Pass `open` and `onOpenChange` (`v-model:open` in Vue) and read `details.open` to keep the dialog in
+Pass `open` and `onOpenChange` (`v-model:open` in Vue, `bind:open` in Svelte) and read `details.open` to keep the dialog in
 sync with the rest of the application. See [Control state from the application](/docs/composition-patterns#controlled-state).
 
 <Example name="dialog/controlled" />
@@ -165,7 +165,7 @@ update that state with `DialogContext` or `useDialogContext()` from the matching
 
 ## Styling
 
-Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. For
+Use `className` in React or `class` in Solid, Vue, and Svelte on exported parts for structural styles. For
 state-based styles, prefer Ark data attributes such as `data-state` and `data-has-nested`, together with moduix
 `data-slot` selectors. Tailwind variants use native utilities and consumer classes; the component
 variables below customize the CSS Modules variants. Data attributes and `data-slot` hooks are shared

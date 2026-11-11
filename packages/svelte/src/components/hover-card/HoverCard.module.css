@@ -1,0 +1,105 @@
+@layer moduix.components {
+  .trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--moduix-spacing-1);
+    outline: 0;
+    color: var(--moduix-primary);
+    font: inherit;
+    text-decoration-line: underline;
+    text-decoration-thickness: 1px;
+    text-decoration-color: color-mix(in oklab, currentColor, transparent 40%);
+    text-underline-offset: 2px;
+    cursor: pointer;
+    transition: text-decoration-color var(--moduix-transition-fast);
+
+    @media (hover: hover) {
+      &:hover {
+        text-decoration-color: currentColor;
+      }
+    }
+
+    &[data-state='open'] {
+      text-decoration-color: currentColor;
+    }
+
+    &:focus-visible {
+      border-radius: var(--moduix-radius-xs);
+      outline: var(--moduix-focus-ring-width) solid var(--moduix-ring);
+      outline-offset: var(--moduix-focus-ring-offset);
+      text-decoration-line: none;
+    }
+
+    &:disabled {
+      pointer-events: none;
+      opacity: var(--moduix-opacity-disabled);
+    }
+  }
+
+  .positioner {
+    z-index: var(--z-index, var(--moduix-z-popup));
+    max-width: var(--available-width);
+    outline: 0;
+  }
+
+  .content {
+    position: relative;
+    z-index: calc(var(--moduix-z-popup) + var(--layer-index, 0));
+    min-width: min(14rem, var(--available-width));
+    max-width: min(24rem, var(--available-width));
+    max-height: min(24rem, var(--available-height, 100dvh));
+    overflow-wrap: anywhere;
+    padding: var(--moduix-spacing-2);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
+    border-radius: var(--moduix-radius-lg);
+    background-color: var(--moduix-popover);
+    color: var(--moduix-popover-foreground);
+    outline: 0;
+    box-shadow: var(--moduix-shadow-lg);
+    transform-origin: var(--transform-origin);
+
+    /* Lets HoverCardBody scroll within the height limit while the surface stays overflow-visible for the arrow. */
+    &:has(> .body) {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &[data-state='open'] {
+      animation: global(moduix-popup-in)
+        var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
+        var(--moduix-popup-motion-easing, var(--moduix-ease-in-out));
+    }
+
+    &[data-state='closed'] {
+      animation: global(moduix-popup-out)
+        var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
+        var(--moduix-popup-motion-easing, var(--moduix-ease-in-out)) forwards;
+    }
+  }
+
+  .body {
+    min-block-size: 0;
+    overflow: auto;
+  }
+
+  .arrow {
+    --arrow-size: var(--moduix-spacing-2-5);
+    --arrow-background: var(--moduix-popover);
+    --arrow-shadow-color: var(--moduix-border);
+  }
+
+  .arrowTip {
+    border-top: var(--moduix-border-width-sm) solid var(--moduix-border);
+    border-left: var(--moduix-border-width-sm) solid var(--moduix-border);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .trigger {
+      transition: none;
+    }
+
+    .content[data-state] {
+      animation: none;
+    }
+  }
+}

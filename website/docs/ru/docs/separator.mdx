@@ -65,8 +65,7 @@ Chakra UI по компоненту Separator](https://chakra-ui.com/docs/compon
 провайдера. Для обычного разделителя используйте `<Separator />`. Если разделитель должен
 размещаться на другом элементе, используйте
 `asChild` с одним дочерним элементом, который принимает объединённые свойства `role`, ARIA,
-`data-*`, class и ref. В React и Vue дочерний элемент передаётся напрямую, а в Solid используется форма
-`asChild={(props) => <hr {...props()} />}`.
+`data-*`, class и ref. В React и Vue дочерний элемент передаётся напрямую, а в Solid используется форма `asChild={(props) => <hr {...props()} />}`; в Svelte используется сниппет `asChild`: `{#snippet asChild(props)}<hr {...props()} />{/snippet}`.
 
 ## Анатомия
 
@@ -84,7 +83,7 @@ Chakra UI по компоненту Separator](https://chakra-ui.com/docs/compon
 
 ## Стилизация
 
-Используйте `className` в React или `class` в Solid и Vue для корневого элемента. В вариантах с
+Используйте `className` в React или `class` в Solid, Vue и Svelte для корневого элемента. В вариантах с
 Tailwind применяйте нативные utility-классы и классы потребителя, а CSS-свойства ниже относятся к
 вариантам с CSS Modules. Атрибуты данных и хуки `data-slot` общие для обоих способов стилизации.
 

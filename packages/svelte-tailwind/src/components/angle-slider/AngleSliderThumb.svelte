@@ -1,0 +1,16 @@
+<script lang="ts">
+  import { AngleSliderThumb, type AngleSliderThumbProps } from '@ark-ui/svelte/angle-slider';
+  import { cn } from '@/lib/moduix/cn';
+
+  const thumbClass =
+    "absolute inset-y-0 left-1/2 z-2 w-0 outline-0 before:absolute before:top-1 before:left-0 before:size-4 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:border before:border-input before:bg-background before:shadow-sm before:transition-[border-color,box-shadow] before:duration-normal before:ease-in-out before:content-[''] focus-visible:before:border-ring focus-visible:before:ring-(length:--moduix-focus-ring-halo-width) focus-visible:before:ring-ring/50 data-disabled:pointer-events-none data-invalid:before:border-destructive data-invalid:focus-visible:before:ring-destructive/20 [[data-slot=angle-slider-control]:active:not([data-disabled]):not([data-readonly])_&]:before:border-ring [[data-slot=angle-slider-control]:active:not([data-disabled]):not([data-readonly])_&]:before:shadow-md [[data-slot=angle-slider-control]:active:not([data-disabled]):not([data-readonly])_&]:before:ring-(length:--moduix-focus-ring-halo-width) [[data-slot=angle-slider-control]:active:not([data-disabled]):not([data-readonly])_&]:before:ring-ring/50";
+
+  let { class: className, ref = $bindable(null), ...props }: AngleSliderThumbProps = $props();
+</script>
+
+<AngleSliderThumb
+  {...props}
+  bind:ref
+  class={cn(thumbClass, className)}
+  data-slot="angle-slider-thumb"
+/>

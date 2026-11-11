@@ -1,11 +1,12 @@
 ---
 title: Environment
-description: Настройте DOM-запросы Ark UI для iframe, Shadow DOM, Electron и других нестандартных окружений в React, Solid и Vue.
+description: Настройте DOM-запросы Ark UI для iframe, Shadow DOM, Electron и других нестандартных окружений в React, Solid, Vue и Svelte.
 ark: https://ark-ui.com/docs/utilities/environment
 ---
 
 import environmentSolidCustomRoot from '../../../snippets/environment/solid/custom-root.tsx?raw';
 import environmentVueCustomRoot from '../../../snippets/environment/vue/custom-root.vue?raw';
+import environmentSvelteCustomRoot from '../../../snippets/environment/svelte/custom-root.svelte?raw';
 
 `EnvironmentProvider` сообщает Ark UI, какой DOM-корень, `Document` и `Window` использовать для компонентов на базе Ark. Он нужен, когда дерево компонентов отображается не в основном документе страницы.
 
@@ -19,6 +20,7 @@ import environmentVueCustomRoot from '../../../snippets/environment/vue/custom-r
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -40,6 +42,13 @@ import { EnvironmentProvider, useEnvironmentContext } from '@ark-ui/solid/enviro
 
 ```ts
 import { EnvironmentProvider, useEnvironmentContext } from '@ark-ui/vue/environment';
+```
+
+  </Tab>
+  <Tab value="svelte">
+
+```ts
+import { EnvironmentProvider, useEnvironmentContext } from '@ark-ui/svelte/environment';
 ```
 
   </Tab>
@@ -68,6 +77,7 @@ import { EnvironmentProvider, useEnvironmentContext } from '@ark-ui/vue/environm
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
       { label: 'Vue', value: 'vue' },
+      { label: 'Svelte', value: 'svelte' },
     ]}
     className="docs-tabs"
   >
@@ -85,6 +95,11 @@ import { EnvironmentProvider, useEnvironmentContext } from '@ark-ui/vue/environm
   <Tab value="vue">
 
 <CodeBlockRuntime lang="vue" code={environmentVueCustomRoot} />
+
+    </Tab>
+  <Tab value="svelte">
+
+<CodeBlockRuntime lang="svelte" code={environmentSvelteCustomRoot} />
 
     </Tab>
   </Tabs>

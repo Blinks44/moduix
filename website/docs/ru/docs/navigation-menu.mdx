@@ -52,7 +52,7 @@ import * as NavigationMenuDocs from '@/components/examples/navigation-menu/css-p
 
 ### Управляемое значение
 
-Передайте `value` и `onValueChange` (`v-model:value` во Vue), если открытая панель управляет соседним
+Передайте `value` и `onValueChange` (`v-model:value` во Vue, `bind:value` в Svelte), если открытая панель управляет соседним
 интерфейсом. Под примером показано значение открытого элемента. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
 
 <Example name="navigation-menu/controlled-value" />
@@ -65,7 +65,7 @@ import * as NavigationMenuDocs from '@/components/examples/navigation-menu/css-p
 дерева, создайте его через `useNavigationMenu()` и передайте в `NavigationMenuRootProvider`; не
 создавайте для него ещё один корневой компонент. В React хранилище представлено объектом, в Solid
 реактивное состояние читается через возвращаемую функцию доступа, а в Vue используются ref и привязки
-шаблона. Для управляемого значения во Vue используйте `v-model:value`. Если вложенному компоненту
+шаблона. Для управляемого значения во Vue используйте `v-model:value`, а в Svelte - `bind:value`; Svelte возвращает геттер, поэтому читайте состояние через `navigationMenu().value`. Если вложенному компоненту
 нужно текущее состояние, используйте `NavigationMenuContext` с render-функцией вместо хранилища.
 
 Без общей области `NavigationMenuViewport` компонент `NavigationMenuContent` отображается рядом со
@@ -100,7 +100,7 @@ import * as NavigationMenuDocs from '@/components/examples/navigation-menu/css-p
 
 ## Стилизация
 
-Используйте `className` в React, `class` в Solid или `class` во Vue на экспортируемых частях для структурных стилей. Для
+Используйте `className` в React или `class` в Solid, Vue и Svelte на экспортируемых частях для структурных стилей. Для
 стилей, зависящих от состояния, используйте атрибуты данных Ark, например `data-state`, `data-current`
 и `data-orientation`, вместе с селекторами moduix `data-slot`. Варианты Tailwind используют нативные
 утилиты и классы потребителя. Варианты с CSS Modules берут цвета, отступы и типографику из токенов

@@ -105,6 +105,8 @@ En Vue, utilisez `v-model:size` pour le contrat de taille contrôlée par Ark. `
 un état réactif qui se transmet directement à `SplitterRootProvider` ; appelez ses méthodes dans le
 template sans créer un second conteneur d'état.
 
+En Svelte, utilisez `bind:size` pour le contrat de taille contrôlée par Ark. `useSplitter()` renvoie un getter : transmettez-le à `value` et lisez l'API avec `splitter()`. Transmettez un `id` à `useSplitter()` (par exemple `$props.id()`), sinon le hook lève une erreur.
+
 ## Anatomie
 
 Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
@@ -123,7 +125,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 ## Styles
 
-Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées pour modifier leurs
+Utilisez `className` en React ou `class` en Solid, Vue et Svelte sur les parties exportées pour modifier leurs
 styles. Une classe change aussi la taille de la racine : moduix retire les `width` et `height` inline
 d'Ark, et la racine remplit par défaut son conteneur (`width: 100%` et `height: 100%`, comme Ark). Donnez
 une hauteur à la racine si son parent n'en a pas.

@@ -1,11 +1,12 @@
 ---
 title: Format Relative Time
-description: Formatez des dates par rapport à maintenant avec Ark UI dans React, Solid et Vue, avec une locale et des formats compacts.
+description: Formatez des dates par rapport à maintenant avec Ark UI dans React, Solid, Vue et Svelte, avec une locale et des formats compacts.
 ark: https://ark-ui.com/docs/utilities/format-relative-time
 ---
 
 import formatRelativeTimeSolidLocale from '../../../snippets/format-relative-time/solid/locale.tsx?raw';
 import formatRelativeTimeVueLocale from '../../../snippets/format-relative-time/vue/locale.vue?raw';
+import formatRelativeTimeSvelteLocale from '../../../snippets/format-relative-time/svelte/locale.svelte?raw';
 
 ## Importation
 
@@ -17,6 +18,7 @@ Importez l’utilitaire depuis le paquet Ark UI correspondant à votre framework
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -41,6 +43,13 @@ import { Format } from '@ark-ui/vue';
 ```
 
   </Tab>
+  <Tab value="svelte">
+
+```ts
+import { Format } from '@ark-ui/svelte';
+```
+
+  </Tab>
 </Tabs>
 
 ## Quand l’utiliser
@@ -56,7 +65,7 @@ instant précis, utilisez l’élément sémantique `<time>` et fournissez sa va
 ## Exemple de base
 
 Définissez `numeric="auto"` lorsque les dates proches peuvent être exprimées naturellement, par exemple « demain » ou
-« hier ». L’aperçu de la documentation est rendu avec React ; les onglets Solid et Vue contiennent les équivalents natifs pour la même
+« hier ». L’aperçu de la documentation est rendu avec React ; les onglets Solid, Vue et Svelte contiennent les équivalents natifs pour la même
 composition.
 
 <Example name="format-relative-time/basic" />
@@ -91,6 +100,7 @@ L’unité et la distance numérique sont déduites de l’objet `Date` ; vous n
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
       { label: 'Vue', value: 'vue' },
+      { label: 'Svelte', value: 'svelte' },
     ]}
     className="docs-tabs"
   >
@@ -108,6 +118,11 @@ L’unité et la distance numérique sont déduites de l’objet `Date` ; vous n
   <Tab value="vue">
 
 <CodeBlockRuntime lang="vue" code={formatRelativeTimeVueLocale} />
+
+    </Tab>
+  <Tab value="svelte">
+
+<CodeBlockRuntime lang="svelte" code={formatRelativeTimeSvelteLocale} />
 
     </Tab>
   </Tabs>

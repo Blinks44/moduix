@@ -431,6 +431,19 @@
   content: '';
 }
 
+.sveltePreview {
+  .solidTabs {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .solidTab {
+    padding-inline: 0.2rem;
+    font-size: 0.75rem;
+    letter-spacing: 0;
+  }
+}
+
 .solidPackages {
   display: grid;
   gap: 0.6rem;

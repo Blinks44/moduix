@@ -1,0 +1,11 @@
+{
+  "extends": "../../packages/svelte/tsconfig.json",
+  "compilerOptions": {
+    "types": [],
+    "paths": {
+      "@/components/ui/*": ["../../packages/svelte/dist/components/*/index.d.ts"],
+      "@/*": ["../src/*"]
+    }
+  },
+  "include": ["**/svelte/*.svelte", "**/svelte/*.ts", "quick-start/*.svelte", "../theme/env.d.ts"]
+}

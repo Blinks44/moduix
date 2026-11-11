@@ -1,11 +1,12 @@
 ---
 title: Locale
-description: Fournissez une locale et une direction d’écriture aux formateurs Ark et au contenu localisé, avec React, Solid ou Vue.
+description: Fournissez une locale et une direction d’écriture aux formateurs Ark et au contenu localisé, avec React, Solid, Vue ou Svelte.
 ark: https://ark-ui.com/docs/utilities/locale
 ---
 
 import localeSolidDocument from '../../../snippets/locale/solid/document.tsx?raw';
 import localeVueDocument from '../../../snippets/locale/vue/document.vue?raw';
+import localeSvelteDocument from '../../../snippets/locale/svelte/document.svelte?raw';
 
 `LocaleProvider` fournit une locale et sa direction d’écriture à un sous-arbre. Les formateurs Ark et le contenu
 localisé utilisent ce contexte.
@@ -21,6 +22,7 @@ d’Ark UI :
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -45,10 +47,17 @@ import { LocaleProvider, useLocaleContext } from '@moduix/vue/locale';
 ```
 
   </Tab>
+  <Tab value="svelte">
+
+```ts
+import { LocaleProvider, useLocaleContext } from '@moduix/svelte/locale';
+```
+
+  </Tab>
 </Tabs>
 
 `Format.Number`, `Format.Time` et les autres utilitaires `Format` restent importés depuis `@ark-ui/react` ou
-`@ark-ui/solid` ou `@ark-ui/vue`.
+`@ark-ui/solid`, `@ark-ui/vue` ou `@ark-ui/svelte`.
 
 ## Définir une locale
 
@@ -65,7 +74,7 @@ et `ltr`.
 `useLocaleContext` renvoie `locale` et `dir` depuis le provider le plus proche. Utilisez ces valeurs lorsque votre propre
 structure doit reprendre la même langue et la même direction que les composants qui tiennent compte de la locale. React
 lit directement les valeurs ; Solid les lit via un accessor. Vue renvoie une ref calculée : utilisez
-`.value` dans le code setup ; le template la déballe automatiquement.
+`.value` dans le code setup ; le template la déballe automatiquement. Svelte renvoie un getter : appelez `locale()` pour lire `locale` et `dir`.
 
 <Example name="locale/context" />
 
@@ -82,6 +91,7 @@ document :
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
       { label: 'Vue', value: 'vue' },
+      { label: 'Svelte', value: 'svelte' },
     ]}
     className="docs-tabs"
   >
@@ -99,6 +109,11 @@ document :
   <Tab value="vue">
 
 <CodeBlockRuntime lang="vue" code={localeVueDocument} />
+
+    </Tab>
+  <Tab value="svelte">
+
+<CodeBlockRuntime lang="svelte" code={localeSvelteDocument} />
 
     </Tab>
   </Tabs>

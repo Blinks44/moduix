@@ -1,0 +1,176 @@
+@layer moduix.components {
+  .content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
+    border-radius: var(--moduix-radius-md);
+    background-color: var(--moduix-popover);
+    color: var(--moduix-popover-foreground);
+    box-shadow: var(--moduix-shadow-lg);
+    outline: 0;
+
+    &[data-state='open'] {
+      animation: global(moduix-popup-in)
+        var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
+        var(--moduix-popup-motion-easing, var(--moduix-ease-in-out));
+    }
+
+    &[data-state='closed'] {
+      pointer-events: none;
+      animation: global(moduix-popup-out)
+        var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
+        var(--moduix-popup-motion-easing, var(--moduix-ease-in-out)) forwards;
+    }
+
+    /* Dims panels that are not on top of the stack. */
+    &[data-behind] {
+      opacity: 0.55;
+    }
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--moduix-spacing-3);
+    min-height: var(--moduix-size-xl);
+    padding: var(--moduix-spacing-2) var(--moduix-spacing-3);
+    border-bottom: var(--moduix-border-width-sm) solid var(--moduix-border);
+    background-color: var(--moduix-muted);
+    cursor: grab;
+    user-select: none;
+
+    &[data-dragging] {
+      cursor: grabbing;
+    }
+
+    /* A minimized panel is only the header, so the content border already closes it. */
+    &[data-minimized] {
+      border-bottom-color: transparent;
+    }
+  }
+
+  .title {
+    display: inline-flex;
+    min-width: 0;
+    align-items: center;
+    gap: var(--moduix-spacing-2);
+    margin: 0;
+    font-size: var(--moduix-text-sm);
+    font-weight: var(--moduix-weight-semibold);
+    line-height: var(--moduix-line-height-text-sm);
+  }
+
+  .control {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    gap: var(--moduix-spacing-1);
+  }
+
+  .controlButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--moduix-size-sm);
+    height: var(--moduix-size-sm);
+    margin: 0;
+    padding: 0;
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
+    border-radius: var(--moduix-radius-sm);
+    background-color: var(--moduix-background);
+    color: var(--moduix-foreground);
+    font: inherit;
+    outline: 0;
+    cursor: pointer;
+    transition:
+      background-color var(--moduix-transition-default),
+      opacity var(--moduix-transition-default);
+
+    & > svg {
+      width: var(--moduix-spacing-4);
+      height: var(--moduix-spacing-4);
+    }
+
+    /* :not() keeps this above the CloseButton hover that FloatingPanelCloseIcon also carries. */
+    @media (hover: hover) {
+      &:hover:not([data-disabled]) {
+        background-color: var(--moduix-accent);
+      }
+    }
+
+    &:active {
+      background-color: var(--moduix-accent);
+    }
+
+    &:focus-visible {
+      outline: var(--moduix-focus-ring-inset-width) solid var(--moduix-ring);
+      outline-offset: calc(var(--moduix-focus-ring-inset-width) * -1);
+    }
+
+    &:is([data-disabled], :disabled) {
+      pointer-events: none;
+      opacity: var(--moduix-opacity-disabled);
+      cursor: default;
+    }
+  }
+
+  .dragIndicator {
+    display: inline-flex;
+    flex: none;
+    color: var(--moduix-muted-foreground);
+
+    & > svg {
+      width: var(--moduix-spacing-4);
+      height: var(--moduix-spacing-4);
+    }
+  }
+
+  .body {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: auto;
+    padding: var(--moduix-spacing-4);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
+  }
+
+  .footer {
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--moduix-spacing-2);
+    padding: var(--moduix-spacing-1) var(--moduix-spacing-3);
+    border-top: var(--moduix-border-width-sm) solid var(--moduix-border);
+    color: var(--moduix-muted-foreground);
+    font-size: var(--moduix-text-xs);
+    line-height: var(--moduix-line-height-text-xs);
+
+    &[data-minimized] {
+      display: none;
+    }
+  }
+
+  /* Ark positions each handle inline; the wrapper only sets its hit area. */
+  .resizeTrigger {
+    &:is([data-axis='n'], [data-axis='s']) {
+      height: var(--moduix-spacing-2);
+    }
+
+    &:is([data-axis='e'], [data-axis='w']) {
+      width: var(--moduix-spacing-2);
+    }
+
+    &:is([data-axis='ne'], [data-axis='nw'], [data-axis='se'], [data-axis='sw']) {
+      width: var(--moduix-spacing-3);
+      height: var(--moduix-spacing-3);
+    }
+
+    &[data-disabled] {
+      pointer-events: none;
+    }
+  }
+}

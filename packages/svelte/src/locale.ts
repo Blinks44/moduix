@@ -1,0 +1,1 @@
+export { LocaleProvider, useLocaleContext } from '@ark-ui/svelte/locale';

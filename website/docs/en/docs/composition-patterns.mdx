@@ -6,12 +6,16 @@ description: Compose moduix parts across framework adapters without hiding Ark b
 import reactAsChild from '../../../snippets/composition-patterns/react/as-child.tsx?raw';
 import solidAsChild from '../../../snippets/composition-patterns/solid/as-child.tsx?raw';
 import VueAsChild from '../../../snippets/composition-patterns/vue/as-child.vue?raw';
+import SvelteAsChild from '../../../snippets/composition-patterns/svelte/as-child.svelte?raw';
 import reactExternalState from '../../../snippets/composition-patterns/react/external-state.tsx?raw';
 import solidExternalState from '../../../snippets/composition-patterns/solid/external-state.tsx?raw';
 import VueExternalState from '../../../snippets/composition-patterns/vue/external-state.vue?raw';
+import SvelteExternalState from '../../../snippets/composition-patterns/svelte/external-state.svelte?raw';
 import solidProductDialog from '../../../snippets/composition-patterns/solid/product-dialog.tsx?raw';
 import VueProductDialog from '../../../snippets/composition-patterns/vue/product-dialog.vue?raw';
+import SvelteProductDialog from '../../../snippets/composition-patterns/svelte/product-dialog.svelte?raw';
 import VueProductDialogHelper from '../../../snippets/composition-patterns/vue/product-dialog.ts?raw';
+import SvelteProductDialogHelper from '../../../snippets/composition-patterns/svelte/product-dialog.ts?raw';
 
 # Composition Patterns
 
@@ -58,8 +62,7 @@ supports those props. Use `DialogRootProvider` only when dialog state was create
 
 Use `asChild` when an existing element should remain the DOM node and a moduix part should add only
 its behavior. React accepts a single child element. Solid accepts a render function and requires Ark
-props to be spread onto the returned element. Vue uses `as-child` with exactly one element or component
-in the default slot.
+props to be spread onto the returned element. Vue uses `as-child` with exactly one element or component in the default slot. Svelte accepts an `asChild` snippet and requires the received props to be spread onto the returned element.
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
@@ -75,6 +78,11 @@ in the default slot.
   <Tab label="Vue" value="vue">
 
 <CodeBlockRuntime lang="vue" code={VueAsChild} />
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+<CodeBlockRuntime lang="svelte" code={SvelteAsChild} />
 
   </Tab>
 </Tabs>
@@ -115,6 +123,15 @@ export { Dialog, DialogTrigger, DialogContent };
 ```
 
   </Tab>
+  <Tab label="Svelte" value="svelte">
+
+```ts
+import { Dialog, DialogContent, DialogTrigger } from '@moduix/svelte/dialog';
+
+export { Dialog, DialogTrigger, DialogContent };
+```
+
+  </Tab>
 </Tabs>
 
 This keeps a later move between package imports and copied registry imports straightforward.
@@ -145,6 +162,13 @@ prop and maps it to public Dialog variables. The rest of the part tree remains u
 <CodeBlockRuntime lang="ts" code={VueProductDialogHelper} title="product-dialog.ts" />
 
     </Tab>
+  <Tab label="Svelte" value="svelte">
+
+<CodeBlockRuntime lang="svelte" code={SvelteProductDialog} title="product-dialog.svelte" />
+
+<CodeBlockRuntime lang="ts" code={SvelteProductDialogHelper} title="product-dialog.ts" />
+
+    </Tab>
     <Tab label="Styles" value="styles">
 
 ```css file="../../../src/components/examples/composition-patterns/product-dialog.module.css"
@@ -169,6 +193,7 @@ component.
 | React | Keep the state in `useState`, pass `value={value}` and `onValueChange={(details) => setValue(details.value)}`. |
 | Solid | Keep the state in `createSignal`, pass `value={value()}` and `onValueChange={(details) => setValue(details.value)}`. |
 | Vue | Bind `v-model` for `value`, or `v-model:open`, `v-model:checked`, and similar for other state props. |
+| Svelte | Use `bind:value`, `bind:open`, `bind:checked`, and similar for bindable props, or pass the prop with its change callback. |
 
 The callback name follows the prop: `value` and `onValueChange`, `open` and `onOpenChange`, `checked`
 and `onCheckedChange`. Read the new state from the details object (`details.value`, `details.open`).
@@ -194,6 +219,11 @@ the dialog need the same state.
   <Tab label="Vue" value="vue">
 
 <CodeBlockRuntime lang="vue" code={VueExternalState} />
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+<CodeBlockRuntime lang="svelte" code={SvelteExternalState} />
 
   </Tab>
 </Tabs>

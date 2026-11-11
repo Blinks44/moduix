@@ -6,6 +6,7 @@ description: Apply moduix dark tokens globally or to one surface across framewor
 import reactScopedSurface from '../../../snippets/dark-mode/react/scoped-surface.tsx?raw';
 import solidScopedSurface from '../../../snippets/dark-mode/solid/scoped-surface.tsx?raw';
 import VueScopedSurface from '../../../snippets/dark-mode/vue/scoped-surface.vue?raw';
+import SvelteScopedSurface from '../../../snippets/dark-mode/svelte/scoped-surface.svelte?raw';
 
 # Dark mode
 
@@ -116,6 +117,11 @@ The component code differs only by the native package import:
   <Tab label="Vue" value="vue">
 
 <CodeBlockRuntime lang="vue" code={VueScopedSurface} />
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+<CodeBlockRuntime lang="svelte" code={SvelteScopedSurface} />
 
   </Tab>
 </Tabs>

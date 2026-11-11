@@ -1,0 +1,110 @@
+@layer moduix.components {
+  .root {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--moduix-spacing-1);
+    width: var(--moduix-date-input-width, auto);
+    max-width: 100%;
+
+    &[data-disabled] {
+      opacity: var(--moduix-opacity-disabled);
+
+      :where(
+          [data-slot='field-root'][data-disabled],
+          [data-slot='field-root-provider'][data-disabled],
+          [data-slot='fieldset-root'][data-disabled],
+          [data-slot='fieldset-root-provider'][data-disabled]
+        )
+        & {
+        opacity: 1;
+      }
+    }
+  }
+
+  .label {
+    color: var(--moduix-foreground);
+    font-size: var(--moduix-text-sm);
+    font-weight: var(--moduix-weight-medium);
+    line-height: var(--moduix-line-height-text-sm);
+  }
+
+  .control {
+    display: flex;
+    align-items: center;
+    gap: var(--moduix-spacing-1);
+    width: 100%;
+    min-height: var(--moduix-date-input-control-height, var(--moduix-size-md));
+    border: var(--moduix-border-width-sm) solid var(--moduix-input);
+    border-radius: var(--moduix-date-input-radius, var(--moduix-radius-md));
+    padding: var(--moduix-spacing-1) var(--moduix-spacing-3);
+    background-color: var(--moduix-background);
+    color: var(--moduix-foreground);
+    font-size: var(--moduix-text-md);
+    line-height: var(--moduix-line-height-text-md);
+    outline: var(--moduix-focus-ring-halo-width) solid transparent;
+    transition:
+      border-color var(--moduix-transition-default),
+      outline-color var(--moduix-transition-default);
+
+    &[data-focus] {
+      border-color: var(--moduix-ring);
+      outline-color: color-mix(in oklab, var(--moduix-ring) 50%, transparent);
+    }
+
+    &[data-invalid] {
+      border-color: var(--moduix-destructive);
+
+      &[data-focus] {
+        outline-color: color-mix(in oklab, var(--moduix-destructive) 20%, transparent);
+      }
+    }
+
+    &[data-disabled] {
+      pointer-events: none;
+    }
+  }
+
+  .segmentGroup {
+    display: flex;
+    align-items: center;
+    gap: var(--moduix-spacing-0-5);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .segment {
+    min-width: 2ch;
+    border-radius: var(--moduix-radius-sm);
+    padding-inline: var(--moduix-spacing-1);
+    text-align: center;
+    outline: 0;
+    cursor: default;
+    transition:
+      background-color var(--moduix-transition-default),
+      color var(--moduix-transition-default);
+
+    &[data-editable] {
+      cursor: text;
+    }
+
+    &[data-placeholder-shown] {
+      color: var(--moduix-muted-foreground);
+    }
+
+    &:focus-visible {
+      background-color: color-mix(in oklab, var(--moduix-ring) 18%, transparent);
+      color: var(--moduix-foreground);
+    }
+
+    &[data-type='literal'] {
+      min-width: auto;
+      padding-inline: 0;
+      color: var(--moduix-muted-foreground);
+    }
+  }
+
+  .separator {
+    color: var(--moduix-muted-foreground);
+    user-select: none;
+  }
+}

@@ -63,7 +63,7 @@ container.
 Use `TocRootProvider` with `useToc()` only when controls outside the part tree need the same
 tracking state, such as `activeIds` or `scrollTo`. React reads the store as an object; Solid reads
 its reactive state through the returned accessor. In Vue, the reactive store is exposed directly to
-the template. Use `TocContext` when a surrounding composition such as `Collapsible` needs the
+the template. In Svelte, `useToc()` returns a getter, so read the state with `toc().activeIds`; pass an `id` to the hook (for example `$props.id()`). Use `TocContext` when a surrounding composition such as `Collapsible` needs the
 active items. For router links, use `TocLink asChild` with one semantic `<a>` child; in Solid, pass
 that child through the render function expected by `asChild`.
 Choose either `TocIndicator` for an active-range marker or `TocRail` for per-link hierarchy; do
@@ -98,7 +98,7 @@ Hover or focus a part to find it in the preview.
 
 ## Styling
 
-Use `className` in React or `class` in Solid and Vue on any exported part. Tailwind variants use native
+Use `className` in React or `class` in Solid, Vue, and Svelte on any exported part. Tailwind variants use native
 utilities and consumer classes. CSS Modules variants build on foundation tokens and have no component
 variables: a class on a part, or a `data-slot` selector, overrides the layered component styles. To
 change the navigation column, override `grid-template-columns` on `Toc`.

@@ -1,0 +1,38 @@
+@layer storybook {
+  .field {
+    width: 16rem;
+  }
+
+  .stack {
+    display: grid;
+    gap: var(--moduix-spacing-3);
+  }
+
+  .hint {
+    color: var(--moduix-muted-foreground);
+    font-size: var(--moduix-text-xs);
+    line-height: var(--moduix-line-height-text-xs);
+  }
+
+  .customRatingGroup {
+    --moduix-rating-group-active-color: #f59e0b;
+    --moduix-rating-group-color: color-mix(in srgb, #f59e0b 35%, var(--moduix-muted-foreground));
+    --moduix-rating-group-gap: var(--moduix-spacing-2);
+  }
+
+  .asChild {
+    display: inline-flex;
+    flex-direction: column;
+    gap: var(--moduix-spacing-1);
+  }
+
+  .customIcon {
+    &[data-highlighted] > svg {
+      fill: currentColor;
+    }
+
+    &:not([data-highlighted]) {
+      color: var(--moduix-rating-group-color, var(--moduix-muted-foreground));
+    }
+  }
+}

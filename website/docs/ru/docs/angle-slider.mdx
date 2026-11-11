@@ -108,7 +108,7 @@ Reset показывает встроенный в Ark сброс формы. У
 `AngleSliderRootProvider` с `useAngleSlider()` из соответствующего пакета только тогда, когда
 store нужно создать вне дерева слайдера; не рендерите корневой компонент и `AngleSliderRootProvider`
 для одного состояния.
-В Solid состояние store читается через функцию-аксессор, например `angleSlider().value`.
+В Solid и Svelte хук возвращает функцию (аксессор в Solid, геттер в Svelte), поэтому состояние читается как `angleSlider().value`. В Svelte управляемый угол можно также привязать через `bind:value` на `AngleSlider`.
 
 `AngleSliderDial` и `AngleSliderMarks` - удобные составные компоненты. Используйте `AngleSliderControl` с `AngleSliderThumb` или
 `AngleSliderMarkerGroup` с `AngleSliderMarker`, если нужны собственные дочерние элементы, другой порядок частей или
@@ -140,7 +140,7 @@ store нужно создать вне дерева слайдера; не ре�
 
 ## Стилизация
 
-Используйте `className` в React и `class` в Solid или Vue для структурных стилей экспортируемых частей.
+Используйте `className` в React и `class` в Solid, Vue или Svelte для структурных стилей экспортируемых частей.
 Для стилей состояний предпочитайте атрибуты Ark - `data-state`, `data-disabled`, `data-invalid` и
 `data-readonly` - вместе с селекторами moduix `data-slot`. Варианты на Tailwind настраиваются
 обычными утилитами и пользовательскими классами; перечисленные ниже переменные компонента относятся

@@ -31,9 +31,9 @@ or component-index pages, read [the framework-support contract](references/frame
   root, family-prefixed parts, and top-level hooks directly from the component subpath. Do not show
   `Component.Part`, `Component.Root`, namespace imports, or duplicate `<Family>Root` aliases.
 - Use public imports from the shipped or explicitly staged package the example documents. Current
-  shipped package roots are `@moduix/react`, `@moduix/solid`, `@moduix/vue`,
-  `@moduix/react-tailwind`, `@moduix/solid-tailwind`, and `@moduix/vue-tailwind`. Discover later adapters from
-  package exports and registries. The documentation application runs React; do not silently present
+  shipped package roots are `@moduix/react`, `@moduix/solid`, `@moduix/vue`, `@moduix/svelte`,
+  `@moduix/react-tailwind`, `@moduix/solid-tailwind`, `@moduix/vue-tailwind`, and
+  `@moduix/svelte-tailwind`. Discover later adapters from package exports and registries. The documentation application runs React; do not silently present
   its live preview as a different runtime or styling variant.
 - Keep prose and snippets consumer-facing, complete, and production-like. Do not hide required setup, callbacks, collection data, or Ark composition behind docs-only helpers.
 - Write the brand as lowercase `moduix`. In public docs, avoid contract wording such as "owns", "owned", and "ownership" (ru "владеет", fr "possède"): say what the part does (manages, controls, renders, handles), and call package versus copied registry source the install method.

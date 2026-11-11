@@ -1,0 +1,44 @@
+<script lang="ts">
+  import { Button } from '@moduix/svelte/button';
+  import {
+    Menu,
+    MenuContent,
+    MenuIndicator,
+    MenuItem,
+    MenuPositioner,
+    MenuTrigger,
+    MenuTriggerItem,
+    MenuTriggerItemIcon,
+    MenuViewport,
+  } from '@moduix/svelte/menu';
+</script>
+
+<Menu>
+  <MenuTrigger>
+    {#snippet asChild(props)}
+      <Button {...props()}>File <MenuIndicator /></Button>
+    {/snippet}
+  </MenuTrigger>
+  <MenuPositioner>
+    <MenuContent>
+      <MenuViewport>
+        <MenuItem value="open">Open...</MenuItem>
+        <MenuItem value="save">Save</MenuItem>
+        <Menu>
+          <MenuTriggerItem>Share <MenuTriggerItemIcon /></MenuTriggerItem>
+          <MenuPositioner>
+            <MenuContent>
+              <MenuViewport>
+                <MenuItem value="email">Email</MenuItem>
+                <MenuItem value="message">Message</MenuItem>
+                <MenuItem value="copy-link">Copy Link</MenuItem>
+                <MenuItem value="invite">Invite people</MenuItem>
+              </MenuViewport>
+            </MenuContent>
+          </MenuPositioner>
+        </Menu>
+        <MenuItem value="print">Print</MenuItem>
+      </MenuViewport>
+    </MenuContent>
+  </MenuPositioner>
+</Menu>

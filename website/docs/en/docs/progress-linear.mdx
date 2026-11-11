@@ -20,7 +20,7 @@ import * as ProgressLinearDocs from '@/components/examples/progress-linear/css-p
 
 Compose the progress bar from the explicit `ProgressLinearLabel`, `ProgressLinearValueText`, `ProgressLinearTrack`, and `ProgressLinearRange` parts. Give
 `ProgressLinearTrack` an accessible name that describes the task.
-React, Solid, and Vue expose the same flat part names; Vue uses native `class`, slots, and `v-model` where applicable.
+React, Solid, Vue, and Svelte expose the same flat part names; Vue uses native `class`, slots, and `v-model` where applicable, and Svelte uses `class`, snippets, and `bind:value`.
 
 ## Choosing the right component
 
@@ -89,7 +89,7 @@ unknown. If state is created with `useProgress()`, render the parts inside
 `ProgressLinearRootProvider` instead of `ProgressLinear`. Use
 `ProgressLinearView` for state-specific content and `ProgressLinearContext` when custom visible text
 needs the current state.
-In Vue, use `v-model` for the same controlled value.
+In Vue, use `v-model` for the same controlled value; in Svelte, use `bind:value`.
 
 ## Anatomy
 
@@ -112,7 +112,7 @@ Hover or focus a part to find it in the preview.
 
 ## Styling
 
-Use `className` in React or `class` in Solid and Vue on exported parts for structural styling. For state-based
+Use `className` in React or `class` in Solid, Vue, and Svelte on exported parts for structural styling. For state-based
 styles, use Ark data attributes and moduix `data-slot` hooks. Tailwind variants use native utilities
 and consumer classes; the variables below customize the CSS Modules variants.
 

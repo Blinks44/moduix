@@ -72,14 +72,14 @@ inside it explicitly. The same root setup also works with Next.js `Image` using 
 ## Composition
 
 Import `AspectRatio` from the matching runtime and styling package: `@moduix/react/aspect-ratio`,
-`@moduix/solid/aspect-ratio`, or `@moduix/vue/aspect-ratio` for CSS Modules, and the corresponding
-`@moduix/react-tailwind/aspect-ratio`, `@moduix/solid-tailwind/aspect-ratio`, or
-`@moduix/vue-tailwind/aspect-ratio` subpath for Tailwind.
+`@moduix/solid/aspect-ratio`, `@moduix/vue/aspect-ratio`, or `@moduix/svelte/aspect-ratio` for CSS Modules, and the corresponding
+`@moduix/react-tailwind/aspect-ratio`, `@moduix/solid-tailwind/aspect-ratio`,
+`@moduix/vue-tailwind/aspect-ratio`, or `@moduix/svelte-tailwind/aspect-ratio` subpath for Tailwind.
 
 `AspectRatio` is presentational and has no state. The component has one root part and
 no child parts to combine. Use `asChild` only when another semantic element must own the rendered root, and provide
 exactly one child in React or the Solid render-function form shown in Custom Element. Vue uses the
-`as-child` attribute with a single child element. Child sizing,
+`as-child` attribute with a single child element. Svelte uses an `asChild` snippet that spreads `props()` on one element. Child sizing,
 fitting, borders, radius, and clipping remain up to the application.
 
 In Solid, assign a ref to the element created inside the `asChild` render function. A ref on

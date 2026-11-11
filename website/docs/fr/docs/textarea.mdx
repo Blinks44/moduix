@@ -86,11 +86,11 @@ Ark UI ne fournit pas de primitive `Textarea` autonome. Dans moduix, le composan
 hérite de l’état de `Field`.
 
 Utilisez `defaultValue` pour une zone de texte non contrôlée. Lorsque l’application gère la valeur,
-utilisez `value` avec le gestionnaire natif `onChange` dans React et Solid, ou `v-model` dans Vue,
+utilisez `value` avec le gestionnaire natif `onChange` dans React et Solid, `v-model` dans Vue, ou `bind:value` dans Svelte,
 avec le mécanisme d’état du framework utilisé.
 
 Dans Vue, liez la propriété DOM native avec `:defaultValue="initialValue"`, et non `default-value`.
-Avec `v-model`, réinitialisez l’état lié dans le gestionnaire de réinitialisation du formulaire : la réinitialisation native ne déclenche pas d’événement de saisie.
+Avec `v-model`, réinitialisez l’état lié dans le gestionnaire de réinitialisation du formulaire : la réinitialisation native ne déclenche pas d’événement de saisie. Faites de même avec `bind:value` dans Svelte.
 
 Placez `Textarea` dans `Field`, avec `FieldLabel`, `FieldHelperText` et `FieldErrorText`, lorsque
 le contrôle doit fournir un libellé, un texte complémentaire ou une validation. En dehors de `Field`,
@@ -122,7 +122,7 @@ ni champ masqué, ni libellé ou compteur de caractères.
 Dans un `Field`, `FieldRootProvider` ou `Fieldset` moduix désactivé, seule la racine applique
 l’opacité de l’état désactivé ; un `Textarea` désactivé hors de ces conteneurs s’atténue lui-même.
 
-Utilisez `className` dans React ou `class` dans Solid et Vue sur `Textarea`. Les variantes Tailwind
+Utilisez `className` dans React ou `class` dans Solid, Vue et Svelte sur `Textarea`. Les variantes Tailwind
 utilisent les classes utilitaires natives et les classes du consommateur. Les variantes CSS Modules
 reposent sur les tokens de la fondation et n’exposent que les deux variables ci-dessous ; remplacez
 les couleurs, les espacements, la typographie, la hauteur et `resize` avec une simple classe, qui l’emporte sur

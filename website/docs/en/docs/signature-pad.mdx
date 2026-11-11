@@ -89,7 +89,7 @@ Use `defaultPaths` for local uncontrolled state. Use `paths` with `onDraw(detail
 application controls the signature data. Use `SignaturePadRootProvider` with `useSignaturePad()` when
 state must be created outside the rendered tree or external controls need `paths`, `clear()`, or
 `getDataUrl()`. In Vue, control the paths with `v-model:paths` and listen to
-`@draw` or `@draw-end` for drawing details.
+`@draw` or `@draw-end` for drawing details. In Svelte, use `bind:paths` and pass `onDraw` or `onDrawEnd`.
 
 With Ark Vue 5.39.3, `drawEnd.paths` can contain the previous value in controlled mode.
 `v-model:paths` receives the committed paths.
@@ -140,7 +140,7 @@ Hover or focus a variable to see it in the preview.
 | `SignaturePadGuide` | `signature-pad-guide` |
 | `SignaturePadClearTrigger` | `signature-pad-clear-trigger` |
 
-Use `className` in React or `class` in Solid and Vue on any exported part for local styling. moduix also
+Use `className` in React or `class` in Solid, Vue, and Svelte on any exported part for local styling. moduix also
 adds stable `data-slot` attributes:
 
 | Part                                 | `data-slot`                   |

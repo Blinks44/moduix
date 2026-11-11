@@ -1,0 +1,319 @@
+@layer moduix.components {
+  .root {
+    position: relative;
+    display: flex;
+    inline-size: fit-content;
+    max-inline-size: 100%;
+    min-inline-size: 0;
+    color: var(--moduix-foreground);
+  }
+
+  .list {
+    display: flex;
+    max-inline-size: 100%;
+    align-items: center;
+    gap: var(--moduix-spacing-1);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    &[data-orientation='vertical'] {
+      align-items: stretch;
+      flex-direction: column;
+    }
+  }
+
+  .item {
+    position: relative;
+  }
+
+  /*
+   * Ark measures --trigger-x from the trigger's offset parent, so items stay static when the list
+   * has an indicator. Content then anchors to the list, and the closing panel skips its exit
+   * animation so it does not fade over the next one.
+   */
+  .list:has(> .indicator) .item {
+    position: static;
+  }
+
+  .list:has(> .indicator) .content[data-state='closed'] {
+    animation: none;
+  }
+
+  .trigger,
+  .link {
+    display: inline-flex;
+    min-block-size: var(--moduix-size-md);
+    align-items: center;
+    justify-content: center;
+    gap: var(--moduix-spacing-2);
+    margin: 0;
+    border: 0;
+    border-radius: var(--moduix-radius-md);
+    padding: var(--moduix-spacing-1) var(--moduix-spacing-3);
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-size: var(--moduix-text-sm);
+    font-weight: var(--moduix-weight-medium);
+    line-height: var(--moduix-line-height-text-sm);
+    text-decoration: none;
+    user-select: none;
+    white-space: nowrap;
+    outline: 0;
+    transition:
+      background-color var(--moduix-transition-default),
+      color var(--moduix-transition-default);
+
+    & > svg {
+      flex: none;
+      inline-size: var(--moduix-spacing-4);
+      block-size: var(--moduix-spacing-4);
+    }
+
+    &:focus-visible {
+      outline: var(--moduix-focus-ring-inset-width) solid var(--moduix-ring);
+    }
+
+    &:is([data-disabled], :disabled) {
+      cursor: default;
+      opacity: var(--moduix-opacity-disabled);
+      pointer-events: none;
+    }
+
+    @media (hover: hover) {
+      &:hover:not([data-disabled], :disabled) {
+        background-color: var(--moduix-muted);
+      }
+    }
+  }
+
+  .trigger {
+    & > svg {
+      transition: rotate var(--moduix-transition-default);
+    }
+
+    &[data-state='open'] {
+      background-color: var(--moduix-muted);
+
+      & > svg {
+        rotate: 180deg;
+      }
+    }
+  }
+
+  .link[data-current] {
+    color: var(--moduix-primary);
+  }
+
+  .content {
+    position: absolute;
+    z-index: var(--moduix-z-popup);
+    inset-block-start: calc(100% + var(--moduix-spacing-2));
+    inset-inline-start: 0;
+    display: flex;
+    inline-size: max-content;
+    min-inline-size: min(
+      max(var(--trigger-width, 0px), var(--moduix-navigation-menu-content-min-width, 12rem)),
+      calc(100vw - var(--moduix-spacing-6))
+    );
+    max-inline-size: min(
+      var(--moduix-navigation-menu-content-max-width, 20rem),
+      calc(100vw - var(--moduix-spacing-6))
+    );
+    max-block-size: min(
+      var(--moduix-navigation-menu-content-max-height, 24rem),
+      calc(100dvh - var(--moduix-spacing-6))
+    );
+    flex-direction: column;
+    overflow: auto;
+    border-radius: var(--moduix-radius-md);
+    padding-block: var(--moduix-popup-list-padding-y, var(--moduix-spacing-1));
+    background-color: var(--moduix-popover);
+    color: var(--moduix-popover-foreground);
+    outline: var(--moduix-border-width-sm) solid var(--moduix-border);
+    box-shadow: var(--moduix-shadow-lg);
+    transform-origin: top left;
+    overscroll-behavior: contain;
+
+    &[dir='rtl'] {
+      transform-origin: top right;
+    }
+
+    &[data-state='open'] {
+      animation: global(moduix-popup-in)
+        var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
+        var(--moduix-popup-motion-easing, var(--moduix-ease-in-out));
+    }
+
+    &[data-state='closed'] {
+      animation: global(moduix-popup-out)
+        var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
+        var(--moduix-popup-motion-easing, var(--moduix-ease-in-out)) forwards;
+      pointer-events: none;
+    }
+  }
+
+  .content .link {
+    justify-content: flex-start;
+    margin-inline: var(--moduix-popup-highlight-inset-x, var(--moduix-spacing-1));
+    border-radius: var(--moduix-radius-sm);
+    padding-inline: var(--moduix-spacing-2);
+  }
+
+  /* Ark measures --trigger-x from the list's left edge, so the indicator is placed physically. */
+  .indicator {
+    position: absolute;
+    z-index: calc(var(--moduix-z-popup) + 1);
+    inset-block-end: calc(-1 * var(--moduix-spacing-2-5));
+    left: 0;
+    display: flex;
+    inline-size: var(--trigger-width, 0);
+    block-size: var(--moduix-spacing-2-5);
+    justify-content: center;
+    pointer-events: none;
+    translate: var(--trigger-x, 0) 0;
+    transition:
+      translate var(--moduix-transition-default),
+      inline-size var(--moduix-transition-default);
+
+    &[data-state='open'] {
+      animation: global(moduix-fade-in) var(--moduix-transition-default);
+    }
+
+    &[data-state='closed'] {
+      animation: global(moduix-fade-out) var(--moduix-transition-default) forwards;
+    }
+  }
+
+  .arrow {
+    position: relative;
+    inset-block-start: var(--moduix-spacing-1);
+    inline-size: var(--moduix-spacing-2-5);
+    block-size: var(--moduix-spacing-2-5);
+    border-block-start: var(--moduix-border-width-sm) solid var(--moduix-border);
+    border-inline-start: var(--moduix-border-width-sm) solid var(--moduix-border);
+    background-color: var(--moduix-popover);
+    rotate: 45deg;
+  }
+
+  .itemIndicator {
+    position: absolute;
+    inset-inline: var(--moduix-spacing-2);
+    inset-block-end: 0;
+    block-size: var(--moduix-border-width-md);
+    border-radius: var(--moduix-radius-full);
+    background-color: currentColor;
+  }
+
+  .viewportPositioner {
+    position: absolute;
+    z-index: var(--moduix-z-popup);
+    display: flex;
+
+    /* Ark measures --viewport-x from the root's left edge, so the horizontal placement is physical. */
+    &[data-orientation='horizontal'] {
+      inset-block-start: 100%;
+      left: 0;
+      translate: var(--viewport-x, 0px) 0;
+    }
+
+    &[data-orientation='vertical'] {
+      inset-block-start: var(--viewport-y, 0px);
+      inset-inline-start: 100%;
+    }
+  }
+
+  .viewport {
+    position: relative;
+    inline-size: var(--viewport-width);
+    max-inline-size: min(
+      var(--moduix-navigation-menu-viewport-max-width, 40rem),
+      calc(100vw - var(--moduix-spacing-6))
+    );
+    block-size: var(--viewport-height);
+    max-block-size: min(
+      var(--moduix-navigation-menu-viewport-max-height, 32rem),
+      calc(100dvh - var(--moduix-spacing-6))
+    );
+    margin-block-start: var(--moduix-spacing-2-5);
+    overflow: hidden;
+    border-radius: var(--moduix-radius-md);
+    background-color: var(--moduix-popover);
+    color: var(--moduix-popover-foreground);
+    outline: var(--moduix-border-width-sm) solid var(--moduix-border);
+    box-shadow: var(--moduix-shadow-lg);
+    transform-origin: top center;
+    transition:
+      inline-size var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
+        var(--moduix-popup-motion-easing, var(--moduix-ease-in-out)),
+      block-size var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
+        var(--moduix-popup-motion-easing, var(--moduix-ease-in-out));
+
+    &[data-orientation='vertical'] {
+      margin-block-start: 0;
+      margin-inline-start: var(--moduix-spacing-2);
+    }
+
+    &[data-state='open'] {
+      animation: global(moduix-popup-in)
+        var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
+        var(--moduix-popup-motion-easing, var(--moduix-ease-in-out));
+    }
+
+    &[data-state='closed'] {
+      animation: global(moduix-popup-out)
+        var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
+        var(--moduix-popup-motion-easing, var(--moduix-ease-in-out)) forwards;
+      pointer-events: none;
+    }
+
+    /* Ark moves the open content into the viewport; the viewport owns the surface and its motion. */
+    & .content {
+      position: absolute;
+      inset: 0 auto auto 0;
+      max-block-size: none;
+      overflow: visible;
+      border-radius: 0;
+      background: transparent;
+      outline: 0;
+      box-shadow: none;
+      will-change: translate, opacity;
+    }
+
+    & .content[data-state] {
+      animation: none;
+    }
+
+    & .content[data-motion] {
+      animation-duration: var(--moduix-popup-motion-duration, var(--moduix-duration-normal));
+      animation-timing-function: var(--moduix-popup-motion-easing, var(--moduix-ease-in-out));
+      animation-fill-mode: both;
+    }
+
+    & .content[data-motion='from-start'] {
+      animation-name: global(moduix-navigation-menu-content-from-start);
+    }
+
+    & .content[data-motion='from-end'] {
+      animation-name: global(moduix-navigation-menu-content-from-end);
+    }
+
+    & .content[data-motion='to-start'] {
+      animation-name: global(moduix-navigation-menu-content-to-start);
+    }
+
+    & .content[data-motion='to-end'] {
+      animation-name: global(moduix-navigation-menu-content-to-end);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .content[data-state],
+    .viewport .content[data-motion],
+    .indicator[data-state],
+    .viewport[data-state] {
+      animation: none;
+    }
+  }
+}

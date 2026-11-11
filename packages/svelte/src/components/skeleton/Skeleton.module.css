@@ -1,0 +1,30 @@
+@layer moduix.components {
+  .root {
+    display: block;
+    width: 100%;
+    border-radius: var(--moduix-skeleton-border-radius, var(--moduix-radius-md));
+
+    &[data-state='loading'] {
+      height: var(--moduix-skeleton-height, var(--moduix-spacing-4));
+      overflow: hidden;
+      background: var(
+        --moduix-skeleton-bg,
+        color-mix(in oklab, var(--moduix-muted-foreground) 18%, var(--moduix-background))
+      );
+      color: transparent;
+      pointer-events: none;
+      user-select: none;
+
+      &::before,
+      &::after,
+      & * {
+        visibility: hidden;
+      }
+    }
+
+    /* The token turns into `none` under reduced motion. */
+    &[data-state='loading'][data-variant='pulse'] {
+      animation: var(--moduix-animation-pulse);
+    }
+  }
+}

@@ -1,0 +1,55 @@
+.demo {
+  width: min(56rem, calc(100vw - var(--moduix-spacing-8)));
+  height: 28rem;
+}
+
+.panel {
+  display: grid;
+  place-items: center;
+  font-weight: var(--moduix-weight-medium);
+}
+
+.vertical {
+  width: min(34rem, calc(100vw - var(--moduix-spacing-8)));
+  height: 28rem;
+}
+
+.stack {
+  display: grid;
+  gap: var(--moduix-spacing-4);
+  width: min(56rem, calc(100vw - var(--moduix-spacing-8)));
+  min-width: min(42rem, calc(100vw - var(--moduix-spacing-8)));
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--moduix-spacing-2);
+}
+
+.status {
+  color: var(--moduix-muted-foreground);
+  font-size: var(--moduix-text-sm);
+  line-height: var(--moduix-line-height-text-sm);
+}
+
+.custom {
+  --moduix-splitter-resize-trigger-line-color: color-mix(
+    in oklab,
+    var(--moduix-foreground) 24%,
+    transparent
+  );
+
+  width: min(56rem, calc(100vw - var(--moduix-spacing-8)));
+  height: 28rem;
+  border-color: color-mix(in oklab, var(--moduix-foreground) 16%, var(--moduix-border));
+  background-color: color-mix(in oklab, var(--moduix-primary) 3%, var(--moduix-card));
+}
+
+.custom > .panel {
+  background-color: color-mix(in oklab, var(--moduix-primary) 4%, var(--moduix-background));
+}
+
+.custom [data-slot='splitter-resize-trigger-indicator'] {
+  border-color: color-mix(in oklab, var(--moduix-foreground) 24%, var(--moduix-border));
+}

@@ -7,7 +7,9 @@ import { ProjectChecklist } from '@/components/examples/styling/project-checklis
 import solidProjectChecklist from '../../../snippets/styling/solid/project-checklist.tsx?raw';
 import solidBrandButton from '../../../snippets/styling/solid/brand-button.tsx?raw';
 import VueProjectChecklist from '../../../snippets/styling/vue/project-checklist.vue?raw';
+import SvelteProjectChecklist from '../../../snippets/styling/svelte/project-checklist.svelte?raw';
 import vueBrandButton from '../../../snippets/styling/vue/brand-button.vue?raw';
+import svelteBrandButton from '../../../snippets/styling/svelte/brand-button.svelte?raw';
 
 # Styling
 
@@ -20,10 +22,10 @@ This guide assumes the matching package and stylesheet are already configured th
 
 ## Choose a styling track
 
-| Track | React | Solid | Vue | Best fit |
-| --- | --- | --- | --- | --- |
-| CSS Modules | `@moduix/react` | `@moduix/solid` | `@moduix/vue` | Shipped component styles with token and local-class overrides |
-| Tailwind CSS | `@moduix/react-tailwind` | `@moduix/solid-tailwind` | `@moduix/vue-tailwind` | Utility-backed components in an existing Tailwind v4 application |
+| Track | React | Solid | Vue | Svelte | Best fit |
+| --- | --- | --- | --- | --- | --- |
+| CSS Modules | `@moduix/react` | `@moduix/solid` | `@moduix/vue` | `@moduix/svelte` | Shipped component styles with token and local-class overrides |
+| Tailwind CSS | `@moduix/react-tailwind` | `@moduix/solid-tailwind` | `@moduix/vue-tailwind` | `@moduix/svelte-tailwind` | Utility-backed components in an existing Tailwind v4 application |
 
 CSS Modules and Tailwind are equal distribution paths, not layers to combine on the same component.
 Use the package that matches both your framework and styling track.
@@ -78,7 +80,7 @@ Set the variables in a class, or inline when the value is dynamic:
 }
 ```
 
-Pass the class to `className` in React or `class` in Solid and Vue.
+Pass the class to `className` in React or `class` in Solid, Vue, and Svelte.
 
 ### One variant across the application
 
@@ -134,6 +136,11 @@ code:
 <CodeBlockRuntime lang="vue" code={vueBrandButton} />
 
     </Tab>
+    <Tab label="Svelte" value="svelte">
+
+<CodeBlockRuntime lang="svelte" code={svelteBrandButton} />
+
+    </Tab>
     <Tab label="Styles" value="styles">
 
 ```css file="../../../src/components/examples/styling/brand-button.module.css"
@@ -154,7 +161,7 @@ Apply the consumer class to the part that renders the visual change. Combine it 
 such as `data-state` or `data-disabled` for stateful styles. Do not depend on generated class names or
 DOM order.
 
-The preview uses React because the documentation application runs React. The Solid and Vue sources below use
+The preview uses React because the documentation application runs React. The Solid, Vue, and Svelte sources below use
 the same stylesheet and native `class` props.
 
 <ExampleFrame variant="component">
@@ -180,6 +187,11 @@ the same stylesheet and native `class` props.
   <Tab label="Vue" value="vue">
 
 <CodeBlockRuntime lang="vue" code={VueProjectChecklist} />
+
+    </Tab>
+  <Tab label="Svelte" value="svelte">
+
+<CodeBlockRuntime lang="svelte" code={SvelteProjectChecklist} />
 
     </Tab>
     <Tab label="Styles" value="styles">
@@ -216,7 +228,7 @@ portalled parts themselves, or scope them to the portal container.
 
 Panda CSS can generate consumer classes for every supported framework. Its token names come from your Panda
 theme, not from moduix. Generate class strings once, then attach them to exported parts with
-`className` in React or `class` in Solid or Vue.
+`className` in React or `class` in Solid, Vue, or Svelte.
 
 ```ts
 import { css } from '../styled-system/css';
@@ -280,6 +292,27 @@ import { Accordion, AccordionItem, AccordionItemTrigger, AccordionItemContent } 
     </AccordionItem>
   </Accordion>
 </template>
+```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+```svelte
+<script lang="ts">
+  import {
+    Accordion,
+    AccordionItem,
+    AccordionItemContent,
+    AccordionItemTrigger,
+  } from '@moduix/svelte-tailwind/accordion';
+</script>
+
+<Accordion collapsible>
+  <AccordionItem value="shipping" class="rounded-lg border data-[state=open]:border-blue-500">
+    <AccordionItemTrigger class="px-4">Shipping</AccordionItemTrigger>
+    <AccordionItemContent class="px-4">Usually 2 to 4 days.</AccordionItemContent>
+  </AccordionItem>
+</Accordion>
 ```
 
   </Tab>

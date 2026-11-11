@@ -31,7 +31,7 @@ redimensionnement.
 ### Rapport d’aspect
 
 Définissez `aspectRatio` pour conserver un rapport largeur-hauteur précis. Modifiez-le depuis l’état
-React, Solid ou Vue lorsque l’utilisateur choisit un format de sortie.
+React, Solid, Vue ou Svelte lorsque l’utilisateur choisit un format de sortie.
 
 <Example name="image-cropper/aspect-ratio" />
 
@@ -65,7 +65,7 @@ Limitez la taille de la zone avec `minWidth`, `minHeight`, `maxWidth` et `maxHei
 
 Utilisez `ImageCropperContext` pour relier une barre d’outils aux actions de zoom, de rotation, de
 retournement et de réinitialisation. Dans cet exemple, la rotation et le retournement sont contrôlés
-depuis l’état React, Solid ou Vue.
+depuis l’état React, Solid, Vue ou Svelte.
 
 <Example name="image-cropper/rotation-flip-and-reset" />
 
@@ -159,7 +159,7 @@ La racine mesure 32rem de large et se réduit avec son conteneur. La zone d’af
 réduit pour tenir dans la zone et reste centrée, de sorte que le recadrage correspond toujours aux
 pixels visibles.
 
-Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées. Les variantes
+Utilisez `className` en React ou `class` en Solid, Vue et Svelte sur les parties exportées. Les variantes
 Tailwind utilisent les utilitaires natifs et les classes de l’application. Les variantes CSS Modules
 reposent sur les tokens de foundation et n’ont pas de variables de composant : une classe sur la
 partie remplace les styles du composant placés dans une couche, par exemple un autre `aspect-ratio` ou

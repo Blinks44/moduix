@@ -378,7 +378,7 @@ function VaryingHeightStory() {
       <Button
         onClick={() => {
           const next = count + 1;
-          const description = descriptions[Math.floor(Math.random() * descriptions.length)];
+          const description = descriptions[next % descriptions.length];
           setCount(next);
           varyingHeightToaster.info({
             title: `Notification ${next}`,

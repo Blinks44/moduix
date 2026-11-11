@@ -111,17 +111,19 @@ import AnatomyScene from '@/components/examples/tooltip/anatomy';
 неконтролируемой подсказки, а `open` вместе с `onOpenChange(details)` используется, когда состояние
 хранится в другой части приложения. Используйте `TooltipRootProvider` с `useTooltip()`, если
 хранилище создаётся за пределами дерева, а `TooltipContext` или `useTooltipContext()`, если
-состояние нужно потомку. `asChild` принимает один доступный для фокуса элемент, а в Solid
-используется функция рендеринга. `TooltipDisabledTrigger` предназначен для одного отключённого
+состояние нужно потомку. `asChild` принимает один доступный для фокуса элемент, в Solid
+используется функция рендеринга, а в Svelte сниппет `asChild`, который передаёт `props()` дочернему элементу. `TooltipDisabledTrigger` предназначен для одного отключённого
 нативного элемента. Портал включён по умолчанию, поэтому задавайте `portalled={false}` или
 передавайте `portalRef` только при необходимости ограничить подсказку конкретной DOM-областью.
 В Vue используйте `v-model:open` для контролируемого состояния и kebab-case-события, например
-`@open-change`.
+`@open-change`. В Svelte используйте `bind:open` для контролируемого состояния и колбэки-пропсы,
+например `onOpenChange`.
 
 По умолчанию содержимое монтируется при первом открытии и удаляется после анимации закрытия.
 Задайте `unmountOnExit` значение `false`, чтобы сохранить его после первого открытия;
 для монтирования сразу задайте также `lazyMount` значение `false`. В Vue эти параметры
-передаются как `:unmount-on-exit="false"` и `:lazy-mount="false"`.
+передаются как `:unmount-on-exit="false"` и `:lazy-mount="false"`; в Svelte они передаются как обычные пропсы:
+`unmountOnExit={false}` и `lazyMount={false}`.
 
 ## Анатомия
 
@@ -141,7 +143,7 @@ import AnatomyScene from '@/components/examples/tooltip/anatomy';
     ["TooltipArrowTip", "tooltip-arrow-tip", "Видимый наконечник стрелки.", 4],
     ["TooltipBody", "", "Удобная обёртка, которая одновременно выводит `TooltipPositioner` и `TooltipContent`.", 1],
     ["TooltipRootProvider", null, "Отображает подсказку из объекта состояния `useTooltip()`, созданного за пределами дерева.", 0],
-    ["TooltipContext", null, "Передаёт текущее состояние пользовательским потомкам через функцию рендеринга или слот с параметрами в Vue.", 0],
+    ["TooltipContext", null, "Передаёт текущее состояние пользовательским потомкам через функцию рендеринга, слот с параметрами в Vue или сниппет `render` в Svelte.", 0],
   ]}
 >
   <AnatomyScene />
@@ -156,7 +158,7 @@ import AnatomyScene from '@/components/examples/tooltip/anatomy';
 пропускается, когда Ark мгновенно переключает подсказку между триггерами (`data-instant`) или
 пользователь предпочитает уменьшенное движение.
 
-Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях. Варианты Tailwind
+Используйте `className` в React или `class` в Solid, Vue и Svelte на экспортируемых частях. Варианты Tailwind
 используют нативные utility-классы и классы потребителя. Варианты CSS Modules построены на токенах
 foundation и не имеют переменных компонента: класс на части переопределяет стили компонента из слоя.
 Атрибуты состояния и хуки `data-slot` общие для обоих вариантов стилизации.

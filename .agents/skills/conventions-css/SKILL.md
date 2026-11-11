@@ -29,6 +29,9 @@ Use this skill for CSS, CSS Modules, and styling work in this repo.
 - Do not write `light-dark()` in component CSS: Rslib lowers it to a polyfill built on `--lightningcss-*`
   variables that the package never defines, so the value becomes invalid. Theme colors already resolve
   `light-dark()` in the foundation tokens; components read those tokens.
+- The Svelte package publishes CSS Modules unprocessed, so the consumer's bundler lowers them. Keep
+  component CSS within features the foundation already relies on; byte-identical modules mean a
+  construct that needs lowering for one adapter needs it for all.
 - Keep component CSS and demo CSS separate. Library styling belongs in its package; demo-only layout belongs in stories or docs examples.
 - When a component exists in several variants, preserve the same visual and state contract. Keep
   CSS Modules byte-identical across framework adapters (`pnpm run check:css-modules` enforces it in

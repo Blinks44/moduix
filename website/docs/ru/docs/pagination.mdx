@@ -107,7 +107,7 @@ import * as PaginationDocs from '@/components/examples/pagination/css-properties
 и отрисуйте семантические ссылки через `asChild`.
 
 В Vue используйте `v-model:page` и `v-model:page-size` для управляемого состояния. События
-`pageChange` и `pageSizeChange` доступны как `@page-change` и `@page-size-change`.
+`pageChange` и `pageSizeChange` доступны как `@page-change` и `@page-size-change`. В Svelte используйте `bind:page` и `bind:pageSize`.
 
 ## Анатомия
 
@@ -139,7 +139,7 @@ moduix сохраняет атрибуты состояния Ark и добав�
 двузначные номера сохраняют квадратную форму, а более длинные значения расширяются без обрезки.
 
 Цвета, рамки, скругление и типографика берутся из токенов foundation. Переопределяйте их через `className`
-в React или `class` в Solid и Vue на нужной части; для текущей страницы используйте `[data-selected]` на
+в React или `class` в Solid, Vue и Svelte на нужной части; для текущей страницы используйте `[data-selected]` на
 `PaginationItem`. CSS-переменная ниже задаёт общий размер страниц, многоточий и кнопок в вариантах CSS
 Modules.
 

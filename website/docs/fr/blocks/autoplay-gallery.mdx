@@ -7,6 +7,7 @@ block: autoplay-gallery
 import { AutoplayGallery } from '@/components/blocks/autoplay-gallery';
 import autoplayGallerySolid from '../../../snippets/blocks/solid/autoplay-gallery.tsx?raw';
 import autoplayGalleryVue from '../../../snippets/blocks/vue/autoplay-gallery.vue?raw';
+import autoplayGallerySvelte from '../../../snippets/blocks/svelte/autoplay-gallery.svelte?raw';
 import autoplayGalleryReact from '../../../src/components/blocks/autoplay-gallery.tsx?raw';
 import autoplayGalleryCss from '../../../src/components/blocks/autoplay-gallery.module.css?raw';
 
@@ -14,7 +15,7 @@ import autoplayGalleryCss from '../../../src/components/blocks/autoplay-gallery.
 
 <ExamplePanel
   clientOnly
-  sources={{ react: autoplayGalleryReact, solid: autoplayGallerySolid, vue: autoplayGalleryVue }}
+  sources={{ react: autoplayGalleryReact, solid: autoplayGallerySolid, vue: autoplayGalleryVue, svelte: autoplayGallerySvelte }}
   files={[{ name: 'autoplay-gallery.module.css', code: autoplayGalleryCss }]}
 >
   <AutoplayGallery />
@@ -48,8 +49,8 @@ espacements de la galerie dans son conteneur.
 
 ## Fonctionnement
 
-React et Solid lisent l’état du carrousel via `CarouselContext` ; Vue utilise `useCarousel` avec
-`CarouselRootProvider`. Cet état identifie la diapositive active et fournit `pageSnapPoints` pour les
+React et Solid lisent l’état du carrousel via `CarouselContext` ; Vue et Svelte utilisent `useCarousel` avec
+`CarouselRootProvider` ; avec Svelte, le hook renvoie un getter, la page se lit donc `carousel().page`. Cet état identifie la diapositive active et fournit `pageSnapPoints` pour les
 indicateurs de progression. L’indicateur de la page actuelle porte l’attribut `data-current`.
 
 Chaque indicateur conserve `overflow: visible` afin que sa zone transparente `::after` agrandisse la zone de clic

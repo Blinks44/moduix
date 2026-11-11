@@ -145,7 +145,7 @@ fournit le modèle de saisie localisé et les libellés d’action traduits si v
 ### État contrôlé
 
 Contrôlez le `DateValue[]` sélectionné en le mettant à jour avec `details.value`. En Vue, utilisez
-`v-model` pour la valeur contrôlée. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+`v-model` pour la valeur contrôlée, en Svelte `bind:value`. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
 
 <Example name="date-picker/controlled" />
 
@@ -225,7 +225,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 ## Styles
 
-Utilisez `className` en React, `class` en Solid et `class` en Vue sur les parties exportées pour les styles
+Utilisez `className` en React ou `class` en Solid, Vue et Svelte sur les parties exportées pour les styles
 structurels. Les variantes Tailwind utilisent les utilitaires natifs et les classes du consommateur ;
 les variantes CSS Modules exposent les variables ci-dessous. Les deux approches partagent les
 attributs d’état Ark et les hooks `data-slot` de moduix.

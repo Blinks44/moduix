@@ -10,16 +10,18 @@ import { AppShellExample } from '@/components/blocks/app-shell/app-shell-example
 import shellReact from '../../../src/components/blocks/app-shell/app-shell.tsx?raw';
 import shellSolid from '../../../snippets/blocks/solid/app-shell.tsx?raw';
 import shellVue from '../../../snippets/blocks/vue/app-shell.vue?raw';
+import shellSvelte from '../../../snippets/blocks/svelte/app-shell.svelte?raw';
 import shellCss from '../../../src/components/blocks/app-shell/app-shell.module.css?raw';
 import routeReact from '../../../snippets/blocks/react/app-shell-route.tsx?raw';
 import routeSolid from '../../../snippets/blocks/solid/app-shell-route.tsx?raw';
 import routeVue from '../../../snippets/blocks/vue/app-shell-route.vue?raw';
+import routeSvelte from '../../../snippets/blocks/svelte/app-shell-route.svelte?raw';
 
 # App shell
 
 <ExamplePanel
   clientOnly
-  sources={{ react: shellReact, solid: shellSolid, vue: shellVue }}
+  sources={{ react: shellReact, solid: shellSolid, vue: shellVue, svelte: shellSvelte }}
   files={[{ name: 'app-shell.module.css', code: shellCss }]}
 >
   <AppShellExample />
@@ -31,12 +33,12 @@ import routeVue from '../../../snippets/blocks/vue/app-shell-route.vue?raw';
 
 ## Add your content
 
-Import the copied `AppShell` into a route next to `app-shell.tsx` (or `app-shell.vue`). It renders
+Import the copied `AppShell` into a route next to `app-shell.tsx` (`app-shell.vue`, or `app-shell.svelte`). It renders
 its content inside `<main>`. The block includes its shared stylesheet and the `icons` directory.
 
 <FrameworkCode
   name="app-shell-route"
-  sources={{ react: routeReact, solid: routeSolid, vue: routeVue }}
+  sources={{ react: routeReact, solid: routeSolid, vue: routeVue, svelte: routeSvelte }}
 />
 
 The example uses local state. In your application, derive `page` from your router and replace the
@@ -44,12 +46,15 @@ navigation buttons with your router’s links. Keep `aria-current="page"` on the
 Replace the workspace name, resource links, and user details in the copied navigation.
 `AppShell` is a composition you can edit, rather than an export from the moduix package.
 
-## Vue navigation
+## Vue and Svelte navigation
 
-The Vue block includes `app-shell-navigation.vue` so the desktop sidebar and mobile drawer share
-one navigation component. The CLI installs it beside `app-shell.vue`.
+The Vue and Svelte blocks include `app-shell-navigation.vue` and `app-shell-navigation.svelte` so the desktop sidebar and mobile drawer share
+one navigation component. The CLI installs it beside `app-shell.vue` or `app-shell.svelte`. In Svelte, `AppShell` takes `children` as a snippet and reports navigation through the `onnavigate` callback.
 
 ```vue pure file="../../../snippets/blocks/vue/app-shell-navigation.vue"
+```
+
+```svelte pure file="../../../snippets/blocks/svelte/app-shell-navigation.svelte"
 ```
 
 ## Responsive behavior

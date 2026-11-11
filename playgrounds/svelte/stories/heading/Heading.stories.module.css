@@ -1,0 +1,13 @@
+.stack {
+  display: flex;
+  width: min(32rem, calc(100vw - var(--moduix-spacing-8)));
+  flex-direction: column;
+  gap: var(--moduix-spacing-3);
+}
+
+.customHeading {
+  color: var(--moduix-primary);
+  font-size: var(--moduix-text-3xl);
+  font-weight: var(--moduix-weight-bold);
+  line-height: var(--moduix-line-height-text-3xl);
+}

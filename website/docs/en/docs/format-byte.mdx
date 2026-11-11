@@ -1,11 +1,12 @@
 ---
 title: Format Byte
-description: Format byte values as readable sizes in React, Solid, and Vue with Ark UI, including decimal or binary units and locale-aware output.
+description: Format byte values as readable sizes in React, Solid, Vue, and Svelte with Ark UI, including decimal or binary units and locale-aware output.
 ark: https://ark-ui.com/docs/utilities/format-byte
 ---
 
 import formatByteSolidLocale from '../../../snippets/format-byte/solid/locale.tsx?raw';
 import formatByteVueLocale from '../../../snippets/format-byte/vue/locale.vue?raw';
+import formatByteSvelteLocale from '../../../snippets/format-byte/svelte/locale.svelte?raw';
 
 `Format.Byte` formats a byte count as readable text. Import it from the Ark package for your framework.
 
@@ -19,6 +20,7 @@ Import `Format` from the matching Ark UI package:
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -43,6 +45,13 @@ import { Format } from '@ark-ui/vue';
 ```
 
   </Tab>
+  <Tab value="svelte">
+
+```ts
+import { Format } from '@ark-ui/svelte';
+```
+
+  </Tab>
 </Tabs>
 
 ## Basic
@@ -51,7 +60,7 @@ Pass the number of bytes to `value`. `Format.Byte` renders only the formatted te
 another element that explains what the value represents. The examples use a paragraph for one value and a definition
 list when several values need a shared context.
 
-The preview uses React because the documentation app is React-based. The Solid and Vue tabs contain
+The preview uses React because the documentation app is React-based. The Solid, Vue, and Svelte tabs contain
 native source for the same output and API.
 
 <Example name="format-byte/basic" />
@@ -74,6 +83,7 @@ localized part of the interface with the provider from the matching Ark UI packa
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -91,6 +101,11 @@ localized part of the interface with the provider from the matching Ark UI packa
   <Tab value="vue">
 
 <CodeBlockRuntime lang="vue" code={formatByteVueLocale} />
+
+  </Tab>
+  <Tab value="svelte">
+
+<CodeBlockRuntime lang="svelte" code={formatByteSvelteLocale} />
 
   </Tab>
 </Tabs>

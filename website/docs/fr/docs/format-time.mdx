@@ -1,6 +1,6 @@
 ---
 title: Format Time
-description: Formatez les heures selon une locale donnée en React, Solid ou Vue avec Format.Time d’Ark UI.
+description: Formatez les heures selon une locale donnée en React, Solid, Vue ou Svelte avec Format.Time d’Ark UI.
 ark: https://ark-ui.com/docs/utilities/format-time
 ---
 
@@ -16,6 +16,7 @@ Importez l’utilitaire depuis le paquet Ark UI correspondant à votre framework
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -37,6 +38,13 @@ import { Format } from '@ark-ui/solid';
 
 ```ts
 import { Format } from '@ark-ui/vue';
+```
+
+  </Tab>
+  <Tab value="svelte">
+
+```ts
+import { Format } from '@ark-ui/svelte';
 ```
 
   </Tab>

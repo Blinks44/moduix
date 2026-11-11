@@ -1,0 +1,265 @@
+@layer moduix.components {
+  .root {
+    display: flex;
+    width: var(--moduix-select-width, 14rem);
+    max-width: 100%;
+    min-width: 0;
+    flex-direction: column;
+    gap: var(--moduix-spacing-1-5);
+    color: var(--moduix-foreground);
+  }
+
+  .label {
+    display: inline-flex;
+    align-items: center;
+    font-size: var(--moduix-text-sm);
+    font-weight: var(--moduix-weight-medium);
+    line-height: var(--moduix-line-height-text-sm);
+    user-select: none;
+
+    &[data-disabled] {
+      opacity: var(--moduix-opacity-disabled);
+    }
+  }
+
+  .control {
+    --_select-action-size: var(--moduix-select-action-size, var(--moduix-size-xs));
+    --_select-action-offset: var(--moduix-spacing-2);
+
+    position: relative;
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    align-items: center;
+
+    &[data-disabled] {
+      opacity: var(--moduix-opacity-disabled);
+    }
+  }
+
+  .trigger {
+    display: inline-flex;
+    width: 100%;
+    min-width: 0;
+    height: var(--moduix-select-control-height, var(--moduix-size-md));
+    align-items: center;
+    margin: 0;
+    border: var(--moduix-border-width-sm) solid var(--moduix-input);
+    border-radius: var(--moduix-select-radius, var(--moduix-radius-md));
+    padding-inline: var(--moduix-spacing-3-5)
+      calc(var(--_select-action-offset) + var(--_select-action-size) + var(--moduix-spacing-3-5));
+    background-color: var(--moduix-background);
+    color: inherit;
+    font: inherit;
+    text-align: start;
+    outline: var(--moduix-focus-ring-halo-width) solid transparent;
+    cursor: pointer;
+    user-select: none;
+    transition:
+      border-color var(--moduix-transition-default),
+      outline-color var(--moduix-transition-default);
+
+    &[data-placeholder-shown] {
+      color: var(--moduix-muted-foreground);
+    }
+
+    /* Reserve room for the clear action too; the text keeps a 10px gap before it. */
+    .control:has(> .clearTrigger:not([hidden])) > & {
+      padding-inline-end: calc(
+        var(--_select-action-offset) + var(--_select-action-size) * 2 + var(--moduix-spacing-0-5) +
+          var(--moduix-spacing-2-5)
+      );
+    }
+
+    &:disabled {
+      cursor: default;
+    }
+
+    &[data-state='open'],
+    &:focus-visible {
+      border-color: var(--moduix-ring);
+      outline-color: color-mix(in oklab, var(--moduix-ring) 50%, transparent);
+    }
+
+    .control[data-invalid] & {
+      border-color: var(--moduix-destructive);
+
+      &:is([data-state='open'], :focus-visible) {
+        outline-color: color-mix(in oklab, var(--moduix-destructive) 20%, transparent);
+      }
+    }
+  }
+
+  .valueText,
+  .itemText {
+    min-width: 0;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    & > svg {
+      display: inline-block;
+      width: var(--moduix-spacing-4);
+      height: var(--moduix-spacing-4);
+      margin-inline-end: var(--moduix-spacing-2);
+      vertical-align: middle;
+    }
+  }
+
+  .indicator,
+  .clearTrigger {
+    position: absolute;
+    top: 50%;
+    inset-inline-end: var(--_select-action-offset);
+    transform: translateY(-50%);
+  }
+
+  .indicator {
+    display: inline-flex;
+    width: var(--_select-action-size);
+    height: var(--_select-action-size);
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--moduix-radius-sm);
+    color: var(--moduix-muted-foreground);
+    pointer-events: none;
+    transition:
+      background-color var(--moduix-transition-default),
+      color var(--moduix-transition-default);
+
+    & > svg {
+      width: var(--moduix-spacing-4);
+      height: var(--moduix-spacing-4);
+    }
+
+    .trigger:enabled:hover ~ & {
+      @media (hover: hover) {
+        background-color: var(--moduix-muted);
+        color: var(--moduix-foreground);
+      }
+    }
+  }
+
+  .clearTrigger {
+    --moduix-close-button-size: var(--_select-action-size);
+
+    inset-inline-end: calc(
+      var(--_select-action-offset) + var(--_select-action-size) + var(--moduix-spacing-0-5)
+    );
+  }
+
+  .positioner {
+    z-index: var(--z-index);
+  }
+
+  .content {
+    z-index: calc(var(--moduix-z-popup) + var(--layer-index, 0));
+    display: flex;
+    min-width: var(--reference-width);
+    max-width: var(--available-width);
+    max-height: min(var(--moduix-select-content-max-height, 24rem), var(--available-height));
+    flex-direction: column;
+    overflow: auto;
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
+    border-radius: var(--moduix-select-radius, var(--moduix-radius-md));
+    padding-block: var(--moduix-popup-list-padding-y, var(--moduix-spacing-1));
+    background-color: var(--moduix-popover);
+    box-shadow: var(--moduix-shadow-lg);
+    color: var(--moduix-popover-foreground);
+    transform-origin: var(--transform-origin);
+    outline: 0;
+    overscroll-behavior: contain;
+    scroll-padding-block: var(--moduix-popup-list-padding-y, var(--moduix-spacing-1));
+
+    &[data-state='open'] {
+      animation: global(moduix-popup-in)
+        var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
+        var(--moduix-popup-motion-easing, var(--moduix-ease-in-out));
+    }
+
+    &[data-state='closed'] {
+      animation: global(moduix-popup-out)
+        var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
+        var(--moduix-popup-motion-easing, var(--moduix-ease-in-out)) forwards;
+      pointer-events: none;
+    }
+  }
+
+  /* Scrolls on its own, so a search field above the list stays in view. */
+  .list {
+    display: flex;
+    min-height: 0;
+    flex-direction: column;
+    overflow-y: auto;
+    outline: 0;
+    overscroll-behavior: contain;
+    scroll-padding-block: var(--moduix-popup-list-padding-y, var(--moduix-spacing-1));
+  }
+
+  .itemGroup {
+    display: flex;
+    flex-direction: column;
+
+    & + & {
+      margin-block-start: var(--moduix-spacing-2);
+    }
+  }
+
+  .itemGroupLabel {
+    padding-block: var(--moduix-popup-group-label-padding-y, var(--moduix-spacing-1));
+    padding-inline: var(--moduix-spacing-2-5);
+    color: var(--moduix-popup-group-label-color, var(--moduix-muted-foreground));
+    font-size: var(--moduix-popup-group-label-font-size, var(--moduix-text-xs));
+    font-weight: var(--moduix-popup-group-label-font-weight, var(--moduix-weight-regular));
+    line-height: var(--moduix-popup-group-label-line-height, var(--moduix-line-height-text-xs));
+  }
+
+  .item {
+    position: relative;
+    display: flex;
+    min-height: var(--moduix-popup-item-min-height, var(--moduix-size-sm));
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--moduix-spacing-2);
+    margin-inline: var(--moduix-spacing-1);
+    border-radius: var(--moduix-radius-sm);
+    padding-block: var(--moduix-popup-item-padding-y, var(--moduix-spacing-1));
+    padding-inline: var(--moduix-popup-item-padding-x-start, var(--moduix-spacing-3));
+    font-size: var(--moduix-popup-item-font-size, var(--moduix-text-sm));
+    line-height: var(--moduix-popup-item-line-height, var(--moduix-line-height-text-sm));
+    outline: 0;
+    cursor: default;
+    user-select: none;
+
+    &[data-highlighted] {
+      background-color: var(--moduix-accent);
+      color: var(--moduix-accent-foreground);
+    }
+
+    &[data-disabled] {
+      opacity: var(--moduix-opacity-disabled);
+      pointer-events: none;
+    }
+  }
+
+  .itemIndicator {
+    display: inline-flex;
+    width: var(--moduix-spacing-3-5);
+    height: var(--moduix-spacing-3-5);
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+
+    & > svg {
+      width: var(--moduix-spacing-3);
+      height: var(--moduix-spacing-3);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .content[data-state] {
+      animation: none;
+    }
+  }
+}

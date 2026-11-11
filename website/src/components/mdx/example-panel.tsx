@@ -13,6 +13,7 @@ const frameworks = [
   { value: 'react', label: 'React', lang: 'tsx' },
   { value: 'solid', label: 'Solid', lang: 'tsx' },
   { value: 'vue', label: 'Vue', lang: 'vue' },
+  { value: 'svelte', label: 'Svelte', lang: 'svelte' },
 ] as const;
 const stylings = [
   { value: 'css-modules', label: 'CSS Modules' },

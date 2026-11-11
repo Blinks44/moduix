@@ -97,7 +97,7 @@ import * as RadioGroupDocs from '@/components/examples/radio-group/css-propertie
 
 ### Управляемое состояние
 
-Передайте `value` и `onValueChange` (`v-model` во Vue), если выбранное значение зависит от маршрута,
+Передайте `value` и `onValueChange` (`v-model` во Vue, `bind:value` в Svelte), если выбранное значение зависит от маршрута,
 фильтров или соседнего интерфейса. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
 
 <Example name="radio-group/controlled" />
@@ -128,20 +128,20 @@ import * as RadioGroupDocs from '@/components/examples/radio-group/css-propertie
 
 `RadioGroup` следует примитиву radio-group из Ark UI и добавляет стили moduix, стабильные атрибуты
 `data-slot` и вспомогательный компонент `RadioGroupOption`. Компонент экспортируется из
-`@moduix/react/radio-group`, `@moduix/solid/radio-group` и `@moduix/vue/radio-group`.
+`@moduix/react/radio-group`, `@moduix/solid/radio-group`, `@moduix/vue/radio-group` и `@moduix/svelte/radio-group`.
 
 Используйте `defaultValue` для неконтролируемой группы. Если выбранное значение хранит другая часть
 приложения, используйте `value` и `onValueChange(details)`. Когда состояние нужно создать вне дерева
 группы, используйте `RadioGroupRootProvider` с `useRadioGroup()` из соответствующего пакета. Не используйте
 `RadioGroup` и `RadioGroupRootProvider` для одного экземпляра состояния одновременно. В React
 состояние доступно как объект. В Solid вызывайте возвращённую функцию доступа, а в Vue читайте
-реактивное состояние непосредственно в шаблоне.
+реактивное состояние непосредственно в шаблоне. В Svelte хук возвращает геттер: читайте состояние как `radioGroup().value`.
 
 `RadioGroupOption` уже содержит `RadioGroupItemHiddenInput` в фиксированной композиции. При прямой композиции
 `RadioGroupItem` добавьте `RadioGroupItemHiddenInput` самостоятельно. Используйте явное дерево
 частей, когда вложенным частям нужны собственное размещение или свойства, либо когда `asChild` должен
 передать DOM-узел варианта другому элементу. В Solid `asChild` принимает render-функцию, а в Vue используется
-`as-child`; в обоих случаях прямым дочерним элементом должен оставаться семантический `label`.
+`as-child`; в Svelte передаётся сниппет `asChild`, а `props()` разворачиваются на элементе; во всех случаях прямым дочерним элементом должен оставаться семантический `label`.
 
 `Field` предоставляет видимую подпись, вспомогательный текст и сообщение об ошибке, но не
 передаёт своё состояние в `RadioGroup`. Передавайте `disabled`, `invalid`, `readOnly` и `required`

@@ -44,12 +44,13 @@ import {
 import styles from './Home.module.css';
 
 type T = ReturnType<typeof useI18n<typeof import('i18n')>>;
-type Framework = 'react' | 'solid' | 'vue';
+type Framework = 'react' | 'solid' | 'vue' | 'svelte';
 
 const frameworks = [
   { value: 'react', label: 'React' },
   { value: 'solid', label: 'Solid' },
   { value: 'vue', label: 'Vue' },
+  { value: 'svelte', label: 'Svelte' },
 ] as const;
 
 const arkMajor = reactPackage.peerDependencies['@ark-ui/react'].match(/\d+/)?.[0];
@@ -89,6 +90,18 @@ import { Switch, SwitchControl, SwitchLabel } from '@moduix/vue/switch';
     <SwitchControl />
   </Switch>
 </template>`,
+  },
+  svelte: {
+    file: 'Notifications.svelte',
+    lang: 'svelte',
+    code: `<script>
+  import { Switch, SwitchControl, SwitchLabel } from '@moduix/svelte/switch';
+</script>
+
+<Switch defaultChecked>
+  <SwitchLabel>Product updates</SwitchLabel>
+  <SwitchControl />
+</Switch>`,
   },
 };
 
@@ -134,6 +147,18 @@ import { Button } from
     Save changes
   </Button>
 </template>`,
+  },
+  svelte: {
+    file: 'Button.svelte',
+    lang: 'svelte',
+    code: `<script>
+  import { Button } from
+    '@moduix/svelte/button';
+</script>
+
+<Button variant="outline">
+  Save changes
+</Button>`,
   },
 };
 
@@ -230,6 +255,7 @@ const setups = [
   { name: 'TanStack Start', support: 'React · Solid', href: '/docs/installation/tanstack-start' },
   { name: 'Nuxt', support: 'Vue', href: '/docs/installation/nuxt' },
   { name: 'SolidStart', support: 'Solid', href: '/docs/installation/solid-start' },
+  { name: 'SvelteKit', support: 'Svelte', href: '/docs/installation/sveltekit' },
   { name: 'Astro', supportKey: 'homeStartAll', href: '/docs/installation/astro' },
   { name: 'Rsbuild', supportKey: 'homeStartAll', href: '/docs/installation/rsbuild' },
 ] as const;
@@ -364,8 +390,8 @@ function Hero({ t, count }: { t: T; count: number }) {
                 {item.label}
               </li>
             ))}
-            <li className={styles.worksNote}>CSS Modules · Tailwind CSS · shadcn CLI</li>
           </ul>
+          <p className={styles.worksNote}>CSS Modules · Tailwind CSS · shadcn CLI</p>
         </div>
       </div>
 
@@ -413,7 +439,7 @@ function Hero({ t, count }: { t: T; count: number }) {
 }
 
 function OneApi({ t }: { t: T }) {
-  // On phones the three cards collapse into one card with framework tabs.
+  // On phones the framework cards collapse into one card with framework tabs.
   const [active, setActive] = useState<Framework>('react');
 
   return (
@@ -445,7 +471,6 @@ function OneApi({ t }: { t: T }) {
               <FrameworkDot framework={item.value} />
               <strong>{item.label}</strong>
               <span>@moduix/{item.value}</span>
-              <span className={styles.apiFile}>{buttonCode[item.value].file}</span>
             </figcaption>
             <CodeBlockRuntime
               lang={buttonCode[item.value].lang}

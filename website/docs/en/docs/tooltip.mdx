@@ -109,15 +109,17 @@ styling or structure. The root manages state, so use `defaultOpen` for an uncont
 `open` with `onOpenChange(details)` when another part of the application controls it. Use
 `TooltipRootProvider` with `useTooltip()` when the store is created outside the rendered tree, and
 use `TooltipContext` or `useTooltipContext()` when a descendant needs that state. `asChild` requires
-one focusable child; Solid uses a render function. `TooltipDisabledTrigger` is for one disabled
+one focusable child; Solid uses a render function and Svelte uses an `asChild` snippet that spreads `props()` onto the child. `TooltipDisabledTrigger` is for one disabled
 native control. Portalling is enabled by default, so set `portalled={false}` or pass `portalRef`
 only when the tooltip must stay within a specific DOM boundary. In Vue, use `v-model:open` for
-controlled state and Vue event names such as `@open-change`.
+controlled state and Vue event names such as `@open-change`. In Svelte, use `bind:open` for controlled state and
+callback props such as `onOpenChange`.
 
 Content mounts on first open and unmounts after its exit animation by default. Set
 `unmountOnExit` to `false` to retain it after the first open; set `lazyMount` to `false` as well
 for eager rendering. In Vue, bind these options as `:unmount-on-exit="false"` and
-`:lazy-mount="false"`.
+`:lazy-mount="false"`; in Svelte, pass them as regular props: `unmountOnExit={false}` and
+`lazyMount={false}`.
 
 ## Anatomy
 
@@ -137,7 +139,7 @@ Hover or focus a part to find it in the preview.
     ["TooltipArrowTip", "tooltip-arrow-tip", "Arrow tip element.", 4],
     ["TooltipBody", "", "Convenience wrapper that renders `TooltipPositioner` and `TooltipContent` together.", 1],
     ["TooltipRootProvider", null, "Renders a tooltip from a `useTooltip()` state object created outside the tree.", 0],
-    ["TooltipContext", null, "Exposes current tooltip state through a render prop or a Vue scoped slot for custom descendants.", 0],
+    ["TooltipContext", null, "Exposes current tooltip state through a render prop, a Vue scoped slot, or a Svelte `render` snippet for custom descendants.", 0],
   ]}
 >
   <AnatomyScene />
@@ -151,7 +153,7 @@ the available viewport space, wraps long unbroken strings, and grows with its te
 reads the shared `--moduix-popup-motion-*` variables and is skipped when Ark switches the tooltip
 instantly between triggers (`data-instant`) or the user prefers reduced motion.
 
-Use `className` in React or `class` in Solid and Vue on exported parts. Tailwind variants use native
+Use `className` in React or `class` in Solid, Vue, and Svelte on exported parts. Tailwind variants use native
 utilities and consumer classes. CSS Modules variants build on foundation tokens and have no component
 variables: a class on the part overrides the layered component styles. Data attributes and
 `data-slot` hooks are shared by both styling tracks.

@@ -7,6 +7,7 @@ block: sidebar-dashboard
 import { SidebarDashboard } from '@/components/blocks/sidebar-dashboard';
 import sidebarDashboardSolid from '../../../snippets/blocks/solid/sidebar-dashboard.tsx?raw';
 import sidebarDashboardVue from '../../../snippets/blocks/vue/sidebar-dashboard.vue?raw';
+import sidebarDashboardSvelte from '../../../snippets/blocks/svelte/sidebar-dashboard.svelte?raw';
 import sidebarDashboardReact from '../../../src/components/blocks/sidebar-dashboard.tsx?raw';
 import sidebarDashboardCss from '../../../src/components/blocks/sidebar-dashboard.module.css?raw';
 
@@ -14,7 +15,7 @@ import sidebarDashboardCss from '../../../src/components/blocks/sidebar-dashboar
 
 <ExamplePanel
   clientOnly
-  sources={{ react: sidebarDashboardReact, solid: sidebarDashboardSolid, vue: sidebarDashboardVue }}
+  sources={{ react: sidebarDashboardReact, solid: sidebarDashboardSolid, vue: sidebarDashboardVue, svelte: sidebarDashboardSvelte }}
   files={[{ name: 'sidebar-dashboard.module.css', code: sidebarDashboardCss }]}
 >
   <SidebarDashboard />

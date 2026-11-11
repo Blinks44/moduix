@@ -107,7 +107,7 @@ element inside `CollapsibleContent`. Start here when a design changes the icon o
 
 `Collapsible` manages state inside the root. Use `defaultOpen` for an uncontrolled disclosure; use
 `open` with `onOpenChange(details)` when another part of the application controls it. In Vue, use
-`v-model:open` for the same controlled contract. The callback keeps Ark's details object, so
+`v-model:open` for the same controlled contract; in Svelte, use `bind:open`. The callback keeps Ark's details object, so
 controlled state reads `details.open`.
 
 Use `CollapsibleRootProvider` with `useCollapsible()` from the matching framework package when the
@@ -120,7 +120,8 @@ chevron.
 
 Use `asChild` only when your own semantic element should receive the trigger behavior; it
 must remain a keyboard-accessible button. In Solid, pass a render function such as
-`asChild={(props) => <button {...props()} />}`.
+`asChild={(props) => <button {...props()} />}`. In Svelte, use the `asChild` snippet:
+`{#snippet asChild(props)}<button {...props()}>...</button>{/snippet}`.
 
 ## Anatomy
 
@@ -141,7 +142,7 @@ Hover or focus a part to find it in the preview.
 
 ## Styling
 
-Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. For state-based
+Use `className` in React or `class` in Solid, Vue, and Svelte on exported parts for structural styles. For state-based
 styles, prefer Ark data attributes such as `data-state` and `data-disabled`, together with moduix
 `data-slot` selectors. Tailwind variants use native utilities and consumer classes; the component
 variables below customize the CSS Modules variants. Data attributes and `data-slot` hooks are shared

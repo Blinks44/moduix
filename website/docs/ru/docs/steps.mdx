@@ -27,8 +27,8 @@ import * as StepsDocs from '@/components/examples/steps/css-properties';
 Экспорт `Steps` является корневым компонентом. Используйте `StepsRootProvider` вместе с `useSteps()`,
 если состояние нужно создать вне дерева отрисованных частей.
 
-React, Solid и Vue используют одинаковые плоские имена значений. В Vue связывайте управляемое
-состояние через `v-model:step`, а хранилище `useSteps()` передавайте в `StepsRootProvider`, если
+React, Solid, Vue и Svelte используют одинаковые плоские имена значений. В Vue связывайте управляемое
+состояние через `v-model:step`, а в Svelte - через `bind:step`. Хранилище `useSteps()` передавайте в `StepsRootProvider`, если
 оно создаётся вне дерева отрисованных частей.
 
 ## Примеры
@@ -116,7 +116,7 @@ React, Solid и Vue используют одинаковые плоские и�
 
 ## Стилизация
 
-Стилизуйте `Steps` через `className` в React или `class` в Solid и Vue, атрибуты Ark `data-scope="steps"`
+Стилизуйте `Steps` через `className` в React или `class` в Solid, Vue и Svelte, атрибуты Ark `data-scope="steps"`
 и `data-part`, атрибуты состояния Ark, хуки moduix `data-slot` и публичные CSS-переменные
 `--moduix-steps-*`, перечисленные ниже.
 
@@ -152,7 +152,7 @@ Modules дают две переменные, потому что от них с
 
 Доступные публичные хуки:
 
-- `className` в React или `class` в Solid и Vue у `Steps`, `StepsRootProvider`, `StepsList`, `StepsItem`, `StepsTrigger`, `StepsIndicator`, `StepsSeparator`, `StepsContent`, `StepsCompletedContent`, `StepsPrevTrigger`, `StepsNextTrigger` и `StepsProgress`
+- `className` в React или `class` в Solid, Vue и Svelte у `Steps`, `StepsRootProvider`, `StepsList`, `StepsItem`, `StepsTrigger`, `StepsIndicator`, `StepsSeparator`, `StepsContent`, `StepsCompletedContent`, `StepsPrevTrigger`, `StepsNextTrigger` и `StepsProgress`
 - Значения `data-scope="steps"` и `data-part` от Ark для каждой примитивной части
 - `data-orientation="horizontal" | "vertical"` у корня, списка, шага, триггера, содержимого и разделителя
 - `data-current`, `data-complete` и `data-incomplete` на поверхностях состояния индикатора, разделителя и триггера

@@ -26,8 +26,8 @@ l’étape atteint `count`, `StepsCompletedContent` s’affiche.
 L’export `Steps` est le composant racine. Utilisez `StepsRootProvider` avec `useSteps()` lorsque l’état
 doit être créé en dehors de l’arbre des parties rendues.
 
-React, Solid et Vue utilisent les mêmes noms de valeurs plats. En Vue, liez l’état contrôlé avec
-`v-model:step` et transmettez un store `useSteps()` à `StepsRootProvider` lorsqu’il est créé en
+React, Solid, Vue et Svelte utilisent les mêmes noms de valeurs plats. En Vue, liez l’état contrôlé avec
+`v-model:step` (`bind:step` en Svelte) et transmettez un store `useSteps()` à `StepsRootProvider` lorsqu’il est créé en
 dehors de l’arbre rendu.
 
 ## Exemples
@@ -117,7 +117,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 ## Styles
 
-Stylez `Steps` avec `className` dans React ou `class` dans Solid et Vue, les attributs Ark
+Stylez `Steps` avec `className` dans React ou `class` dans Solid, Vue et Svelte, les attributs Ark
 `data-scope="steps"` et `data-part`, les attributs d’état Ark, les hooks moduix `data-slot` et les
 variables CSS publiques `--moduix-steps-*` listées ci-dessous.
 
@@ -154,7 +154,7 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 Les hooks publics utiles sont les suivants :
 
-- `className` dans React ou `class` dans Solid et Vue sur `Steps`, `StepsRootProvider`, `StepsList`, `StepsItem`, `StepsTrigger`, `StepsIndicator`, `StepsSeparator`, `StepsContent`, `StepsCompletedContent`, `StepsPrevTrigger`, `StepsNextTrigger` et `StepsProgress`
+- `className` dans React ou `class` dans Solid, Vue et Svelte sur `Steps`, `StepsRootProvider`, `StepsList`, `StepsItem`, `StepsTrigger`, `StepsIndicator`, `StepsSeparator`, `StepsContent`, `StepsCompletedContent`, `StepsPrevTrigger`, `StepsNextTrigger` et `StepsProgress`
 - Les valeurs Ark `data-scope="steps"` et `data-part` pour chaque partie primitive
 - `data-orientation="horizontal" | "vertical"` sur la racine, la liste, l’étape, le déclencheur, le contenu et le séparateur
 - `data-current`, `data-complete` et `data-incomplete` sur les surfaces d’état de l’indicateur, du séparateur et du déclencheur

@@ -97,20 +97,20 @@ an action. Start here when toasts need icons or a different layout.
 ## Composition
 
 moduix exports `Toast`, `ToastToaster`, `createToaster`, and `useToastContext` from
-`@moduix/react/toast`, `@moduix/solid/toast`, and `@moduix/vue/toast`. The Ark reference contains
+`@moduix/react/toast`, `@moduix/solid/toast`, `@moduix/vue/toast`, and `@moduix/svelte/toast`. The Ark reference contains
 the complete store and part API.
 
 Create the toaster once and pass the same store to `ToastToaster`. In Vue, create it inside
-`<script setup>` so each component instance creates its own store; an application-wide store can live in a
+`<script setup>` (or in a Svelte component's `<script>`) so each component instance creates its own store; an application-wide store can live in a
 separate module. Keep server-rendered stores isolated per request. The store manages placement,
 stacking, queue size, timing, and focus behavior. `ToastToaster`
 portals the group to `document.body` by default; use `portalled={false}` or `portalRef` when it must
 stay in another container. A separate `Portal` wrapper is not needed.
 
 Use the default `ToastToaster` renderer for a title, description, action, and close button. For a different
-layout or custom controls, pass a render prop in React/Solid or a default scoped slot in Vue, keep
+layout or custom controls, pass a render prop in React/Solid, a default scoped slot in Vue, or a `children` snippet in Svelte, keep
 `Toast` as the outer item, and compose its parts inside. The Vue slot receives the toast options;
-`useToastContext()` returns a computed ref. Use a semantic button child with `asChild` on action
+`useToastContext()` returns a computed ref. The Svelte snippet receives a getter for the toast options. Use a semantic button child with `asChild` on action
 and close triggers, and use `useToastContext()`
 when a custom child needs direct access to the current toast.
 

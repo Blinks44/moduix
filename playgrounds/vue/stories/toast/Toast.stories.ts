@@ -161,7 +161,7 @@ const VaryingHeightStory = defineComponent({
       count.value = next;
       varyingHeightToaster.info({
         title: `Notification ${next}`,
-        description: descriptions[Math.floor(Math.random() * descriptions.length)],
+        description: descriptions[next % descriptions.length],
       });
     };
 

@@ -83,11 +83,11 @@ Ark UI does not ship a dedicated `Textarea` primitive. moduix builds this compon
 `textarea` API, `autoresize`, ref forwarding, `asChild`, and Field state inheritance.
 
 Use `defaultValue` for an uncontrolled textarea. Use `value` with native `onChange` in React and
-Solid, or `v-model` in Vue, when the application controls the content, using the matching framework's
+Solid, `v-model` in Vue, or `bind:value` in Svelte, when the application controls the content, using the matching framework's
 state primitive.
 
 In Vue, bind the native DOM property as `:defaultValue="initialValue"`, not `default-value`.
-With `v-model`, reset the bound state in the form's reset handler: native reset does not emit an input event.
+With `v-model`, reset the bound state in the form's reset handler: native reset does not emit an input event. Do the same with `bind:value` in Svelte.
 
 Wrap `Textarea` with `Field`, `FieldLabel`, `FieldHelperText`, and `FieldErrorText` when the
 control needs a label, supporting text, or validation. Outside `Field`, provide an accessible name
@@ -119,7 +119,7 @@ hidden inputs, or a label or character-counter API.
 Inside a disabled moduix `Field`, `FieldRootProvider`, or `Fieldset`, the root applies the disabled
 opacity once; a standalone disabled `Textarea` dims itself.
 
-Use `className` in React or `class` in Solid and Vue on `Textarea`. Tailwind variants use native
+Use `className` in React or `class` in Solid, Vue, and Svelte on `Textarea`. Tailwind variants use native
 utilities and consumer classes. CSS Modules variants build on foundation tokens and expose only the
 two variables below; override colors, padding, typography, height, and `resize` with a plain class, which
 wins over the layered component styles.

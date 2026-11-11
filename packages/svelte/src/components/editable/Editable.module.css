@@ -1,0 +1,169 @@
+@layer moduix.components {
+  .root {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: var(--moduix-spacing-1);
+    width: 100%;
+    color: var(--moduix-foreground);
+
+    &:has([data-autoresize]) {
+      width: fit-content;
+      max-width: 100%;
+    }
+
+    &:has([data-disabled]) {
+      opacity: var(--moduix-opacity-disabled);
+
+      :where(
+          [data-slot='field-root'][data-disabled],
+          [data-slot='field-root-provider'][data-disabled],
+          [data-slot='fieldset-root'][data-disabled],
+          [data-slot='fieldset-root-provider'][data-disabled]
+        )
+        & {
+        opacity: 1;
+      }
+    }
+  }
+
+  .label {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: var(--moduix-spacing-1);
+    overflow-wrap: anywhere;
+    font-size: var(--moduix-text-sm);
+    font-weight: var(--moduix-weight-medium);
+    line-height: var(--moduix-line-height-text-sm);
+
+    &[data-invalid] {
+      color: var(--moduix-destructive);
+    }
+  }
+
+  .area {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    min-height: var(--moduix-editable-area-height, var(--moduix-size-md));
+    border: var(--moduix-border-width-sm) solid var(--moduix-input);
+    border-radius: var(--moduix-radius-md);
+    padding: var(--moduix-spacing-1) var(--moduix-spacing-3-5);
+    background-color: var(--moduix-background);
+    font-size: var(--moduix-text-md);
+    line-height: var(--moduix-line-height-text-md);
+    outline: var(--moduix-focus-ring-halo-width) solid transparent;
+    transition:
+      border-color var(--moduix-transition-default),
+      outline-color var(--moduix-transition-default);
+
+    &:is([data-focus], :has(:focus-visible)) {
+      border-color: var(--moduix-ring);
+      outline-color: color-mix(in oklab, var(--moduix-ring) 50%, transparent);
+    }
+
+    &:has([data-invalid]) {
+      border-color: var(--moduix-destructive);
+
+      &:is([data-focus], :has(:focus-visible)) {
+        outline-color: color-mix(in oklab, var(--moduix-destructive) 20%, transparent);
+      }
+    }
+
+    &[data-disabled] {
+      pointer-events: none;
+    }
+  }
+
+  .input,
+  .preview {
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    outline: 0;
+  }
+
+  .input {
+    appearance: none;
+
+    &::placeholder {
+      color: var(--moduix-muted-foreground);
+    }
+
+    &:is(textarea) {
+      min-height: 6rem;
+      resize: vertical;
+    }
+  }
+
+  .preview {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    cursor: text;
+
+    &[data-placeholder-shown] {
+      color: var(--moduix-muted-foreground);
+    }
+
+    &:is([data-disabled], [aria-readonly='true']) {
+      cursor: default;
+    }
+  }
+
+  .control {
+    display: flex;
+    align-items: center;
+    gap: var(--moduix-spacing-1);
+  }
+
+  .trigger {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: var(--moduix-editable-area-height, var(--moduix-size-md));
+    height: var(--moduix-editable-area-height, var(--moduix-size-md));
+    margin: 0;
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
+    border-radius: var(--moduix-radius-sm);
+    padding: 0;
+    background-color: var(--moduix-background);
+    color: var(--moduix-foreground);
+    outline: var(--moduix-focus-ring-inset-width) solid transparent;
+    outline-offset: var(--moduix-focus-ring-inset-offset);
+    cursor: pointer;
+    transition:
+      background-color var(--moduix-transition-default),
+      outline-color var(--moduix-transition-default);
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--moduix-accent);
+      }
+    }
+
+    &:active {
+      background-color: var(--moduix-accent);
+    }
+
+    &:focus-visible {
+      outline-color: var(--moduix-ring);
+    }
+
+    &:disabled {
+      pointer-events: none;
+    }
+
+    & > svg {
+      width: var(--moduix-spacing-4);
+      height: var(--moduix-spacing-4);
+      flex-shrink: 0;
+    }
+  }
+}

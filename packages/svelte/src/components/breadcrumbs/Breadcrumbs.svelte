@@ -1,0 +1,20 @@
+<script lang="ts">
+  import type { HTMLProps, PolymorphicProps, RefAttribute } from '@ark-ui/svelte';
+  import { Ark } from '@ark-ui/svelte/factory';
+  import { clsx } from 'clsx';
+  import { a11yLabels } from '@/lib/moduix/a11yLabels';
+  import styles from './Breadcrumbs.module.css';
+
+  type Props = HTMLProps<'nav'> & PolymorphicProps<'nav'> & RefAttribute;
+
+  let { class: className, ref = $bindable(null), ...props }: Props = $props();
+</script>
+
+<Ark
+  as="nav"
+  aria-label={a11yLabels.breadcrumb}
+  {...props}
+  bind:ref
+  class={clsx(styles.root, className)}
+  data-slot="breadcrumbs-root"
+/>

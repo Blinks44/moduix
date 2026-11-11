@@ -20,6 +20,7 @@ for the framework in your application:
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -44,12 +45,19 @@ import { createListCollection, useListSelection } from '@ark-ui/vue/collection';
 ```
 
   </Tab>
+  <Tab value="svelte">
+
+```ts
+import { createListCollection, useListSelection } from '@ark-ui/svelte/collection';
+```
+
+  </Tab>
 </Tabs>
 
 ## Basic selection
 
 The hook stores selection state. The example supplies a labelled section, native buttons with
-`aria-pressed`, and a live status message. The preview runs the React source; the Solid and Vue tabs
+`aria-pressed`, and a live status message. The preview runs the React source; the Solid, Vue, and Svelte tabs
 contain equivalent native implementations.
 
 <Example name="list-selection/basic" />
@@ -81,7 +89,8 @@ example also uses `isAllSelected`, `setSelectedValues`, and `clear` for a select
 action to change the selection later. In Solid, state properties are accessors, so read them as
 `selection.selectedValues()` and `selection.isEmpty()`; action methods keep the same call shape as
 in React. In Vue, state properties are refs: read `selection.selectedValues.value` and
-`selection.isEmpty.value` in script. Selection actions remain methods.
+`selection.isEmpty.value` in script. Selection actions remain methods. In Svelte, state properties are getters, as in Solid: read
+`selection.selectedValues()` and `selection.isEmpty()`.
 
 ### State and actions
 

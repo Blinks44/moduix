@@ -22,7 +22,8 @@ Create an Ark collection with `useListCollection`, pass it to `Combobox`, and ke
 explicit. Use `ComboboxOption` for ordinary rows; use `ComboboxItem` when a row needs custom structure.
 `onInputValueChange` receives an Ark details object.
 The Vue examples use native SFC syntax with `script setup`, refs, slots, and `v-model` where the
-component contract exposes a Vue model.
+component contract exposes a Vue model. The Svelte examples use runes, snippets, and `bind:` on
+bindable props such as `value`, `inputValue`, and `open`.
 
 ## Choosing the right component
 
@@ -98,8 +99,8 @@ typing. Check `details.reason` to avoid rebuilding it after selection-driven inp
 ### Virtualized
 
 For large collections, render only visible rows with TanStack Virtual. Use
-`@tanstack/react-virtual` with React, `@tanstack/solid-virtual` with Solid, and
-`@tanstack/vue-virtual` with Vue, then connect Ark keyboard navigation through `scrollToIndexFn`.
+`@tanstack/react-virtual` with React, `@tanstack/solid-virtual` with Solid,
+`@tanstack/vue-virtual` with Vue, and `@tanstack/svelte-virtual` with Svelte, then connect Ark keyboard navigation through `scrollToIndexFn`.
 Keep `aria-setsize` and `aria-posinset` on virtualized rows.
 
 <Example name="combobox/virtualized" />
@@ -180,7 +181,7 @@ Read combobox state inside the tree with `ComboboxContext` or `useComboboxContex
 
 ## Styling
 
-Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. Tailwind
+Use `className` in React or `class` in Solid, Vue, and Svelte on exported parts for structural styles. Tailwind
 variants use native utilities and consumer classes; the CSS variables below customize CSS Modules
 variants. Data attributes and `data-slot` hooks are shared by both styling tracks.
 

@@ -154,6 +154,9 @@ Carousel part itself is not forwarded through that composition path.
 In Vue, a template ref on a part resolves to its rendered host through `$el`, including an `asChild`
 replacement host.
 
+In Svelte, use `bind:ref` on a part to receive its rendered host element, and pass the `asChild`
+snippet to replace the host: it receives a getter, so spread `{...props()}` onto the element.
+
 ## Anatomy
 
 Hover or focus a part to find it in the preview.
@@ -178,7 +181,7 @@ Hover or focus a part to find it in the preview.
 
 ## Styling
 
-Use `className` in React or `class` in Solid and Vue on exported parts for structural styling. For
+Use `className` in React or `class` in Solid, Vue, and Svelte on exported parts for structural styling. For
 state-based styles, prefer Ark data attributes such as `data-orientation`, `data-current`, and
 `data-dragging`,
 together with moduix `data-slot` selectors. Tailwind variants use native utility classes and consumer

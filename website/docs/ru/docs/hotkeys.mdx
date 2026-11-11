@@ -1,6 +1,6 @@
 ---
 title: Hotkeys
-description: Регистрируйте сочетания клавиш с учетом платформы, последовательности и метаданные команд в приложении на React, Solid или Vue.
+description: Регистрируйте сочетания клавиш с учетом платформы, последовательности и метаданные команд в приложении на React, Solid, Vue или Svelte.
 ark: https://ark-ui.com/docs/utilities/hotkeys
 ---
 
@@ -18,6 +18,7 @@ API доступен из корневой точки входа Ark UI для �
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -39,6 +40,13 @@ import { useFormatHotkey, useHotkey, useHotkeys } from '@ark-ui/solid';
 
 ```ts
 import { useFormatHotkey, useHotkey, useHotkeys } from '@ark-ui/vue';
+```
+
+  </Tab>
+  <Tab value="svelte">
+
+```ts
+import { useFormatHotkey, useHotkey, useHotkeys } from '@ark-ui/svelte';
 ```
 
   </Tab>
@@ -114,8 +122,7 @@ Hotkeys не рисует подсказку. Используйте `useFormatH
 В Solid значения, которые возвращают эти хуки, являются accessors: используйте `registrations()`,
 `pressedKeys()`, `isPressed()` и `platform()`. В React хуки возвращают текущее значение напрямую.
 Записанное сочетание можно сохранить через `stop`, отменить через `cancel` или удалить через `clear`.
-В Vue состояние хуков хранится в ref: в скрипте читайте `.value`, а в шаблоне ref верхнего уровня
-распаковывается автоматически.
+В Vue состояние хуков хранится в ref: в скрипте читайте `.value`, а в шаблоне ref верхнего уровня распаковывается автоматически. В Svelte хуки с состоянием возвращают геттер: вызывайте его, например `registrations()`.
 
 Hotkeys отвечает за регистрацию, сопоставление, форматирование, области и запись сочетаний. Побочные
 эффекты, навигация, хранение данных, интерфейс палитры команд, управление фокусом и доступный способ

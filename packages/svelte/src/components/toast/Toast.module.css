@@ -1,0 +1,142 @@
+@layer moduix.components {
+  .root {
+    --_toast-bg: var(--moduix-card);
+    --_toast-border-color: var(--moduix-border);
+    --_toast-color: var(--moduix-card-foreground);
+    display: grid;
+    width: 20rem;
+    max-width: calc(100vw - var(--moduix-spacing-4) * 2);
+    align-items: start;
+    gap: var(--moduix-spacing-1);
+    border: var(--moduix-border-width-sm) solid
+      var(--moduix-toast-border-color, var(--_toast-border-color));
+    border-radius: var(--moduix-radius-lg);
+    background-color: var(--moduix-toast-bg, var(--_toast-bg));
+    color: var(--moduix-toast-color, var(--_toast-color));
+    background-clip: padding-box;
+    box-shadow: var(--moduix-shadow-lg);
+    padding: var(--moduix-spacing-4);
+    translate: var(--x) var(--y);
+    scale: var(--scale);
+    z-index: var(--z-index);
+    height: var(--height);
+    opacity: var(--opacity);
+    will-change: translate, opacity, scale;
+    transition:
+      translate var(--moduix-duration-slow),
+      scale var(--moduix-duration-slow),
+      opacity var(--moduix-duration-slow),
+      height var(--moduix-duration-slow);
+    transition-timing-function: cubic-bezier(0.21, 1.02, 0.73, 1);
+
+    /* Room for the absolutely positioned close trigger. */
+    &:has([data-slot='toast-close-trigger']) {
+      padding-inline-end: calc(var(--moduix-spacing-4) + var(--moduix-spacing-7));
+    }
+
+    &[data-state='closed'] {
+      transition:
+        translate var(--moduix-duration-slow),
+        scale var(--moduix-duration-slow),
+        opacity var(--moduix-duration-normal);
+      transition-timing-function: cubic-bezier(0.06, 0.71, 0.55, 1);
+    }
+
+    &[data-type='success'] {
+      --_toast-bg: color-mix(in oklab, var(--moduix-success) 10%, var(--moduix-background));
+      --_toast-border-color: color-mix(in oklab, var(--moduix-success) 34%, transparent);
+      --_toast-color: var(--moduix-foreground);
+    }
+
+    &[data-type='warning'] {
+      --_toast-bg: color-mix(in oklab, var(--moduix-warning) 13%, var(--moduix-background));
+      --_toast-border-color: color-mix(in oklab, var(--moduix-warning) 38%, transparent);
+      --_toast-color: var(--moduix-foreground);
+    }
+
+    &[data-type='error'] {
+      --_toast-bg: color-mix(in oklab, var(--moduix-destructive) 9%, var(--moduix-background));
+      --_toast-border-color: color-mix(in oklab, var(--moduix-destructive) 35%, transparent);
+      --_toast-color: var(--moduix-foreground);
+    }
+  }
+
+  .title {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: var(--moduix-spacing-2);
+    margin: 0;
+    font-size: var(--moduix-text-sm);
+    font-weight: var(--moduix-weight-semibold);
+    line-height: var(--moduix-line-height-text-sm);
+    overflow-wrap: anywhere;
+  }
+
+  .description {
+    margin: 0;
+    min-width: 0;
+    color: var(--moduix-toast-description-color, var(--moduix-muted-foreground));
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
+    overflow-wrap: anywhere;
+  }
+
+  .actionTrigger {
+    display: inline-flex;
+    width: max-content;
+    max-width: 100%;
+    min-width: 0;
+    align-items: center;
+    justify-content: center;
+    gap: var(--moduix-spacing-2);
+    min-height: var(--moduix-size-xs);
+    margin-block-start: var(--moduix-spacing-2);
+    border: var(--moduix-border-width-sm) solid var(--moduix-border);
+    border-radius: var(--moduix-radius-sm);
+    background: transparent;
+    color: var(--moduix-foreground);
+    padding: var(--moduix-spacing-1) var(--moduix-spacing-2);
+    font: inherit;
+    font-size: var(--moduix-text-xs);
+    font-weight: var(--moduix-weight-medium);
+    line-height: var(--moduix-line-height-text-xs);
+    cursor: pointer;
+    text-align: start;
+    user-select: none;
+    overflow-wrap: anywhere;
+    transition: background-color var(--moduix-transition-default);
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--moduix-accent);
+      }
+    }
+
+    &:focus-visible {
+      outline: var(--moduix-focus-ring-inset-width) solid var(--moduix-ring);
+      outline-offset: 0;
+    }
+  }
+
+  .closeTrigger {
+    position: absolute;
+    inset-block-start: var(--moduix-spacing-2);
+    inset-inline-end: var(--moduix-spacing-2);
+  }
+
+  @media (max-width: 40rem) {
+    .toaster {
+      width: calc(
+        100vw - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px) -
+          var(--viewport-offset-left) - var(--viewport-offset-right)
+      );
+    }
+
+    .root {
+      inset-inline: 0;
+      margin-inline: auto;
+      max-width: 100%;
+    }
+  }
+}

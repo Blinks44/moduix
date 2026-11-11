@@ -73,7 +73,7 @@ Utilisez `disabled` sur le groupe ou sur un élément précis pour empêcher les
 
 ### Valeur contrôlée
 
-Contrôlez `value` dans React et Solid, ou utilisez `v-model` dans Vue, lorsque les éléments sélectionnés
+Contrôlez `value` dans React et Solid, utilisez `v-model` dans Vue ou `bind:value` dans Svelte, lorsque les éléments sélectionnés
 doivent rester synchronisés avec l’état du reste de
 l’application. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
 
@@ -91,7 +91,7 @@ groupe et le comportement clavier.
 
 Utilisez `useToggleGroupContext()` dans un élément personnalisé lorsque son contenu a besoin de l’état
 actuel du groupe. `ToggleGroupContext` fournit le même état via une fonction de rendu dans React et
-Solid, ou un slot avec portée dans Vue.
+Solid, un slot avec portée dans Vue ou un snippet `render` dans Svelte.
 
 <Example name="toggle-group/context" />
 
@@ -107,22 +107,19 @@ en dehors de l’arbre rendu du groupe. Voir [Partager l’état hors de l’arb
 `ToggleGroup` s’appuie sur la primitive Toggle Group d’Ark UI et ajoute les props visuelles de moduix
 pour les variantes et les tailles. Importez-le depuis le package du framework correspondant :
 `@moduix/react/toggle-group`, `@moduix/solid/toggle-group`, `@moduix/react-tailwind/toggle-group`
-ou `@moduix/solid-tailwind/toggle-group`. Les packages Vue sont `@moduix/vue/toggle-group` et
-`@moduix/vue-tailwind/toggle-group`.
+ou `@moduix/solid-tailwind/toggle-group`. Les packages Vue sont `@moduix/vue/toggle-group` et `@moduix/vue-tailwind/toggle-group` ; ceux de Svelte sont `@moduix/svelte/toggle-group` et `@moduix/svelte-tailwind/toggle-group`.
 
 Utilisez `defaultValue` pour un groupe non contrôlé, ou `value` avec `onValueChange(details)` lorsque
 la sélection est gérée par une autre partie de l’application React ou Solid. Dans Vue, utilisez
-`v-model` et `@value-change` pour recevoir les détails Ark ; dans le script, accédez au store par
-`.value`. Les valeurs sélectionnées sont des `string[]`, en
+`v-model` et `@value-change` pour recevoir les détails Ark ; dans le script, accédez au store par `.value`. Dans Svelte, utilisez `bind:value` et le rappel `onValueChange` ; le hook renvoie un getter, donc lisez `toggleGroup().value`. Les valeurs sélectionnées sont des `string[]`, en
 sélection unique comme en sélection multiple. Utilisez `ToggleGroupRootProvider` avec
 `useToggleGroup()` du package correspondant lorsque l’état doit être créé en dehors de l’arbre rendu.
-React lit le store comme un objet, Solid lit son état réactif via l’accesseur retourné, et Vue expose
-directement le store réactif dans les expressions du template Vue.
+React lit le store comme un objet, Solid lit son état réactif via l’accesseur retourné, Vue expose directement le store réactif dans les expressions du template Vue, et Svelte renvoie un getter.
 
 Utilisez `ToggleGroupContext` ou `useToggleGroupContext()` lorsqu’un élément personnalisé a besoin de
 l’état actuel du groupe. Avec `asChild`, React reçoit un enfant qui se comporte comme un bouton,
 Solid reçoit une fonction de rendu qui retourne l’élément portant le comportement Ark, et
-Vue reçoit un seul élément enfant. Ne rendez pas
+Vue reçoit un seul élément enfant, et Svelte reçoit un snippet `asChild` qui applique `props()` à l’élément. Ne rendez pas
 `ToggleGroup` et `ToggleGroupRootProvider` pour la même instance d’état.
 
 ## Anatomie
@@ -132,7 +129,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 <AnatomyInspector
   parts={[
     ["ToggleGroup", "toggle-group-root", "Partie racine qui gère les valeurs sélectionnées, le focus, l’orientation et l’état désactivé.", 0],
-    ["ToggleGroupContext", null, "Expose l’état actuel du groupe via une fonction de rendu ou un slot avec portée Vue.", 1],
+    ["ToggleGroupContext", null, "Expose l’état actuel du groupe via une fonction de rendu, un slot avec portée Vue ou un snippet `render` Svelte.", 1],
     ["ToggleGroupItem", "toggle-group-item", "Élément interactif avec un `value` obligatoire et l’état de sélection géré par Ark.", 1],
     ["ToggleGroupRootProvider", "toggle-group-root-provider", "Relie l’arbre des éléments à l’état créé avec `useToggleGroup()`.", 0],
   ]}
@@ -142,7 +139,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 ## Styles
 
-Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées pour les styles structurels.
+Utilisez `className` en React ou `class` en Solid, Vue et Svelte sur les parties exportées pour les styles structurels.
 Les variantes Tailwind utilisent les utilitaires natifs et les classes du consommateur ; les variantes
 CSS Modules exposent les tokens `--moduix-toggle-group-*`. Les éléments héritent de `variant` et de
 `size` depuis la racine et peuvent remplacer l’une de ces props lorsqu’un élément doit avoir un style différent.

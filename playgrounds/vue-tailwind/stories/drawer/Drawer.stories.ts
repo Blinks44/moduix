@@ -81,6 +81,7 @@ const DrawerSurface = defineComponent({
     '<DrawerBackdrop /><DrawerPositioner><DrawerContent :draggable="draggable" :variant="variant"><DrawerGrabber><DrawerGrabberIndicator /></DrawerGrabber><DrawerHeader><DrawerTitle>{{ title }}</DrawerTitle><DrawerCloseIcon /><DrawerDescription v-if="description">{{ description }}</DrawerDescription></DrawerHeader><slot /></DrawerContent></DrawerPositioner>',
 });
 const DrawerContextReadout = defineComponent({
+  components: { DrawerBody },
   setup: () => ({ drawer: useDrawerContext() }),
   template:
     '<DrawerBody>Direction: {{ drawer.swipeDirection }}; open: {{ String(drawer.open) }}</DrawerBody>',
@@ -100,28 +101,28 @@ const snapPoints = [0.3, 1];
 
 export const Basic: Story = {
   render: renderStory(
-    '<Drawer :snap-points="snapPoints" :default-snap-point="snapPoints[0]"><DrawerTrigger as-child><Button>Open drawer</Button></DrawerTrigger><DrawerSurface title="Notifications" description="You are all caught up. Good job."><DrawerBody>Bottom drawers are draggable by default.</DrawerBody><DrawerFooter><DrawerCloseTrigger as-child><Button variant="outline">Close</Button></DrawerCloseTrigger></DrawerFooter></DrawerSurface></Drawer>',
+    '<Drawer :snap-points="snapPoints" :default-snap-point="snapPoints[0]"><DrawerTrigger as-child><Button>Open drawer</Button></DrawerTrigger><DrawerSurface title="Notifications" description="You are all caught up. Good job!"><DrawerBody>Bottom drawers are draggable by default.</DrawerBody><DrawerFooter><DrawerCloseTrigger as-child><Button variant="outline">Close</Button></DrawerCloseTrigger></DrawerFooter></DrawerSurface></Drawer>',
     () => ({ snapPoints }),
   ),
 };
 export const SwipeDirection: Story = {
   render: renderStory(
-    '<Drawer swipe-direction="end"><DrawerTrigger as-child><Button>Open right drawer</Button></DrawerTrigger><DrawerSurface title="Details" description="Logical directions resolve for LTR and RTL." /></Drawer>',
+    '<Drawer swipe-direction="end"><DrawerTrigger as-child><Button>Open right drawer</Button></DrawerTrigger><DrawerSurface title="Details" description="This drawer uses swipeDirection=&quot;end&quot;."><DrawerBody>Logical directions resolve for both LTR and RTL layouts.</DrawerBody></DrawerSurface></Drawer>',
   ),
 };
 export const SnapPoints: Story = {
   render: renderStory(
-    '<Drawer :snap-points="[0.25, 0.5, 1]" :default-snap-point="0.5"><DrawerTrigger as-child><Button>Open with snap points</Button></DrawerTrigger><DrawerSurface title="Snap points"><DrawerBody class="max-h-[50dvh] grid gap-4"><section v-for="item in insideScrollSections" :key="item.title"><h3>{{ item.title }}</h3><p>{{ item.body }}</p></section></DrawerBody></DrawerSurface></Drawer>',
+    '<Drawer :snap-points="[0.25, 0.5, 1]" :default-snap-point="0.5"><DrawerTrigger as-child><Button>Open with snap points</Button></DrawerTrigger><DrawerSurface title="Snap points" description="Drag between 25%, 50%, and 100% of the viewport."><DrawerBody class="grid max-h-[50dvh] gap-4"><section v-for="item in insideScrollSections" :key="item.title"><h3 class="m-0 text-sm leading-6 font-semibold">{{ item.title }}</h3><p class="m-0 text-sm leading-6 text-muted-foreground">{{ item.body }}</p></section></DrawerBody></DrawerSurface></Drawer>',
   ),
 };
 export const Island: Story = {
   render: renderStory(
-    '<Drawer swipe-direction="end"><DrawerTrigger as-child><Button>Open island drawer</Button></DrawerTrigger><DrawerSurface variant="island" title="Floating drawer" description="This compact drawer stays inset from the viewport edge."><DrawerBody>Use the island variant for a detached surface.</DrawerBody></DrawerSurface></Drawer>',
+    '<Drawer swipe-direction="end"><DrawerTrigger as-child><Button>Open island drawer</Button></DrawerTrigger><DrawerSurface variant="island" title="Floating drawer" description="This compact drawer stays inset from the viewport edge."><DrawerBody>Use the island variant for a detached drawer surface.</DrawerBody></DrawerSurface></Drawer>',
   ),
 };
 export const NonModal: Story = {
   render: renderStory(
-    '<Drawer :modal="false" :prevent-scroll="false" :snap-points="snapPoints" :default-snap-point="snapPoints[0]"><DrawerTrigger as-child><Button>Open non-modal drawer</Button></DrawerTrigger><DrawerPositioner><DrawerContent class="max-h-[min(28rem,80dvh)]" :draggable="false"><DrawerGrabber class="flex-col items-stretch gap-2"><DrawerGrabberIndicator class="self-center" /><DrawerHeader><DrawerTitle>Non-modal drawer</DrawerTitle><DrawerCloseIcon data-no-drag /><DrawerDescription>Drag this header while the page remains interactive.</DrawerDescription></DrawerHeader></DrawerGrabber><DrawerBody class="min-h-0 flex-1 overflow-hidden"><ScrollArea class="h-full min-h-0"><ScrollAreaViewport class="h-full min-h-0 pe-2"><ScrollAreaContent class="grid gap-3"><section v-for="item in insideScrollSections" :key="item.title"><h3>{{ item.title }}</h3><p class="m-0">{{ item.body }}</p></section></ScrollAreaContent></ScrollAreaViewport><ScrollAreaScrollbar><ScrollAreaThumb /></ScrollAreaScrollbar><ScrollAreaCorner /></ScrollArea></DrawerBody></DrawerContent></DrawerPositioner></Drawer>',
+    '<Drawer :modal="false" :prevent-scroll="false" :snap-points="snapPoints" :default-snap-point="snapPoints[0]"><DrawerTrigger as-child><Button>Open non-modal drawer</Button></DrawerTrigger><DrawerPositioner><DrawerContent class="max-h-[min(28rem,80dvh)]" :draggable="false"><DrawerGrabber class="flex-col items-stretch gap-2 [&>[data-slot=drawer-grabber-indicator]]:self-center [&>[data-slot=drawer-header]]:w-full"><DrawerGrabberIndicator /><DrawerHeader><DrawerTitle>Non-modal drawer</DrawerTitle><DrawerCloseIcon data-no-drag /><DrawerDescription>Drag this header; the page and the scrollable content stay interactive.</DrawerDescription></DrawerHeader></DrawerGrabber><DrawerBody class="min-h-0 flex-1 overflow-hidden"><ScrollArea class="h-full min-h-0"><ScrollAreaViewport class="h-full min-h-0 pe-2"><ScrollAreaContent class="grid gap-3"><section v-for="item in insideScrollSections" :key="item.title"><h3 class="m-0 text-sm leading-6 font-semibold">{{ item.title }}</h3><p class="m-0 text-sm leading-6 text-muted-foreground">{{ item.body }}</p></section></ScrollAreaContent></ScrollAreaViewport><ScrollAreaScrollbar><ScrollAreaThumb /></ScrollAreaScrollbar><ScrollAreaCorner /></ScrollArea></DrawerBody></DrawerContent></DrawerPositioner></Drawer>',
     () => ({ snapPoints }),
   ),
 };
@@ -139,7 +140,7 @@ export const NoDragArea: Story = {
 };
 export const NonDraggable: Story = {
   render: renderStory(
-    '<Drawer :snap-points="snapPoints" :default-snap-point="snapPoints[0]"><DrawerTrigger as-child><Button>Open non-draggable drawer</Button></DrawerTrigger><DrawerSurface title="Grabber-only dragging" description="Content dragging is disabled." :draggable="false" /></Drawer>',
+    '<Drawer :snap-points="snapPoints" :default-snap-point="snapPoints[0]"><DrawerTrigger as-child><Button>Open non-draggable drawer</Button></DrawerTrigger><DrawerSurface title="Grabber-only dragging" description="Content dragging is disabled; the grabber remains draggable." :draggable="false" /></Drawer>',
     () => ({ snapPoints }),
   ),
 };

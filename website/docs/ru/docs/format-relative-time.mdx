@@ -1,11 +1,12 @@
 ---
 title: Format Relative Time
-description: Форматируйте даты относительно текущего момента в Ark UI для React, Solid и Vue с учетом локали и компактных вариантов отображения.
+description: Форматируйте даты относительно текущего момента в Ark UI для React, Solid, Vue и Svelte с учетом локали и компактных вариантов отображения.
 ark: https://ark-ui.com/docs/utilities/format-relative-time
 ---
 
 import formatRelativeTimeSolidLocale from '../../../snippets/format-relative-time/solid/locale.tsx?raw';
 import formatRelativeTimeVueLocale from '../../../snippets/format-relative-time/vue/locale.vue?raw';
+import formatRelativeTimeSvelteLocale from '../../../snippets/format-relative-time/svelte/locale.svelte?raw';
 
 ## Импорт
 
@@ -17,6 +18,7 @@ import formatRelativeTimeVueLocale from '../../../snippets/format-relative-time/
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -41,6 +43,13 @@ import { Format } from '@ark-ui/vue';
 ```
 
   </Tab>
+  <Tab value="svelte">
+
+```ts
+import { Format } from '@ark-ui/svelte';
+```
+
+  </Tab>
 </Tabs>
 
 ## Когда использовать
@@ -57,7 +66,7 @@ import { Format } from '@ark-ui/vue';
 ## Базовый пример
 
 Укажите `numeric="auto"`, когда близкие к текущей дате значения лучше описывать словами вроде «завтра» или «вчера».
-Предпросмотр в документации работает на React, а вкладки Solid и Vue содержат нативные эквиваленты той же композиции.
+Предпросмотр в документации работает на React, а вкладки Solid, Vue и Svelte содержат нативные эквиваленты той же композиции.
 
 <Example name="format-relative-time/basic" />
 
@@ -91,6 +100,7 @@ import { Format } from '@ark-ui/vue';
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
       { label: 'Vue', value: 'vue' },
+      { label: 'Svelte', value: 'svelte' },
     ]}
     className="docs-tabs"
   >
@@ -108,6 +118,11 @@ import { Format } from '@ark-ui/vue';
   <Tab value="vue">
 
 <CodeBlockRuntime lang="vue" code={formatRelativeTimeVueLocale} />
+
+    </Tab>
+  <Tab value="svelte">
+
+<CodeBlockRuntime lang="svelte" code={formatRelativeTimeSvelteLocale} />
 
     </Tab>
   </Tabs>

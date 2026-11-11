@@ -1,16 +1,16 @@
 ---
 title: Vite
-description: Intégrez moduix à Vite avec React, Solid ou Vue par paquet ou avec shadcn, avec les styles globaux, les chemins TypeScript et les alias Vite.
+description: Intégrez moduix à Vite avec React, Solid, Vue ou Svelte par paquet ou avec shadcn, avec les styles globaux, les chemins TypeScript et les alias Vite.
 ---
 
 # Vite
 
 Ce guide part d’une application existante, créée avec un modèle Vite pour React, React + TypeScript,
-Vue, Vue + TypeScript, Solid ou Solid + TypeScript.
+Vue, Vue + TypeScript, Solid, Solid + TypeScript, Svelte ou Svelte + TypeScript.
 
 ## Choisir votre configuration
 
-- **Framework :** React, Solid ou Vue avec le plugin Vite correspondant.
+- **Framework :** React, Solid, Vue ou Svelte avec le plugin Vite correspondant.
 - **Styles :** CSS Modules ou Tailwind CSS v4.
 - **Distribution :** paquet ou code source copié avec la CLI shadcn.
 
@@ -78,6 +78,24 @@ import { Button } from '@moduix/vue/button';
 <template>
   <Button>Continue</Button>
 </template>
+```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+<PackageManagerTabs command="install @moduix/svelte @ark-ui/svelte" />
+
+```ts title="src/main.ts"
+import '@moduix/svelte/reset.css';
+import '@moduix/svelte/style.css';
+```
+
+```svelte title="src/App.svelte"
+<script lang="ts">
+  import { Button } from '@moduix/svelte/button';
+</script>
+
+<Button>Continue</Button>
 ```
 
   </Tab>
@@ -155,10 +173,28 @@ export default defineConfig({
 <ShadcnInstallOptions options={[{ label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/button' }, { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/button' }]} />
 
   </Tab>
+  <Tab label="Svelte" value="svelte">
+
+```ts title="vite.config.ts"
+import { svelte } from '@sveltejs/vite-plugin-svelte';
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+  plugins: [svelte()],
+  resolve: {
+    tsconfigPaths: true,
+  },
+});
+```
+
+<ShadcnInstallOptions options={[{ label: 'CSS Modules', command: 'shadcn@latest add @moduix-svelte/button' }, { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-svelte-tailwind/button' }]} />
+
+  </Tab>
 </Tabs>
 
-Pour Vue, conservez `src/**/*.vue` dans `include` de la configuration de l’application afin que
-Vite associe les SFC à leurs chemins TypeScript. Avec Vite 7 ou une version antérieure, utilisez
+Pour Vue et Svelte, conservez `src/**/*.vue` ou `src/**/*.svelte` dans `include` de la
+configuration de l’application afin que Vite associe les fichiers de composants à leurs chemins
+TypeScript. Avec Vite 7 ou une version antérieure, utilisez
 un [`resolve.alias`](https://vite.dev/config/shared-options#resolve-alias) explicite.
 
 Dans le point d’entrée du framework, importez la feuille de styles générée à la place de celle du
@@ -180,6 +216,13 @@ import '@/lib/moduix/styles/style.css';
 
   </Tab>
   <Tab label="Vue" value="vue">
+
+```ts title="src/main.ts"
+import '@/lib/moduix/styles/style.css';
+```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
 
 ```ts title="src/main.ts"
 import '@/lib/moduix/styles/style.css';

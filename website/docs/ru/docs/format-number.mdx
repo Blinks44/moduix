@@ -6,6 +6,7 @@ ark: https://ark-ui.com/docs/utilities/format-number
 
 import formatNumberSolidLocale from '../../../snippets/format-number/solid/locale.tsx?raw';
 import formatNumberVueLocale from '../../../snippets/format-number/vue/locale.vue?raw';
+import formatNumberSvelteLocale from '../../../snippets/format-number/svelte/locale.svelte?raw';
 
 `Format.Number` форматирует числовое значение по правилам браузерного `Intl.NumberFormat`. Это форматтер для чтения,
 а не поле ввода.
@@ -20,6 +21,7 @@ import formatNumberVueLocale from '../../../snippets/format-number/vue/locale.vu
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -41,6 +43,13 @@ import { Format } from '@ark-ui/solid';
 
 ```ts
 import { Format } from '@ark-ui/vue';
+```
+
+  </Tab>
+  <Tab value="svelte">
+
+```ts
+import { Format } from '@ark-ui/svelte';
 ```
 
   </Tab>
@@ -81,6 +90,7 @@ Vue показаны нативные версии того же примера.
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
       { label: 'Vue', value: 'vue' },
+      { label: 'Svelte', value: 'svelte' },
     ]}
     className="docs-tabs"
   >
@@ -98,6 +108,11 @@ Vue показаны нативные версии того же примера.
   <Tab value="vue">
 
 <CodeBlockRuntime lang="vue" code={formatNumberVueLocale} />
+
+    </Tab>
+  <Tab value="svelte">
+
+<CodeBlockRuntime lang="svelte" code={formatNumberSvelteLocale} />
 
     </Tab>
   </Tabs>

@@ -67,7 +67,7 @@ assertive announcement.
 
 ## Composition
 
-Import `Alert` from `@moduix/react/alert`, `@moduix/solid/alert`, or `@moduix/vue/alert`. `Alert` is
+Import `Alert` from `@moduix/react/alert`, `@moduix/solid/alert`, `@moduix/vue/alert`, or `@moduix/svelte/alert`. `Alert` is
 the root part, and the other public parts are `AlertIndicator`, `AlertContent`, `AlertTitle`,
 `AlertDescription`, and `AlertActions`.
 
@@ -83,8 +83,7 @@ required and contains the title, description, controls, and other message conten
 `AlertActions` when they need the default wrapped action-row styling.
 
 When the title needs a different semantic element, use `AlertTitle asChild` with exactly one semantic
-child. Solid uses Ark's render-function form of `asChild` as shown in the Custom Heading example. Vue
-uses the `as-child` attribute with a single child element.
+child. Solid uses Ark's render-function form of `asChild` as shown in the Custom Heading example. Vue uses the `as-child` attribute with a single child element. Svelte passes an `asChild` snippet that spreads the received props onto one element.
 
 ## Anatomy
 

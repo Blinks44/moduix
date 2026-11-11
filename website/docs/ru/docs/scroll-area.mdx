@@ -77,7 +77,7 @@ Ark мог измерять их независимо.
 Используйте `ScrollAreaRootProvider` вместе с `useScrollArea()`, если внешним элементам
 управления нужен API прокрутки. Передайте возвращённое состояние в `ScrollAreaRootProvider` и не
 используйте `ScrollArea` и `ScrollAreaRootProvider` для одного состояния. В Solid читайте состояние и вызывайте
-его методы через аксессор, возвращённый `useScrollArea()`.
+его методы через аксессор, возвращённый `useScrollArea()`. В Svelte `useScrollArea()` возвращает геттер: вызывайте `scrollArea()` и передавайте хуку `id` (например, `$props.id()`).
 
 ## Анатомия
 

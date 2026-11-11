@@ -59,7 +59,7 @@ import * as AccordionDocs from '@/components/examples/accordion/css-properties';
 
 ### Управляемое состояние
 
-Передайте `value` и `onValueChange` (`v-model` во Vue), если открытые элементы зависят от маршрута,
+Передайте `value` и `onValueChange` (`v-model` во Vue, `bind:value` в Svelte), если открытые элементы зависят от маршрута,
 фильтров или соседнего интерфейса. `value` всегда массив значений элементов, даже без `multiple`. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
 
 <Example name="accordion/controlled" />
@@ -104,8 +104,9 @@ import * as AccordionDocs from '@/components/examples/accordion/css-properties';
 
 Используйте `AccordionRootProvider` вместе с `useAccordion()` из пакета выбранного фреймворка, если
 состояние аккордеона нужно создать вне дерева. Не добавляйте `Accordion` для того же состояния. В
-React состояние читается как обычный объект, в Solid - через реактивную функцию доступа, а Vue
-передаёт реактивное хранилище прямо в шаблон.
+React состояние читается как обычный объект, в Solid - через реактивную функцию доступа, Vue
+передаёт реактивное хранилище прямо в шаблон, а Svelte возвращает функцию-геттер, поэтому
+состояние читается через `accordion().value`.
 
 ## Анатомия
 
@@ -127,7 +128,7 @@ React состояние читается как обычный объект, в
 
 ## Стилизация
 
-Для структурных стилей передавайте экспортируемым частям `className` в React или `class` в Solid и Vue.
+Для структурных стилей передавайте экспортируемым частям `className` в React или `class` в Solid, Vue и Svelte.
 Состояния лучше оформлять через атрибуты данных Ark, например `data-state`, `data-disabled` и
 `data-orientation`, вместе с селекторами `data-slot` moduix. Варианты на Tailwind настраиваются
 обычными утилитами и пользовательскими классами; перечисленные ниже переменные относятся к

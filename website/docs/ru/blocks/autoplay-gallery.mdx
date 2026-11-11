@@ -7,6 +7,7 @@ block: autoplay-gallery
 import { AutoplayGallery } from '@/components/blocks/autoplay-gallery';
 import autoplayGallerySolid from '../../../snippets/blocks/solid/autoplay-gallery.tsx?raw';
 import autoplayGalleryVue from '../../../snippets/blocks/vue/autoplay-gallery.vue?raw';
+import autoplayGallerySvelte from '../../../snippets/blocks/svelte/autoplay-gallery.svelte?raw';
 import autoplayGalleryReact from '../../../src/components/blocks/autoplay-gallery.tsx?raw';
 import autoplayGalleryCss from '../../../src/components/blocks/autoplay-gallery.module.css?raw';
 
@@ -14,7 +15,7 @@ import autoplayGalleryCss from '../../../src/components/blocks/autoplay-gallery.
 
 <ExamplePanel
   clientOnly
-  sources={{ react: autoplayGalleryReact, solid: autoplayGallerySolid, vue: autoplayGalleryVue }}
+  sources={{ react: autoplayGalleryReact, solid: autoplayGallerySolid, vue: autoplayGalleryVue, svelte: autoplayGallerySvelte }}
   files={[{ name: 'autoplay-gallery.module.css', code: autoplayGalleryCss }]}
 >
   <AutoplayGallery />
@@ -47,8 +48,8 @@ import autoplayGalleryCss from '../../../src/components/blocks/autoplay-gallery.
 
 ## Как это работает
 
-В React и Solid состояние карусели доступно через `CarouselContext`. В Vue используется `useCarousel`
-с `CarouselRootProvider`. Состояние определяет активный слайд и предоставляет `pageSnapPoints` для
+В React и Solid состояние карусели доступно через `CarouselContext`. В Vue и Svelte используется `useCarousel`
+с `CarouselRootProvider`; в Svelte хук возвращает геттер, поэтому страница читается как `carousel().page`. Состояние определяет активный слайд и предоставляет `pageSnapPoints` для
 индикаторов прогресса. Текущий индикатор отмечен атрибутом `data-current`.
 
 У каждого индикатора `overflow: visible`, поэтому прозрачная область `::after` увеличивает удобную зону нажатия у

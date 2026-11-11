@@ -1,0 +1,41 @@
+<script lang="ts">
+  import { Button } from '@moduix/svelte/button';
+  import { Card, CardBody } from '@moduix/svelte/card';
+  import {
+    Drawer,
+    DrawerBackdrop,
+    DrawerBody,
+    DrawerCloseIcon,
+    DrawerContent,
+    DrawerDescription,
+    DrawerGrabber,
+    DrawerGrabberIndicator,
+    DrawerHeader,
+    DrawerPositioner,
+    DrawerTitle,
+    DrawerTrigger,
+  } from '@moduix/svelte/drawer';
+  import styles from '@/components/examples/drawer/drawer-floating-grabber.module.css';
+</script>
+
+<Drawer>
+  <DrawerTrigger>
+    {#snippet asChild(props)}<Button {...props()}>Open drawer</Button>{/snippet}
+  </DrawerTrigger>
+  <DrawerBackdrop />
+  <DrawerPositioner>
+    <DrawerContent>
+      <DrawerGrabber class={styles.grabber}><DrawerGrabberIndicator /></DrawerGrabber>
+      <DrawerHeader>
+        <DrawerTitle>Floating grabber</DrawerTitle>
+        <DrawerCloseIcon />
+        <DrawerDescription>The handle sits 10px above the drawer edge.</DrawerDescription>
+      </DrawerHeader>
+      <DrawerBody class={styles.body}>
+        <Card size="sm" class={styles.card}>
+          <CardBody>Use this treatment when the handle should read as a separate control.</CardBody>
+        </Card>
+      </DrawerBody>
+    </DrawerContent>
+  </DrawerPositioner>
+</Drawer>

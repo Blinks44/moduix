@@ -20,7 +20,7 @@ import * as ProgressLinearDocs from '@/components/examples/progress-linear/css-p
 
 Соберите индикатор из явных частей `ProgressLinearLabel`, `ProgressLinearValueText`, `ProgressLinearTrack` и `ProgressLinearRange`. Задайте для `ProgressLinearTrack`
 доступное имя, которое описывает задачу.
-React, Solid и Vue используют одинаковые плоские имена частей; во Vue применяются нативные `class`, слоты и `v-model`, когда они нужны.
+React, Solid, Vue и Svelte используют одинаковые плоские имена частей; во Vue применяются нативные `class`, слоты и `v-model`, а в Svelte - `class`, сниппеты и `bind:value`, когда они нужны.
 
 ## Выбор подходящего компонента
 
@@ -95,7 +95,7 @@ React, Solid и Vue используют одинаковые плоские и�
 `ProgressLinear`. Используйте `ProgressLinearView` для содержимого,
 зависящего от состояния, а `ProgressLinearContext` для собственного текста, которому нужно текущее
 состояние.
-Во Vue для того же управляемого значения используйте `v-model`.
+Во Vue для того же управляемого значения используйте `v-model`, а в Svelte - `bind:value`.
 
 ## Анатомия
 
@@ -118,7 +118,7 @@ React, Solid и Vue используют одинаковые плоские и�
 
 ## Стилизация
 
-Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях для структурной
+Используйте `className` в React или `class` в Solid, Vue и Svelte на экспортируемых частях для структурной
 стилизации. Для стилей, зависящих от состояния, используйте атрибуты данных Ark и хуки `data-slot`
 moduix. Варианты Tailwind используют нативные утилиты и классы потребителя, а переменные ниже
 настраивают варианты CSS Modules.

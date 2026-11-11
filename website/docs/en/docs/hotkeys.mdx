@@ -1,6 +1,6 @@
 ---
 title: Hotkeys
-description: Register platform-aware keyboard shortcuts, sequences, and command metadata in a React, Solid, or Vue application.
+description: Register platform-aware keyboard shortcuts, sequences, and command metadata in a React, Solid, Vue, or Svelte application.
 ark: https://ark-ui.com/docs/utilities/hotkeys
 ---
 
@@ -17,6 +17,7 @@ The API is available from the root entry point of the matching Ark UI package:
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -38,6 +39,13 @@ import { useFormatHotkey, useHotkey, useHotkeys } from '@ark-ui/solid';
 
 ```ts
 import { useFormatHotkey, useHotkey, useHotkeys } from '@ark-ui/vue';
+```
+
+  </Tab>
+  <Tab value="svelte">
+
+```ts
+import { useFormatHotkey, useHotkey, useHotkeys } from '@ark-ui/svelte';
 ```
 
   </Tab>
@@ -110,7 +118,7 @@ command only:
 In Solid, state returned by these hooks is an accessor, so read it as `registrations()`,
 `pressedKeys()`, `isPressed()`, or `platform()`. React returns the current value directly. A recorded
 shortcut can be committed with `stop`, discarded with `cancel`, or removed with `clear`. In Vue, hook
-state is a ref: read `.value` in script, while top-level refs unwrap automatically in templates.
+state is a ref: read `.value` in script, while top-level refs unwrap automatically in templates. In Svelte, hooks that return state return a getter: call it, for example `registrations()`.
 
 Hotkeys manages registration, matching, formatting, scopes, and recorder state. Your application
 still handles side effects, navigation, persistence, command-palette UI, focus management, and an

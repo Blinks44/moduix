@@ -1,0 +1,87 @@
+@layer moduix.components {
+  .root {
+    display: grid;
+    justify-items: center;
+    width: 100%;
+    min-width: 0;
+    gap: var(--moduix-spacing-4);
+    padding: var(--moduix-empty-padding, var(--moduix-spacing-8));
+    border: var(--moduix-empty-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-empty-border-color, var(--moduix-border));
+    border-radius: var(--moduix-empty-radius, var(--moduix-radius-xl));
+    background-color: var(
+      --moduix-empty-bg,
+      color-mix(in oklab, var(--moduix-card) 92%, var(--moduix-muted))
+    );
+    color: var(--moduix-empty-color, var(--moduix-card-foreground));
+    text-align: center;
+  }
+
+  .icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--moduix-spacing-3);
+    border-radius: var(--moduix-radius-full);
+    background-color: var(--moduix-muted);
+    color: var(--moduix-muted-foreground);
+
+    & :where(svg) {
+      width: var(--moduix-spacing-6);
+      height: var(--moduix-spacing-6);
+      flex-shrink: 0;
+      pointer-events: none;
+    }
+  }
+
+  .content {
+    display: grid;
+    min-width: 0;
+    max-width: 28rem;
+    justify-items: center;
+    gap: var(--moduix-spacing-1);
+  }
+
+  .title {
+    margin: 0;
+    font-size: var(--moduix-text-xl);
+    font-weight: var(--moduix-weight-semibold);
+    line-height: var(--moduix-line-height-text-xl);
+    overflow-wrap: anywhere;
+  }
+
+  .description {
+    color: var(--moduix-muted-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
+    overflow-wrap: anywhere;
+
+    & > :first-child {
+      margin-block-start: 0;
+    }
+
+    & > :last-child {
+      margin-block-end: 0;
+    }
+  }
+
+  .actions {
+    display: flex;
+    min-width: 0;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--moduix-spacing-2);
+
+    & > * {
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    /* :is() outranks the Button root class, so long labels wrap regardless of stylesheet order. */
+    & > :is(button, a) {
+      overflow-wrap: anywhere;
+      white-space: normal;
+    }
+  }
+}

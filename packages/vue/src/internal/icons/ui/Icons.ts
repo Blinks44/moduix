@@ -144,7 +144,7 @@ export { ListRestart as RestartIcon } from '@lucide/vue';
 export { Maximize2 as MaximizeIcon } from '@lucide/vue';
 export { Pause as PauseIcon } from '@lucide/vue';
 export const PencilIcon: FunctionalComponent<IconProps> = (props) =>
-  h(LucidePencilIcon, { ...accessibilityProps, strokeWidth: 3, ...props });
+  h(LucidePencilIcon, { ...accessibilityProps, ...props });
 export { Play as PlayIcon } from '@lucide/vue';
 export { Star as RatingStarIcon } from '@lucide/vue';
 export { RotateCcw as RotateCcwIcon } from '@lucide/vue';

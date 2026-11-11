@@ -1,0 +1,216 @@
+@layer moduix.components {
+  .trigger {
+    cursor: zoom-in;
+
+    &:focus-visible {
+      outline: var(--moduix-focus-ring-width) solid var(--moduix-ring);
+      outline-offset: var(--moduix-focus-ring-offset);
+    }
+  }
+
+  .backdrop {
+    position: fixed;
+    z-index: calc(var(--z-index, var(--moduix-z-popup)) - 1);
+    inset: 0;
+    background-color: var(--moduix-backdrop-bg, var(--moduix-overlay));
+    backdrop-filter: var(--moduix-backdrop-filter, blur(4px));
+
+    &[data-state='open'] {
+      animation: global(moduix-dialog-backdrop-in) var(--moduix-transition-default);
+    }
+
+    &[data-state='closed'] {
+      animation: global(moduix-dialog-backdrop-out) var(--moduix-transition-default) forwards;
+    }
+  }
+
+  .positioner {
+    position: fixed;
+    z-index: var(--z-index, var(--moduix-z-popup));
+    inset: 0;
+    display: grid;
+    place-items: center;
+    overflow: auto;
+    overscroll-behavior: contain;
+    padding: var(--moduix-spacing-4);
+  }
+
+  /* Content only fades, so the fixed close icon inside it stays pinned to the viewport. */
+  .content {
+    z-index: calc(var(--moduix-z-popup) + var(--layer-index, 0));
+    position: relative;
+    display: grid;
+    gap: var(--moduix-spacing-3);
+    width: fit-content;
+    max-width: min(
+      var(--moduix-lightbox-content-max-width, 80vw),
+      calc(100vw - 2 * var(--moduix-spacing-4))
+    );
+    max-height: min(
+      var(--moduix-lightbox-content-max-height, 80dvh),
+      calc(100dvh - 2 * var(--moduix-spacing-4))
+    );
+    outline: 0;
+
+    &[data-state='open'] {
+      animation: global(moduix-lightbox-content-in)
+        var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
+        var(--moduix-popup-motion-easing, var(--moduix-ease-in-out));
+    }
+
+    &[data-state='closed'] {
+      animation: global(moduix-lightbox-content-out)
+        var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
+        var(--moduix-popup-motion-easing, var(--moduix-ease-in-out)) forwards;
+    }
+  }
+
+  .title {
+    margin: 0;
+    color: var(--moduix-foreground);
+    font-size: var(--moduix-text-md);
+    font-weight: var(--moduix-weight-semibold);
+    line-height: var(--moduix-line-height-text-md);
+  }
+
+  .description {
+    margin: 0;
+    color: var(--moduix-muted-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
+  }
+
+  .header {
+    display: grid;
+    gap: var(--moduix-spacing-1);
+  }
+
+  /* A direct Body child scales with the Content timing. */
+  .body {
+    display: grid;
+    gap: var(--moduix-spacing-3);
+
+    .content[data-state='open'] > & {
+      animation: inherit;
+      animation-name: global(moduix-lightbox-body-in);
+    }
+
+    .content[data-state='closed'] > & {
+      animation: inherit;
+      animation-name: global(moduix-lightbox-body-out);
+    }
+  }
+
+  .footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--moduix-spacing-2);
+    color: var(--moduix-muted-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
+  }
+
+  .image {
+    display: block;
+    max-width: min(var(--moduix-lightbox-content-max-width, 80vw), 100%);
+    max-height: min(var(--moduix-lightbox-content-max-height, 80dvh), 100%);
+    object-fit: contain;
+    border-radius: var(--moduix-radius-md);
+    box-shadow: var(--moduix-shadow-lg);
+    user-select: none;
+
+    &[data-close-on-click] {
+      cursor: zoom-out;
+    }
+  }
+
+  .gallery {
+    justify-self: center;
+    max-width: min(72rem, calc(100vw - 2 * var(--moduix-spacing-4)));
+
+    [data-slot='carousel-control'] {
+      align-items: center;
+    }
+
+    [data-slot='carousel-item-group'] {
+      aspect-ratio: 16 / 10;
+      max-height: 68dvh;
+      background: rgb(0 0 0 / 0.9);
+    }
+
+    [data-slot='carousel-item'] {
+      display: grid;
+      height: 100%;
+      place-items: center;
+
+      img,
+      video {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        border-radius: var(--moduix-radius-md);
+        user-select: none;
+      }
+    }
+
+    [data-slot='carousel-indicator-group'] {
+      width: fit-content;
+      max-width: 100%;
+      margin-inline: auto;
+      flex-wrap: wrap;
+    }
+
+    /* Image thumbnails replace the Carousel dots; this selector outranks the dot sizes. */
+    [data-slot='carousel-indicator']:has(img) {
+      overflow: hidden;
+      width: 5rem;
+      height: var(--moduix-size-xl);
+      border: var(--moduix-border-width-sm) solid transparent;
+      border-radius: var(--moduix-radius-md);
+      background: transparent;
+      opacity: 0.65;
+      transition:
+        border-color var(--moduix-transition-fast),
+        opacity var(--moduix-transition-fast),
+        translate var(--moduix-transition-fast);
+
+      @media (hover: hover) {
+        &:hover {
+          opacity: 0.9;
+        }
+      }
+
+      &[data-current] {
+        border-color: var(--moduix-primary);
+        opacity: 1;
+        translate: 0 calc(0px - var(--moduix-border-width-sm));
+      }
+
+      img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+
+  .closeIcon {
+    --moduix-close-button-size: var(--moduix-spacing-8);
+    --moduix-close-button-color: var(--moduix-foreground);
+    --moduix-close-button-bg: var(--moduix-background);
+    position: fixed;
+    z-index: calc(var(--moduix-z-popup) + var(--layer-index, 0) + 1);
+    inset-block-start: var(--moduix-spacing-4);
+    inset-inline-end: var(--moduix-spacing-4);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .backdrop[data-state],
+    .content[data-state] {
+      animation: none;
+    }
+  }
+}

@@ -61,7 +61,7 @@ recevant les styles du bouton.
 
 ### Ref
 
-La ref transmise pointe vers l’élément racine rendu ; vous pouvez l’utiliser pour lui donner le focus par programmation ou le mesurer. Dans Solid, attribuez la ref à l’élément créé dans la fonction de rendu `asChild` : une ref placée sur `Button` n’est pas transmise dans ce cas. Dans Vue, une ref de template pointe vers l’instance du composant ; utilisez `$el` pour accéder à la racine rendue, qui est l’élément sémantique enfant avec `asChild`.
+La ref transmise pointe vers l’élément racine rendu ; vous pouvez l’utiliser pour lui donner le focus par programmation ou le mesurer. Dans Solid, attribuez la ref à l’élément créé dans la fonction de rendu `asChild` : une ref placée sur `Button` n’est pas transmise dans ce cas. Dans Vue, une ref de template pointe vers l’instance du composant ; utilisez `$el` pour accéder à la racine rendue, qui est l’élément sémantique enfant avec `asChild`. Dans Svelte, utilisez `bind:ref` sur `Button` : il contient l’élément racine rendu, qui est l’élément du snippet avec `asChild`.
 
 <Example name="button/ref" />
 
@@ -69,8 +69,7 @@ La ref transmise pointe vers l’élément racine rendu ; vous pouvez l’utilis
 
 `Button` est une racine à partie unique construite avec la [fabrique Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory).
 Utilisez `asChild` lorsqu’un autre élément sémantique doit porter le nœud DOM rendu : React reçoit exactement un
-enfant, Solid utilise une fonction de rendu avec `asChild` et Vue fournit l’élément sémantique comme contenu du
-slot par défaut. Lorsqu’une partie Ark compose Button, le parent garde ses propres `data-scope` et
+enfant, Solid utilise une fonction de rendu avec `asChild`, Vue fournit l’élément sémantique comme contenu du slot par défaut et Svelte utilise un snippet `asChild` qui applique `props()` à son élément sémantique. Lorsqu’une partie Ark compose Button, le parent garde ses propres `data-scope` et
 `data-part` ; Button conserve ses classes de recette et son `data-slot` stable.
 
 La propriété `loading` ne gère que l’état occupé et désactivé ; l’application reste responsable de l’indicateur
@@ -106,7 +105,7 @@ Regroupées selon ce qu’elles modifient. Survolez ou sélectionnez une variabl
 
 ### Points d’accroche CSS
 
-Utilisez `className` en React et `class` en Solid ou Vue sur la racine. Ces attributs sont communs aux deux
+Utilisez `className` en React et `class` en Solid, Vue ou Svelte sur la racine. Ces attributs sont communs aux deux
 approches de style.
 
 | Attribut                  | Présent lorsque                                                              |

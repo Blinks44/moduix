@@ -1926,6 +1926,654 @@
           "target": "@components/blocks/parallax-card/parallax-card.module.css"
         }
       ]
+    },
+    {
+      "name": "svelte-tailwind-login-simple",
+      "type": "registry:block",
+      "title": "Sign in",
+      "description": "Sign-in form with email, password, and a remember-me option.",
+      "registryDependencies": [
+        "https://moduix.dev/r/svelte-tailwind/button.json",
+        "https://moduix.dev/r/svelte-tailwind/card.json",
+        "https://moduix.dev/r/svelte-tailwind/checkbox.json",
+        "https://moduix.dev/r/svelte-tailwind/field.json",
+        "https://moduix.dev/r/svelte-tailwind/input.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/svelte/login-simple.svelte",
+          "type": "registry:component",
+          "target": "@components/blocks/login-simple/login-simple.svelte"
+        },
+        {
+          "path": "src/components/blocks/login-simple/login-simple-form.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/login-simple/login-simple-form.module.css"
+        }
+      ]
+    },
+    {
+      "name": "svelte-tailwind-sidebar-dashboard",
+      "type": "registry:block",
+      "title": "Sidebar dashboard",
+      "description": "Dashboard with a resizable sidebar, nested navigation, and a workspace menu.",
+      "dependencies": ["@lucide/svelte"],
+      "registryDependencies": [
+        "https://moduix.dev/r/svelte-tailwind/button.json",
+        "https://moduix.dev/r/svelte-tailwind/card.json",
+        "https://moduix.dev/r/svelte-tailwind/collapsible.json",
+        "https://moduix.dev/r/svelte-tailwind/menu.json",
+        "https://moduix.dev/r/svelte-tailwind/sidebar.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/svelte/sidebar-dashboard.svelte",
+          "type": "registry:component",
+          "target": "@components/blocks/sidebar-dashboard/sidebar-dashboard.svelte"
+        },
+        {
+          "path": "src/components/blocks/sidebar-dashboard.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/sidebar-dashboard/sidebar-dashboard.module.css"
+        }
+      ]
+    },
+    {
+      "name": "svelte-tailwind-app-shell",
+      "type": "registry:block",
+      "title": "App shell",
+      "description": "Application shell with workspace navigation, a header, and a mobile drawer.",
+      "registryDependencies": [
+        "https://moduix.dev/r/svelte-tailwind/button.json",
+        "https://moduix.dev/r/svelte-tailwind/drawer.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/svelte/app-shell.svelte",
+          "type": "registry:component",
+          "target": "@components/blocks/app-shell/app-shell.svelte"
+        },
+        {
+          "path": "snippets/blocks/svelte/app-shell-navigation.svelte",
+          "type": "registry:component",
+          "target": "@components/blocks/app-shell/app-shell-navigation.svelte"
+        },
+        {
+          "path": "src/components/blocks/app-shell/app-shell.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/app-shell/app-shell.module.css"
+        },
+        {
+          "path": "src/components/blocks/app-shell/icons/menu.svg",
+          "type": "registry:file",
+          "target": "@components/blocks/app-shell/icons/menu.svg"
+        },
+        {
+          "path": "src/components/blocks/app-shell/icons/sun.svg",
+          "type": "registry:file",
+          "target": "@components/blocks/app-shell/icons/sun.svg"
+        },
+        {
+          "path": "src/components/blocks/app-shell/icons/github.svg",
+          "type": "registry:file",
+          "target": "@components/blocks/app-shell/icons/github.svg"
+        }
+      ]
+    },
+    {
+      "name": "svelte-tailwind-file-upload-manager",
+      "type": "registry:block",
+      "title": "File upload",
+      "description": "File picker with drag and drop, validation, previews, and removal controls.",
+      "registryDependencies": [
+        "https://moduix.dev/r/svelte-tailwind/card.json",
+        "https://moduix.dev/r/svelte-tailwind/file-upload.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/svelte/file-upload-manager.svelte",
+          "type": "registry:component",
+          "target": "@components/blocks/file-upload-manager/file-upload-manager.svelte"
+        },
+        {
+          "path": "src/components/blocks/file-upload-manager.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/file-upload-manager/file-upload-manager.module.css"
+        }
+      ]
+    },
+    {
+      "name": "svelte-tailwind-app-header",
+      "type": "registry:block",
+      "title": "App header",
+      "description": "Responsive header with navigation, command search, and an account menu.",
+      "dependencies": ["@lucide/svelte"],
+      "registryDependencies": [
+        "https://moduix.dev/r/svelte-tailwind/avatar.json",
+        "https://moduix.dev/r/svelte-tailwind/button.json",
+        "https://moduix.dev/r/svelte-tailwind/command-palette.json",
+        "https://moduix.dev/r/svelte-tailwind/menu.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/svelte/app-header.svelte",
+          "type": "registry:component",
+          "target": "@components/blocks/app-header/app-header.svelte"
+        },
+        {
+          "path": "src/components/blocks/app-header.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/app-header/app-header.module.css"
+        }
+      ]
+    },
+    {
+      "name": "svelte-tailwind-sign-up",
+      "type": "registry:block",
+      "title": "Sign up",
+      "description": "Registration form with email, password confirmation, and terms acceptance.",
+      "registryDependencies": [
+        "https://moduix.dev/r/svelte-tailwind/button.json",
+        "https://moduix.dev/r/svelte-tailwind/card.json",
+        "https://moduix.dev/r/svelte-tailwind/checkbox.json",
+        "https://moduix.dev/r/svelte-tailwind/field.json",
+        "https://moduix.dev/r/svelte-tailwind/input.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/svelte/sign-up.svelte",
+          "type": "registry:component",
+          "target": "@components/blocks/sign-up/sign-up.svelte"
+        },
+        {
+          "path": "src/components/blocks/sign-up/sign-up-form.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/sign-up/sign-up-form.module.css"
+        }
+      ]
+    },
+    {
+      "name": "svelte-tailwind-forgot-password",
+      "type": "registry:block",
+      "title": "Forgot password",
+      "description": "Email form for requesting a password reset link.",
+      "registryDependencies": [
+        "https://moduix.dev/r/svelte-tailwind/button.json",
+        "https://moduix.dev/r/svelte-tailwind/card.json",
+        "https://moduix.dev/r/svelte-tailwind/field.json",
+        "https://moduix.dev/r/svelte-tailwind/input.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/svelte/forgot-password.svelte",
+          "type": "registry:component",
+          "target": "@components/blocks/forgot-password/forgot-password.svelte"
+        },
+        {
+          "path": "src/components/blocks/forgot-password/forgot-password-form.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/forgot-password/forgot-password-form.module.css"
+        }
+      ]
+    },
+    {
+      "name": "svelte-tailwind-reset-password",
+      "type": "registry:block",
+      "title": "Reset password",
+      "description": "Password reset form with a confirmation field.",
+      "registryDependencies": [
+        "https://moduix.dev/r/svelte-tailwind/button.json",
+        "https://moduix.dev/r/svelte-tailwind/card.json",
+        "https://moduix.dev/r/svelte-tailwind/field.json",
+        "https://moduix.dev/r/svelte-tailwind/input.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/svelte/reset-password.svelte",
+          "type": "registry:component",
+          "target": "@components/blocks/reset-password/reset-password.svelte"
+        },
+        {
+          "path": "src/components/blocks/reset-password/reset-password-form.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/reset-password/reset-password-form.module.css"
+        }
+      ]
+    },
+    {
+      "name": "svelte-tailwind-verification-code",
+      "type": "registry:block",
+      "title": "Verification code",
+      "description": "Six-digit email verification form with keyboard navigation and paste support.",
+      "registryDependencies": [
+        "https://moduix.dev/r/svelte-tailwind/button.json",
+        "https://moduix.dev/r/svelte-tailwind/card.json",
+        "https://moduix.dev/r/svelte-tailwind/field.json",
+        "https://moduix.dev/r/svelte-tailwind/pin-input.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/svelte/verification-code.svelte",
+          "type": "registry:component",
+          "target": "@components/blocks/verification-code/verification-code.svelte"
+        },
+        {
+          "path": "src/components/blocks/verification-code/verification-code-form.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/verification-code/verification-code-form.module.css"
+        }
+      ]
+    },
+    {
+      "name": "svelte-tailwind-data-table",
+      "type": "registry:block",
+      "title": "Data table",
+      "description": "Payments table with search, sorting, column visibility, selection, and pagination.",
+      "dependencies": ["@lucide/svelte", "@tanstack/svelte-table@^9.3.1"],
+      "registryDependencies": [
+        "https://moduix.dev/r/svelte-tailwind/badge.json",
+        "https://moduix.dev/r/svelte-tailwind/button.json",
+        "https://moduix.dev/r/svelte-tailwind/checkbox.json",
+        "https://moduix.dev/r/svelte-tailwind/input-group.json",
+        "https://moduix.dev/r/svelte-tailwind/menu.json",
+        "https://moduix.dev/r/svelte-tailwind/table.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/svelte/data-table.svelte",
+          "type": "registry:component",
+          "target": "@components/blocks/data-table/data-table.svelte"
+        },
+        {
+          "path": "src/components/blocks/data-table.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/data-table/data-table.module.css"
+        }
+      ]
+    },
+    {
+      "name": "svelte-tailwind-expandable-avatar-group",
+      "type": "registry:block",
+      "title": "Expandable avatar group",
+      "description": "Overlapping avatars that expand on hover or focus, with a tooltip for each person.",
+      "registryDependencies": [
+        "https://moduix.dev/r/svelte-tailwind/avatar.json",
+        "https://moduix.dev/r/svelte-tailwind/tooltip.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/svelte/expandable-avatar-group.svelte",
+          "type": "registry:component",
+          "target": "@components/blocks/expandable-avatar-group/expandable-avatar-group.svelte"
+        },
+        {
+          "path": "src/components/blocks/expandable-avatar-group.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/expandable-avatar-group/expandable-avatar-group.module.css"
+        }
+      ]
+    },
+    {
+      "name": "svelte-tailwind-autoplay-gallery",
+      "type": "registry:block",
+      "title": "Autoplay gallery",
+      "description": "Image carousel with autoplay, navigation arrows, and progress indicators.",
+      "registryDependencies": ["https://moduix.dev/r/svelte-tailwind/carousel.json"],
+      "files": [
+        {
+          "path": "snippets/blocks/svelte/autoplay-gallery.svelte",
+          "type": "registry:component",
+          "target": "@components/blocks/autoplay-gallery/autoplay-gallery.svelte"
+        },
+        {
+          "path": "src/components/blocks/autoplay-gallery.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/autoplay-gallery/autoplay-gallery.module.css"
+        }
+      ]
+    },
+    {
+      "name": "svelte-tailwind-parallax-card",
+      "type": "registry:block",
+      "title": "Parallax card",
+      "description": "Image card with a pointer-driven tilt effect and reduced-motion support.",
+      "registryDependencies": ["https://moduix.dev/r/svelte-tailwind/card.json"],
+      "files": [
+        {
+          "path": "snippets/blocks/svelte/parallax-card.svelte",
+          "type": "registry:component",
+          "target": "@components/blocks/parallax-card/parallax-card.svelte"
+        },
+        {
+          "path": "src/components/blocks/parallax-card.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/parallax-card/parallax-card.module.css"
+        }
+      ]
+    },
+    {
+      "name": "svelte-login-simple",
+      "type": "registry:block",
+      "title": "Sign in",
+      "description": "Sign-in form with email, password, and a remember-me option.",
+      "registryDependencies": [
+        "https://moduix.dev/r/svelte/button.json",
+        "https://moduix.dev/r/svelte/card.json",
+        "https://moduix.dev/r/svelte/checkbox.json",
+        "https://moduix.dev/r/svelte/field.json",
+        "https://moduix.dev/r/svelte/input.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/svelte/login-simple.svelte",
+          "type": "registry:component",
+          "target": "@components/blocks/login-simple/login-simple.svelte"
+        },
+        {
+          "path": "src/components/blocks/login-simple/login-simple-form.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/login-simple/login-simple-form.module.css"
+        }
+      ]
+    },
+    {
+      "name": "svelte-sidebar-dashboard",
+      "type": "registry:block",
+      "title": "Sidebar dashboard",
+      "description": "Dashboard with a resizable sidebar, nested navigation, and a workspace menu.",
+      "dependencies": ["@lucide/svelte"],
+      "registryDependencies": [
+        "https://moduix.dev/r/svelte/button.json",
+        "https://moduix.dev/r/svelte/card.json",
+        "https://moduix.dev/r/svelte/collapsible.json",
+        "https://moduix.dev/r/svelte/menu.json",
+        "https://moduix.dev/r/svelte/sidebar.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/svelte/sidebar-dashboard.svelte",
+          "type": "registry:component",
+          "target": "@components/blocks/sidebar-dashboard/sidebar-dashboard.svelte"
+        },
+        {
+          "path": "src/components/blocks/sidebar-dashboard.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/sidebar-dashboard/sidebar-dashboard.module.css"
+        }
+      ]
+    },
+    {
+      "name": "svelte-app-shell",
+      "type": "registry:block",
+      "title": "App shell",
+      "description": "Application shell with workspace navigation, a header, and a mobile drawer.",
+      "registryDependencies": [
+        "https://moduix.dev/r/svelte/button.json",
+        "https://moduix.dev/r/svelte/drawer.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/svelte/app-shell.svelte",
+          "type": "registry:component",
+          "target": "@components/blocks/app-shell/app-shell.svelte"
+        },
+        {
+          "path": "snippets/blocks/svelte/app-shell-navigation.svelte",
+          "type": "registry:component",
+          "target": "@components/blocks/app-shell/app-shell-navigation.svelte"
+        },
+        {
+          "path": "src/components/blocks/app-shell/app-shell.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/app-shell/app-shell.module.css"
+        },
+        {
+          "path": "src/components/blocks/app-shell/icons/menu.svg",
+          "type": "registry:file",
+          "target": "@components/blocks/app-shell/icons/menu.svg"
+        },
+        {
+          "path": "src/components/blocks/app-shell/icons/sun.svg",
+          "type": "registry:file",
+          "target": "@components/blocks/app-shell/icons/sun.svg"
+        },
+        {
+          "path": "src/components/blocks/app-shell/icons/github.svg",
+          "type": "registry:file",
+          "target": "@components/blocks/app-shell/icons/github.svg"
+        }
+      ]
+    },
+    {
+      "name": "svelte-file-upload-manager",
+      "type": "registry:block",
+      "title": "File upload",
+      "description": "File picker with drag and drop, validation, previews, and removal controls.",
+      "registryDependencies": [
+        "https://moduix.dev/r/svelte/card.json",
+        "https://moduix.dev/r/svelte/file-upload.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/svelte/file-upload-manager.svelte",
+          "type": "registry:component",
+          "target": "@components/blocks/file-upload-manager/file-upload-manager.svelte"
+        },
+        {
+          "path": "src/components/blocks/file-upload-manager.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/file-upload-manager/file-upload-manager.module.css"
+        }
+      ]
+    },
+    {
+      "name": "svelte-app-header",
+      "type": "registry:block",
+      "title": "App header",
+      "description": "Responsive header with navigation, command search, and an account menu.",
+      "dependencies": ["@lucide/svelte"],
+      "registryDependencies": [
+        "https://moduix.dev/r/svelte/avatar.json",
+        "https://moduix.dev/r/svelte/button.json",
+        "https://moduix.dev/r/svelte/command-palette.json",
+        "https://moduix.dev/r/svelte/menu.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/svelte/app-header.svelte",
+          "type": "registry:component",
+          "target": "@components/blocks/app-header/app-header.svelte"
+        },
+        {
+          "path": "src/components/blocks/app-header.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/app-header/app-header.module.css"
+        }
+      ]
+    },
+    {
+      "name": "svelte-sign-up",
+      "type": "registry:block",
+      "title": "Sign up",
+      "description": "Registration form with email, password confirmation, and terms acceptance.",
+      "registryDependencies": [
+        "https://moduix.dev/r/svelte/button.json",
+        "https://moduix.dev/r/svelte/card.json",
+        "https://moduix.dev/r/svelte/checkbox.json",
+        "https://moduix.dev/r/svelte/field.json",
+        "https://moduix.dev/r/svelte/input.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/svelte/sign-up.svelte",
+          "type": "registry:component",
+          "target": "@components/blocks/sign-up/sign-up.svelte"
+        },
+        {
+          "path": "src/components/blocks/sign-up/sign-up-form.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/sign-up/sign-up-form.module.css"
+        }
+      ]
+    },
+    {
+      "name": "svelte-forgot-password",
+      "type": "registry:block",
+      "title": "Forgot password",
+      "description": "Email form for requesting a password reset link.",
+      "registryDependencies": [
+        "https://moduix.dev/r/svelte/button.json",
+        "https://moduix.dev/r/svelte/card.json",
+        "https://moduix.dev/r/svelte/field.json",
+        "https://moduix.dev/r/svelte/input.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/svelte/forgot-password.svelte",
+          "type": "registry:component",
+          "target": "@components/blocks/forgot-password/forgot-password.svelte"
+        },
+        {
+          "path": "src/components/blocks/forgot-password/forgot-password-form.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/forgot-password/forgot-password-form.module.css"
+        }
+      ]
+    },
+    {
+      "name": "svelte-reset-password",
+      "type": "registry:block",
+      "title": "Reset password",
+      "description": "Password reset form with a confirmation field.",
+      "registryDependencies": [
+        "https://moduix.dev/r/svelte/button.json",
+        "https://moduix.dev/r/svelte/card.json",
+        "https://moduix.dev/r/svelte/field.json",
+        "https://moduix.dev/r/svelte/input.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/svelte/reset-password.svelte",
+          "type": "registry:component",
+          "target": "@components/blocks/reset-password/reset-password.svelte"
+        },
+        {
+          "path": "src/components/blocks/reset-password/reset-password-form.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/reset-password/reset-password-form.module.css"
+        }
+      ]
+    },
+    {
+      "name": "svelte-verification-code",
+      "type": "registry:block",
+      "title": "Verification code",
+      "description": "Six-digit email verification form with keyboard navigation and paste support.",
+      "registryDependencies": [
+        "https://moduix.dev/r/svelte/button.json",
+        "https://moduix.dev/r/svelte/card.json",
+        "https://moduix.dev/r/svelte/field.json",
+        "https://moduix.dev/r/svelte/pin-input.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/svelte/verification-code.svelte",
+          "type": "registry:component",
+          "target": "@components/blocks/verification-code/verification-code.svelte"
+        },
+        {
+          "path": "src/components/blocks/verification-code/verification-code-form.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/verification-code/verification-code-form.module.css"
+        }
+      ]
+    },
+    {
+      "name": "svelte-data-table",
+      "type": "registry:block",
+      "title": "Data table",
+      "description": "Payments table with search, sorting, column visibility, selection, and pagination.",
+      "dependencies": ["@lucide/svelte", "@tanstack/svelte-table@^9.3.1"],
+      "registryDependencies": [
+        "https://moduix.dev/r/svelte/badge.json",
+        "https://moduix.dev/r/svelte/button.json",
+        "https://moduix.dev/r/svelte/checkbox.json",
+        "https://moduix.dev/r/svelte/input-group.json",
+        "https://moduix.dev/r/svelte/menu.json",
+        "https://moduix.dev/r/svelte/table.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/svelte/data-table.svelte",
+          "type": "registry:component",
+          "target": "@components/blocks/data-table/data-table.svelte"
+        },
+        {
+          "path": "src/components/blocks/data-table.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/data-table/data-table.module.css"
+        }
+      ]
+    },
+    {
+      "name": "svelte-expandable-avatar-group",
+      "type": "registry:block",
+      "title": "Expandable avatar group",
+      "description": "Overlapping avatars that expand on hover or focus, with a tooltip for each person.",
+      "registryDependencies": [
+        "https://moduix.dev/r/svelte/avatar.json",
+        "https://moduix.dev/r/svelte/tooltip.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/svelte/expandable-avatar-group.svelte",
+          "type": "registry:component",
+          "target": "@components/blocks/expandable-avatar-group/expandable-avatar-group.svelte"
+        },
+        {
+          "path": "src/components/blocks/expandable-avatar-group.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/expandable-avatar-group/expandable-avatar-group.module.css"
+        }
+      ]
+    },
+    {
+      "name": "svelte-autoplay-gallery",
+      "type": "registry:block",
+      "title": "Autoplay gallery",
+      "description": "Image carousel with autoplay, navigation arrows, and progress indicators.",
+      "registryDependencies": ["https://moduix.dev/r/svelte/carousel.json"],
+      "files": [
+        {
+          "path": "snippets/blocks/svelte/autoplay-gallery.svelte",
+          "type": "registry:component",
+          "target": "@components/blocks/autoplay-gallery/autoplay-gallery.svelte"
+        },
+        {
+          "path": "src/components/blocks/autoplay-gallery.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/autoplay-gallery/autoplay-gallery.module.css"
+        }
+      ]
+    },
+    {
+      "name": "svelte-parallax-card",
+      "type": "registry:block",
+      "title": "Parallax card",
+      "description": "Image card with a pointer-driven tilt effect and reduced-motion support.",
+      "registryDependencies": ["https://moduix.dev/r/svelte/card.json"],
+      "files": [
+        {
+          "path": "snippets/blocks/svelte/parallax-card.svelte",
+          "type": "registry:component",
+          "target": "@components/blocks/parallax-card/parallax-card.svelte"
+        },
+        {
+          "path": "src/components/blocks/parallax-card.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/parallax-card/parallax-card.module.css"
+        }
+      ]
     }
   ]
 }

@@ -1,0 +1,52 @@
+@layer moduix.components {
+  .root {
+    display: inline-grid;
+    justify-items: center;
+    gap: var(--moduix-spacing-2);
+    width: max-content;
+    max-width: 100%;
+  }
+
+  .label,
+  .valueText {
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
+    overflow-wrap: anywhere;
+    text-align: center;
+  }
+
+  .valueText {
+    font-weight: var(--moduix-weight-medium);
+  }
+
+  .circle {
+    --size: var(--moduix-progress-circular-size, var(--moduix-size-xl));
+    --thickness: var(--moduix-progress-circular-thickness, 0.4rem);
+
+    display: block;
+  }
+
+  .circleTrack {
+    stroke: var(--moduix-progress-circular-track-bg, var(--moduix-muted));
+  }
+
+  .circleRange {
+    stroke: var(--moduix-progress-circular-range-bg, var(--moduix-primary));
+    stroke-linecap: round;
+    transition: stroke-dashoffset var(--moduix-transition-default);
+
+    /* Ark leaves the dash pattern to the consumer while the value is unknown. */
+    &[data-state='indeterminate'] {
+      stroke-dasharray: calc(var(--circumference) / 4) var(--circumference);
+      animation: global(moduix-progress-circular-indeterminate) 1.4s linear infinite;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+
+      &[data-state='indeterminate'] {
+        animation: none;
+      }
+    }
+  }
+}

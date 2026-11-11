@@ -102,7 +102,7 @@ de l’interface situés en dehors de l’arborescence de la carte doivent lire 
 `portalled={false}` dans une autre fenêtre flottante, ou passez `portalRef` pour choisir un conteneur
 personnalisé. Utilisez `HoverCardRootProvider` avec `useHoverCard()` lorsque l’état doit vivre en
 dehors de l’arborescence de la carte : React lit le store comme un objet, tandis que Solid le lit
-via son accessor, et Vue expose directement l’état réactif dans le template.
+via son accessor, Vue expose directement l’état réactif dans le template, et Svelte renvoie un getter : lisez l’état avec `hoverCard().open`.
 
 Gardez `HoverCardArrow` dans `HoverCardContent` et placez les aperçus longs dans
 `HoverCardBody` : `Content` laisse la flèche visible et `Body` devient la région défilable. Utilisez
@@ -140,7 +140,7 @@ soulignement suit `currentColor`, donc une classe `color` recolore les deux. `Ho
 de 14 à 24rem de large et au plus 24rem de haut dans l’espace disponible. L’animation du contenu lit
 les variables partagées `--moduix-popup-motion-*`.
 
-Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées. Les variantes
+Utilisez `className` en React ou `class` en Solid, Vue et Svelte sur les parties exportées. Les variantes
 Tailwind utilisent les utilitaires natifs et les classes du consommateur. Les variantes CSS Modules
 reposent sur les jetons de foundation et n’ont pas de variables de composant : une classe sur la partie
 remplace les styles du composant en couche. Les attributs d’état et les hooks `data-slot` sont communs

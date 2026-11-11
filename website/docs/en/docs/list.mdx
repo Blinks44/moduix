@@ -84,8 +84,7 @@ props and ref and preserve the semantic `<li>` element. In other cases, use `Lis
 ### Custom root
 
 Use `List asChild` when a component from your application must render the semantic list element. It must
-forward the received props and ref to one `<ul>` or `<ol>` in React, use the render-function form in Solid, or pass
-one semantic child in Vue.
+forward the received props and ref to one `<ul>` or `<ol>` in React, use the render-function form in Solid, pass one semantic child in Vue, or use an `asChild` snippet in Svelte.
 
 <Example name="list/root-as-child" />
 
@@ -95,7 +94,7 @@ Use `List` for the root. Its direct children should be `ListItem` or native `li`
 because root spacing and marker styling target direct list items. Use `ListItem` when you need its stable
 slot, `className`/`class`, or `asChild`; native `li` is enough otherwise. Use `asChild` only when an application
 component renders one semantic `ul`, `ol`, or `li` and forwards the received props and ref. In Solid, pass the
-render function form of `asChild`; in Vue, pass the semantic element as the component slot. `List` has no state
+render function form of `asChild`; in Vue, pass the semantic element as the component slot; in Svelte, use an `asChild` snippet. `List` has no state
 machine or callbacks, so keyboard selection belongs to `Listbox`.
 
 ## Anatomy
@@ -114,7 +113,7 @@ Hover or focus a part to find it in the preview.
 
 ## Styling
 
-Style `List` with the framework's class prop (`className` in React and `class` in Solid and Vue), the exported Ark-style
+Style `List` with the framework's class prop (`className` in React and `class` in Solid, Vue, and Svelte), the exported Ark-style
 `data-*` attributes, and native `li::marker`. CSS Modules variants build on foundation tokens and have no component
 variables: a class on the root overrides the layered component styles.
 

@@ -11,9 +11,29 @@ import { TableOfContentsHero } from '@/components/changelog/table-of-contents-he
 import { SolidReleaseHero } from '@/components/changelog/solid-release-hero';
 import { TailwindReleaseHero } from '@/components/changelog/tailwind-release-hero';
 import { ChangelogNewsItem } from '@/components/changelog/hero';
+import { SvelteReleaseHero } from '@/components/changelog/svelte-release-hero';
 import { VueReleaseHero } from '@/components/changelog/vue-release-hero';
 
 # Журнал изменений
+
+<ChangelogNewsItem version="v3.2" dateTime="2026-11">
+
+## Svelte присоединяется к React, Solid и Vue
+
+<SvelteReleaseHero />
+
+moduix теперь поддерживает Svelte 5. В [`@moduix/svelte`](/docs/quick-start) и
+`@moduix/svelte-tailwind` есть все компоненты остальных адаптеров с теми же плоскими именами,
+токенами и темами.
+
+Компоненты устроены так, как принято в Svelte: руны, сниппеты и `bind:`. Пакеты публикуют исходники
+`.svelte`, поэтому их собирает компилятор Svelte вашего приложения, а SvelteKit рендерит их на сервере
+без дополнительной настройки. Если хотите держать исходники в своём репозитории, используйте реестры
+`@moduix-svelte` и `@moduix-svelte-tailwind`.
+
+Svelte добавлен в [быстрый старт](/docs/quick-start), [настройку SvelteKit](/docs/installation/sveltekit),
+[интеграции форм](/docs/forms) и [блоки](/blocks).
+</ChangelogNewsItem>
 
 <ChangelogNewsItem version="v3.0" dateTime="2026-10-13">
 

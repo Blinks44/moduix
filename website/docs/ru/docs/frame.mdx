@@ -1,15 +1,17 @@
 ---
 title: Frame
-description: Рендерите содержимое React, Solid или Vue в изолированном iframe с помощью Frame из Ark UI.
+description: Рендерите содержимое React, Solid, Vue или Svelte в изолированном iframe с помощью Frame из Ark UI.
 ark: https://ark-ui.com/docs/utilities/frame
 ---
 
 import frameSolidLifecycle from '../../../snippets/frame/solid/lifecycle.tsx?raw';
 import frameVueLifecycle from '../../../snippets/frame/vue/lifecycle.vue?raw';
+import frameSvelteLifecycle from '../../../snippets/frame/svelte/lifecycle.svelte?raw';
 import frameSolidStaticDocument from '../../../snippets/frame/solid/static-document.tsx?raw';
 import frameVueStaticDocument from '../../../snippets/frame/vue/static-document.vue?raw';
+import frameSvelteStaticDocument from '../../../snippets/frame/svelte/static-document.svelte?raw';
 
-`Frame` рендерит содержимое React, Solid или Vue в отдельном документе iframe.
+`Frame` рендерит содержимое React, Solid, Vue или Svelte в отдельном документе iframe.
 
 ## Импорт
 
@@ -21,6 +23,7 @@ import frameVueStaticDocument from '../../../snippets/frame/vue/static-document.
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -45,6 +48,13 @@ import { Frame } from '@ark-ui/vue';
 ```
 
   </Tab>
+  <Tab value="svelte">
+
+```ts
+import { Frame } from '@ark-ui/svelte/frame';
+```
+
+  </Tab>
 </Tabs>
 
 ## Базовый пример
@@ -57,7 +67,7 @@ import { Frame } from '@ark-ui/vue';
 
 ## Стили содержимого и размер
 
-Проп `head` принимает JSX-содержимое и добавляет его в `<head>` iframe. Используйте его для стилей, шрифтов и
+Проп `head` принимает JSX-содержимое (в Svelte - сниппет) и добавляет его в `<head>` iframe. Используйте его для стилей, шрифтов и
 метаданных. Таблицы стилей, необходимые вложенному интерфейсу, также нужно передать через этот проп.
 
 `Frame` отслеживает размер смонтированного содержимого и записывает его в пикселях в CSS-переменные `--width` и
@@ -69,7 +79,7 @@ import { Frame } from '@ark-ui/vue';
 ## Колбэки жизненного цикла
 
 Используйте `onMount` и `onUnmount` для ресурсов, которыми управляет встроенный интерфейс. Оба колбэка вызываются без
-аргументов. С помощью `ref` приложение может получить доступ к документу iframe, если это нужно для настройки.
+аргументов. С помощью `ref` приложение может получить доступ к документу iframe, если это нужно для настройки; в Svelte используйте `bind:ref`.
 
 Добавляйте только скрипты, которыми управляет ваше приложение. Для стилей и метаданных используйте `head`.
 
@@ -81,6 +91,7 @@ import { Frame } from '@ark-ui/vue';
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
       { label: 'Vue', value: 'vue' },
+      { label: 'Svelte', value: 'svelte' },
     ]}
     className="docs-tabs"
   >
@@ -100,13 +111,18 @@ import { Frame } from '@ark-ui/vue';
 <CodeBlockRuntime lang="vue" code={frameVueLifecycle} />
 
     </Tab>
+  <Tab value="svelte">
+
+<CodeBlockRuntime lang="svelte" code={frameSvelteLifecycle} />
+
+    </Tab>
   </Tabs>
 </div>
 </ExampleCode>
 
 ## Статические HTML-документы
 
-Используйте `srcDoc` в React или `srcdoc` в Solid и Vue, когда iframe должен начинаться с готового HTML-документа, а не с
+Используйте `srcDoc` в React или `srcdoc` в Solid, Vue и Svelte, когда iframe должен начинаться с готового HTML-документа, а не с
 элементов, отрендеренных фреймворком. Это нативные варианты записи одного и того же атрибута iframe в каждом фреймворке.
 
 Для недоверенного HTML задайте нативный атрибут `sandbox` и оставьте только необходимые содержимому разрешения. Не
@@ -120,6 +136,7 @@ import { Frame } from '@ark-ui/vue';
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
       { label: 'Vue', value: 'vue' },
+      { label: 'Svelte', value: 'svelte' },
     ]}
     className="docs-tabs"
   >
@@ -137,6 +154,11 @@ import { Frame } from '@ark-ui/vue';
   <Tab value="vue">
 
 <CodeBlockRuntime lang="vue" code={frameVueStaticDocument} />
+
+    </Tab>
+  <Tab value="svelte">
+
+<CodeBlockRuntime lang="svelte" code={frameSvelteStaticDocument} />
 
     </Tab>
   </Tabs>

@@ -7,9 +7,11 @@ block: sign-up
 import { SignUp } from '@/components/blocks/sign-up/sign-up';
 import signUpSolid from '../../../snippets/blocks/solid/sign-up.tsx?raw';
 import signUpVue from '../../../snippets/blocks/vue/sign-up.vue?raw';
+import signUpSvelte from '../../../snippets/blocks/svelte/sign-up.svelte?raw';
 import signUpRouteReact from '../../../snippets/blocks/react/sign-up-route.tsx?raw';
 import signUpRouteSolid from '../../../snippets/blocks/solid/sign-up-route.tsx?raw';
 import signUpRouteVue from '../../../snippets/blocks/vue/sign-up-route.vue?raw';
+import signUpRouteSvelte from '../../../snippets/blocks/svelte/sign-up-route.svelte?raw';
 import signUpReact from '../../../src/components/blocks/sign-up/sign-up.tsx?raw';
 import signUpCss from '../../../src/components/blocks/sign-up/sign-up-form.module.css?raw';
 
@@ -17,7 +19,7 @@ import signUpCss from '../../../src/components/blocks/sign-up/sign-up-form.modul
 
 <ExamplePanel
   clientOnly
-  sources={{ react: signUpReact, solid: signUpSolid, vue: signUpVue }}
+  sources={{ react: signUpReact, solid: signUpSolid, vue: signUpVue, svelte: signUpSvelte }}
   files={[{ name: 'sign-up-form.module.css', code: signUpCss }]}
 >
   <PreviewFrame maxWidth="sm">
@@ -42,7 +44,7 @@ passwords and send the form data to your registration endpoint.
 
 <FrameworkCode
   name="sign-up-route"
-  sources={{ react: signUpRouteReact, solid: signUpRouteSolid, vue: signUpRouteVue }}
+  sources={{ react: signUpRouteReact, solid: signUpRouteSolid, vue: signUpRouteVue, svelte: signUpRouteSvelte }}
 />
 
 The fields are named `name`, `email`, `password`, `confirm-password`, and `terms`, so these are the

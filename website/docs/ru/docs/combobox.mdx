@@ -21,7 +21,7 @@ import * as ComboboxDocs from '@/components/examples/combobox/css-properties';
 Создайте коллекцию Ark с помощью `useListCollection` и передайте её в `Combobox`. Структуру списка задайте явно.
 Для обычных вариантов используйте `ComboboxOption`, а если нужна нестандартная разметка, используйте `ComboboxItem`.
 Колбэк `onInputValueChange` получает объект `details` от Ark.
-Примеры для Vue используют нативные SFC с `script setup`, refs, слотами и `v-model`, когда это предусмотрено контрактом компонента.
+Примеры для Vue используют нативные SFC с `script setup`, refs, слотами и `v-model`, когда это предусмотрено контрактом компонента. Примеры для Svelte используют руны, сниппеты и `bind:` для свойств `value`, `inputValue` и `open`.
 
 ## Выбор подходящего компонента
 
@@ -97,7 +97,7 @@ import * as ComboboxDocs from '@/components/examples/combobox/css-properties';
 ### Виртуализация
 
 Для больших коллекций отображайте только видимые строки с помощью TanStack Virtual. В React используйте
-`@tanstack/react-virtual`, в Solid - `@tanstack/solid-virtual`, а в Vue - `@tanstack/vue-virtual`,
+`@tanstack/react-virtual`, в Solid - `@tanstack/solid-virtual`, в Vue - `@tanstack/vue-virtual`, а в Svelte - `@tanstack/svelte-virtual`,
 затем свяжите клавиатурную навигацию Ark с `scrollToIndexFn`. Сохраняйте `aria-setsize` и
 `aria-posinset` у виртуализированных строк.
 
@@ -179,7 +179,7 @@ import * as ComboboxDocs from '@/components/examples/combobox/css-properties';
 
 ## Стилизация
 
-Используйте `className` в React и `class` в Solid и Vue для структурных стилей экспортируемых частей.
+Используйте `className` в React и `class` в Solid, Vue и Svelte для структурных стилей экспортируемых частей.
 Варианты Tailwind используют обычные utility-классы и классы приложения, а CSS-переменные ниже настраивают
 варианты CSS Modules. Атрибуты состояния и `data-slot` общие для обоих вариантов стилизации.
 

@@ -128,7 +128,7 @@ import * as NumberInputDocs from '@/components/examples/number-input/css-propert
 Используйте `NumberInputField` для стандартного контрола из трёх частей. Храните `value` и `defaultValue` в виде строк,
 а в управляемом поле передавайте в состояние `details.value` из `onValueChange`. Если состояние нужно создать вне
 дерева отображаемых частей, вызовите `useNumberInput()` и передайте соответствующее хранилище в
-`NumberInputRootProvider`. Не отображайте `NumberInput` или `NumberInputRootProvider` для того же хранилища. В React свойства состояния читаются напрямую. В Solid вызывайте возвращаемую функцию доступа, а в Vue читайте реактивное состояние непосредственно в шаблоне.
+`NumberInputRootProvider`. Не отображайте `NumberInput` или `NumberInputRootProvider` для того же хранилища. В React свойства состояния читаются напрямую. В Solid вызывайте возвращаемую функцию доступа, в Vue читайте реактивное состояние непосредственно в шаблоне, а в Svelte хук возвращает геттер: читайте состояние как `numberInput().value`.
 
 Используйте `NumberInputControl` с отдельными частями, если нужно изменить порядок кнопок, значки или стили поля.
 Добавляйте `NumberInputScrubber` рядом с полем для изменения значения перетаскиванием. Используйте
@@ -159,7 +159,7 @@ import * as NumberInputDocs from '@/components/examples/number-input/css-propert
 
 ## Стилизация
 
-Используйте `className` в React или `class` в Solid и Vue для структурных стилей экспортируемых частей. Варианты Tailwind
+Используйте `className` в React или `class` в Solid, Vue и Svelte для структурных стилей экспортируемых частей. Варианты Tailwind
 используют нативные utility-классы и классы потребителя, а CSS-переменные ниже настраивают варианты CSS Modules.
 Атрибуты данных и хуки `data-slot` общие для обоих вариантов стилизации.
 

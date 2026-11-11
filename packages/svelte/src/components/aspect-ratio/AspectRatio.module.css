@@ -1,0 +1,9 @@
+@layer moduix.components {
+  .root {
+    position: relative;
+    display: block;
+    width: 100%;
+    min-height: 0;
+    aspect-ratio: var(--_aspect-ratio-value);
+  }
+}

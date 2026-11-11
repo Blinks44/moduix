@@ -70,7 +70,7 @@ dans le même élément racine.
 responsives dans un conteneur de votre choix. `Stack` est disponible dans les deux variantes de style ;
 avec Tailwind, vous pouvez aussi utiliser les utilitaires flex et grid natifs. Utilisez `asChild` uniquement
 lorsqu’un autre élément sémantique doit devenir la racine. En Solid, `asChild` reçoit une fonction de rendu ;
-en Vue, utilisez `as-child` avec un seul élément sémantique dans le slot par défaut.
+en Vue, utilisez `as-child` avec un seul élément sémantique dans le slot par défaut ; en Svelte, utilisez un snippet `asChild`.
 
 ## Anatomie
 
@@ -88,7 +88,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 ## Styles
 
-Utilisez `className` en React ou `class` en Solid ou Vue pour les styles structurels et les classes utilitaires de votre
+Utilisez `className` en React ou `class` en Solid, Vue ou Svelte pour les styles structurels et les classes utilitaires de votre
 application. Les variantes Tailwind utilisent les utilitaires natifs et les classes du consommateur ; les variantes
 CSS Modules exposent les variables ci-dessous. Les attributs d’état et les hooks `data-slot` sont communs aux deux
 modes de style.

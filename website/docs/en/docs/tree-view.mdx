@@ -22,7 +22,7 @@ Create the data collection with `createTreeCollection`, then pass it to `TreeVie
 `TreeViewNode` gives each recursive render callback the current `node`, `indexPath`, and `state`, so
 you can render a branch or a leaf while keeping the part structure explicit.
 
-React, Solid, and Vue use the same flat TreeView names; the examples below keep each framework's native composition.
+React, Solid, Vue, and Svelte use the same flat TreeView names; the examples below keep each framework's native composition.
 
 ## Examples
 
@@ -39,7 +39,8 @@ Place `TreeViewNodeCheckbox` in both branch controls and leaf items. Its default
 the checked and indeterminate states.
 
 Vue uses the default slot for the checked icon and the named `indeterminate` and `fallback`
-slots for the mixed and unchecked states. These states are customized through slots, not props.
+slots for the mixed and unchecked states. These states are customized through slots, not props. Svelte uses the same three as snippets:
+`children`, `indeterminate`, and `fallback`.
 
 <Example name="tree-view/checkboxes" />
 
@@ -87,6 +88,9 @@ In Vue, `TreeViewNode` exposes its render data through a scoped default slot. Co
 `v-model:focused-value`; events such as `@selection-change` keep Ark's detail objects. Keep a
 replaceable collection in a `shallowRef` so Vue preserves its class instance.
 
+In Svelte, `TreeViewNode` passes `{ node, indexPath, state }` to a `children` snippet. Control values with
+`bind:expandedValue`, `bind:selectedValue`, `bind:checkedValue`, and `bind:focusedValue`.
+
 ## Anatomy
 
 Hover or focus a part to find it in the preview.
@@ -110,7 +114,7 @@ Hover or focus a part to find it in the preview.
 
 ## Styling
 
-Use `className` in React, `class` in Solid, or `class` in Vue on any exported part for structural styling. Branch
+Use `className` in React or `class` in Solid, Vue, and Svelte on any exported part for structural styling. Branch
 parts expose `data-state="open|closed"`; checkbox parts expose
 `data-state="checked|unchecked|indeterminate"`; and node parts expose `data-focus`, `data-selected`,
 `data-disabled`, `data-loading`, `data-renaming`, `data-depth`, `data-path`, and `data-value`. The

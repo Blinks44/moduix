@@ -84,7 +84,7 @@ can merge its interaction props and accessibility state into that element.
 ## Composition
 
 `Toggle` wraps Ark UI's Toggle primitive and adds moduix visual props for variants and sizes.
-Import it from `@moduix/react/toggle`, `@moduix/solid/toggle`, or `@moduix/vue/toggle`.
+Import it from `@moduix/react/toggle`, `@moduix/solid/toggle`, `@moduix/vue/toggle`, or `@moduix/svelte/toggle`.
 
 Use `defaultPressed` for an uncontrolled toggle, or pass `pressed` with `onPressedChange` when
 application state controls the value. Use `ToggleIndicator` when
@@ -94,7 +94,7 @@ should host the toggle behavior. In Solid, `asChild` takes a render function; in
 button-like child; in Vue, it uses one button-like child in the default slot. In Vue, use
 `v-model:pressed` for the controlled value, the named `fallback` slot with `ToggleIndicator`, and the
 `ToggleContext` slot when a custom descendant needs the current state. Listen to `@pressed-change`
-when you need the emitted Boolean value without binding it with `v-model:pressed`.
+when you need the emitted Boolean value without binding it with `v-model:pressed`. In Svelte, `asChild` takes a snippet that spreads `props()` onto the button-like element, `bind:pressed` binds the controlled value, `ToggleIndicator` takes a `fallback` snippet, and `ToggleContext` passes the state to a `render` snippet as a getter (`context().pressed`).
 
 ## Anatomy
 
@@ -112,7 +112,7 @@ Hover or focus a part to find it in the preview.
 
 ## Styling
 
-Use `className` in React or `class` in Solid and Vue on exported parts. In the CSS Modules packages, set the
+Use `className` in React or `class` in Solid, Vue, and Svelte on exported parts. In the CSS Modules packages, set the
 `--moduix-toggle-*` color variables on a toggle, on `[data-slot='toggle-root'][data-variant='<variant>']` to theme one
 variant, or on a container such as `ToggleGroup`. Size, spacing, radius, and typography come from foundation tokens;
 change them with a class. Tailwind packages use native utilities and consumer classes instead.

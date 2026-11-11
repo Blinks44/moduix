@@ -1,16 +1,16 @@
 ---
 title: Rsbuild
-description: Intégrez moduix à Rsbuild avec React, Solid ou Vue par paquet ou avec shadcn, avec les styles, les alias et les imports natifs.
+description: Intégrez moduix à Rsbuild avec React, Solid, Vue ou Svelte par paquet ou avec shadcn, avec les styles, les alias et les imports natifs.
 ---
 
 # Rsbuild
 
-Ce guide part d’une application Rsbuild déjà configurée pour React, Solid ou Vue. Rsbuild prend en compte
+Ce guide part d’une application Rsbuild déjà configurée pour React, Solid, Vue ou Svelte. Rsbuild prend en compte
 les alias TypeScript, il est donc inutile de les répéter dans `resolve.alias` pour utiliser shadcn.
 
 ## Choisir votre configuration
 
-- **Framework :** React, Solid ou Vue avec le plugin Rsbuild correspondant.
+- **Framework :** React, Solid, Vue ou Svelte avec le plugin Rsbuild correspondant.
 - **Styles :** CSS Modules ou Tailwind CSS v4.
 - **Distribution :** paquet ou code source copié avec la CLI shadcn.
 
@@ -81,6 +81,36 @@ import { Button } from '@moduix/vue/button';
 ```
 
   </Tab>
+  <Tab label="Svelte" value="svelte">
+
+<PackageManagerTabs command="install @moduix/svelte @ark-ui/svelte" />
+
+Svelte 5 compile lui-même `lang="ts"`. Désactivez le prétraitement par défaut du plugin pour que
+le code source moduix de `node_modules` parvienne inchangé au compilateur Svelte :
+
+```ts title="rsbuild.config.ts"
+import { defineConfig } from '@rsbuild/core';
+import { pluginSvelte } from '@rsbuild/plugin-svelte';
+
+export default defineConfig({
+  plugins: [pluginSvelte({ svelteLoaderOptions: { preprocess: [] } })],
+});
+```
+
+```ts title="src/index.ts"
+import '@moduix/svelte/reset.css';
+import '@moduix/svelte/style.css';
+```
+
+```svelte title="src/App.svelte"
+<script lang="ts">
+  import { Button } from '@moduix/svelte/button';
+</script>
+
+<Button>Continue</Button>
+```
+
+  </Tab>
 </Tabs>
 
 ## Installation avec la CLI shadcn
@@ -117,6 +147,11 @@ framework :
 <ShadcnInstallOptions options={[{ label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/button' }, { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/button' }]} />
 
   </Tab>
+  <Tab label="Svelte" value="svelte">
+
+<ShadcnInstallOptions options={[{ label: 'CSS Modules', command: 'shadcn@latest add @moduix-svelte/button' }, { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-svelte-tailwind/button' }]} />
+
+  </Tab>
 </Tabs>
 
 Remplacez l’import de la feuille de styles du paquet par celui du fichier généré ; n’importez pas les
@@ -137,4 +172,4 @@ Démarrez le serveur de développement. Le composant moduix doit être mis en fo
 Rsbuild doivent résoudre `@/components/ui/*` après une installation depuis le registre.
 
 Consultez le guide Rsbuild pour [React](https://rsbuild.rs/guide/framework/react) ou la documentation
-officielle du [plugin Solid](https://rsbuild.rs/plugins/list/plugin-solid), [Vue](https://rsbuild.rs/guide/framework/vue).
+officielle du [plugin Solid](https://rsbuild.rs/plugins/list/plugin-solid), [Vue](https://rsbuild.rs/guide/framework/vue) / [Svelte](https://rsbuild.rs/guide/framework/svelte).

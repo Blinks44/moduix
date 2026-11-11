@@ -17,6 +17,7 @@ Import the utility from the matching Ark UI package:
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -41,6 +42,13 @@ import { ClientOnly } from '@ark-ui/vue/client-only';
 ```
 
   </Tab>
+  <Tab value="svelte">
+
+```ts
+import { ClientOnly } from '@ark-ui/svelte/client-only';
+```
+
+  </Tab>
 </Tabs>
 
 ## Render browser-dependent content
@@ -52,7 +60,7 @@ browser-only library.
 ## Basic recipe
 
 This recipe shows a browser-dependent `Card` with a `Skeleton` fallback that reserves the same structure. The preview
-uses the React CSS Modules package; the source tabs contain native React, Solid, and Vue code for the same behavior.
+uses the React CSS Modules package; the source tabs contain native React, Solid, Vue, and Svelte code for the same behavior.
 
 <Example name="client-only/basic" clientOnly />
 

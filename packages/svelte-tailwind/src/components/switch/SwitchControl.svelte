@@ -1,0 +1,28 @@
+<script lang="ts">
+  import { SwitchControl, type SwitchControlProps } from '@ark-ui/svelte/switch';
+  import { cn } from '@/lib/moduix/cn';
+  import SwitchThumb from './SwitchThumb.svelte';
+
+  let {
+    children,
+    class: className,
+    ref = $bindable(null),
+    ...props
+  }: SwitchControlProps = $props();
+</script>
+
+<SwitchControl
+  {...props}
+  bind:ref
+  class={cn(
+    `relative inline-flex h-control-xs w-11 shrink-0 rounded-full border border-transparent bg-[color-mix(in_oklab,var(--color-input)_40%,var(--color-background))] transition-[background-color,border-color] duration-normal ease-in-out select-none group-data-[size=lg]/switch:h-[1.75rem] group-data-[size=lg]/switch:w-13 group-data-[size=sm]/switch:h-[1.25rem] group-data-[size=sm]/switch:w-9 group-data-[size=xl]/switch:h-control-sm group-data-[size=xl]/switch:w-15 group-data-[size=xs]/switch:h-[1rem] group-data-[size=xs]/switch:w-7 data-focus-visible:outline-focus-inset data-focus-visible:outline-offset-1 data-focus-visible:outline-ring data-invalid:border-destructive data-invalid:data-focus-visible:outline-destructive data-[state=checked]:border-primary data-[state=checked]:bg-primary data-[state=checked]:data-invalid:border-destructive [@media(hover:hover)]:[&:not([data-disabled]):not([data-readonly])[data-state='unchecked'][data-hover]]:bg-[color-mix(in_oklab,var(--color-input)_55%,var(--color-background))]`,
+    className,
+  )}
+  data-slot="switch-control"
+>
+  {#if children}
+    {@render children()}
+  {:else}
+    <SwitchThumb />
+  {/if}
+</SwitchControl>

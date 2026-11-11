@@ -20,6 +20,7 @@ ark: https://ark-ui.com/docs/collections/list-selection
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -44,12 +45,19 @@ import { createListCollection, useListSelection } from '@ark-ui/vue/collection';
 ```
 
   </Tab>
+  <Tab value="svelte">
+
+```ts
+import { createListCollection, useListSelection } from '@ark-ui/svelte/collection';
+```
+
+  </Tab>
 </Tabs>
 
 ## Одиночный выбор
 
 Хук хранит состояние выбора. В примере есть секция с подписью, нативные кнопки с `aria-pressed` и
-сообщение о текущем состоянии. Preview работает на React-исходнике, а вкладки Solid и Vue содержат
+сообщение о текущем состоянии. Превью работает на React-исходнике, а вкладки Solid, Vue и Svelte содержат
 эквивалентные нативные реализации.
 
 <Example name="list-selection/basic" />
@@ -82,7 +90,8 @@ import { createListCollection, useListSelection } from '@ark-ui/vue/collection';
 `setSelectedValues` или другие действия. В Solid свойства состояния являются accessors, поэтому их
 нужно читать как `selection.selectedValues()` и `selection.isEmpty()`. Действия вызываются так же,
 как в React. В Vue свойства состояния представлены ref: в скрипте читайте `selection.selectedValues.value`
-и `selection.isEmpty.value`. Действия выбора остаются методами.
+и `selection.isEmpty.value`. Действия выбора остаются методами. В Svelte свойства состояния, как и в Solid, читаются через геттеры:
+`selection.selectedValues()` и `selection.isEmpty()`.
 
 ### Состояние и действия
 

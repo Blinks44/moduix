@@ -21,7 +21,7 @@ import * as ComboboxDocs from '@/components/examples/combobox/css-properties';
 Créez une collection Ark avec `useListCollection`, puis transmettez-la à `Combobox`. Déclarez explicitement la structure
 de la liste. Utilisez `ComboboxOption` pour les options simples et `ComboboxItem` lorsqu’une ligne nécessite une mise en page personnalisée.
 La fonction `onInputValueChange` reçoit un objet `details` fourni par Ark.
-Les exemples Vue utilisent des SFC natifs avec `script setup`, des refs, des slots et `v-model` lorsque le contrat du composant expose un modèle Vue.
+Les exemples Vue utilisent des SFC natifs avec `script setup`, des refs, des slots et `v-model` lorsque le contrat du composant expose un modèle Vue. Les exemples Svelte utilisent les runes, les snippets et `bind:` pour les props `value`, `inputValue` et `open`.
 
 ## Choisir le bon composant
 
@@ -97,8 +97,8 @@ Vérifiez `details.reason` pour ne pas la reconstruire après une modification d
 ### Virtualisation
 
 Pour les grandes collections, n’affichez que les lignes visibles avec TanStack Virtual. Utilisez
-`@tanstack/react-virtual` avec React, `@tanstack/solid-virtual` avec Solid et `@tanstack/vue-virtual`
-avec Vue, puis reliez la navigation au clavier d’Ark à `scrollToIndexFn`. Conservez `aria-setsize`
+`@tanstack/react-virtual` avec React, `@tanstack/solid-virtual` avec Solid, `@tanstack/vue-virtual`
+avec Vue et `@tanstack/svelte-virtual` avec Svelte, puis reliez la navigation au clavier d’Ark à `scrollToIndexFn`. Conservez `aria-setsize`
 et `aria-posinset` sur les lignes virtualisées.
 
 <Example name="combobox/virtualized" />
@@ -178,7 +178,7 @@ utilisez `ComboboxItemContext` ou `useComboboxItemContext`.
 
 ## Styles
 
-Utilisez `className` avec React ou `class` avec Solid et Vue sur les parties exportées pour les styles structurels.
+Utilisez `className` avec React ou `class` avec Solid, Vue et Svelte sur les parties exportées pour les styles structurels.
 Les variantes Tailwind utilisent les utilitaires natifs et les classes de l’application ; les variables CSS ci-dessous
 personnalisent les variantes CSS Modules. Les attributs d’état et les hooks `data-slot` sont communs aux deux modes de style.
 

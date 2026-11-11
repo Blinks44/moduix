@@ -20,6 +20,7 @@ des collections correspondant au framework de votre application :
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -44,13 +45,20 @@ import { createListCollection, useListSelection } from '@ark-ui/vue/collection';
 ```
 
   </Tab>
+  <Tab value="svelte">
+
+```ts
+import { createListCollection, useListSelection } from '@ark-ui/svelte/collection';
+```
+
+  </Tab>
 </Tabs>
 
 ## Sélection simple
 
 Le hook conserve l’état de sélection. L’exemple fournit une section nommée, des boutons natifs avec
-`aria-pressed` et un message d’état en direct. L’aperçu utilise la source React ; les onglets Solid et
-Vue contiennent les implémentations natives équivalentes.
+`aria-pressed` et un message d’état en direct. L’aperçu utilise la source React ; les onglets Solid,
+Vue et Svelte contiennent les implémentations natives équivalentes.
 
 <Example name="list-selection/basic" />
 
@@ -82,7 +90,8 @@ une action de sélection globale.
 `setSelectedValues` ou une autre action pour modifier la sélection. Dans Solid, les propriétés d’état
 sont des accessors : lisez-les avec `selection.selectedValues()` et `selection.isEmpty()`. Les actions
 gardent la même forme d’appel qu’en React. Dans Vue, les propriétés d’état sont des refs : lisez
-`selection.selectedValues.value` et `selection.isEmpty.value` dans le script. Les actions restent des méthodes.
+`selection.selectedValues.value` et `selection.isEmpty.value` dans le script. Les actions restent des méthodes. En Svelte, comme en Solid, les propriétés d’état sont des getters :
+`selection.selectedValues()` et `selection.isEmpty()`.
 
 ### État et actions
 

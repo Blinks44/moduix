@@ -49,9 +49,23 @@
   .nonModalScrollContent {
     display: grid;
     gap: var(--moduix-spacing-3);
+  }
 
+  .scrollBody,
+  .nonModalScrollContent {
+    & h3,
     & p {
       margin: 0;
+      font-size: var(--moduix-text-sm);
+      line-height: var(--moduix-line-height-text-md);
+    }
+
+    & h3 {
+      font-weight: var(--moduix-weight-semibold);
+    }
+
+    & p {
+      color: var(--moduix-muted-foreground);
     }
   }
 

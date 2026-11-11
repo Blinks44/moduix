@@ -1,6 +1,6 @@
 ---
 title: Hotkeys
-description: Enregistrez des raccourcis clavier adaptés à la plateforme, des séquences et des métadonnées de commandes dans une application React, Solid ou Vue.
+description: Enregistrez des raccourcis clavier adaptés à la plateforme, des séquences et des métadonnées de commandes dans une application React, Solid, Vue ou Svelte.
 ark: https://ark-ui.com/docs/utilities/hotkeys
 ---
 
@@ -18,6 +18,7 @@ L'API est disponible depuis le point d'entrée racine du package Ark UI correspo
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -39,6 +40,13 @@ import { useFormatHotkey, useHotkey, useHotkeys } from '@ark-ui/solid';
 
 ```ts
 import { useFormatHotkey, useHotkey, useHotkeys } from '@ark-ui/vue';
+```
+
+  </Tab>
+  <Tab value="svelte">
+
+```ts
+import { useFormatHotkey, useHotkey, useHotkeys } from '@ark-ui/svelte';
 ```
 
   </Tab>
@@ -117,7 +125,7 @@ Dans Solid, les valeurs renvoyées par ces hooks sont des accessors : lisez-les 
 `pressedKeys()`, `isPressed()` ou `platform()`. React renvoie directement la valeur courante. Un
 raccourci enregistré peut être conservé avec `stop`, abandonné avec `cancel` ou supprimé avec `clear`.
 Dans Vue, l’état des hooks est une ref : lisez `.value` dans le script ; les refs de premier niveau
-sont déballées automatiquement dans les templates.
+sont déballées automatiquement dans les templates. En Svelte, les hooks qui renvoient un état renvoient un getter : appelez-le, par exemple `registrations()`.
 
 Hotkeys gère l'enregistrement, la correspondance, le formatage, les portées et l'enregistrement des
 raccourcis. Les effets, la navigation, la persistance, l'interface de la palette, la gestion du focus

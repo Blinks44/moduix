@@ -146,8 +146,8 @@ import * as DrawerDocs from '@/components/examples/drawer/css-properties';
 Поместите поверхности, которые должны двигаться вместе, в `DrawerStack`, а затем объедините
 `DrawerIndentBackground` и `DrawerIndent`. Для собственного элемента триггера или закрытия
 используйте `asChild`: в React передаётся один доступный для фокуса дочерний элемент, в Solid
-рендер-функция должна передать ему `props()`, а во Vue используется атрибут `as-child` с одним
-дочерним элементом. Обработчики Ark получают объект деталей, например
+рендер-функция должна передать ему `props()`, во Vue используется атрибут `as-child` с одним
+дочерним элементом, а в Svelte сниппет `asChild`, который передаёт `props()` дочернему элементу. Обработчики Ark получают объект деталей, например
 `details.open`, `details.snapPoint` и `details.value`.
 
 ## Анатомия
@@ -180,7 +180,7 @@ import * as DrawerDocs from '@/components/examples/drawer/css-properties';
 
 ## Стилизация
 
-Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях для структурных
+Используйте `className` в React или `class` в Solid, Vue и Svelte на экспортируемых частях для структурных
 стилей. Для стилей по состоянию предпочитайте атрибуты данных Ark, например `data-state`,
 `data-swipe-direction` и `data-dragging`, вместе с селекторами moduix `data-slot`. Варианты Tailwind
 используют нативные utility-классы и классы потребителя, а приведённые ниже переменные настраивают

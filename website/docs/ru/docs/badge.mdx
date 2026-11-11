@@ -30,7 +30,7 @@ import * as BadgeDocs from '@/components/examples/badge/css-properties';
 - Выбирайте **`Badge`** для коротких метаданных: статуса, категории, версии или количества.
 - Выбирайте **`Tag`** для выбранных значений, фильтров, назначений или меток, которые относятся к текущему состоянию интерфейса.
 
-Экспорты Vue доступны из `@moduix/vue/badge` для CSS Modules и `@moduix/vue-tailwind/badge` для Tailwind CSS.
+Экспорты Vue доступны из `@moduix/vue/badge` для CSS Modules и `@moduix/vue-tailwind/badge` для Tailwind CSS. Экспорты Svelte доступны из `@moduix/svelte/badge` для CSS Modules и `@moduix/svelte-tailwind/badge` для Tailwind CSS.
 
 ## Примеры
 
@@ -89,7 +89,7 @@ import * as BadgeDocs from '@/components/examples/badge/css-properties';
 дочерний элемент. В Solid передайте в `asChild` функцию рендера - созданный элемент сохранит нативную
 семантику.
 
-В Vue поместите ровно один дочерний элемент в слот по умолчанию при использовании `as-child`; он сохранит нативную семантику.
+В Vue поместите ровно один дочерний элемент в слот по умолчанию при использовании `as-child`; он сохранит нативную семантику. В Svelte передайте сниппет `asChild` и разверните полученные свойства ровно на одном элементе.
 
 ## Анатомия
 
@@ -117,7 +117,7 @@ import * as BadgeDocs from '@/components/examples/badge/css-properties';
 CSS-переменных относится к пакетам с CSS Modules; в пакетах Tailwind используются обычные утилитарные классы
 и классы приложения.
 
-Для структурных стилей передавайте экспортируемым частям `className` в React или `class` в Solid и Vue. Стабильные
+Для структурных стилей передавайте экспортируемым частям `className` в React или `class` в Solid, Vue и Svelte. Стабильные
 хуки `data-slot` и атрибуты данных Ark общие для всех подходов.
 
 ### CSS-переменные

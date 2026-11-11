@@ -7,14 +7,9 @@
 
 # moduix
 
-**Accessible UI components for React, Solid, and Vue.** 80+ components and ready-made blocks built
+**Accessible UI components for React, Solid, Vue, and Svelte.** 80+ components and ready-made blocks built
 on [Ark UI](https://ark-ui.com/), with the same API in every framework. Style them with CSS Modules
 or Tailwind CSS v4, and install from npm or copy the source into your app with the shadcn CLI.
-
-Ark UI handles keyboard interaction, focus, and accessibility semantics.
-
-Install a published package to receive updates through your package manager, or copy component
-source into your application with the shadcn registry to edit it directly.
 
 [Documentation](https://moduix.dev/) ·
 [Quick start](https://moduix.dev/docs/quick-start) ·
@@ -24,17 +19,18 @@ source into your application with the shadcn registry to edit it directly.
 
 ## Current packages
 
-| Runtime | CSS Modules                                                    | Tailwind                                                                         |
-| ------- | -------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| React   | [`@moduix/react`](https://www.npmjs.com/package/@moduix/react) | [`@moduix/react-tailwind`](https://www.npmjs.com/package/@moduix/react-tailwind) |
-| Solid   | [`@moduix/solid`](https://www.npmjs.com/package/@moduix/solid) | [`@moduix/solid-tailwind`](https://www.npmjs.com/package/@moduix/solid-tailwind) |
-| Vue     | [`@moduix/vue`](https://www.npmjs.com/package/@moduix/vue)     | [`@moduix/vue-tailwind`](https://www.npmjs.com/package/@moduix/vue-tailwind)     |
+| Runtime | CSS Modules                                                      | Tailwind                                                                           |
+| ------- | ---------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| React   | [`@moduix/react`](https://www.npmjs.com/package/@moduix/react)   | [`@moduix/react-tailwind`](https://www.npmjs.com/package/@moduix/react-tailwind)   |
+| Solid   | [`@moduix/solid`](https://www.npmjs.com/package/@moduix/solid)   | [`@moduix/solid-tailwind`](https://www.npmjs.com/package/@moduix/solid-tailwind)   |
+| Vue     | [`@moduix/vue`](https://www.npmjs.com/package/@moduix/vue)       | [`@moduix/vue-tailwind`](https://www.npmjs.com/package/@moduix/vue-tailwind)       |
+| Svelte  | [`@moduix/svelte`](https://www.npmjs.com/package/@moduix/svelte) | [`@moduix/svelte-tailwind`](https://www.npmjs.com/package/@moduix/svelte-tailwind) |
 
 ## Why moduix
 
 - **Ark-backed behavior.** Dialogs, menus, inputs, and other complex interactions keep Ark UI's
   keyboard support, state management, form behavior, and accessibility semantics.
-- **The same component names across frameworks.** React, Solid, and Vue use flat exports such as
+- **The same component names across frameworks.** React, Solid, Vue, and Svelte use flat exports such as
   `Dialog`, `DialogTrigger`, and `DialogContent`, with framework-native props and events.
 - **Two styling paths.** Choose CSS Modules for ordinary, locally scoped component styles, or
   Tailwind CSS v4 for utility-first composition and overrides. Neither path adds a styling runtime.
@@ -132,7 +128,7 @@ Tailwind blocks use Tailwind UI components and the same layout CSS Module.
 
 ## Styling and theming
 
-Pass `className` (React) or `class` (Solid and Vue) to a root or named part. CSS Modules packages
+Pass `className` (React) or `class` (Solid, Vue, and Svelte) to a root or named part. CSS Modules packages
 support ordinary CSS and component variables; Tailwind packages merge utility overrides with
 `tailwind-merge`. Both tracks share the same design tokens and optional presets: `dense`, `soft`,
 and `contrast`.

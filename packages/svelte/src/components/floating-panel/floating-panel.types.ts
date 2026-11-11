@@ -1,0 +1,22 @@
+import type {
+  FloatingPanelResizeTriggerAxis,
+  FloatingPanelStage,
+} from '@ark-ui/svelte/floating-panel';
+import { MaximizeIcon, MinusIcon, RestoreIcon } from '@/lib/moduix/icons/ui';
+
+export const resizeTriggerAxes = [
+  'n',
+  'e',
+  's',
+  'w',
+  'ne',
+  'se',
+  'sw',
+  'nw',
+] satisfies FloatingPanelResizeTriggerAxis[];
+
+export const stageIcons = {
+  default: RestoreIcon,
+  maximized: MaximizeIcon,
+  minimized: MinusIcon,
+} satisfies Record<FloatingPanelStage, unknown>;

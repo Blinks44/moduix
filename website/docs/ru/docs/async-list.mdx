@@ -6,6 +6,7 @@ ark: https://ark-ui.com/docs/collections/async-list
 
 import asyncListSolidServerDriven from '../../../snippets/async-list/solid/server-driven.tsx?raw';
 import asyncListVueServerDriven from '../../../snippets/async-list/vue/server-driven.vue?raw';
+import asyncListSvelteServerDriven from '../../../snippets/async-list/svelte/server-driven.svelte?raw';
 
 # Async List
 
@@ -24,6 +25,7 @@ import asyncListVueServerDriven from '../../../snippets/async-list/vue/server-dr
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -45,6 +47,13 @@ import { useAsyncList } from '@ark-ui/solid/collection';
 
 ```ts
 import { useAsyncList } from '@ark-ui/vue/collection';
+```
+
+  </Tab>
+  <Tab value="svelte">
+
+```ts
+import { useAsyncList } from '@ark-ui/svelte/collection';
 ```
 
   </Tab>
@@ -82,6 +91,7 @@ import { useAsyncList } from '@ark-ui/vue/collection';
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
       { label: 'Vue', value: 'vue' },
+      { label: 'Svelte', value: 'svelte' },
     ]}
     className="docs-tabs"
   >
@@ -99,6 +109,11 @@ import { useAsyncList } from '@ark-ui/vue/collection';
   <Tab value="vue">
 
 <CodeBlockRuntime lang="vue" code={asyncListVueServerDriven} />
+
+    </Tab>
+  <Tab value="svelte">
+
+<CodeBlockRuntime lang="svelte" code={asyncListSvelteServerDriven} />
 
     </Tab>
   </Tabs>

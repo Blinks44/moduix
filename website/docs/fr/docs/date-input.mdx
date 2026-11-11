@@ -106,7 +106,7 @@ Passez le tableau de dates sélectionnées à `value` et mettez-le à jour avec 
 
 ### Root Provider
 
-Utilisez `useDateInput()` depuis `@moduix/react`, `@moduix/solid` ou `@moduix/vue` avec `DateInputRootProvider` lorsque les
+Utilisez `useDateInput()` depuis le sous-chemin `date-input` avec `DateInputRootProvider` lorsque les
 actions sur l’état doivent être accessibles en dehors de l’arborescence racine rendue. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
 <Example name="date-input/root-provider" />
@@ -124,7 +124,7 @@ quand les segments ou les séparateurs ont besoin de leur propre balisage.
 Pour un champ standard, utilisez `DateInput` avec `DateInputControl` et `DateInputSegments`. Laissez l’état
 non contrôlé avec `defaultValue`, contrôlez-le avec `value` et `onValueChange(details)`, ou créez-le avec
 `useDateInput()` puis reliez les parties via `DateInputRootProvider`. En Vue, utilisez `v-model` pour
-la valeur contrôlée. Les valeurs utilisent la forme
+la valeur contrôlée, en Svelte `bind:value`. Les valeurs utilisent la forme
 `DateInputDateValue[]` de `@internationalized/date`, et non des chaînes.
 
 `DateInputHiddenInput` est explicite, car la racine n’ajoute pas de champs natifs. Ajoutez un champ masqué pour
@@ -156,7 +156,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 ## Styles
 
-Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées pour les styles structurels. Les
+Utilisez `className` en React ou `class` en Solid, Vue et Svelte sur les parties exportées pour les styles structurels. Les
 variantes Tailwind utilisent les utilitaires natifs et les classes du consommateur. Les variantes CSS Modules
 exposent également les variables de composant ci-dessous. Les attributs de données et les hooks `data-slot` sont
 communs aux deux modes de style.

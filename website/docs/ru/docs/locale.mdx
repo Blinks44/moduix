@@ -1,11 +1,12 @@
 ---
 title: Локаль
-description: Передавайте локаль и направление текста форматтерам Ark и локализованному содержимому в React, Solid и Vue.
+description: Передавайте локаль и направление текста форматтерам Ark и локализованному содержимому в React, Solid, Vue и Svelte.
 ark: https://ark-ui.com/docs/utilities/locale
 ---
 
 import localeSolidDocument from '../../../snippets/locale/solid/document.tsx?raw';
 import localeVueDocument from '../../../snippets/locale/vue/document.vue?raw';
+import localeSvelteDocument from '../../../snippets/locale/svelte/document.svelte?raw';
 
 `LocaleProvider` передаёт локаль и направление текста всему поддереву. Форматтеры Ark и локализованное содержимое
 читают этот контекст.
@@ -20,6 +21,7 @@ import localeVueDocument from '../../../snippets/locale/vue/document.vue?raw';
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -44,10 +46,17 @@ import { LocaleProvider, useLocaleContext } from '@moduix/vue/locale';
 ```
 
   </Tab>
+  <Tab value="svelte">
+
+```ts
+import { LocaleProvider, useLocaleContext } from '@moduix/svelte/locale';
+```
+
+  </Tab>
 </Tabs>
 
 `Format.Number`, `Format.Time` и другие утилиты `Format` по-прежнему импортируются из `@ark-ui/react` или
-`@ark-ui/solid` или `@ark-ui/vue`.
+`@ark-ui/solid`, `@ark-ui/vue` или `@ark-ui/svelte`.
 
 ## Задайте локаль
 
@@ -64,7 +73,7 @@ import { LocaleProvider, useLocaleContext } from '@moduix/vue/locale';
 `useLocaleContext` возвращает `locale` и `dir` из ближайшего провайдера. Используйте их, если собственная разметка
 должна следовать тому же языку и направлению, что и компоненты, учитывающие локаль. В React значения читаются
 напрямую, а в Solid доступны через accessor-функцию. Vue возвращает computed ref: в setup используйте
-`.value`, а шаблон автоматически раскрывает ref.
+`.value`, а шаблон автоматически раскрывает ref. Svelte возвращает геттер: вызовите `locale()`, чтобы прочитать `locale` и `dir`.
 
 <Example name="locale/context" />
 
@@ -80,6 +89,7 @@ import { LocaleProvider, useLocaleContext } from '@moduix/vue/locale';
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
       { label: 'Vue', value: 'vue' },
+      { label: 'Svelte', value: 'svelte' },
     ]}
     className="docs-tabs"
   >
@@ -97,6 +107,11 @@ import { LocaleProvider, useLocaleContext } from '@moduix/vue/locale';
   <Tab value="vue">
 
 <CodeBlockRuntime lang="vue" code={localeVueDocument} />
+
+    </Tab>
+  <Tab value="svelte">
+
+<CodeBlockRuntime lang="svelte" code={localeSvelteDocument} />
 
     </Tab>
   </Tabs>

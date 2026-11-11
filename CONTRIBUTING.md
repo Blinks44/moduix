@@ -71,7 +71,7 @@ builds cannot hide publishing problems. CI runs this check in a separate job.
    pick the change type that matches the dependency impact.
 
 3. Keep the multi-adapter contract synchronized. A public component change must reach every
-   shipped counterpart (React, Solid, Vue, CSS Modules, Tailwind): implementation, tests, playground
+   shipped counterpart (React, Solid, Vue, Svelte, CSS Modules, Tailwind): implementation, tests, playground
    story, package `exports` entry, registry item, and component-local docs.
 4. If any registry source file changed, run `pnpm run build:registry` to validate it. The output in
    `website/docs/public/r` is gitignored and rebuilt by the docs build.

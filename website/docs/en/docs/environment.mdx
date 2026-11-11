@@ -1,11 +1,12 @@
 ---
 title: Environment
-description: Configure Ark UI DOM queries for iframes, Shadow DOM, Electron, and other custom environments in React, Solid, or Vue.
+description: Configure Ark UI DOM queries for iframes, Shadow DOM, Electron, and other custom environments in React, Solid, Vue, or Svelte.
 ark: https://ark-ui.com/docs/utilities/environment
 ---
 
 import environmentSolidCustomRoot from '../../../snippets/environment/solid/custom-root.tsx?raw';
 import environmentVueCustomRoot from '../../../snippets/environment/vue/custom-root.vue?raw';
+import environmentSvelteCustomRoot from '../../../snippets/environment/svelte/custom-root.svelte?raw';
 
 `EnvironmentProvider` tells Ark UI which DOM root, `Document`, and `Window` to use for Ark-backed components. It is useful when the component tree is rendered outside the page's main document.
 
@@ -19,6 +20,7 @@ Import the utility from the matching Ark UI package:
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
     { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
   ]}
   className="docs-tabs"
 >
@@ -40,6 +42,13 @@ import { EnvironmentProvider, useEnvironmentContext } from '@ark-ui/solid/enviro
 
 ```ts
 import { EnvironmentProvider, useEnvironmentContext } from '@ark-ui/vue/environment';
+```
+
+  </Tab>
+  <Tab value="svelte">
+
+```ts
+import { EnvironmentProvider, useEnvironmentContext } from '@ark-ui/svelte/environment';
 ```
 
   </Tab>
@@ -68,6 +77,7 @@ This example needs only the Ark environment API, a `Button` from the selected mo
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
       { label: 'Vue', value: 'vue' },
+      { label: 'Svelte', value: 'svelte' },
     ]}
     className="docs-tabs"
   >
@@ -85,6 +95,11 @@ This example needs only the Ark environment API, a `Button` from the selected mo
   <Tab value="vue">
 
 <CodeBlockRuntime lang="vue" code={environmentVueCustomRoot} />
+
+    </Tab>
+  <Tab value="svelte">
+
+<CodeBlockRuntime lang="svelte" code={environmentSvelteCustomRoot} />
 
     </Tab>
   </Tabs>
