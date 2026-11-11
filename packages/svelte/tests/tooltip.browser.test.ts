@@ -172,13 +172,16 @@ test('supports reactive custom portal targets through RootProvider', async () =>
   const first = document.createElement('div');
   const second = document.createElement('div');
   document.body.append(first, second);
-  const { container, unmount } = render(PortalTargetTooltip, { props: { first, second } });
+  const { container, rerender, unmount } = render(PortalTargetTooltip, {
+    props: { target: first },
+  });
   try {
     await expect.element(page.getByRole('tooltip')).toHaveText('Save changes');
     const content = document.querySelector('[role="tooltip"]');
     expect(first.contains(content)).toBe(true);
     expect(container.contains(content)).toBe(false);
-    await page.getByRole('button', { name: 'Move target' }).click();
+    // Update the target without pointer/focus events that can dismiss the tooltip.
+    await rerender({ target: second });
     // Ark Svelte Portal remounts its children into the new container instead of moving the node.
     await expect.poll(() => second.querySelector('[role="tooltip"]') !== null).toBe(true);
     expect(first.querySelector('[role="tooltip"]')).toBeNull();

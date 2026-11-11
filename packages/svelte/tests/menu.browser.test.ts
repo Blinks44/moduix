@@ -137,9 +137,13 @@ test('supports bind:checked for checkbox items', async () => {
 
 test('supports bind:value for radio item groups', async () => {
   render(RadioMenu);
+  await expect.element(page.getByRole('menu')).toBeFocused();
   await page.getByRole('menuitemradio', { name: 'Second' }).click();
   await expect.element(page.getByText('second', { exact: true })).toBeAttached();
+  await expect.element(page.getByRole('menu')).toHaveCount(0);
   await page.getByRole('button', { name: 'Reset outside' }).click();
+  await expect.element(page.getByText('first', { exact: true })).toBeAttached();
+  await page.getByRole('button', { name: 'Actions', exact: true }).click();
   await expect
     .element(page.getByRole('menuitemradio', { name: 'First' }))
     .toHaveAttribute('data-state', 'checked');
