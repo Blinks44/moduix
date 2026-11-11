@@ -22,7 +22,7 @@ import * as ClipboardDocs from '@/components/examples/clipboard/css-properties';
 поверхность значения - `ClipboardInput` или `ClipboardValueText` - и `ClipboardTrigger`.
 `ClipboardLabel` необязателен. Внутри триггера можно разместить `ClipboardIndicator`. В React и
 Solid его `children` и `copied` принимают текст и иконки, а в Vue для этого используются обычный
-слот и именованный слот `copied`, а в Svelte - `children` и snippet `copied`.
+слот и именованный слот `copied`, а в Svelte - `children` и сниппет `copied`.
 
 ## Выбор подходящего компонента
 
@@ -126,7 +126,7 @@ Solid его `children` и `copied` принимают текст и иконк�
     ["ClipboardControl", "clipboard-control", "Объединяет отображение значения и кнопку копирования.", 1],
     ["ClipboardInput", "clipboard-input", "Показывает значение в поле только для чтения. Для изменения используйте контролируемое состояние или `ClipboardContext.setValue()`.", 2],
     ["ClipboardTrigger", "clipboard-trigger", "Копирует текущее значение при активации. По умолчанию отображается как кнопка.", 2],
-    ["ClipboardIndicator", "clipboard-indicator", "Показывает разное содержимое до и после копирования. По умолчанию это иконки копирования и подтверждения; в React и Solid передайте `copied=\"Copied\"` и `children`, в Vue используйте соответствующие слоты, а в Svelte - snippet'ы.", 3],
+    ["ClipboardIndicator", "clipboard-indicator", "Показывает разное содержимое до и после копирования. По умолчанию это иконки копирования и подтверждения; в React и Solid передайте `copied=\"Copied\"` и `children`, в Vue используйте соответствующие слоты, а в Svelte - сниппеты.", 3],
     ["ClipboardValueText", "clipboard-value-text", "Выводит значение как текст, когда поле ввода не подходит.", 1],
     ["ClipboardRootProvider", "clipboard-root-provider", "Связывает части с состоянием, созданным через `useClipboard()`.", 0],
   ]}

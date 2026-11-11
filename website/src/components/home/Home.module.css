@@ -222,8 +222,8 @@
   font-weight: 500;
 }
 
-.worksNote {
-  margin: 0 0 0 8px;
+.works .worksNote {
+  margin: 12px 0 0;
   color: var(--rp-c-text-3);
   font-family: var(--rp-font-family-mono);
   font-size: 12px;
@@ -429,10 +429,6 @@
     border-radius: 0;
     background: transparent;
   }
-}
-
-.apiFile {
-  margin-left: auto;
 }
 
 /* 02 · Install */

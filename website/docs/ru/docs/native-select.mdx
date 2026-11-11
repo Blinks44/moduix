@@ -66,7 +66,7 @@ import * as NativeSelectDocs from '@/components/examples/native-select/css-prope
 
 В React неуправляемый select строится на нативной проп `defaultValue`. В Solid, Vue и Svelte передавайте нативный атрибут
 `selected` тому `<option>`, который должен быть выбран изначально: проп `defaultValue` у `NativeSelect` в Solid и
-Vue не имеет эффекта. Используйте `value` вместе с `onChange` в React и Solid `v-model` в Vue или `bind:value` в Svelte, когда текущее
+Vue не имеет эффекта. Используйте `value` вместе с `onChange` в React и Solid, `v-model` во Vue или `bind:value` в Svelte, когда текущее
 значение хранится в состоянии приложения. Оборачивайте `NativeSelect` в `Field`, если метка, поясняющий текст,
 проверка или состояние `disabled` должны быть общими для поля и элемента управления. Части `Field` связывают этот
 контент с нативным select, а выбор опций по-прежнему остаётся под управлением браузера. При `multiple` или

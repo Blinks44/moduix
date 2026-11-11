@@ -390,8 +390,8 @@ function Hero({ t, count }: { t: T; count: number }) {
                 {item.label}
               </li>
             ))}
-            <li className={styles.worksNote}>CSS Modules · Tailwind CSS · shadcn CLI</li>
           </ul>
+          <p className={styles.worksNote}>CSS Modules · Tailwind CSS · shadcn CLI</p>
         </div>
       </div>
 
@@ -439,7 +439,7 @@ function Hero({ t, count }: { t: T; count: number }) {
 }
 
 function OneApi({ t }: { t: T }) {
-  // On phones the three cards collapse into one card with framework tabs.
+  // On phones the framework cards collapse into one card with framework tabs.
   const [active, setActive] = useState<Framework>('react');
 
   return (
@@ -471,7 +471,6 @@ function OneApi({ t }: { t: T }) {
               <FrameworkDot framework={item.value} />
               <strong>{item.label}</strong>
               <span>@moduix/{item.value}</span>
-              <span className={styles.apiFile}>{buttonCode[item.value].file}</span>
             </figcaption>
             <CodeBlockRuntime
               lang={buttonCode[item.value].lang}

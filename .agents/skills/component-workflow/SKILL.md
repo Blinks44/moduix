@@ -7,17 +7,18 @@ description: Coordinate moduix component behavior, API, styles, tests, stories, 
 
 Own the public component contract across every shipped framework and styling adapter. The current matrix is:
 
-| Runtime | CSS Modules      | Tailwind                  |
-| ------- | ---------------- | ------------------------- |
-| React   | `packages/react` | `packages/react-tailwind` |
-| Solid   | `packages/solid` | `packages/solid-tailwind` |
-| Vue     | `packages/vue`   | `packages/vue-tailwind`   |
+| Runtime | CSS Modules       | Tailwind                   |
+| ------- | ----------------- | -------------------------- |
+| React   | `packages/react`  | `packages/react-tailwind`  |
+| Solid   | `packages/solid`  | `packages/solid-tailwind`  |
+| Vue     | `packages/vue`    | `packages/vue-tailwind`    |
+| Svelte  | `packages/svelte` | `packages/svelte-tailwind` |
 
-Each runtime has matching playgrounds under `playgrounds/`. Svelte (`packages/svelte`,
-`packages/svelte-tailwind`) is in development and unpublished (`private: true`): it is ported
-component by component, so a missing Svelte counterpart is not a parity gap until the package ships.
-Synchronize a Svelte counterpart that already exists like any other adapter. When an adapter becomes
-public, move it into the table; this workflow continues to operate on the discovered set.
+Each runtime has matching playgrounds under `playgrounds/`. A new adapter starts as an unpublished
+(`private: true`) package and is ported component by component, so a missing counterpart in it is
+not a parity gap until it ships. Synchronize counterparts that already exist like any other adapter.
+When an adapter becomes public, move it into the table; this workflow continues to operate on the
+discovered set.
 
 Distribution differs by ecosystem norm, not by contract: React, Solid, and Vue publish compiled
 JavaScript built with Rslib, while Svelte publishes `.svelte` source built with svelte-package

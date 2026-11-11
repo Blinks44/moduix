@@ -5453,6 +5453,131 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "init",
+      "type": "registry:base",
+      "title": "moduix Svelte Tailwind init",
+      "description": "Initialize shadcn for moduix Svelte Tailwind and install shared dependencies.",
+      "extends": "none",
+      "config": {
+        "style": "new-york",
+        "rsc": false,
+        "tsx": true,
+        "aliases": {
+          "components": "@/components",
+          "ui": "@/components/ui",
+          "lib": "@/lib",
+          "hooks": "@/hooks",
+          "utils": "@/lib/utils"
+        }
+      },
+      "dependencies": ["@ark-ui/svelte", "class-variance-authority", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-svelte-tailwind/foundation"]
+    },
+    {
+      "name": "login-simple",
+      "type": "registry:block",
+      "title": "Sign in",
+      "description": "Sign-in form with email, password, and a remember-me option.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/svelte-tailwind-login-simple.json"],
+      "files": []
+    },
+    {
+      "name": "sidebar-dashboard",
+      "type": "registry:block",
+      "title": "Sidebar dashboard",
+      "description": "Dashboard with a resizable sidebar, nested navigation, and a workspace menu.",
+      "registryDependencies": [
+        "https://moduix.dev/r/blocks/svelte-tailwind-sidebar-dashboard.json"
+      ],
+      "files": []
+    },
+    {
+      "name": "file-upload-manager",
+      "type": "registry:block",
+      "title": "File upload",
+      "description": "File picker with drag and drop, validation, previews, and removal controls.",
+      "registryDependencies": [
+        "https://moduix.dev/r/blocks/svelte-tailwind-file-upload-manager.json"
+      ],
+      "files": []
+    },
+    {
+      "name": "app-header",
+      "type": "registry:block",
+      "title": "App header",
+      "description": "Responsive header with navigation, command search, and an account menu.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/svelte-tailwind-app-header.json"],
+      "files": []
+    },
+    {
+      "name": "sign-up",
+      "type": "registry:block",
+      "title": "Sign up",
+      "description": "Registration form with email, password confirmation, and terms acceptance.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/svelte-tailwind-sign-up.json"],
+      "files": []
+    },
+    {
+      "name": "forgot-password",
+      "type": "registry:block",
+      "title": "Forgot password",
+      "description": "Email form for requesting a password reset link.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/svelte-tailwind-forgot-password.json"],
+      "files": []
+    },
+    {
+      "name": "reset-password",
+      "type": "registry:block",
+      "title": "Reset password",
+      "description": "Password reset form with a confirmation field.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/svelte-tailwind-reset-password.json"],
+      "files": []
+    },
+    {
+      "name": "verification-code",
+      "type": "registry:block",
+      "title": "Verification code",
+      "description": "Six-digit email verification form with keyboard navigation and paste support.",
+      "registryDependencies": [
+        "https://moduix.dev/r/blocks/svelte-tailwind-verification-code.json"
+      ],
+      "files": []
+    },
+    {
+      "name": "data-table",
+      "type": "registry:block",
+      "title": "Data table",
+      "description": "Payments table with search, sorting, column visibility, selection, and pagination.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/svelte-tailwind-data-table.json"],
+      "files": []
+    },
+    {
+      "name": "expandable-avatar-group",
+      "type": "registry:block",
+      "title": "Expandable avatar group",
+      "description": "Overlapping avatars that expand on hover or focus, with a tooltip for each person.",
+      "registryDependencies": [
+        "https://moduix.dev/r/blocks/svelte-tailwind-expandable-avatar-group.json"
+      ],
+      "files": []
+    },
+    {
+      "name": "autoplay-gallery",
+      "type": "registry:block",
+      "title": "Autoplay gallery",
+      "description": "Image carousel with autoplay, navigation arrows, and progress indicators.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/svelte-tailwind-autoplay-gallery.json"],
+      "files": []
+    },
+    {
+      "name": "parallax-card",
+      "type": "registry:block",
+      "title": "Parallax card",
+      "description": "Image card with a pointer-driven tilt effect and reduced-motion support.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/svelte-tailwind-parallax-card.json"],
+      "files": []
     }
   ]
 }

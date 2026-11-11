@@ -104,7 +104,7 @@ Keep `EditableInput` and `EditablePreview` as siblings inside `EditableArea`, th
 `EditableControls` after the area for the standard edit, submit, and cancel flow. Use
 `EditableRootProvider` instead of `Editable` when state created by `useEditable()` must be
 shared with controls outside the rendered tree. Use `EditableContext` or `useEditableContext()` for
-custom content that depends on the current edit state. In Solid and Svelte, the store exposed by `useEditable()` and context is an accessor, so read state as `editable().editing`.
+custom content that depends on the current edit state. In Solid and Svelte, `useEditable()` and the context return a function (an accessor in Solid, a getter in Svelte), so read state as `editable().editing`.
 
 ## Anatomy
 

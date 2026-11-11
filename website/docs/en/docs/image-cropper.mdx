@@ -116,7 +116,7 @@ the component tree. For one state instance, render either `ImageCropper` or
 `ImageCropperRootProvider`.
 
 Use controlled `zoom`, `rotation`, or `flip` with the matching change callback when another part of
-the application controls that state. Ark passes the updated value in the callback's `details` object. The Vue and Svelte examples use native SFC syntax with the same parts, events, and controlled state. In Svelte, bind `zoom`, `rotation`, and `flip` with `bind:`, and pass `onCropChange` and `onZoomChange` as props.
+the application controls that state. Ark passes the updated value in the callback's `details` object. The Vue and Svelte examples use native component syntax with the same parts, events, and controlled state. In Svelte, bind `zoom`, `rotation`, and `flip` with `bind:`, and pass `onCropChange` and `onZoomChange` as props.
 `fixedCropArea` keeps the selection fixed and makes the viewport the panning surface.
 
 ## Anatomy

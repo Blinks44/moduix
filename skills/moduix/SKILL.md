@@ -9,23 +9,24 @@ Use the public moduix documentation as the source of truth. Preserve the project
 styling track, and install method. Do not migrate between framework adapters, CSS Modules and
 Tailwind, or packages and registry source unless the user asks.
 
-moduix is multi-framework by design. React, Solid, and Vue adapters ship today; Svelte is planned.
-Never present a planned adapter as available. Discover the current package or registry before choosing
-commands, imports, or examples.
+moduix is multi-framework by design. React, Solid, Vue, and Svelte adapters ship today. Discover the
+current package or registry before choosing commands, imports, or examples.
 
 ## Identify the project setup
 
 Inspect the package manager, existing imports, application stylesheet, and `components.json` before
 changing code. Select the matching package or registry:
 
-| Runtime | Install  | CSS Modules     | Tailwind CSS v4          |
-| ------- | -------- | --------------- | ------------------------ |
-| React   | package  | `@moduix/react` | `@moduix/react-tailwind` |
-| React   | registry | `@moduix-react` | `@moduix-react-tailwind` |
-| Solid   | package  | `@moduix/solid` | `@moduix/solid-tailwind` |
-| Solid   | registry | `@moduix-solid` | `@moduix-solid-tailwind` |
-| Vue     | package  | `@moduix/vue`   | `@moduix/vue-tailwind`   |
-| Vue     | registry | `@moduix-vue`   | `@moduix-vue-tailwind`   |
+| Runtime | Install  | CSS Modules      | Tailwind CSS v4           |
+| ------- | -------- | ---------------- | ------------------------- |
+| React   | package  | `@moduix/react`  | `@moduix/react-tailwind`  |
+| React   | registry | `@moduix-react`  | `@moduix-react-tailwind`  |
+| Solid   | package  | `@moduix/solid`  | `@moduix/solid-tailwind`  |
+| Solid   | registry | `@moduix-solid`  | `@moduix-solid-tailwind`  |
+| Vue     | package  | `@moduix/vue`    | `@moduix/vue-tailwind`    |
+| Vue     | registry | `@moduix-vue`    | `@moduix-vue-tailwind`    |
+| Svelte  | package  | `@moduix/svelte` | `@moduix/svelte-tailwind` |
+| Svelte  | registry | `@moduix-svelte` | `@moduix-svelte-tailwind` |
 
 Assume the application is already configured for its framework. For a Tailwind track, also confirm
 that Tailwind CSS v4 is already configured. Do not scaffold a framework, install Tailwind, or
@@ -37,16 +38,18 @@ choose between npm packages and registry source.
 Read [references/discovery.md](references/discovery.md), then:
 
 1. Read the canonical moduix page for the component, block, or setup task.
-2. Confirm that the component exists in the selected package or registry. React, Solid, and Vue
-   provide the same component catalog in both styling variants; discover future adapters separately.
+2. Confirm that the component exists in the selected package or registry. React, Solid, Vue, and
+   Svelte provide the same component catalog in both styling variants; discover future adapters
+   separately.
 3. Prefer a documented component or block to custom UI when it fits. Blocks install through the
    registry as source in the app; keep routes, API calls, and data in the application.
 
 ## Use package-managed components
 
 1. Use the project's package manager and the install command from the current Quick start. Install
-   the matching Ark UI package with it (`@ark-ui/react`, `@ark-ui/solid`, or `@ark-ui/vue`); it is a
-   peer dependency. Do not reinstall the framework runtime in an initialized application.
+   the matching Ark UI package with it (`@ark-ui/react`, `@ark-ui/solid`, `@ark-ui/vue`, or
+   `@ark-ui/svelte`); it is a peer dependency. Do not reinstall the framework runtime in an
+   initialized application.
 2. Import components from package subpaths such as `@moduix/react/accordion` or
    `@moduix/solid-tailwind/accordion`.
 3. For CSS Modules, import the matching package's `style.css` once. Component imports carry their
@@ -64,7 +67,8 @@ Read [references/discovery.md](references/discovery.md), then:
 @source '../node_modules/@moduix/react-tailwind/dist/components';
 ```
 
-Replace `react-tailwind` with `solid-tailwind` for Solid or `vue-tailwind` for Vue.
+Replace `react-tailwind` with `solid-tailwind`, `vue-tailwind`, or `svelte-tailwind` for another
+framework.
 
 ## Use registry components
 

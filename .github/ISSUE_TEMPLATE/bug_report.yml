@@ -17,6 +17,8 @@ body:
         - '@moduix/solid-tailwind'
         - '@moduix/vue'
         - '@moduix/vue-tailwind'
+        - '@moduix/svelte'
+        - '@moduix/svelte-tailwind'
         - registry (shadcn)
         - documentation site
         - other

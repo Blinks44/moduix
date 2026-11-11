@@ -781,31 +781,6 @@
     "ru": "Значения по умолчанию для фона, всплывающих окон и их анимации используются всеми семействами оверлеев, а отдельные компоненты могут дополнить их своими токенами.",
     "fr": "Les valeurs par défaut de l’arrière-plan, des fenêtres contextuelles et de leurs animations sont partagées par les familles de superpositions ; chaque composant peut ensuite appliquer ses tokens locaux."
   },
-  "frameworkSupportGroupLabel": {
-    "en": "Framework support",
-    "ru": "Поддержка фреймворков",
-    "fr": "Prise en charge des frameworks"
-  },
-  "frameworkReactAvailable": {
-    "en": "React is available",
-    "ru": "React доступен",
-    "fr": "React est disponible"
-  },
-  "frameworkSolidAvailable": {
-    "en": "Solid is available",
-    "ru": "Solid доступен",
-    "fr": "Solid est disponible"
-  },
-  "frameworkSupportPlanned": {
-    "en": "Planned",
-    "ru": "Запланировано",
-    "fr": "Prévu"
-  },
-  "frameworkVueAvailable": {
-    "en": "Vue is available",
-    "ru": "Vue доступен",
-    "fr": "Vue est disponible"
-  },
   "copyMarkdownText": {
     "en": "Copy page",
     "ru": "Скопировать страницу",

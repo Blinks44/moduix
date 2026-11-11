@@ -1,7 +1,7 @@
 {
   "name": "@moduix/solid",
   "version": "3.2.2",
-  "description": "Accessible Solid UI components built on Ark UI and styled with CSS Modules. 80+ components with the same API for React and Vue.",
+  "description": "Accessible Solid UI components built on Ark UI and styled with CSS Modules. 80+ components with the same API for React, Vue, and Svelte.",
   "keywords": [
     "a11y",
     "accessible",

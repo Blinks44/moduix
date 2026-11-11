@@ -108,7 +108,7 @@ Reset показывает встроенный в Ark сброс формы. У
 `AngleSliderRootProvider` с `useAngleSlider()` из соответствующего пакета только тогда, когда
 store нужно создать вне дерева слайдера; не рендерите корневой компонент и `AngleSliderRootProvider`
 для одного состояния.
-В Solid и Svelte состояние store читается через функцию-аксессор или геттер, например `angleSlider().value`. В Svelte управляемым углом можно также управлять через `bind:value` на `AngleSlider`.
+В Solid и Svelte хук возвращает функцию (аксессор в Solid, геттер в Svelte), поэтому состояние читается как `angleSlider().value`. В Svelte управляемый угол можно также привязать через `bind:value` на `AngleSlider`.
 
 `AngleSliderDial` и `AngleSliderMarks` - удобные составные компоненты. Используйте `AngleSliderControl` с `AngleSliderThumb` или
 `AngleSliderMarkerGroup` с `AngleSliderMarker`, если нужны собственные дочерние элементы, другой порядок частей или

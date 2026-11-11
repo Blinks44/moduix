@@ -1,11 +1,11 @@
 # moduix-monorepo
 
-`moduix` is a multi-framework, Ark UI-backed component system distributed as CSS Modules and Tailwind packages, with shadcn-compatible registries and an Rspress documentation site. React, Solid, and Vue adapters ship today; Svelte adapters are in development and unpublished. Shared workflows must be framework-neutral and discover shipped adapters instead of assuming that the current package count is permanent.
+`moduix` is a multi-framework, Ark UI-backed component system distributed as CSS Modules and Tailwind packages, with shadcn-compatible registries and an Rspress documentation site. React, Solid, Vue, and Svelte adapters ship today. Shared workflows must be framework-neutral and discover shipped adapters instead of assuming that the current package count is permanent.
 
 ## Workspace map
 
-- `packages/<framework>`: public framework-native CSS Modules adapters, tests, and component-local docs. The current adapters are `react`, `solid`, and `vue`; `svelte` is in development.
-- `packages/<framework>-tailwind`: public Tailwind variants kept behaviorally aligned with the CSS Modules adapter for that framework. The current variants are `react-tailwind`, `solid-tailwind`, and `vue-tailwind`; `svelte-tailwind` is in development.
+- `packages/<framework>`: public framework-native CSS Modules adapters, tests, and component-local docs. The current adapters are `react`, `solid`, `vue`, and `svelte`.
+- `packages/<framework>-tailwind`: public Tailwind variants kept behaviorally aligned with the CSS Modules adapter for that framework. The current variants are `react-tailwind`, `solid-tailwind`, `vue-tailwind`, and `svelte-tailwind`.
 - `playgrounds/<framework>` and `playgrounds/<framework>-tailwind`: private playgrounds for parity checks when that adapter ships.
 - `starters/<framework>-vite`: standalone consumer apps using published npm packages; intentionally
   outside the workspace, each with its own lockfile. Validate with `pnpm run check:starters`.
@@ -38,9 +38,9 @@ and every other public part is prefixed with that family name: `Accordion`, `Acc
 `AccordionItemTrigger`, `AccordionRootProvider`, and `AccordionContext`. Hooks stay top-level, such as
 `useAccordion`. Do not expose `Component.Part`, `Component.Root`, `Object.assign` compound components,
 namespace objects, or duplicate `ComponentRoot` aliases. Keep framework syntax native while preserving
-these names across React, Solid, Vue, CSS Modules, Tailwind, npm packages, and registry source.
+these names across React, Solid, Vue, Svelte, CSS Modules, Tailwind, npm packages, and registry source.
 
-React, Solid, and Vue implement the flat public API. Treat the flat shape as the existing contract,
+React, Solid, Vue, and Svelte implement the flat public API. Treat the flat shape as the existing contract,
 not as a compatibility transition. Future adapters must implement this contract directly without
 legacy aliases.
 

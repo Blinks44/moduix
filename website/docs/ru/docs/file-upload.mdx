@@ -139,12 +139,10 @@ import AnatomyScene from '@/components/examples/file-upload/basic';
 
 ## Композиция
 
-`FileUpload` можно импортировать из `@moduix/react/file-upload`, `@moduix/vue/file-upload` и `@moduix/svelte/file-upload`. Компонент и хуки `useFileUpload` и
-`useFileUploadContext` также доступны из `@moduix/react`.
-
-Тот же компонент доступен из `@moduix/solid/file-upload`, `@moduix/react-tailwind/file-upload`,
-`@moduix/solid-tailwind/file-upload`, `@moduix/vue-tailwind/file-upload`, `@moduix/svelte/file-upload` и `@moduix/svelte-tailwind/file-upload`. Все варианты используют одинаковые части компонента и модель
-состояния. Выберите пакет, который соответствует вашему фреймворку и варианту стилизации.
+Импортируйте `FileUpload`, его части, `useFileUpload` и `useFileUploadContext` из подпути
+`file-upload` вашего пакета, например `@moduix/react/file-upload` или
+`@moduix/svelte-tailwind/file-upload`. Во всех фреймворках и вариантах стилизации части и модель
+состояния одинаковые.
 
 `FileUpload` по умолчанию хранит состояние выбранных файлов внутри себя. Используйте `defaultAcceptedFiles` для начального
 значения в неуправляемом режиме, а `acceptedFiles` вместе с `onFileChange(details)`, если состояние принадлежит приложению.

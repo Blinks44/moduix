@@ -1,6 +1,6 @@
 # moduix Project Skills
 
-Local agent skills for maintaining the multi-framework `moduix` package family, registries, playgrounds, and docs. React, Solid, and Vue adapters ship today; Svelte adapters are in development. General skills discover the adapters that actually exist instead of treating the current package count as permanent.
+Local agent skills for maintaining the multi-framework `moduix` package family, registries, playgrounds, and docs. React, Solid, Vue, and Svelte adapters ship today. General skills discover the adapters that actually exist instead of treating the current package count as permanent.
 
 The library is Ark-backed and actively developed. Skills should preserve current behavior and the
 documented target public contract, keep package/docs/registry output aligned, and remove stale
