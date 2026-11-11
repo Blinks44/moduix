@@ -14,7 +14,7 @@
 </script>
 
 <div>
-  <Menu open portalled={false}>
+  <Menu defaultOpen portalled={false} onInteractOutside={(event) => event.preventDefault()}>
     <MenuTrigger>Actions</MenuTrigger>
     <MenuPositioner>
       <MenuContent>
