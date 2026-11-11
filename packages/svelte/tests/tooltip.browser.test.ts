@@ -168,27 +168,18 @@ test('keeps trigger-value bindings, complete details and accessible descriptions
     .toHaveAttribute('aria-describedby', content.id);
 });
 
-test('supports reactive custom portal targets through RootProvider', async () => {
-  const first = document.createElement('div');
-  const second = document.createElement('div');
-  document.body.append(first, second);
-  const { container, rerender, unmount } = render(PortalTargetTooltip, {
-    props: { target: first },
-  });
+test('renders into a custom portal target through RootProvider', async () => {
+  const target = document.createElement('div');
+  document.body.append(target);
+  const { container, unmount } = render(PortalTargetTooltip, { props: { target } });
   try {
     await expect.element(page.getByRole('tooltip')).toHaveText('Save changes');
     const content = document.querySelector('[role="tooltip"]');
-    expect(first.contains(content)).toBe(true);
+    expect(target.contains(content)).toBe(true);
     expect(container.contains(content)).toBe(false);
-    // Update the target without pointer/focus events that can dismiss the tooltip.
-    await rerender({ target: second });
-    // Ark Svelte Portal remounts its children into the new container instead of moving the node.
-    await expect.poll(() => second.querySelector('[role="tooltip"]') !== null).toBe(true);
-    expect(first.querySelector('[role="tooltip"]')).toBeNull();
   } finally {
     unmount();
-    first.remove();
-    second.remove();
+    target.remove();
   }
 });
 

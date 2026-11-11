@@ -14,7 +14,7 @@
 </script>
 
 <div>
-  <Menu defaultOpen portalled={false}>
+  <Menu open portalled={false}>
     <MenuTrigger>Actions</MenuTrigger>
     <MenuPositioner>
       <MenuContent>
