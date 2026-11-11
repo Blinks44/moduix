@@ -181,8 +181,7 @@ const navigate = (value: string) => {
                 }}</AvatarFallback></Avatar
               >
               <span :class="styles.accountDetails"
-                ><strong>{{ account.name }}</strong
-                ><span>{{ account.role }}</span></span
+                ><strong>{{ account.name }}</strong><span>{{ account.role }}</span></span
               >
               <ChevronDown :class="styles.accountChevron" aria-hidden="true" />
             </Button>

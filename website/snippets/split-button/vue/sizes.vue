@@ -20,8 +20,7 @@ const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
       :size="size"
       variant="outline"
     >
-      <SplitButtonAction>{{ size }}</SplitButtonAction
-      ><SplitButtonTrigger />
+      <SplitButtonAction>{{ size }}</SplitButtonAction><SplitButtonTrigger />
       <SplitButtonPositioner
         ><SplitButtonContent>
           <MenuItem :value="`${size}-create`">Create</MenuItem>

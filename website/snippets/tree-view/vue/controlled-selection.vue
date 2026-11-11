@@ -49,9 +49,7 @@ const selectedValue = ref<string[]>(['package.json']);
           :index-path="[index]"
           v-slot="{ node: currentNode }"
         >
-          <TreeViewItem
-            ><TreeViewItemText>{{ currentNode.name }}</TreeViewItemText></TreeViewItem
-          >
+          <TreeViewItem><TreeViewItemText>{{ currentNode.name }}</TreeViewItemText></TreeViewItem>
         </TreeViewNode>
       </TreeViewTree>
     </TreeView>

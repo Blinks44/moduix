@@ -35,8 +35,6 @@ defineProps<{ node: FileNode; indexPath: number[] }>();
         />
       </TreeViewBranchContent>
     </TreeViewBranch>
-    <TreeViewItem v-else
-      ><TreeViewItemText>{{ current.label }}</TreeViewItemText></TreeViewItem
-    >
+    <TreeViewItem v-else><TreeViewItemText>{{ current.label }}</TreeViewItemText></TreeViewItem>
   </TreeViewNode>
 </template>

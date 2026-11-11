@@ -36,9 +36,7 @@ const items = [
         <StepsTrigger as-child>
           <a :href="`#step-${index + 1}`">
             <StepsIndicator />
-            <span
-              ><strong>{{ item.title }}</strong></span
-            >
+            <span><strong>{{ item.title }}</strong></span>
           </a>
         </StepsTrigger>
         <StepsSeparator />

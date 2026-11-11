@@ -6,7 +6,7 @@ import { Swap, SwapIndicator } from '@/index';
 test('lets consumer Tailwind classes override conflicting defaults', async () => {
   render(
     <Swap className="place-items-start" data-testid="swap">
-      <SwapIndicator className="items-start" data-testid="indicator" type="off" />
+      <SwapIndicator className="items-baseline" data-testid="indicator" type="off" />
     </Swap>,
   );
 
@@ -14,8 +14,8 @@ test('lets consumer Tailwind classes override conflicting defaults', async () =>
     expect.arrayContaining(['place-items-start']),
   );
   expect([...screen.getByTestId('indicator')!.classList]).toEqual(
-    expect.arrayContaining(['items-start']),
+    expect.arrayContaining(['items-baseline']),
   );
   await expect.element(page.getByTestId('swap')).toHaveCSS('place-items', 'start');
-  await expect.element(page.getByTestId('indicator')).toHaveCSS('align-items', 'flex-start');
+  await expect.element(page.getByTestId('indicator')).toHaveCSS('align-items', 'baseline');
 });

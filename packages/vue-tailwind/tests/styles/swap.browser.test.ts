@@ -10,10 +10,10 @@ test('applies owning Tailwind utilities and lets consumer classes override them'
     components: swapComponents,
     template: `
       <Swap class="place-items-start" data-testid="swap">
-        <SwapIndicator class="items-start" data-testid="indicator" type="off" />
+        <SwapIndicator class="items-baseline" data-testid="indicator" type="off" />
       </Swap>
     `,
   });
   await expect.element(page.getByTestId('swap')).toHaveCSS('place-items', 'start');
-  await expect.element(page.getByTestId('indicator')).toHaveCSS('align-items', 'flex-start');
+  await expect.element(page.getByTestId('indicator')).toHaveCSS('align-items', 'baseline');
 });

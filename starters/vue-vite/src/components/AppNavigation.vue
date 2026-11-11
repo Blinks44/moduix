@@ -8,10 +8,7 @@ const pages: Page[] = ['Projects', 'Team', 'Reports', 'Settings'];
 <template>
   <div class="brand">
     <span class="brand-mark">A</span>
-    <div>
-      <strong>{{ workspace }}</strong
-      ><span>moduix + Vue</span>
-    </div>
+    <div><strong>{{ workspace }}</strong><span>moduix + Vue</span></div>
   </div>
   <nav aria-label="Workspace">
     <p class="nav-heading">Workspace</p>

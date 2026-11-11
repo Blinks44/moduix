@@ -85,8 +85,7 @@ const filters = computed(() =>
           >
           <TableCell
             ><span class="owner"
-              ><span class="avatar">{{ initials(project.owner) }}</span
-              >{{ project.owner }}</span
+              ><span class="avatar">{{ initials(project.owner) }}</span>{{ project.owner }}</span
             ></TableCell
           >
           <TableCell class="updated">{{ project.updated }}</TableCell>
