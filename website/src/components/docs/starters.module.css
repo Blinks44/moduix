@@ -220,7 +220,7 @@
   mask: url('../../../docs/public/starters/github.svg') center / contain no-repeat;
 }
 
-:global(body .rp-doc):has(.page) {
+:global(body .rp-doc):has(.intro) {
   margin-top: -0.5rem;
   :global(.moduix-doc-description) {
     max-width: 40rem;
@@ -230,29 +230,27 @@
     float: right;
     margin: 1.25rem 0 0 1.25rem;
   }
-}
 
-.page {
-  > .intro {
-    max-width: 33.75rem;
-    margin-block: 1.25rem 2.5rem;
-    color: var(--rp-c-text-2);
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-  }
-
-  > h2 {
+  h2 {
     clear: both;
   }
 }
 
+.intro {
+  max-width: 33.75rem;
+  margin-block: 1.25rem 2.5rem;
+  color: var(--rp-c-text-2);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
 @media (max-width: 767px) {
-  :global(body .rp-doc):has(.page) :global(.moduix-doc-actions) {
+  :global(body .rp-doc):has(.intro) :global(.moduix-doc-actions) {
     float: none;
     margin: 1.25rem 0;
   }
 }
 
-.quickStart > .intro {
+.quickStartIntro {
   margin-bottom: 1.5rem;
 }

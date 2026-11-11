@@ -1,6 +1,5 @@
 import { defineConfig } from '@rspress/core';
 import { pluginPreview } from '@rspress/plugin-preview';
-import { pluginSitemap } from '@rspress/plugin-sitemap';
 import { fileURLToPath } from 'node:url';
 import { pluginLastUpdatedDate } from './plugins/last-updated-date';
 import { moduixShikiTheme } from './theme/shiki-theme';
@@ -42,13 +41,11 @@ export default defineConfig({
   lang: 'en',
   locales,
   icon: '/favicon/favicon.svg',
-  llms: true,
   search: {
     searchHooks: fileURLToPath(new URL('./theme/search-hooks.ts', import.meta.url)),
   },
   mediumZoom: false,
   route: {
-    cleanUrls: true,
     // In dev, hover prefetch triggers lazy compilation of the hovered page, and the HMR update of
     // the route list remounts the current page. Production builds keep prefetching.
     prefetchLink: process.env.NODE_ENV !== 'development',
@@ -94,6 +91,14 @@ export default defineConfig({
       checkDeadLinks: {
         excludes: ['/llms.txt', '/llms-full.txt'],
       },
+      // The anchor check skips headings nested in JSX, such as `<Steps>` sections.
+      checkAnchors: {
+        excludes: [
+          '/docs/quick-start#add-styles',
+          '/docs/quick-start#ajouter-les-styles',
+          '/docs/quick-start#подключите-стили',
+        ],
+      },
     },
   },
   builderConfig: {
@@ -117,7 +122,7 @@ export default defineConfig({
       },
     },
   },
-  plugins: [pluginPreview(), pluginSitemap(), pluginLastUpdatedDate()],
+  plugins: [pluginPreview(), pluginLastUpdatedDate()],
   themeConfig: {
     locales,
     llmsUI: false,

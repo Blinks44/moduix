@@ -66,8 +66,7 @@ const members = [
         </button>
       </TooltipTrigger>
       <TooltipBody :class="styles.tooltip"
-        ><strong>{{ member.name }}</strong
-        ><span>{{ member.role }}</span></TooltipBody
+        ><strong>{{ member.name }}</strong><span>{{ member.role }}</span></TooltipBody
       >
     </Tooltip>
   </div>

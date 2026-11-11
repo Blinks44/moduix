@@ -20,9 +20,7 @@ const sizes: DrawerSize[] = ['sm', 'md', 'lg', 'xl'];
 <template>
   <Stack direction="row" wrap="wrap" gap="2">
     <Drawer v-for="size in sizes" :key="size" swipe-direction="end">
-      <DrawerTrigger as-child
-        ><Button variant="outline">Open {{ size }}</Button></DrawerTrigger
-      >
+      <DrawerTrigger as-child><Button variant="outline">Open {{ size }}</Button></DrawerTrigger>
       <DrawerBackdrop />
       <DrawerPositioner>
         <DrawerContent :size="size">

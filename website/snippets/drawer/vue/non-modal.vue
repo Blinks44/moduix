@@ -60,9 +60,7 @@ const snapPoints = [0.18, 1];
                   :key="paragraph"
                   size="sm"
                   :class="styles.card"
-                  ><CardBody
-                    ><p :class="styles.paragraph">{{ paragraph }}</p></CardBody
-                  ></Card
+                  ><CardBody><p :class="styles.paragraph">{{ paragraph }}</p></CardBody></Card
                 ></ScrollAreaContent
               ></ScrollAreaViewport
             ><ScrollAreaScrollbar><ScrollAreaThumb /></ScrollAreaScrollbar

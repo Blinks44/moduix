@@ -20,9 +20,7 @@ const sizes: DialogSize[] = ['sm', 'md', 'lg', 'xl', 'full'];
 <template>
   <Stack direction="row" wrap="wrap" gap="2">
     <Dialog v-for="size in sizes" :key="size">
-      <DialogTrigger as-child
-        ><Button variant="outline">Open {{ size }}</Button></DialogTrigger
-      >
+      <DialogTrigger as-child><Button variant="outline">Open {{ size }}</Button></DialogTrigger>
       <DialogBackdrop />
       <DialogPositioner>
         <DialogContent :size="size">

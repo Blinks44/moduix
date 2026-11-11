@@ -436,8 +436,7 @@ const copyIdentifier = (id: string) => navigator.clipboard.writeText(id);
                 ><CheckboxControl /><CheckboxHiddenInput
               /></Checkbox>
               <div v-else-if="cell.column.id === 'name'" :class="styles.componentName">
-                <strong>{{ row.original.name }}</strong
-                ><span>{{ row.original.id }}</span>
+                <strong>{{ row.original.name }}</strong><span>{{ row.original.id }}</span>
               </div>
               <Badge
                 v-else-if="cell.column.id === 'status'"

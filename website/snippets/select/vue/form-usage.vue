@@ -48,8 +48,7 @@ function handleSubmit(event: Event) {
       <SelectHiddenSelect />
     </Select>
     <div>
-      <output>Submitted: {{ submitted }}</output
-      ><Button type="submit" size="sm">Submit</Button>
+      <output>Submitted: {{ submitted }}</output><Button type="submit" size="sm">Submit</Button>
     </div>
   </form>
 </template>

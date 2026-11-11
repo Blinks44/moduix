@@ -154,18 +154,14 @@ const fixedSlotTypes: Extract<
     >
   </ListboxRootProvider>
   <SelectRootProvider :value="select" :portalled="false">
-    <SelectValueText placeholder="Choose command"
-      ><span>{{ query }}</span></SelectValueText
-    >
+    <SelectValueText placeholder="Choose command"><span>{{ query }}</span></SelectValueText>
     <!-- @vue-generic {Command} -->
     <SelectContext v-slot="context"
       ><output>{{ readRank(context.selectedItems) }}</output></SelectContext
     >
   </SelectRootProvider>
   <Tour :tour="tour" :portalled="false">
-    <TourTitle
-      ><span>{{ query }}</span></TourTitle
-    >
+    <TourTitle><span>{{ query }}</span></TourTitle>
     <TourDescription><span>Custom description</span></TourDescription>
     <TourProgressText><span>Custom progress</span></TourProgressText>
     <TourArrow><span>Custom arrow</span></TourArrow>

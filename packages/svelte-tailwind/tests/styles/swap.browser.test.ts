@@ -7,5 +7,5 @@ test('applies owning Tailwind utilities and lets consumer classes override them'
   render(SwapOverride);
 
   await expect.element(page.getByTestId('swap')).toHaveCSS('place-items', 'start');
-  await expect.element(page.getByTestId('indicator')).toHaveCSS('align-items', 'flex-start');
+  await expect.element(page.getByTestId('indicator')).toHaveCSS('align-items', 'baseline');
 });

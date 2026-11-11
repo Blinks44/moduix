@@ -3,5 +3,5 @@
 </script>
 
 <Swap class="place-items-start" data-testid="swap">
-  <SwapIndicator class="items-start" data-testid="indicator" type="off" />
+  <SwapIndicator class="items-baseline" data-testid="indicator" type="off" />
 </Swap>

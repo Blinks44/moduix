@@ -26,8 +26,7 @@ const variants = [
       :aria-label="`${variant} actions`"
       :variant="variant"
     >
-      <SplitButtonAction>{{ variant }}</SplitButtonAction
-      ><SplitButtonTrigger />
+      <SplitButtonAction>{{ variant }}</SplitButtonAction><SplitButtonTrigger />
       <SplitButtonPositioner
         ><SplitButtonContent>
           <MenuItem :value="`${variant}-edit`">Edit</MenuItem>

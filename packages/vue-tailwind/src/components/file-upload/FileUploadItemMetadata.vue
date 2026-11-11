@@ -25,7 +25,6 @@ const getFileTypeLabel = (file: File) => {
     v-bind="attrs"
     :class="cn(metadataClass, className)"
     data-slot="file-upload-item-metadata"
-    ><ark.span>{{ getFileTypeLabel(file) }}</ark.span
-    ><FileUploadItemSizeText
+    ><ark.span>{{ getFileTypeLabel(file) }}</ark.span><FileUploadItemSizeText
   /></ark.div>
 </template>

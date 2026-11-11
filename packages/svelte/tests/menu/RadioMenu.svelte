@@ -14,14 +14,18 @@
 </script>
 
 <div>
-  <Menu defaultOpen portalled={false}>
+  <Menu open portalled={false}>
     <MenuTrigger>Actions</MenuTrigger>
     <MenuPositioner>
       <MenuContent>
         <MenuViewport>
           <MenuRadioItemGroup bind:value={selected}>
-            <MenuRadioItem value="first"><MenuItemText>First</MenuItemText></MenuRadioItem>
-            <MenuRadioItem value="second"><MenuItemText>Second</MenuItemText></MenuRadioItem>
+            <MenuRadioItem value="first" closeOnSelect={false}
+              ><MenuItemText>First</MenuItemText></MenuRadioItem
+            >
+            <MenuRadioItem value="second" closeOnSelect={false}
+              ><MenuItemText>Second</MenuItemText></MenuRadioItem
+            >
           </MenuRadioItemGroup>
         </MenuViewport>
       </MenuContent>

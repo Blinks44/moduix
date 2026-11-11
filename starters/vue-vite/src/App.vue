@@ -83,8 +83,7 @@ const handleSettings = (event: Event) => {
     <ProjectTable v-if="page === 'Projects'" :projects="projects" @edit="editing = $event" />
     <div v-if="page === 'Team'" class="team-list">
       <div v-for="owner in owners" :key="owner" class="team-member">
-        <span class="avatar">{{ initials(owner) }}</span
-        ><strong>{{ owner }}</strong
+        <span class="avatar">{{ initials(owner) }}</span><strong>{{ owner }}</strong
         ><span>{{ projects.filter((project) => project.owner === owner).length }} projects</span>
       </div>
     </div>

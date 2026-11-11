@@ -59,9 +59,10 @@ jobs:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
 
-      # Skips the download when the cached browser matches; system dependencies always install.
+      # Skips the download when the cached browser matches. ubuntu-latest already ships the system
+      # libraries Chromium needs, so no apt step can fail on mirror outages.
       - name: Install Chromium
-        run: pnpm exec playwright install --with-deps --only-shell chromium
+        run: pnpm exec playwright install --only-shell chromium
 
       # Turborepo skips test tasks whose package, foundation, and dependency inputs are unchanged.
       - name: Cache Turborepo
@@ -96,9 +97,10 @@ jobs:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
 
-      # Skips the download when the cached browser matches; system dependencies always install.
+      # Skips the download when the cached browser matches. ubuntu-latest already ships the system
+      # libraries Chromium needs, so no apt step can fail on mirror outages.
       - name: Install Chromium
-        run: pnpm exec playwright install --with-deps --only-shell chromium
+        run: pnpm exec playwright install --only-shell chromium
 
       - name: Install React 18
         run: pnpm --filter './packages/react*' add -D react@^18 react-dom@^18
