@@ -1,6 +1,6 @@
 {
   "name": "@moduix/vue",
-  "version": "3.2.2",
+  "version": "3.3.0",
   "description": "Accessible Vue UI components built on Ark UI and styled with CSS Modules. 80+ components with the same API for React, Solid, and Svelte.",
   "keywords": [
     "a11y",

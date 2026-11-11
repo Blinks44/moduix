@@ -1,5 +1,14 @@
 # @moduix/vue-tailwind
 
+## 3.3.0
+
+### Minor Changes
+
+### Chart
+
+- 86948dc: Add the `chartColors` palette and the `--moduix-chart-6` to `--moduix-chart-8` color tokens.
+  Pass `chartColors` to a TanStack color `range` and reuse its entries for `ChartLegendItem`.
+
 ## 3.2.2
 
 ### Patch Changes
