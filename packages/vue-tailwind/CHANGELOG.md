@@ -1,5 +1,17 @@
 # @moduix/vue-tailwind
 
+## 3.2.2
+
+### Patch Changes
+
+### Editable
+
+- 5b0db9e: Match the edit trigger icon stroke width with the React and Solid adapters.
+
+### DatePicker
+
+- 5b0db9e: Keep trigger space on the end input of range fields so the end date does not run under the calendar trigger.
+
 ## 3.2.1
 
 ### Patch Changes
