@@ -7,6 +7,7 @@ import {
   ChartLegendItem,
   ChartPlot,
   ChartTitle,
+  chartColors,
 } from '@moduix/vue/chart';
 import { defineChart } from '@tanstack/charts';
 import { angleGrid, focusGroupAngle, polar, radialGrid, radialLine } from '@tanstack/charts/polar';
@@ -56,7 +57,7 @@ const radarDefinition = defineChart({
   scales: { x: null, y: null },
   color: {
     domain: ['Product A', 'Product B'],
-    range: ['var(--moduix-chart-1)', 'var(--moduix-chart-2)'],
+    range: chartColors,
   },
   focus: focusGroupAngle,
   tooltip,
@@ -73,8 +74,8 @@ const radarDefinition = defineChart({
     </ChartHeader>
     <ChartPlot :definition="radarDefinition" :height="360" ariaLabel="Product scores by metric" />
     <ChartLegend aria-label="Products">
-      <ChartLegendItem color="var(--moduix-chart-1)">Product A</ChartLegendItem>
-      <ChartLegendItem color="var(--moduix-chart-2)">Product B</ChartLegendItem>
+      <ChartLegendItem :color="chartColors[0]">Product A</ChartLegendItem>
+      <ChartLegendItem :color="chartColors[1]">Product B</ChartLegendItem>
     </ChartLegend>
   </Chart>
 </template>

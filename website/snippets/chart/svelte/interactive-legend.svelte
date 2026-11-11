@@ -5,6 +5,7 @@
     ChartHeader,
     ChartPlot,
     ChartTitle,
+    chartColors,
   } from '@moduix/svelte/chart';
   import { defineChart, lineY } from '@tanstack/charts';
   import { controlledSignal } from '@tanstack/charts/interaction/signal';
@@ -46,7 +47,7 @@
       },
       color: {
         domain: ['Revenue', 'Target'],
-        range: ['var(--moduix-chart-1)', 'var(--moduix-chart-2)'],
+        range: chartColors,
         legend: interactiveColorLegend({
           hover: 'series',
           visible: controlledSignal(visible, (next) => {

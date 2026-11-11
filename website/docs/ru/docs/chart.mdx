@@ -35,8 +35,9 @@ TanStack.
 
 ### Цвета графика
 
-Используйте токены moduix для графиков в цветовой шкале TanStack. CSS-свойства работают как значения
-заливки SVG и автоматически учитывают активную тему.
+Импортируйте `chartColors` и передайте его в `range` цветовой шкалы TanStack. В нём токены
+с `--moduix-chart-1` по `--moduix-chart-8` в виде CSS-переменных, поэтому цвета следуют активной теме.
+Берите те же значения для `ChartLegendItem`, и легенда всегда совпадёт с графиком.
 
 <Example name="chart/line-colors" />
 
@@ -46,6 +47,14 @@ TanStack.
 TanStack.
 
 <Example name="chart/animated-area" />
+
+### Временной ряд
+
+Для значений `Date` на оси X используйте `scaleUtc`. Форматируйте подписи осей и значения в тултипе
+через `Intl`, чтобы даты и суммы читались привычно для ваших пользователей. Небольшой `hideDelay` не даёт
+тултипу мигать, пока курсор переходит между точками.
+
+<Example name="chart/time-series" />
 
 ### Столбцы с накоплением
 
@@ -120,6 +129,13 @@ TanStack.
 интерактивные элементы только в закреплённую подсказку.
 
 <Example name="chart/dashboard-layout" />
+
+### Пустое состояние
+
+Когда данных нет, оставьте заголовок и описание и выведите `Empty` вместо `ChartPlot`. Так читатель
+видит, что это за график и почему он пустой.
+
+<Example name="chart/empty-state" />
 
 ## Композиция
 
@@ -203,7 +219,8 @@ CSS-свойства настраивают варианты с CSS Modules. О�
 - `Chart`, `ChartHeader`, `ChartTitle`, `ChartDescription`, `ChartLegend` и
   `ChartLegendItem` предоставляют `data-scope="chart"`, `data-part` и `data-slot`.
 - `className` в React и `class` в Solid, Vue и Svelte у `ChartPlot` применяются к внешнему элементу `.ts-chart-host`.
-- Используйте `--moduix-chart-1` - `--moduix-chart-5` в цветовых шкалах TanStack.
+- `chartColors` содержит токены с `--moduix-chart-1` по `--moduix-chart-8` для цветовых шкал TanStack
+  и элементов легенды.
 - Строки подсказки, которые TanStack помечает как `active`, получают `data-active`.
 - Оболочка подсказки читает переменные TanStack `--ts-chart-tooltip-*` с хоста `ChartPlot`. Для
   собственных CSS-селекторов используйте `tooltip.className`, а для собственного содержимого вокруг

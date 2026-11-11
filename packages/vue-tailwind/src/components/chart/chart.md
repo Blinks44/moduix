@@ -10,8 +10,8 @@
   (accessed 2026-09-25)
 - TanStack Charts themes and styling: https://tanstack.com/charts/latest/docs/guides/themes-and-styling
   (accessed 2026-09-25)
-- TanStack Charts 1.2.0 published types and release-source docs:
-  https://github.com/TanStack/charts/tree/v1.2.0/docs (accessed 2026-11-03)
+- TanStack Charts 1.5.0 published types and release-source docs:
+  https://github.com/TanStack/charts/tree/v1.5.0/docs (accessed 2026-11-11)
 
 ## Purpose
 
@@ -37,6 +37,10 @@ convention.
 `ChartHeader` renders `figcaption`. `ChartTitle`, `ChartDescription`, `ChartLegend`, and
 `ChartLegendItem` provide the standard figure context. `ChartLegendItem` accepts an optional
 `color` for its `::before` indicator.
+
+`chartColors` is a readonly tuple of `var(--moduix-chart-1)` through `var(--moduix-chart-8)`. Pass
+it, or a slice of it, to a TanStack color `range` and reuse the same entries for
+`ChartLegendItem` colors so the plot and legend stay in sync with the active theme.
 
 ## Preservation notes
 

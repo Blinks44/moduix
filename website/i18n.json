@@ -591,6 +591,21 @@
     "ru": "График 5",
     "fr": "Graphique 5"
   },
+  "tokensOverviewColorChart6": {
+    "en": "Chart 6",
+    "ru": "График 6",
+    "fr": "Graphique 6"
+  },
+  "tokensOverviewColorChart7": {
+    "en": "Chart 7",
+    "ru": "График 7",
+    "fr": "Graphique 7"
+  },
+  "tokensOverviewColorChart8": {
+    "en": "Chart 8",
+    "ru": "График 8",
+    "fr": "Graphique 8"
+  },
   "tokensOverviewColorSidebarSurface": {
     "en": "Sidebar surface",
     "ru": "Фон боковой панели",

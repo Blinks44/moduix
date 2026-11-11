@@ -2,8 +2,8 @@
 
 ## Upstream reference
 
-- TanStack Charts 1.2.0 published types and release-source docs:
-  https://github.com/TanStack/charts/tree/v1.2.0/docs (accessed 2026-11-03)
+- TanStack Charts 1.5.0 published types and release-source docs:
+  https://github.com/TanStack/charts/tree/v1.5.0/docs (accessed 2026-11-11)
 
 - TanStack Charts: https://tanstack.com/charts/latest/docs/reference/chart
 - TanStack Charts focus and interaction: https://tanstack.com/charts/latest/docs/reference/focus-and-interaction
@@ -15,6 +15,10 @@
 ## Public contract
 
 The flat API is `Chart`, `ChartPlot`, `ChartHeader`, `ChartTitle`, `ChartDescription`, `ChartLegend`, and `ChartLegendItem`. `ChartPlot` mounts the TanStack chart host; mark, scale, and interaction definitions belong to TanStack Charts.
+
+`chartColors` is a readonly tuple of `var(--moduix-chart-1)` through `var(--moduix-chart-8)`. Pass
+it, or a slice of it, to a TanStack color `range` and reuse the same entries for
+`ChartLegendItem` colors so the plot and legend stay in sync with the active theme.
 
 ## Preservation notes
 

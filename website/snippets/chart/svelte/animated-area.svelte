@@ -7,6 +7,7 @@
     ChartLegendItem,
     ChartPlot,
     ChartTitle,
+    chartColors,
   } from '@moduix/svelte/chart';
   import { areaY, defineChart, lineY } from '@tanstack/charts';
   import { scaleLinear } from '@tanstack/charts/scales/linear';
@@ -52,7 +53,7 @@
     },
     color: {
       domain: ['Revenue', 'Target'],
-      range: ['var(--moduix-chart-1)', 'var(--moduix-chart-2)'],
+      range: chartColors,
     },
     focus: 'group-x',
     tooltip,
@@ -66,7 +67,7 @@
   </ChartHeader>
   <ChartPlot {definition} height={320} ariaLabel="Monthly revenue and target" />
   <ChartLegend aria-label="Revenue series">
-    <ChartLegendItem color="var(--moduix-chart-1)">Revenue</ChartLegendItem>
-    <ChartLegendItem color="var(--moduix-chart-2)">Target</ChartLegendItem>
+    <ChartLegendItem color={chartColors[0]}>Revenue</ChartLegendItem>
+    <ChartLegendItem color={chartColors[1]}>Target</ChartLegendItem>
   </ChartLegend>
 </Chart>

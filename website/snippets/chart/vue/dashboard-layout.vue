@@ -8,6 +8,7 @@ import {
   ChartLegendItem,
   ChartPlot,
   ChartTitle,
+  chartColors,
 } from '@moduix/vue/chart';
 import { barY, defineChart } from '@tanstack/charts';
 import { scaleBand } from '@tanstack/charts/scales/band';
@@ -39,7 +40,7 @@ const definition = defineChart({
     x: { scale: scaleBand, axis: { label: 'Month' } },
     y: { scale: scaleLinear, nice: true, grid: true, axis: { label: 'Revenue ($k)' } },
   },
-  color: { domain: ['Revenue'], range: ['var(--moduix-chart-1)'] },
+  color: { domain: ['Revenue'], range: chartColors },
   tooltip,
 });
 
@@ -72,7 +73,7 @@ const renderTooltipBody = (tooltip: {
             <ChartDescription>Click a bar to pin its tooltip.</ChartDescription>
           </div>
           <ChartLegend aria-label="Revenue series">
-            <ChartLegendItem color="var(--moduix-chart-1)">Revenue</ChartLegendItem>
+            <ChartLegendItem :color="chartColors[0]">Revenue</ChartLegendItem>
           </ChartLegend>
         </header>
       </ChartHeader>

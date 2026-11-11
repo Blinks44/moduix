@@ -1,0 +1,48 @@
+---
+title: Обзор аналитики
+description: Карточки KPI с мини-графиками над графиком выручки по неделям, готовые к подключению ваших данных.
+block: analytics-overview
+---
+
+import { AnalyticsOverview } from '@/components/blocks/analytics-overview';
+import analyticsOverviewSolid from '../../../snippets/blocks/solid/analytics-overview.tsx?raw';
+import analyticsOverviewVue from '../../../snippets/blocks/vue/analytics-overview.vue?raw';
+import analyticsOverviewSvelte from '../../../snippets/blocks/svelte/analytics-overview.svelte?raw';
+import analyticsOverviewReact from '../../../src/components/blocks/analytics-overview.tsx?raw';
+import analyticsOverviewCss from '../../../src/components/blocks/analytics-overview.module.css?raw';
+
+# Обзор аналитики
+
+<ExamplePanel
+  clientOnly
+  sources={{ react: analyticsOverviewReact, solid: analyticsOverviewSolid, vue: analyticsOverviewVue, svelte: analyticsOverviewSvelte }}
+  files={[{ name: 'analytics-overview.module.css', code: analyticsOverviewCss }]}
+>
+  <AnalyticsOverview />
+</ExamplePanel>
+
+Используйте этот блок в верхней части дашборда, чтобы показать несколько ключевых показателей и их
+динамику. В каждой карточке значение и изменение дополнены небольшой линией тренда, а график ниже
+подробно показывает выручку по неделям.
+
+Этот блок можно скопировать в приложение. Это не компонент `AnalyticsOverview`, экспортируемый
+moduix, а композиция из `Card`, `Badge` и `Chart` на TanStack Charts. Установите блок вместе
+с зависимостями, затем замените демонстрационные числа данными из приложения.
+
+## Установка
+
+<BlockInstall name="analytics-overview" />
+
+## Настройка блока
+
+Замените `metrics` и `revenue` данными из своего API. Передавайте `value` и `change` уже
+отформатированными строками, чтобы карточка показывала ровно то, что вы передали, а в `sparkline()`
+передавайте исходные числа для линии тренда.
+
+Линии тренда декоративные: у них нет осей, тултипа, реакции на указатель и фокуса с клавиатуры, и у
+каждой есть короткий `ariaLabel`. Точные значения пишите в тексте карточки, а не только на линии.
+График выручки использует `scaleUtc` для дат и форматтеры `Intl`: на оси суммы сокращены, а в тултипе
+показаны точно. Поменяйте локаль и валюту в этих форматтерах под свой продукт.
+
+Цвета берутся из `chartColors`, поэтому следуют активной теме. Подробнее о частях блока в
+документации [Chart](/docs/chart), [Card](/docs/card) и [Badge](/docs/badge).

@@ -35,8 +35,9 @@ personnes qui utilisent des technologies d’assistance.
 
 ### Couleurs du graphique
 
-Utilisez les tokens de couleur de moduix dans l’échelle de couleurs TanStack. Les propriétés CSS
-fonctionnent comme des valeurs de peinture SVG et suivent automatiquement le thème actif.
+Importez `chartColors` et passez-le au `range` de l’échelle de couleurs TanStack. Il contient les
+variables CSS `--moduix-chart-1` à `--moduix-chart-8`, si bien que les couleurs suivent le thème actif.
+Réutilisez les mêmes valeurs pour `ChartLegendItem` afin que la légende corresponde toujours au graphique.
 
 <Example name="chart/line-colors" />
 
@@ -46,6 +47,14 @@ La zone, la ligne, les points, le focus groupé et l’animation de l’info-bul
 TanStack.
 
 <Example name="chart/animated-area" />
+
+### Série temporelle
+
+Utilisez `scaleUtc` pour des valeurs `Date` sur l’axe x. Formatez les graduations et les valeurs de
+l’infobulle avec `Intl` pour que les dates et les montants soient lisibles pour votre public. Un court
+`hideDelay` évite que l’infobulle clignote quand le pointeur passe d’un point à l’autre.
+
+<Example name="chart/time-series" />
 
 ### Barres empilées
 
@@ -120,6 +129,13 @@ propre enveloppe pendant que TanStack continue de gérer le positionnement et le
 des contrôles interactifs que dans une info-bulle épinglée.
 
 <Example name="chart/dashboard-layout" />
+
+### État vide
+
+Quand il n’y a pas de données, gardez le titre et la description, et affichez `Empty` à la place de
+`ChartPlot`. Le lecteur sait ainsi de quel graphique il s’agit et pourquoi il est vide.
+
+<Example name="chart/empty-state" />
 
 ## Composition
 
@@ -204,7 +220,8 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 - `Chart`, `ChartHeader`, `ChartTitle`, `ChartDescription`, `ChartLegend` et
   `ChartLegendItem` exposent `data-scope="chart"`, `data-part` et `data-slot`.
 - `className` en React et `class` en Solid, Vue et Svelte sur `ChartPlot` atteignent l’élément externe `.ts-chart-host`.
-- Utilisez `--moduix-chart-1` à `--moduix-chart-5` dans les échelles de couleurs TanStack.
+- `chartColors` contient `--moduix-chart-1` à `--moduix-chart-8` pour les échelles de couleurs
+  TanStack et les éléments de légende.
 - Les lignes de l’info-bulle que TanStack marque comme `active` reçoivent `data-active`.
 - L’enveloppe de l’info-bulle lit les variables TanStack `--ts-chart-tooltip-*` sur l’hôte
   `ChartPlot`. Utilisez `tooltip.className` pour vos sélecteurs CSS, ou `renderTooltipBody` pour un

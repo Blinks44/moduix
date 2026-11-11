@@ -7,6 +7,7 @@ import {
   ChartLegendItem,
   ChartPlot,
   ChartTitle,
+  chartColors,
 } from '@moduix/vue/chart';
 import { defineChart, dot } from '@tanstack/charts';
 import { scaleLinear } from '@tanstack/charts/scales/linear';
@@ -40,7 +41,7 @@ const definition = defineChart({
   },
   color: {
     domain: ['Starter', 'Growth', 'Scale'],
-    range: ['var(--moduix-chart-1)', 'var(--moduix-chart-2)', 'var(--moduix-chart-3)'],
+    range: chartColors,
   },
   tooltip,
 });
@@ -58,9 +59,9 @@ const definition = defineChart({
       ariaLabel="Account sessions and conversion rate"
     />
     <ChartLegend aria-label="Account segments">
-      <ChartLegendItem color="var(--moduix-chart-1)">Starter</ChartLegendItem>
-      <ChartLegendItem color="var(--moduix-chart-2)">Growth</ChartLegendItem>
-      <ChartLegendItem color="var(--moduix-chart-3)">Scale</ChartLegendItem>
+      <ChartLegendItem :color="chartColors[0]">Starter</ChartLegendItem>
+      <ChartLegendItem :color="chartColors[1]">Growth</ChartLegendItem>
+      <ChartLegendItem :color="chartColors[2]">Scale</ChartLegendItem>
     </ChartLegend>
   </Chart>
 </template>

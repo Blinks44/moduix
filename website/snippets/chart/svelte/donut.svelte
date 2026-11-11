@@ -7,6 +7,7 @@
     ChartLegendItem,
     ChartPlot,
     ChartTitle,
+    chartColors,
   } from '@moduix/svelte/chart';
   import { defineChart } from '@tanstack/charts';
   import { pie, polar, radialArc } from '@tanstack/charts/polar';
@@ -38,12 +39,7 @@
     scales: { x: null, y: null },
     color: {
       domain: revenue.map(({ channel }) => channel),
-      range: [
-        'var(--moduix-chart-1)',
-        'var(--moduix-chart-2)',
-        'var(--moduix-chart-3)',
-        'var(--moduix-chart-4)',
-      ],
+      range: chartColors,
     },
     tooltip: {
       use: tooltip,
@@ -63,7 +59,7 @@
   <ChartPlot {definition} height={320} ariaLabel="Revenue share by acquisition channel" />
   <ChartLegend aria-label="Acquisition channels">
     {#each revenue as { channel }, index (channel)}
-      <ChartLegendItem color={`var(--moduix-chart-${index + 1})`}>
+      <ChartLegendItem color={chartColors[index]}>
         {channel}
       </ChartLegendItem>
     {/each}

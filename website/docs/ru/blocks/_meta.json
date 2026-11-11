@@ -33,6 +33,11 @@
     "label": "Данные"
   },
   { "type": "file", "name": "data-table", "label": "Таблица" },
+  {
+    "type": "file",
+    "name": "analytics-overview",
+    "label": "Обзор аналитики"
+  },
   { "type": "file", "name": "file-upload-manager", "label": "Загрузка файлов" },
   {
     "type": "section-header",

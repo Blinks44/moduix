@@ -26,6 +26,9 @@
   --moduix-chart-3: light-dark(oklch(0.72 0.16 55), oklch(0.78 0.15 55));
   --moduix-chart-4: light-dark(oklch(0.6 0.2 350), oklch(0.67 0.19 350));
   --moduix-chart-5: light-dark(oklch(0.68 0.13 130), oklch(0.74 0.12 130));
+  --moduix-chart-6: light-dark(oklch(0.62 0.16 255), oklch(0.7 0.15 255));
+  --moduix-chart-7: light-dark(oklch(0.78 0.15 95), oklch(0.83 0.14 95));
+  --moduix-chart-8: light-dark(oklch(0.72 0.12 215), oklch(0.78 0.11 215));
   --moduix-sidebar: light-dark(oklch(0.975 0.005 285), oklch(0.2 0.011 285));
   --moduix-sidebar-foreground: light-dark(oklch(0.175 0.01 285), oklch(0.968 0.003 285));
   --moduix-sidebar-accent: light-dark(oklch(0.95 0.01 285), oklch(0.29 0.015 285));

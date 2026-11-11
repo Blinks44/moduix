@@ -7,6 +7,7 @@
     ChartLegendItem,
     ChartPlot,
     ChartTitle,
+    chartColors,
   } from '@moduix/svelte/chart';
   import { defineChart } from '@tanstack/charts';
   import {
@@ -62,7 +63,7 @@
     scales: { x: null, y: null },
     color: {
       domain: ['Product A', 'Product B'],
-      range: ['var(--moduix-chart-1)', 'var(--moduix-chart-2)'],
+      range: chartColors,
     },
     focus: focusGroupAngle,
     tooltip,
@@ -78,7 +79,7 @@
   </ChartHeader>
   <ChartPlot definition={radarDefinition} height={360} ariaLabel="Product scores by metric" />
   <ChartLegend aria-label="Products">
-    <ChartLegendItem color="var(--moduix-chart-1)">Product A</ChartLegendItem>
-    <ChartLegendItem color="var(--moduix-chart-2)">Product B</ChartLegendItem>
+    <ChartLegendItem color={chartColors[0]}>Product A</ChartLegendItem>
+    <ChartLegendItem color={chartColors[1]}>Product B</ChartLegendItem>
   </ChartLegend>
 </Chart>

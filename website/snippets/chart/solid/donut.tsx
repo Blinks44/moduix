@@ -6,6 +6,7 @@ import {
   ChartLegendItem,
   ChartPlot,
   ChartTitle,
+  chartColors,
 } from '@moduix/solid/chart';
 import { defineChart } from '@tanstack/charts';
 import { pie, polar, radialArc } from '@tanstack/charts/polar';
@@ -37,12 +38,7 @@ const definition = defineChart({
   scales: { x: null, y: null },
   color: {
     domain: revenue.map(({ channel }) => channel),
-    range: [
-      'var(--moduix-chart-1)',
-      'var(--moduix-chart-2)',
-      'var(--moduix-chart-3)',
-      'var(--moduix-chart-4)',
-    ],
+    range: chartColors,
   },
   tooltip: {
     use: tooltip,
@@ -67,7 +63,7 @@ export default function DonutChartDemo() {
       />
       <ChartLegend aria-label="Acquisition channels">
         {revenue.map(({ channel }, index) => (
-          <ChartLegendItem color={`var(--moduix-chart-${index + 1})`}>{channel}</ChartLegendItem>
+          <ChartLegendItem color={chartColors[index]}>{channel}</ChartLegendItem>
         ))}
       </ChartLegend>
     </Chart>

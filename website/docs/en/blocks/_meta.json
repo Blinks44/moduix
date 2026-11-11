@@ -35,6 +35,11 @@
   { "type": "file", "name": "data-table", "label": "Data table" },
   {
     "type": "file",
+    "name": "analytics-overview",
+    "label": "Analytics overview"
+  },
+  {
+    "type": "file",
     "name": "file-upload-manager",
     "label": "File upload manager"
   },

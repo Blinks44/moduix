@@ -1,4 +1,11 @@
-import { Chart, ChartDescription, ChartHeader, ChartPlot, ChartTitle } from '@moduix/solid/chart';
+import {
+  Chart,
+  ChartDescription,
+  ChartHeader,
+  ChartPlot,
+  ChartTitle,
+  chartColors,
+} from '@moduix/solid/chart';
 import { defineChart, lineY } from '@tanstack/charts';
 import { controlledSignal } from '@tanstack/charts/interaction/signal';
 import { interactiveColorLegend } from '@tanstack/charts/legend';
@@ -41,7 +48,7 @@ export default function InteractiveLegendChartDemo() {
       },
       color: {
         domain: ['Revenue', 'Target'],
-        range: ['var(--moduix-chart-1)', 'var(--moduix-chart-2)'],
+        range: chartColors,
         legend: interactiveColorLegend({
           hover: 'series',
           visible: controlledSignal(visible(), setVisible),

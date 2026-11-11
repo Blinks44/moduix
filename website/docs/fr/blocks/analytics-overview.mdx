@@ -1,0 +1,49 @@
+---
+title: Vue d’ensemble analytique
+description: Cartes d’indicateurs avec mini-courbes au-dessus d’un graphique du chiffre d’affaires hebdomadaire, prêtes à recevoir vos données.
+block: analytics-overview
+---
+
+import { AnalyticsOverview } from '@/components/blocks/analytics-overview';
+import analyticsOverviewSolid from '../../../snippets/blocks/solid/analytics-overview.tsx?raw';
+import analyticsOverviewVue from '../../../snippets/blocks/vue/analytics-overview.vue?raw';
+import analyticsOverviewSvelte from '../../../snippets/blocks/svelte/analytics-overview.svelte?raw';
+import analyticsOverviewReact from '../../../src/components/blocks/analytics-overview.tsx?raw';
+import analyticsOverviewCss from '../../../src/components/blocks/analytics-overview.module.css?raw';
+
+# Vue d’ensemble analytique
+
+<ExamplePanel
+  clientOnly
+  sources={{ react: analyticsOverviewReact, solid: analyticsOverviewSolid, vue: analyticsOverviewVue, svelte: analyticsOverviewSvelte }}
+  files={[{ name: 'analytics-overview.module.css', code: analyticsOverviewCss }]}
+>
+  <AnalyticsOverview />
+</ExamplePanel>
+
+Placez ce bloc en haut d’un tableau de bord pour afficher quelques chiffres clés et leur évolution.
+Chaque carte associe une valeur et sa variation à une petite courbe de tendance, et le graphique en
+dessous détaille le chiffre d’affaires par semaine.
+
+Ce bloc est une composition pour votre application, et non un composant `AnalyticsOverview`
+exporté par moduix. Il combine `Card`, `Badge` et `Chart` avec TanStack Charts. Installez le
+bloc avec ses dépendances, puis remplacez les chiffres d’exemple par les données de votre application.
+
+## Installation
+
+<BlockInstall name="analytics-overview" />
+
+## Personnaliser la composition
+
+Remplacez `metrics` et `revenue` par les données de votre API. Passez `value` et `change` sous
+forme de chaînes déjà formatées pour que chaque carte affiche exactement ce que vous fournissez, et
+donnez à `sparkline()` les valeurs brutes de la tendance.
+
+Les courbes de tendance sont décoratives : elles n’ont ni axes, ni infobulle, ni réaction au pointeur,
+ni focus clavier, et chacune garde un `ariaLabel` court. Indiquez les valeurs exactes dans le texte
+de la carte, pas seulement sur la courbe. Le graphique du chiffre d’affaires utilise `scaleUtc` pour
+les dates et des formateurs `Intl` : les montants sont abrégés sur l’axe et exacts dans l’infobulle.
+Adaptez la langue et la devise de ces formateurs à votre produit.
+
+Les couleurs viennent de `chartColors` et suivent donc le thème actif. Consultez la documentation de
+[Chart](/docs/chart), [Card](/docs/card) et [Badge](/docs/badge) pour les éléments utilisés.

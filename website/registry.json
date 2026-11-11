@@ -285,6 +285,30 @@
       ]
     },
     {
+      "name": "react-tailwind-analytics-overview",
+      "type": "registry:block",
+      "title": "Analytics overview",
+      "description": "KPI cards with sparklines above a weekly revenue chart built with TanStack Charts.",
+      "dependencies": ["@tanstack/charts"],
+      "registryDependencies": [
+        "https://moduix.dev/r/react-tailwind/badge.json",
+        "https://moduix.dev/r/react-tailwind/card.json",
+        "https://moduix.dev/r/react-tailwind/chart.json"
+      ],
+      "files": [
+        {
+          "path": "src/components/blocks/analytics-overview.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/analytics-overview/analytics-overview.tsx"
+        },
+        {
+          "path": "src/components/blocks/analytics-overview.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/analytics-overview/analytics-overview.module.css"
+        }
+      ]
+    },
+    {
       "name": "react-tailwind-autoplay-gallery",
       "type": "registry:block",
       "title": "Autoplay gallery",
@@ -600,6 +624,30 @@
           "path": "src/components/blocks/expandable-avatar-group.module.css",
           "type": "registry:file",
           "target": "@components/blocks/expandable-avatar-group/expandable-avatar-group.module.css"
+        }
+      ]
+    },
+    {
+      "name": "react-analytics-overview",
+      "type": "registry:block",
+      "title": "Analytics overview",
+      "description": "KPI cards with sparklines above a weekly revenue chart built with TanStack Charts.",
+      "dependencies": ["@tanstack/charts"],
+      "registryDependencies": [
+        "https://moduix.dev/r/react/badge.json",
+        "https://moduix.dev/r/react/card.json",
+        "https://moduix.dev/r/react/chart.json"
+      ],
+      "files": [
+        {
+          "path": "src/components/blocks/analytics-overview.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/analytics-overview/analytics-overview.tsx"
+        },
+        {
+          "path": "src/components/blocks/analytics-overview.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/analytics-overview/analytics-overview.module.css"
         }
       ]
     },
@@ -923,6 +971,30 @@
       ]
     },
     {
+      "name": "solid-tailwind-analytics-overview",
+      "type": "registry:block",
+      "title": "Analytics overview",
+      "description": "KPI cards with sparklines above a weekly revenue chart built with TanStack Charts.",
+      "dependencies": ["@tanstack/charts"],
+      "registryDependencies": [
+        "https://moduix.dev/r/solid-tailwind/badge.json",
+        "https://moduix.dev/r/solid-tailwind/card.json",
+        "https://moduix.dev/r/solid-tailwind/chart.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/solid/analytics-overview.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/analytics-overview/analytics-overview.tsx"
+        },
+        {
+          "path": "src/components/blocks/analytics-overview.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/analytics-overview/analytics-overview.module.css"
+        }
+      ]
+    },
+    {
       "name": "solid-tailwind-autoplay-gallery",
       "type": "registry:block",
       "title": "Autoplay gallery",
@@ -1238,6 +1310,30 @@
           "path": "src/components/blocks/expandable-avatar-group.module.css",
           "type": "registry:file",
           "target": "@components/blocks/expandable-avatar-group/expandable-avatar-group.module.css"
+        }
+      ]
+    },
+    {
+      "name": "solid-analytics-overview",
+      "type": "registry:block",
+      "title": "Analytics overview",
+      "description": "KPI cards with sparklines above a weekly revenue chart built with TanStack Charts.",
+      "dependencies": ["@tanstack/charts"],
+      "registryDependencies": [
+        "https://moduix.dev/r/solid/badge.json",
+        "https://moduix.dev/r/solid/card.json",
+        "https://moduix.dev/r/solid/chart.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/solid/analytics-overview.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/analytics-overview/analytics-overview.tsx"
+        },
+        {
+          "path": "src/components/blocks/analytics-overview.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/analytics-overview/analytics-overview.module.css"
         }
       ]
     },
@@ -1566,6 +1662,30 @@
       ]
     },
     {
+      "name": "vue-tailwind-analytics-overview",
+      "type": "registry:block",
+      "title": "Analytics overview",
+      "description": "KPI cards with sparklines above a weekly revenue chart built with TanStack Charts.",
+      "dependencies": ["@tanstack/charts"],
+      "registryDependencies": [
+        "https://moduix.dev/r/vue-tailwind/badge.json",
+        "https://moduix.dev/r/vue-tailwind/card.json",
+        "https://moduix.dev/r/vue-tailwind/chart.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/vue/analytics-overview.vue",
+          "type": "registry:component",
+          "target": "@components/blocks/analytics-overview/analytics-overview.vue"
+        },
+        {
+          "path": "src/components/blocks/analytics-overview.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/analytics-overview/analytics-overview.module.css"
+        }
+      ]
+    },
+    {
       "name": "vue-tailwind-autoplay-gallery",
       "type": "registry:block",
       "title": "Autoplay gallery",
@@ -1886,6 +2006,30 @@
           "path": "src/components/blocks/expandable-avatar-group.module.css",
           "type": "registry:file",
           "target": "@components/blocks/expandable-avatar-group/expandable-avatar-group.module.css"
+        }
+      ]
+    },
+    {
+      "name": "vue-analytics-overview",
+      "type": "registry:block",
+      "title": "Analytics overview",
+      "description": "KPI cards with sparklines above a weekly revenue chart built with TanStack Charts.",
+      "dependencies": ["@tanstack/charts"],
+      "registryDependencies": [
+        "https://moduix.dev/r/vue/badge.json",
+        "https://moduix.dev/r/vue/card.json",
+        "https://moduix.dev/r/vue/chart.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/vue/analytics-overview.vue",
+          "type": "registry:component",
+          "target": "@components/blocks/analytics-overview/analytics-overview.vue"
+        },
+        {
+          "path": "src/components/blocks/analytics-overview.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/analytics-overview/analytics-overview.module.css"
         }
       ]
     },
@@ -2214,6 +2358,30 @@
       ]
     },
     {
+      "name": "svelte-tailwind-analytics-overview",
+      "type": "registry:block",
+      "title": "Analytics overview",
+      "description": "KPI cards with sparklines above a weekly revenue chart built with TanStack Charts.",
+      "dependencies": ["@tanstack/charts"],
+      "registryDependencies": [
+        "https://moduix.dev/r/svelte-tailwind/badge.json",
+        "https://moduix.dev/r/svelte-tailwind/card.json",
+        "https://moduix.dev/r/svelte-tailwind/chart.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/svelte/analytics-overview.svelte",
+          "type": "registry:component",
+          "target": "@components/blocks/analytics-overview/analytics-overview.svelte"
+        },
+        {
+          "path": "src/components/blocks/analytics-overview.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/analytics-overview/analytics-overview.module.css"
+        }
+      ]
+    },
+    {
       "name": "svelte-tailwind-autoplay-gallery",
       "type": "registry:block",
       "title": "Autoplay gallery",
@@ -2534,6 +2702,30 @@
           "path": "src/components/blocks/expandable-avatar-group.module.css",
           "type": "registry:file",
           "target": "@components/blocks/expandable-avatar-group/expandable-avatar-group.module.css"
+        }
+      ]
+    },
+    {
+      "name": "svelte-analytics-overview",
+      "type": "registry:block",
+      "title": "Analytics overview",
+      "description": "KPI cards with sparklines above a weekly revenue chart built with TanStack Charts.",
+      "dependencies": ["@tanstack/charts"],
+      "registryDependencies": [
+        "https://moduix.dev/r/svelte/badge.json",
+        "https://moduix.dev/r/svelte/card.json",
+        "https://moduix.dev/r/svelte/chart.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/svelte/analytics-overview.svelte",
+          "type": "registry:component",
+          "target": "@components/blocks/analytics-overview/analytics-overview.svelte"
+        },
+        {
+          "path": "src/components/blocks/analytics-overview.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/analytics-overview/analytics-overview.module.css"
         }
       ]
     },

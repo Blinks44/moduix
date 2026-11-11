@@ -1,0 +1,48 @@
+---
+title: Analytics overview
+description: KPI cards with sparklines above a weekly revenue chart, ready to connect to your analytics data.
+block: analytics-overview
+---
+
+import { AnalyticsOverview } from '@/components/blocks/analytics-overview';
+import analyticsOverviewSolid from '../../../snippets/blocks/solid/analytics-overview.tsx?raw';
+import analyticsOverviewVue from '../../../snippets/blocks/vue/analytics-overview.vue?raw';
+import analyticsOverviewSvelte from '../../../snippets/blocks/svelte/analytics-overview.svelte?raw';
+import analyticsOverviewReact from '../../../src/components/blocks/analytics-overview.tsx?raw';
+import analyticsOverviewCss from '../../../src/components/blocks/analytics-overview.module.css?raw';
+
+# Analytics overview
+
+<ExamplePanel
+  clientOnly
+  sources={{ react: analyticsOverviewReact, solid: analyticsOverviewSolid, vue: analyticsOverviewVue, svelte: analyticsOverviewSvelte }}
+  files={[{ name: 'analytics-overview.module.css', code: analyticsOverviewCss }]}
+>
+  <AnalyticsOverview />
+</ExamplePanel>
+
+Use this block at the top of a dashboard to show a few key numbers and how they changed. Each card
+pairs a value and its change with a small trend line, and the chart below shows weekly revenue in
+detail.
+
+This is a copy-ready composition, not an `AnalyticsOverview` component exported by moduix. It
+combines `Card`, `Badge`, and `Chart` with TanStack Charts. Install the block with its
+dependencies, then replace the sample numbers with data from your application.
+
+## Install
+
+<BlockInstall name="analytics-overview" />
+
+## Customize the block
+
+Replace `metrics` and `revenue` with data from your API. Keep `value` and `change` as
+formatted strings so each card shows exactly what you pass in, and give `sparkline()` the raw numbers
+for the trend.
+
+The trend lines are decorative: they have no axes, tooltip, pointer, or keyboard focus, and each one
+keeps a short `ariaLabel`. Put the exact numbers in the card text, not only in the line. The
+revenue chart uses `scaleUtc` for dates and `Intl` formatters: compact amounts on the axis and exact
+amounts in the tooltip. Change the locale and currency in these formatters to match your product.
+
+Colors come from `chartColors`, so they follow the active theme. See the [Chart](/docs/chart),
+[Card](/docs/card), and [Badge](/docs/badge) docs for the composed parts.

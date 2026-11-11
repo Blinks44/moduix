@@ -6,6 +6,7 @@ import {
   ChartLegendItem,
   ChartPlot,
   ChartTitle,
+  chartColors,
 } from '@moduix/react/chart';
 import { barY, defineChart } from '@tanstack/charts';
 import { scaleBand } from '@tanstack/charts/scales/band';
@@ -44,7 +45,7 @@ const definition = defineChart({
   },
   color: {
     domain: ['Revenue'],
-    range: ['var(--moduix-chart-1)'],
+    range: chartColors,
   },
   tooltip,
 });
@@ -58,7 +59,7 @@ export default function ChartDemo() {
       </ChartHeader>
       <ChartPlot definition={definition} height={320} ariaLabel="Monthly revenue" />
       <ChartLegend aria-label="Revenue series">
-        <ChartLegendItem color="var(--moduix-chart-1)">Revenue</ChartLegendItem>
+        <ChartLegendItem color={chartColors[0]}>Revenue</ChartLegendItem>
       </ChartLegend>
     </Chart>
   );

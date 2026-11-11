@@ -7,6 +7,7 @@ import {
   ChartLegendItem,
   ChartPlot,
   ChartTitle,
+  chartColors,
 } from '@moduix/react/chart';
 import { Stack } from '@moduix/react/stack';
 import { barY, defineChart } from '@tanstack/charts';
@@ -39,7 +40,7 @@ const definition = defineChart({
   },
   color: {
     domain: ['Revenue'],
-    range: ['var(--moduix-chart-1)'],
+    range: chartColors,
   },
   tooltip,
 });
@@ -57,7 +58,7 @@ export default function DashboardLayoutChartDemo() {
               <ChartDescription>Click a bar to pin its tooltip.</ChartDescription>
             </div>
             <ChartLegend aria-label="Revenue series">
-              <ChartLegendItem color="var(--moduix-chart-1)">Revenue</ChartLegendItem>
+              <ChartLegendItem color={chartColors[0]}>Revenue</ChartLegendItem>
             </ChartLegend>
           </header>
         </ChartHeader>

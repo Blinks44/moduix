@@ -43,6 +43,11 @@
   },
   {
     "type": "file",
+    "name": "analytics-overview",
+    "label": "Vue d’ensemble analytique"
+  },
+  {
+    "type": "file",
     "name": "file-upload-manager",
     "label": "Téléversement de fichiers"
   },

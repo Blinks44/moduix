@@ -4,6 +4,7 @@ import { render, screen } from '@testing-library/vue';
 import { h, ref } from 'vue';
 import type { ComponentPublicInstance, VNodeChild } from 'vue';
 import {
+  chartColors,
   Chart,
   ChartDescription,
   ChartHeader,
@@ -285,4 +286,16 @@ test('preserves semantic hosts, refs, and data hooks through native Ark Vue asCh
   await expect
     .element(page.getByRole('article', { name: 'Revenue report', exact: true }))
     .toHaveAttribute('data-slot', 'chart-root');
+});
+
+test('exports a palette of distinct theme chart colors', () => {
+  const resolved = chartColors.map((color) => {
+    const element = document.createElement('span');
+    element.style.color = color;
+    document.body.append(element);
+    const value = getComputedStyle(element).color;
+    element.remove();
+    return value;
+  });
+  expect(new Set(resolved).size).toBe(chartColors.length);
 });

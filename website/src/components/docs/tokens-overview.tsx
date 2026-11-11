@@ -120,6 +120,18 @@ const chartTokens = [
     name: '--moduix-chart-5',
     labelKey: 'tokensOverviewColorChart5',
   },
+  {
+    name: '--moduix-chart-6',
+    labelKey: 'tokensOverviewColorChart6',
+  },
+  {
+    name: '--moduix-chart-7',
+    labelKey: 'tokensOverviewColorChart7',
+  },
+  {
+    name: '--moduix-chart-8',
+    labelKey: 'tokensOverviewColorChart8',
+  },
 ] satisfies ColorToken[];
 
 const sidebarTokens = [

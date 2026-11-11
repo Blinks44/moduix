@@ -1,0 +1,34 @@
+.root {
+  display: grid;
+  gap: var(--moduix-spacing-4);
+  width: min(100%, 64rem);
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: var(--moduix-spacing-4);
+}
+
+.metric {
+  display: grid;
+  gap: var(--moduix-spacing-2);
+}
+
+.metricHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--moduix-spacing-2);
+}
+
+.metricLabel {
+  color: var(--moduix-muted-foreground);
+  font-size: var(--moduix-text-sm);
+}
+
+.metricValue {
+  font-size: var(--moduix-text-2xl);
+  line-height: var(--moduix-line-height-text-2xl);
+  font-variant-numeric: tabular-nums;
+}

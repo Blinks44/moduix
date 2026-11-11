@@ -218,6 +218,18 @@ const ChartLegendItem = forwardRef<
   );
 });
 
+// Theme-aware chart palette for TanStack color scales and legend indicators.
+const chartColors = [
+  'var(--moduix-chart-1)',
+  'var(--moduix-chart-2)',
+  'var(--moduix-chart-3)',
+  'var(--moduix-chart-4)',
+  'var(--moduix-chart-5)',
+  'var(--moduix-chart-6)',
+  'var(--moduix-chart-7)',
+  'var(--moduix-chart-8)',
+] as const;
+
 export {
   Chart,
   ChartDescription,
@@ -226,4 +238,5 @@ export {
   ChartLegendItem,
   ChartPlot,
   ChartTitle,
+  chartColors,
 };

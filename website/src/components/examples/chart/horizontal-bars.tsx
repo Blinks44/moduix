@@ -6,6 +6,7 @@ import {
   ChartLegendItem,
   ChartPlot,
   ChartTitle,
+  chartColors,
 } from '@moduix/react/chart';
 import { barX, defineChart } from '@tanstack/charts';
 import { scaleBand } from '@tanstack/charts/scales/band';
@@ -43,7 +44,7 @@ const definition = defineChart({
   },
   color: {
     domain: ['Active users'],
-    range: ['var(--moduix-chart-1)'],
+    range: chartColors,
   },
   tooltip,
 });
@@ -57,7 +58,7 @@ export default function HorizontalBarsChartDemo() {
       </ChartHeader>
       <ChartPlot definition={definition} height={320} ariaLabel="Monthly active users by product" />
       <ChartLegend aria-label="Product metric">
-        <ChartLegendItem color="var(--moduix-chart-1)">Active users</ChartLegendItem>
+        <ChartLegendItem color={chartColors[0]}>Active users</ChartLegendItem>
       </ChartLegend>
     </Chart>
   );

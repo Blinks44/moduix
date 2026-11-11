@@ -3,6 +3,7 @@ import { Link } from '@rspress/core/theme';
 import { ArrowUpRight } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { ScaledPreview } from '../docs/scaled-preview';
+import { AnalyticsOverview } from './analytics-overview';
 import { AppHeader } from './app-header';
 import { AppShellExample } from './app-shell/app-shell-example';
 import { AutoplayGallery } from './autoplay-gallery';
@@ -32,6 +33,7 @@ const blocks: { slug: string; width: number; preview: ReactNode }[] = [
   { slug: 'reset-password', width: 420, preview: <ResetPassword onSubmit={prevent} /> },
   { slug: 'verification-code', width: 420, preview: <VerificationCode onSubmit={prevent} /> },
   { slug: 'data-table', width: 900, preview: <DataTableBasic /> },
+  { slug: 'analytics-overview', width: 900, preview: <AnalyticsOverview /> },
   { slug: 'file-upload-manager', width: 520, preview: <FileUploadManager /> },
   { slug: 'expandable-avatar-group', width: 360, preview: <ExpandableAvatarGroup /> },
   { slug: 'autoplay-gallery', width: 720, preview: <AutoplayGallery /> },

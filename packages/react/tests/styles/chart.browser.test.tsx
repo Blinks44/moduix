@@ -3,6 +3,7 @@ import { expect, rs, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
 import { createRef, type ReactNode } from 'react';
 import {
+  chartColors,
   Chart,
   ChartDescription,
   ChartHeader,
@@ -182,4 +183,16 @@ test('forwards an HTMLElement ref through an asChild root', async () => {
   await expect
     .element(page.getByRole('article', { name: 'Revenue report', exact: true }))
     .toHaveAttribute('data-slot', 'chart-root');
+});
+
+test('exports a palette of distinct theme chart colors', () => {
+  const resolved = chartColors.map((color) => {
+    const element = document.createElement('span');
+    element.style.color = color;
+    document.body.append(element);
+    const value = getComputedStyle(element).color;
+    element.remove();
+    return value;
+  });
+  expect(new Set(resolved).size).toBe(chartColors.length);
 });

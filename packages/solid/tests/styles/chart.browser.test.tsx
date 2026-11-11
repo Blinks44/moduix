@@ -3,6 +3,7 @@ import { expect, rs, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
 import {
+  chartColors,
   Chart,
   ChartDescription,
   ChartHeader,
@@ -277,4 +278,16 @@ test('does not forward refs through native Ark Solid asChild composition', async
     .element(page.getByRole('article', { name: 'Revenue report', exact: true }))
     .toBeAttached();
   expect(rootRef).toBeUndefined();
+});
+
+test('exports a palette of distinct theme chart colors', () => {
+  const resolved = chartColors.map((color) => {
+    const element = document.createElement('span');
+    element.style.color = color;
+    document.body.append(element);
+    const value = getComputedStyle(element).color;
+    element.remove();
+    return value;
+  });
+  expect(new Set(resolved).size).toBe(chartColors.length);
 });
