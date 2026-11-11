@@ -1387,9 +1387,9 @@
     "fr": "Une nouvelle application ?"
   },
   "starterEntryDescription": {
-    "en": "Open a React, Solid or Vue starter in StackBlitz, or copy it with giget.",
-    "ru": "Откройте проект на React, Solid или Vue в StackBlitz или скопируйте его через giget.",
-    "fr": "Ouvrez un projet React, Solid ou Vue dans StackBlitz, ou copiez-le avec giget."
+    "en": "Open a React, Solid, Vue or Svelte starter in StackBlitz, or copy it with giget.",
+    "ru": "Откройте проект на React, Solid, Vue или Svelte в StackBlitz или скопируйте его через giget.",
+    "fr": "Ouvrez un projet React, Solid, Vue ou Svelte dans StackBlitz, ou copiez-le avec giget."
   },
   "starterBrowse": {
     "en": "Browse starters",

@@ -46,11 +46,12 @@ covers every shipped framework, both styling tracks, and package or registry ins
 
 Use a standalone Vite starter with TypeScript and CSS Modules:
 
-| Framework | Starter                           | Online playground                                                                                 |
-| --------- | --------------------------------- | ------------------------------------------------------------------------------------------------- |
-| React     | [react-vite](starters/react-vite) | [Open in StackBlitz](https://stackblitz.com/github/Blinks44/moduix/tree/main/starters/react-vite) |
-| Solid     | [solid-vite](starters/solid-vite) | [Open in StackBlitz](https://stackblitz.com/github/Blinks44/moduix/tree/main/starters/solid-vite) |
-| Vue       | [vue-vite](starters/vue-vite)     | [Open in StackBlitz](https://stackblitz.com/github/Blinks44/moduix/tree/main/starters/vue-vite)   |
+| Framework | Starter                             | Online playground                                                                                  |
+| --------- | ----------------------------------- | -------------------------------------------------------------------------------------------------- |
+| React     | [react-vite](starters/react-vite)   | [Open in StackBlitz](https://stackblitz.com/github/Blinks44/moduix/tree/main/starters/react-vite)  |
+| Solid     | [solid-vite](starters/solid-vite)   | [Open in StackBlitz](https://stackblitz.com/github/Blinks44/moduix/tree/main/starters/solid-vite)  |
+| Vue       | [vue-vite](starters/vue-vite)       | [Open in StackBlitz](https://stackblitz.com/github/Blinks44/moduix/tree/main/starters/vue-vite)    |
+| Svelte    | [svelte-vite](starters/svelte-vite) | [Open in StackBlitz](https://stackblitz.com/github/Blinks44/moduix/tree/main/starters/svelte-vite) |
 
 ```bash
 pnpm dlx giget@latest gh:Blinks44/moduix/starters/react-vite my-app
@@ -59,7 +60,7 @@ pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-Replace `react-vite` with `solid-vite` or `vue-vite` for another framework.
+Replace `react-vite` with `solid-vite`, `vue-vite`, or `svelte-vite` for another framework.
 
 ### Use the published package
 

@@ -9,6 +9,7 @@ const starters = [
   { framework: 'react', title: 'React' },
   { framework: 'solid', title: 'Solid' },
   { framework: 'vue', title: 'Vue' },
+  { framework: 'svelte', title: 'Svelte' },
 ];
 
 function StarterEntry() {
@@ -93,8 +94,9 @@ function StarterInstall() {
 function StarterContents() {
   const t = useI18n<typeof import('i18n')>();
   const { framework } = useExampleSelection();
-  const extension = framework.value === 'vue' ? 'vue' : 'tsx';
-  const entry = framework.value === 'vue' ? 'ts' : 'tsx';
+  const sfc = framework.value === 'vue' || framework.value === 'svelte';
+  const extension = sfc ? framework.value : 'tsx';
+  const entry = sfc ? 'ts' : 'tsx';
   const tree = `index.html\npackage.json\nsrc/\n  main.${entry}        // reset, foundation, Calm\n  App.${extension}         // app state and pages\n  data.ts          // sample projects\n  portal.ts        // application portal root\n  styles.css       // layout and #app-root\n  components/\n    AppShell.${extension}\n    ProjectTable.${extension}\n    ProjectDialog.${extension}`;
 
   return (
