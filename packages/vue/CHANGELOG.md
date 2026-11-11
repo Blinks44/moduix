@@ -1,5 +1,13 @@
 # @moduix/vue
 
+## 3.2.2
+
+### Patch Changes
+
+### Editable
+
+- 5b0db9e: Match the edit trigger icon stroke width with the React and Solid adapters.
+
 ## 3.2.1
 
 ### Patch Changes

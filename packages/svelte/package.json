@@ -1,6 +1,6 @@
 {
   "name": "@moduix/svelte",
-  "version": "3.2.1",
+  "version": "3.2.2",
   "description": "Accessible Svelte UI components built on Ark UI and styled with CSS Modules. 80+ components with the same API for React, Solid, and Vue.",
   "keywords": [
     "a11y",

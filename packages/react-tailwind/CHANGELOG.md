@@ -1,5 +1,13 @@
 # @moduix/react-tailwind
 
+## 3.2.2
+
+### Patch Changes
+
+### DatePicker
+
+- 5b0db9e: Keep trigger space on the end input of range fields so the end date does not run under the calendar trigger.
+
 ## 3.2.1
 
 ### Patch Changes

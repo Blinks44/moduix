@@ -1,5 +1,11 @@
 # @moduix/svelte-tailwind
 
+## 3.2.2
+
+### Patch Changes
+
+- 5b0db9e: Republish the Svelte packages through the automated release workflow to verify npm trusted publishing.
+
 ## 3.2.1
 
 - First release of `@moduix/svelte-tailwind`, with the same component set as the React, Solid, and Vue packages.
