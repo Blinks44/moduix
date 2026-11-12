@@ -10,10 +10,18 @@ import {
   DatePickerPositioner,
   DatePickerView,
 } from '@moduix/vue/date-picker';
+import { ref } from 'vue';
+
+const submitted = ref('Nothing submitted');
+
+const handleSubmit = (event: Event) => {
+  const form = event.currentTarget as HTMLFormElement;
+  submitted.value = String(new FormData(form).get('delivery-date') ?? '');
+};
 </script>
 
 <template>
-  <form @submit.prevent>
+  <form @submit.prevent="handleSubmit">
     <DatePicker
       :default-value="[parseDate('2026-06-22')]"
       min-view="day"
@@ -27,6 +35,9 @@ import {
         </DatePickerContent>
       </DatePickerPositioner>
     </DatePicker>
-    <Button type="submit">Submit</Button>
+    <div data-preview-meta>
+      <output>Submitted: {{ submitted }}</output>
+      <Button type="submit" size="sm">Submit</Button>
+    </div>
   </form>
 </template>

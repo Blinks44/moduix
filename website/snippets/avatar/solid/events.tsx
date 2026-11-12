@@ -14,7 +14,9 @@ export default function AvatarStatusDemo() {
         <AvatarFallback>AT</AvatarFallback>
         <AvatarImage src={avatarImage} alt="Alex T." />
       </Avatar>
-      <output>Status: {status()}</output>
+      <div data-preview-meta>
+        <output>Status: {status()}</output>
+      </div>
     </Stack>
   );
 }

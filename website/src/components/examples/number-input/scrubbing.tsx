@@ -6,7 +6,6 @@ import {
 } from '@moduix/react/number-input';
 import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function NumberInputScrubberDemo() {
   const [value, setValue] = useState('250');
@@ -18,9 +17,9 @@ export default function NumberInputScrubberDemo() {
         <NumberInputScrubber>Drag left or right to adjust</NumberInputScrubber>
         <NumberInputField />
       </NumberInput>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Value: {value}</output>
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

@@ -1,6 +1,7 @@
 <script lang="ts">
   import { Button } from '@moduix/svelte/button';
   import { Spinner } from '@moduix/svelte/spinner';
+  import styles from '@/components/examples/spinner/spinner-button.module.css';
 
   let saving = $state(false);
   const toggleSaving = () => (saving = !saving);
@@ -14,4 +15,6 @@
     Save changes
   {/if}
 </Button>
-<output>State: {saving ? 'Saving' : 'Ready'}</output>
+<div data-preview-meta class={styles.meta}>
+  <output>State: {saving ? 'Saving' : 'Ready'}</output>
+</div>

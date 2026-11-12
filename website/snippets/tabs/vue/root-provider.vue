@@ -45,6 +45,8 @@ const tabs = useTabs({ defaultValue: 'overview' });
         {{ item.content }}
       </TabsContent>
     </TabsRootProvider>
-    <output>Selected: {{ tabs.value ?? 'none' }}</output>
+    <div data-preview-meta>
+      <output>Selected: {{ tabs.value ?? 'none' }}</output>
+    </div>
   </Stack>
 </template>

@@ -8,7 +8,6 @@ import {
 } from '@moduix/react/navigation-menu';
 import { ChevronDownIcon } from 'lucide-react';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/navigation-menu/navigation-menu-controlled-value.module.css';
 
 export default function ControlledNavigationMenuDemo() {
@@ -48,9 +47,9 @@ export default function ControlledNavigationMenuDemo() {
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Open: {value ?? 'none'}</output>
-      </PreviewMeta>
+      </div>
     </div>
   );
 }

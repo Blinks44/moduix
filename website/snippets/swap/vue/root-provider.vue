@@ -20,6 +20,8 @@ const swap = useSwap(computed(() => ({ swap: downloaded.value })));
         <SwapIndicator aria-hidden="true" type="on"><CheckIcon /></SwapIndicator>
       </Button>
     </SwapRootProvider>
-    <output>Visible indicator: {{ downloaded ? 'Downloaded' : 'Download' }}</output>
+    <div data-preview-meta>
+      <output>Visible indicator: {{ downloaded ? 'Downloaded' : 'Download' }}</output>
+    </div>
   </Stack>
 </template>

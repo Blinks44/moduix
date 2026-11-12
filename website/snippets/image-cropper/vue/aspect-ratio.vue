@@ -28,18 +28,19 @@ const aspectRatio = ref(16 / 9);
         <ImageCropperCropArea />
       </ImageCropperViewport>
     </ImageCropper>
-    <output
-      >Aspect ratio:
-      {{ aspectRatios.find((aspect) => aspect.value === aspectRatio)?.label }}</output
-    >
-    <Button
-      v-for="aspect in aspectRatios"
-      :key="aspect.label"
-      size="sm"
-      type="button"
-      @click="aspectRatio = aspect.value"
-    >
-      {{ aspect.label }}
-    </Button>
+    <div data-preview-meta>
+      <output>
+        Aspect ratio: {{ aspectRatios.find((aspect) => aspect.value === aspectRatio)?.label }}
+      </output>
+      <Button
+        v-for="aspect in aspectRatios"
+        :key="aspect.label"
+        size="sm"
+        type="button"
+        @click="aspectRatio = aspect.value"
+      >
+        {{ aspect.label }}
+      </Button>
+    </div>
   </div>
 </template>

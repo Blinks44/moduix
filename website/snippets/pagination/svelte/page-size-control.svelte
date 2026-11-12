@@ -71,7 +71,9 @@
           <PaginationItems />
           <PaginationNextTrigger />
         </div>
-        <output>Page {pagination().page} of {pagination().totalPages}</output>
+        <div data-preview-meta>
+          <output>Page {pagination().page} of {pagination().totalPages}</output>
+        </div>
       </div>
     {/snippet}
   </PaginationContext>

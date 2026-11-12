@@ -66,7 +66,9 @@ const tour = useTour({
       </TourPositioner>
     </Tour>
 
-    <output>{{ result }}</output>
-    <Button @click="tour.start()">Start event tour</Button>
+    <div data-preview-meta>
+      <output>{{ result }}</output>
+      <Button @click="tour.start()">Start event tour</Button>
+    </div>
   </Stack>
 </template>

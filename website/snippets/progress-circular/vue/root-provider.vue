@@ -25,7 +25,7 @@ const progress = useProgress({ defaultValue: 58 });
       <ProgressCircularValueText />
     </div>
   </ProgressCircularRootProvider>
-  <div>
+  <div data-preview-meta>
     <output>Progress: {{ progress.valueAsString }}</output>
     <Button type="button" @click="progress.setToMax">Complete rollout</Button>
   </div>

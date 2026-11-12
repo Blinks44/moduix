@@ -25,9 +25,11 @@ const zoom = ref(1);
         <ImageCropperCropArea />
       </ImageCropperViewport>
     </ImageCropper>
-    <output>
-      Zoom: {{ zoom.toFixed(2) }}x, crop: {{ Math.round(crop.x) }}, {{ Math.round(crop.y) }},
-      {{ Math.round(crop.width) }} x {{ Math.round(crop.height) }}
-    </output>
+    <div data-preview-meta>
+      <output>
+        Zoom: {{ zoom.toFixed(2) }}x, crop: {{ Math.round(crop.x) }}, {{ Math.round(crop.y) }},
+        {{ Math.round(crop.width) }} x {{ Math.round(crop.height) }}
+      </output>
+    </div>
   </div>
 </template>

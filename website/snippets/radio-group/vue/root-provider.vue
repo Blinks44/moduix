@@ -21,7 +21,9 @@ const radioGroup = useRadioGroup({ defaultValue: 'React' });
         {{ framework }}
       </RadioGroupOption>
     </RadioGroupRootProvider>
-    <output>Selected: {{ radioGroup.value ?? 'none' }}</output>
-    <Button type="button" size="sm" @click="radioGroup.setValue('Solid')">Set to Solid</Button>
+    <div data-preview-meta>
+      <output>Selected: {{ radioGroup.value ?? 'none' }}</output>
+      <Button type="button" size="sm" @click="radioGroup.setValue('Solid')">Set to Solid</Button>
+    </div>
   </Stack>
 </template>

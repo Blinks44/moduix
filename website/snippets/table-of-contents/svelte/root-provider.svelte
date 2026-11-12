@@ -36,7 +36,9 @@
 </script>
 
 <div class={styles.root}>
-  <output class={styles.status}>Active: {toc().activeIds.join(', ') || 'none'}</output>
+  <div data-preview-meta>
+    <output class={styles.status}>Active: {toc().activeIds.join(', ') || 'none'}</output>
+  </div>
   <div class={styles.actions}>
     {#each items as item (item.value)}
       <Button size="sm" variant="outline" onclick={() => toc().scrollTo(item.value)}>

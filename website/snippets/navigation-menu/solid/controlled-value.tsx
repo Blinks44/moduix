@@ -47,7 +47,9 @@ export default function ControlledNavigationMenuDemo() {
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
-      <output>Open: {value() ?? 'none'}</output>
+      <div data-preview-meta>
+        <output>Open: {value() ?? 'none'}</output>
+      </div>
     </div>
   );
 }

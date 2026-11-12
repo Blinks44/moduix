@@ -42,8 +42,10 @@ useHotkey({
     </CardBody>
     <CardFooter>
       <Stack align="center" direction="row" justify="space-between">
-        <output aria-live="polite">{{ status }}</output>
-        <Button @click="saveDraft" type="button"> Save draft </Button>
+        <div data-preview-meta :style="{ marginInline: 'auto', placeItems: 'center' }">
+          <output aria-live="polite">{{ status }}</output>
+          <Button @click="saveDraft" type="button"> Save draft </Button>
+        </div>
       </Stack>
     </CardFooter>
   </Card>

@@ -15,7 +15,6 @@ import {
   useTour,
 } from '@moduix/react/tour';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 const steps = [
   {
@@ -66,10 +65,10 @@ export default function TourEventsDemo() {
         </TourPositioner>
       </Tour>
 
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>{result}</output>
         <Button onClick={() => tour.start()}>Start event tour</Button>
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

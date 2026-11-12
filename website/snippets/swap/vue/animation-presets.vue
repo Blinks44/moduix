@@ -4,6 +4,7 @@ import { Button } from '@moduix/vue/button';
 import { Stack } from '@moduix/vue/stack';
 import { Swap, SwapIndicator, type SwapAnimation } from '@moduix/vue/swap';
 import { ref } from 'vue';
+import styles from '@/components/examples/swap/swap-animation-presets.module.css';
 
 const animations = ['fade', 'scale', 'rotate', 'flip'] as const;
 const animation = ref<SwapAnimation>('scale');
@@ -19,19 +20,21 @@ const downloaded = ref(false);
       </Swap>
     </Button>
     <Stack align="center" gap="2">
-      <output>Animation: {{ animation }}</output>
-      <Stack direction="row" justify="center" wrap="wrap" gap="0.5rem">
-        <Button
-          v-for="name in animations"
-          :key="name"
-          :aria-pressed="animation === name"
-          size="sm"
-          :variant="animation === name ? 'default' : 'outline'"
-          @click="animation = name"
-        >
-          {{ name }}
-        </Button>
-      </Stack>
+      <div data-preview-meta :class="styles.controls">
+        <output>Animation: {{ animation }}</output>
+        <Stack direction="row" justify="center" wrap="wrap" gap="0.5rem">
+          <Button
+            v-for="name in animations"
+            :key="name"
+            :aria-pressed="animation === name"
+            size="sm"
+            :variant="animation === name ? 'default' : 'outline'"
+            @click="animation = name"
+          >
+            {{ name }}
+          </Button>
+        </Stack>
+      </div>
     </Stack>
   </Stack>
 </template>

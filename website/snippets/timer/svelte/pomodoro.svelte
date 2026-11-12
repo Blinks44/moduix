@@ -43,4 +43,6 @@
     </TimerControl>
   </Timer>
 {/key}
-<output>Mode: {mode === 'work' ? 'Focus session' : 'Break session'}</output>
+<div data-preview-meta>
+  <output>Mode: {mode === 'work' ? 'Focus session' : 'Break session'}</output>
+</div>

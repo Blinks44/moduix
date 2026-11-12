@@ -17,7 +17,11 @@ const image = {
 
 function LightboxStatus() {
   const dialog = useLightboxContext();
-  return <output>Preview is {dialog().open ? 'open' : 'closed'}</output>;
+  return (
+    <div data-preview-meta>
+      <output>Preview is {dialog().open ? 'open' : 'closed'}</output>
+    </div>
+  );
 }
 
 export default function LightboxStateDemo() {

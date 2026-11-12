@@ -13,7 +13,6 @@ import {
   StepsTrigger,
 } from '@moduix/react/steps';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/steps/steps-validation.module.css';
 
 export default function StepsValidationDemo() {
@@ -59,9 +58,9 @@ export default function StepsValidationDemo() {
           <StepsNextTrigger>Next</StepsNextTrigger>
         </Stack>
       </Steps>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>{message}</output>
-      </PreviewMeta>
+      </div>
     </div>
   );
 }

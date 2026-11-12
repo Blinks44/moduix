@@ -73,8 +73,10 @@ export default function TourWaitForInputDemo() {
         </TourPositioner>
       </Tour>
 
-      <output>Tour: {status()}</output>
-      <Button onClick={() => tour().start()}>Start input tour</Button>
+      <div data-preview-meta>
+        <output>Tour: {status()}</output>
+        <Button onClick={() => tour().start()}>Start input tour</Button>
+      </div>
     </Stack>
   );
 }

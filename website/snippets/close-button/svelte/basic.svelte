@@ -20,5 +20,7 @@
     <p class={styles.description}>The notification can be dismissed.</p>
   </div>
 {:else}
-  <output>Notification dismissed</output>
+  <div data-preview-meta>
+    <output>Notification dismissed</output>
+  </div>
 {/if}

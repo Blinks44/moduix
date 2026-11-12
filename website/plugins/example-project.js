@@ -13,7 +13,7 @@ function scriptSource(file, source) {
     .join('\n');
 }
 
-// Collect the example's actual local imports; PreviewMeta is the only docs-only dependency.
+// Collect the example's actual local imports.
 export function exampleProject(entry, addDependency) {
   const files = {};
   const dependencies = {};
@@ -26,7 +26,6 @@ export function exampleProject(entry, addDependency) {
     if (!/\.(?:[jt]sx?|vue|svelte)$/.test(file)) return;
     for (const { fileName: specifier } of ts.preProcessFile(scriptSource(file, source))
       .importedFiles) {
-      if (specifier === '@/components/mdx/Components') continue;
       if (specifier.startsWith('.') || specifier.startsWith('@/')) {
         const base = specifier.startsWith('@/')
           ? path.join(websiteRoot, 'src', specifier.slice(2))

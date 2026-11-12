@@ -11,14 +11,13 @@ import {
   PopoverTrigger,
   usePopoverContext,
 } from '@moduix/react/popover';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 function PopoverState() {
   const popover = usePopoverContext();
   return (
-    <PreviewMeta>
+    <div data-preview-meta>
       <output>Open: {popover.open ? 'yes' : 'no'}</output>
-    </PreviewMeta>
+    </div>
   );
 }
 

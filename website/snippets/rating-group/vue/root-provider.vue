@@ -26,7 +26,9 @@ const ratingGroup = useRatingGroup({ count: 5, defaultValue: 3 });
         </RatingGroupContext>
       </RatingGroupControl>
     </RatingGroupRootProvider>
-    <output>Current value: {{ ratingGroup.value }}</output>
-    <Button type="button" size="sm" @click="ratingGroup.setValue(5)">Set to 5</Button>
+    <div data-preview-meta>
+      <output>Current value: {{ ratingGroup.value }}</output>
+      <Button type="button" size="sm" @click="ratingGroup.setValue(5)">Set to 5</Button>
+    </div>
   </Stack>
 </template>

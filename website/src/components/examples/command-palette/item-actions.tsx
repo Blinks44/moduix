@@ -22,7 +22,6 @@ import {
 } from '@moduix/react/command-palette';
 import { useState } from 'react';
 import { commandPaletteItems } from '@/components/examples/command-palette/command-palette-items';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function CommandPaletteActionsDemo() {
   const [lastAction, setLastAction] = useState('No command executed yet.');
@@ -92,9 +91,9 @@ export default function CommandPaletteActionsDemo() {
           </CommandPaletteCombobox>
         </CommandPalettePanel>
       </CommandPalette>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Last action: {lastAction}</output>
-      </PreviewMeta>
+      </div>
     </>
   );
 }

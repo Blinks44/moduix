@@ -27,7 +27,7 @@ export default function AngleSliderFormDemo() {
         </AngleSliderDial>
         <AngleSliderHiddenInput />
       </AngleSlider>
-      <div>
+      <div data-preview-meta>
         <output>Submitted: {submitted()}</output>
         <button type="submit">Submit</button>
       </div>

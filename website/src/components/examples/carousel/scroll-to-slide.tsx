@@ -9,7 +9,6 @@ import {
   CarouselNextTrigger,
   CarouselPrevTrigger,
 } from '@moduix/react/carousel';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/carousel/carousel-scroll-to-slide.module.css';
 
 const slides = [
@@ -60,11 +59,11 @@ export default function ScrollToCarousel() {
 
       <CarouselContext>
         {(api) => (
-          <PreviewMeta style={{ marginInline: 'auto' }}>
+          <div data-preview-meta style={{ marginInline: 'auto' }}>
             <Button size="sm" variant="outline" onClick={() => api.scrollToIndex(3)}>
               Go to slide 4
             </Button>
-          </PreviewMeta>
+          </div>
         )}
       </CarouselContext>
     </Carousel>

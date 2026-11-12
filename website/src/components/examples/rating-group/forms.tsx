@@ -7,7 +7,6 @@ import {
   RatingGroupLabel,
 } from '@moduix/react/rating-group';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/rating-group/component-forms.module.css';
 
 export default function FormRatingGroupDemo() {
@@ -28,10 +27,10 @@ export default function FormRatingGroupDemo() {
         </RatingGroupControl>
         <RatingGroupHiddenInput />
       </RatingGroup>
-      <PreviewMeta>
+      <div data-preview-meta>
         <Button type="submit">Submit</Button>
         <output className={styles.hint}>Submitted: {submitted}</output>
-      </PreviewMeta>
+      </div>
     </form>
   );
 }

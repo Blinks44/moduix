@@ -29,7 +29,7 @@ export default function EditableFormDemo() {
         </EditableArea>
         <EditableControls />
       </Editable>
-      <div>
+      <div data-preview-meta>
         <output>Submitted: {submitted()}</output>
         <Button type="submit" size="sm">
           Submit

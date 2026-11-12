@@ -22,7 +22,9 @@ export default function RootProviderSignaturePadDemo() {
         <SignaturePadLabel>Sign below</SignaturePadLabel>
         <SignaturePadCanvas />
       </SignaturePadRootProvider>
-      <output>Paths: {signaturePad().paths.length}</output>
+      <div data-preview-meta>
+        <output>Paths: {signaturePad().paths.length}</output>
+      </div>
     </Stack>
   );
 }

@@ -52,7 +52,7 @@
       </MarqueeContent>
     </MarqueeViewport>
   </MarqueeRootProvider>
-  <div>
+  <div data-preview-meta>
     <output>Playback: {status}</output>
     <Button size="sm" variant="outline" onclick={handlePause}>Pause</Button>
     <Button size="sm" variant="outline" onclick={handleResume}>Resume</Button>

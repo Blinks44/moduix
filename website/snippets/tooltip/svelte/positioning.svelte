@@ -20,8 +20,8 @@
     </TooltipTrigger>
     <TooltipBody>Placement: {placement}</TooltipBody>
   </Tooltip>
-  <output>Placement: {placement}</output>
-  <div class={styles.meta}>
+  <div data-preview-meta class={styles.meta}>
+    <output>Placement: {placement}</output>
     {#each tooltipPlacements as item (item)}
       <Button
         type="button"

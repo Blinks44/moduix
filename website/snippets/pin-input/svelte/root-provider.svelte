@@ -24,7 +24,7 @@
     </PinInputControl>
   </PinInputRootProvider>
 
-  <div>
+  <div data-preview-meta>
     <Button type="button" size="sm" variant="outline" onclick={() => pinInput().focus()}>
       Focus
     </Button>

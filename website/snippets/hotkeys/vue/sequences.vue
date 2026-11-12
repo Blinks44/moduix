@@ -52,7 +52,9 @@ useHotkeys({
       </Stack>
     </CardBody>
     <CardFooter>
-      <output aria-live="polite">Current view: {{ destination }}</output>
+      <div data-preview-meta :style="{ marginInline: 'auto', placeItems: 'center' }">
+        <output aria-live="polite">Current view: {{ destination }}</output>
+      </div>
     </CardFooter>
   </Card>
 </template>

@@ -8,7 +8,6 @@ import {
 } from '@moduix/react/image-cropper';
 import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 const sampleImage =
   'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=640&h=400&q=90';
@@ -48,13 +47,13 @@ export default function CropPreviewImageCropperDemo() {
           <ImageCropperCropArea />
         </ImageCropperViewport>
       </ImageCropperRootProvider>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>{status}</output>
         {preview ? <img src={preview} alt="Cropped preview" width={128} height={128} /> : null}
         <Button type="button" onClick={handleCrop}>
           Create crop preview
         </Button>
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

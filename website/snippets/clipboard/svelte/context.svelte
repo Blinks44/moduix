@@ -21,7 +21,9 @@
   <ClipboardContext>
     {#snippet render(clipboard)}
       <Stack align="center" gap="2">
-        <output>Copied: {String(clipboard().copied)}</output>
+        <div data-preview-meta>
+          <output>Copied: {String(clipboard().copied)}</output>
+        </div>
       </Stack>
     {/snippet}
   </ClipboardContext>

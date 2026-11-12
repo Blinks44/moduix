@@ -12,7 +12,6 @@ import {
 } from '@moduix/react/popover';
 import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function ControlledPopoverDemo() {
   const [open, setOpen] = useState(false);
@@ -36,9 +35,9 @@ export default function ControlledPopoverDemo() {
           </PopoverContent>
         </PopoverPositioner>
       </Popover>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Open: {open ? 'yes' : 'no'}</output>
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

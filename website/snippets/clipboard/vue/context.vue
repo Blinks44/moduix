@@ -21,7 +21,9 @@ import styles from '@/components/examples/clipboard/component-context.module.css
     </ClipboardControl>
     <ClipboardContext v-slot="clipboard">
       <Stack align="center" gap="2">
-        <output>Copied: {{ String(clipboard.copied) }}</output>
+        <div data-preview-meta>
+          <output>Copied: {{ String(clipboard.copied) }}</output>
+        </div>
       </Stack>
     </ClipboardContext>
   </Clipboard>

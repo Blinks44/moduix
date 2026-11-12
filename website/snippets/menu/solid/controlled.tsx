@@ -14,7 +14,7 @@ export default function ControlledMenuDemo() {
   const [open, setOpen] = createSignal(false);
 
   return (
-    <div>
+    <div data-preview-meta>
       <Menu open={open()} onOpenChange={(details) => setOpen(details.open)}>
         <MenuTrigger asChild={(props) => <Button {...props()} />}>
           Actions

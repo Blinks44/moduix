@@ -8,7 +8,6 @@ import {
   CarouselItem,
   CarouselItemGroup,
 } from '@moduix/react/carousel';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/carousel/carousel-pause-on-hover.module.css';
 
 const slides = [
@@ -72,9 +71,9 @@ export default function PauseOnHoverCarousel() {
               </CarouselAutoplayTrigger>
               <CarouselIndicators />
             </CarouselControl>
-            <PreviewMeta style={{ marginInline: 'auto' }}>
+            <div data-preview-meta style={{ marginInline: 'auto' }}>
               <output>Autoplay: {api.isPlaying ? 'playing' : 'paused'}</output>
-            </PreviewMeta>
+            </div>
           </>
         )}
       </CarouselContext>

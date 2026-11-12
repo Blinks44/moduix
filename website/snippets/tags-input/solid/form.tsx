@@ -30,10 +30,12 @@ export default function FormTagsInput() {
         </TagsInputControl>
         <TagsInputHiddenInput />
       </TagsInput>
-      <output>Submitted: {submittedValue() || 'none'}</output>
-      <Button type="submit" size="sm">
-        Submit
-      </Button>
+      <div data-preview-meta>
+        <output>Submitted: {submittedValue() || 'none'}</output>
+        <Button type="submit" size="sm">
+          Submit
+        </Button>
+      </div>
     </form>
   );
 }

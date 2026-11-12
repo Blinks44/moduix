@@ -24,7 +24,7 @@ export default function CheckboxWithFormDemo() {
         <CheckboxLabel>I agree to the terms and conditions</CheckboxLabel>
         <CheckboxHiddenInput />
       </Checkbox>
-      <div>
+      <div data-preview-meta>
         <output>{submitted()}</output>
         <Button type="submit" size="sm">
           Submit

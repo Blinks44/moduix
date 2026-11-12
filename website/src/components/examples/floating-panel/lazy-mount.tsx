@@ -15,7 +15,6 @@ import {
   FloatingPanelDragIndicator,
 } from '@moduix/react/floating-panel';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function LazyMountFloatingPanelDemo() {
   const [exits, setExits] = useState(0);
@@ -56,9 +55,9 @@ export default function LazyMountFloatingPanelDemo() {
           </FloatingPanelContent>
         </FloatingPanelPositioner>
       </FloatingPanel>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Exit completions: {exits}</output>
-      </PreviewMeta>
+      </div>
     </>
   );
 }

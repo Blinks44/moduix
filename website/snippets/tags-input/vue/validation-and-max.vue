@@ -31,6 +31,8 @@ const validate = (details: { inputValue: string; value: string[] }) =>
         <TagsInputClearTrigger aria-label="Clear labels" />
       </TagsInputControl>
     </TagsInput>
-    <output>Last invalid reason: {{ invalidReason }}</output>
+    <div data-preview-meta>
+      <output>Last invalid reason: {{ invalidReason }}</output>
+    </div>
   </div>
 </template>

@@ -26,6 +26,9 @@ const files = ref([new File(['Welcome to moduix'], 'README.md', { type: 'text/pl
       ><FileUploadContext v-slot="{ acceptedFiles }"
         ><FileUploadItem v-for="file in acceptedFiles" :key="file.name + file.size" :file="file"
           ><FileUploadItemName /><FileUploadItemDeleteTrigger /></FileUploadItem></FileUploadContext></FileUploadItemGroup
-    ><FileUploadHiddenInput /></FileUpload
-  ><output>Selected: {{ files.length }}</output>
+    ><FileUploadHiddenInput
+  /></FileUpload>
+  <div data-preview-meta>
+    <output>Selected: {{ files.length }}</output>
+  </div>
 </template>

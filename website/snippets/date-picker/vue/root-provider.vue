@@ -28,5 +28,7 @@ const datePicker = useDatePicker({ defaultValue: [today('UTC')] });
       </DatePickerContent>
     </DatePickerPositioner>
   </DatePickerRootProvider>
-  <Button size="sm" variant="secondary" @click="datePicker.clearValue()">Clear</Button>
+  <div data-preview-meta>
+    <Button size="sm" variant="secondary" @click="datePicker.clearValue()">Clear</Button>
+  </div>
 </template>

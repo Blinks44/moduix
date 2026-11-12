@@ -8,7 +8,6 @@ import {
   ProgressLinearView,
 } from '@moduix/react/progress-linear';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function StateViewsProgressLinearDemo() {
   const [value, setValue] = useState<number | null>(null);
@@ -26,7 +25,7 @@ export default function StateViewsProgressLinearDemo() {
         <ProgressLinearView state="loading">Transfer in progress</ProgressLinearView>
         <ProgressLinearView state="complete">Export complete</ProgressLinearView>
       </ProgressLinear>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>State: {state}</output>
         <Button type="button" size="sm" variant="outline" onClick={() => setValue(null)}>
           Indeterminate
@@ -37,7 +36,7 @@ export default function StateViewsProgressLinearDemo() {
         <Button type="button" size="sm" variant="outline" onClick={() => setValue(100)}>
           Complete
         </Button>
-      </PreviewMeta>
+      </div>
     </>
   );
 }

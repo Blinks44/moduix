@@ -8,7 +8,6 @@ import {
 } from '@moduix/react/timer';
 import { Pause as PauseIcon, Play as PlayIcon, RotateCcw as RotateCcwIcon } from 'lucide-react';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/timer/timer-pomodoro.module.css';
 
 export default function PomodoroTimerDemo() {
@@ -45,9 +44,9 @@ export default function PomodoroTimerDemo() {
           </TimerActionTrigger>
         </TimerControl>
       </Timer>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>{mode === 'work' ? 'Mode: Focus session' : 'Mode: Break session'}</output>
-      </PreviewMeta>
+      </div>
     </>
   );
 }

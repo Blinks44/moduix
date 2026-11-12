@@ -35,6 +35,9 @@ const drawer = useDrawer({ defaultSnapPoint: snapPoints[1], snapPoints });
         ></DrawerContent
       ></DrawerPositioner
     ></DrawerRootProvider
-  ><output>Active snap point: {{ String(drawer.snapPoint) }}</output
-  ><Button size="sm" variant="outline" @click="drawer.setSnapPoint(1)">Set 100%</Button>
+  >
+  <div data-preview-meta>
+    <output>Active snap point: {{ String(drawer.snapPoint) }}</output>
+    <Button size="sm" variant="outline" @click="drawer.setSnapPoint(1)">Set 100%</Button>
+  </div>
 </template>

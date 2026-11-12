@@ -37,10 +37,12 @@ const scrollToEdge = (nextEdge: 'top' | 'bottom') => {
       </ScrollAreaScrollbar>
       <ScrollAreaCorner />
     </ScrollAreaRootProvider>
-    <output>Current edge: {{ edge }}</output>
-    <Button type="button" size="sm" variant="outline" @click="scrollToEdge('top')">Top</Button>
-    <Button type="button" size="sm" variant="outline" @click="scrollToEdge('bottom')"
-      >Bottom</Button
-    >
+    <div data-preview-meta>
+      <output>Current edge: {{ edge }}</output>
+      <Button type="button" size="sm" variant="outline" @click="scrollToEdge('top')">Top</Button>
+      <Button type="button" size="sm" variant="outline" @click="scrollToEdge('bottom')"
+        >Bottom</Button
+      >
+    </div>
   </div>
 </template>

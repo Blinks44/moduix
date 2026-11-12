@@ -11,7 +11,9 @@ export default function ControlledNumberInputDemo() {
         <NumberInputLabel>Controlled value</NumberInputLabel>
         <NumberInputField />
       </NumberInput>
-      <output>Current value: {value() || 'empty'}</output>
+      <div data-preview-meta>
+        <output>Current value: {value() || 'empty'}</output>
+      </div>
     </Stack>
   );
 }

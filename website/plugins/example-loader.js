@@ -86,6 +86,20 @@ export default function exampleLoader(source) {
         vue: exampleProject(previewFile(vueFile), addDependency),
         svelte: exampleProject(previewFile(svelteFile), addDependency),
       };
+      // Every framework shows the same docs-only meta blocks as the React example.
+      const metaBlocks = ({ files }) =>
+        Object.entries(files)
+          .filter(([name]) => /\.(?:tsx|vue|svelte)$/.test(name))
+          .reduce((count, [, code]) => count + code.split('data-preview-meta').length - 1, 0);
+      for (const framework of ['solid', 'vue', 'svelte']) {
+        if (metaBlocks(projects[framework]) !== metaBlocks(projects.react)) {
+          this.emitWarning(
+            new Error(
+              `${projects[framework].entry} has a different number of data-preview-meta blocks than ${projects.react.entry}.`,
+            ),
+          );
+        }
+      }
       return `<ExamplePanel${attributes} projects={${JSON.stringify(projects)}} sources=${sources(identifier)} files={[${files.join(', ')}]}>
   <FrameworkPreview live={${identifier}Live}>
     <${identifier} />

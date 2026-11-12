@@ -32,7 +32,7 @@ const handleSubmit = (event: SubmitEvent) => {
         <CheckboxHiddenInput />
       </Checkbox>
     </CheckboxGroup>
-    <div>
+    <div data-preview-meta>
       <output>{{ submitted }}</output>
       <button type="submit">Submit</button>
     </div>

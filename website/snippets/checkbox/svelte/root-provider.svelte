@@ -17,7 +17,7 @@
     <CheckboxLabel>Managed outside the tree</CheckboxLabel>
     <CheckboxHiddenInput />
   </CheckboxRootProvider>
-  <div>
+  <div data-preview-meta>
     <output>{checkbox().checked ? 'Checked' : 'Unchecked'}</output>
     <button type="button" onclick={() => checkbox().setChecked(!checkbox().checked)}>
       {checkbox().checked ? 'Uncheck' : 'Check'}

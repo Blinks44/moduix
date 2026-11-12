@@ -14,7 +14,6 @@ import {
   FloatingPanelDragIndicator,
   useFloatingPanel,
 } from '@moduix/react/floating-panel';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function RootProviderFloatingPanelDemo() {
   const panel = useFloatingPanel({
@@ -50,7 +49,7 @@ export default function RootProviderFloatingPanelDemo() {
           </FloatingPanelContent>
         </FloatingPanelPositioner>
       </FloatingPanelRootProvider>
-      <PreviewMeta>
+      <div data-preview-meta>
         <Button onClick={() => panel.setOpen(true)}>Open via API</Button>
         <Button variant="outline" onClick={() => panel.maximize()}>
           Maximize
@@ -58,7 +57,7 @@ export default function RootProviderFloatingPanelDemo() {
         <Button variant="outline" onClick={() => panel.minimize()}>
           Minimize
         </Button>
-      </PreviewMeta>
+      </div>
     </>
   );
 }

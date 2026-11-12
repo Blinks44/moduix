@@ -15,7 +15,6 @@ import {
 } from '@moduix/react/select';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/select/select-form-usage.module.css';
 
 const themes = createListCollection({
@@ -66,12 +65,12 @@ export default function SelectFormUsageDemo() {
         </SelectPositioner>
         <SelectHiddenSelect />
       </Select>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Submitted: {submitted}</output>
         <Button type="submit" size="sm">
           Submit
         </Button>
-      </PreviewMeta>
+      </div>
     </form>
   );
 }

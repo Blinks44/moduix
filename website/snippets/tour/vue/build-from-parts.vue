@@ -92,7 +92,9 @@ const tour = useTour({
       </TourPositioner>
     </Tour>
 
-    <output>Tour: {{ status }}</output>
-    <Button @click="tour.start()">Start tour</Button>
+    <div data-preview-meta>
+      <output>Tour: {{ status }}</output>
+      <Button @click="tour.start()">Start tour</Button>
+    </div>
   </Stack>
 </template>

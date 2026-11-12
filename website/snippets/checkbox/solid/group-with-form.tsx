@@ -37,7 +37,7 @@ export default function CheckboxGroupWithFormDemo() {
           )}
         </For>
       </CheckboxGroup>
-      <div>
+      <div data-preview-meta>
         <output>{submitted()}</output>
         <Button type="submit" size="sm">
           Submit

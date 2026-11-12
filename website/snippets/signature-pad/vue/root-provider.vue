@@ -20,6 +20,8 @@ const signaturePad = useSignaturePad({ translations: signaturePadTranslations })
       <SignaturePadLabel>Sign below</SignaturePadLabel>
       <SignaturePadCanvas />
     </SignaturePadRootProvider>
-    <output>Paths: {{ signaturePad.paths.length }}</output>
+    <div data-preview-meta>
+      <output>Paths: {{ signaturePad.paths.length }}</output>
+    </div>
   </Stack>
 </template>

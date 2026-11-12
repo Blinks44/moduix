@@ -23,7 +23,9 @@ export default function RootProviderAngleSliderDemo() {
           <AngleSliderMarks values={markerValues} />
         </AngleSliderDial>
       </AngleSliderRootProvider>
-      <output>Current angle: {angleSlider().value}°</output>
+      <div data-preview-meta>
+        <output>Current angle: {angleSlider().value}°</output>
+      </div>
     </Stack>
   );
 }

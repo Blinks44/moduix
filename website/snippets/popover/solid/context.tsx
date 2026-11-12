@@ -14,7 +14,11 @@ import {
 
 function PopoverState() {
   const popover = usePopoverContext();
-  return <output>Open: {popover().open ? 'yes' : 'no'}</output>;
+  return (
+    <div data-preview-meta>
+      <output>Open: {popover().open ? 'yes' : 'no'}</output>
+    </div>
+  );
 }
 
 export default function PopoverContextDemo() {

@@ -74,7 +74,9 @@ export default function PauseOnHoverCarousel() {
               </CarouselAutoplayTrigger>
               <CarouselIndicators />
             </CarouselControl>
-            <output>Autoplay: {api().isPlaying ? 'playing' : 'paused'}</output>
+            <div data-preview-meta style={{ 'margin-inline': 'auto' }}>
+              <output>Autoplay: {api().isPlaying ? 'playing' : 'paused'}</output>
+            </div>
           </>
         )}
       </CarouselContext>

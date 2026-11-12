@@ -9,7 +9,6 @@ import {
   createTreeCollection,
 } from '@moduix/react/tree-view';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 type FileNode = { children?: FileNode[]; id: string; name: string };
 
@@ -54,9 +53,9 @@ export default function ControlledSelectionTreeViewDemo() {
           ))}
         </TreeViewTree>
       </TreeView>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output aria-live="polite">Selected: {selectedValue.join(', ') || 'none'}</output>
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

@@ -15,7 +15,9 @@ const value = ref(destinations[0].value);
       <QrCodePattern />
     </QrCodeFrame>
   </QrCode>
-  <output>Encoded URL: {{ value }}</output>
+  <div data-preview-meta>
+    <output>Encoded URL: {{ value }}</output>
+  </div>
   <button
     v-for="destination in destinations"
     :key="destination.value"

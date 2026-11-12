@@ -28,6 +28,8 @@ const value = ref([50]);
         <SliderMarker v-for="mark in marks" :key="mark" :value="mark">{{ mark }}</SliderMarker>
       </SliderMarkerGroup>
     </Slider>
-    <output>Output: {{ value.join(', ') }}</output>
+    <div data-preview-meta>
+      <output>Output: {{ value.join(', ') }}</output>
+    </div>
   </Stack>
 </template>

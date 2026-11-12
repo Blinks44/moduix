@@ -11,7 +11,6 @@ import {
 } from '@moduix/react/date-picker';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/date-picker/date-picker-form.module.css';
 
 export default function DatePickerFormDemo() {
@@ -40,12 +39,12 @@ export default function DatePickerFormDemo() {
           </DatePickerContent>
         </DatePickerPositioner>
       </DatePicker>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Submitted: {submitted}</output>
         <Button type="submit" size="sm">
           Submit
         </Button>
-      </PreviewMeta>
+      </div>
     </form>
   );
 }

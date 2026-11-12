@@ -40,7 +40,9 @@
       <ImageCropperCropArea />
     </ImageCropperViewport>
   </ImageCropperRootProvider>
-  <output>{status}</output>
+  <div data-preview-meta>
+    <output>{status}</output>
+  </div>
   {#if preview}
     <img src={preview} alt="Cropped preview" width="128" height="128" />
   {/if}

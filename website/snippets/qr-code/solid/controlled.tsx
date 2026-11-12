@@ -13,7 +13,9 @@ export default function ControlledQrCodeDemo() {
           <QrCodePattern />
         </QrCodeFrame>
       </QrCode>
-      <output>Encoded URL: {value()}</output>
+      <div data-preview-meta>
+        <output>Encoded URL: {value()}</output>
+      </div>
       {destinations.map((destination) => (
         <button type="button" onClick={() => setValue(destination)}>
           {new URL(destination).hostname}

@@ -10,7 +10,6 @@ import {
   useTagsInput,
 } from '@moduix/react/tags-input';
 import { useId } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/tags-input/tags-input-root-provider.module.css';
 
 export default function RootProviderTagsInput() {
@@ -29,7 +28,7 @@ export default function RootProviderTagsInput() {
           <TagsInputClearTrigger aria-label="Clear frameworks" />
         </TagsInputControl>
       </TagsInputRootProvider>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Tags: {tagsInput.value.join(', ') || 'empty'}</output>
         <Button type="button" size="sm" onClick={() => tagsInput.addValue('Solid')}>
           Add Solid
@@ -40,7 +39,7 @@ export default function RootProviderTagsInput() {
         <Button type="button" size="sm" variant="outline" onClick={tagsInput.focus}>
           Focus
         </Button>
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

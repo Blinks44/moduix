@@ -57,5 +57,7 @@ const steps = useSteps({ count: items.length });
       <StepsNextTrigger>Next</StepsNextTrigger>
     </div>
   </StepsRootProvider>
-  <output>Current step: {{ steps.value + 1 }}</output>
+  <div data-preview-meta>
+    <output>Current step: {{ steps.value + 1 }}</output>
+  </div>
 </template>

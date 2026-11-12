@@ -37,7 +37,7 @@ export default function ControlledHoverCard() {
           </HoverCardContent>
         </HoverCardPositioner>
       </HoverCard>
-      <div>
+      <div data-preview-meta>
         <output>Open: {open() ? 'yes' : 'no'}</output>
         <Button size="sm" variant="outline" onClick={() => setOpen((value) => !value)}>
           Toggle

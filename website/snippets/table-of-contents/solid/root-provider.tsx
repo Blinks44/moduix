@@ -34,7 +34,9 @@ export default function TocRootProviderDemo() {
 
   return (
     <div class={styles.root}>
-      <output class={styles.status}>Active: {toc().activeIds.join(', ') || 'none'}</output>
+      <div data-preview-meta>
+        <output class={styles.status}>Active: {toc().activeIds.join(', ') || 'none'}</output>
+      </div>
       <div class={styles.actions}>
         {items.map((item) => (
           <Button size="sm" variant="outline" onClick={() => toc().scrollTo(item.value)}>

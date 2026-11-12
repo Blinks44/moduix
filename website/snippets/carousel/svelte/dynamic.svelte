@@ -76,7 +76,7 @@
     </CarouselControl>
   </Carousel>
 
-  <div>
+  <div data-preview-meta>
     <output>Slides: {visibleSlides.length}</output>
     <Button size="sm" variant="outline" onclick={addSlide}>Add slide</Button>
   </div>

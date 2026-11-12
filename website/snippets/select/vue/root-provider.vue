@@ -43,7 +43,7 @@ const chooseBanana = () => select.value.setValue(['banana']);
         ></SelectPositioner
       >
     </SelectRootProvider>
-    <div>
+    <div data-preview-meta>
       <output>Selected: {{ select.valueAsString || 'none' }}</output
       ><Button type="button" size="sm" @click="chooseBanana">Select banana</Button>
     </div>

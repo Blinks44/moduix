@@ -45,7 +45,7 @@ export default function FocusLightboxDemo() {
           </LightboxContent>
         </LightboxPositioner>
       </Lightbox>
-      <div>
+      <div data-preview-meta>
         <output>
           {focusReturned()
             ? 'Focus returned to this button.'

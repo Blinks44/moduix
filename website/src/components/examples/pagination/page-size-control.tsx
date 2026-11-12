@@ -17,7 +17,6 @@ import {
   SelectContent,
   SelectOption,
 } from '@moduix/react/select';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/pagination/pagination-page-size-control.module.css';
 
 const pageSizes = createListCollection({
@@ -83,11 +82,11 @@ export default function PaginationPageSizeControlDemo() {
               <PaginationItems />
               <PaginationNextTrigger />
             </div>
-            <PreviewMeta>
+            <div data-preview-meta>
               <output>
                 Page {pagination.page} of {pagination.totalPages}
               </output>
-            </PreviewMeta>
+            </div>
           </div>
         )}
       </PaginationContext>

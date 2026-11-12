@@ -62,7 +62,7 @@ export default function ScrollToCarousel() {
 
       <CarouselContext>
         {(api) => (
-          <div style={{ 'margin-inline': 'auto' }}>
+          <div data-preview-meta style={{ 'margin-inline': 'auto' }}>
             <Button size="sm" variant="outline" onClick={() => api().scrollToIndex(3)}>
               Go to slide 4
             </Button>

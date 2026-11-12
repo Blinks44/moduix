@@ -29,4 +29,6 @@
     </DatePickerContent>
   </DatePickerPositioner>
 </DatePickerRootProvider>
-<Button size="sm" variant="secondary" onclick={() => datePicker().clearValue()}>Clear</Button>
+<div data-preview-meta>
+  <Button size="sm" variant="secondary" onclick={() => datePicker().clearValue()}>Clear</Button>
+</div>

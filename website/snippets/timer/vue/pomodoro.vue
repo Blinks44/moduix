@@ -42,5 +42,7 @@ const toggleMode = () => {
       <TimerActionTrigger action="reset"><RotateCcwIcon /> Reset</TimerActionTrigger>
     </TimerControl>
   </Timer>
-  <output>Mode: {{ mode === 'work' ? 'Focus session' : 'Break session' }}</output>
+  <div data-preview-meta>
+    <output>Mode: {{ mode === 'work' ? 'Focus session' : 'Break session' }}</output>
+  </div>
 </template>

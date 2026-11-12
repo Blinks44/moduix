@@ -39,5 +39,7 @@
     </DrawerContent>
   </DrawerPositioner>
 </DrawerRootProvider>
-<output>Active snap point: {String(drawer().snapPoint)}</output>
-<Button size="sm" variant="outline" onclick={() => drawer().setSnapPoint(1)}>Set 100%</Button>
+<div data-preview-meta>
+  <output>Active snap point: {String(drawer().snapPoint)}</output>
+  <Button size="sm" variant="outline" onclick={() => drawer().setSnapPoint(1)}>Set 100%</Button>
+</div>

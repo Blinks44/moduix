@@ -19,7 +19,8 @@
     overflow: auto hidden;
     padding-block: 0.5rem;
 
-    > * {
+    > *,
+    > [data-live-preview] > * {
       align-self: center;
     }
 
@@ -74,11 +75,15 @@
   gap: 0.75rem;
 }
 
-.demoContent > * {
+/* Solid, Vue, and Svelte previews mount inside a `display: contents` wrapper, so its children are the
+   flex items that these rules target. */
+.demoContent > *,
+.demoContent > [data-live-preview] > * {
   max-inline-size: min(var(--moduix-doc-preview-max-inline-size, 100%), 100%);
   min-width: 0;
 }
 
-.demoContent[data-example-width] > :not([data-preview-meta]) {
+.demoContent[data-example-width] > :not([data-preview-meta]),
+.demoContent[data-example-width] > [data-live-preview] > :not([data-preview-meta]) {
   inline-size: min(var(--moduix-doc-example-inline-size), 100%);
 }

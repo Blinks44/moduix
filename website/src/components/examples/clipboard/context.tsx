@@ -7,7 +7,6 @@ import {
   ClipboardValueText,
 } from '@moduix/react/clipboard';
 import { Stack } from '@moduix/react/stack';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/clipboard/component-context.module.css';
 
 export default function ContextClipboardDemo() {
@@ -22,9 +21,9 @@ export default function ContextClipboardDemo() {
       <ClipboardContext>
         {(clipboard) => (
           <Stack align="center" gap="2">
-            <PreviewMeta>
+            <div data-preview-meta>
               <output>Copied: {String(clipboard.copied)}</output>
-            </PreviewMeta>
+            </div>
           </Stack>
         )}
       </ClipboardContext>

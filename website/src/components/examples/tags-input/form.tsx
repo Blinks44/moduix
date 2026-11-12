@@ -10,7 +10,6 @@ import {
 } from '@moduix/react/tags-input';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/tags-input/tags-input-form.module.css';
 
 export default function FormTagsInput() {
@@ -32,12 +31,12 @@ export default function FormTagsInput() {
         </TagsInputControl>
         <TagsInputHiddenInput />
       </TagsInput>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Submitted: {submittedValue || 'none'}</output>
         <Button type="submit" size="sm">
           Submit
         </Button>
-      </PreviewMeta>
+      </div>
     </form>
   );
 }

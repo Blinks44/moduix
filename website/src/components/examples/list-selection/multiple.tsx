@@ -1,5 +1,4 @@
 import { createListCollection, useListSelection } from '@ark-ui/react/collection';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 const teams = createListCollection({
   items: [
@@ -44,13 +43,13 @@ export default function ListSelectionMultipleDemo() {
       <button type="button" onClick={toggleAll}>
         {selection.isAllSelected() ? 'Clear all' : 'Select all'}
       </button>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output aria-live="polite">
           {selection.isEmpty
             ? 'No teams selected'
             : `Selected: ${teams.stringifyMany(selection.selectedValues)}`}
         </output>
-      </PreviewMeta>
+      </div>
     </section>
   );
 }

@@ -8,15 +8,11 @@ import {
   ToastToaster,
   createToaster,
 } from '@moduix/react/toast';
-import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/toast/toast-custom-composition.module.css';
 
 const toaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 24 });
 
 export default function App() {
-  const [event, setEvent] = useState('No toast created');
-
   return (
     <Stack align="center" gap="3">
       <ToastToaster toaster={toaster}>
@@ -33,20 +29,16 @@ export default function App() {
           </Toast>
         )}
       </ToastToaster>
-      <PreviewMeta>
-        <output>Last event: {event}</output>
-        <Button
-          onClick={() => {
-            toaster.success({
-              title: 'Workspace synced',
-              description: 'Map edits are available to everyone.',
-            });
-            setEvent('Custom toast created');
-          }}
-        >
-          Create custom toast
-        </Button>
-      </PreviewMeta>
+      <Button
+        onClick={() => {
+          toaster.success({
+            title: 'Workspace synced',
+            description: 'Map edits are available to everyone.',
+          });
+        }}
+      >
+        Create custom toast
+      </Button>
     </Stack>
   );
 }

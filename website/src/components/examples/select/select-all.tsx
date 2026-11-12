@@ -9,7 +9,6 @@ import {
   SelectContent,
   SelectOption,
 } from '@moduix/react/select';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/select/select-select-all.module.css';
 
 const languages = createListCollection({
@@ -62,7 +61,7 @@ export default function SelectSelectAllDemo() {
           </SelectContent>
         </SelectPositioner>
       </SelectRootProvider>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Selected: {select.value.length}</output>
         <Button
           type="button"
@@ -74,7 +73,7 @@ export default function SelectSelectAllDemo() {
         >
           Select all
         </Button>
-      </PreviewMeta>
+      </div>
     </div>
   );
 }

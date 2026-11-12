@@ -29,11 +29,13 @@ const tagsInput = useTagsInput({
         <TagsInputClearTrigger aria-label="Clear frameworks" />
       </TagsInputControl>
     </TagsInputRootProvider>
-    <output>Tags: {{ tagsInput.value.join(', ') || 'empty' }}</output>
-    <Button type="button" size="sm" @click="tagsInput.addValue('Solid')">Add Solid</Button>
-    <Button type="button" size="sm" variant="outline" @click="tagsInput.clearValue()">
-      Clear
-    </Button>
-    <Button type="button" size="sm" variant="outline" @click="tagsInput.focus()">Focus</Button>
+    <div data-preview-meta>
+      <output>Tags: {{ tagsInput.value.join(', ') || 'empty' }}</output>
+      <Button type="button" size="sm" @click="tagsInput.addValue('Solid')">Add Solid</Button>
+      <Button type="button" size="sm" variant="outline" @click="tagsInput.clearValue()">
+        Clear
+      </Button>
+      <Button type="button" size="sm" variant="outline" @click="tagsInput.focus()">Focus</Button>
+    </div>
   </Stack>
 </template>

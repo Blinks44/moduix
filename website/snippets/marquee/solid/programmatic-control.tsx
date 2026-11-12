@@ -56,7 +56,7 @@ export default function ProgrammaticMarqueeDemo() {
           </MarqueeContent>
         </MarqueeViewport>
       </MarqueeRootProvider>
-      <div>
+      <div data-preview-meta>
         <output>Playback: {status()}</output>
         <Button size="sm" variant="outline" onClick={handlePause}>
           Pause

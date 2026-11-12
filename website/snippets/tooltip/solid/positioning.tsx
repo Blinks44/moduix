@@ -29,8 +29,8 @@ export default function PositioningTooltipDemo() {
         />
         <TooltipBody>Placement: {placement()}</TooltipBody>
       </Tooltip>
-      <output>Placement: {placement()}</output>
-      <div class={styles.meta}>
+      <div data-preview-meta class={styles.meta}>
+        <output>Placement: {placement()}</output>
         <For each={tooltipPlacements}>
           {(item) => (
             <Button

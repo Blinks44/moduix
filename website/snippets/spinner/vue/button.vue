@@ -2,6 +2,7 @@
 import { Button } from '@moduix/vue/button';
 import { Spinner } from '@moduix/vue/spinner';
 import { ref } from 'vue';
+import styles from '@/components/examples/spinner/spinner-button.module.css';
 
 const saving = ref(false);
 const toggleSaving = () => (saving.value = !saving.value);
@@ -15,5 +16,7 @@ const toggleSaving = () => (saving.value = !saving.value);
     </template>
     <template v-else>Save changes</template>
   </Button>
-  <output>State: {{ saving ? 'Saving' : 'Ready' }}</output>
+  <div data-preview-meta :class="styles.meta">
+    <output>State: {{ saving ? 'Saving' : 'Ready' }}</output>
+  </div>
 </template>

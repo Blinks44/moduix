@@ -6,7 +6,6 @@ import {
 } from '@moduix/react/rating-group';
 import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/rating-group/component-controlled.module.css';
 
 export default function ControlledRatingGroupDemo() {
@@ -19,9 +18,9 @@ export default function ControlledRatingGroupDemo() {
           <RatingGroupItems />
         </RatingGroupControl>
       </RatingGroup>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output className={styles.hint}>Current value: {value}</output>
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

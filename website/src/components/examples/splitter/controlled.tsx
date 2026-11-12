@@ -1,6 +1,5 @@
 import { Splitter, SplitterPanel, SplitterResizeTrigger } from '@moduix/react/splitter';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/splitter/splitter-controlled.module.css';
 
 const panels = [
@@ -32,9 +31,9 @@ export default function ControlledSplitterDemo() {
           B
         </SplitterPanel>
       </Splitter>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output className={styles.status}>Sizes: {size.join(' / ')}</output>
-      </PreviewMeta>
+      </div>
     </div>
   );
 }

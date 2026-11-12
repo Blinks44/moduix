@@ -14,7 +14,9 @@ const errorLevel = ref<ErrorLevel>('L');
       <QrCodePattern />
     </QrCodeFrame>
   </QrCode>
-  <output>Error correction: {{ errorLevel }}</output>
+  <div data-preview-meta>
+    <output>Error correction: {{ errorLevel }}</output>
+  </div>
   <button
     v-for="level in errorLevels"
     :key="level"

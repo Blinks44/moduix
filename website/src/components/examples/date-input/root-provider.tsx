@@ -7,7 +7,6 @@ import {
   DateInputSegments,
   useDateInput,
 } from '@moduix/react/date-input';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/date-input/date-input-root-provider.module.css';
 
 export default function RootProviderDateInputDemo() {
@@ -23,7 +22,7 @@ export default function RootProviderDateInputDemo() {
           <DateInputSegments />
         </DateInputControl>
       </DateInputRootProvider>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Selected: {dateInput.value[0]?.toString() ?? 'empty'}</output>
         <Button type="button" size="sm" variant="outline" onClick={() => dateInput.clearValue()}>
           Clear
@@ -31,7 +30,7 @@ export default function RootProviderDateInputDemo() {
         <Button type="button" size="sm" variant="outline" onClick={() => dateInput.focus()}>
           Focus
         </Button>
-      </PreviewMeta>
+      </div>
     </div>
   );
 }

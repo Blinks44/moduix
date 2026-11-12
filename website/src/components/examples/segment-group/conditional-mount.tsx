@@ -5,7 +5,6 @@ import {
   SegmentGroupItems,
 } from '@moduix/react/segment-group';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/segment-group/segment-group-conditional-mount.module.css';
 
 const frameworks = ['React', 'Solid', 'Svelte', 'Vue'];
@@ -20,12 +19,12 @@ export default function ConditionalSegmentGroupDemo() {
           <SegmentGroupItems items={frameworks} />
         </SegmentGroup>
       ) : null}
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Segment group: {visible ? 'visible' : 'hidden'}</output>
         <Button type="button" size="sm" onClick={() => setVisible((value) => !value)}>
           {visible ? 'Hide' : 'Show'}
         </Button>
-      </PreviewMeta>
+      </div>
     </div>
   );
 }

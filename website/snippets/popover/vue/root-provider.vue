@@ -31,7 +31,9 @@ const popover = usePopover({ positioning: { placement: 'bottom-start', gutter: 8
         </PopoverContent>
       </PopoverPositioner>
     </PopoverRootProvider>
-    <output>Open: {{ popover.open ? 'yes' : 'no' }}</output>
-    <Button size="sm" @click="popover.setOpen(!popover.open)">Toggle externally</Button>
+    <div data-preview-meta>
+      <output>Open: {{ popover.open ? 'yes' : 'no' }}</output>
+      <Button size="sm" @click="popover.setOpen(!popover.open)">Toggle externally</Button>
+    </div>
   </Stack>
 </template>

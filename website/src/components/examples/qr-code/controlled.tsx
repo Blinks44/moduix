@@ -2,7 +2,6 @@ import { Button } from '@moduix/react/button';
 import { QrCode, QrCodeFrame, QrCodePattern } from '@moduix/react/qr-code';
 import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 const destinations = ['https://ark-ui.com', 'https://moduix.dev'];
 
@@ -15,7 +14,7 @@ export default function ControlledQrCodeDemo() {
           <QrCodePattern />
         </QrCodeFrame>
       </QrCode>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Encoded URL: {value}</output>
         {destinations.map((destination) => (
           <Button
@@ -27,7 +26,7 @@ export default function ControlledQrCodeDemo() {
             {new URL(destination).hostname}
           </Button>
         ))}
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

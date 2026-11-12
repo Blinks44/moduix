@@ -2,7 +2,6 @@ import { Button } from '@moduix/react/button';
 import { Spinner } from '@moduix/react/spinner';
 import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/spinner/spinner-button.module.css';
 
 export default function SpinnerButtonDemo() {
@@ -20,9 +19,9 @@ export default function SpinnerButtonDemo() {
           'Save changes'
         )}
       </Button>
-      <PreviewMeta className={styles.meta}>
+      <div data-preview-meta className={styles.meta}>
         <output>State: {saving ? 'Saving' : 'Ready'}</output>
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

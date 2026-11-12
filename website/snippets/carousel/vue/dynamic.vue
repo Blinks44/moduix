@@ -77,7 +77,7 @@ const addSlide = () => {
       </CarouselControl>
     </Carousel>
 
-    <div>
+    <div data-preview-meta>
       <output>Slides: {{ visibleSlides.length }}</output>
       <Button size="sm" variant="outline" @click="addSlide">Add slide</Button>
     </div>

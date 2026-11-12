@@ -19,6 +19,8 @@ const focusButton = () => {
 <template>
   <Stack align="center" gap="3">
     <Button ref="button" aria-label="Focus target">{{ labels.target }}</Button>
-    <Button size="sm" variant="outline" @click="focusButton">{{ labels.trigger }}</Button>
+    <div data-preview-meta>
+      <Button size="sm" variant="outline" @click="focusButton">{{ labels.trigger }}</Button>
+    </div>
   </Stack>
 </template>

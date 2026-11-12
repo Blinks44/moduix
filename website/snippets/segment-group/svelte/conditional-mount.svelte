@@ -19,8 +19,10 @@
       <SegmentGroupItems items={frameworks} />
     </SegmentGroup>
   {/if}
-  <output>Segment group: {visible ? 'visible' : 'hidden'}</output>
-  <Button type="button" size="sm" onclick={() => (visible = !visible)}>
-    {visible ? 'Hide' : 'Show'}
-  </Button>
+  <div data-preview-meta>
+    <output>Segment group: {visible ? 'visible' : 'hidden'}</output>
+    <Button type="button" size="sm" onclick={() => (visible = !visible)}>
+      {visible ? 'Hide' : 'Show'}
+    </Button>
+  </div>
 </div>

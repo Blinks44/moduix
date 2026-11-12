@@ -37,7 +37,7 @@ const open = ref(false);
       </HoverCardContent>
     </HoverCardPositioner>
   </HoverCard>
-  <div>
+  <div data-preview-meta>
     <output>Open: {{ open ? 'yes' : 'no' }}</output>
     <Button size="sm" variant="outline" @click="open = !open">Toggle</Button>
   </div>

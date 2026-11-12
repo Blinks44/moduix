@@ -20,6 +20,8 @@ const markerValues = [0, 45, 90, 135, 180, 225, 270, 315];
         <AngleSliderMarks :values="markerValues" />
       </AngleSliderDial>
     </AngleSliderRootProvider>
-    <output>Current angle: {{ angleSlider.value }}°</output>
+    <div data-preview-meta>
+      <output>Current angle: {{ angleSlider.value }}°</output>
+    </div>
   </Stack>
 </template>

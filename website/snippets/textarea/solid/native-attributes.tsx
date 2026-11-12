@@ -25,10 +25,12 @@ export default function TextareaNativeAttributesDemo() {
           placeholder="Add enough context for the next person reading this."
         />
       </Field>
-      <output>Submitted: {submitted()}</output>
-      <Button type="submit" size="sm">
-        Submit
-      </Button>
+      <div data-preview-meta style={{ 'margin-inline': 'auto', width: 'fit-content' }}>
+        <output>Submitted: {submitted()}</output>
+        <Button type="submit" size="sm">
+          Submit
+        </Button>
+      </div>
     </form>
   );
 }

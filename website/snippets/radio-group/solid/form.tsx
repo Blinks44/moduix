@@ -26,13 +26,15 @@ export default function RadioGroupFormDemo() {
           <RadioGroupOption value={framework}>{framework}</RadioGroupOption>
         ))}
       </RadioGroup>
-      <output>{submitted()}</output>
-      <Button size="sm" type="submit">
-        Submit
-      </Button>
-      <Button size="sm" type="reset" variant="outline">
-        Reset
-      </Button>
+      <div data-preview-meta>
+        <output>{submitted()}</output>
+        <Button size="sm" type="submit">
+          Submit
+        </Button>
+        <Button size="sm" type="reset" variant="outline">
+          Reset
+        </Button>
+      </div>
     </form>
   );
 }

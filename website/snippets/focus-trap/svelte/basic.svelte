@@ -28,9 +28,11 @@
     </Card>
   </FocusTrap>
   <Stack align="center" direction="row" gap={2}>
-    <output aria-live="polite">Focus trap: {isReviewing ? 'active' : 'inactive'}</output>
-    <Button disabled={isReviewing} size="sm" type="button" onclick={() => (isReviewing = true)}>
-      Start review
-    </Button>
+    <div data-preview-meta>
+      <output aria-live="polite">Focus trap: {isReviewing ? 'active' : 'inactive'}</output>
+      <Button disabled={isReviewing} size="sm" type="button" onclick={() => (isReviewing = true)}>
+        Start review
+      </Button>
+    </div>
   </Stack>
 </Stack>

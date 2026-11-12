@@ -10,7 +10,6 @@ import {
   MenuItem,
 } from '@moduix/react/menu';
 import { Stack } from '@moduix/react/stack';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function RootProviderMenuDemo() {
   const menu = useMenu();
@@ -38,11 +37,11 @@ export default function RootProviderMenuDemo() {
           </MenuPositioner>
         </MenuRootProvider>
       </Stack>
-      <PreviewMeta>
+      <div data-preview-meta>
         <Button size="sm" onClick={() => menu.api.setHighlightedValue('copy')}>
           Highlight Copy
         </Button>
-      </PreviewMeta>
+      </div>
     </div>
   );
 }

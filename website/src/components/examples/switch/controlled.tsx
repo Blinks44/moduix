@@ -1,7 +1,6 @@
 import { Stack } from '@moduix/react/stack';
 import { Switch, SwitchControl, SwitchHiddenInput, SwitchLabel } from '@moduix/react/switch';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function ControlledSwitchDemo() {
   const [checked, setChecked] = useState(true);
@@ -13,9 +12,9 @@ export default function ControlledSwitchDemo() {
         <SwitchLabel>{checked ? 'On' : 'Off'}</SwitchLabel>
         <SwitchHiddenInput />
       </Switch>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Current value: {String(checked)}</output>
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

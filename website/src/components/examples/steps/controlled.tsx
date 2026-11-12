@@ -11,7 +11,6 @@ import {
   StepsTrigger,
 } from '@moduix/react/steps';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/steps/steps-controlled.module.css';
 
 const items = [
@@ -67,9 +66,9 @@ export default function ControlledStepsDemo() {
           <StepsNextTrigger>Next</StepsNextTrigger>
         </div>
       </Steps>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Current step: {step + 1}</output>
-      </PreviewMeta>
+      </div>
     </div>
   );
 }

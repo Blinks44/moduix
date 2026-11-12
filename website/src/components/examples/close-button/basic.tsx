@@ -1,6 +1,5 @@
 import { CloseButton } from '@moduix/react/close-button';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/close-button/close-button-basic.module.css';
 
 export default function CloseButtonDemo() {
@@ -8,9 +7,9 @@ export default function CloseButtonDemo() {
 
   if (!isVisible) {
     return (
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Notification dismissed</output>
-      </PreviewMeta>
+      </div>
     );
   }
 

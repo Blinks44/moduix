@@ -8,7 +8,6 @@ import {
 import { Stack } from '@moduix/react/stack';
 import { ZoomIn as ZoomInIcon, ZoomOut as ZoomOutIcon } from 'lucide-react';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 const sampleImage =
   'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=640&h=400&q=90';
@@ -33,7 +32,7 @@ export default function ControlledZoomImageCropperDemo() {
           <ImageCropperCropArea />
         </ImageCropperViewport>
       </ImageCropper>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Zoom: {zoom.toFixed(1)}x</output>
         <Button
           size="sm"
@@ -51,7 +50,7 @@ export default function ControlledZoomImageCropperDemo() {
         >
           <ZoomInIcon />
         </Button>
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

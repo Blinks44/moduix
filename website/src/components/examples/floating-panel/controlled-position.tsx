@@ -15,7 +15,6 @@ import {
   FloatingPanelDragIndicator,
 } from '@moduix/react/floating-panel';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function ControlledPositionDemo() {
   const [position, setPosition] = useState({
@@ -56,11 +55,11 @@ export default function ControlledPositionDemo() {
           </FloatingPanelContent>
         </FloatingPanelPositioner>
       </FloatingPanel>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>
           Position: {Math.round(position.x)}, {Math.round(position.y)}
         </output>
-      </PreviewMeta>
+      </div>
     </>
   );
 }

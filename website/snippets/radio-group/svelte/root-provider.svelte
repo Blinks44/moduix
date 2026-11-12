@@ -22,8 +22,10 @@
       </RadioGroupOption>
     {/each}
   </RadioGroupRootProvider>
-  <output>Selected: {radioGroup().value ?? 'none'}</output>
-  <Button type="button" size="sm" onclick={() => radioGroup().setValue('Solid')}>
-    Set to Solid
-  </Button>
+  <div data-preview-meta>
+    <output>Selected: {radioGroup().value ?? 'none'}</output>
+    <Button type="button" size="sm" onclick={() => radioGroup().setValue('Solid')}>
+      Set to Solid
+    </Button>
+  </div>
 </Stack>

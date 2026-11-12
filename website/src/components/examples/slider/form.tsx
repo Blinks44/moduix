@@ -11,7 +11,6 @@ import {
 } from '@moduix/react/slider';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/slider/slider-form.module.css';
 
 export default function SliderFormDemo() {
@@ -40,7 +39,7 @@ export default function SliderFormDemo() {
           </SliderThumb>
         </SliderControl>
       </Slider>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Submitted: {submitted}</output>
         <Button type="submit" size="sm">
           Submit
@@ -48,7 +47,7 @@ export default function SliderFormDemo() {
         <Button type="reset" size="sm" variant="outline">
           Reset
         </Button>
-      </PreviewMeta>
+      </div>
     </form>
   );
 }

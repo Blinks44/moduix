@@ -20,10 +20,12 @@ export default function SegmentGroupRootProviderDemo() {
         <SegmentGroupIndicator />
         <SegmentGroupItems items={frameworks} />
       </SegmentGroupRootProvider>
-      <output>Selected: {segmentGroup().value ?? 'none'}</output>
-      <Button type="button" size="sm" onClick={() => segmentGroup().setValue('Solid')}>
-        Set to Solid
-      </Button>
+      <div data-preview-meta>
+        <output>Selected: {segmentGroup().value ?? 'none'}</output>
+        <Button type="button" size="sm" onClick={() => segmentGroup().setValue('Solid')}>
+          Set to Solid
+        </Button>
+      </div>
     </div>
   );
 }

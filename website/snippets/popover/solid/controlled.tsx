@@ -36,7 +36,9 @@ export default function ControlledPopoverDemo() {
           </PopoverContent>
         </PopoverPositioner>
       </Popover>
-      <output>Open: {open() ? 'yes' : 'no'}</output>
+      <div data-preview-meta>
+        <output>Open: {open() ? 'yes' : 'no'}</output>
+      </div>
     </Stack>
   );
 }

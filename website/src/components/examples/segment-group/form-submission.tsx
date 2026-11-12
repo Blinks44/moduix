@@ -5,7 +5,6 @@ import {
   SegmentGroupItems,
 } from '@moduix/react/segment-group';
 import { useState, type FormEvent } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/segment-group/segment-group-form-submission.module.css';
 
 const frameworks = ['React', 'Solid', 'Svelte', 'Vue'];
@@ -24,12 +23,12 @@ export default function FormSegmentGroupDemo() {
         <SegmentGroupIndicator />
         <SegmentGroupItems items={frameworks} />
       </SegmentGroup>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Submitted: {submitted}</output>
         <Button type="submit" size="sm">
           Submit
         </Button>
-      </PreviewMeta>
+      </div>
     </form>
   );
 }

@@ -36,9 +36,11 @@ export default function RootProviderMenuDemo() {
           </MenuPositioner>
         </MenuRootProvider>
       </Stack>
-      <Button size="sm" onClick={() => menu.api().setHighlightedValue('copy')}>
-        Highlight Copy
-      </Button>
+      <div data-preview-meta>
+        <Button size="sm" onClick={() => menu.api().setHighlightedValue('copy')}>
+          Highlight Copy
+        </Button>
+      </div>
     </div>
   );
 }

@@ -11,5 +11,7 @@
     <SwitchLabel>{checked ? 'On' : 'Off'}</SwitchLabel>
     <SwitchHiddenInput />
   </Switch>
-  <output>Current value: {String(checked)}</output>
+  <div data-preview-meta>
+    <output>Current value: {String(checked)}</output>
+  </div>
 </Stack>

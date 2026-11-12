@@ -11,7 +11,6 @@ import {
   FileUploadTrigger,
 } from '@moduix/react/file-upload';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/file-upload/file-upload-form-usage.module.css';
 
 const name = 'project-assets';
@@ -46,12 +45,12 @@ export default function FileUploadFormDemo() {
           </FileUploadContext>
         </FileUploadItemGroup>
       </FileUpload>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Submitted: {submitted}</output>
         <Button type="submit" size="sm">
           Submit
         </Button>
-      </PreviewMeta>
+      </div>
     </form>
   );
 }

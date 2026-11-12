@@ -1,8 +1,6 @@
 import { Button } from '@moduix/react/button';
 import { Stack } from '@moduix/react/stack';
 import { ToastToaster, createToaster } from '@moduix/react/toast';
-import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 const uploadFile = () =>
   new Promise<void>((resolve, reject) => {
@@ -15,35 +13,29 @@ const uploadFile = () =>
 const toaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 16 });
 
 export default function App() {
-  const [event, setEvent] = useState('No upload started');
-
   return (
     <Stack align="center" gap="3">
       <ToastToaster toaster={toaster} />
-      <PreviewMeta>
-        <output>Last event: {event}</output>
-        <Button
-          onClick={() => {
-            toaster.promise(uploadFile, {
-              loading: {
-                title: 'Uploading file...',
-                description: 'Please wait while we upload your document.',
-              },
-              success: {
-                title: 'Upload complete',
-                description: 'Your file has been uploaded successfully.',
-              },
-              error: {
-                title: 'Upload failed',
-                description: 'Could not upload the file. Please try again.',
-              },
-            });
-            setEvent('Upload started');
-          }}
-        >
-          Upload file
-        </Button>
-      </PreviewMeta>
+      <Button
+        onClick={() => {
+          toaster.promise(uploadFile, {
+            loading: {
+              title: 'Uploading file...',
+              description: 'Please wait while we upload your document.',
+            },
+            success: {
+              title: 'Upload complete',
+              description: 'Your file has been uploaded successfully.',
+            },
+            error: {
+              title: 'Upload failed',
+              description: 'Could not upload the file. Please try again.',
+            },
+          });
+        }}
+      >
+        Upload file
+      </Button>
     </Stack>
   );
 }

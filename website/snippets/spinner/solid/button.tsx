@@ -19,7 +19,9 @@ export default function SpinnerButtonDemo() {
           'Save changes'
         )}
       </Button>
-      <output class={styles.meta}>State: {saving() ? 'Saving' : 'Ready'}</output>
+      <div data-preview-meta class={styles.meta}>
+        <output>State: {saving() ? 'Saving' : 'Ready'}</output>
+      </div>
     </Stack>
   );
 }

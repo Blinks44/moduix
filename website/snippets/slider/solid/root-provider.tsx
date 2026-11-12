@@ -27,10 +27,12 @@ export default function RootProviderSliderDemo() {
           <SliderThumbs />
         </SliderControl>
       </SliderRootProvider>
-      <output>Current: {slider().value.join(', ')}</output>
-      <button type="button" onClick={() => slider().focus()}>
-        Focus
-      </button>
+      <div data-preview-meta>
+        <output>Current: {slider().value.join(', ')}</output>
+        <button type="button" onClick={() => slider().focus()}>
+          Focus
+        </button>
+      </div>
     </Stack>
   );
 }

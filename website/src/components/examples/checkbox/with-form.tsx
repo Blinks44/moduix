@@ -6,7 +6,6 @@ import {
   CheckboxLabel,
 } from '@moduix/react/checkbox';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/checkbox/checkbox-with-form.module.css';
 
 export default function CheckboxWithFormDemo() {
@@ -26,12 +25,12 @@ export default function CheckboxWithFormDemo() {
         <CheckboxLabel>I agree to the terms and conditions</CheckboxLabel>
         <CheckboxHiddenInput />
       </Checkbox>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>{submitted}</output>
         <Button type="submit" size="sm">
           Submit
         </Button>
-      </PreviewMeta>
+      </div>
     </form>
   );
 }

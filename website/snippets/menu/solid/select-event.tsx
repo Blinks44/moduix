@@ -36,7 +36,9 @@ export default function SelectEventMenuDemo() {
           </MenuPositioner>
         </Menu>
       </Stack>
-      <output>Selected: {selected()}</output>
+      <div data-preview-meta>
+        <output>Selected: {selected()}</output>
+      </div>
     </div>
   );
 }

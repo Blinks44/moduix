@@ -12,7 +12,6 @@ import {
 } from '@moduix/react/date-picker';
 import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function ControlledDatePickerDemo() {
   const [value, setValue] = useState([parseDate('2026-06-22')] as DateValue[]);
@@ -35,9 +34,9 @@ export default function ControlledDatePickerDemo() {
           </DatePickerContent>
         </DatePickerPositioner>
       </DatePicker>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Current value: {value[0]?.toString() ?? 'empty'}</output>
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

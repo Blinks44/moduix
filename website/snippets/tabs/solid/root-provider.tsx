@@ -45,7 +45,9 @@ export default function RootProviderTabsDemo() {
           <TabsContent value={item.value}>{item.content}</TabsContent>
         ))}
       </TabsRootProvider>
-      <output>Selected: {tabs().value ?? 'none'}</output>
+      <div data-preview-meta>
+        <output>Selected: {tabs().value ?? 'none'}</output>
+      </div>
     </Stack>
   );
 }

@@ -8,7 +8,6 @@ import {
 } from '@moduix/react/marquee';
 import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/marquee/marquee-programmatic-control.module.css';
 
 const partners = [
@@ -75,7 +74,7 @@ export default function ProgrammaticMarqueeDemo() {
           </MarqueeContent>
         </MarqueeViewport>
       </MarqueeRootProvider>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Playback: {status}</output>
         <Button size="sm" variant="outline" onClick={handlePause}>
           Pause
@@ -86,7 +85,7 @@ export default function ProgrammaticMarqueeDemo() {
         <Button size="sm" variant="outline" onClick={handleRestart}>
           Restart
         </Button>
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

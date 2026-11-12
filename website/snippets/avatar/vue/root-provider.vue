@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { AvatarFallback, AvatarImage, AvatarRootProvider, useAvatar } from '@moduix/vue/avatar';
+import { Button } from '@moduix/vue/button';
 import { ref } from 'vue';
 import styles from '@/components/examples/avatar/avatar-root-provider.module.css';
 
@@ -17,8 +18,11 @@ const avatar = useAvatar();
       <AvatarFallback>AT</AvatarFallback>
       <AvatarImage :src="avatarImages[imageIndex]" alt="Alex T." />
     </AvatarRootProvider>
-    <button type="button" @click="imageIndex = (imageIndex + 1) % avatarImages.length">
-      Change avatar
-    </button>
+    <div data-preview-meta>
+      <output>Avatar: {{ imageIndex + 1 }}</output>
+      <Button size="sm" @click="imageIndex = (imageIndex + 1) % avatarImages.length">
+        Change avatar
+      </Button>
+    </div>
   </div>
 </template>

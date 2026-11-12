@@ -31,7 +31,7 @@ const value = ref<number | null>(42);
         <ProgressCircularValueText />
       </div>
     </ProgressCircular>
-    <div>
+    <div data-preview-meta>
       <output>Progress: {{ value ?? 'loading' }}%</output>
       <Slider
         :class="styles.slider"

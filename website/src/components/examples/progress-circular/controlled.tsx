@@ -16,7 +16,6 @@ import {
 } from '@moduix/react/slider';
 import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/progress-circular/component-controlled.module.css';
 
 export default function ControlledProgressCircularDemo() {
@@ -30,7 +29,7 @@ export default function ControlledProgressCircularDemo() {
           <ProgressCircularValueText />
         </div>
       </ProgressCircular>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Progress: {value ?? 'loading'}%</output>
         <Slider
           className={styles.slider}
@@ -50,7 +49,7 @@ export default function ControlledProgressCircularDemo() {
             </SliderThumb>
           </SliderControl>
         </Slider>
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

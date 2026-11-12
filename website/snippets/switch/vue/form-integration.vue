@@ -25,7 +25,7 @@ const handleSubmit = (event: SubmitEvent) => {
       <FieldHelperText>Choose whether to receive product updates.</FieldHelperText>
       <FieldErrorText>Choose a notification preference.</FieldErrorText>
     </Field>
-    <div>
+    <div data-preview-meta>
       <output>
         {{
           submitted ? (checked ? 'Preference saved.' : 'Choose a preference.') : 'Not submitted.'

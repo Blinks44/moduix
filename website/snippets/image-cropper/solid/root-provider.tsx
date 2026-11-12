@@ -29,10 +29,12 @@ export default function RootProviderImageCropperDemo() {
           <ImageCropperCropArea />
         </ImageCropperViewport>
       </ImageCropperRootProvider>
-      <output>Resets: {resets()}</output>
-      <Button size="sm" type="button" aria-label="Reset crop" onClick={handleReset}>
-        <RestartIcon />
-      </Button>
+      <div data-preview-meta>
+        <output>Resets: {resets()}</output>
+        <Button size="sm" type="button" aria-label="Reset crop" onClick={handleReset}>
+          <RestartIcon />
+        </Button>
+      </div>
     </div>
   );
 }

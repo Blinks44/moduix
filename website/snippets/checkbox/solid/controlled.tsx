@@ -20,7 +20,9 @@ export default function ControlledCheckboxDemo() {
         <CheckboxLabel>{checked() ? 'Enabled' : 'Disabled'}</CheckboxLabel>
         <CheckboxHiddenInput />
       </Checkbox>
-      <output>Notifications: {checked() ? 'enabled' : 'disabled'}</output>
+      <div data-preview-meta>
+        <output>Notifications: {checked() ? 'enabled' : 'disabled'}</output>
+      </div>
     </div>
   );
 }

@@ -35,7 +35,7 @@
     </HoverCardContent>
   </HoverCardPositioner>
 </HoverCard>
-<div>
+<div data-preview-meta>
   <output>Open: {open ? 'yes' : 'no'}</output>
   <Button size="sm" variant="outline" onclick={() => (open = !open)}>Toggle</Button>
 </div>

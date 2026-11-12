@@ -6,7 +6,6 @@ import {
   useNumberInput,
 } from '@moduix/react/number-input';
 import { Stack } from '@moduix/react/stack';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function RootProviderNumberInputDemo() {
   const numberInput = useNumberInput({
@@ -20,7 +19,7 @@ export default function RootProviderNumberInputDemo() {
         <NumberInputLabel>Guests</NumberInputLabel>
         <NumberInputField />
       </NumberInputRootProvider>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Value: {numberInput.value}</output>
         <Button type="button" size="sm" variant="outline" onClick={() => numberInput.setToMin()}>
           Min
@@ -28,7 +27,7 @@ export default function RootProviderNumberInputDemo() {
         <Button type="button" size="sm" variant="outline" onClick={() => numberInput.setToMax()}>
           Max
         </Button>
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

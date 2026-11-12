@@ -1,7 +1,6 @@
 import { AvatarFallback, AvatarImage, AvatarRootProvider, useAvatar } from '@moduix/react/avatar';
 import { Button } from '@moduix/react/button';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/avatar/avatar-root-provider.module.css';
 
 const avatarImages = [
@@ -19,7 +18,7 @@ export default function AvatarRootProviderDemo() {
         <AvatarFallback>AT</AvatarFallback>
         <AvatarImage src={avatarImages[imageIndex]} alt="Alex T." />
       </AvatarRootProvider>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Avatar: {imageIndex + 1}</output>
         <Button
           size="sm"
@@ -27,7 +26,7 @@ export default function AvatarRootProviderDemo() {
         >
           Change avatar
         </Button>
-      </PreviewMeta>
+      </div>
     </div>
   );
 }

@@ -8,7 +8,6 @@ import {
 } from '@moduix/react/hover-card';
 import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/hover-card/hover-card-controlled.module.css';
 
 export default function ControlledHoverCard() {
@@ -38,12 +37,12 @@ export default function ControlledHoverCard() {
           </HoverCardContent>
         </HoverCardPositioner>
       </HoverCard>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Open: {open ? 'yes' : 'no'}</output>
         <Button size="sm" variant="outline" onClick={() => setOpen((value) => !value)}>
           Toggle
         </Button>
-      </PreviewMeta>
+      </div>
     </>
   );
 }

@@ -17,7 +17,6 @@ import {
   useTour,
 } from '@moduix/react/tour';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 const steps = [
   {
@@ -73,10 +72,10 @@ export default function TourWaitForInputDemo() {
         </TourPositioner>
       </Tour>
 
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Tour: {status}</output>
         <Button onClick={() => tour.start()}>Start input tour</Button>
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

@@ -13,7 +13,6 @@ import {
   SelectContent,
   SelectOption,
 } from '@moduix/react/select';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/select/select-root-provider.module.css';
 
 const fruits = createListCollection({
@@ -87,12 +86,12 @@ export default function SelectRootProviderDemo() {
           </SelectContent>
         </SelectPositioner>
       </SelectRootProvider>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Selected: {select.valueAsString || 'none'}</output>
         <Button type="button" size="sm" onClick={() => select.setValue(['banana'])}>
           Select banana
         </Button>
-      </PreviewMeta>
+      </div>
     </div>
   );
 }

@@ -28,6 +28,8 @@ const handlePageChange = (details: PaginationPageChangeDetails) => {
       <PaginationItems />
       <PaginationNextTrigger />
     </Pagination>
-    <output>Current page: {{ page }}</output>
+    <div data-preview-meta>
+      <output>Current page: {{ page }}</output>
+    </div>
   </div>
 </template>

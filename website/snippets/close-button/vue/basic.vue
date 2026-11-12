@@ -20,5 +20,7 @@ const handleDismiss = () => {
     <p :class="styles.title">Draft saved</p>
     <p :class="styles.description">The notification can be dismissed.</p>
   </div>
-  <output v-else>Notification dismissed</output>
+  <div v-else data-preview-meta>
+    <output>Notification dismissed</output>
+  </div>
 </template>

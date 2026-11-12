@@ -18,7 +18,6 @@ import {
   type TreeViewNodeProviderProps,
   useTreeView,
 } from '@moduix/react/tree-view';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 type FileNode = { children?: FileNode[]; id: string; name: string };
 
@@ -90,7 +89,7 @@ export default function RootProviderTreeViewDemo() {
           ))}
         </TreeViewTree>
       </TreeViewRootProvider>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output aria-live="polite">Expanded: {treeView.expandedValue.join(', ') || 'none'}</output>
         <Stack direction="row" gap="2">
           <Button variant="outline" onClick={() => treeView.expand()}>
@@ -100,7 +99,7 @@ export default function RootProviderTreeViewDemo() {
             Collapse all
           </Button>
         </Stack>
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

@@ -41,10 +41,12 @@ export default function HotkeysBasicDemo() {
       </CardBody>
       <CardFooter>
         <Stack align="center" direction="row" justify="space-between">
-          <output aria-live="polite">{status()}</output>
-          <Button onClick={saveDraft} type="button">
-            Save draft
-          </Button>
+          <div data-preview-meta style={{ 'margin-inline': 'auto', 'place-items': 'center' }}>
+            <output aria-live="polite">{status()}</output>
+            <Button onClick={saveDraft} type="button">
+              Save draft
+            </Button>
+          </div>
         </Stack>
       </CardFooter>
     </Card>

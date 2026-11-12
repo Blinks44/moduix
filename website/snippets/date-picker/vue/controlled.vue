@@ -29,6 +29,8 @@ const value = shallowRef<DatePickerValue>([parseDate('2026-06-22') as DatePicker
         ><DatePickerView view="year"><DatePickerYearTable /></DatePickerView>
       </DatePickerContent>
     </DatePickerPositioner>
-    <output>Current value: {{ value[0]?.toString() ?? 'empty' }}</output>
+    <div data-preview-meta>
+      <output>Current value: {{ value[0]?.toString() ?? 'empty' }}</output>
+    </div>
   </DatePicker>
 </template>

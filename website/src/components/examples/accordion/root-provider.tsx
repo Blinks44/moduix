@@ -7,7 +7,6 @@ import {
   AccordionRootProvider,
   useAccordion,
 } from '@moduix/react/accordion';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/accordion/accordion-root-provider.module.css';
 
 const items = [
@@ -47,9 +46,9 @@ export default function RootProviderAccordionDemo() {
           </AccordionItem>
         ))}
       </AccordionRootProvider>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Open sections: {accordion.value.join(', ')}</output>
-      </PreviewMeta>
+      </div>
     </>
   );
 }

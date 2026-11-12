@@ -7,7 +7,6 @@ import {
   type DateInputDateValue,
 } from '@moduix/react/date-input';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/date-input/date-input-controlled.module.css';
 
 export default function ControlledDateInputDemo() {
@@ -20,9 +19,9 @@ export default function ControlledDateInputDemo() {
           <DateInputSegments />
         </DateInputControl>
       </DateInput>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Selected: {value[0]?.toString() ?? 'empty'}</output>
-      </PreviewMeta>
+      </div>
     </div>
   );
 }

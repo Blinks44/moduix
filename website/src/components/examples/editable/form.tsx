@@ -8,7 +8,6 @@ import {
   EditablePreview,
 } from '@moduix/react/editable';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/editable/editable-form.module.css';
 
 export default function EditableFormDemo() {
@@ -30,12 +29,12 @@ export default function EditableFormDemo() {
         </EditableArea>
         <EditableControls />
       </Editable>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Submitted: {submitted}</output>
         <Button type="submit" size="sm">
           Submit
         </Button>
-      </PreviewMeta>
+      </div>
     </form>
   );
 }

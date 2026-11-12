@@ -38,5 +38,7 @@
       <SliderThumbs />
     </SliderControl>
   </Slider>
-  <output>Live: {liveValue.join(', ')} / Committed: {committedValue.join(', ')}</output>
+  <div data-preview-meta>
+    <output>Live: {liveValue.join(', ')} / Committed: {committedValue.join(', ')}</output>
+  </div>
 </Stack>

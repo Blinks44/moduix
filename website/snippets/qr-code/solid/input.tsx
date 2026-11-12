@@ -16,7 +16,9 @@ export default function InputQrCodeDemo() {
           <QrCodePattern />
         </QrCodeFrame>
       </QrCode>
-      <output>Encoded content: {value() || 'empty'}</output>
+      <div data-preview-meta>
+        <output>Encoded content: {value() || 'empty'}</output>
+      </div>
     </>
   );
 }

@@ -13,7 +13,6 @@ import {
 } from '@moduix/react/color-picker';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function FormUsageColorPickerDemo() {
   const [submitted, setSubmitted] = useState('Nothing submitted');
@@ -38,12 +37,12 @@ export default function FormUsageColorPickerDemo() {
         </ColorPickerPositioner>
         <ColorPickerHiddenInput />
       </ColorPicker>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Submitted: {submitted}</output>
         <Button type="submit" size="sm">
           Submit
         </Button>
-      </PreviewMeta>
+      </div>
     </form>
   );
 }

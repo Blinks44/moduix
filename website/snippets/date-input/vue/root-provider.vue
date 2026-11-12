@@ -24,10 +24,12 @@ const dateInput = useDateInput({
         <DateInputSegments />
       </DateInputControl>
     </DateInputRootProvider>
-    <output>Selected: {{ dateInput.value[0]?.toString() ?? 'empty' }}</output>
-    <Button type="button" size="sm" variant="outline" @click="dateInput.clearValue()">
-      Clear
-    </Button>
-    <Button type="button" size="sm" variant="outline" @click="dateInput.focus()"> Focus </Button>
+    <div data-preview-meta>
+      <output>Selected: {{ dateInput.value[0]?.toString() ?? 'empty' }}</output>
+      <Button type="button" size="sm" variant="outline" @click="dateInput.clearValue()">
+        Clear
+      </Button>
+      <Button type="button" size="sm" variant="outline" @click="dateInput.focus()"> Focus </Button>
+    </div>
   </div>
 </template>

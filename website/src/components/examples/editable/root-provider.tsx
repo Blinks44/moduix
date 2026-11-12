@@ -8,7 +8,6 @@ import {
   EditableRootProvider,
   useEditable,
 } from '@moduix/react/editable';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/editable/editable-root-provider.module.css';
 
 export default function RootProviderEditableDemo() {
@@ -26,11 +25,11 @@ export default function RootProviderEditableDemo() {
         </EditableArea>
         <EditableControls />
       </EditableRootProvider>
-      <PreviewMeta>
+      <div data-preview-meta>
         <Button type="button" size="sm" onClick={() => editable.edit()}>
           Edit
         </Button>
-      </PreviewMeta>
+      </div>
     </div>
   );
 }

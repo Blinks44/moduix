@@ -59,7 +59,7 @@
 
   <CarouselContext>
     {#snippet render(api)}
-      <div style="margin-inline: auto">
+      <div data-preview-meta style="margin-inline: auto">
         <Button size="sm" variant="outline" onclick={() => api().scrollToIndex(3)}
           >Go to slide 4</Button
         >

@@ -27,7 +27,7 @@ export default function RootProviderProgressCircularDemo() {
           <ProgressCircularValueText />
         </div>
       </ProgressCircularRootProvider>
-      <div>
+      <div data-preview-meta>
         <output>Progress: {progress().valueAsString}</output>
         <Button type="button" onClick={() => progress().setToMax()}>
           Complete rollout

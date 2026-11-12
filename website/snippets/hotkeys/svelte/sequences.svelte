@@ -50,6 +50,8 @@
     </Stack>
   </CardBody>
   <CardFooter>
-    <output aria-live="polite">Current view: {destination}</output>
+    <div data-preview-meta style="margin-inline: auto; place-items: center">
+      <output aria-live="polite">Current view: {destination}</output>
+    </div>
   </CardFooter>
 </Card>

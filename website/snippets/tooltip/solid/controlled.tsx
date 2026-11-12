@@ -6,7 +6,7 @@ export default function ControlledTooltipDemo() {
   const [open, setOpen] = createSignal(false);
 
   return (
-    <div>
+    <div data-preview-meta>
       <Tooltip open={open()} onOpenChange={(details) => setOpen(details.open)}>
         <TooltipTrigger>Controlled tooltip</TooltipTrigger>
         <TooltipBody>Open: {String(open())}</TooltipBody>

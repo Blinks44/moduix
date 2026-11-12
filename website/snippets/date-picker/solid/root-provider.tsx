@@ -35,9 +35,11 @@ export default function RootProviderDatePickerDemo() {
           </DatePickerContent>
         </DatePickerPositioner>
       </DatePickerRootProvider>
-      <Button size="sm" variant="secondary" onClick={() => datePicker().clearValue()}>
-        Clear
-      </Button>
+      <div data-preview-meta>
+        <Button size="sm" variant="secondary" onClick={() => datePicker().clearValue()}>
+          Clear
+        </Button>
+      </div>
     </>
   );
 }

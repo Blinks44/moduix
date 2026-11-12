@@ -21,7 +21,9 @@ const handleSubmit = (event: SubmitEvent) => {
       <NumberInputLabel>Quantity</NumberInputLabel>
       <NumberInputField />
     </NumberInput>
-    <output>Submitted: {{ submittedValue }}</output>
-    <Button type="submit" size="sm">Submit quantity</Button>
+    <div data-preview-meta>
+      <output>Submitted: {{ submittedValue }}</output>
+      <Button type="submit" size="sm">Submit quantity</Button>
+    </div>
   </form>
 </template>

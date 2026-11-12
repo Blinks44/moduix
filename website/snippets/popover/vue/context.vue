@@ -17,7 +17,9 @@ import {
 <template>
   <Popover :positioning="{ gutter: 8 }">
     <PopoverContext v-slot="popover">
-      <output>Open: {{ popover.open ? 'yes' : 'no' }}</output>
+      <div data-preview-meta>
+        <output>Open: {{ popover.open ? 'yes' : 'no' }}</output>
+      </div>
     </PopoverContext>
     <PopoverTrigger as-child><Button>Open context example</Button></PopoverTrigger>
     <PopoverPositioner>

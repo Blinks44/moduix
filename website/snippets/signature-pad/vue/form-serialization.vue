@@ -28,7 +28,7 @@ const handleSubmit = (event: Event) => {
         <SignaturePadHiddenInput :value="JSON.stringify(context.paths)" />
       </SignaturePadContext>
     </SignaturePad>
-    <div>
+    <div data-preview-meta>
       <output>Submitted: {{ submitted }}</output>
       <Button type="submit" size="sm">Submit</Button>
     </div>

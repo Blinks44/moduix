@@ -45,4 +45,6 @@
     </AccordionItem>
   {/each}
 </AccordionRootProvider>
-<output>Open sections: {accordion().value.join(', ')}</output>
+<div data-preview-meta>
+  <output>Open sections: {accordion().value.join(', ')}</output>
+</div>

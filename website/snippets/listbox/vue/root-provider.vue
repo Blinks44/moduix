@@ -34,7 +34,7 @@ const listbox = useListbox({ collection: priorities });
         </ListboxItem>
       </ListboxContent>
     </ListboxRootProvider>
-    <div>
+    <div data-preview-meta :style="{ placeSelf: 'center' }">
       <output>Selected: {{ listbox.value[0] ?? 'none' }}</output>
       <Button type="button" @click="listbox.setValue(['high'])">Set to high</Button>
     </div>

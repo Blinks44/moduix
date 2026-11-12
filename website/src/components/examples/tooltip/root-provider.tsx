@@ -4,7 +4,6 @@ import {
   TooltipRootProvider,
   TooltipTrigger,
 } from '@moduix/react/tooltip';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function RootProviderTooltipDemo() {
   const tooltip = useTooltip();
@@ -14,9 +13,9 @@ export default function RootProviderTooltipDemo() {
         <TooltipTrigger>RootProvider tooltip</TooltipTrigger>
         <TooltipBody>State is owned outside the tree.</TooltipBody>
       </TooltipRootProvider>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Open: {String(tooltip.open)}</output>
-      </PreviewMeta>
+      </div>
     </>
   );
 }

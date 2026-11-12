@@ -11,7 +11,6 @@ import {
   FileUploadTrigger,
 } from '@moduix/react/file-upload';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/file-upload/file-upload-controlled.module.css';
 
 const initialFiles = [
@@ -46,9 +45,9 @@ export default function ControlledFileUploadDemo() {
         </FileUploadItemGroup>
         <FileUploadHiddenInput />
       </FileUpload>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Selected: {files.length}</output>
-      </PreviewMeta>
+      </div>
     </>
   );
 }

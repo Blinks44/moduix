@@ -58,6 +58,8 @@ const items = [
         <StepsNextTrigger>Next</StepsNextTrigger>
       </div>
     </Steps>
-    <output>Current step: {{ step + 1 }}</output>
+    <div data-preview-meta>
+      <output>Current step: {{ step + 1 }}</output>
+    </div>
   </div>
 </template>

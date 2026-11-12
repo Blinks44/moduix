@@ -6,7 +6,14 @@ export default function CloseButtonDemo() {
   const [isVisible, setIsVisible] = createSignal(true);
 
   return (
-    <Show when={isVisible()} fallback={<output>Notification dismissed</output>}>
+    <Show
+      when={isVisible()}
+      fallback={
+        <div data-preview-meta>
+          <output>Notification dismissed</output>
+        </div>
+      }
+    >
       <div class={styles.root}>
         <CloseButton
           aria-label="Dismiss notification"

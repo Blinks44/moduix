@@ -47,7 +47,7 @@
     </SelectPositioner>
     <SelectHiddenSelect />
   </Select>
-  <div>
+  <div data-preview-meta>
     <output>Submitted: {submitted}</output><Button type="submit" size="sm">Submit</Button>
   </div>
 </form>

@@ -35,10 +35,16 @@
   {#each placements as item (item)}
     <ToastToaster toaster={toasters[item]} />
   {/each}
-  {#each placements as item (item)}
-    <Button variant={item === placement ? 'default' : 'outline'} onclick={() => (placement = item)}>
-      {item}
-    </Button>
-  {/each}
-  <Button onclick={showToast}>Show toast</Button>
+  <div data-preview-meta>
+    <output>Placement: {placement}</output>
+    {#each placements as item (item)}
+      <Button
+        variant={item === placement ? 'default' : 'outline'}
+        onclick={() => (placement = item)}
+      >
+        {item}
+      </Button>
+    {/each}
+    <Button onclick={showToast}>Show toast</Button>
+  </div>
 </div>

@@ -18,10 +18,12 @@ export default function PaginationPageRangeDemo() {
               <PaginationItems />
               <PaginationNextTrigger />
             </div>
-            <output>
-              Showing {pagination().pageRange.start + 1}-{pagination().pageRange.end} of{' '}
-              {pagination().count} results
-            </output>
+            <div data-preview-meta>
+              <output>
+                Showing {pagination().pageRange.start + 1}-{pagination().pageRange.end} of{' '}
+                {pagination().count} results
+              </output>
+            </div>
           </div>
         )}
       </PaginationContext>

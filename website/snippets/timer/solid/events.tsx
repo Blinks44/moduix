@@ -29,9 +29,11 @@ export default function EventsTimerDemo() {
           </TimerActionTrigger>
         </TimerControl>
       </Timer>
-      <output>
-        Ticks: {ticks()} / {complete() ? 'Complete' : 'Running target'}
-      </output>
+      <div data-preview-meta>
+        <output>
+          Ticks: {ticks()} / {complete() ? 'Complete' : 'Running target'}
+        </output>
+      </div>
     </>
   );
 }

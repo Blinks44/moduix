@@ -7,7 +7,6 @@ import {
   TagsInputLabel,
 } from '@moduix/react/tags-input';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/tags-input/tags-input-validation-and-max.module.css';
 
 export default function ValidationTagsInput() {
@@ -32,9 +31,9 @@ export default function ValidationTagsInput() {
           <TagsInputClearTrigger aria-label="Clear labels" />
         </TagsInputControl>
       </TagsInput>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Last invalid reason: {invalidReason}</output>
-      </PreviewMeta>
+      </div>
     </div>
   );
 }

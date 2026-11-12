@@ -35,7 +35,9 @@ export default function VerticalMarksSliderDemo() {
           ))}
         </SliderMarkerGroup>
       </Slider>
-      <output>Output: {value().join(', ')}</output>
+      <div data-preview-meta>
+        <output>Output: {value().join(', ')}</output>
+      </div>
     </Stack>
   );
 }
