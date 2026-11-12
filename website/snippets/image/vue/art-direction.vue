@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { Image, ImageSource } from '@moduix/vue/image';
+import styles from '@/components/examples/image/image-art-direction.module.css';
 </script>
 
 <template>
-  <picture>
+  <picture :class="styles.root">
     <ImageSource
       media="(min-width: 48rem)"
       type="image/avif"

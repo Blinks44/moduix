@@ -1,20 +1,18 @@
 <script setup lang="ts">
 import { createListCollection } from '@ark-ui/vue/collection';
+import { Field, FieldHelperText } from '@moduix/vue/field';
 import {
+  Select,
   SelectContent,
   SelectControl,
   SelectHiddenSelect,
   SelectIndicator,
-  SelectItem,
-  SelectItemIndicator,
-  SelectItemText,
   SelectLabel,
+  SelectOption,
   SelectPositioner,
-  SelectRoot,
   SelectTrigger,
   SelectValueText,
-} from '@ark-ui/vue/select';
-import { Field, FieldHelperText } from '@moduix/vue/field';
+} from '@moduix/vue/select';
 import styles from '@/components/examples/field/field-select.module.css';
 
 type Priority = { label: string; value: string };
@@ -30,7 +28,7 @@ const priorities = createListCollection<Priority>({
 
 <template>
   <Field :class="styles.root">
-    <SelectRoot :collection="priorities" required name="priority">
+    <Select :collection="priorities" required name="priority">
       <SelectLabel>Priority</SelectLabel>
       <SelectControl>
         <SelectTrigger><SelectValueText placeholder="Select priority" /></SelectTrigger>
@@ -38,14 +36,13 @@ const priorities = createListCollection<Priority>({
       </SelectControl>
       <SelectPositioner>
         <SelectContent>
-          <SelectItem v-for="item in priorities.items" :key="item.value" :item="item">
-            <SelectItemText>{{ item.label }}</SelectItemText>
-            <SelectItemIndicator />
-          </SelectItem>
+          <SelectOption v-for="item in priorities.items" :key="item.value" :item="item">{{
+            item.label
+          }}</SelectOption>
         </SelectContent>
       </SelectPositioner>
       <SelectHiddenSelect />
-    </SelectRoot>
+    </Select>
     <FieldHelperText>Used for triage queues.</FieldHelperText>
   </Field>
 </template>

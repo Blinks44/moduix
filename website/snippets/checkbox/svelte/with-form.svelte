@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { Button } from '@moduix/svelte/button';
   import {
     Checkbox,
     CheckboxControl,
@@ -24,6 +25,6 @@
   </Checkbox>
   <div data-preview-meta>
     <output>{submitted}</output>
-    <button type="submit">Submit</button>
+    <Button type="submit" size="sm">Submit</Button>
   </div>
 </form>

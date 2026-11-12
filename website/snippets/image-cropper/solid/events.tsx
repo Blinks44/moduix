@@ -4,6 +4,7 @@ import {
   ImageCropperImage,
   ImageCropperViewport,
 } from '@moduix/solid/image-cropper';
+import { Stack } from '@moduix/solid/stack';
 import { createSignal } from 'solid-js';
 
 const sampleImage =
@@ -14,7 +15,7 @@ export default function EventsImageCropperDemo() {
   const [zoom, setZoom] = createSignal(1);
 
   return (
-    <div>
+    <Stack align="center" gap="3">
       <ImageCropper
         aria-label="Image cropper"
         onCropChange={(details) => setCrop(details.crop)}
@@ -31,6 +32,6 @@ export default function EventsImageCropperDemo() {
           {Math.round(crop().width)} x {Math.round(crop().height)}
         </output>
       </div>
-    </div>
+    </Stack>
   );
 }

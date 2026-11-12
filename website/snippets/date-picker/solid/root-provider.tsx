@@ -12,12 +12,13 @@ import {
   DatePickerMonthTable,
   DatePickerYearTable,
 } from '@moduix/solid/date-picker';
+import { Stack } from '@moduix/solid/stack';
 
 export default function RootProviderDatePickerDemo() {
   const datePicker = useDatePicker({ defaultValue: [today('UTC')] });
 
   return (
-    <>
+    <Stack align="center">
       <DatePickerRootProvider value={datePicker}>
         <DatePickerLabel>Report date</DatePickerLabel>
         <DatePickerField />
@@ -40,6 +41,6 @@ export default function RootProviderDatePickerDemo() {
           Clear
         </Button>
       </div>
-    </>
+    </Stack>
   );
 }

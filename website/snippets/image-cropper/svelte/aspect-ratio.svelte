@@ -6,6 +6,7 @@
     ImageCropperImage,
     ImageCropperViewport,
   } from '@moduix/svelte/image-cropper';
+  import { Stack } from '@moduix/svelte/stack';
 
   const sampleImage =
     'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=640&h=400&q=90';
@@ -19,7 +20,7 @@
   let aspectRatio = $state(16 / 9);
 </script>
 
-<div>
+<Stack align="center" gap="3">
   <ImageCropper {aspectRatio} aria-label="Image cropper">
     <ImageCropperViewport>
       <ImageCropperImage src={sampleImage} alt="Landscape" crossorigin="anonymous" />
@@ -31,10 +32,10 @@
       Aspect ratio:
       {aspectRatios.find((aspect) => aspect.value === aspectRatio)?.label}
     </output>
+    {#each aspectRatios as aspect (aspect.label)}
+      <Button size="sm" type="button" onclick={() => (aspectRatio = aspect.value)}>
+        {aspect.label}
+      </Button>
+    {/each}
   </div>
-  {#each aspectRatios as aspect (aspect.label)}
-    <Button size="sm" type="button" onclick={() => (aspectRatio = aspect.value)}>
-      {aspect.label}
-    </Button>
-  {/each}
-</div>
+</Stack>

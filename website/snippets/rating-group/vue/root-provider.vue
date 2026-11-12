@@ -10,6 +10,7 @@ import {
   useRatingGroup,
 } from '@moduix/vue/rating-group';
 import { Stack } from '@moduix/vue/stack';
+import styles from '@/components/examples/rating-group/component-root-provider.module.css';
 
 const ratingGroup = useRatingGroup({ count: 5, defaultValue: 3 });
 </script>
@@ -27,7 +28,7 @@ const ratingGroup = useRatingGroup({ count: 5, defaultValue: 3 });
       </RatingGroupControl>
     </RatingGroupRootProvider>
     <div data-preview-meta>
-      <output>Current value: {{ ratingGroup.value }}</output>
+      <output :class="styles.hint">Current value: {{ ratingGroup.value }}</output>
       <Button type="button" size="sm" @click="ratingGroup.setValue(5)">Set to 5</Button>
     </div>
   </Stack>

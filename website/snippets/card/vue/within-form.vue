@@ -8,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@moduix/vue/card';
+import { Input } from '@moduix/vue/input';
 import styles from '@/components/examples/card/card-within-form.module.css';
 
 const copy = {
@@ -30,7 +31,7 @@ const fields = [
       <CardBody :class="styles.body">
         <label v-for="field in fields" :key="field.name" :class="styles.field">
           {{ field.label }}
-          <input :name="field.name" :autocomplete="field.autocomplete" />
+          <Input :name="field.name" :autocomplete="field.autocomplete" />
         </label>
       </CardBody>
       <CardFooter>

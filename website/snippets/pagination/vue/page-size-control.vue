@@ -48,6 +48,7 @@ const handlePageSizeChange = (
             :class="styles.pageSizeSelect"
             :collection="pageSizes"
             :model-value="[String(pagination.pageSize)]"
+            :positioning="{ sameWidth: true }"
             @value-change="handlePageSizeChange($event, pagination.setPageSize)"
           >
             <SelectLabel>Items per page</SelectLabel>

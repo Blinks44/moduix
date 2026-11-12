@@ -1,16 +1,25 @@
 <script lang="ts">
   import { QrCode, QrCodeFrame, QrCodePattern } from '@moduix/svelte/qr-code';
+  import styles from '@/components/examples/qr-code/component-fill.module.css';
 
   const fills = [
-    { label: 'Primary', color: 'var(--moduix-primary)' },
-    { label: 'Danger', color: 'var(--moduix-destructive)' },
+    {
+      label: 'Primary',
+      class: styles.primary,
+    },
+    {
+      label: 'Danger',
+      class: styles.danger,
+    },
   ];
 </script>
 
-{#each fills as fill (fill.label)}
-  <QrCode defaultValue="https://moduix.dev/docs/qr-code">
-    <QrCodeFrame style="color: {fill.color}" role="img" aria-label="{fill.label} QR code">
-      <QrCodePattern />
-    </QrCodeFrame>
-  </QrCode>
-{/each}
+<div class={styles.grid}>
+  {#each fills as fill (fill.label)}
+    <QrCode defaultValue="https://moduix.dev/docs/qr-code">
+      <QrCodeFrame class={fill.class}>
+        <QrCodePattern />
+      </QrCodeFrame>
+    </QrCode>
+  {/each}
+</div>

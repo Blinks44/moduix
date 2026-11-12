@@ -6,6 +6,7 @@ import {
   ImageCropperImage,
   ImageCropperViewport,
 } from '@moduix/vue/image-cropper';
+import { Stack } from '@moduix/vue/stack';
 import { ref } from 'vue';
 
 const sampleImage =
@@ -21,7 +22,7 @@ const aspectRatio = ref(16 / 9);
 </script>
 
 <template>
-  <div>
+  <Stack align="center" gap="3">
     <ImageCropper :aspect-ratio="aspectRatio" aria-label="Image cropper">
       <ImageCropperViewport>
         <ImageCropperImage :src="sampleImage" alt="Landscape" cross-origin="anonymous" />
@@ -42,5 +43,5 @@ const aspectRatio = ref(16 / 9);
         {{ aspect.label }}
       </Button>
     </div>
-  </div>
+  </Stack>
 </template>

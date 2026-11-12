@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { FieldLabel, FieldRoot as Field } from '@ark-ui/svelte/field';
+  import { Field, FieldLabel } from '@moduix/svelte/field';
   import {
     FieldsetErrorText,
     FieldsetLegend,

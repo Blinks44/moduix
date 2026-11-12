@@ -16,6 +16,13 @@ import {
   MenuTrigger,
   MenuViewport,
 } from '@moduix/vue/menu';
+import styles from '@/components/examples/breadcrumbs/breadcrumbs-collapsed-path.module.css';
+
+const collapsedItems = [
+  { href: '/docs', label: 'Docs' },
+  { href: '/docs/quick-start', label: 'Quick Start' },
+  { href: '/docs/composition-patterns', label: 'Composition Patterns' },
+];
 </script>
 
 <template>
@@ -31,26 +38,25 @@ import {
             </button>
           </MenuTrigger>
           <MenuPositioner>
-            <MenuContent>
+            <MenuContent :class="styles.content">
               <MenuViewport>
-                <MenuItem value="engineering" as-child
-                  ><a href="/engineering">Engineering</a></MenuItem
+                <MenuItem
+                  v-for="item in collapsedItems"
+                  :key="item.href"
+                  :value="item.href"
+                  as-child
                 >
-                <MenuItem value="backend" as-child
-                  ><a href="/engineering/backend">Backend</a></MenuItem
-                >
-                <MenuItem value="golang" as-child
-                  ><a href="/engineering/backend/golang">Golang</a></MenuItem
-                >
+                  <a :href="item.href">{{ item.label }}</a>
+                </MenuItem>
               </MenuViewport>
             </MenuContent>
           </MenuPositioner>
         </Menu>
       </BreadcrumbsItem>
       <BreadcrumbsSeparator />
-      <BreadcrumbsItem
-        ><BreadcrumbsLink href="/vacancies">Vacancies</BreadcrumbsLink></BreadcrumbsItem
-      >
+      <BreadcrumbsItem>
+        <BreadcrumbsLink href="/docs/breadcrumbs">Breadcrumbs</BreadcrumbsLink>
+      </BreadcrumbsItem>
       <BreadcrumbsSeparator />
       <BreadcrumbsItem><BreadcrumbsPage>Go Developer</BreadcrumbsPage></BreadcrumbsItem>
     </BreadcrumbsList>

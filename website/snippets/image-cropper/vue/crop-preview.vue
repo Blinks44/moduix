@@ -7,6 +7,7 @@ import {
   ImageCropperViewport,
   useImageCropper,
 } from '@moduix/vue/image-cropper';
+import { Stack } from '@moduix/vue/stack';
 import { ref } from 'vue';
 
 const sampleImage =
@@ -34,7 +35,7 @@ const handleCrop = async () => {
 </script>
 
 <template>
-  <div>
+  <Stack align="center" gap="3">
     <ImageCropperRootProvider :value="imageCropper" aria-label="Image cropper">
       <ImageCropperViewport>
         <ImageCropperImage :src="sampleImage" alt="Landscape" cross-origin="anonymous" />
@@ -43,8 +44,8 @@ const handleCrop = async () => {
     </ImageCropperRootProvider>
     <div data-preview-meta>
       <output>{{ status }}</output>
+      <img v-if="preview" :src="preview" alt="Cropped preview" width="128" height="128" />
+      <Button type="button" @click="handleCrop">Create crop preview</Button>
     </div>
-    <img v-if="preview" :src="preview" alt="Cropped preview" width="128" height="128" />
-    <Button type="button" @click="handleCrop">Create crop preview</Button>
-  </div>
+  </Stack>
 </template>

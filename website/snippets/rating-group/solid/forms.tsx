@@ -7,6 +7,7 @@ import {
   RatingGroupLabel,
 } from '@moduix/solid/rating-group';
 import { createSignal } from 'solid-js';
+import styles from '@/components/examples/rating-group/component-forms.module.css';
 
 export default function FormRatingGroupDemo() {
   const [submitted, setSubmitted] = createSignal('Nothing submitted');
@@ -18,7 +19,7 @@ export default function FormRatingGroupDemo() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form class={styles.stack} onSubmit={handleSubmit}>
       <RatingGroup name="review" defaultValue={4} required>
         <RatingGroupLabel>Review score</RatingGroupLabel>
         <RatingGroupControl>
@@ -27,7 +28,7 @@ export default function FormRatingGroupDemo() {
         <RatingGroupHiddenInput />
       </RatingGroup>
       <div data-preview-meta>
-        <output>Submitted: {submitted()}</output>
+        <output class={styles.hint}>Submitted: {submitted()}</output>
         <Button type="submit">Submit</Button>
       </div>
     </form>

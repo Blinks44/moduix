@@ -28,7 +28,7 @@ import {
             ><FloatingPanelControl
               ><FloatingPanelCloseIcon /></FloatingPanelControl></FloatingPanelHeader></FloatingPanelDragTrigger
         ><FloatingPanelBody
-          >The content receives focus on open so Escape dismisses the panel
+          >The content receives focus on open, so Escape dismisses this topmost panel
           immediately.</FloatingPanelBody
         ><FloatingPanelFooter>Esc closes the focused topmost panel.</FloatingPanelFooter
         ><FloatingPanelResizeTriggerGroup /></FloatingPanelContent

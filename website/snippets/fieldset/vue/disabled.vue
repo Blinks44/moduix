@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { FieldLabel, FieldRoot as Field } from '@ark-ui/vue/field';
+import { Field, FieldLabel } from '@moduix/vue/field';
 import { Fieldset, FieldsetHelperText, FieldsetLegend } from '@moduix/vue/fieldset';
 import { Input } from '@moduix/vue/input';
 import styles from '@/components/examples/fieldset/fieldset-disabled.module.css';

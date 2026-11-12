@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Bleed } from '@moduix/svelte/bleed';
+  import { Text } from '@moduix/svelte/text';
   import styles from '@/components/examples/bleed/bleed-custom-styling.module.css';
 
   const content = {
@@ -10,9 +11,9 @@
 
 <div class={styles.shell}>
   <div class={styles.shellContent}>
-    <p style="margin: 0">{content.shell}</p>
+    <Text tone="muted">{content.shell}</Text>
     <Bleed class={styles.customSurface}>
-      <p style="margin: 0">{content.surface}</p>
+      <Text weight="semibold">{content.surface}</Text>
     </Bleed>
   </div>
 </div>

@@ -28,7 +28,7 @@ const snapPoints = [0.18, 1];
         ><DrawerGrabber><DrawerGrabberIndicator /></DrawerGrabber
         ><DrawerHeader
           ><DrawerTitle>Drag controls</DrawerTitle><DrawerCloseIcon /><DrawerDescription
-            >Content dragging is enabled; interactive regions do not start a
+            >Content dragging is enabled; the interactive region does not start a
             drag.</DrawerDescription
           ></DrawerHeader
         ><DrawerBody :class="styles.body"

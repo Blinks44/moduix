@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Button } from '@moduix/vue/button';
 import {
+  LightboxBackdrop,
   LightboxCloseIcon,
   LightboxContent,
   LightboxImage,
@@ -23,6 +24,7 @@ const lightbox = useLightbox();
     Lightbox is {{ lightbox.open ? 'open' : 'closed' }}
   </Button>
   <LightboxRootProvider :value="lightbox">
+    <LightboxBackdrop />
     <LightboxPositioner>
       <LightboxContent :aria-label="image.alt">
         <LightboxCloseIcon />

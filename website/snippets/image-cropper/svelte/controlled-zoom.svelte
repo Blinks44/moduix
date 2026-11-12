@@ -8,6 +8,7 @@
     ImageCropperImage,
     ImageCropperViewport,
   } from '@moduix/svelte/image-cropper';
+  import { Stack } from '@moduix/svelte/stack';
 
   const sampleImage =
     'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=640&h=400&q=90';
@@ -16,7 +17,7 @@
   let zoom = $state(1);
 </script>
 
-<div>
+<Stack align="center" gap="3">
   <ImageCropper bind:zoom {minZoom} {maxZoom} aria-label="Image cropper">
     <ImageCropperViewport>
       <ImageCropperImage src={sampleImage} alt="Landscape" crossorigin="anonymous" />
@@ -42,4 +43,4 @@
       <ZoomInIcon />
     </Button>
   </div>
-</div>
+</Stack>

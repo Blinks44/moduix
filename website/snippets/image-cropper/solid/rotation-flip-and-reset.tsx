@@ -6,6 +6,7 @@ import {
   ImageCropperImage,
   ImageCropperViewport,
 } from '@moduix/solid/image-cropper';
+import { Stack } from '@moduix/solid/stack';
 import {
   FlipHorizontal as FlipHorizontalIcon,
   RotateCcw as RestartIcon,
@@ -24,7 +25,7 @@ export default function TransformImageCropperDemo() {
   const [flip, setFlip] = createSignal({ horizontal: false, vertical: false });
 
   return (
-    <div>
+    <Stack align="center" gap="3">
       <ImageCropper
         aria-label="Image cropper"
         rotation={rotation()}
@@ -34,7 +35,7 @@ export default function TransformImageCropperDemo() {
       >
         <ImageCropperContext>
           {(context) => (
-            <div>
+            <Stack direction="row" wrap="wrap" gap="1">
               <Button
                 size="sm"
                 type="button"
@@ -83,7 +84,7 @@ export default function TransformImageCropperDemo() {
               >
                 <RestartIcon />
               </Button>
-            </div>
+            </Stack>
           )}
         </ImageCropperContext>
         <ImageCropperViewport>
@@ -96,6 +97,6 @@ export default function TransformImageCropperDemo() {
           Rotation: {rotation()}deg, horizontal flip: {String(flip().horizontal)}
         </output>
       </div>
-    </div>
+    </Stack>
   );
 }

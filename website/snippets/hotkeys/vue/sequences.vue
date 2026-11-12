@@ -11,6 +11,7 @@ import {
 import { Kbd } from '@moduix/vue/kbd';
 import { Stack } from '@moduix/vue/stack';
 import { ref } from 'vue';
+import styles from '@/components/examples/hotkeys/hotkeys-sequences.module.css';
 
 const destination = ref('Home');
 const formatHotkey = useFormatHotkey();
@@ -34,13 +35,13 @@ useHotkeys({
 </script>
 
 <template>
-  <Card>
+  <Card :class="styles.root">
     <CardHeader>
       <CardTitle>Workspace navigation</CardTitle>
       <CardDescription>Press G, then I or D before the sequence times out.</CardDescription>
     </CardHeader>
     <CardBody>
-      <Stack gap="3">
+      <Stack :class="styles.stack" gap="3">
         <Stack align="center" direction="row" justify="space-between">
           <span>Open inbox</span>
           <Kbd>{{ formatHotkey('g > i') }}</Kbd>

@@ -1,8 +1,9 @@
 import { Image, ImageSource } from '@moduix/solid/image';
+import styles from '@/components/examples/image/image-art-direction.module.css';
 
 export default function ArtDirectedImageDemo() {
   return (
-    <picture>
+    <picture class={styles.root}>
       <ImageSource
         media="(min-width: 48rem)"
         type="image/avif"

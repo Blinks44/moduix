@@ -30,7 +30,7 @@
       </DrawerHeader>
       <DrawerBody class={styles.body}>
         <Card size="sm" class={styles.card}>
-          <CardBody>The trigger and close controls update the same state.</CardBody>
+          <CardBody>The trigger and close controls both update the same state.</CardBody>
         </Card>
       </DrawerBody>
     </DrawerContent>

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { Button } from '@moduix/svelte/button';
   import {
     Slider,
     SliderControl,
@@ -39,7 +40,7 @@
   </Slider>
   <div data-preview-meta>
     <output>Submitted: {submitted}</output>
-    <button type="submit">Submit</button>
-    <button type="reset">Reset</button>
+    <Button type="submit" size="sm">Submit</Button>
+    <Button type="reset" size="sm" variant="outline">Reset</Button>
   </div>
 </form>

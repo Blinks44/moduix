@@ -32,7 +32,7 @@ export default function RootProviderStepsDemo() {
   const steps = useSteps({ count: items.length });
 
   return (
-    <>
+    <div class={styles.container}>
       <StepsRootProvider class={styles.root} value={steps}>
         <StepsList>
           {items.map((item, index) => (
@@ -65,6 +65,6 @@ export default function RootProviderStepsDemo() {
       <div data-preview-meta>
         <output>Current step: {steps().value + 1}</output>
       </div>
-    </>
+    </div>
   );
 }

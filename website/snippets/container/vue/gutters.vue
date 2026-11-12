@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Container } from '@moduix/vue/container';
+import { Text } from '@moduix/vue/text';
 import styles from '@/components/examples/container/container-gutters.module.css';
 
 const gutters = [
@@ -18,7 +19,7 @@ const gutters = [
       :gutter="gutter.value"
       :class="styles.container"
     >
-      <p>{{ gutter.label }}</p>
+      <Text>{{ gutter.label }}</Text>
     </Container>
   </div>
 </template>

@@ -1,22 +1,20 @@
 <script setup lang="ts">
 import { createListCollection } from '@ark-ui/vue/collection';
-import { FieldLabel, FieldRoot as Field } from '@ark-ui/vue/field';
+import { Field, FieldLabel } from '@moduix/vue/field';
+import { Fieldset, FieldsetHelperText, FieldsetLegend } from '@moduix/vue/fieldset';
+import { Input } from '@moduix/vue/input';
 import {
+  Select,
   SelectContent,
   SelectControl,
   SelectHiddenSelect,
   SelectIndicator,
-  SelectItem,
-  SelectItemIndicator,
-  SelectItemText,
   SelectLabel,
+  SelectOption,
   SelectPositioner,
-  SelectRoot,
   SelectTrigger,
   SelectValueText,
-} from '@ark-ui/vue/select';
-import { Fieldset, FieldsetHelperText, FieldsetLegend } from '@moduix/vue/fieldset';
-import { Input } from '@moduix/vue/input';
+} from '@moduix/vue/select';
 import styles from '@/components/examples/fieldset/fieldset-input-with-select.module.css';
 
 const countryCodes = createListCollection({
@@ -33,7 +31,7 @@ const countryCodes = createListCollection({
   <Fieldset :class="styles.root">
     <FieldsetLegend>Mobile number</FieldsetLegend>
     <div :class="styles.phoneInput">
-      <SelectRoot
+      <Select
         :class="styles.countryCode"
         :collection="countryCodes"
         :default-value="['+1']"
@@ -48,14 +46,13 @@ const countryCodes = createListCollection({
         </SelectControl>
         <SelectPositioner>
           <SelectContent>
-            <SelectItem v-for="item in countryCodes.items" :key="item.value" :item="item">
-              <SelectItemText>{{ item.label }}</SelectItemText>
-              <SelectItemIndicator />
-            </SelectItem>
+            <SelectOption v-for="item in countryCodes.items" :key="item.value" :item="item">{{
+              item.label
+            }}</SelectOption>
           </SelectContent>
         </SelectPositioner>
         <SelectHiddenSelect />
-      </SelectRoot>
+      </Select>
       <Field>
         <FieldLabel>Phone</FieldLabel>
         <Input type="tel" aria-label="Phone number" />

@@ -6,6 +6,7 @@ import {
   ImageCropperViewport,
   useImageCropper,
 } from '@moduix/solid/image-cropper';
+import { Stack } from '@moduix/solid/stack';
 import { RotateCcw as RestartIcon } from 'lucide-solid';
 import { createSignal } from 'solid-js';
 
@@ -22,7 +23,7 @@ export default function RootProviderImageCropperDemo() {
   };
 
   return (
-    <div>
+    <Stack align="center" gap="3">
       <ImageCropperRootProvider value={imageCropper} aria-label="Image cropper">
         <ImageCropperViewport>
           <ImageCropperImage src={sampleImage} alt="Landscape" crossOrigin="anonymous" />
@@ -35,6 +36,6 @@ export default function RootProviderImageCropperDemo() {
           <RestartIcon />
         </Button>
       </div>
-    </div>
+    </Stack>
   );
 }

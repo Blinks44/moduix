@@ -1,5 +1,5 @@
 import { type DateValue } from '@ark-ui/solid/date-picker';
-import { CalendarDateTime } from '@internationalized/date';
+import { CalendarDateTime, DateFormatter } from '@internationalized/date';
 import {
   DateInput,
   DateInputControl,
@@ -17,7 +17,14 @@ import {
   DatePickerMonthTable,
   DatePickerYearTable,
 } from '@moduix/solid/date-picker';
+import { Stack } from '@moduix/solid/stack';
 import { createSignal } from 'solid-js';
+
+const timeFormatter = new DateFormatter('en-US', {
+  hour: '2-digit',
+  hourCycle: 'h23',
+  minute: '2-digit',
+});
 
 export default function DatePickerWithTimeDemo() {
   const [value, setValue] = createSignal<DateValue[]>([new CalendarDateTime(2026, 6, 22, 14, 30)]);
@@ -32,7 +39,7 @@ export default function DatePickerWithTimeDemo() {
   };
 
   return (
-    <>
+    <Stack direction="row" align="flex-end" wrap="wrap" gap="3">
       <DatePicker value={value()} onValueChange={handleDateChange}>
         <DatePickerLabel>Appointment</DatePickerLabel>
         <DatePickerField />
@@ -51,6 +58,9 @@ export default function DatePickerWithTimeDemo() {
         </DatePickerPositioner>
       </DatePicker>
       <DateInput
+        formatter={timeFormatter}
+        granularity="minute"
+        hourCycle={24}
         value={value()}
         onValueChange={(details) => {
           const nextTime = details.value[0];
@@ -78,6 +88,6 @@ export default function DatePickerWithTimeDemo() {
           <DateInputSegments />
         </DateInputControl>
       </DateInput>
-    </>
+    </Stack>
   );
 }

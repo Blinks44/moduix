@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Bleed } from '@moduix/vue/bleed';
+import { Text } from '@moduix/vue/text';
 import styles from '@/components/examples/bleed/bleed-inline-amounts.module.css';
 
 const inlineAmounts = [
@@ -17,7 +18,7 @@ const inlineAmounts = [
       :inline="amount.value"
       :class="styles.panel"
     >
-      <p style="margin: 0">{{ amount.label }}</p>
+      <Text>{{ amount.label }}</Text>
     </Bleed>
   </div>
 </template>

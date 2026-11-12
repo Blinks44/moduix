@@ -32,7 +32,7 @@
         <DrawerTitle>Drag controls</DrawerTitle>
         <DrawerCloseIcon />
         <DrawerDescription>
-          Content dragging is enabled; interactive regions do not start a drag.
+          Content dragging is enabled; the interactive region does not start a drag.
         </DrawerDescription>
       </DrawerHeader>
       <DrawerBody class={styles.body}>

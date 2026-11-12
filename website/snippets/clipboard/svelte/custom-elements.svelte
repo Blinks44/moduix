@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { Button } from '@moduix/svelte/button';
   import {
     Clipboard,
     ClipboardControl,
@@ -7,22 +8,23 @@
     ClipboardLabel,
     ClipboardTrigger,
   } from '@moduix/svelte/clipboard';
+  import { Input } from '@moduix/svelte/input';
   import styles from '@/components/examples/clipboard/component-custom-elements.module.css';
 </script>
 
 <Clipboard class={styles.root} defaultValue="https://moduix.dev/docs/clipboard">
-  <ClipboardLabel>Use native input and button elements</ClipboardLabel>
+  <ClipboardLabel>Reuse moduix Input and Button</ClipboardLabel>
   <ClipboardControl>
     <ClipboardInput>
       {#snippet asChild(props)}
-        <input {...props()} readonly />
+        <Input {...props()} readonly />
       {/snippet}
     </ClipboardInput>
     <ClipboardTrigger>
       {#snippet asChild(props)}
-        <button {...props()} type="button">
+        <Button {...props()} variant="outline">
           <ClipboardIndicator />
-        </button>
+        </Button>
       {/snippet}
     </ClipboardTrigger>
   </ClipboardControl>

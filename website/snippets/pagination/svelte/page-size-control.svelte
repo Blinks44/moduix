@@ -48,6 +48,7 @@
             class={styles.pageSizeSelect}
             collection={pageSizes}
             value={[String(pagination().pageSize)]}
+            positioning={{ sameWidth: true }}
             onValueChange={(details) => handlePageSizeChange(details, pagination().setPageSize)}
           >
             <SelectLabel>Items per page</SelectLabel>

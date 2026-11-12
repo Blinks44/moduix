@@ -14,6 +14,7 @@
     useDialog,
   } from '@moduix/svelte/dialog';
   import { Field, FieldLabel } from '@moduix/svelte/field';
+  import { Textarea } from '@moduix/svelte/textarea';
 
   const id = $props.id();
 
@@ -51,7 +52,7 @@
       <DialogBody>
         <Field>
           <FieldLabel>Content</FieldLabel>
-          <textarea bind:value={formContent} placeholder="Enter some text..." rows="4"></textarea>
+          <Textarea bind:value={formContent} placeholder="Enter some text..." rows={4} />
         </Field>
       </DialogBody>
     </DialogContent>

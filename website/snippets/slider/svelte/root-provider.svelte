@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { Button } from '@moduix/svelte/button';
   import {
     SliderControl,
     SliderLabel,
@@ -31,6 +32,6 @@
   </SliderRootProvider>
   <div data-preview-meta>
     <output>Current: {slider().value.join(', ')}</output>
-    <button type="button" onclick={() => slider().focus()}>Focus</button>
+    <Button size="sm" onclick={() => slider().focus()}>Focus</Button>
   </div>
 </Stack>

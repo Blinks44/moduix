@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Bleed } from '@moduix/svelte/bleed';
+  import { Text } from '@moduix/svelte/text';
   import styles from '@/components/examples/bleed/bleed-inline-amounts.module.css';
 
   const inlineAmounts = [
@@ -12,7 +13,7 @@
 <div class={styles.root}>
   {#each inlineAmounts as amount (amount.value)}
     <Bleed inline={amount.value} class={styles.panel}>
-      <p style="margin: 0">{amount.label}</p>
+      <Text>{amount.label}</Text>
     </Bleed>
   {/each}
 </div>

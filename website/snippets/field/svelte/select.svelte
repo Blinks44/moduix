@@ -1,20 +1,18 @@
 <script lang="ts">
   import { createListCollection } from '@ark-ui/svelte/collection';
+  import { Field, FieldHelperText } from '@moduix/svelte/field';
   import {
+    Select,
     SelectContent,
     SelectControl,
     SelectHiddenSelect,
     SelectIndicator,
-    SelectItem,
-    SelectItemIndicator,
-    SelectItemText,
     SelectLabel,
+    SelectOption,
     SelectPositioner,
-    SelectRoot,
     SelectTrigger,
     SelectValueText,
-  } from '@ark-ui/svelte/select';
-  import { Field, FieldHelperText } from '@moduix/svelte/field';
+  } from '@moduix/svelte/select';
   import styles from '@/components/examples/field/field-select.module.css';
 
   type Priority = { label: string; value: string };
@@ -29,7 +27,7 @@
 </script>
 
 <Field class={styles.root}>
-  <SelectRoot collection={priorities} required name="priority">
+  <Select collection={priorities} required name="priority">
     <SelectLabel>Priority</SelectLabel>
     <SelectControl>
       <SelectTrigger><SelectValueText placeholder="Select priority" /></SelectTrigger>
@@ -38,14 +36,11 @@
     <SelectPositioner>
       <SelectContent>
         {#each priorities.items as item (item.value)}
-          <SelectItem {item}>
-            <SelectItemText>{item.label}</SelectItemText>
-            <SelectItemIndicator />
-          </SelectItem>
+          <SelectOption {item}>{item.label}</SelectOption>
         {/each}
       </SelectContent>
     </SelectPositioner>
     <SelectHiddenSelect />
-  </SelectRoot>
+  </Select>
   <FieldHelperText>Used for triage queues.</FieldHelperText>
 </Field>

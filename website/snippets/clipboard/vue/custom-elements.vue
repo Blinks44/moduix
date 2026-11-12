@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Button } from '@moduix/vue/button';
 import {
   Clipboard,
   ClipboardControl,
@@ -7,20 +8,21 @@ import {
   ClipboardLabel,
   ClipboardTrigger,
 } from '@moduix/vue/clipboard';
+import { Input } from '@moduix/vue/input';
 import styles from '@/components/examples/clipboard/component-custom-elements.module.css';
 </script>
 
 <template>
   <Clipboard :class="styles.root" default-value="https://moduix.dev/docs/clipboard">
-    <ClipboardLabel>Use native input and button elements</ClipboardLabel>
+    <ClipboardLabel>Reuse moduix Input and Button</ClipboardLabel>
     <ClipboardControl>
       <ClipboardInput as-child>
-        <input readonly />
+        <Input read-only />
       </ClipboardInput>
       <ClipboardTrigger as-child>
-        <button type="button">
+        <Button variant="outline">
           <ClipboardIndicator />
-        </button>
+        </Button>
       </ClipboardTrigger>
     </ClipboardControl>
   </Clipboard>

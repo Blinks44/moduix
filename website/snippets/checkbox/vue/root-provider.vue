@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Button } from '@moduix/vue/button';
 import {
   CheckboxControl,
   CheckboxHiddenInput,
@@ -20,9 +21,14 @@ const checkbox = useCheckbox({ defaultChecked: true });
     </CheckboxRootProvider>
     <div data-preview-meta>
       <output>{{ checkbox.checked ? 'Checked' : 'Unchecked' }}</output>
-      <button type="button" @click="checkbox.setChecked(!checkbox.checked)">
+      <Button
+        type="button"
+        size="sm"
+        variant="outline"
+        @click="checkbox.setChecked(!checkbox.checked)"
+      >
         {{ checkbox.checked ? 'Uncheck' : 'Check' }}
-      </button>
+      </Button>
     </div>
   </Stack>
 </template>

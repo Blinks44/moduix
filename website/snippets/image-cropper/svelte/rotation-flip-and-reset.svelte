@@ -13,6 +13,7 @@
     ImageCropperImage,
     ImageCropperViewport,
   } from '@moduix/svelte/image-cropper';
+  import { Stack } from '@moduix/svelte/stack';
 
   const sampleImage =
     'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=640&h=400&q=90';
@@ -20,11 +21,11 @@
   let flip = $state({ horizontal: false, vertical: false });
 </script>
 
-<div>
+<Stack align="center" gap="3">
   <ImageCropper bind:rotation bind:flip aria-label="Image cropper">
     <ImageCropperContext>
       {#snippet render(context)}
-        <div>
+        <Stack direction="row" wrap="wrap" gap="1">
           <Button
             size="sm"
             type="button"
@@ -68,7 +69,7 @@
           <Button size="sm" type="button" aria-label="Reset crop" onclick={() => context().reset()}>
             <RestartIcon />
           </Button>
-        </div>
+        </Stack>
       {/snippet}
     </ImageCropperContext>
     <ImageCropperViewport>
@@ -79,4 +80,4 @@
   <div data-preview-meta>
     <output>Rotation: {rotation}deg, horizontal flip: {String(flip.horizontal)}</output>
   </div>
-</div>
+</Stack>

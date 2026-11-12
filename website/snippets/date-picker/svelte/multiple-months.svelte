@@ -12,21 +12,22 @@
     DatePickerRangeText,
     DatePickerViewControl,
   } from '@moduix/svelte/date-picker';
+  import styles from '@/components/examples/date-picker/date-picker-multiple-months.module.css';
 </script>
 
 <DatePicker defaultValue={[parseDate('2026-06-22')]} numOfMonths={2}>
   <DatePickerLabel>Planning window</DatePickerLabel>
   <DatePickerField />
   <DatePickerPositioner>
-    <DatePickerContent>
+    <DatePickerContent class={styles.content}>
       <DatePickerViewControl>
         <DatePickerPrevTrigger />
         <DatePickerRangeText />
         <DatePickerNextTrigger />
       </DatePickerViewControl>
-      <div>
-        <DatePickerDayTable showHeader={false} />
-        <DatePickerDayTable offset={1} showHeader={false} />
+      <div class={styles.months}>
+        <DatePickerDayTable class={styles.table} showHeader={false} />
+        <DatePickerDayTable class={styles.table} offset={1} showHeader={false} />
       </div>
     </DatePickerContent>
   </DatePickerPositioner>

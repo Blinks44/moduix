@@ -10,6 +10,7 @@ import {
   DatePickerMonthTable,
   DatePickerYearTable,
 } from '@moduix/solid/date-picker';
+import styles from '@/components/examples/date-picker/date-picker-presets.module.css';
 
 export default function PresetDatePickerDemo() {
   return (
@@ -18,7 +19,7 @@ export default function PresetDatePickerDemo() {
       <DatePickerRangeField />
       <DatePickerPositioner>
         <DatePickerContent>
-          <div>
+          <div class={styles.presets}>
             <DatePickerPresetTrigger value="last7Days">Last 7 days</DatePickerPresetTrigger>
             <DatePickerPresetTrigger value="last30Days">Last 30 days</DatePickerPresetTrigger>
           </div>

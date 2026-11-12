@@ -8,6 +8,7 @@
     CardHeader,
     CardTitle,
   } from '@moduix/svelte/card';
+  import { Input } from '@moduix/svelte/input';
   import styles from '@/components/examples/card/card-within-form.module.css';
 
   const copy = {
@@ -31,7 +32,7 @@
         {#each fields as field (field.name)}
           <label class={styles.field}>
             {field.label}
-            <input name={field.name} autocomplete={field.autocomplete} />
+            <Input name={field.name} autocomplete={field.autocomplete} />
           </label>
         {/each}
       </CardBody>

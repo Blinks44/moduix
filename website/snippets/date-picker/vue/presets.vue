@@ -11,6 +11,7 @@ import {
   DatePickerView,
   DatePickerYearTable,
 } from '@moduix/vue/date-picker';
+import styles from '@/components/examples/date-picker/date-picker-presets.module.css';
 </script>
 
 <template>
@@ -18,7 +19,7 @@ import {
     <DatePickerLabel>Preset range</DatePickerLabel><DatePickerRangeField />
     <DatePickerPositioner
       ><DatePickerContent>
-        <div>
+        <div :class="styles.presets">
           <DatePickerPresetTrigger value="last7Days">Last 7 days</DatePickerPresetTrigger
           ><DatePickerPresetTrigger value="last30Days">Last 30 days</DatePickerPresetTrigger>
         </div>

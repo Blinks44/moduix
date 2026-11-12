@@ -11,6 +11,7 @@ import {
   DatePickerRangeText,
   DatePickerDayTable,
 } from '@moduix/solid/date-picker';
+import styles from '@/components/examples/date-picker/date-picker-multiple-months.module.css';
 
 export default function MultipleMonthsDatePickerDemo() {
   return (
@@ -18,15 +19,15 @@ export default function MultipleMonthsDatePickerDemo() {
       <DatePickerLabel>Planning window</DatePickerLabel>
       <DatePickerField />
       <DatePickerPositioner>
-        <DatePickerContent>
+        <DatePickerContent class={styles.content}>
           <DatePickerViewControl>
             <DatePickerPrevTrigger />
             <DatePickerRangeText />
             <DatePickerNextTrigger />
           </DatePickerViewControl>
-          <div>
-            <DatePickerDayTable showHeader={false} />
-            <DatePickerDayTable offset={1} showHeader={false} />
+          <div class={styles.months}>
+            <DatePickerDayTable class={styles.table} showHeader={false} />
+            <DatePickerDayTable class={styles.table} offset={1} showHeader={false} />
           </div>
         </DatePickerContent>
       </DatePickerPositioner>

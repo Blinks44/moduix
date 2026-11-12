@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Button } from '@moduix/svelte/button';
+  import { Spinner } from '@moduix/svelte/spinner';
 
   const delay = 1800;
   const labels = {
@@ -15,5 +16,10 @@
 </script>
 
 <Button loading={pending} onclick={save}>
-  {pending ? labels.pending : labels.idle}
+  {#if pending}
+    <Spinner decorative size="sm" />
+    {labels.pending}
+  {:else}
+    {labels.idle}
+  {/if}
 </Button>

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createListCollection } from '@ark-ui/svelte/collection';
   import SearchIcon from '@lucide/svelte/icons/search';
-  import { Input } from '@moduix/svelte/input';
+  import { InputGroup, InputGroupAddon, InputGroupInput } from '@moduix/svelte/input-group';
   import {
     Select,
     SelectContent,
@@ -57,12 +57,17 @@
   <SelectPositioner>
     <div bind:this={popup} class={styles.popup}>
       <div class={styles.popupHeader}>
-        <SearchIcon aria-hidden="true" /><Input
-          bind:ref={input}
-          aria-label="Filter fruits"
-          bind:value={query}
-          placeholder="Filter fruits"
-        />
+        <InputGroup>
+          <InputGroupAddon>
+            <SearchIcon aria-hidden="true" />
+          </InputGroupAddon>
+          <InputGroupInput
+            bind:ref={input}
+            aria-label="Filter fruits"
+            bind:value={query}
+            placeholder="Filter fruits"
+          />
+        </InputGroup>
       </div>
       <SelectContent class={styles.popupContent}>
         {#if collection.items.length}

@@ -14,10 +14,12 @@ import {
   DatePickerView,
   DatePickerYearTable,
 } from '@moduix/vue/date-picker';
+import styles from '@/components/examples/date-picker/date-picker-multiple.module.css';
 </script>
 
 <template>
   <DatePicker
+    :class="styles.root"
     selection-mode="multiple"
     :max-selected-dates="3"
     :default-value="[parseDate('2026-06-22'), parseDate('2026-06-24')]"
@@ -25,16 +27,24 @@ import {
     <DatePickerLabel>Meeting days</DatePickerLabel>
     <DatePickerControl>
       <DatePickerContext v-slot="context">
-        <span v-if="context.value.length === 0">Select dates...</span>
-        <template v-for="(value, index) in context.value" v-else :key="value.toString()">
-          <span>{{ value.toString() }}</span
-          ><button
-            type="button"
-            @click="context.setValue(context.value.filter((_, itemIndex) => itemIndex !== index))"
+        <div :class="styles.selectedDates">
+          <span v-if="context.value.length === 0" :class="styles.placeholder">Select dates</span>
+          <span
+            v-for="(value, index) in context.value"
+            v-else
+            :key="value.toString()"
+            :class="styles.selectedDate"
           >
-            Remove
-          </button>
-        </template>
+            {{ value.toString()
+            }}<button
+              type="button"
+              :class="styles.remove"
+              @click="context.setValue(context.value.filter((_, itemIndex) => itemIndex !== index))"
+            >
+              ×
+            </button>
+          </span>
+        </div>
       </DatePickerContext>
       <DatePickerClearTrigger aria-label="Clear dates" /><DatePickerTrigger
         aria-label="Open calendar"

@@ -28,8 +28,8 @@ export default function FormRatingGroupDemo() {
         <RatingGroupHiddenInput />
       </RatingGroup>
       <div data-preview-meta>
-        <Button type="submit">Submit</Button>
         <output className={styles.hint}>Submitted: {submitted}</output>
+        <Button type="submit">Submit</Button>
       </div>
     </form>
   );

@@ -6,6 +6,7 @@ import {
   AngleSliderLabel,
   AngleSliderMarks,
 } from '@moduix/vue/angle-slider';
+import { Button } from '@moduix/vue/button';
 import { ref } from 'vue';
 import styles from '@/components/examples/angle-slider/angle-slider-form.module.css';
 
@@ -29,7 +30,7 @@ const handleSubmit = (event: SubmitEvent) => {
     </AngleSlider>
     <div data-preview-meta>
       <output>Submitted: {{ submitted }}</output>
-      <button type="submit">Submit</button>
+      <Button type="submit" size="sm">Submit</Button>
     </div>
   </form>
 </template>
