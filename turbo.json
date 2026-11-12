@@ -25,12 +25,23 @@
       "cache": false
     },
     "moduix-docs#dev": {
-      "dependsOn": ["^build"],
+      "dependsOn": [
+        "@moduix/react#build",
+        "@moduix/solid#build",
+        "@moduix/vue#build",
+        "@moduix/svelte#build"
+      ],
       "cache": false,
       "persistent": true
     },
     "moduix-docs#build": {
-      "dependsOn": ["^build", "//#build:registry"],
+      "dependsOn": [
+        "@moduix/react#build",
+        "@moduix/solid#build",
+        "@moduix/vue#build",
+        "@moduix/svelte#build",
+        "//#build:registry"
+      ],
       "outputs": ["doc_build/**"]
     },
     "deploy": {
