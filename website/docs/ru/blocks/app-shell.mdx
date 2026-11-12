@@ -6,7 +6,7 @@ pageType: doc-wide
 outline: false
 ---
 
-import { AppShellExample } from '@/components/blocks/app-shell/app-shell-example';
+import { AppShellExample, AppShellPreview } from '@/components/blocks/app-shell/app-shell-example';
 import shellReact from '../../../src/components/blocks/app-shell/app-shell.tsx?raw';
 import shellSolid from '../../../snippets/blocks/solid/app-shell.tsx?raw';
 import shellVue from '../../../snippets/blocks/vue/app-shell.vue?raw';
@@ -16,6 +16,7 @@ import routeReact from '../../../snippets/blocks/react/app-shell-route.tsx?raw';
 import routeSolid from '../../../snippets/blocks/solid/app-shell-route.tsx?raw';
 import routeVue from '../../../snippets/blocks/vue/app-shell-route.vue?raw';
 import routeSvelte from '../../../snippets/blocks/svelte/app-shell-route.svelte?raw';
+export const shellLive = { solid: () => import('../../../snippets/blocks/solid/app-shell-route.tsx').then((module) => ({ default: module.WorkspaceRoute })), vue: () => import('../../../snippets/blocks/vue/app-shell-route.vue'), svelte: () => import('../../../snippets/blocks/svelte/app-shell-route.svelte') };
 
 # Каркас приложения
 
@@ -24,7 +25,11 @@ import routeSvelte from '../../../snippets/blocks/svelte/app-shell-route.svelte?
   sources={{ react: shellReact, solid: shellSolid, vue: shellVue, svelte: shellSvelte }}
   files={[{ name: 'app-shell.module.css', code: shellCss }]}
 >
-  <AppShellExample />
+  <AppShellPreview>
+    <FrameworkPreview live={shellLive}>
+      <AppShellExample />
+    </FrameworkPreview>
+  </AppShellPreview>
 </ExamplePanel>
 
 ## Установка

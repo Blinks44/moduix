@@ -1401,8 +1401,8 @@
           "type": "registry:component"
         },
         {
-          "path": "src/components/lightbox/lightbox.ts",
-          "target": "@components/ui/lightbox/lightbox.ts",
+          "path": "src/components/lightbox/lightbox-bind.ts",
+          "target": "@components/ui/lightbox/lightbox-bind.ts",
           "type": "registry:file"
         },
         {

@@ -106,14 +106,14 @@ import * as DrawerDocs from '@/components/examples/drawer/css-properties';
 
 ### Несколько триггеров
 
-Задайте каждому триггеру `value`, чтобы использовать одну панель для списка. Callback сообщает,
+Задайте каждому триггеру `value`, чтобы использовать одну панель для списка. Колбэк сообщает,
 какой триггер активен.
 
 <Example name="drawer/multiple-triggers" />
 
 ### Управляемый режим
 
-Читайте `details.open` в callback Ark. Callback получает объект деталей, а не логическое значение напрямую. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
+Читайте `details.open` в колбэке Ark. Колбэк получает объект `details`, а не логическое значение напрямую. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
 
 <Example name="drawer/controlled" />
 
@@ -126,7 +126,7 @@ import * as DrawerDocs from '@/components/examples/drawer/css-properties';
 
 ### Сборка из частей
 
-Тот же Drawer, что в Basic, но без `DrawerHeader`, `DrawerBody`, `DrawerFooter` и
+Тот же Drawer, что в основном примере, но без `DrawerHeader`, `DrawerBody`, `DrawerFooter` и
 `DrawerCloseIcon`: обычные элементы раскладки и `DrawerCloseTrigger` вокруг `CloseButton` с явной
 иконкой. Начинайте с него, если дизайн меняет раскладку или кнопку закрытия.
 
@@ -147,7 +147,7 @@ import * as DrawerDocs from '@/components/examples/drawer/css-properties';
 `DrawerIndentBackground` и `DrawerIndent`. Для собственного элемента триггера или закрытия
 используйте `asChild`: в React передаётся один доступный для фокуса дочерний элемент, в Solid
 рендер-функция должна передать ему `props()`, во Vue используется атрибут `as-child` с одним
-дочерним элементом, а в Svelte сниппет `asChild`, который передаёт `props()` дочернему элементу. Обработчики Ark получают объект деталей, например
+дочерним элементом, а в Svelte сниппет `asChild`, который передаёт `props()` дочернему элементу. Обработчики Ark получают объект `details`, например
 `details.open`, `details.snapPoint` и `details.value`.
 
 ## Анатомия

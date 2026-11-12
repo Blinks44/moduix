@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { useEnvironmentContext } from '@ark-ui/vue/environment';
+import { DEFAULT_ENVIRONMENT, useEnvironmentContext } from '@ark-ui/vue/environment';
 import { Card, CardBody, CardDescription, CardHeader, CardTitle } from '@moduix/vue/card';
 import { Stack } from '@moduix/vue/stack';
 import { onMounted, ref } from 'vue';
 // Render under EnvironmentProvider when targeting a different document or shadow root.
-const environment = useEnvironmentContext();
+const environment = useEnvironmentContext(DEFAULT_ENVIRONMENT);
 const details = ref({
   documentName: 'Detecting…',
   rootNode: 'Detecting…',

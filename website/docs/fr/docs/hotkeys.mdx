@@ -4,13 +4,13 @@ description: Enregistrez des raccourcis clavier adaptés à la plateforme, des s
 ark: https://ark-ui.com/docs/utilities/hotkeys
 ---
 
-`Hotkeys` est l'utilitaire d'Ark UI qui enregistre des commandes clavier. Il écoute un document ou une
-autre cible, tandis que votre application garde la responsabilité de l'action et des contrôles
+`Hotkeys` est l’utilitaire d’Ark UI qui enregistre des commandes clavier. Il écoute un document ou une
+autre cible, tandis que votre application garde la responsabilité de l’action et des contrôles
 visibles.
 
 ## Importation
 
-L'API est disponible depuis le point d'entrée racine du package Ark UI correspondant au framework :
+L’API est disponible depuis le point d’entrée racine du package Ark UI correspondant au framework :
 
 <Tabs
   groupId="framework"
@@ -60,43 +60,43 @@ déclaration fonctionne donc sur toutes les plateformes.
 
 <Example name="hotkeys/basic" />
 
-`action` reçoit le `KeyboardEvent` et peut donc l'inspecter si nécessaire. Ajoutez
+`action` reçoit le `KeyboardEvent` et peut donc l’inspecter si nécessaire. Ajoutez
 `options.preventDefault` lorsque le raccourci doit intentionnellement remplacer une commande du
 navigateur. Prévoyez toujours un bouton visible ou une autre action accessible en complément du
 raccourci clavier.
 
 ## Enregistrer plusieurs raccourcis
 
-Utilisez `useHotkeys` avec un tableau `commands` lorsqu'un écran comporte plusieurs commandes ou que
+Utilisez `useHotkeys` avec un tableau `commands` lorsqu’un écran comporte plusieurs commandes ou que
 les commandes proviennent de données. Chaque commande doit fournir `hotkey` et `action` ; `id`,
 `label`, `description`, `category` et `keywords` servent à conserver des références stables et à
 fournir des métadonnées à une palette de commandes.
 
-Séparez les étapes d'une séquence avec `>`. Le délai d'attente par défaut est de
+Séparez les étapes d’une séquence avec `>`. Le délai d’attente par défaut est de
 1000 millisecondes.
 
 <Example name="hotkeys/sequences" />
 
 ## Portées et options
 
-Hotkeys utilise un store partagé par défaut. Créez un store stable avec `createHotkeyStore` lorsqu'une
-partie de l'application a besoin de ses propres commandes, valeurs par défaut ou portées actives.
-Créez-le en dehors du composant ou mémorisez-le dans React afin qu'il ne soit pas recréé pendant le
+Hotkeys utilise un store partagé par défaut. Créez un store stable avec `createHotkeyStore` lorsqu’une
+partie de l’application a besoin de ses propres commandes, valeurs par défaut ou portées actives.
+Créez-le en dehors du composant ou mémorisez-le dans React afin qu’il ne soit pas recréé pendant le
 rendu. Passez le même store à `useHotkey`, `useHotkeys`, `useHotkeyRegistrations` ou `useHotkeyStore`.
 
-- `scopes` accepte une chaîne ou un tableau. Une commande se déclenche lorsqu'au moins l'une de ses
+- `scopes` accepte une chaîne ou un tableau. Une commande se déclenche lorsqu’au moins l’une de ses
   portées est active. Utilisez `store.setScope('preview')` pour remplacer les portées actives, ou
   `addScope`, `removeScope` et `toggleScope` pour les modifier.
-- `enabled` accepte un booléen ou une fonction. La fonction est vérifiée au moment de l'appui et peut
-  ainsi lire l'état actuel de l'application sans réenregistrer la commande.
+- `enabled` accepte un booléen ou une fonction. La fonction est vérifiée au moment de l’appui et peut
+  ainsi lire l’état actuel de l’application sans réenregistrer la commande.
 - Pour les raccourcis à une seule touche, `options.enableOnFormTags` vaut `false` par défaut. Passez
   `true`, ou un tableau de `input`, `textarea` et `select`, uniquement si le raccourci doit fonctionner
   pendant la saisie. Les raccourcis avec modificateur restent actifs dans les champs de formulaire.
 - Utilisez `options.enableOnContentEditable` dans les zones éditables, `options.target` pour un
-  sous-arbre DOM et `options.stopPropagation` lorsque l'action doit arrêter la propagation de
-  l'événement.
-- Définissez `options.eventType` sur `'keyup'` pour déclencher l'action au relâchement, et
-  `options.requireReset` pour empêcher la répétition tant que la touche n'a pas été relâchée.
+  sous-arbre DOM et `options.stopPropagation` lorsque l’action doit arrêter la propagation de
+  l’événement.
+- Définissez `options.eventType` sur `'keyup'` pour déclencher l’action au relâchement, et
+  `options.requireReset` pour empêcher la répétition tant que la touche n’a pas été relâchée.
 - `conflictBehavior` définit le comportement en cas de raccourcis identiques dans un store :
   `'warn'` est la valeur par défaut, tandis que `'error'`, `'replace'` et `'allow'` offrent des
   comportements plus stricts ou silencieux. Réglez le délai avec `sequenceTimeoutMs` et les options
@@ -104,20 +104,20 @@ rendu. Passez le même store à `useHotkey`, `useHotkeys`, `useHotkeyRegistratio
 
 ## Afficher un raccourci
 
-Hotkeys n'affiche aucune indication. Utilisez `useFormatHotkey` dans un composant pour afficher un
+Hotkeys n’affiche aucune indication. Utilisez `useFormatHotkey` dans un composant pour afficher un
 libellé adapté à la plateforme : par exemple, `mod+K` devient `⌘ K` sur macOS et `Ctrl K` ailleurs.
-Dans une application SSR, préférez ce hook à l'appel direct de `formatHotkey` pendant le rendu du
+Dans une application SSR, préférez ce hook à l’appel direct de `formatHotkey` pendant le rendu du
 composant afin que le serveur et le navigateur produisent le même balisage initial.
 
-## Lire les enregistrements et l'état des touches
+## Lire les enregistrements et l’état des touches
 
-Utilisez les hooks suivants lorsque l'application doit exploiter le registre, et pas seulement
+Utilisez les hooks suivants lorsque l’application doit exploiter le registre, et pas seulement
 enregistrer une commande :
 
 | Besoin | API |
 | --- | --- |
 | Afficher les commandes enregistrées dans une palette | `useHotkeyRegistrations` |
-| Permettre à l'utilisateur d'enregistrer un raccourci | `useHotkeyRecorder` |
+| Permettre à l’utilisateur d’enregistrer un raccourci | `useHotkeyRecorder` |
 | Réagir aux touches maintenues pendant une autre interaction | `usePressedKeys` ou `useIsKeyPressed` |
 | Lire la plateforme actuelle | `usePlatform` |
 
@@ -127,7 +127,7 @@ raccourci enregistré peut être conservé avec `stop`, abandonné avec `cancel`
 Dans Vue, l’état des hooks est une ref : lisez `.value` dans le script ; les refs de premier niveau
 sont déballées automatiquement dans les templates. En Svelte, les hooks qui renvoient un état renvoient un getter : appelez-le, par exemple `registrations()`.
 
-Hotkeys gère l'enregistrement, la correspondance, le formatage, les portées et l'enregistrement des
-raccourcis. Les effets, la navigation, la persistance, l'interface de la palette, la gestion du focus
-et un moyen accessible d'effectuer chaque action importante sans clavier restent à la charge de votre
+Hotkeys gère l’enregistrement, la correspondance, le formatage, les portées et l’enregistrement des
+raccourcis. Les effets, la navigation, la persistance, l’interface de la palette, la gestion du focus
+et un moyen accessible d’effectuer chaque action importante sans clavier restent à la charge de votre
 application.

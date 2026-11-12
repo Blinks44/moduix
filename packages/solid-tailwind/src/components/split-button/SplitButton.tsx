@@ -1,4 +1,5 @@
-import { Menu as MenuPrimitive } from '@ark-ui/solid/menu';
+// Flat Ark parts: aliasing Ark's `Menu` next to our `Menu` drops an import from the `.jsx` build.
+import { MenuContent, MenuPositioner, MenuTrigger } from '@ark-ui/solid/menu';
 import { cva } from 'class-variance-authority';
 import type { Accessor, ComponentProps, JSX } from 'solid-js';
 import { children, createContext, splitProps, useContext } from 'solid-js';
@@ -35,7 +36,7 @@ type SplitButtonActionProps = Omit<ButtonProps, 'size' | 'variant'> & {
 };
 
 type SplitButtonTriggerProps = Omit<
-  ComponentProps<typeof MenuPrimitive.Trigger>,
+  ComponentProps<typeof MenuTrigger>,
   'asChild' | 'children' | 'class'
 > & {
   children?: JSX.Element;
@@ -44,8 +45,8 @@ type SplitButtonTriggerProps = Omit<
   variant?: SplitButtonVariant;
 };
 
-type SplitButtonContentProps = ComponentProps<typeof MenuPrimitive.Content>;
-type SplitButtonPositionerProps = ComponentProps<typeof MenuPrimitive.Positioner>;
+type SplitButtonContentProps = ComponentProps<typeof MenuContent>;
+type SplitButtonPositionerProps = ComponentProps<typeof MenuPositioner>;
 
 const splitButtonTriggerVariants = cva(
   "relative ms-[calc(var(--moduix-button-border-width,var(--moduix-border-width-sm))*-1)] rounded-s-none before:pointer-events-none before:absolute before:inset-y-1.5 before:start-0 before:w-px before:bg-current before:opacity-[0.16] before:content-[''] data-[variant=destructive-outline]:before:hidden data-[variant=outline]:before:hidden",
@@ -147,7 +148,7 @@ function SplitButtonTrigger(props: SplitButtonTriggerProps) {
       : local['aria-label'];
 
   return (
-    <MenuPrimitive.Trigger
+    <MenuTrigger
       {...others}
       asChild={(triggerProps) => (
         <Button
@@ -171,7 +172,7 @@ function SplitButtonPositioner(props: SplitButtonPositionerProps) {
 
   return (
     <OverlayPortal>
-      <MenuPrimitive.Positioner
+      <MenuPositioner
         {...others}
         data-slot="split-button-positioner"
         class={cn(menuPositionerVariants(), local.class)}
@@ -184,14 +185,14 @@ function SplitButtonContent(props: SplitButtonContentProps) {
   const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
 
   return (
-    <MenuPrimitive.Content
+    <MenuContent
       {...others}
       asChild={local.asChild}
       data-slot="split-button-content"
       class={cn(menuContentVariants(), local.class)}
     >
       {local.asChild ? local.children : <MenuViewport>{local.children}</MenuViewport>}
-    </MenuPrimitive.Content>
+    </MenuContent>
   );
 }
 

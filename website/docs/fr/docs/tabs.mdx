@@ -118,7 +118,7 @@ gère la sélection, transmettez `value` et `onValueChange(details)`, puis lisez
 dans `details.value`.
 
 En Vue, utilisez `v-model` pour contrôler la sélection et `@value-change` pour recevoir le même
-objet de détails. `TabsContext` expose cet état dans son scoped slot par défaut.
+objet `details`. `TabsContext` expose cet état dans son scoped slot par défaut.
 
 En Svelte, utilisez `bind:value` pour contrôler la sélection, ou `onValueChange(details)`. `TabsContext` transmet le getter d’état à son snippet `render` : lisez-le avec `context().value`.
 

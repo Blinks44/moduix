@@ -80,13 +80,13 @@ function ExamplePanel({
   children,
   sources,
   files = [],
-  project,
+  projects,
   ...frameProps
 }: {
   children: ReactNode;
   sources: Record<Framework, string>;
   files?: { name: string; code: string }[];
-  project?: ExampleProject;
+  projects?: Record<Framework, ExampleProject>;
 } & Omit<ComponentProps<typeof ExampleFrame>, 'children' | 'variant'>) {
   const t = useI18n<typeof import('i18n')>();
   const { framework, styling, selectFramework, selectStyling } = useExampleSelection();
@@ -94,6 +94,7 @@ function ExamplePanel({
   const [run, setRun] = useState(0);
   const [copied, setCopied] = useState(false);
   const code = toStyling(sources[framework.value], framework.value, styling.value);
+  const project = projects?.[framework.value];
 
   if (import.meta.env.SSG_MD) {
     return (
@@ -111,7 +112,6 @@ function ExamplePanel({
     setCopied(true);
     setTimeout(() => setCopied(false), 1500);
   };
-  const runsElsewhere = framework.value !== 'react' || styling.value !== 'css-modules';
 
   return (
     <div className={`rp-not-doc ${styles.panel}`}>
@@ -144,14 +144,14 @@ function ExamplePanel({
             value={styling.value}
             onChange={selectStyling}
           />
-          {project && framework.value === 'react' ? (
+          {project ? (
             <button
               type="button"
               className={styles.iconButton}
               aria-label={t('exampleOpenStackBlitz')}
               title={t('exampleOpenStackBlitz')}
               onClick={() =>
-                sdk.openProject(createExampleProject(project, styling.value), {
+                sdk.openProject(createExampleProject(project, framework.value, styling.value), {
                   openFile: project.entry,
                   newWindow: true,
                 })
@@ -188,7 +188,9 @@ function ExamplePanel({
           <ExampleFrame key={run} variant="component" {...frameProps}>
             {children}
           </ExampleFrame>
-          {runsElsewhere ? <span className={styles.renderer}>{t('exampleRenderer')}</span> : null}
+          {styling.value !== 'css-modules' ? (
+            <span className={styles.renderer}>{t('exampleRenderer')}</span>
+          ) : null}
         </div>
       ) : (
         <div className={styles.code}>

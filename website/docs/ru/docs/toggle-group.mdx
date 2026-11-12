@@ -111,7 +111,7 @@ Solid, scoped slot во Vue или сниппет `render` в Svelte (`context()
 
 Используйте `defaultValue` для неконтролируемой группы, а `value` вместе с `onValueChange(details)`,
 если состояние выбора хранится в другой части приложения на React или Solid. Во Vue используйте
-`v-model`, а детали Ark получайте через `@value-change`; в скрипте хранилище читается через `.value`. В Svelte используйте `bind:value` и callback `onValueChange`; хук возвращает геттер, поэтому состояние читается через `toggleGroup().value`.
+`v-model`, а объект `details` от Ark получайте через `@value-change`; в скрипте хранилище читается через `.value`. В Svelte используйте `bind:value` и колбэк `onValueChange`; хук возвращает геттер, поэтому состояние читается через `toggleGroup().value`.
 Выбранные значения имеют тип `string[]` в режимах
 одиночного и множественного выбора. Используйте `ToggleGroupRootProvider` с `useToggleGroup()` из
 пакета нужного фреймворка, если состояние нужно создать вне дерева. В React хранилище читается как

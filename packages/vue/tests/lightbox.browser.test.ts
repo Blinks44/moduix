@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, defineComponent, mergeProps, ref, shallowRef } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
-import { resolveRootNode } from '@/components/lightbox/lightbox';
+import { resolveRootNode } from '@/components/lightbox/lightbox-bind';
 import {
   Lightbox,
   LightboxBackdrop,

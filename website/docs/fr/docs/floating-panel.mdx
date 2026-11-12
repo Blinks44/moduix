@@ -19,10 +19,10 @@ import AnatomyScene from '@/components/examples/floating-panel/anatomy';
 
 Conservez les parties Ark UI explicites. `FloatingPanelPositioner` applique la position et la taille
 calculées par Ark, tandis que `FloatingPanelContent` représente la surface visible de la fenêtre.
-L'en-tête sert de poignée de déplacement et `FloatingPanelResizeTriggerGroup` ajoute les poignées de redimensionnement.
+L’en-tête sert de poignée de déplacement et `FloatingPanelResizeTriggerGroup` ajoute les poignées de redimensionnement.
 
 React, Solid, Vue et Svelte utilisent les mêmes noms de composants plats. En Vue, composez les parties avec
-des slots et utilisez `v-model` lorsque l'ouverture, la position ou la taille sont contrôlées. En Svelte,
+des slots et utilisez `v-model` lorsque l’ouverture, la position ou la taille sont contrôlées. En Svelte,
 imbriquez les parties directement et utilisez `bind:open`, `bind:position` ou `bind:size`.
 
 ## Choisir le bon composant
@@ -30,11 +30,11 @@ imbriquez les parties directement et utilisez `bind:open`, `bind:position` ou `b
 Utilisez `FloatingPanel` pour un espace de travail flottant et non modal, par exemple un inspecteur,
 un panneau de propriétés ou une fenêtre utilitaire. Utilisez `Popover` pour un contenu compact ancré
 à un déclencheur, `Dialog` pour les tâches modales et `Drawer` pour un panneau fixé au bord de la
-fenêtre avec des gestes ou des points d'ancrage.
+fenêtre avec des gestes ou des points d’ancrage.
 
 ## Exemples
 
-### Position initiale depuis l'ancre
+### Position initiale depuis l’ancre
 
 Utilisez `getAnchorPosition` pour calculer la position initiale de la fenêtre à partir du rectangle du déclencheur.
 
@@ -50,47 +50,47 @@ conteneur précis pendant son déplacement.
 ### Fermeture par Escape
 
 `closeOnEscape` est activé par défaut. Ajoutez `autoFocus` à `FloatingPanelContent` pour que la touche Escape
-fonctionne dès l'ouverture de la fenêtre non modale.
+fonctionne dès l’ouverture de la fenêtre non modale.
 
 <Example name="floating-panel/escape-dismiss" />
 
 ### Ouverture contrôlée
 
-Utilisez `open` avec `onOpenChange` lorsque l'état de l'application doit contrôler la visibilité de la fenêtre. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+Utilisez `open` avec `onOpenChange` lorsque l’état de l’application doit contrôler la visibilité de la fenêtre. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
 
 <Example name="floating-panel/controlled-open" />
 
 ### Position contrôlée
 
-Contrôlez `position` lorsqu'une autre partie de l'application doit connaître les coordonnées actuelles de la fenêtre. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+Contrôlez `position` lorsqu’une autre partie de l’application doit connaître les coordonnées actuelles de la fenêtre. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
 
 <Example name="floating-panel/controlled-position" />
 
 ### Taille contrôlée
 
-Contrôlez `size` lorsque l'interface doit conserver ou afficher les dimensions actuelles de la fenêtre. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+Contrôlez `size` lorsque l’interface doit conserver ou afficher les dimensions actuelles de la fenêtre. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
 
 <Example name="floating-panel/controlled-size" />
 
 ### Montage différé
 
 Utilisez `lazyMount` et `unmountOnExit` lorsque le contenu doit être monté à la première ouverture,
-puis retiré après l'animation de sortie.
+puis retiré après l’animation de sortie.
 
 <Example name="floating-panel/lazy-mount" />
 
 ### Contexte
 
-Utilisez `FloatingPanelContext` ou `useFloatingPanelContext` pour lire l'état et les méthodes de la
-fenêtre dans l'arbre des composants. Vue reçoit la valeur du contexte via son slot nommé, tandis que
-Solid l'expose comme un accessor. En Svelte, un getter est passé au snippet `render` : lisez `panel().open`.
+Utilisez `FloatingPanelContext` ou `useFloatingPanelContext` pour lire l’état et les méthodes de la
+fenêtre dans l’arbre des composants. Vue reçoit la valeur du contexte via son slot nommé, tandis que
+Solid l’expose comme un accessor. En Svelte, un getter est passé au snippet `render` : lisez `panel().open`.
 
 <Example name="floating-panel/context" />
 
 ### Root Provider
 
 Utilisez `useFloatingPanel` avec `FloatingPanelRootProvider` lorsque des commandes situées en dehors
-de l'arbre du panneau doivent appeler `minimize`, `maximize` et `setOpen`. Dans Solid, le store se lit
+de l’arbre du panneau doivent appeler `minimize`, `maximize` et `setOpen`. Dans Solid, le store se lit
 via un accessor, et en Svelte via un getter. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
 <Example name="floating-panel/root-provider" />
@@ -107,17 +107,17 @@ les contrôles de l’en-tête ou ne garde qu’une partie des poignées.
 
 ## Composition
 
-Utilisez `FloatingPanel` pour l'état local. Gardez `FloatingPanelPositioner` et `FloatingPanelContent` explicites, entourez
-l'en-tête avec `FloatingPanelDragTrigger` et ajoutez `FloatingPanelTitle` pour un nom accessible. `FloatingPanelPositioner` est placé dans
+Utilisez `FloatingPanel` pour l’état local. Gardez `FloatingPanelPositioner` et `FloatingPanelContent` explicites, entourez
+l’en-tête avec `FloatingPanelDragTrigger` et ajoutez `FloatingPanelTitle` pour un nom accessible. `FloatingPanelPositioner` est placé dans
 un portail par défaut. Définissez `portalled={false}` ou transmettez `portalRef` lorsque le panneau
 doit se trouver dans un autre conteneur.
 
-Si l'état doit être créé en dehors de l'arbre du panneau, créez-le avec
-`useFloatingPanel()` et transmettez-le à `FloatingPanelRootProvider`. N'utilisez pas `FloatingPanel`
-et `FloatingPanelRootProvider` pour la même instance d'état. `position` et `size` se contrôlent séparément. Utilisez
-`FloatingPanelResizeTriggerGroup axes` ou des parties `FloatingPanelResizeTrigger` individuelles uniquement lorsque l'ensemble
+Si l’état doit être créé en dehors de l’arbre du panneau, créez-le avec
+`useFloatingPanel()` et transmettez-le à `FloatingPanelRootProvider`. N’utilisez pas `FloatingPanel`
+et `FloatingPanelRootProvider` pour la même instance d’état. `position` et `size` se contrôlent séparément. Utilisez
+`FloatingPanelResizeTriggerGroup axes` ou des parties `FloatingPanelResizeTrigger` individuelles uniquement lorsque l’ensemble
 de poignées par défaut ne convient pas. Avec `asChild`, transmettez un seul enfant sémantique. Vue
-utilise le slot enfant, Solid la forme avec fonction de rendu de cette propriété, et Svelte un snippet `asChild` qui diffuse `props()` sur l'enfant.
+utilise le slot enfant, Solid la forme avec fonction de rendu de cette propriété, et Svelte un snippet `asChild` qui diffuse `props()` sur l’enfant.
 
 ## Anatomie
 
@@ -125,12 +125,12 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 <AnatomyInspector
   parts={[
-    ["FloatingPanel", null, "Gère l'ouverture, la position, la taille, le déplacement, le redimensionnement et le mode de la fenêtre.", 0],
+    ["FloatingPanel", null, "Gère l’ouverture, la position, la taille, le déplacement, le redimensionnement et le mode de la fenêtre.", 0],
     ["FloatingPanelTrigger", "floating-panel-trigger", "Ouvre la fenêtre ou inverse son état.", 1],
     ["FloatingPanelPositioner", "floating-panel-positioner", "Applique les valeurs de position, de taille, de transformation et de z-index calculées par Ark.", 1],
     ["FloatingPanelContent", "floating-panel-content", "Surface visible de la fenêtre flottante.", 2],
-    ["FloatingPanelDragTrigger", "floating-panel-drag-trigger", "Définit la zone déplaçable, généralement l'en-tête.", 3],
-    ["FloatingPanelHeader", "floating-panel-header", "Partie d'en-tête Ark et conteneur de la poignée de déplacement.", 4],
+    ["FloatingPanelDragTrigger", "floating-panel-drag-trigger", "Définit la zone déplaçable, généralement l’en-tête.", 3],
+    ["FloatingPanelHeader", "floating-panel-header", "Partie d’en-tête Ark et conteneur de la poignée de déplacement.", 4],
     ["FloatingPanelTitle", "floating-panel-title", "Définit le nom accessible de la fenêtre.", 5],
     ["FloatingPanelControl", "floating-panel-control", "Regroupe les commandes de mode et de fermeture.", 5],
     ["FloatingPanelStageTrigger", "floating-panel-stage-trigger", "Passe entre les modes `default`, `minimized` et `maximized`.", 6],
@@ -139,7 +139,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
     ["FloatingPanelFooter", "floating-panel-footer", "Zone facultative pour les actions ou le statut.", 3],
     ["FloatingPanelResizeTrigger", "floating-panel-resize-trigger", "Poignée de redimensionnement pour un axe Ark.", 3],
     ["FloatingPanelResizeTriggerGroup", "", "Affiche toutes les poignées ou seulement celles qui sont sélectionnées.", 4],
-    ["FloatingPanelRootProvider", null, "Relie les parties à l'état créé avec `useFloatingPanel()`.", 0],
+    ["FloatingPanelRootProvider", null, "Relie les parties à l’état créé avec `useFloatingPanel()`.", 0],
   ]}
 >
   <AnatomyScene />
@@ -147,7 +147,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 `FloatingPanelDragIndicator`, `FloatingPanelCloseIcon`, `FloatingPanelFooter` et
 `FloatingPanelResizeTriggerGroup` sont des utilitaires moduix. Ils complètent les parties
-structurelles d'Ark UI sans les remplacer.
+structurelles d’Ark UI sans les remplacer.
 
 ## Styles
 
@@ -183,7 +183,7 @@ styles du composant définis dans la couche.
 Les parties Ark UI conservent `data-scope="floating-panel"` et leurs valeurs `data-part`. moduix ajoute
 `data-slot="floating-panel-*"` aux conteneurs rendus. Utilisez `data-state="open|closed"`, `data-dragging`,
 `data-disabled`, `data-stage`, `data-topmost`, `data-behind`, `data-minimized`, `data-maximized`,
-`data-staged` et `data-axis` sur les parties concernées pour appliquer des styles selon l'état. `FloatingPanelFooter` reprend `data-minimized` du contenu.
+`data-staged` et `data-axis` sur les parties concernées pour appliquer des styles selon l’état. `FloatingPanelFooter` reprend `data-minimized` du contenu.
 
 `FloatingPanelPositioner` expose les variables d’Ark `--width`, `--height`, `--x`, `--y` et `--z-index`.
 

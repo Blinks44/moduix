@@ -14,6 +14,7 @@ import loginRouteReact from '../../../snippets/blocks/react/login-route.tsx?raw'
 import loginRouteSolid from '../../../snippets/blocks/solid/login-route.tsx?raw';
 import loginRouteVue from '../../../snippets/blocks/vue/login-route.vue?raw';
 import loginRouteSvelte from '../../../snippets/blocks/svelte/login-route.svelte?raw';
+export const loginSimpleLive = { solid: () => import('../../../snippets/blocks/solid/login-simple.tsx').then((module) => ({ default: module.LoginSimple })), vue: () => import('../../../snippets/blocks/vue/login-simple.vue'), svelte: () => import('../../../snippets/blocks/svelte/login-simple.svelte') };
 
 # Connexion
 
@@ -23,7 +24,9 @@ import loginRouteSvelte from '../../../snippets/blocks/svelte/login-route.svelte
   files={[{ name: 'login-simple-form.module.css', code: loginSimpleCss }]}
 >
   <PreviewFrame maxWidth="sm">
-    <LoginSimple onSubmit={(event) => event.preventDefault()} />
+    <FrameworkPreview live={loginSimpleLive}>
+      <LoginSimple onSubmit={(event) => event.preventDefault()} />
+    </FrameworkPreview>
   </PreviewFrame>
 </ExamplePanel>
 

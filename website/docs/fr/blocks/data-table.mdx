@@ -22,6 +22,9 @@ import dataTableBasicReact from '../../../src/components/blocks/data-table/basic
 import dataTableBasicCss from '../../../src/components/blocks/data-table/payment-table.module.css?raw';
 import dataTableReact from '../../../src/components/blocks/data-table/sorting-filtering-and-pagination.tsx?raw';
 import dataTableCss from '../../../src/components/blocks/data-table/payment-table.module.css?raw';
+export const dataTableCatalogLive = { solid: () => import('../../../snippets/blocks/solid/data-table-component-catalog.tsx').then((module) => ({ default: module.DataTable })), vue: () => import('../../../snippets/blocks/vue/data-table.vue'), svelte: () => import('../../../snippets/blocks/svelte/data-table.svelte') };
+export const dataTableBasicLive = { solid: () => import('../../../snippets/blocks/solid/data-table-basic.tsx'), vue: () => import('../../../snippets/blocks/vue/data-table-basic.vue'), svelte: () => import('../../../snippets/blocks/svelte/data-table-basic.svelte') };
+export const dataTableLive = { solid: () => import('../../../snippets/blocks/solid/data-table.tsx'), vue: () => import('../../../snippets/blocks/vue/data-table-controls.vue'), svelte: () => import('../../../snippets/blocks/svelte/data-table-controls.svelte') };
 
 # Tableau de données
 
@@ -30,7 +33,9 @@ import dataTableCss from '../../../src/components/blocks/data-table/payment-tabl
   sources={{ react: dataTableCatalogReact, solid: dataTableCatalogSolid, vue: dataTableVue, svelte: dataTableSvelte }}
   files={[{ name: 'data-table.module.css', code: dataTableCatalogCss }]}
 >
-  <DataTable />
+  <FrameworkPreview live={dataTableCatalogLive}>
+    <DataTable />
+  </FrameworkPreview>
 </ExamplePanel>
 
 `Data Table` est un modèle de composition, et non un composant exporté par moduix. Utilisez les parties
@@ -108,7 +113,9 @@ N’ajoutez les autres fonctionnalités que lorsque le tableau en a besoin.
   files={[{ name: 'payment-table.module.css', code: dataTableBasicCss }]}
 >
   <PreviewFrame maxWidth="lg">
-    <DataTableBasic />
+    <FrameworkPreview live={dataTableBasicLive}>
+      <DataTableBasic />
+    </FrameworkPreview>
   </PreviewFrame>
 </ExamplePanel>
 
@@ -145,7 +152,9 @@ Importez les fonctions intégrées de filtrage et de tri utilisées par le table
   sources={{ react: dataTableReact, solid: dataTableSolid, vue: dataTableControlsVue, svelte: dataTableControlsSvelte }}
   files={[{ name: 'payment-table.module.css', code: dataTableCss }]}
 >
-  <InteractiveDataTable />
+  <FrameworkPreview live={dataTableLive}>
+    <InteractiveDataTable />
+  </FrameworkPreview>
 </ExamplePanel>
 
 Pour un en-tête triable, affichez un vrai bouton dans `TableColumnHeader`. L’exemple utilise des icônes

@@ -10,6 +10,7 @@ import appHeaderVue from '../../../snippets/blocks/vue/app-header.vue?raw';
 import appHeaderSvelte from '../../../snippets/blocks/svelte/app-header.svelte?raw';
 import appHeaderReact from '../../../src/components/blocks/app-header.tsx?raw';
 import appHeaderCss from '../../../src/components/blocks/app-header.module.css?raw';
+export const appHeaderLive = { solid: () => import('../../../snippets/blocks/solid/app-header.tsx').then((module) => ({ default: module.AppHeader })), vue: () => import('../../../snippets/blocks/vue/app-header.vue'), svelte: () => import('../../../snippets/blocks/svelte/app-header.svelte') };
 
 # En-tête d’application
 
@@ -18,7 +19,9 @@ import appHeaderCss from '../../../src/components/blocks/app-header.module.css?r
   sources={{ react: appHeaderReact, solid: appHeaderSolid, vue: appHeaderVue, svelte: appHeaderSvelte }}
   files={[{ name: 'app-header.module.css', code: appHeaderCss }]}
 >
-  <AppHeader />
+  <FrameworkPreview live={appHeaderLive}>
+    <AppHeader />
+  </FrameworkPreview>
 </ExamplePanel>
 
 Cette composition montre comment composer un en-tête d’application responsive avec `Avatar`, `Button`,
@@ -37,7 +40,7 @@ dépendances, puis remplacez la navigation et les données de compte d’exemple
 - Un `Menu` distinct pour la navigation principale sur les petits écrans.
 - Des noms accessibles pour les contrôles composés uniquement d’une icône et un affichage de secours pour l’avatar.
 
-L’aperçu utilise React. Les onglets présentent le code React, Solid, Vue et Svelte avec une feuille de style commune.
+Les implémentations React, Solid, Vue et Svelte partagent une même feuille de style.
 
 ## Installation
 

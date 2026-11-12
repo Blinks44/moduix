@@ -5,6 +5,14 @@ import ts from 'typescript';
 
 const websiteRoot = fileURLToPath(new URL('../', import.meta.url));
 
+// Vue and Svelte components keep their imports in `<script>` blocks.
+function scriptSource(file, source) {
+  if (!/\.(?:vue|svelte)$/.test(file)) return source;
+  return [...source.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/g)]
+    .map(([, code]) => code)
+    .join('\n');
+}
+
 // Collect the example's actual local imports; PreviewMeta is the only docs-only dependency.
 export function exampleProject(entry, addDependency) {
   const files = {};
@@ -15,8 +23,9 @@ export function exampleProject(entry, addDependency) {
     addDependency(file);
     const source = readFileSync(file, 'utf8');
     files[name] = source;
-    if (!/\.[jt]sx?$/.test(file)) return;
-    for (const { fileName: specifier } of ts.preProcessFile(source).importedFiles) {
+    if (!/\.(?:[jt]sx?|vue|svelte)$/.test(file)) return;
+    for (const { fileName: specifier } of ts.preProcessFile(scriptSource(file, source))
+      .importedFiles) {
       if (specifier === '@/components/mdx/Components') continue;
       if (specifier.startsWith('.') || specifier.startsWith('@/')) {
         const base = specifier.startsWith('@/')
@@ -31,7 +40,11 @@ export function exampleProject(entry, addDependency) {
           .slice(0, specifier.startsWith('@') ? 2 : 1)
           .join('/');
         if (pkg in dependencies) continue;
-        let dir = path.dirname(fileURLToPath(import.meta.resolve(specifier)));
+        // Svelte packages may export only a `svelte` condition, which Node cannot resolve.
+        const installed = path.join(websiteRoot, 'node_modules', pkg);
+        let dir = existsSync(installed)
+          ? installed
+          : path.dirname(fileURLToPath(import.meta.resolve(specifier)));
         while (dir !== path.dirname(dir)) {
           const manifest = path.join(dir, 'package.json');
           if (existsSync(manifest)) {

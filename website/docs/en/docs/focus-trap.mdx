@@ -57,7 +57,7 @@ the surrounding modal behavior. Do not add `FocusTrap` inside either component.
 
 Keep the trap mounted and toggle `disabled` when the workflow starts and ends. The example sends focus to **Review details**
 with `initialFocus`, keeps `isReviewing` in sync from `onDeactivate`, and restores focus to **Start review** when the trap
-is released. The preview uses the React CSS Modules package and reports whether the trap is active. The source tabs show
+is released. The preview reports whether the trap is active. The source tabs show
 the same behavior with native React, Solid, Vue, and Svelte code.
 
 <Example name="focus-trap/basic" />

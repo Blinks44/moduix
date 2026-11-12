@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useDialogContext } from '@ark-ui/vue/dialog';
 import { onMounted, watchEffect } from 'vue';
-import type { LightboxBindProps } from './lightbox';
-import { resolveImage, resolveRootNode } from './lightbox';
+import type { LightboxBindProps } from './lightbox-bind';
+import { resolveImage, resolveRootNode } from './lightbox-bind';
 
 const { onImageSelect, rootRef, rootSelector, selector } = defineProps<LightboxBindProps>();
 const dialog = useDialogContext();

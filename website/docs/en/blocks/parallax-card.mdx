@@ -10,6 +10,7 @@ import parallaxCardVue from '../../../snippets/blocks/vue/parallax-card.vue?raw'
 import parallaxCardSvelte from '../../../snippets/blocks/svelte/parallax-card.svelte?raw';
 import parallaxCardReact from '../../../src/components/blocks/parallax-card.tsx?raw';
 import parallaxCardCss from '../../../src/components/blocks/parallax-card.module.css?raw';
+export const parallaxCardLive = { solid: () => import('../../../snippets/blocks/solid/parallax-card.tsx').then((module) => ({ default: module.ParallaxCard })), vue: () => import('../../../snippets/blocks/vue/parallax-card.vue'), svelte: () => import('../../../snippets/blocks/svelte/parallax-card.svelte') };
 
 # Parallax card
 
@@ -19,7 +20,9 @@ import parallaxCardCss from '../../../src/components/blocks/parallax-card.module
   files={[{ name: 'parallax-card.module.css', code: parallaxCardCss }]}
 >
   <PreviewFrame maxWidth="sm">
-    <ParallaxCard />
+    <FrameworkPreview live={parallaxCardLive}>
+      <ParallaxCard />
+    </FrameworkPreview>
   </PreviewFrame>
 </ExamplePanel>
 
