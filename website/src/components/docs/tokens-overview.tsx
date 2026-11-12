@@ -718,7 +718,9 @@ function TokenList({ title, tokens }: { title: string; tokens: string[][] }) {
   );
 }
 
+// The Markdown renderer for llms.txt renders with a client reconciler but without a DOM.
 function subscribeToTheme(onChange: () => void) {
+  if (typeof MutationObserver === 'undefined') return () => {};
   const observer = new MutationObserver(onChange);
   observer.observe(document.documentElement, {
     attributes: true,
@@ -728,6 +730,7 @@ function subscribeToTheme(onChange: () => void) {
 }
 
 function getThemeKey() {
+  if (typeof document === 'undefined') return '';
   const { moduixTheme, moduixColorScheme } = document.documentElement.dataset;
   return `${moduixTheme}/${moduixColorScheme}`;
 }
