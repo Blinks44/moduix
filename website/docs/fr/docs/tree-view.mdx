@@ -89,7 +89,7 @@ pour la même instance. Si une branche utilise un `TreeViewBranchTrigger` distin
 En Vue, `TreeViewNode` fournit les données de rendu dans le slot par défaut avec paramètres.
 Contrôlez les valeurs avec `v-model:expanded-value`, `v-model:selected-value`,
 `v-model:checked-value` et `v-model:focused-value` ; les événements comme `@selection-change`
-conservent les objets de détails Ark. Stockez une collection remplaçable dans une `shallowRef`
+conservent les objets `details` d’Ark. Stockez une collection remplaçable dans une `shallowRef`
 pour que Vue préserve son instance de classe.
 
 En Svelte, `TreeViewNode` transmet `{ node, indexPath, state }` à un snippet `children`. Contrôlez les valeurs avec
@@ -128,7 +128,7 @@ les mouvements.
 
 Les variantes Tailwind utilisent des classes utilitaires natives et les classes de l’application. Les
 variantes CSS Modules prennent les couleurs, les espacements et la typographie dans les tokens de
-foundation et n'exposent en variables CSS que la largeur de la racine et le pas d'indentation ;
+foundation et n’exposent en variables CSS que la largeur de la racine et le pas d’indentation ;
 surchargez le reste avec une classe sur la partie.
 
 ### Variables CSS
@@ -161,7 +161,7 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 | `TreeViewNodeCheckboxIndicator` | `tree-view-node-checkbox-indicator` |
 | `TreeViewNodeRenameInput` | `tree-view-node-rename-input` |
 
-- Sélecteurs d'état Ark : `data-state="open|closed"` et `data-loading` sur les branches ; `data-selected`, `data-focus`, `data-disabled`, `data-checked`, `data-indeterminate`, `data-renaming` et `data-depth` sur les nœuds et les contrôles de branche.
+- Sélecteurs d’état Ark : `data-state="open|closed"` et `data-loading` sur les branches ; `data-selected`, `data-focus`, `data-disabled`, `data-checked`, `data-indeterminate`, `data-renaming` et `data-depth` sur les nœuds et les contrôles de branche.
 
 ## Clavier
 

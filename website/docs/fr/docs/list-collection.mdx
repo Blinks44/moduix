@@ -6,16 +6,16 @@ ark: https://ark-ui.com/docs/collections/list-collection
 
 # List Collection
 
-`ListCollection` est l'utilitaire de données d'Ark UI pour les éléments provenant d'un tableau. Il
-associe à chaque élément une valeur chaîne et un texte d'affichage, et fournit des méthodes de
+`ListCollection` est l’utilitaire de données d’Ark UI pour les éléments provenant d’un tableau. Il
+associe à chaque élément une valeur chaîne et un texte d’affichage, et fournit des méthodes de
 recherche, de parcours, de filtrage, de regroupement et de mise à jour immuable. Il ne rend aucun
 élément et ne gère ni la sélection ni les interactions au clavier. `Select`, `Combobox` et `Listbox`
-l'utilisent comme source de données.
+l’utilisent comme source de données.
 
 ## Importation
 
-`ListCollection` n'est pas un composant moduix et n'est réexporté par aucun package moduix.
-Importez les utilitaires depuis le point d'entrée Ark UI correspondant à votre framework :
+`ListCollection` n’est pas un composant moduix et n’est réexporté par aucun package moduix.
+Importez les utilitaires depuis le point d’entrée Ark UI correspondant à votre framework :
 
 <Tabs
   groupId="framework"
@@ -63,22 +63,18 @@ Utilisez `createListCollection` pour une collection dont les éléments sont con
 module. Par défaut, Ark utilise les propriétés `label`, `value` et `disabled`. Passez la collection
 à un composant basé sur Ark UI et affichez ses éléments à partir de `collection.items`.
 
-L'aperçu utilise React avec la variante de styles CSS Modules. Les onglets contiennent le code natif
-React, Solid, Vue et Svelte du même exemple. Le code Solid est affiché comme du code, car l'aperçu de la
-documentation s'exécute avec React.
-
 <Example name="select/basic" />
 
 Conservez une collection statique en dehors du composant. Lorsque les éléments viennent des props,
-de l'état ou d'une requête, ne recréez la collection que lorsque les données sources changent.
-Lorsque le filtrage ou les mises à jour doivent suivre l'état du framework, utilisez le hook
+de l’état ou d’une requête, ne recréez la collection que lorsque les données sources changent.
+Lorsque le filtrage ou les mises à jour doivent suivre l’état du framework, utilisez le hook
 dynamique présenté ci-dessous.
 Dans React, utilisez `useMemo`; dans Solid, `createMemo`; dans Vue, `computed`; dans Svelte, `$derived` lorsque les données sources sont réactives.
 
-## Formes d'éléments personnalisées
+## Formes d’éléments personnalisées
 
-Utilisez `itemToValue`, `itemToString` et `isItemDisabled` lorsque vos données n'utilisent pas les
-noms de propriétés par défaut. Les valeurs d'une collection sont toujours des chaînes, convertissez
+Utilisez `itemToValue`, `itemToString` et `isItemDisabled` lorsque vos données n’utilisent pas les
+noms de propriétés par défaut. Les valeurs d’une collection sont toujours des chaînes, convertissez
 donc explicitement les identifiants numériques :
 
 ```tsx
@@ -102,10 +98,10 @@ const collection = createListCollection<Team>({
 | Option           | Rôle                                                         |
 | ---------------- | ------------------------------------------------------------ |
 | `items`          | Éléments à inclure. Accepte un itérable ou un itérable en lecture seule. |
-| `itemToValue`    | Renvoie la valeur chaîne d'un élément.                       |
-| `itemToString`   | Renvoie le texte d'affichage et de recherche.                 |
+| `itemToValue`    | Renvoie la valeur chaîne d’un élément.                       |
+| `itemToString`   | Renvoie le texte d’affichage et de recherche.                 |
 | `isItemDisabled` | Indique si un élément est désactivé.                          |
-| `groupBy`        | Renvoie la clé de groupe d'un élément.                        |
+| `groupBy`        | Renvoie la clé de groupe d’un élément.                        |
 | `groupSort`      | Trie les groupes avec un comparateur, un ordre explicite, `'asc'` ou `'desc'`. |
 
 ## Consulter et parcourir
@@ -115,13 +111,13 @@ parcourir les éléments activés :
 
 | API                                | Résultat                                                     |
 | ---------------------------------- | ------------------------------------------------------------ |
-| `collection.items` / `collection.size` | Éléments courants et nombre d'éléments.                   |
-| `getValues(items?)`                | Valeurs de tous les éléments ou d'une sélection.             |
+| `collection.items` / `collection.size` | Éléments courants et nombre d’éléments.                   |
+| `getValues(items?)`                | Valeurs de tous les éléments ou d’une sélection.             |
 | `find(value)` / `findMany(values)` | Un ou plusieurs éléments correspondant à une valeur.        |
 | `at(index)` / `indexOf(value)`     | Élément par index ou index par valeur.                       |
 | `has(value)` / `hasItem(item)`     | Indique si une valeur ou un élément existe.                  |
-| `getItemValue(item)`               | Valeur chaîne normalisée d'un élément.                       |
-| `stringifyItem(item)` / `stringify(value)` | Texte d'affichage d'un élément ou d'une valeur.      |
+| `getItemValue(item)`               | Valeur chaîne normalisée d’un élément.                       |
+| `stringifyItem(item)` / `stringify(value)` | Texte d’affichage d’un élément ou d’une valeur.      |
 | `getItemDisabled(item)`            | État désactivé normalisé.                                    |
 | `group()`                          | Paires `[groupKey, items]` selon les options de regroupement. |
 
@@ -139,9 +135,9 @@ teamCollection.getNextValue('platform'); // 'product'
 teamCollection.has('unknown'); // false
 ```
 
-`firstValue`, `lastValue`, `getNextValue`, `getPreviousValue` et `getValueRange` suivent l'ordre de
+`firstValue`, `lastValue`, `getNextValue`, `getPreviousValue` et `getValueRange` suivent l’ordre de
 la collection et ignorent les éléments désactivés. Les méthodes de parcours acceptent un `step` et
-un indicateur `clamp` facultatifs. `sort(values)` trie les valeurs selon l'ordre de la collection et
+un indicateur `clamp` facultatifs. `sort(values)` trie les valeurs selon l’ordre de la collection et
 `compareValue(a, b)` compare deux valeurs selon cet ordre.
 
 Pour le comportement typeahead, appelez `search(queryString, options)` avec un état de recherche
@@ -157,24 +153,24 @@ const nextValue = collection.search('p', {
 });
 ```
 
-Conservez `searchState` pendant toute l'interaction. Dans React, `useRef` est un emplacement adapté.
+Conservez `searchState` pendant toute l’interaction. Dans React, `useRef` est un emplacement adapté.
 Dans Solid, gardez le même objet dans le composant ou dans un autre stockage stable. Dans Vue,
 créez-le une fois dans `<script setup>`. Dans Svelte, créez-le une fois dans le `<script>` du composant.
 
 ## Collections dynamiques
 
-Utilisez `useListCollection` lorsque la collection est filtrée ou mise à jour depuis l'état du
-composant. Le callback `filter` reçoit le texte affiché de l'élément, le texte actuel du filtre et
-l'élément lui-même. `limit` peut limiter le nombre d'éléments conservés pour les grands ensembles de
+Utilisez `useListCollection` lorsque la collection est filtrée ou mise à jour depuis l’état du
+composant. Le callback `filter` reçoit le texte affiché de l’élément, le texte actuel du filtre et
+l’élément lui-même. `limit` peut limiter le nombre d’éléments conservés pour les grands ensembles de
 données.
 
-L'exemple utilise `Listbox` avec un champ de filtre séparément étiqueté. Définissez
-`typeahead={false}` lorsque ce champ gère le filtrage, et affichez un état vide lorsqu'aucun élément
+L’exemple utilise `Listbox` avec un champ de filtre séparément étiqueté. Définissez
+`typeahead={false}` lorsque ce champ gère le filtrage, et affichez un état vide lorsqu’aucun élément
 ne correspond.
 
 <Example name="listbox/standalone-filter-input" />
 
-Dans React, `collection` est une `ListCollection`. Dans Solid, c'est un accessor : appelez donc
+Dans React, `collection` est une `ListCollection`. Dans Solid, c’est un accessor : appelez donc
 `collection()` pour le passer à un composant ou lisez `collection().items` dans une boucle `<For>`.
 Dans Vue, c’est une ref : utilisez `collection.value` dans le script ou `collection` dans le template.
 Dans Svelte, c’est un getter : passez `collection()` au composant et lisez `collection().items`.
@@ -199,15 +195,15 @@ const nextCollection = collection
 | ---------------------------------------- | --------------------------------------------------- |
 | `copy(items?)` / `setItems(items)`       | Copie la collection ou remplace tous les éléments.  |
 | `update(value, item)`                    | Remplace un élément existant.                       |
-| `upsert(value, item, mode?)`             | Met à jour un élément ou l'ajoute à une extrémité.  |
+| `upsert(value, item, mode?)`             | Met à jour un élément ou l’ajoute à une extrémité.  |
 | `insert(index, ...items)`                | Insère des éléments à un index.                     |
-| `insertBefore` / `insertAfter`           | Insère des éléments autour d'une valeur.            |
+| `insertBefore` / `insertAfter`           | Insère des éléments autour d’une valeur.            |
 | `prepend` / `append`                     | Ajoute des éléments au début ou à la fin.           |
 | `filter(predicate)` / `remove(...)`      | Garde les éléments correspondants ou supprime des éléments et des valeurs. |
 | `move` / `moveBefore` / `moveAfter`       | Déplace une ou plusieurs valeurs.                   |
 | `reorder(from, to)`                      | Déplace un élément entre deux index numériques.     |
 
-`upsert` accepte `mode: 'append' | 'prepend'` lorsque la valeur n'existe pas. La collection d'origine
+`upsert` accepte `mode: 'append' | 'prepend'` lorsque la valeur n’existe pas. La collection d’origine
 reste inchangée.
 
 ## Intégration et accessibilité

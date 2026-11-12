@@ -111,7 +111,7 @@ ou `@moduix/solid-tailwind/toggle-group`. Les packages Vue sont `@moduix/vue/tog
 
 Utilisez `defaultValue` pour un groupe non contrôlé, ou `value` avec `onValueChange(details)` lorsque
 la sélection est gérée par une autre partie de l’application React ou Solid. Dans Vue, utilisez
-`v-model` et `@value-change` pour recevoir les détails Ark ; dans le script, accédez au store par `.value`. Dans Svelte, utilisez `bind:value` et le rappel `onValueChange` ; le hook renvoie un getter, donc lisez `toggleGroup().value`. Les valeurs sélectionnées sont des `string[]`, en
+`v-model` et `@value-change` pour recevoir l’objet `details` d’Ark ; dans le script, accédez au store par `.value`. Dans Svelte, utilisez `bind:value` et le callback `onValueChange` ; le hook renvoie un getter, donc lisez `toggleGroup().value`. Les valeurs sélectionnées sont des `string[]`, en
 sélection unique comme en sélection multiple. Utilisez `ToggleGroupRootProvider` avec
 `useToggleGroup()` du package correspondant lorsque l’état doit être créé en dehors de l’arbre rendu.
 React lit le store comme un objet, Solid lit son état réactif via l’accesseur retourné, Vue expose directement le store réactif dans les expressions du template Vue, et Svelte renvoie un getter.

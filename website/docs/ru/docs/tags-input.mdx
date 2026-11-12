@@ -143,7 +143,7 @@ import * as TagsInputDocs from '@/components/examples/tags-input/css-properties'
 значения с `TagsInputItem`, передав `index` и `value`. Оставьте `TagsInputItemInput` внутри каждого
 элемента, если нужно сохранить редактирование на месте. Используйте `TagsInputRootProvider` с
 `useTagsInput()` только тогда, когда состояние или методы вроде `addValue`, `clearValue` и `focus`
-нужны за пределами дерева компонента. В Solid store является accessor: читайте `tagsInput().value`
+нужны за пределами дерева компонента. В Solid хранилище является accessor: читайте `tagsInput().value`
 и вызывайте `tagsInput().addValue()`. При объединении с `Combobox` используйте общие идентификаторы
 поля и элемента управления и объединяйте поля через `asChild`.
 

@@ -18,16 +18,16 @@ import * as DrawerDocs from '@/components/examples/drawer/css-properties';
 
 <Usage />
 
-Composez le panneau avec les parties structurelles d'Ark. Cet exemple s'ouvre sur un point d'ancrage
-compact, puis peut être déplacé jusqu'à sa hauteur maximale. `DrawerContent` est la surface
+Composez le panneau avec les parties structurelles d’Ark. Cet exemple s’ouvre sur un point d’ancrage
+compact, puis peut être déplacé jusqu’à sa hauteur maximale. `DrawerContent` est la surface
 interactive, `DrawerPositioner` la positionne et `DrawerBackdrop` fournit le calque modal.
 
 ## Choisir le bon composant
 
 Utilisez `Drawer` pour un panneau qui glisse depuis le bord de la fenêtre. Il convient à la
-navigation, aux formulaires, aux panneaux bas mobiles et aux scénarios où l'utilisateur doit faire
-glisser le panneau ou passer d'un point d'ancrage à un autre. Choisissez `Dialog` pour une surface
-centrée qui n'a pas besoin d'être déplacée.
+navigation, aux formulaires, aux panneaux bas mobiles et aux scénarios où l’utilisateur doit faire
+glisser le panneau ou passer d’un point d’ancrage à un autre. Choisissez `Dialog` pour une surface
+centrée qui n’a pas besoin d’être déplacée.
 
 ## Exemples
 
@@ -41,13 +41,13 @@ fonctionne en LTR et en RTL. Utilisez `up` pour un panneau supérieur et `down` 
 ### Tailles
 
 Définissez `size` sur `DrawerContent` à `sm`, `md` (par défaut), `lg` ou `xl` pour choisir la
-largeur d'un drawer `start` ou `end` : 18rem, 22rem, 28rem ou 36rem. Sur un écran étroit, le drawer
-laisse toujours un espace du côté opposé. Les drawers du haut et du bas prennent toute la largeur,
-et leur hauteur vient des points d'ancrage.
+largeur d’un panneau `start` ou `end` : 18rem, 22rem, 28rem ou 36rem. Sur un écran étroit, le panneau
+laisse toujours un espace du côté opposé. Les panneaux du haut et du bas prennent toute la largeur,
+et leur hauteur vient des points d’ancrage.
 
 <Example name="drawer/sizes" />
 
-### Points d'ancrage
+### Points d’ancrage
 
 Définissez des positions intermédiaires sur la racine et choisissez la position initiale avec
 `defaultSnapPoint`.
@@ -57,7 +57,7 @@ Définissez des positions intermédiaires sur la racine et choisissez la positio
 ### Contenu défilant
 
 Placez le contenu long dans `DrawerBody`. Utilisez `ScrollArea` lorsque le panneau doit disposer
-d'une zone de défilement dédiée tandis que la poignée et l'en-tête restent fixes.
+d’une zone de défilement dédiée tandis que la poignée et l’en-tête restent fixes.
 
 <Example name="drawer/scrollable" />
 
@@ -77,21 +77,21 @@ Ajoutez `data-no-drag` aux zones interactives qui ne doivent pas lancer un dépl
 
 ### Arrière-plan décalé
 
-`DrawerStack` utilise l'état de la pile et la progression du balayage d'Ark pour déplacer
+`DrawerStack` utilise l’état de la pile et la progression du balayage d’Ark pour déplacer
 `DrawerIndentBackground` et `DrawerIndent` ensemble.
 
 <Example name="drawer/indent-background" />
 
 ### Îlot
 
-Définissez `variant="island"` sur `DrawerContent` lorsqu'un panneau compact doit rester à
-l'intérieur de la fenêtre avec un retrait, plutôt que de dépasser visuellement du bord d'ouverture.
+Définissez `variant="island"` sur `DrawerContent` lorsqu’un panneau compact doit rester à
+l’intérieur de la fenêtre avec un retrait, plutôt que de dépasser visuellement du bord d’ouverture.
 
 <Example name="drawer/island" />
 
 ### Non modal
 
-Définissez `modal={false}` lorsque la page doit rester interactive pendant l'ouverture du panneau.
+Définissez `modal={false}` lorsque la page doit rester interactive pendant l’ouverture du panneau.
 Cet exemple garde le déplacement sur la poignée et confie le contenu long à `ScrollArea`.
 
 <Example name="drawer/non-modal" />
@@ -99,34 +99,34 @@ Cet exemple garde le déplacement sur la poignée et confie le contenu long à `
 ### Panneaux imbriqués
 
 Utilisez des instances Ark `useDrawer` et des arborescences moduix `DrawerRootProvider` distinctes
-pour les panneaux imbriqués. Chaque panneau conserve ainsi son propre état d'ouverture et son cycle
+pour les panneaux imbriqués. Chaque panneau conserve ainsi son propre état d’ouverture et son cycle
 de vie du focus.
 
 <Example name="drawer/nested" />
 
-### Plusieurs triggers
+### Plusieurs déclencheurs
 
-Donnez un `value` à chaque trigger pour réutiliser un seul panneau pour une liste. Le callback
-indique quel trigger est actif.
+Donnez un `value` à chaque déclencheur pour réutiliser un seul panneau pour une liste. Le callback
+indique quel déclencheur est actif.
 
 <Example name="drawer/multiple-triggers" />
 
 ### État contrôlé
 
-Lisez `details.open` dans le callback Ark. Le callback reçoit un objet de détails, pas directement un booléen. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
+Lisez `details.open` dans le callback Ark. Le callback reçoit un objet `details`, pas directement un booléen. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
 
 <Example name="drawer/controlled" />
 
 ### Root Provider
 
-Utilisez l'export moduix `useDrawer` lorsque des boutons situés en dehors de l'arborescence du panneau
-doivent l'ouvrir ou modifier ses points d'ancrage. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
+Utilisez l’export moduix `useDrawer` lorsque des boutons situés en dehors de l’arborescence du panneau
+doivent l’ouvrir ou modifier ses points d’ancrage. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
 <Example name="drawer/root-provider" />
 
 ### Assembler à partir des parties
 
-Le même drawer que Basic, sans `DrawerHeader`, `DrawerBody`, `DrawerFooter` ni `DrawerCloseIcon` :
+Le même panneau que dans l’exemple principal, sans `DrawerHeader`, `DrawerBody`, `DrawerFooter` ni `DrawerCloseIcon` :
 des éléments de mise en page simples et `DrawerCloseTrigger` autour de `CloseButton` avec une icône
 explicite. Partez de cet exemple quand le design modifie la mise en page ou le bouton de fermeture.
 
@@ -135,19 +135,19 @@ explicite. Partez de cet exemple quand le design modifie la mise en page ou le b
 ## Composition
 
 Par défaut, `Drawer` gère son état et rend `DrawerBackdrop` et `DrawerPositioner` dans un portail. Gardez ces
-parties structurelles explicites. Définissez `portalled={false}` pour les rendre dans l'arborescence
+parties structurelles explicites. Définissez `portalled={false}` pour les rendre dans l’arborescence
 actuelle, ou transmettez `portalRef` pour utiliser un conteneur personnalisé.
 
-Lorsque l'état doit être créé en dehors de l'arborescence du panneau, créez un store avec
+Lorsque l’état doit être créé en dehors de l’arborescence du panneau, créez un store avec
 `useDrawer()` et transmettez-le à un seul `DrawerRootProvider`. Ne rendez pas `Drawer` pour ce même
 store. Les panneaux imbriqués utilisent des stores et des arborescences
-`DrawerRootProvider` distincts afin de conserver leur propre état d'ouverture et de focus.
+`DrawerRootProvider` distincts afin de conserver leur propre état d’ouverture et de focus.
 
 Regroupez dans `DrawerStack` les surfaces qui doivent se déplacer ensemble, puis associez
-`DrawerIndentBackground` et `DrawerIndent`. Utilisez `asChild` pour un hôte personnalisé du trigger
+`DrawerIndentBackground` et `DrawerIndent`. Utilisez `asChild` pour un hôte personnalisé du déclencheur
 ou de la fermeture : React reçoit un seul enfant pouvant recevoir le focus, Solid utilise
-une fonction de rendu qui diffuse `props()` sur l'enfant, Vue utilise l'attribut `as-child`
-avec un seul élément enfant, et Svelte un snippet `asChild` qui diffuse `props()` sur l'enfant. Les callbacks Ark reçoivent des objets de
+une fonction de rendu qui diffuse `props()` sur l’enfant, Vue utilise l’attribut `as-child`
+avec un seul élément enfant, et Svelte un snippet `asChild` qui diffuse `props()` sur l’enfant. Les callbacks Ark reçoivent des objets de
 détails, comme `details.open`, `details.snapPoint` et `details.value`.
 
 ## Anatomie
@@ -156,9 +156,9 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 <AnatomyInspector
   parts={[
-    ["Drawer", null, "Partie racine qui gère l'état d'ouverture, les points d'ancrage et le balayage.", 0],
+    ["Drawer", null, "Partie racine qui gère l’état d’ouverture, les points d’ancrage et le balayage.", 0],
     ["DrawerTrigger", "drawer-trigger", "Ouvre le panneau.", 1],
-    ["DrawerSwipeArea", "drawer-swipe-area", "Zone facultative au bord de l'écran qui ouvre le panneau par balayage.", 1],
+    ["DrawerSwipeArea", "drawer-swipe-area", "Zone facultative au bord de l’écran qui ouvre le panneau par balayage.", 1],
     ["DrawerBackdrop", "drawer-backdrop", "Calque modal.", 1],
     ["DrawerPositioner", "drawer-positioner", "Positionne le contenu du panneau.", 1],
     ["DrawerContent", "drawer-content", "Surface interactive du panneau.", 2],
@@ -170,9 +170,9 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
     ["DrawerDescription", "drawer-description", "Description accessible du panneau.", 4],
     ["DrawerCloseTrigger", "drawer-close-trigger", "Ferme le panneau.", 3],
     ["DrawerStack", "", "Coordonne les panneaux imbriqués et les surfaces décalées.", 0],
-    ["DrawerIndent", "drawer-indent", "Surface qui recule lorsqu'un panneau empilé s'ouvre.", 0],
+    ["DrawerIndent", "drawer-indent", "Surface qui recule lorsqu’un panneau empilé s’ouvre.", 0],
     ["DrawerIndentBackground", "drawer-indent-background", "Arrière-plan derrière une surface décalée.", 1],
-    ["DrawerRootProvider", null, "Connecte les parties à l'état créé avec `useDrawer()`.", 0],
+    ["DrawerRootProvider", null, "Connecte les parties à l’état créé avec `useDrawer()`.", 0],
   ]}
 >
   <AnatomyScene />
@@ -181,7 +181,7 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 ## Styles
 
 Utilisez `className` dans React ou `class` dans Solid, Vue et Svelte sur les parties exportées pour les styles
-structurels. Pour les styles liés à l'état, préférez les attributs de données d'Ark tels que
+structurels. Pour les styles liés à l’état, préférez les attributs de données d’Ark tels que
 `data-state`, `data-swipe-direction` et `data-dragging`, avec les sélecteurs `data-slot` de moduix.
 Les variantes Tailwind utilisent des utilitaires natifs et les classes du consommateur ; les
 variables ci-dessous personnalisent les variantes CSS Modules. Les attributs de données et les hooks
@@ -219,10 +219,10 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 - `DrawerContent` écrit `data-size` (par défaut `md`) et `data-variant="island"` lorsque sa
   présentation en îlot est active.
 - hooks des parties Ark : `data-scope="drawer"` avec `data-part`.
-- hooks d'état : `data-state="open|closed"`, `data-swipe-direction`, `data-swiping`,
+- hooks d’état : `data-state="open|closed"`, `data-swipe-direction`, `data-swiping`,
   `data-dragging`, `data-expanded`, `data-current`, `data-value`, `data-disabled`,
   `data-nested-drawer-open` et `data-nested-drawer-swiping`.
-- variables d'exécution : `--drawer-translate`, `--drawer-translate-x`, `--drawer-translate-y`,
+- variables d’exécution : `--drawer-translate`, `--drawer-translate-x`, `--drawer-translate-y`,
   `--drawer-snap-point-offset-x`, `--drawer-snap-point-offset-y`, `--drawer-swipe-movement-x`,
   `--drawer-swipe-movement-y`, `--drawer-swipe-progress`, `--drawer-swipe-strength`,
   `--drawer-height`, `--drawer-frontmost-height`, `--nested-drawers`, `--nested-layer-count`
@@ -230,9 +230,9 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 - `DrawerTrigger` et `DrawerCloseTrigger` ne sont pas stylés. Composez-les avec `asChild` et un
   `Button`, ou stylez le bouton natif avec une classe.
 - Les couleurs, bordures, espacements et la typographie viennent des tokens de foundation. Pour un
-  seul drawer, ajoutez une classe sur la partie. Le fond lit les variables partagées
+  seul panneau, ajoutez une classe sur la partie. Le fond lit les variables partagées
   `--moduix-backdrop-bg` et `--moduix-backdrop-filter`.
-- Les drawers du haut et du bas sont limités à `max-height: 80dvh` ; définissez une autre
+- Les panneaux du haut et du bas sont limités à `max-height: 80dvh` ; définissez une autre
   `max-height` avec une classe sur `DrawerContent`.
 
 ## Clavier

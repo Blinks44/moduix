@@ -20,7 +20,7 @@ choisissez un formulaire natif, [Formisch](/docs/formisch) ou [TanStack Form](/d
 ## Relier les composants
 
 Utilisez `register` pour les éléments natifs et `Controller` pour les composants composés dont la
-valeur passe par des propriétés et des objets de détails dans les callbacks.
+valeur passe par des propriétés et des objets `details` dans les callbacks.
 
 | Composant moduix                       | Correspondance React Hook Form                         |
 | -------------------------------------- | ------------------------------------------------------ |
@@ -78,5 +78,5 @@ une erreur générale. Conservez les valeurs saisies après l’échec de la req
 
 - Transmettez `field.ref` à `SelectTrigger` ou `ComboboxInput` pour focaliser le contrôle visible.
 - Appelez `field.onBlur` à la fin d’une interaction composée.
-- Convertissez explicitement les objets de détails Ark au lieu d’étaler un champ de `Controller`.
+- Convertissez explicitement les objets `details` d’Ark au lieu d’étaler un champ de `Controller`.
 - Utilisez `formState.isSubmitting` pour l’état d’attente et pour bloquer les envois en double.

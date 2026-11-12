@@ -20,8 +20,8 @@ import { CssPropertiesSection } from '@/components/mdx/Components';
 <Usage />
 
 Utilisez `SegmentGroup` comme racine, placez `SegmentGroupIndicator` avant les éléments et utilisez
-`SegmentGroupItems` lorsque chaque segment n'a besoin que d'un libellé textuel. `SegmentGroupItems` crée pour chaque
-entrée les parties item et text, ainsi qu'un champ de formulaire natif. Passez des chaînes lorsque la valeur et le
+`SegmentGroupItems` lorsque chaque segment n’a besoin que d’un libellé textuel. `SegmentGroupItems` crée pour chaque
+entrée les parties item et text, ainsi qu’un champ de formulaire natif. Passez des chaînes lorsque la valeur et le
 libellé sont identiques, ou des objets `{ value, label, disabled }`.
 
 ## Choisir le bon composant
@@ -39,7 +39,7 @@ même temps.
 ### Tailles
 
 Définissez `size` sur `SegmentGroup` ou `SegmentGroupRootProvider` : `sm`, `md` (par défaut) ou `lg`.
-Le groupe entier prend alors la hauteur d'un `Button` ou d'un `Input` de même taille.
+Le groupe entier prend alors la hauteur d’un `Button` ou d’un `Input` de même taille.
 
 <Example name="segment-group/sizes" />
 
@@ -122,12 +122,12 @@ Pour la composition courante, utilisez `SegmentGroup` avec `SegmentGroupIndicato
 `SegmentGroupItems`. `SegmentGroupItems` inclut `SegmentGroupItemText` et
 exactement un `SegmentGroupItemHiddenInput` pour chaque élément. Si vous rendez `SegmentGroupItem`
 directement, composez ces parties vous-même et conservez exactement un
-`SegmentGroupItemHiddenInput` dans chaque élément. L'enfant direct de
+`SegmentGroupItemHiddenInput` dans chaque élément. L’enfant direct de
 `asChild` doit rester un seul `label` sémantique.
 
-Utilisez `SegmentGroupRootProvider` avec `useSegmentGroup()` lorsque l'état doit être créé en dehors
-de l'arbre rendu ou contrôlé par une autre partie de l'application. React et Vue exposent le store comme un
-objet, Solid lit son état réactif à travers la fonction d'accès renvoyée, et Svelte renvoie un getter : lisez l'état avec `segmentGroup().value`.
+Utilisez `SegmentGroupRootProvider` avec `useSegmentGroup()` lorsque l’état doit être créé en dehors
+de l’arbre rendu ou contrôlé par une autre partie de l’application. React et Vue exposent le store comme un
+objet, Solid lit son état réactif à travers la fonction d’accès renvoyée, et Svelte renvoie un getter : lisez l’état avec `segmentGroup().value`.
 
 ## Anatomie
 
@@ -153,10 +153,10 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 ## Styles
 
 Dans React, utilisez `className` et, dans Solid, Vue et Svelte, `class` sur les parties exportées pour les styles
-structurels. Pour les styles fondés sur l'état, préférez les attributs Ark comme `data-state`,
+structurels. Pour les styles fondés sur l’état, préférez les attributs Ark comme `data-state`,
 `data-disabled` et `data-orientation`, avec les sélecteurs moduix `data-slot`. Les variantes
 Tailwind utilisent des utilitaires natifs et les classes du consommateur ; les variables ci-dessous
-personnalisent les variantes CSS Modules. Les attributs d'état et les hooks data-slot sont partagés
+personnalisent les variantes CSS Modules. Les attributs d’état et les hooks data-slot sont partagés
 par les deux modes de style.
 
 ### Variables CSS
@@ -179,10 +179,10 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 | `SegmentGroupIndicator` | `segment-group-indicator` |
 
 - Sélecteurs des parties Ark : `data-scope="segment-group"` et `data-part` sur la racine, le libellé,
-  l'indicateur, l'élément, le texte de l'élément et le champ masqué.
-- Sélecteurs d'état Ark : `data-state="checked|unchecked"`, `data-orientation`, `data-disabled`,
+  l’indicateur, l’élément, le texte de l’élément et le champ masqué.
+- Sélecteurs d’état Ark : `data-state="checked|unchecked"`, `data-orientation`, `data-disabled`,
   `data-readonly`, `data-invalid`, `data-required` et `data-focus-visible`.
-- L'indicateur utilise les variables d'exécution Ark `--left`, `--top`, `--width` et `--height` pour
+- L’indicateur utilise les variables d’exécution Ark `--left`, `--top`, `--width` et `--height` pour
   sa taille. Son mouvement utilise les variables Ark `--transition-duration` et
   `--transition-timing-function`, définies par défaut à `--moduix-duration-normal` et
   `--moduix-ease-in-out`. Définissez-les avec une classe sur `SegmentGroupIndicator` (en Tailwind,

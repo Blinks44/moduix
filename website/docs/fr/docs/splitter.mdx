@@ -21,15 +21,15 @@ import { splitterOverrideCssProperties } from '@/components/examples/splitter/cs
 
 Construisez un splitter avec `Splitter`, `SplitterPanel` et `SplitterResizeTrigger`. La prop
 `panels` contient les identifiants des panneaux et leurs contraintes de taille. Chaque
-`SplitterPanel` rendu doit utiliser l'un de ces identifiants. Si vous n'ajoutez pas de contenu à la
-poignée, moduix génère automatiquement l'indicateur de redimensionnement.
+`SplitterPanel` rendu doit utiliser l’un de ces identifiants. Si vous n’ajoutez pas de contenu à la
+poignée, moduix génère automatiquement l’indicateur de redimensionnement.
 
 ## Exemples
 
 ### Orientation verticale
 
 Définissez `orientation="vertical"` et donnez une hauteur stable à la racine afin que les panneaux
-empilés disposent de l'espace nécessaire pour être redimensionnés.
+empilés disposent de l’espace nécessaire pour être redimensionnés.
 
 <Example name="splitter/vertical" />
 
@@ -45,15 +45,15 @@ relier ses deux voisins.
 
 Définissez `collapsible: true` et choisissez `collapsedSize` pour transformer un panneau en bandeau
 étroit. Donnez à `minSize` la même valeur lorsque le redimensionnement à la souris doit rester continu
-jusqu'à la taille réduite. Si `minSize` est supérieur, le splitter alterne entre la taille minimale
+jusqu’à la taille réduite. Si `minSize` est supérieur, le splitter alterne entre la taille minimale
 déployée et le bandeau réduit.
 
 <Example name="splitter/collapsible-panels" />
 
 ### Réduction adaptative
 
-Utilisez `collapsePanel()` et `expandPanel()` lorsqu'une barre latérale doit réagir à la largeur
-disponible mesurée par l'application.
+Utilisez `collapsePanel()` et `expandPanel()` lorsqu’une barre latérale doit réagir à la largeur
+disponible mesurée par l’application.
 
 <Example name="splitter/dynamic-collapsible" />
 
@@ -66,15 +66,15 @@ intersections des poignées horizontales et verticales.
 
 ### État contrôlé
 
-Conservez les tailles des panneaux dans l'état de l'application et mettez-le à jour avec `details.size`
+Conservez les tailles des panneaux dans l’état de l’application et mettez-le à jour avec `details.size`
 dans `onResize`. Voir [Contrôler l’état depuis l’application](/docs/composition-patterns#controlled-state).
 
 <Example name="splitter/controlled" />
 
 ### Root Provider
 
-Utilisez `useSplitter()` avec `SplitterRootProvider` lorsque l'état ou les contrôles doivent se
-trouver en dehors des parties rendues du splitter. L'API renvoyée fournit notamment `getSizes()`,
+Utilisez `useSplitter()` avec `SplitterRootProvider` lorsque l’état ou les contrôles doivent se
+trouver en dehors des parties rendues du splitter. L’API renvoyée fournit notamment `getSizes()`,
 `setSizes()`, `resizePanel()`, `collapsePanel()`, `expandPanel()` et `resetSizes()`. Voir [Partager l’état hors de l’arbre](/docs/composition-patterns#root-provider).
 
 <Example name="splitter/root-provider" />
@@ -89,23 +89,23 @@ remplace la poignée ou y ajoute du contenu.
 
 ## Composition
 
-Utilisez `size` avec `onResize(details)` lorsque l'application doit gérer les tailles actuelles des
-panneaux. Utilisez `SplitterRootProvider` avec `useSplitter()` lorsque l'état ou ses contrôles
-doivent vivre en dehors de l'arborescence rendue, et choisissez une seule racine par état. Pour des
+Utilisez `size` avec `onResize(details)` lorsque l’application doit gérer les tailles actuelles des
+panneaux. Utilisez `SplitterRootProvider` avec `useSplitter()` lorsque l’état ou ses contrôles
+doivent vivre en dehors de l’arborescence rendue, et choisissez une seule racine par état. Pour des
 splitters imbriqués qui doivent se redimensionner ensemble aux intersections des poignées, créez un
 seul `createSplitterRegistry()` et transmettez-le à chaque racine. Les valeurs numériques de
 `defaultSize`, `size` et `minSize` sont des pourcentages dont la somme doit faire 100, et Ark accepte
 aussi des longueurs CSS pour ces tailles.
 
-Utilisez `asChild` avec un seul enfant interactif qui conserve la sémantique d'un bouton, la gestion du
-focus et les interactions au clavier ; cela remplace l'indicateur de redimensionnement par défaut. En
-Solid, `useSplitter()` renvoie un accessor : transmettez-le à `value` et lisez l'API avec `splitter()`.
+Utilisez `asChild` avec un seul enfant interactif qui conserve la sémantique d’un bouton, la gestion du
+focus et les interactions au clavier ; cela remplace l’indicateur de redimensionnement par défaut. En
+Solid, `useSplitter()` renvoie un accessor : transmettez-le à `value` et lisez l’API avec `splitter()`.
 
 En Vue, utilisez `v-model:size` pour le contrat de taille contrôlée par Ark. `useSplitter()` renvoie
 un état réactif qui se transmet directement à `SplitterRootProvider` ; appelez ses méthodes dans le
-template sans créer un second conteneur d'état.
+template sans créer un second conteneur d’état.
 
-En Svelte, utilisez `bind:size` pour le contrat de taille contrôlée par Ark. `useSplitter()` renvoie un getter : transmettez-le à `value` et lisez l'API avec `splitter()`. Transmettez un `id` à `useSplitter()` (par exemple `$props.id()`), sinon le hook lève une erreur.
+En Svelte, utilisez `bind:size` pour le contrat de taille contrôlée par Ark. `useSplitter()` renvoie un getter : transmettez-le à `value` et lisez l’API avec `splitter()`. Transmettez un `id` à `useSplitter()` (par exemple `$props.id()`), sinon le hook lève une erreur.
 
 ## Anatomie
 
@@ -113,11 +113,11 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 <AnatomyInspector
   parts={[
-    ["Splitter", "splitter-root", "Gère les panneaux, leurs tailles, l'orientation, les rappels et l'état.", 0],
+    ["Splitter", "splitter-root", "Gère les panneaux, leurs tailles, l’orientation, les callbacks et l’état.", 0],
     ["SplitterPanel", "splitter-panel", "Région redimensionnable dont l'`id` correspond à une entrée de `panels`.", 1],
     ["SplitterResizeTrigger", "splitter-resize-trigger", "Bouton accessible qui redimensionne les deux panneaux adjacents.", 1],
     ["SplitterResizeTriggerIndicator", "splitter-resize-trigger-indicator", "Poignée visuelle par défaut. Un contenu personnalisé la remplace.", 2],
-    ["SplitterRootProvider", "splitter-root-provider", "Affiche les mêmes parties avec l'état créé par `useSplitter()`.", 0],
+    ["SplitterRootProvider", "splitter-root-provider", "Affiche les mêmes parties avec l’état créé par `useSplitter()`.", 0],
   ]}
 >
   <AnatomyScene />
@@ -127,16 +127,16 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 Utilisez `className` en React ou `class` en Solid, Vue et Svelte sur les parties exportées pour modifier leurs
 styles. Une classe change aussi la taille de la racine : moduix retire les `width` et `height` inline
-d'Ark, et la racine remplit par défaut son conteneur (`width: 100%` et `height: 100%`, comme Ark). Donnez
-une hauteur à la racine si son parent n'en a pas.
+d’Ark, et la racine remplit par défaut son conteneur (`width: 100%` et `height: 100%`, comme Ark). Donnez
+une hauteur à la racine si son parent n’en a pas.
 
 Ark applique `overflow: hidden` inline à chaque panneau pour que le contenu ne modifie pas les tailles.
-Placez un contenu long dans un conteneur défilant à l'intérieur du panneau, par exemple `ScrollArea`.
+Placez un contenu long dans un conteneur défilant à l’intérieur du panneau, par exemple `ScrollArea`.
 
 La poignée réserve un séparateur de `1px` dans la mise en page et dessine par-dessus une ligne de
-`0.5px`. Sa zone de clic transparente facilite la manipulation, et l'indicateur arrondi se place sur
-la ligne. Au survol et pendant le glissement, la ligne et la bordure de l'indicateur foncent et
-l'ombre de l'indicateur s'accentue. La ligne et la zone de clic sont des pseudo-éléments : les
+`0.5px`. Sa zone de clic transparente facilite la manipulation, et l’indicateur arrondi se place sur
+la ligne. Au survol et pendant le glissement, la ligne et la bordure de l’indicateur foncent et
+l’ombre de l’indicateur s’accentue. La ligne et la zone de clic sont des pseudo-éléments : les
 variantes CSS Modules les exposent avec les variables ci-dessous.
 
 ### Variables CSS
@@ -164,14 +164,14 @@ que `data-orientation`, `data-dragging`, `data-focus` et `data-disabled` sur les
 
 ## Accessibilité
 
-`SplitterResizeTrigger` génère un bouton `type="button"`, qui n'envoie donc jamais le formulaire englobant, et prend en charge le redimensionnement à la souris et au clavier,
+`SplitterResizeTrigger` génère un bouton `type="button"`, qui n’envoie donc jamais le formulaire englobant, et prend en charge le redimensionnement à la souris et au clavier,
 conformément au modèle WAI-ARIA Window Splitter. Donnez à chaque poignée un nom accessible, par exemple
-avec `aria-label="Resize panels"`, lorsque l'indicateur visuel n'a pas de libellé. Avec `asChild`,
-l'élément hôte personnalisé doit conserver la sémantique d'un bouton, le focus et les interactions au
+avec `aria-label="Resize panels"`, lorsque l’indicateur visuel n’a pas de libellé. Avec `asChild`,
+l’élément hôte personnalisé doit conserver la sémantique d’un bouton, le focus et les interactions au
 clavier.
 
-Ark expose l'état avec des attributs tels que `data-orientation`, `data-dragging`, `data-focus` et
-`data-disabled`. Utilisez-les pour styliser les états d'interaction.
+Ark expose l’état avec des attributs tels que `data-orientation`, `data-dragging`, `data-focus` et
+`data-disabled`. Utilisez-les pour styliser les états d’interaction.
 
 ## Clavier
 

@@ -34,7 +34,7 @@ moduix сохраняет явную модель частей Ark. Начнит
 | Повторяющееся визуальное правило или расположение | Узкая обертка над отвечающей за него частью |
 | Состояние вне дерева компонента | `use<Component>()` вместе с `<Family>RootProvider` |
 
-Выбирайте самый простой уровень, который решает повторяющуюся задачу. Единичный класс или callback не
+Выбирайте самый простой уровень, который решает повторяющуюся задачу. Единичный класс или колбэк не
 требует нового API компонента.
 
 ## Начните с дерева частей
@@ -192,7 +192,7 @@ export { Dialog, DialogTrigger, DialogContent };
 | React | Храните состояние в `useState`, передайте `value={value}` и `onValueChange={(details) => setValue(details.value)}`. |
 | Solid | Храните состояние в `createSignal`, передайте `value={value()}` и `onValueChange={(details) => setValue(details.value)}`. |
 | Vue | Используйте `v-model` для `value`, а для других пропов состояния `v-model:open`, `v-model:checked` и подобные. |
-| Svelte | Используйте `bind:value`, `bind:open`, `bind:checked` и подобные для привязываемых пропов либо передавайте проп вместе с callback изменения. |
+| Svelte | Используйте `bind:value`, `bind:open`, `bind:checked` и подобные для привязываемых пропов либо передавайте проп вместе с колбэком изменения. |
 
 Имя колбэка следует за пропом: `value` и `onValueChange`, `open` и `onOpenChange`, `checked` и
 `onCheckedChange`. Новое состояние читайте из объекта details (`details.value`, `details.open`).

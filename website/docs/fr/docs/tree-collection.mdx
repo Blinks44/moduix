@@ -16,7 +16,7 @@ import treeCollectionSvelteFilePaths from '../../../snippets/tree-collection/sve
 Une collection arborescente stocke des données hiérarchiques pour `TreeView` et vos interfaces
 arborescentes. Elle ne rend aucune interface et ne gère ni la sélection, ni le focus, ni la navigation
 au clavier. Utilisez-la pour créer une hiérarchie typée, interroger les relations entre les nœuds,
-parcourir et filtrer l'arbre, puis produire des mises à jour immuables.
+parcourir et filtrer l’arbre, puis produire des mises à jour immuables.
 
 ## Importation
 
@@ -70,7 +70,7 @@ le même package.
 ## Exemple de base
 
 `createTreeCollection` reçoit un `rootNode`. La forme de nœud par défaut utilise `value`, `label`,
-`children` et, facultativement, `disabled`. Le nœud racine sert de conteneur et n'est pas inclus dans
+`children` et, facultativement, `disabled`. Le nœud racine sert de conteneur et n’est pas inclus dans
 `getValues()`.
 
 Utilisez la collection comme source de données pour `TreeView`. Rendez
@@ -78,15 +78,15 @@ Utilisez la collection comme source de données pour `TreeView`. Rendez
 
 <Example name="tree-collection/basic" />
 
-`TreeViewLabel` donne un nom accessible à l'arbre, tandis que `TreeView` gère le focus, la navigation
-au clavier, l'ouverture et la sélection. Consultez [Tree View](/docs/tree-view) pour découvrir
-l'anatomie et le comportement complets du composant.
+`TreeViewLabel` donne un nom accessible à l’arbre, tandis que `TreeView` gère le focus, la navigation
+au clavier, l’ouverture et la sélection. Consultez [Tree View](/docs/tree-view) pour découvrir
+l’anatomie et le comportement complets du composant.
 
 ## Nœuds personnalisés
 
-Si vos données utilisent d'autres champs, indiquez comment les lire avec `nodeToValue`, `nodeToString`,
+Si vos données utilisent d’autres champs, indiquez comment les lire avec `nodeToValue`, `nodeToString`,
 `nodeToChildren`, `nodeToChildrenCount` et `isNodeDisabled`. `nodeToChildrenCount` est utile lorsque le
-nombre d'enfants est connu avant leur chargement.
+nombre d’enfants est connu avant leur chargement.
 
 <Tabs
   groupId="framework"
@@ -127,14 +127,14 @@ nombre d'enfants est connu avant leur chargement.
 | `nodeToValue`         | Renvoie une valeur textuelle stable pour un nœud.                |
 | `nodeToString`        | Renvoie le texte affiché et utilisé pour la recherche.           |
 | `nodeToChildren`      | Renvoie les nœuds enfants.                                       |
-| `nodeToChildrenCount` | Renvoie le nombre connu d'enfants, y compris ceux chargés plus tard. |
+| `nodeToChildrenCount` | Renvoie le nombre connu d’enfants, y compris ceux chargés plus tard. |
 | `isNodeDisabled`      | Indique si le nœud est désactivé.                                |
 
 ## Requêtes et navigation
 
-Un `indexPath` contient la position numérique d'un nœud à chaque niveau sous la racine. Les valeurs
-sont des identifiants stables : stockez-les dans l'état de l'application et recalculez les chemins
-d'index lorsqu'une opération en a besoin.
+Un `indexPath` contient la position numérique d’un nœud à chaque niveau sous la racine. Les valeurs
+sont des identifiants stables : stockez-les dans l’état de l’application et recalculez les chemins
+d’index lorsqu’une opération en a besoin.
 
 ```tsx
 const treePath = collection.getIndexPath('src/components/Tree.tsx')!; // [0, 1, 1]
@@ -152,27 +152,27 @@ collection.getValues(); // descendant values in traversal order
 | -------------------------------- | -------------------------------------------------- |
 | `findNode(value, rootNode?)`     | Premier nœud correspondant, ou `undefined`.       |
 | `findNodes(values, rootNode?)`   | Nœuds correspondant à plusieurs valeurs.          |
-| `getIndexPath(valueOrValuePath)` | Chemin numérique d'une valeur ou d'un chemin explicite. |
-| `at(indexPath)`                  | Nœud du chemin d'index, ou `undefined`.            |
-| `getValue(indexPath)`             | Valeur du chemin d'index, ou `undefined`.         |
+| `getIndexPath(valueOrValuePath)` | Chemin numérique d’une valeur ou d’un chemin explicite. |
+| `at(indexPath)`                  | Nœud du chemin d’index, ou `undefined`.            |
+| `getValue(indexPath)`             | Valeur du chemin d’index, ou `undefined`.         |
 | `getValuePath(indexPath)`         | Valeurs des ancêtres suivies de la valeur cible.  |
 | `getDepth(value)`                 | Profondeur du nœud sous la racine.                |
-| `getValues(rootNode?)`            | Valeurs descendantes dans l'ordre du parcours.    |
+| `getValues(rootNode?)`            | Valeurs descendantes dans l’ordre du parcours.    |
 
 Pour une structure personnalisée, utilisez les accesseurs normalisés :
 
 | API                          | Résultat                                          |
 | ---------------------------- | ------------------------------------------------- |
 | `getNodeChildren(node)`      | Nœuds enfants.                                    |
-| `getNodeChildrenCount(node)` | Nombre connu d'enfants, ou `undefined`.           |
+| `getNodeChildrenCount(node)` | Nombre connu d’enfants, ou `undefined`.           |
 | `getNodeValue(node)`         | Valeur du nœud.                                   |
-| `stringifyNode(node)`        | Texte d'affichage du nœud.                        |
-| `stringify(value)`           | Texte d'une valeur, ou `null`.                    |
+| `stringifyNode(node)`        | Texte d’affichage du nœud.                        |
+| `stringify(value)`           | Texte d’une valeur, ou `null`.                    |
 | `getNodeDisabled(node)`      | État désactivé.                                   |
 | `isRootNode(node)`           | Indique si le nœud est la racine de la collection. |
 | `isSameNode(node, other)`    | Indique si deux nœuds ont la même valeur.         |
 
-Parcourez l'arbre dans l'ordre de parcours ou parmi les nœuds frères :
+Parcourez l’arbre dans l’ordre de parcours ou parmi les nœuds frères :
 
 ```tsx
 collection.getFirstNode();
@@ -192,11 +192,11 @@ collection.contains(collection.getIndexPath('src')!, treePath);
 ```
 
 `getFirstNode`, `getLastNode`, `getNextNode` et `getPreviousNode` acceptent `{ skip }`. La fonction
-reçoit `{ value, node, indexPath }` et exclut le nœud lorsqu'elle renvoie `true`. Passez
+reçoit `{ value, node, indexPath }` et exclut le nœud lorsqu’elle renvoie `true`. Passez
 `{ withBranch: true }` à `getDescendantNodes` ou `getDescendantValues` pour inclure les nœuds de
 branche.
 
-`sort(values)` ordonne les valeurs selon leur position dans l'arborescence. `isEqual(other)` compare
+`sort(values)` ordonne les valeurs selon leur position dans l’arborescence. `isEqual(other)` compare
 les collections et `toJSON()` renvoie les valeurs descendantes.
 
 ## Parcours et filtrage
@@ -222,7 +222,7 @@ collection.visit({
 });
 ```
 
-`visit` appelle `onEnter` pour chaque nœud. Renvoyez `'skip'` pour ignorer les descendants d'une
+`visit` appelle `onEnter` pour chaque nœud. Renvoyez `'skip'` pour ignorer les descendants d’une
 branche ou `'stop'` pour terminer le parcours. `filter(predicate)` renvoie une nouvelle collection,
 conserve la hiérarchie nécessaire pour atteindre les nœuds correspondants et transmet `(node,
 indexPath)` à la fonction de prédicat :
@@ -235,8 +235,8 @@ const filteredTree = collection.filter((node) =>
 
 ## Mises à jour immuables
 
-Les méthodes de mise à jour renvoient une nouvelle collection sans modifier l'originale. Les chemins
-d'index appartiennent à une version précise de la collection. Après une insertion, suppression,
+Les méthodes de mise à jour renvoient une nouvelle collection sans modifier l’originale. Les chemins
+d’index appartiennent à une version précise de la collection. Après une insertion, suppression,
 modification ou déplacement, recalculez les chemins depuis la collection renvoyée au lieu de réutiliser
 les anciens chemins numériques.
 
@@ -257,11 +257,11 @@ const moved = collection.move([readmePath], srcPath);
 ```
 
 `insertBefore` et `insertAfter` renvoient `undefined` lorsque le chemin cible est invalide. Validez
-les chemins issus de données dynamiques avant d'appeler ces méthodes.
+les chemins issus de données dynamiques avant d’appeler ces méthodes.
 
 | API                         | Fonctionnement                              |
 | --------------------------- | ------------------------------------------- |
-| `copy(rootNode)`            | Crée une collection à partir d'une nouvelle racine. |
+| `copy(rootNode)`            | Crée une collection à partir d’une nouvelle racine. |
 | `replace(indexPath, node)`  | Remplace un nœud.                            |
 | `remove(indexPaths)`        | Supprime un ou plusieurs sous-arbres.        |
 | `insertBefore(path, nodes)` | Insère des nœuds frères avant un nœud.       |
@@ -269,8 +269,8 @@ les chemins issus de données dynamiques avant d'appeler ces méthodes.
 | `move(fromPaths, toPath)`   | Déplace des sous-arbres.                     |
 | `filter(predicate)`         | Renvoie une arborescence filtrée.            |
 
-Lorsque la collection est rendue par `TreeView`, stockez le résultat de la mise à jour dans l'état
-qui contient l'arbre et rendez son nouveau `rootNode`.
+Lorsque la collection est rendue par `TreeView`, stockez le résultat de la mise à jour dans l’état
+qui contient l’arbre et rendez son nouveau `rootNode`.
 
 ## Arborescence de fichiers
 

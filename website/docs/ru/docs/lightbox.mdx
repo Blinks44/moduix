@@ -85,7 +85,7 @@ Lightbox, но не создаёт его подложку, содержимое
 
 ### Управляемое состояние
 
-Используйте callback `onOpenChange(details)` из Ark UI, если состояние Lightbox нужно синхронизировать
+Используйте колбэк `onOpenChange(details)` из Ark UI, если состояние Lightbox нужно синхронизировать
 с состоянием приложения на React или Solid. Во Vue используйте `v-model:open`, в Svelte - `bind:open`. Подробнее в разделе [Управляйте состоянием из приложения](/docs/composition-patterns#controlled-state).
 
 <Example name="lightbox/controlled" />
@@ -133,7 +133,7 @@ Content плавно появляется и исчезает, а Body меня�
 
 В галереях храните выбранное изображение и страницу `Carousel` в состоянии приложения. Передавайте
 ключ изображения в `LightboxTrigger value` и обновляйте состояние из `onTriggerValueChange(details)`
-или callback страницы `Carousel`. Используйте `LightboxRootProvider` с `useLightbox()`, если состояние или
+или колбэка страницы `Carousel`. Используйте `LightboxRootProvider` с `useLightbox()`, если состояние или
 кнопка открытия находятся за пределами корня, а в дочерних компонентах читайте его через
 `useLightboxContext()`. `LightboxBind` не выводит разметку и только выбирает изображение во внешнем DOM, поэтому
 остальные части Lightbox нужно собрать явно. `LightboxImage closeOnClick` закрывает окно после клика по изображению.

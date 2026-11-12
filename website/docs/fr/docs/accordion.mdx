@@ -20,9 +20,9 @@ import * as AccordionDocs from '@/components/examples/accordion/css-properties';
 
 Utilisez `Accordion` comme racine et attribuez un identifiant `value` stable à chaque élément.
 Placez le libellé interactif dans le déclencheur, le panneau dans la partie de contenu, puis son
-contenu interne dans le corps de l'élément. L'indicateur est facultatif et affiche par défaut
-un chevron qui pivote à l'ouverture. Placez chaque déclencheur dans un titre (`h3` dans les
-exemples) pour que les lecteurs d'écran puissent passer d'une section à l'autre.
+contenu interne dans le corps de l’élément. L’indicateur est facultatif et affiche par défaut
+un chevron qui pivote à l’ouverture. Placez chaque déclencheur dans un titre (`h3` dans les
+exemples) pour que les lecteurs d’écran puissent passer d’une section à l’autre.
 
 ## Choisir le bon composant
 
@@ -39,7 +39,7 @@ Définissez `multiple` lorsque plusieurs sections doivent rester ouvertes simult
 
 ### Repliable
 
-Activez `collapsible` pour permettre de refermer l'élément ouvert sans en ouvrir un autre.
+Activez `collapsible` pour permettre de refermer l’élément ouvert sans en ouvrir un autre.
 
 <Example name="accordion/collapsible" />
 
@@ -51,7 +51,7 @@ Ajoutez `disabled` à un élément qui doit rester visible dans la liste, mais n
 
 ### Horizontal
 
-Définissez `orientation="horizontal"` pour disposer l'accordéon en ligne et utiliser une navigation
+Définissez `orientation="horizontal"` pour disposer l’accordéon en ligne et utiliser une navigation
 au clavier horizontale.
 
 <Example name="accordion/horizontal" />
@@ -73,7 +73,7 @@ doit rester monté tout en suspendant ses effets lorsqu’il est masqué.
 
 ### Avec un slider
 
-Le contenu d'un accordéon peut accueillir un autre widget composite basé sur Ark, comme `Slider`.
+Le contenu d’un accordéon peut accueillir un autre widget composite basé sur Ark, comme `Slider`.
 Gardez la structure des parties de chaque primitive explicite afin que le bon composant gère le clavier
 et les champs de formulaire masqués.
 
@@ -99,8 +99,8 @@ modifie l’icône ou l’espacement du contenu.
 ## Composition
 
 Utilisez `defaultValue` pour un accordéon non contrôlé. Utilisez `value` avec
-`onValueChange(details)` lorsqu'une autre partie de l'application gère l'état. Ces deux propriétés
-attendent un tableau `string[]`, même lorsqu'un seul élément peut être ouvert.
+`onValueChange(details)` lorsqu’une autre partie de l’application gère l’état. Ces deux propriétés
+attendent un tableau `string[]`, même lorsqu’un seul élément peut être ouvert.
 
 Utilisez `AccordionRootProvider` avec `useAccordion()` du paquet correspondant au framework lorsque
 l’état doit être créé en dehors de l’arbre rendu. Ne rendez pas `Accordion` pour le même état. React
@@ -114,13 +114,13 @@ Survolez ou sélectionnez une partie pour la repérer dans l’aperçu.
 
 <AnatomyInspector
   parts={[
-    ["Accordion", "accordion-root", "Racine qui gère l'état de l'accordéon et la navigation au clavier.", 0],
+    ["Accordion", "accordion-root", "Racine qui gère l’état de l’accordéon et la navigation au clavier.", 0],
     ["AccordionItem", "accordion-item", "Élément repliable avec une valeur `value` obligatoire et stable.", 1],
-    ["AccordionItemTrigger", "accordion-item-trigger", "Bouton qui ouvre ou ferme l'élément.", 2],
+    ["AccordionItemTrigger", "accordion-item-trigger", "Bouton qui ouvre ou ferme l’élément.", 2],
     ["AccordionItemIndicator", "accordion-item-indicator", "Indicateur facultatif. Affiche un chevron sans contenu enfant.", 3],
-    ["AccordionItemContent", "accordion-item-content", "Panneau repliable qui utilise l'animation fondée sur les mesures de taille d'Ark.", 2],
-    ["AccordionItemBody", "accordion-item-body", "Conteneur interne moduix qui fournit l'espacement par défaut du panneau.", 3],
-    ["AccordionRootProvider", "accordion-root-provider", "Fournit aux parties l'état créé avec `useAccordion()`.", 0],
+    ["AccordionItemContent", "accordion-item-content", "Panneau repliable qui utilise l’animation fondée sur les mesures de taille d’Ark.", 2],
+    ["AccordionItemBody", "accordion-item-body", "Conteneur interne moduix qui fournit l’espacement par défaut du panneau.", 3],
+    ["AccordionRootProvider", "accordion-root-provider", "Fournit aux parties l’état créé avec `useAccordion()`.", 0],
   ]}
 >
   <AnatomyScene />
@@ -160,10 +160,10 @@ Survolez ou sélectionnez une variable pour la voir dans l’aperçu.
 
 - Sélecteurs des parties Ark : `data-scope="accordion"` et
   `data-part="root|item|item-trigger|item-indicator|item-content"`.
-- Sélecteur spécifique à moduix : `data-part="item-body"` sur la partie interne de l'élément.
-- Sélecteurs d'état Ark : `data-state="open|closed"`, `data-disabled`, `data-focus`, `data-controls`
+- Sélecteur spécifique à moduix : `data-part="item-body"` sur la partie interne de l’élément.
+- Sélecteurs d’état Ark : `data-state="open|closed"`, `data-disabled`, `data-focus`, `data-controls`
   et `data-orientation="horizontal|vertical"`.
-- Variables de contenu Ark : `--height` pour l'animation verticale et `--width` pour l'animation horizontale.
+- Variables de contenu Ark : `--height` pour l’animation verticale et `--width` pour l’animation horizontale.
 
 ## Clavier
 

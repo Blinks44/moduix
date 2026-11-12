@@ -1,25 +1,25 @@
 ---
 title: AI
-description: Fournissez aux assistants IA un contexte moduix précis et indiquez clairement le mode d'intégration choisi.
+description: Fournissez aux assistants IA un contexte moduix précis et indiquez clairement le mode d’intégration choisi.
 ---
 
 # AI
 
-Utilisez ce guide lorsqu'un assistant IA consulte la documentation moduix ou modifie un projet qui utilise moduix.
+Utilisez ce guide lorsqu’un assistant IA consulte la documentation moduix ou modifie un projet qui utilise moduix.
 
-Cette page décrit une méthode de travail, pas une API runtime. moduix n'exporte aucun utilitaire, package ou hook dédié à l'IA. Les sources utiles sont la documentation publique et, pour les composants copiés, les registries moduix.
+Cette page décrit une méthode de travail, pas une API de la bibliothèque. moduix n’exporte aucun utilitaire, package ou hook dédié à l’IA. Les sources utiles sont la documentation publique et, pour les composants copiés, les registres moduix.
 
 ## Choisir le bon contexte
 
-Ne fournissez à l'assistant que la documentation nécessaire à sa tâche.
+Ne fournissez à l’assistant que la documentation nécessaire à sa tâche.
 
 | Tâche | Contexte |
 | --- | --- |
 | Découvrir la documentation disponible | [llms.txt](/llms.txt) |
-| Travailler sur un composant ou un guide | Utilisez **Copy Markdown** sur la page concernée ou ajoutez `.md` à son URL |
+| Travailler sur un composant ou un guide | Cliquez sur **Copier la page** sur la page concernée ou ajoutez `.md` à son URL |
 | Examiner plusieurs sujets liés | [llms-full.txt](/llms-full.txt) |
 
-Précisez dans la demande le framework, le système de styles, le mode d'intégration de moduix et la modification attendue :
+Précisez dans la demande le framework, le système de styles, le mode d’intégration de moduix et la modification attendue :
 
 ```text
 Read https://moduix.dev/docs/button.md. Add a destructive action to our React application.
@@ -29,27 +29,27 @@ proposed diff before changing files.
 
 ## Installer le Skill moduix
 
-moduix publie le Skill destiné aux utilisateurs `moduix` depuis le dossier `skills/moduix` du dépôt. Il aide les agents compatibles à identifier le framework, la variante de styles et le mode d’installation du projet avant de modifier le code. Le Skill fournit uniquement des instructions : il n'installe aucun package moduix et ne copie aucun composant depuis un registry.
+moduix publie le Skill `moduix`, destiné aux utilisateurs de la bibliothèque, depuis le dossier `skills/moduix` du dépôt. Il aide les agents compatibles à identifier le framework, la variante de styles et le mode d’installation du projet avant de modifier le code. Le Skill fournit uniquement des instructions : il n’installe aucun package moduix et ne copie aucun composant depuis un registre.
 
 Installez uniquement le Skill `moduix` depuis le dépôt :
 
 <PackageManagerTabs command="skills add https://github.com/Blinks44/moduix --skill moduix" dlx />
 
-Exécutez la commande dans le projet où l'agent utilisera moduix. Si la CLI échoue, installez le skill
+Exécutez la commande dans le projet où l’agent utilisera moduix. Si la CLI échoue, installez le Skill
 manuellement en copiant `skills/moduix/SKILL.md` depuis le [dépôt moduix](https://github.com/Blinks44/moduix)
-vers le dossier de skills de votre agent. Certains agents permettent d'invoquer un skill explicitement,
-par exemple via son handle `$moduix`.
+vers le dossier de skills de votre agent. Certains agents permettent d’invoquer un Skill explicitement,
+par exemple avec `$moduix`.
 
 ## Indiquer comment moduix est intégré
 
 moduix propose deux modes d’installation :
 
-- **Géré par un package :** le projet importe un package public `@moduix/*`. Les mises à jour passent par le gestionnaire de packages.
-- **Copié dans le projet :** la CLI shadcn copie un élément d'un registry moduix. Le projet devient responsable des fichiers générés et de leur maintenance.
+- **Géré par un package :** le projet importe un package public `@moduix/*`. Les mises à jour passent par le gestionnaire de paquets.
+- **Copié dans le projet :** la CLI shadcn copie un élément d’un registre moduix. Le projet devient responsable des fichiers générés et de leur maintenance.
 
-Choisissez le package et le registry qui correspondent au projet :
+Choisissez le package et le registre qui correspondent au projet :
 
-| Configuration | Import du package | Namespace du registry |
+| Configuration | Import du package | Espace de noms du registre |
 | --- | --- | --- |
 | React avec CSS Modules | `@moduix/react/<component>` | `@moduix-react/<name>` |
 | Solid avec CSS Modules | `@moduix/solid/<component>` | `@moduix-solid/<name>` |
@@ -60,11 +60,11 @@ Choisissez le package et le registry qui correspondent au projet :
 | Vue avec Tailwind CSS | `@moduix/vue-tailwind/<component>` | `@moduix-vue-tailwind/<name>` |
 | Svelte avec Tailwind CSS | `@moduix/svelte-tailwind/<component>` | `@moduix-svelte-tailwind/<name>` |
 
-Consultez le [Quick Start](./quick-start) pour installer les packages et configurer les registries. Ne demandez pas à l'assistant de copier le code d'un registry dans un projet géré par package sans vouloir changer de mode d’installation.
+Consultez le [Démarrage rapide](./quick-start) pour installer les packages et configurer les registres. Si le projet utilise moduix sous forme de package et que vous ne voulez pas changer de mode d’installation, ne demandez pas à l’assistant de copier le code d’un registre.
 
 ## Connecter le serveur MCP de shadcn
 
-Le serveur MCP facultatif est fourni par shadcn, pas par moduix. Il permet à un assistant IA de consulter et d'installer des éléments provenant des registries compatibles avec shadcn configurés dans le fichier `components.json` du projet.
+Le serveur MCP facultatif est fourni par shadcn, pas par moduix. Il permet à un assistant IA de consulter et d’installer des éléments provenant des registres compatibles avec shadcn configurés dans le fichier `components.json` du projet.
 
 Pour Codex, ajoutez le serveur dans `~/.codex/config.toml` :
 
@@ -78,12 +78,12 @@ Redémarrez Codex après avoir modifié la configuration. Pour les autres client
 
 ## Vérifier les modifications générées
 
-Avant d'accepter une modification, vérifiez que l'assistant :
+Avant d’accepter une modification, vérifiez que l’assistant :
 
 - a choisi le bon framework, le bon système de styles et le bon mode d’installation
 - utilise uniquement les imports publics et les API documentées
-- n'a pas écrasé les modifications locales
-- préserve l'accessibilité et l'état géré par l'application
+- n’a pas écrasé les modifications locales
+- préserve l’accessibilité et l’état géré par l’application
 - a exécuté les vérifications ciblées des types, du lint et des tests du projet
 
-La documentation et les métadonnées des registries apportent du contexte, mais les données, le routage, les gestionnaires et la validation finale restent sous la responsabilité de l'application.
+La documentation et les métadonnées des registres apportent du contexte, mais les données, le routage, les gestionnaires et la validation finale restent sous la responsabilité de l’application.

@@ -15,14 +15,14 @@ description: Подключайте компоненты moduix к нативн�
 
 <PackageManagerTabs command="install @tanstack/react-form" />
 
-В React форма создается через `useForm`, а callback-функция поля получает API поля напрямую.
+В React форма создается через `useForm`, а колбэк поля получает API поля напрямую.
 
   </Tab>
   <Tab value="solid">
 
 <PackageManagerTabs command="install @tanstack/solid-form" />
 
-В Solid форма создается через `createForm`, а callback-функции поля и подписки получают accessor.
+В Solid форма создается через `createForm`, а колбэки поля и подписки получают accessor.
 
   </Tab>
   <Tab value="vue">
@@ -88,5 +88,5 @@ Svelte использует `createForm` и сниппет `children` компо
 - Через `onSubmitInvalid` фокусируйте первый видимый элемент с `aria-invalid="true"`.
 - В React читайте `field.state`, а в Solid `field().state`.
 - В React значения подписки передаются напрямую, а в Solid читаются из accessor.
-- Для текстовых полей Solid используйте нативное событие input, а объекты деталей Ark преобразуйте явно.
+- Для текстовых полей Solid используйте нативное событие input, а объекты `details` от Ark преобразуйте явно.
 - Вызывайте `form.handleSubmit()` из обработчика нативной формы после `preventDefault()`.

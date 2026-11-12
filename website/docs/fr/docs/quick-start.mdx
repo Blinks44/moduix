@@ -453,12 +453,12 @@ fonds et fenêtres contextuelles restent au-dessus de la page sans entrer en con
 
 | Problème | Vérification |
 | --- | --- |
-| Les composants s'affichent sans styles | Vérifiez que la feuille de styles de base est importée dans votre point d'entrée et qu'elle se charge avant les styles des composants ; consultez [Styles](/docs/styling). |
+| Les composants s’affichent sans styles | Vérifiez que la feuille de styles de base est importée dans votre point d’entrée et qu’elle se charge avant les styles des composants ; consultez [Styles](/docs/styling). |
 | Le contenu masqué d’un composant reste visible | Avec CSS Modules, vérifiez que la réinitialisation de moduix ou celle de votre application est chargée. Pour l’approche Tailwind, conservez Preflight. |
-| Le bundler ne trouve pas un import de composant généré | Vérifiez l'alias `@/*` dans TypeScript et votre bundler, puis vérifiez `components.json`. |
-| Une fenêtre contextuelle apparaît sous le contenu de la page | Ajoutez `isolation: isolate` à la racine de l'application et évitez les `z-index` globaux sans rapport. |
+| Le bundler ne trouve pas un import de composant généré | Vérifiez l’alias `@/*` dans TypeScript et votre bundler, puis vérifiez `components.json`. |
+| Une fenêtre contextuelle apparaît sous le contenu de la page | Ajoutez `isolation: isolate` à la racine de l’application et évitez les `z-index` globaux sans rapport. |
 | Sur Safari pour iOS 26, du contenu reste visible sous le fond d’une modale | Définissez `position: relative` sur `body` pour que le fond couvre toute la zone visible. |
-| Le rendu serveur signale des API client | Placez les composants interactifs dans un composant client dans les frameworks qui l'exigent. |
+| Le rendu serveur signale des API client | Placez les composants interactifs dans un composant client dans les frameworks qui l’exigent. |
 
 ## Étapes suivantes
 

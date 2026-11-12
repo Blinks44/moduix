@@ -120,7 +120,7 @@ et transmettez-le à `ImageCropperRootProvider` lorsqu’une barre d’outils, u
 d’un formulaire doit accéder à l’instance en dehors de l’arbre de composants. Pour une même instance
 d’état, rendez `ImageCropper` ou `ImageCropperRootProvider`, jamais les deux.
 
-Utilisez `zoom`, `rotation` ou `flip` en mode contrôlé avec le rappel correspondant lorsque l’état est
+Utilisez `zoom`, `rotation` ou `flip` en mode contrôlé avec le callback correspondant lorsque l’état est
 géré ailleurs dans l’application. Ark transmet la nouvelle valeur dans l’objet `details`.
 `fixedCropArea` fixe la sélection et fait de la zone d’affichage la surface de déplacement de l’image.
 
@@ -178,7 +178,7 @@ communs aux deux approches.
 | `ImageCropperGrid` | `image-cropper-grid` |
 | `ImageCropperHandle` | `image-cropper-handle` |
 
-- Sélecteurs d'état Ark : `data-flip-horizontal` et `data-flip-vertical` sur `ImageCropperImage`.
+- Sélecteurs d’état Ark : `data-flip-horizontal` et `data-flip-vertical` sur `ImageCropperImage`.
 
 Ark expose également `data-scope="image-cropper"`,
 `data-part` et des attributs d’état tels que `data-fixed`, `data-shape`, `data-pinch`, `data-ready`,
