@@ -11,7 +11,6 @@ import {
   useToc,
 } from '@moduix/react/toc';
 import { useRef } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/table-of-contents/table-of-contents-root-provider.module.css';
 
 const items = [
@@ -36,9 +35,9 @@ export default function TocRootProviderDemo() {
 
   return (
     <div className={styles.root}>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output className={styles.status}>Active: {toc.activeIds.join(', ') || 'none'}</output>
-      </PreviewMeta>
+      </div>
       <div className={styles.actions}>
         {items.map((item) => (
           <Button

@@ -1,7 +1,6 @@
 import { RadioGroup, RadioGroupLabel, RadioGroupOption } from '@moduix/react/radio-group';
 import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 const frameworks = ['React', 'Solid', 'Vue'];
 
@@ -17,9 +16,9 @@ export default function ControlledRadioGroupDemo() {
           </RadioGroupOption>
         ))}
       </RadioGroup>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Selected: {value ?? 'none'}</output>
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

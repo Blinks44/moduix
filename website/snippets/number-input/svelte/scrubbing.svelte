@@ -16,5 +16,7 @@
     <NumberInputScrubber>Drag left or right to adjust</NumberInputScrubber>
     <NumberInputField />
   </NumberInput>
-  <output>Value: {value}</output>
+  <div data-preview-meta>
+    <output>Value: {value}</output>
+  </div>
 </Stack>

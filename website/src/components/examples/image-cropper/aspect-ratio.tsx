@@ -7,7 +7,6 @@ import {
 } from '@moduix/react/image-cropper';
 import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 const sampleImage =
   'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=640&h=400&q=90';
@@ -37,7 +36,7 @@ export default function AspectRatioImageCropperDemo() {
           <ImageCropperCropArea />
         </ImageCropperViewport>
       </ImageCropper>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>
           Aspect ratio: {aspectRatios.find((aspect) => aspect.value === aspectRatio)?.label}
         </output>
@@ -51,7 +50,7 @@ export default function AspectRatioImageCropperDemo() {
             {aspect.label}
           </Button>
         ))}
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

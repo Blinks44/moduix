@@ -66,6 +66,8 @@ const handleStepChange = () => {
         <StepsNextTrigger>Next</StepsNextTrigger>
       </Stack>
     </Steps>
-    <output>{{ message }}</output>
+    <div data-preview-meta>
+      <output>{{ message }}</output>
+    </div>
   </div>
 </template>

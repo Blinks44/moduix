@@ -12,7 +12,6 @@ import {
   DrawerTitle,
   useDrawer,
 } from '@moduix/react/drawer';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/drawer/drawer-root-provider.module.css';
 
 const snapPoints = [0.25, 0.5, 1];
@@ -41,12 +40,12 @@ export default function RootProviderDrawerDemo() {
           </DrawerContent>
         </DrawerPositioner>
       </DrawerRootProvider>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Active snap point: {String(drawer.snapPoint)}</output>
         <Button size="sm" variant="outline" onClick={() => drawer.setSnapPoint(1)}>
           Set 100%
         </Button>
-      </PreviewMeta>
+      </div>
     </>
   );
 }

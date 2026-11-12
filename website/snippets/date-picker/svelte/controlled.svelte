@@ -25,5 +25,7 @@
       <DatePickerView view="year"><DatePickerYearTable /></DatePickerView>
     </DatePickerContent>
   </DatePickerPositioner>
-  <output>Current value: {value[0]?.toString() ?? 'empty'}</output>
+  <div data-preview-meta>
+    <output>Current value: {value[0]?.toString() ?? 'empty'}</output>
+  </div>
 </DatePicker>

@@ -32,7 +32,9 @@ export default function ControlledSplitterDemo() {
           B
         </SplitterPanel>
       </Splitter>
-      <output class={styles.status}>Sizes: {size().join(' / ')}</output>
+      <div data-preview-meta>
+        <output class={styles.status}>Sizes: {size().join(' / ')}</output>
+      </div>
     </div>
   );
 }

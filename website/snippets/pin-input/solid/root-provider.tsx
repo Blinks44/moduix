@@ -22,7 +22,7 @@ export default function RootProviderPinInput() {
         </PinInputControl>
       </PinInputRootProvider>
 
-      <div>
+      <div data-preview-meta>
         <Button type="button" size="sm" variant="outline" onClick={() => pinInput().focus()}>
           Focus
         </Button>

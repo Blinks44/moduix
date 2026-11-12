@@ -28,8 +28,10 @@ const collapsible = useCollapsible();
         </CollapsibleBody>
       </CollapsibleContent>
     </CollapsibleRootProvider>
-    <output
-      >State: open {{ String(collapsible.open) }}, visible {{ String(collapsible.visible) }}</output
-    >
+    <div data-preview-meta>
+      <output>
+        State: open {{ String(collapsible.open) }}, visible {{ String(collapsible.visible) }}
+      </output>
+    </div>
   </div>
 </template>

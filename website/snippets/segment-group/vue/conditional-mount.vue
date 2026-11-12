@@ -15,9 +15,11 @@ const visible = ref(true);
       <SegmentGroupIndicator />
       <SegmentGroupItems :items="frameworks" />
     </SegmentGroup>
-    <output>Segment group: {{ visible ? 'visible' : 'hidden' }}</output>
-    <Button type="button" size="sm" @click="visible = !visible">
-      {{ visible ? 'Hide' : 'Show' }}
-    </Button>
+    <div data-preview-meta>
+      <output>Segment group: {{ visible ? 'visible' : 'hidden' }}</output>
+      <Button type="button" size="sm" @click="visible = !visible">
+        {{ visible ? 'Hide' : 'Show' }}
+      </Button>
+    </div>
   </div>
 </template>

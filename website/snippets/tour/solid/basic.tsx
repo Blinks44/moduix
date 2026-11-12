@@ -80,8 +80,10 @@ export default function TourDemo() {
         </TourPositioner>
       </Tour>
 
-      <output>Tour: {status()}</output>
-      <Button onClick={() => tour().start()}>Start tour</Button>
+      <div data-preview-meta>
+        <output>Tour: {status()}</output>
+        <Button onClick={() => tour().start()}>Start tour</Button>
+      </div>
     </Stack>
   );
 }

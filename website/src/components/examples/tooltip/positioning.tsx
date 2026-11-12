@@ -1,7 +1,6 @@
 import { Button } from '@moduix/react/button';
 import { Tooltip, TooltipBody, TooltipTrigger } from '@moduix/react/tooltip';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/tooltip/component-positioning.module.css';
 
 const tooltipPlacements = ['top', 'right', 'bottom', 'left'] as const;
@@ -25,7 +24,7 @@ export default function PositioningTooltipDemo() {
         </TooltipTrigger>
         <TooltipBody>Placement: {placement}</TooltipBody>
       </Tooltip>
-      <PreviewMeta className={styles.meta}>
+      <div data-preview-meta className={styles.meta}>
         <output>Placement: {placement}</output>
         {tooltipPlacements.map((item) => (
           <Button
@@ -39,7 +38,7 @@ export default function PositioningTooltipDemo() {
             {item}
           </Button>
         ))}
-      </PreviewMeta>
+      </div>
     </>
   );
 }

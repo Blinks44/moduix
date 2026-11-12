@@ -25,9 +25,11 @@
   <ProgressLinearView state="loading">Transfer in progress</ProgressLinearView>
   <ProgressLinearView state="complete">Export complete</ProgressLinearView>
 </ProgressLinear>
-<output>State: {progressState}</output>
-<Button type="button" size="sm" variant="outline" onclick={() => (value = null)}>
-  Indeterminate
-</Button>
-<Button type="button" size="sm" variant="outline" onclick={() => (value = 45)}>Loading</Button>
-<Button type="button" size="sm" variant="outline" onclick={() => (value = 100)}>Complete</Button>
+<div data-preview-meta>
+  <output>State: {progressState}</output>
+  <Button type="button" size="sm" variant="outline" onclick={() => (value = null)}>
+    Indeterminate
+  </Button>
+  <Button type="button" size="sm" variant="outline" onclick={() => (value = 45)}>Loading</Button>
+  <Button type="button" size="sm" variant="outline" onclick={() => (value = 100)}>Complete</Button>
+</div>

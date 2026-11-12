@@ -28,6 +28,8 @@ const open = ref(false);
         </CollapsibleBody>
       </CollapsibleContent>
     </Collapsible>
-    <output>State: {{ open ? 'open' : 'closed' }}</output>
+    <div data-preview-meta>
+      <output>State: {{ open ? 'open' : 'closed' }}</output>
+    </div>
   </div>
 </template>

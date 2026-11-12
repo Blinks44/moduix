@@ -25,12 +25,12 @@
       "cache": false
     },
     "moduix-docs#dev": {
-      "dependsOn": ["@moduix/react#build"],
+      "dependsOn": ["^build"],
       "cache": false,
       "persistent": true
     },
     "moduix-docs#build": {
-      "dependsOn": ["@moduix/react#build", "//#build:registry"],
+      "dependsOn": ["^build", "//#build:registry"],
       "outputs": ["doc_build/**"]
     },
     "deploy": {

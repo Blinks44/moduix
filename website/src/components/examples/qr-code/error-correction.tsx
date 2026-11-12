@@ -2,7 +2,6 @@ import { Button } from '@moduix/react/button';
 import { QrCode, QrCodeFrame, QrCodePattern } from '@moduix/react/qr-code';
 import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 const errorLevels = ['L', 'M', 'Q', 'H'] as const;
 
@@ -22,7 +21,7 @@ export default function ErrorCorrectionQrCodeDemo() {
           <QrCodePattern />
         </QrCodeFrame>
       </QrCode>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Error correction: {errorLevel}</output>
         {errorLevels.map((level) => (
           <Button
@@ -34,7 +33,7 @@ export default function ErrorCorrectionQrCodeDemo() {
             {level}
           </Button>
         ))}
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

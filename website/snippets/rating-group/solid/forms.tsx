@@ -26,8 +26,10 @@ export default function FormRatingGroupDemo() {
         </RatingGroupControl>
         <RatingGroupHiddenInput />
       </RatingGroup>
-      <output>Submitted: {submitted()}</output>
-      <Button type="submit">Submit</Button>
+      <div data-preview-meta>
+        <output>Submitted: {submitted()}</output>
+        <Button type="submit">Submit</Button>
+      </div>
     </form>
   );
 }

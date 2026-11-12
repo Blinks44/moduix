@@ -7,7 +7,7 @@
   const allSelected = $derived(listbox().value.length === allValues.length);
 </script>
 
-<div>
+<div data-preview-meta style="place-self: center">
   <output>Selected: {listbox().value.length}</output>
   <Button type="button" onclick={() => listbox().setValue(allSelected ? [] : allValues)}>
     {allSelected ? 'Clear all' : 'Select all'}

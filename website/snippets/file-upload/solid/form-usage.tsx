@@ -45,7 +45,7 @@ export default function FileUploadFormDemo() {
           </FileUploadContext>
         </FileUploadItemGroup>
       </FileUpload>
-      <div>
+      <div data-preview-meta>
         <output>Submitted: {submitted()}</output>
         <Button type="submit" size="sm">
           Submit

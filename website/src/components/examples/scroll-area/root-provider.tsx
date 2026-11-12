@@ -9,7 +9,6 @@ import {
   useScrollArea,
 } from '@moduix/react/scroll-area';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/scroll-area/scroll-area-root-provider.module.css';
 
 const items = Array.from({ length: 12 }, (_, index) => `Activity item ${index + 1}`);
@@ -37,7 +36,7 @@ export default function RootProviderScrollAreaDemo() {
         </ScrollAreaScrollbar>
         <ScrollAreaCorner />
       </ScrollAreaRootProvider>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Current edge: {edge}</output>
         <Button
           size="sm"
@@ -63,7 +62,7 @@ export default function RootProviderScrollAreaDemo() {
         >
           Bottom
         </Button>
-      </PreviewMeta>
+      </div>
     </div>
   );
 }

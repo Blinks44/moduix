@@ -32,10 +32,12 @@ export default function RootProviderDemo() {
           </PopoverContent>
         </PopoverPositioner>
       </PopoverRootProvider>
-      <output>Open: {popover().open ? 'yes' : 'no'}</output>
-      <Button size="sm" onClick={() => popover().setOpen(!popover().open)}>
-        Toggle externally
-      </Button>
+      <div data-preview-meta>
+        <output>Open: {popover().open ? 'yes' : 'no'}</output>
+        <Button size="sm" onClick={() => popover().setOpen(!popover().open)}>
+          Toggle externally
+        </Button>
+      </div>
     </Stack>
   );
 }

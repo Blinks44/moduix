@@ -19,7 +19,6 @@ import {
 } from '@moduix/react/tour';
 import { X as XIcon } from 'lucide-react';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/tour/tour-build-from-parts.module.css';
 
 const steps = [
@@ -96,10 +95,10 @@ export default function BuildFromPartsTourDemo() {
         </TourPositioner>
       </Tour>
 
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Tour: {status}</output>
         <Button onClick={() => tour.start()}>Start tour</Button>
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

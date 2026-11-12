@@ -1,7 +1,6 @@
 import { Stack } from '@moduix/react/stack';
 import { ToggleGroup, ToggleGroupItem } from '@moduix/react/toggle-group';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 const alignmentItems = [
   {
@@ -33,9 +32,9 @@ export default function ControlledToggleGroupDemo() {
           </ToggleGroupItem>
         ))}
       </ToggleGroup>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Selected: {value.join(', ') || 'empty'}</output>
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

@@ -14,7 +14,9 @@ export default function ErrorCorrectionQrCodeDemo() {
           <QrCodePattern />
         </QrCodeFrame>
       </QrCode>
-      <output>Error correction: {errorLevel()}</output>
+      <div data-preview-meta>
+        <output>Error correction: {errorLevel()}</output>
+      </div>
       {errorLevels.map((level) => (
         <button
           type="button"

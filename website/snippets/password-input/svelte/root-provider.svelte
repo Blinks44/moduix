@@ -22,4 +22,6 @@
     </PasswordInputVisibilityTrigger>
   </PasswordInputControl>
 </PasswordInputRootProvider>
-<output>Visibility: {passwordInput().visible ? 'visible' : 'hidden'}</output>
+<div data-preview-meta>
+  <output>Visibility: {passwordInput().visible ? 'visible' : 'hidden'}</output>
+</div>

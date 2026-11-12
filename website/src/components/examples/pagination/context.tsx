@@ -1,13 +1,12 @@
 import { Button } from '@moduix/react/button';
 import { Pagination, PaginationContext } from '@moduix/react/pagination';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function PaginationContextDemo() {
   return (
     <Pagination count={200} pageSize={10}>
       <PaginationContext>
         {(pagination) => (
-          <PreviewMeta>
+          <div data-preview-meta>
             <output>
               Page {pagination.page} of {pagination.totalPages}
             </output>
@@ -23,7 +22,7 @@ export default function PaginationContextDemo() {
             <Button size="sm" onClick={() => pagination.goToLastPage()}>
               Last
             </Button>
-          </PreviewMeta>
+          </div>
         )}
       </PaginationContext>
     </Pagination>

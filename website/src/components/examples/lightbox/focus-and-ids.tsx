@@ -10,7 +10,6 @@ import {
   Lightbox,
 } from '@moduix/react/lightbox';
 import { useRef, useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/lightbox/lightbox-focus-and-ids.module.css';
 
 const images = [
@@ -67,7 +66,7 @@ export default function FocusLightboxDemo() {
           </LightboxContent>
         </LightboxPositioner>
       </Lightbox>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>
           {focusReturned
             ? 'Focus returned to this button.'
@@ -81,7 +80,7 @@ export default function FocusLightboxDemo() {
         >
           Focus returns here
         </Button>
-      </PreviewMeta>
+      </div>
     </>
   );
 }

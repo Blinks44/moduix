@@ -29,7 +29,7 @@ export default function NonModalLightboxDemo() {
           </LightboxContent>
         </LightboxPositioner>
       </Lightbox>
-      <div>
+      <div data-preview-meta>
         <output>Background actions: {backgroundActions()}</output>
         <Button variant="outline" onClick={() => setBackgroundActions((value) => value + 1)}>
           Run background action

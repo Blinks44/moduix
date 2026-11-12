@@ -44,7 +44,9 @@ export default function SplitButtonDemo() {
           </SplitButtonContent>
         </SplitButtonPositioner>
       </SplitButton>
-      <output aria-live="polite">{status()}</output>
+      <div data-preview-meta>
+        <output aria-live="polite">{status()}</output>
+      </div>
     </Stack>
   );
 }

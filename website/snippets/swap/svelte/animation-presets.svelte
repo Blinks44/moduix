@@ -3,6 +3,7 @@
   import { Button } from '@moduix/svelte/button';
   import { Stack } from '@moduix/svelte/stack';
   import { Swap, SwapIndicator, type SwapAnimation } from '@moduix/svelte/swap';
+  import styles from '@/components/examples/swap/swap-animation-presets.module.css';
 
   const animations = ['fade', 'scale', 'rotate', 'flip'] as const;
   let animation = $state<SwapAnimation>('scale');
@@ -20,18 +21,20 @@
     </Swap>
   </Button>
   <Stack align="center" gap="2">
-    <output>Animation: {animation}</output>
-    <Stack direction="row" justify="center" wrap="wrap" gap="0.5rem">
-      {#each animations as name (name)}
-        <Button
-          aria-pressed={animation === name}
-          size="sm"
-          variant={animation === name ? 'default' : 'outline'}
-          onclick={() => (animation = name)}
-        >
-          {name}
-        </Button>
-      {/each}
-    </Stack>
+    <div data-preview-meta class={styles.controls}>
+      <output>Animation: {animation}</output>
+      <Stack direction="row" justify="center" wrap="wrap" gap="0.5rem">
+        {#each animations as name (name)}
+          <Button
+            aria-pressed={animation === name}
+            size="sm"
+            variant={animation === name ? 'default' : 'outline'}
+            onclick={() => (animation = name)}
+          >
+            {name}
+          </Button>
+        {/each}
+      </Stack>
+    </div>
   </Stack>
 </Stack>

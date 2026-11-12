@@ -7,7 +7,6 @@ import {
   useHoverCard,
 } from '@moduix/react/hover-card';
 import { Stack } from '@moduix/react/stack';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/hover-card/hover-card-root-provider.module.css';
 
 export default function RootProviderHoverCard() {
@@ -37,9 +36,9 @@ export default function RootProviderHoverCard() {
           </HoverCardContent>
         </HoverCardPositioner>
       </HoverCardRootProvider>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Open: {hoverCard.open ? 'yes' : 'no'}</output>
-      </PreviewMeta>
+      </div>
     </>
   );
 }

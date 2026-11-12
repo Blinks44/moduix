@@ -147,7 +147,11 @@ export default defineConfig({
           chain.module.rule(id).resourceQuery({ not: /[?&]raw(?:&|=|$)/ });
         }
       },
-      rspack: (_, { addRules, appendPlugins, rspack }) => {
+      rspack: (config, { addRules, appendPlugins, isDev, rspack }) => {
+        // Pages compile lazily, but their snippets compile with them. Shared chunks would regroup as
+        // more pages compile, changing the lazy-compilation proxy of the open page, which nothing
+        // accepts, so the dev server reloaded that page instead of following the clicked link.
+        if (isDev) config.optimization = { ...config.optimization, splitChunks: false };
         // Block snippets use the paths of installed registry code: components by their registry
         // paths and styles next to the block, which the site keeps in `src/components/blocks`.
         appendPlugins(

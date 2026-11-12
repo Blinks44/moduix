@@ -8,7 +8,6 @@ import {
 } from '@moduix/react/signature-pad';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/signature-pad/signature-pad-form-serialization.module.css';
 
 function SignaturePadFormInput() {
@@ -32,12 +31,12 @@ export default function FormSerializationSignaturePadDemo() {
         <SignaturePadCanvas />
         <SignaturePadFormInput />
       </SignaturePad>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Submitted: {submitted}</output>
         <Button type="submit" size="sm">
           Submit
         </Button>
-      </PreviewMeta>
+      </div>
     </form>
   );
 }

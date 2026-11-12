@@ -68,7 +68,9 @@ const slides = [
         </CarouselAutoplayTrigger>
         <CarouselIndicators />
       </CarouselControl>
-      <output>Autoplay: {{ api.isPlaying ? 'playing' : 'paused' }}</output>
+      <div data-preview-meta :style="{ marginInline: 'auto' }">
+        <output>Autoplay: {{ api.isPlaying ? 'playing' : 'paused' }}</output>
+      </div>
     </CarouselContext>
   </Carousel>
 </template>

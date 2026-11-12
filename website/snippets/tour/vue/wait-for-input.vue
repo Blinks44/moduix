@@ -80,7 +80,9 @@ const handleInput = (nextValue: string) => {
       </TourPositioner>
     </Tour>
 
-    <output>Tour: {{ status }}</output>
-    <Button @click="tour.start()">Start input tour</Button>
+    <div data-preview-meta>
+      <output>Tour: {{ status }}</output>
+      <Button @click="tour.start()">Start input tour</Button>
+    </div>
   </Stack>
 </template>

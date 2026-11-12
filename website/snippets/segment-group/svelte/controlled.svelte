@@ -16,5 +16,7 @@
     <SegmentGroupIndicator />
     <SegmentGroupItems items={frameworks} />
   </SegmentGroup>
-  <output>Selected: {value ?? 'none'}</output>
+  <div data-preview-meta>
+    <output>Selected: {value ?? 'none'}</output>
+  </div>
 </div>

@@ -26,10 +26,12 @@
       <ImageCropperCropArea />
     </ImageCropperViewport>
   </ImageCropper>
-  <output>
-    Aspect ratio:
-    {aspectRatios.find((aspect) => aspect.value === aspectRatio)?.label}
-  </output>
+  <div data-preview-meta>
+    <output>
+      Aspect ratio:
+      {aspectRatios.find((aspect) => aspect.value === aspectRatio)?.label}
+    </output>
+  </div>
   {#each aspectRatios as aspect (aspect.label)}
     <Button size="sm" type="button" onclick={() => (aspectRatio = aspect.value)}>
       {aspect.label}

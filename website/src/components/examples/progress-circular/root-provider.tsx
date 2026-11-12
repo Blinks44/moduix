@@ -8,7 +8,6 @@ import {
   ProgressCircularValueText,
   useProgress,
 } from '@moduix/react/progress-circular';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/progress-circular/component-root-provider.module.css';
 
 export default function RootProviderProgressCircularDemo() {
@@ -27,12 +26,12 @@ export default function RootProviderProgressCircularDemo() {
           <ProgressCircularValueText />
         </div>
       </ProgressCircularRootProvider>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Progress: {progress.valueAsString}</output>
         <Button type="button" onClick={() => progress.setToMax()}>
           Complete rollout
         </Button>
-      </PreviewMeta>
+      </div>
     </>
   );
 }

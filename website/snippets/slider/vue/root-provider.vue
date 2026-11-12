@@ -28,7 +28,9 @@ const slider = useSlider({
         <SliderThumbs />
       </SliderControl>
     </SliderRootProvider>
-    <output>Current: {{ slider.value.join(', ') }}</output>
-    <button type="button" @click="slider.focus()">Focus</button>
+    <div data-preview-meta>
+      <output>Current: {{ slider.value.join(', ') }}</output>
+      <button type="button" @click="slider.focus()">Focus</button>
+    </div>
   </Stack>
 </template>

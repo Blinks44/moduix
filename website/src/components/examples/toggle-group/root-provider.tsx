@@ -4,7 +4,6 @@ import {
   ToggleGroupRootProvider,
   useToggleGroup,
 } from '@moduix/react/toggle-group';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 const alignmentItems = [
   {
@@ -34,9 +33,9 @@ export default function RootProviderToggleGroupDemo() {
           </ToggleGroupItem>
         ))}
       </ToggleGroupRootProvider>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Selected: {toggleGroup.value.join(', ') || 'empty'}</output>
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

@@ -11,7 +11,6 @@ import {
 import { Kbd } from '@moduix/react/kbd';
 import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from './hotkeys-basic.module.css';
 
 export default function HotkeysBasicDemo() {
@@ -42,12 +41,12 @@ export default function HotkeysBasicDemo() {
         </Stack>
       </CardBody>
       <CardFooter>
-        <PreviewMeta style={{ marginInline: 'auto', placeItems: 'center' }}>
+        <div data-preview-meta style={{ marginInline: 'auto', placeItems: 'center' }}>
           <output aria-live="polite">{status}</output>
           <Button onClick={saveDraft} type="button">
             Save draft
           </Button>
-        </PreviewMeta>
+        </div>
       </CardFooter>
     </Card>
   );

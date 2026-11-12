@@ -13,7 +13,9 @@
     <QrCodePattern />
   </QrCodeFrame>
 </QrCode>
-<output>Encoded URL: {value}</output>
+<div data-preview-meta>
+  <output>Encoded URL: {value}</output>
+</div>
 {#each destinations as destination (destination.value)}
   <button type="button" onclick={() => (value = destination.value)}>
     {destination.label}

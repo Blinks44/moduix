@@ -57,7 +57,7 @@ const slides = [
     <CarouselIndicators />
 
     <CarouselContext v-slot="api">
-      <div :style="{ 'margin-inline': 'auto' }">
+      <div data-preview-meta :style="{ 'margin-inline': 'auto' }">
         <Button size="sm" variant="outline" @click="api.scrollToIndex(3)">Go to slide 4</Button>
       </div>
     </CarouselContext>

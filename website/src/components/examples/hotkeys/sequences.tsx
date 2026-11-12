@@ -10,7 +10,6 @@ import {
 import { Kbd } from '@moduix/react/kbd';
 import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from './hotkeys-sequences.module.css';
 
 export default function HotkeysSequencesDemo() {
@@ -53,9 +52,9 @@ export default function HotkeysSequencesDemo() {
         </Stack>
       </CardBody>
       <CardFooter>
-        <PreviewMeta style={{ marginInline: 'auto', placeItems: 'center' }}>
+        <div data-preview-meta style={{ marginInline: 'auto', placeItems: 'center' }}>
           <output aria-live="polite">Current view: {destination}</output>
-        </PreviewMeta>
+        </div>
       </CardFooter>
     </Card>
   );

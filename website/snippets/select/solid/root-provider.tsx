@@ -56,7 +56,7 @@ export default function SelectRootProviderDemo() {
           </SelectContent>
         </SelectPositioner>
       </SelectRootProvider>
-      <div>
+      <div data-preview-meta>
         <output>Selected: {select().valueAsString || 'none'}</output>
         <Button type="button" size="sm" onClick={() => select().setValue(['banana'])}>
           Select banana

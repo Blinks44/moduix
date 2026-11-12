@@ -29,8 +29,10 @@
       </ColorPickerContent>
     </ColorPickerPositioner>
   </ColorPicker>
-  <output>Open: {String(open)}</output>
-  <Button type="button" size="sm" onclick={() => (open = !open)}>
-    {open ? 'Close' : 'Open'}
-  </Button>
+  <div data-preview-meta>
+    <output>Open: {String(open)}</output>
+    <Button type="button" size="sm" onclick={() => (open = !open)}>
+      {open ? 'Close' : 'Open'}
+    </Button>
+  </div>
 </Stack>

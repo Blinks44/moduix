@@ -34,29 +34,31 @@ export default function RootProviderScrollAreaDemo() {
         </ScrollAreaScrollbar>
         <ScrollAreaCorner />
       </ScrollAreaRootProvider>
-      <output>Current edge: {edge()}</output>
-      <Button
-        type="button"
-        size="sm"
-        variant="outline"
-        onClick={() => {
-          scrollArea().scrollToEdge({ edge: 'top' });
-          setEdge('top');
-        }}
-      >
-        Top
-      </Button>
-      <Button
-        type="button"
-        size="sm"
-        variant="outline"
-        onClick={() => {
-          scrollArea().scrollToEdge({ edge: 'bottom' });
-          setEdge('bottom');
-        }}
-      >
-        Bottom
-      </Button>
+      <div data-preview-meta>
+        <output>Current edge: {edge()}</output>
+        <Button
+          type="button"
+          size="sm"
+          variant="outline"
+          onClick={() => {
+            scrollArea().scrollToEdge({ edge: 'top' });
+            setEdge('top');
+          }}
+        >
+          Top
+        </Button>
+        <Button
+          type="button"
+          size="sm"
+          variant="outline"
+          onClick={() => {
+            scrollArea().scrollToEdge({ edge: 'bottom' });
+            setEdge('bottom');
+          }}
+        >
+          Bottom
+        </Button>
+      </div>
     </div>
   );
 }

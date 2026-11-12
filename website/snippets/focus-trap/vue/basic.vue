@@ -28,11 +28,11 @@ const detailsButton = ref<{ $el: HTMLButtonElement } | null>(null);
         </CardFooter>
       </Card>
     </FocusTrap>
-    <Stack align="center" direction="row" :gap="2">
+    <div data-preview-meta>
       <output aria-live="polite">Focus trap: {{ isReviewing ? 'active' : 'inactive' }}</output>
       <Button :disabled="isReviewing" size="sm" type="button" @click="isReviewing = true"
         >Start review</Button
       >
-    </Stack>
+    </div>
   </Stack>
 </template>

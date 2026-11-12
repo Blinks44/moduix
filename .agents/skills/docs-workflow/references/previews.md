@@ -16,7 +16,7 @@ Read this reference whenever a preview frame, metadata control, or snippet chang
 
 ## Auxiliary demo UI
 
-For documentation-only actions or result feedback, import `PreviewMeta` from `@/components/mdx/Components`. Put a short labelled native `<output>` before its actions and use moduix `Button` for the actions. Do not move controls belonging to the documented component into `PreviewMeta`.
+For documentation-only actions or result feedback, wrap them in `<div data-preview-meta>` in every framework; the docs preview and StackBlitz projects style that attribute. Put a short labelled native `<output>` before its actions and use moduix `Button` for the actions. Do not move controls belonging to the documented component into the meta block. The Solid, Vue, and Svelte snippets keep the same meta block as the React example; the example loader warns when they differ.
 
 ## Migration check
 

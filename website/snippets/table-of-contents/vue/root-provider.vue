@@ -37,7 +37,9 @@ const toc = useToc({
 
 <template>
   <div :class="styles.root">
-    <output :class="styles.status">Active: {{ toc.activeIds.join(', ') || 'none' }}</output>
+    <div data-preview-meta>
+      <output :class="styles.status">Active: {{ toc.activeIds.join(', ') || 'none' }}</output>
+    </div>
     <div :class="styles.actions">
       <Button
         v-for="item in items"

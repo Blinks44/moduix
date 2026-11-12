@@ -24,7 +24,7 @@ const flip = ref({ horizontal: false, vertical: false });
 </script>
 
 <template>
-  <div>
+  <div data-preview-meta>
     <ImageCropper v-model:rotation="rotation" v-model:flip="flip" aria-label="Image cropper">
       <ImageCropperContext v-slot="context">
         <div>

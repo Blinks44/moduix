@@ -7,7 +7,6 @@ import {
   PasswordInputVisibilityTrigger,
 } from '@moduix/react/password-input';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/password-input/password-input-controlled-visibility.module.css';
 
 export default function ControlledPasswordInputVisibilityDemo() {
@@ -27,9 +26,9 @@ export default function ControlledPasswordInputVisibilityDemo() {
           </PasswordInputVisibilityTrigger>
         </PasswordInputControl>
       </PasswordInput>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Visibility: {visible ? 'visible' : 'hidden'}</output>
-      </PreviewMeta>
+      </div>
     </>
   );
 }

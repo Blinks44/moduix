@@ -4,7 +4,6 @@ import {
   SegmentGroupItems,
 } from '@moduix/react/segment-group';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/segment-group/segment-group-controlled.module.css';
 
 const frameworks = ['React', 'Solid', 'Svelte', 'Vue'];
@@ -21,9 +20,9 @@ export default function ControlledSegmentGroupDemo() {
         <SegmentGroupIndicator />
         <SegmentGroupItems items={frameworks} />
       </SegmentGroup>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Selected: {value ?? 'none'}</output>
-      </PreviewMeta>
+      </div>
     </div>
   );
 }

@@ -37,4 +37,6 @@
     </HoverCardContent>
   </HoverCardPositioner>
 </HoverCardRootProvider>
-<output>Open: {hoverCard().open ? 'yes' : 'no'}</output>
+<div data-preview-meta>
+  <output>Open: {hoverCard().open ? 'yes' : 'no'}</output>
+</div>

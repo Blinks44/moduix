@@ -20,7 +20,9 @@ export default function ControlledDateInputDemo() {
           <DateInputSegments />
         </DateInputControl>
       </DateInput>
-      <output>Selected: {value()[0]?.toString() ?? 'empty'}</output>
+      <div data-preview-meta>
+        <output>Selected: {value()[0]?.toString() ?? 'empty'}</output>
+      </div>
     </div>
   );
 }

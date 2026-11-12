@@ -38,9 +38,13 @@
     </ScrollAreaScrollbar>
     <ScrollAreaCorner />
   </ScrollAreaRootProvider>
-  <output>Current edge: {edge}</output>
-  <Button type="button" size="sm" variant="outline" onclick={() => scrollToEdge('top')}>Top</Button>
-  <Button type="button" size="sm" variant="outline" onclick={() => scrollToEdge('bottom')}>
-    Bottom
-  </Button>
+  <div data-preview-meta>
+    <output>Current edge: {edge}</output>
+    <Button type="button" size="sm" variant="outline" onclick={() => scrollToEdge('top')}
+      >Top</Button
+    >
+    <Button type="button" size="sm" variant="outline" onclick={() => scrollToEdge('bottom')}>
+      Bottom
+    </Button>
+  </div>
 </div>

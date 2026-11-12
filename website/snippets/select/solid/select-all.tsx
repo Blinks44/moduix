@@ -42,7 +42,7 @@ export default function SelectSelectAllDemo() {
           </SelectContent>
         </SelectPositioner>
       </SelectRootProvider>
-      <div>
+      <div data-preview-meta>
         <output>Selected: {select().value.length}</output>
         <Button
           type="button"

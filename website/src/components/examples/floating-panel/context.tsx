@@ -15,7 +15,6 @@ import {
   FloatingPanelResizeTriggerGroup,
   FloatingPanelDragIndicator,
 } from '@moduix/react/floating-panel';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function ContextFloatingPanelDemo() {
   return (
@@ -52,11 +51,11 @@ export default function ContextFloatingPanelDemo() {
       </FloatingPanelPositioner>
       <FloatingPanelContext>
         {(panel) => (
-          <PreviewMeta>
+          <div data-preview-meta>
             <output>
               Open: {String(panel.open)}, dragging: {String(panel.dragging)}
             </output>
-          </PreviewMeta>
+          </div>
         )}
       </FloatingPanelContext>
     </FloatingPanel>

@@ -23,21 +23,23 @@
       <ImageCropperCropArea />
     </ImageCropperViewport>
   </ImageCropper>
-  <output>Zoom: {zoom.toFixed(1)}x</output>
-  <Button
-    size="sm"
-    type="button"
-    aria-label="Zoom out"
-    onclick={() => (zoom = Math.max(minZoom, zoom - 0.1))}
-  >
-    <ZoomOutIcon />
-  </Button>
-  <Button
-    size="sm"
-    type="button"
-    aria-label="Zoom in"
-    onclick={() => (zoom = Math.min(maxZoom, zoom + 0.1))}
-  >
-    <ZoomInIcon />
-  </Button>
+  <div data-preview-meta>
+    <output>Zoom: {zoom.toFixed(1)}x</output>
+    <Button
+      size="sm"
+      type="button"
+      aria-label="Zoom out"
+      onclick={() => (zoom = Math.max(minZoom, zoom - 0.1))}
+    >
+      <ZoomOutIcon />
+    </Button>
+    <Button
+      size="sm"
+      type="button"
+      aria-label="Zoom in"
+      onclick={() => (zoom = Math.min(maxZoom, zoom + 0.1))}
+    >
+      <ZoomInIcon />
+    </Button>
+  </div>
 </div>

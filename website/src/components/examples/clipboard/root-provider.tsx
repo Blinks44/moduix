@@ -7,7 +7,6 @@ import {
   ClipboardTrigger,
   useClipboard,
 } from '@moduix/react/clipboard';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/clipboard/component-root-provider.module.css';
 
 export default function RootProviderClipboardDemo() {
@@ -26,9 +25,9 @@ export default function RootProviderClipboardDemo() {
           </ClipboardTrigger>
         </ClipboardControl>
       </ClipboardRootProvider>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Copied: {String(clipboard.copied)}</output>
-      </PreviewMeta>
+      </div>
     </div>
   );
 }

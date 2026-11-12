@@ -22,7 +22,7 @@ const indexes = [0, 1, 2, 3, 4, 5];
       </PinInputControl>
     </PinInputRootProvider>
 
-    <div>
+    <div data-preview-meta>
       <Button type="button" size="sm" variant="outline" @click="pinInput.focus()">Focus</Button>
       <Button type="button" size="sm" variant="outline" @click="pinInput.clearValue()">
         Clear

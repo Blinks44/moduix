@@ -34,7 +34,9 @@ function handleOpenChange(details: { open: boolean }) {
         </MenuContent>
       </MenuPositioner>
     </Menu>
-    <output>Open: {{ open ? 'Yes' : 'No' }}</output>
-    <Button size="sm" @click="open = !open">Toggle</Button>
+    <div data-preview-meta>
+      <output>Open: {{ open ? 'Yes' : 'No' }}</output>
+      <Button size="sm" @click="open = !open">Toggle</Button>
+    </div>
   </div>
 </template>

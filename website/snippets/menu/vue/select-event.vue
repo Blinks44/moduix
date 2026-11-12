@@ -19,7 +19,7 @@ function handleSelect(details: { value: string }) {
 </script>
 
 <template>
-  <div>
+  <div data-preview-meta>
     <Stack direction="row" justify="center">
       <Menu @select="handleSelect">
         <MenuTrigger as-child>

@@ -15,4 +15,6 @@
     <RatingGroupItems />
   </RatingGroupControl>
 </RatingGroup>
-<output>Current value: {value}</output>
+<div data-preview-meta>
+  <output>Current value: {value}</output>
+</div>

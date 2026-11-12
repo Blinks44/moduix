@@ -25,12 +25,14 @@
       <TagsInputClearTrigger aria-label="Clear frameworks" />
     </TagsInputControl>
   </TagsInputRootProvider>
-  <output>Tags: {tagsInput().value.join(', ') || 'empty'}</output>
-  <Button type="button" size="sm" onclick={() => tagsInput().addValue('Solid')}>Add Solid</Button>
-  <Button type="button" size="sm" variant="outline" onclick={() => tagsInput().clearValue()}>
-    Clear
-  </Button>
-  <Button type="button" size="sm" variant="outline" onclick={() => tagsInput().focus()}>
-    Focus
-  </Button>
+  <div data-preview-meta>
+    <output>Tags: {tagsInput().value.join(', ') || 'empty'}</output>
+    <Button type="button" size="sm" onclick={() => tagsInput().addValue('Solid')}>Add Solid</Button>
+    <Button type="button" size="sm" variant="outline" onclick={() => tagsInput().clearValue()}>
+      Clear
+    </Button>
+    <Button type="button" size="sm" variant="outline" onclick={() => tagsInput().focus()}>
+      Focus
+    </Button>
+  </div>
 </Stack>

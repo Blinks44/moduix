@@ -6,7 +6,6 @@ import {
   CollapsibleTrigger,
   useCollapsible,
 } from '@moduix/react/collapsible';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/collapsible/collapsible-root-provider.module.css';
 
 const recoveryKeys = ['alien-bean-pasta', 'wild-irish-burrito', 'horse-battery-staple'];
@@ -31,11 +30,11 @@ export default function RootProviderCollapsibleDemo() {
           </CollapsibleBody>
         </CollapsibleContent>
       </CollapsibleRootProvider>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>
           State: open {String(collapsible.open)}, visible {String(collapsible.visible)}
         </output>
-      </PreviewMeta>
+      </div>
     </div>
   );
 }

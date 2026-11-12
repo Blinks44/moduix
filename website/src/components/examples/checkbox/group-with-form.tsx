@@ -7,7 +7,6 @@ import {
   CheckboxLabel,
 } from '@moduix/react/checkbox';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/checkbox/checkbox-group-with-form.module.css';
 
 const options = [
@@ -38,12 +37,12 @@ export default function CheckboxGroupWithFormDemo() {
           </Checkbox>
         ))}
       </CheckboxGroup>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>{submitted}</output>
         <Button type="submit" size="sm">
           Submit
         </Button>
-      </PreviewMeta>
+      </div>
     </form>
   );
 }

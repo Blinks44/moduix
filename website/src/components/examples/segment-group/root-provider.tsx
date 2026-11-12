@@ -5,7 +5,6 @@ import {
   SegmentGroupRootProvider,
   useSegmentGroup,
 } from '@moduix/react/segment-group';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/segment-group/segment-group-root-provider.module.css';
 
 const frameworks = ['React', 'Solid', 'Svelte', 'Vue'];
@@ -20,12 +19,12 @@ export default function SegmentGroupRootProviderDemo() {
         <SegmentGroupIndicator />
         <SegmentGroupItems items={frameworks} />
       </SegmentGroupRootProvider>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Selected: {segmentGroup.value ?? 'none'}</output>
         <Button type="button" size="sm" onClick={() => segmentGroup.setValue('Solid')}>
           Set to Solid
         </Button>
-      </PreviewMeta>
+      </div>
     </div>
   );
 }

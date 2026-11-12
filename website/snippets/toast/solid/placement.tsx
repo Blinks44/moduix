@@ -24,24 +24,27 @@ export default function ToastPlacement() {
       {placements.map((item) => (
         <ToastToaster toaster={toasters[item]} />
       ))}
-      {placements.map((item) => (
+      <div data-preview-meta>
+        <output>Placement: {placement()}</output>
+        {placements.map((item) => (
+          <Button
+            variant={item === placement() ? 'default' : 'outline'}
+            onClick={() => setPlacement(item)}
+          >
+            {item}
+          </Button>
+        ))}
         <Button
-          variant={item === placement() ? 'default' : 'outline'}
-          onClick={() => setPlacement(item)}
+          onClick={() =>
+            toaster().info({
+              title: 'Notification',
+              description: `This toast appears at ${placement()}.`,
+            })
+          }
         >
-          {item}
+          Show toast
         </Button>
-      ))}
-      <Button
-        onClick={() =>
-          toaster().info({
-            title: 'Notification',
-            description: `This toast appears at ${placement()}.`,
-          })
-        }
-      >
-        Show toast
-      </Button>
+      </div>
     </div>
   );
 }

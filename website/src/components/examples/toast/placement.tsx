@@ -1,7 +1,6 @@
 import { Button } from '@moduix/react/button';
 import { ToastToaster, createToaster } from '@moduix/react/toast';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/toast/toast-placement.module.css';
 
 const placements = ['top-start', 'top', 'top-end', 'bottom-start', 'bottom', 'bottom-end'] as const;
@@ -25,7 +24,7 @@ export default function App() {
       {placements.map((item) => (
         <ToastToaster key={item} toaster={toasters[item]} />
       ))}
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Placement: {placement}</output>
         {placements.map((item) => (
           <Button
@@ -46,7 +45,7 @@ export default function App() {
         >
           Show toast
         </Button>
-      </PreviewMeta>
+      </div>
     </div>
   );
 }

@@ -23,9 +23,11 @@
     <SplitterResizeTrigger id="a:b" aria-label="Resize panels" />
     <SplitterPanel id="b" class={styles.panel}>B</SplitterPanel>
   </SplitterRootProvider>
-  <output class={styles.status}>Sizes: {splitter().getSizes().join(' / ')}</output>
-  <Stack align="center" gap="2">
-    <Button onclick={() => splitter().resetSizes()}>Reset</Button>
-    <Button onclick={() => splitter().resizePanel('a', 25)}>Set A to 25%</Button>
-  </Stack>
+  <div data-preview-meta>
+    <output class={styles.status}>Sizes: {splitter().getSizes().join(' / ')}</output>
+    <Stack align="center" gap="2">
+      <Button onclick={() => splitter().resetSizes()}>Reset</Button>
+      <Button onclick={() => splitter().resizePanel('a', 25)}>Set A to 25%</Button>
+    </Stack>
+  </div>
 </div>

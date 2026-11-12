@@ -19,7 +19,11 @@ const segmentGroup = useSegmentGroup({ defaultValue: 'React' });
       <SegmentGroupIndicator />
       <SegmentGroupItems :items="frameworks" />
     </SegmentGroupRootProvider>
-    <output>Selected: {{ segmentGroup.value ?? 'none' }}</output>
-    <Button type="button" size="sm" @click="segmentGroup.setValue('Solid')"> Set to Solid </Button>
+    <div data-preview-meta>
+      <output>Selected: {{ segmentGroup.value ?? 'none' }}</output>
+      <Button type="button" size="sm" @click="segmentGroup.setValue('Solid')">
+        Set to Solid
+      </Button>
+    </div>
   </div>
 </template>

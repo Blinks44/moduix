@@ -8,7 +8,6 @@ import {
 } from '@moduix/react/split-button';
 import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 const items = [
   {
@@ -47,9 +46,9 @@ export default function SplitButtonDemo() {
           </SplitButtonContent>
         </SplitButtonPositioner>
       </SplitButton>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output aria-live="polite">{status}</output>
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

@@ -41,6 +41,8 @@ function highlightCopy() {
         </MenuContext>
       </MenuRootProvider>
     </Stack>
-    <Button size="sm" @click="highlightCopy">Highlight Copy</Button>
+    <div data-preview-meta>
+      <Button size="sm" @click="highlightCopy">Highlight Copy</Button>
+    </div>
   </div>
 </template>

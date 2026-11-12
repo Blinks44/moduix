@@ -7,7 +7,7 @@ import {
 import { useI18n } from '@rspress/core/runtime';
 import { Link, PackageManagerTabs } from '@rspress/core/theme';
 import { ArrowRight, Code2 } from 'lucide-react';
-import type { ComponentProps, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { useLocalizedPath } from '@/utils/localized-path';
 import styles from './Components.module.css';
 import type { CssControls } from './customize';
@@ -178,14 +178,6 @@ function Card({
   );
 }
 
-function PreviewMeta({ children, ...props }: ComponentProps<'div'>) {
-  return (
-    <div {...props} data-preview-meta>
-      {children}
-    </div>
-  );
-}
-
 function ExampleCode({ children }: { children: ReactNode }) {
   const t = useI18n<typeof import('i18n')>();
 
@@ -218,7 +210,6 @@ export {
   ExampleCode,
   ExampleFrame,
   PreviewFrame,
-  PreviewMeta,
   ShadcnInstallOptions,
   StyleTrackCard,
   StyleTrackCards,

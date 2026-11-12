@@ -31,6 +31,8 @@
       </MenuContent>
     </MenuPositioner>
   </Menu>
-  <output>Open: {open ? 'Yes' : 'No'}</output>
-  <Button size="sm" onclick={() => (open = !open)}>Toggle</Button>
+  <div data-preview-meta>
+    <output>Open: {open ? 'Yes' : 'No'}</output>
+    <Button size="sm" onclick={() => (open = !open)}>Toggle</Button>
+  </div>
 </div>

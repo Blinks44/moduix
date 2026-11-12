@@ -13,7 +13,6 @@ import {
   DatePickerYearTable,
 } from '@moduix/react/date-picker';
 import { Stack } from '@moduix/react/stack';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function RootProviderDatePickerDemo() {
   const datePicker = useDatePicker({
@@ -38,11 +37,11 @@ export default function RootProviderDatePickerDemo() {
           </DatePickerContent>
         </DatePickerPositioner>
       </DatePickerRootProvider>
-      <PreviewMeta>
+      <div data-preview-meta>
         <Button size="sm" variant="secondary" onClick={() => datePicker.clearValue()}>
           Clear
         </Button>
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

@@ -28,8 +28,10 @@
       <ImageCropperCropArea />
     </ImageCropperViewport>
   </ImageCropperRootProvider>
-  <output>Resets: {resets}</output>
-  <Button size="sm" type="button" aria-label="Reset crop" onclick={handleReset}>
-    <RestartIcon />
-  </Button>
+  <div data-preview-meta>
+    <output>Resets: {resets}</output>
+    <Button size="sm" type="button" aria-label="Reset crop" onclick={handleReset}>
+      <RestartIcon />
+    </Button>
+  </div>
 </div>

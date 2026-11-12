@@ -5,6 +5,7 @@
     AvatarRootProvider,
     useAvatar,
   } from '@moduix/svelte/avatar';
+  import { Button } from '@moduix/svelte/button';
   import styles from '@/components/examples/avatar/avatar-root-provider.module.css';
 
   const avatarImages = [
@@ -21,7 +22,10 @@
     <AvatarFallback>AT</AvatarFallback>
     <AvatarImage src={avatarImages[imageIndex]} alt="Alex T." />
   </AvatarRootProvider>
-  <button type="button" onclick={() => (imageIndex = (imageIndex + 1) % avatarImages.length)}>
-    Change avatar
-  </button>
+  <div data-preview-meta>
+    <output>Avatar: {imageIndex + 1}</output>
+    <Button size="sm" onclick={() => (imageIndex = (imageIndex + 1) % avatarImages.length)}>
+      Change avatar
+    </Button>
+  </div>
 </div>

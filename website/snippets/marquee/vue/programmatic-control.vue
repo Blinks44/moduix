@@ -51,7 +51,7 @@ const handleRestart = () => {
         </MarqueeContent>
       </MarqueeViewport>
     </MarqueeRootProvider>
-    <div>
+    <div data-preview-meta>
       <output>Playback: {{ status }}</output>
       <Button size="sm" variant="outline" @click="handlePause">Pause</Button>
       <Button size="sm" variant="outline" @click="handleResume">Resume</Button>

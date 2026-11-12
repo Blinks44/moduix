@@ -6,7 +6,7 @@ export default function PaginationContextDemo() {
     <Pagination count={200} pageSize={10}>
       <PaginationContext>
         {(pagination) => (
-          <div>
+          <div data-preview-meta>
             <output>
               Page {pagination().page} of {pagination().totalPages}
             </output>

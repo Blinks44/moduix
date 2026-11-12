@@ -14,7 +14,7 @@ const loading = ref(true);
       <strong>{{ profile.name }}</strong>
       <span :class="styles.role">{{ profile.role }}</span>
     </Skeleton>
-    <div>
+    <div data-preview-meta>
       <output>Profile: {{ loading ? 'loading' : 'loaded' }}</output>
       <Button size="sm" type="button" @click="loading = !loading">
         {{ loading ? 'Show profile' : 'Show skeleton' }}

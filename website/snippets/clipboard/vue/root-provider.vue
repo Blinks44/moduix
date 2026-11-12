@@ -24,6 +24,8 @@ const clipboard = useClipboard({ defaultValue: 'https://moduix.dev/docs/clipboar
         </ClipboardTrigger>
       </ClipboardControl>
     </ClipboardRootProvider>
-    <output>Copied: {{ String(clipboard.copied) }}</output>
+    <div data-preview-meta>
+      <output>Copied: {{ String(clipboard.copied) }}</output>
+    </div>
   </div>
 </template>

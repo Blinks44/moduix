@@ -20,10 +20,12 @@ export default function ConditionalSegmentGroupDemo() {
           <SegmentGroupItems items={frameworks} />
         </SegmentGroup>
       ) : null}
-      <output>Segment group: {visible() ? 'visible' : 'hidden'}</output>
-      <Button type="button" size="sm" onClick={() => setVisible((value) => !value)}>
-        {visible() ? 'Hide' : 'Show'}
-      </Button>
+      <div data-preview-meta>
+        <output>Segment group: {visible() ? 'visible' : 'hidden'}</output>
+        <Button type="button" size="sm" onClick={() => setVisible((value) => !value)}>
+          {visible() ? 'Hide' : 'Show'}
+        </Button>
+      </div>
     </div>
   );
 }

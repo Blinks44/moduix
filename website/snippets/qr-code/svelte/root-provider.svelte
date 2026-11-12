@@ -18,4 +18,6 @@
     <QrCodePattern />
   </QrCodeFrame>
 </QrCodeRootProvider>
-<output>Encoded URL: {qrCode().value}</output>
+<div data-preview-meta>
+  <output>Encoded URL: {qrCode().value}</output>
+</div>

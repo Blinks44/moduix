@@ -2,7 +2,6 @@ import { Button } from '@moduix/react/button';
 import { RadioGroup, RadioGroupLabel, RadioGroupOption } from '@moduix/react/radio-group';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/radio-group/radio-group-form.module.css';
 
 const frameworks = ['React', 'Solid', 'Vue'];
@@ -29,7 +28,7 @@ export default function RadioGroupFormDemo() {
           </RadioGroupOption>
         ))}
       </RadioGroup>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>{submitted}</output>
         <Button size="sm" type="submit">
           Submit
@@ -37,7 +36,7 @@ export default function RadioGroupFormDemo() {
         <Button size="sm" type="reset" variant="outline">
           Reset
         </Button>
-      </PreviewMeta>
+      </div>
     </form>
   );
 }

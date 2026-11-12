@@ -20,13 +20,15 @@ export default function RootProviderNumberInputDemo() {
         <NumberInputLabel>Guests</NumberInputLabel>
         <NumberInputField />
       </NumberInputRootProvider>
-      <output>Value: {numberInput().value}</output>
-      <Button type="button" size="sm" variant="outline" onClick={() => numberInput().setToMin()}>
-        Min
-      </Button>
-      <Button type="button" size="sm" variant="outline" onClick={() => numberInput().setToMax()}>
-        Max
-      </Button>
+      <div data-preview-meta>
+        <output>Value: {numberInput().value}</output>
+        <Button type="button" size="sm" variant="outline" onClick={() => numberInput().setToMin()}>
+          Min
+        </Button>
+        <Button type="button" size="sm" variant="outline" onClick={() => numberInput().setToMax()}>
+          Max
+        </Button>
+      </div>
     </Stack>
   );
 }

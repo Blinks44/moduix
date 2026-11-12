@@ -6,7 +6,6 @@ import {
   useAngleSlider,
 } from '@moduix/react/angle-slider';
 import { Stack } from '@moduix/react/stack';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 const initialValue = 45;
 const markerValues = [0, 45, 90, 135, 180, 225, 270, 315];
@@ -24,9 +23,9 @@ export default function RootProviderAngleSliderDemo() {
           <AngleSliderMarks values={markerValues} />
         </AngleSliderDial>
       </AngleSliderRootProvider>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Current angle: {angleSlider.value}°</output>
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

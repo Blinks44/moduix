@@ -28,14 +28,17 @@ const showToast = () => {
 <template>
   <div :class="styles.root">
     <ToastToaster v-for="item in placements" :key="item" :toaster="toasters[item]" />
-    <Button
-      v-for="item in placements"
-      :key="item"
-      :variant="item === placement ? 'default' : 'outline'"
-      @click="placement = item"
-    >
-      {{ item }}
-    </Button>
-    <Button @click="showToast">Show toast</Button>
+    <div data-preview-meta>
+      <output>Placement: {{ placement }}</output>
+      <Button
+        v-for="item in placements"
+        :key="item"
+        :variant="item === placement ? 'default' : 'outline'"
+        @click="placement = item"
+      >
+        {{ item }}
+      </Button>
+      <Button @click="showToast">Show toast</Button>
+    </div>
   </div>
 </template>

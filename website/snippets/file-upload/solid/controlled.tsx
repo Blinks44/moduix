@@ -47,7 +47,9 @@ export default function ControlledFileUploadDemo() {
         </FileUploadItemGroup>
         <FileUploadHiddenInput />
       </FileUpload>
-      <output>Selected: {files().length}</output>
+      <div data-preview-meta>
+        <output>Selected: {files().length}</output>
+      </div>
     </>
   );
 }

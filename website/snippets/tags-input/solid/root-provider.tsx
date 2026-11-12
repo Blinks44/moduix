@@ -28,16 +28,18 @@ export default function RootProviderTagsInput() {
           <TagsInputClearTrigger aria-label="Clear frameworks" />
         </TagsInputControl>
       </TagsInputRootProvider>
-      <output>Tags: {tagsInput().value.join(', ') || 'empty'}</output>
-      <Button type="button" size="sm" onClick={() => tagsInput().addValue('Solid')}>
-        Add Solid
-      </Button>
-      <Button type="button" size="sm" variant="outline" onClick={() => tagsInput().clearValue()}>
-        Clear
-      </Button>
-      <Button type="button" size="sm" variant="outline" onClick={() => tagsInput().focus()}>
-        Focus
-      </Button>
+      <div data-preview-meta>
+        <output>Tags: {tagsInput().value.join(', ') || 'empty'}</output>
+        <Button type="button" size="sm" onClick={() => tagsInput().addValue('Solid')}>
+          Add Solid
+        </Button>
+        <Button type="button" size="sm" variant="outline" onClick={() => tagsInput().clearValue()}>
+          Clear
+        </Button>
+        <Button type="button" size="sm" variant="outline" onClick={() => tagsInput().focus()}>
+          Focus
+        </Button>
+      </div>
     </Stack>
   );
 }

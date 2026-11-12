@@ -53,6 +53,8 @@ const selectedValue = ref<string[]>(['package.json']);
         </TreeViewNode>
       </TreeViewTree>
     </TreeView>
-    <output aria-live="polite">Selected: {{ selectedValue.join(', ') || 'none' }}</output>
+    <div data-preview-meta>
+      <output aria-live="polite">Selected: {{ selectedValue.join(', ') || 'none' }}</output>
+    </div>
   </Stack>
 </template>

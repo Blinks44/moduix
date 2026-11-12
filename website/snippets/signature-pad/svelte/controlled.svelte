@@ -19,7 +19,7 @@
     <SignaturePadLabel>Sign below</SignaturePadLabel>
     <SignaturePadCanvas />
   </SignaturePad>
-  <div>
+  <div data-preview-meta>
     <output>Paths: {paths.length}</output>
     <Button size="sm" variant="outline" onclick={() => (paths = initialSignaturePaths)}>
       Restore

@@ -20,7 +20,7 @@ export default function AspectRatioImageCropperDemo() {
   const [aspectRatio, setAspectRatio] = createSignal(16 / 9);
 
   return (
-    <div>
+    <div data-preview-meta>
       <ImageCropper aspectRatio={aspectRatio()} aria-label="Image cropper">
         <ImageCropperViewport>
           <ImageCropperImage src={sampleImage} alt="Landscape" crossOrigin="anonymous" />

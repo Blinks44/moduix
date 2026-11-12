@@ -7,7 +7,6 @@ import {
   TabsTrigger,
   useTabs,
 } from '@moduix/react/tabs';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 const items = [
   {
@@ -51,9 +50,9 @@ export default function RootProviderTabsDemo() {
           </TabsContent>
         ))}
       </TabsRootProvider>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Selected: {tabs.value ?? 'none'}</output>
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

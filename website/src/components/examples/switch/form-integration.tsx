@@ -2,7 +2,6 @@ import { Button } from '@moduix/react/button';
 import { Field, FieldErrorText, FieldHelperText } from '@moduix/react/field';
 import { Switch, SwitchControl, SwitchHiddenInput, SwitchLabel } from '@moduix/react/switch';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/switch/switch-form-integration.module.css';
 
 export default function SwitchFormDemo() {
@@ -33,14 +32,14 @@ export default function SwitchFormDemo() {
         <FieldHelperText>Choose whether to receive product updates.</FieldHelperText>
         <FieldErrorText>Choose a notification preference.</FieldErrorText>
       </Field>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>
           {submitted ? (checked ? 'Preference saved.' : 'Choose a preference.') : 'Not submitted.'}
         </output>
         <Button size="sm" type="submit">
           Save preference
         </Button>
-      </PreviewMeta>
+      </div>
     </form>
   );
 }

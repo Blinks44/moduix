@@ -10,7 +10,6 @@ import {
   useSlider,
 } from '@moduix/react/slider';
 import { Stack } from '@moduix/react/stack';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function RootProviderSliderDemo() {
   const slider = useSlider({
@@ -28,12 +27,12 @@ export default function RootProviderSliderDemo() {
           <SliderThumbs />
         </SliderControl>
       </SliderRootProvider>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Current: {slider.value.join(', ')}</output>
         <Button onClick={() => slider.focus()} size="sm">
           Focus
         </Button>
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

@@ -9,7 +9,6 @@ import {
 } from '@moduix/react/slider';
 import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function EventsSliderDemo() {
   const [liveValue, setLiveValue] = useState([40]);
@@ -30,11 +29,11 @@ export default function EventsSliderDemo() {
           <SliderThumbs />
         </SliderControl>
       </Slider>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>
           Live: {liveValue.join(', ')} / Committed: {committedValue.join(', ')}
         </output>
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

@@ -56,7 +56,9 @@ export default function ControlledComboboxDemo() {
           </ComboboxContent>
         </ComboboxPositioner>
       </Combobox>
-      <output>Selected: {value()[0] ?? 'none'}</output>
+      <div data-preview-meta>
+        <output>Selected: {value()[0] ?? 'none'}</output>
+      </div>
     </Stack>
   );
 }

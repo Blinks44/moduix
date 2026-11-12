@@ -25,7 +25,7 @@
     <ProgressCircularValueText />
   </div>
 </ProgressCircularRootProvider>
-<div>
+<div data-preview-meta>
   <output>Progress: {progress().valueAsString}</output>
   <Button type="button" onclick={() => progress().setToMax()}>Complete rollout</Button>
 </div>

@@ -12,7 +12,9 @@
     <QrCodePattern />
   </QrCodeFrame>
 </QrCode>
-<output>Error correction: {errorLevel}</output>
+<div data-preview-meta>
+  <output>Error correction: {errorLevel}</output>
+</div>
 {#each errorLevels as level (level)}
   <button type="button" aria-pressed={level === errorLevel} onclick={() => (errorLevel = level)}>
     {level}

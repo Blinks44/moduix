@@ -8,7 +8,6 @@ import {
   Lightbox,
 } from '@moduix/react/lightbox';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/lightbox/lightbox-non-modal.module.css';
 
 const images = [
@@ -49,12 +48,12 @@ export default function NonModalLightboxDemo() {
           </LightboxContent>
         </LightboxPositioner>
       </Lightbox>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Background actions: {backgroundActions}</output>
         <Button variant="outline" onClick={() => setBackgroundActions((value) => value + 1)}>
           Run background action
         </Button>
-      </PreviewMeta>
+      </div>
     </>
   );
 }

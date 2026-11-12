@@ -16,7 +16,6 @@ import {
   ZoomOut as ZoomOutIcon,
 } from 'lucide-react';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 const sampleImage =
   'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=640&h=400&q=90';
@@ -95,11 +94,11 @@ export default function TransformImageCropperDemo() {
           <ImageCropperCropArea />
         </ImageCropperViewport>
       </ImageCropper>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>
           Rotation: {rotation}deg, horizontal flip: {String(flip.horizontal)}
         </output>
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

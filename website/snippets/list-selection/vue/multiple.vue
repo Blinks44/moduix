@@ -35,8 +35,10 @@ const toggleAll = () => {
     <button type="button" @click="toggleAll">
       {{ selection.isAllSelected() ? 'Clear all' : 'Select all' }}
     </button>
-    <output aria-live="polite">{{
-      isEmpty ? 'No teams selected' : `Selected: ${teams.stringifyMany(selectedValues)}`
-    }}</output>
+    <div data-preview-meta>
+      <output aria-live="polite">{{
+        isEmpty ? 'No teams selected' : `Selected: ${teams.stringifyMany(selectedValues)}`
+      }}</output>
+    </div>
   </section>
 </template>

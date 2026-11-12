@@ -22,8 +22,8 @@ const positioning = computed(() => ({
       </TooltipTrigger>
       <TooltipBody>Placement: {{ placement }}</TooltipBody>
     </Tooltip>
-    <output>Placement: {{ placement }}</output>
-    <div :class="styles.meta">
+    <div data-preview-meta :class="styles.meta">
+      <output>Placement: {{ placement }}</output>
       <Button
         v-for="item in tooltipPlacements"
         :key="item"

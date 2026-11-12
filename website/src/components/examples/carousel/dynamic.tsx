@@ -10,7 +10,6 @@ import {
 } from '@moduix/react/carousel';
 import { Plus as PlusIcon } from 'lucide-react';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/carousel/carousel-dynamic.module.css';
 
 const slides = [
@@ -82,13 +81,13 @@ export default function DynamicSlidesCarousel() {
         </CarouselControl>
       </Carousel>
 
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Slides: {visibleSlides.length}</output>
         <Button size="sm" variant="outline" onClick={addSlide}>
           <PlusIcon />
           Add slide
         </Button>
-      </PreviewMeta>
+      </div>
     </div>
   );
 }

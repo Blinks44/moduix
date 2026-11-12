@@ -6,7 +6,6 @@ import {
   CollapsibleTrigger,
 } from '@moduix/react/collapsible';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/collapsible/collapsible-controlled.module.css';
 
 const recoveryKeys = ['alien-bean-pasta', 'wild-irish-burrito', 'horse-battery-staple'];
@@ -35,9 +34,9 @@ export default function ControlledCollapsibleDemo() {
           </CollapsibleBody>
         </CollapsibleContent>
       </Collapsible>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>State: {open ? 'open' : 'closed'}</output>
-      </PreviewMeta>
+      </div>
     </div>
   );
 }

@@ -10,7 +10,6 @@ import {
   useListbox,
 } from '@moduix/react/listbox';
 import { Stack } from '@moduix/react/stack';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 const priorities = createListCollection({
   items: [
@@ -50,10 +49,10 @@ export default function RootProviderListboxDemo() {
           ))}
         </ListboxContent>
       </ListboxRootProvider>
-      <PreviewMeta style={{ placeSelf: 'center' }}>
+      <div data-preview-meta style={{ placeSelf: 'center' }}>
         <output>Selected: {listbox.value[0] ?? 'none'}</output>
         <Button onClick={() => listbox.setValue(['high'])}>Set to high</Button>
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

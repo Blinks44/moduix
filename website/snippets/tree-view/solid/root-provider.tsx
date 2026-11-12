@@ -95,15 +95,19 @@ export default function RootProviderTreeViewDemo() {
           </For>
         </TreeViewTree>
       </TreeViewRootProvider>
-      <output aria-live="polite">Expanded: {treeView().expandedValue.join(', ') || 'none'}</output>
-      <Stack direction="row" gap="2">
-        <Button variant="outline" onClick={() => treeView().expand()}>
-          Expand all
-        </Button>
-        <Button variant="outline" onClick={() => treeView().collapse()}>
-          Collapse all
-        </Button>
-      </Stack>
+      <div data-preview-meta>
+        <output aria-live="polite">
+          Expanded: {treeView().expandedValue.join(', ') || 'none'}
+        </output>
+        <Stack direction="row" gap="2">
+          <Button variant="outline" onClick={() => treeView().expand()}>
+            Expand all
+          </Button>
+          <Button variant="outline" onClick={() => treeView().collapse()}>
+            Collapse all
+          </Button>
+        </Stack>
+      </div>
     </Stack>
   );
 }

@@ -9,7 +9,6 @@ import {
   useRatingGroup,
 } from '@moduix/react/rating-group';
 import { Stack } from '@moduix/react/stack';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/rating-group/component-root-provider.module.css';
 
 export default function RootProviderRatingGroupDemo() {
@@ -34,12 +33,12 @@ export default function RootProviderRatingGroupDemo() {
           </RatingGroupContext>
         </RatingGroupControl>
       </RatingGroupRootProvider>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output className={styles.hint}>Current value: {ratingGroup.value}</output>
         <Button type="button" size="sm" onClick={() => ratingGroup.setValue(5)}>
           Set to 5
         </Button>
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

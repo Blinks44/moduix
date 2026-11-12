@@ -24,8 +24,10 @@ const setToMax = () => numberInput.value.setToMax();
       <NumberInputLabel>Guests</NumberInputLabel>
       <NumberInputField />
     </NumberInputRootProvider>
-    <output>Value: {{ numberInput.value }}</output>
-    <Button type="button" size="sm" variant="outline" @click="setToMin">Min</Button>
-    <Button type="button" size="sm" variant="outline" @click="setToMax">Max</Button>
+    <div data-preview-meta>
+      <output>Value: {{ numberInput.value }}</output>
+      <Button type="button" size="sm" variant="outline" @click="setToMin">Min</Button>
+      <Button type="button" size="sm" variant="outline" @click="setToMax">Max</Button>
+    </div>
   </Stack>
 </template>

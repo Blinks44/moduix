@@ -14,7 +14,9 @@ export default function RootProviderTooltipDemo() {
         <TooltipTrigger>RootProvider tooltip</TooltipTrigger>
         <TooltipBody>State is owned outside the tree.</TooltipBody>
       </TooltipRootProvider>
-      <output>Open: {String(tooltip().open)}</output>
+      <div data-preview-meta>
+        <output>Open: {String(tooltip().open)}</output>
+      </div>
     </>
   );
 }

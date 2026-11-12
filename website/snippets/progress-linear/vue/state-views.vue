@@ -27,8 +27,10 @@ const state = computed(() =>
     <ProgressLinearView state="loading">Transfer in progress</ProgressLinearView>
     <ProgressLinearView state="complete">Export complete</ProgressLinearView>
   </ProgressLinear>
-  <output>State: {{ state }}</output>
-  <Button type="button" size="sm" variant="outline" @click="value = null">Indeterminate</Button>
-  <Button type="button" size="sm" variant="outline" @click="value = 45">Loading</Button>
-  <Button type="button" size="sm" variant="outline" @click="value = 100">Complete</Button>
+  <div data-preview-meta>
+    <output>State: {{ state }}</output>
+    <Button type="button" size="sm" variant="outline" @click="value = null">Indeterminate</Button>
+    <Button type="button" size="sm" variant="outline" @click="value = 45">Loading</Button>
+    <Button type="button" size="sm" variant="outline" @click="value = 100">Complete</Button>
+  </div>
 </template>

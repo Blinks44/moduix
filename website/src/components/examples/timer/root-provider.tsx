@@ -8,7 +8,6 @@ import {
   useTimer,
 } from '@moduix/react/timer';
 import { Pause as PauseIcon, Play as PlayIcon, RotateCcw as RotateCcwIcon } from 'lucide-react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/timer/timer-root-provider.module.css';
 
 export default function RootProviderTimerDemo() {
@@ -46,9 +45,9 @@ export default function RootProviderTimerDemo() {
           </TimerActionTrigger>
         </TimerControl>
       </TimerRootProvider>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Progress: {(timer.progressPercent * 100).toFixed(0)}%</output>
-      </PreviewMeta>
+      </div>
     </>
   );
 }

@@ -42,7 +42,7 @@
       </SelectContent>
     </SelectPositioner>
   </SelectRootProvider>
-  <div>
+  <div data-preview-meta>
     <output>Selected: {select().value.length}</output>
     <Button type="button" size="sm" onclick={selectAll}>Select all</Button>
   </div>

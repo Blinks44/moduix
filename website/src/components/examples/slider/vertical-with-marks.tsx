@@ -9,7 +9,6 @@ import {
 } from '@moduix/react/slider';
 import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 const marks = [0, 25, 50, 75, 100];
 
@@ -38,9 +37,9 @@ export default function VerticalMarksSliderDemo() {
           ))}
         </SliderMarkerGroup>
       </Slider>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Output: {value.join(', ')}</output>
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

@@ -17,7 +17,7 @@ const paths = ref<string[]>(initialSignaturePaths);
       <SignaturePadLabel>Sign below</SignaturePadLabel>
       <SignaturePadCanvas />
     </SignaturePad>
-    <div>
+    <div data-preview-meta>
       <output>Paths: {{ paths.length }}</output>
       <Button size="sm" variant="outline" @click="paths = initialSignaturePaths"> Restore </Button>
       <Button size="sm" variant="outline" @click="paths = []">Clear</Button>

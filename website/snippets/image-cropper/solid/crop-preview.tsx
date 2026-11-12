@@ -41,7 +41,9 @@ export default function CropPreviewImageCropperDemo() {
           <ImageCropperCropArea />
         </ImageCropperViewport>
       </ImageCropperRootProvider>
-      <output>{status()}</output>
+      <div data-preview-meta>
+        <output>{status()}</output>
+      </div>
       <Show when={preview()}>
         {(src) => <img src={src()} alt="Cropped preview" width="128" height="128" />}
       </Show>

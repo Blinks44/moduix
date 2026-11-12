@@ -27,7 +27,7 @@
     </LightboxContent>
   </LightboxPositioner>
 </Lightbox>
-<div>
+<div data-preview-meta>
   <output>Background actions: {backgroundActions}</output>
   <Button variant="outline" onclick={() => (backgroundActions += 1)}>Run background action</Button>
 </div>

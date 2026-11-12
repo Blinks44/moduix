@@ -36,7 +36,7 @@
       {/each}
     </ListboxContent>
   </ListboxRootProvider>
-  <div>
+  <div data-preview-meta style="place-self: center">
     <output>Selected: {listbox().value[0] ?? 'none'}</output>
     <Button type="button" onclick={() => listbox().setValue(['high'])}>Set to high</Button>
   </div>

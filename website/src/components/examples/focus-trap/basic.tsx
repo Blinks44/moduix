@@ -3,7 +3,6 @@ import { Button } from '@moduix/react/button';
 import { Card, CardBody, CardFooter, CardHeader, CardTitle } from '@moduix/react/card';
 import { Stack } from '@moduix/react/stack';
 import { useRef, useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/focus-trap/focus-trap-basic.module.css';
 
 export default function FocusTrapBasicPreview() {
@@ -34,12 +33,12 @@ export default function FocusTrapBasicPreview() {
         </Card>
       </FocusTrap>
 
-      <PreviewMeta>
+      <div data-preview-meta>
         <output aria-live="polite">Focus trap: {isReviewing ? 'active' : 'inactive'}</output>
         <Button disabled={isReviewing} size="sm" type="button" onClick={() => setIsReviewing(true)}>
           Start review
         </Button>
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

@@ -17,7 +17,9 @@
 <Popover positioning={{ gutter: 8 }}>
   <PopoverContext>
     {#snippet render(popover)}
-      <output>Open: {popover().open ? 'yes' : 'no'}</output>
+      <div data-preview-meta>
+        <output>Open: {popover().open ? 'yes' : 'no'}</output>
+      </div>
     {/snippet}
   </PopoverContext>
   <PopoverTrigger>

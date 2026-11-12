@@ -18,7 +18,7 @@ export default function RootProviderCheckboxDemo() {
         <CheckboxLabel>Managed outside the tree</CheckboxLabel>
         <CheckboxHiddenInput />
       </CheckboxRootProvider>
-      <div>
+      <div data-preview-meta>
         <output>{checkbox().checked ? 'Checked' : 'Unchecked'}</output>
         <Button
           type="button"

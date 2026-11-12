@@ -63,7 +63,9 @@ export default function ErrorHandlingFileUploadDemo() {
         </FileUploadItemGroup>
         <FileUploadHiddenInput />
       </FileUpload>
-      <output>Status: {message() || 'No files selected'}</output>
+      <div data-preview-meta>
+        <output>Status: {message() || 'No files selected'}</output>
+      </div>
     </>
   );
 }

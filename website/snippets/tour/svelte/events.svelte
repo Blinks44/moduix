@@ -67,6 +67,8 @@
     </TourPositioner>
   </Tour>
 
-  <output>{result}</output>
-  <Button onclick={() => tour().start()}>Start event tour</Button>
+  <div data-preview-meta>
+    <output>{result}</output>
+    <Button onclick={() => tour().start()}>Start event tour</Button>
+  </div>
 </Stack>

@@ -15,7 +15,6 @@ import {
 } from '@moduix/react/combobox';
 import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 const fruits = [
   { label: 'Apple', value: 'apple' },
@@ -59,9 +58,9 @@ export default function ControlledComboboxDemo() {
           </ComboboxContent>
         </ComboboxPositioner>
       </Combobox>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Selected: {value[0] ?? 'none'}</output>
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

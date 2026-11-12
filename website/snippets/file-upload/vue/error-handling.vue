@@ -41,6 +41,9 @@ const message = ref('');
           ><FileUploadItemName />
           <p :class="styles.error">{{ errors.join(', ') }}</p>
           <FileUploadItemDeleteTrigger /></FileUploadItem></FileUploadContext></FileUploadItemGroup
-    ><FileUploadHiddenInput /></FileUpload
-  ><output>Status: {{ message || 'No files selected' }}</output>
+    ><FileUploadHiddenInput
+  /></FileUpload>
+  <div data-preview-meta>
+    <output>Status: {{ message || 'No files selected' }}</output>
+  </div>
 </template>

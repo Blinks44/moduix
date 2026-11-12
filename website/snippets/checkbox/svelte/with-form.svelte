@@ -22,7 +22,7 @@
     <CheckboxLabel>I agree to the terms and conditions</CheckboxLabel>
     <CheckboxHiddenInput />
   </Checkbox>
-  <div>
+  <div data-preview-meta>
     <output>{submitted}</output>
     <button type="submit">Submit</button>
   </div>

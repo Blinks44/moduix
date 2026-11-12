@@ -15,7 +15,6 @@ import {
   FloatingPanelDragIndicator,
 } from '@moduix/react/floating-panel';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function ControlledSizeDemo() {
   const [size, setSize] = useState({
@@ -51,11 +50,11 @@ export default function ControlledSizeDemo() {
           </FloatingPanelContent>
         </FloatingPanelPositioner>
       </FloatingPanel>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>
           Size: {Math.round(size.width)} × {Math.round(size.height)}
         </output>
-      </PreviewMeta>
+      </div>
     </>
   );
 }

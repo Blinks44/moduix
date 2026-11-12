@@ -29,22 +29,24 @@ const zoom = ref(1);
         <ImageCropperCropArea />
       </ImageCropperViewport>
     </ImageCropper>
-    <output>Zoom: {{ zoom.toFixed(1) }}x</output>
-    <Button
-      size="sm"
-      type="button"
-      aria-label="Zoom out"
-      @click="zoom = Math.max(minZoom, zoom - 0.1)"
-    >
-      <ZoomOutIcon />
-    </Button>
-    <Button
-      size="sm"
-      type="button"
-      aria-label="Zoom in"
-      @click="zoom = Math.min(maxZoom, zoom + 0.1)"
-    >
-      <ZoomInIcon />
-    </Button>
+    <div data-preview-meta>
+      <output>Zoom: {{ zoom.toFixed(1) }}x</output>
+      <Button
+        size="sm"
+        type="button"
+        aria-label="Zoom out"
+        @click="zoom = Math.max(minZoom, zoom - 0.1)"
+      >
+        <ZoomOutIcon />
+      </Button>
+      <Button
+        size="sm"
+        type="button"
+        aria-label="Zoom in"
+        @click="zoom = Math.min(maxZoom, zoom + 0.1)"
+      >
+        <ZoomInIcon />
+      </Button>
+    </div>
   </div>
 </template>

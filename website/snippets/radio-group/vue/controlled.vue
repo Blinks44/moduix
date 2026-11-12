@@ -15,6 +15,8 @@ const value = ref<string | null>(null);
         {{ framework }}
       </RadioGroupOption>
     </RadioGroup>
-    <output>Selected: {{ value ?? 'none' }}</output>
+    <div data-preview-meta>
+      <output>Selected: {{ value ?? 'none' }}</output>
+    </div>
   </Stack>
 </template>

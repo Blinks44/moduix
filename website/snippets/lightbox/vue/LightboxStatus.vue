@@ -4,5 +4,7 @@ const dialog = useLightboxContext();
 </script>
 
 <template>
-  <output>Preview is {{ dialog.open ? 'open' : 'closed' }}</output>
+  <div data-preview-meta>
+    <output>Preview is {{ dialog.open ? 'open' : 'closed' }}</output>
+  </div>
 </template>

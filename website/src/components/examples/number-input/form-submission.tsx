@@ -1,7 +1,6 @@
 import { Button } from '@moduix/react/button';
 import { NumberInput, NumberInputField, NumberInputLabel } from '@moduix/react/number-input';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/number-input/number-input-form-submission.module.css';
 
 export default function NumberInputFormSubmissionDemo() {
@@ -19,12 +18,12 @@ export default function NumberInputFormSubmissionDemo() {
         <NumberInputLabel>Quantity</NumberInputLabel>
         <NumberInputField />
       </NumberInput>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Submitted: {submittedValue}</output>
         <Button type="submit" size="sm">
           Submit quantity
         </Button>
-      </PreviewMeta>
+      </div>
     </form>
   );
 }

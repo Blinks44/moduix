@@ -29,7 +29,7 @@ function SelectAllMeta() {
   const allSelected = () => listbox().value.length === allValues.length;
 
   return (
-    <div>
+    <div data-preview-meta style={{ 'place-self': 'center' }}>
       <output>Selected: {listbox().value.length}</output>
       <Button onClick={() => listbox().setValue(allSelected() ? [] : allValues)}>
         {allSelected() ? 'Clear all' : 'Select all'}

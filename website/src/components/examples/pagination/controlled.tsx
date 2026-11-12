@@ -5,7 +5,6 @@ import {
   PaginationPrevTrigger,
 } from '@moduix/react/pagination';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/pagination/pagination-controlled.module.css';
 
 export default function ControlledPaginationDemo() {
@@ -23,9 +22,9 @@ export default function ControlledPaginationDemo() {
         <PaginationItems />
         <PaginationNextTrigger />
       </Pagination>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Current page: {page}</output>
-      </PreviewMeta>
+      </div>
     </div>
   );
 }

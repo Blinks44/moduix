@@ -9,7 +9,6 @@ import {
   MenuItem,
 } from '@moduix/react/menu';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function ControlledMenuDemo() {
   const [open, setOpen] = useState(false);
@@ -35,12 +34,12 @@ export default function ControlledMenuDemo() {
           </MenuContent>
         </MenuPositioner>
       </Menu>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Open: {open ? 'Yes' : 'No'}</output>
         <Button size="sm" onClick={() => setOpen((value) => !value)}>
           Toggle
         </Button>
-      </PreviewMeta>
+      </div>
     </div>
   );
 }

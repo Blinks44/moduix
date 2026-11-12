@@ -8,7 +8,6 @@ import {
 } from '@moduix/react/pin-input';
 import { Stack } from '@moduix/react/stack';
 import { useId } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function RootProviderPinInput() {
   const id = useId();
@@ -32,14 +31,14 @@ export default function RootProviderPinInput() {
         </PinInputControl>
       </PinInputRootProvider>
 
-      <PreviewMeta>
+      <div data-preview-meta>
         <Button type="button" size="sm" variant="outline" onClick={pinInput.focus}>
           Focus
         </Button>
         <Button type="button" size="sm" variant="outline" onClick={pinInput.clearValue}>
           Clear
         </Button>
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

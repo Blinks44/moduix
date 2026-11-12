@@ -47,7 +47,7 @@ const handleOpenChange = ({ open }: { open: boolean }) => {
       </LightboxContent>
     </LightboxPositioner>
   </Lightbox>
-  <div>
+  <div data-preview-meta>
     <output>
       {{
         focusReturned

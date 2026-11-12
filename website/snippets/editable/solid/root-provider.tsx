@@ -26,9 +26,11 @@ export default function RootProviderEditableDemo() {
         </EditableArea>
         <EditableControls />
       </EditableRootProvider>
-      <Button type="button" size="sm" onClick={() => editable().edit()}>
-        Edit
-      </Button>
+      <div data-preview-meta>
+        <Button type="button" size="sm" onClick={() => editable().edit()}>
+          Edit
+        </Button>
+      </div>
     </div>
   );
 }

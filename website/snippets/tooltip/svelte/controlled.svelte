@@ -10,6 +10,8 @@
     <TooltipTrigger>Controlled tooltip</TooltipTrigger>
     <TooltipBody>Open: {open}</TooltipBody>
   </Tooltip>
-  <output>Open: {open}</output>
-  <Button size="sm" variant="outline" onclick={() => (open = !open)}>Toggle</Button>
+  <div data-preview-meta>
+    <output>Open: {open}</output>
+    <Button size="sm" variant="outline" onclick={() => (open = !open)}>Toggle</Button>
+  </div>
 </div>

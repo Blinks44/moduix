@@ -15,5 +15,7 @@
 
 <Stack align="center" gap="3">
   <Button bind:ref={button} aria-label="Focus target">{labels.target}</Button>
-  <Button size="sm" variant="outline" onclick={focusButton}>{labels.trigger}</Button>
+  <div data-preview-meta>
+    <Button size="sm" variant="outline" onclick={focusButton}>{labels.trigger}</Button>
+  </div>
 </Stack>

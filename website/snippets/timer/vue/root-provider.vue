@@ -40,5 +40,7 @@ const timer = useTimer({
       <TimerActionTrigger action="reset"><RotateCcwIcon /> Reset</TimerActionTrigger>
     </TimerControl>
   </TimerRootProvider>
-  <output>Progress: {{ (timer.progressPercent * 100).toFixed(0) }}%</output>
+  <div data-preview-meta>
+    <output>Progress: {{ (timer.progressPercent * 100).toFixed(0) }}%</output>
+  </div>
 </template>

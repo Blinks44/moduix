@@ -37,9 +37,11 @@
   <button type="button" onclick={toggleAll}>
     {selection.isAllSelected() ? 'Clear all' : 'Select all'}
   </button>
-  <output aria-live="polite">
-    {selection.isEmpty()
-      ? 'No teams selected'
-      : `Selected: ${teams.stringifyMany(selection.selectedValues())}`}
-  </output>
+  <div data-preview-meta>
+    <output aria-live="polite">
+      {selection.isEmpty()
+        ? 'No teams selected'
+        : `Selected: ${teams.stringifyMany(selection.selectedValues())}`}
+    </output>
+  </div>
 </section>

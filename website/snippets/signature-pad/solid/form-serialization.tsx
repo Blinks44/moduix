@@ -30,7 +30,7 @@ export default function FormSerializationSignaturePadDemo() {
         <SignaturePadCanvas />
         <SignaturePadFormInput />
       </SignaturePad>
-      <div>
+      <div data-preview-meta>
         <output>Submitted: {submitted()}</output>
         <Button type="submit" size="sm">
           Submit

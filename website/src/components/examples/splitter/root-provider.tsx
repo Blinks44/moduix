@@ -6,7 +6,6 @@ import {
   useSplitter,
 } from '@moduix/react/splitter';
 import { Stack } from '@moduix/react/stack';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/splitter/splitter-root-provider.module.css';
 
 const panels = [
@@ -36,13 +35,13 @@ export default function RootProviderSplitterDemo() {
           B
         </SplitterPanel>
       </SplitterRootProvider>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output className={styles.status}>Sizes: {splitter.getSizes().join(' / ')}</output>
         <Stack align="center" gap="2">
           <Button onClick={() => splitter.resetSizes()}>Reset</Button>
           <Button onClick={() => splitter.resizePanel('a', 25)}>Set A to 25%</Button>
         </Stack>
-      </PreviewMeta>
+      </div>
     </div>
   );
 }

@@ -11,7 +11,6 @@ import {
   FileUploadTrigger,
 } from '@moduix/react/file-upload';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/file-upload/file-upload-error-handling.module.css';
 
 const accept = 'image/*';
@@ -60,9 +59,9 @@ export default function ErrorHandlingFileUploadDemo() {
         </FileUploadItemGroup>
         <FileUploadHiddenInput />
       </FileUpload>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Status: {message || 'No files selected'}</output>
-      </PreviewMeta>
+      </div>
     </>
   );
 }

@@ -6,11 +6,13 @@ import { Pagination, PaginationContext } from '@moduix/vue/pagination';
 <template>
   <Pagination :count="200" :page-size="10">
     <PaginationContext v-slot="pagination">
-      <output>Page {{ pagination.page }} of {{ pagination.totalPages }}</output>
-      <Button size="sm" @click="pagination.goToFirstPage()">First</Button>
-      <Button size="sm" @click="pagination.goToPrevPage()">Prev</Button>
-      <Button size="sm" @click="pagination.goToNextPage()">Next</Button>
-      <Button size="sm" @click="pagination.goToLastPage()">Last</Button>
+      <div data-preview-meta>
+        <output>Page {{ pagination.page }} of {{ pagination.totalPages }}</output>
+        <Button size="sm" @click="pagination.goToFirstPage()">First</Button>
+        <Button size="sm" @click="pagination.goToPrevPage()">Prev</Button>
+        <Button size="sm" @click="pagination.goToNextPage()">Next</Button>
+        <Button size="sm" @click="pagination.goToLastPage()">Last</Button>
+      </div>
     </PaginationContext>
   </Pagination>
 </template>

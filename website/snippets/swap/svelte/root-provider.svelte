@@ -21,5 +21,7 @@
       </Button>
     {/snippet}
   </SwapRootProvider>
-  <output>Visible indicator: {downloaded ? 'Downloaded' : 'Download'}</output>
+  <div data-preview-meta>
+    <output>Visible indicator: {downloaded ? 'Downloaded' : 'Download'}</output>
+  </div>
 </Stack>

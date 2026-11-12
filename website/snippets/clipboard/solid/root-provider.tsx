@@ -25,7 +25,9 @@ export default function RootProviderClipboardDemo() {
           </ClipboardTrigger>
         </ClipboardControl>
       </ClipboardRootProvider>
-      <output>Copied: {String(clipboard().copied)}</output>
+      <div data-preview-meta>
+        <output>Copied: {String(clipboard().copied)}</output>
+      </div>
     </div>
   );
 }

@@ -76,5 +76,7 @@
       <ImageCropperCropArea />
     </ImageCropperViewport>
   </ImageCropper>
-  <output>Rotation: {rotation}deg, horizontal flip: {String(flip.horizontal)}</output>
+  <div data-preview-meta>
+    <output>Rotation: {rotation}deg, horizontal flip: {String(flip.horizontal)}</output>
+  </div>
 </div>

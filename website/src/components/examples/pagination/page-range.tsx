@@ -5,7 +5,6 @@ import {
   PaginationNextTrigger,
   PaginationPrevTrigger,
 } from '@moduix/react/pagination';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/pagination/pagination-page-range.module.css';
 
 export default function PaginationPageRangeDemo() {
@@ -19,12 +18,12 @@ export default function PaginationPageRangeDemo() {
               <PaginationItems />
               <PaginationNextTrigger />
             </div>
-            <PreviewMeta>
+            <div data-preview-meta>
               <output>
                 Showing {pagination.pageRange.start + 1}-{pagination.pageRange.end} of{' '}
                 {pagination.count} results
               </output>
-            </PreviewMeta>
+            </div>
           </div>
         )}
       </PaginationContext>

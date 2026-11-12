@@ -31,7 +31,7 @@ const handleSubmit = (event: SubmitEvent) => {
           ><FileUploadItem v-for="file in acceptedFiles" :key="file.name + file.size" :file="file"
             ><FileUploadItemName /><FileUploadItemDeleteTrigger /></FileUploadItem></FileUploadContext></FileUploadItemGroup
     ></FileUpload>
-    <div>
+    <div data-preview-meta>
       <output>Submitted: {{ submitted }}</output><Button type="submit" size="sm">Submit</Button>
     </div>
   </form>

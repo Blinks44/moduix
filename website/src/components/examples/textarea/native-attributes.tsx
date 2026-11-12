@@ -2,7 +2,6 @@ import { Button } from '@moduix/react/button';
 import { Field, FieldLabel } from '@moduix/react/field';
 import { Textarea } from '@moduix/react/textarea';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/textarea/textarea-native-attributes.module.css';
 
 export default function TextareaNativeAttributesDemo() {
@@ -26,12 +25,12 @@ export default function TextareaNativeAttributesDemo() {
           placeholder="Add enough context for the next person reading this."
         />
       </Field>
-      <PreviewMeta style={{ marginInline: 'auto', width: 'fit-content' }}>
+      <div data-preview-meta style={{ marginInline: 'auto', width: 'fit-content' }}>
         <output>Submitted: {submitted}</output>
         <Button type="submit" size="sm">
           Submit
         </Button>
-      </PreviewMeta>
+      </div>
     </form>
   );
 }

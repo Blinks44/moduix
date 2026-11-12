@@ -28,5 +28,7 @@
       </ClipboardTrigger>
     </ClipboardControl>
   </Clipboard>
-  <output>Copied {copyCount} times</output>
+  <div data-preview-meta>
+    <output>Copied {copyCount} times</output>
+  </div>
 </div>

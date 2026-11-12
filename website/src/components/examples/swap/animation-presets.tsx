@@ -4,7 +4,6 @@ import type { SwapAnimation } from '@moduix/react/swap';
 import { Swap, SwapIndicator } from '@moduix/react/swap';
 import { Check as CheckIcon, Download as DownloadIcon } from 'lucide-react';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/swap/swap-animation-presets.module.css';
 
 const animations = ['fade', 'scale', 'rotate', 'flip'] as const;
@@ -28,7 +27,7 @@ export default function SwapAnimationPresetsDemo() {
           </SwapIndicator>
         </Swap>
       </Button>
-      <PreviewMeta className={styles.controls}>
+      <div data-preview-meta className={styles.controls}>
         <output>Animation: {animation}</output>
         <Stack direction="row" justify="center" wrap="wrap" gap="0.5rem">
           {animations.map((name) => (
@@ -43,7 +42,7 @@ export default function SwapAnimationPresetsDemo() {
             </Button>
           ))}
         </Stack>
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

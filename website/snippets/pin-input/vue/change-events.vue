@@ -19,6 +19,8 @@ const value = ref<string[]>([]);
         <PinInputInputs />
       </PinInputControl>
     </PinInput>
-    <output>Current value: {{ value.join('') || 'empty' }}</output>
+    <div data-preview-meta>
+      <output>Current value: {{ value.join('') || 'empty' }}</output>
+    </div>
   </Stack>
 </template>

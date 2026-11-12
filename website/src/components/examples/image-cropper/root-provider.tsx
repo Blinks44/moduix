@@ -9,7 +9,6 @@ import {
 import { Stack } from '@moduix/react/stack';
 import { RotateCcw as RestartIcon } from 'lucide-react';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 const sampleImage =
   'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=640&h=400&q=90';
@@ -33,12 +32,12 @@ export default function RootProviderImageCropperDemo() {
           <ImageCropperCropArea />
         </ImageCropperViewport>
       </ImageCropperRootProvider>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Resets: {resets}</output>
         <Button size="sm" type="button" aria-label="Reset crop" onClick={handleReset}>
           <RestartIcon />
         </Button>
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

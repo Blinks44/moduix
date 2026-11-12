@@ -3,4 +3,6 @@
   const dialog = useLightboxContext();
 </script>
 
-<output>Preview is {dialog().open ? 'open' : 'closed'}</output>
+<div data-preview-meta>
+  <output>Preview is {dialog().open ? 'open' : 'closed'}</output>
+</div>

@@ -6,7 +6,6 @@ import {
   useRadioGroup,
 } from '@moduix/react/radio-group';
 import { Stack } from '@moduix/react/stack';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 const frameworks = ['React', 'Solid', 'Vue'];
 
@@ -24,12 +23,12 @@ export default function RadioGroupRootProviderDemo() {
           </RadioGroupOption>
         ))}
       </RadioGroupRootProvider>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Selected: {radioGroup.value ?? 'none'}</output>
         <Button type="button" size="sm" onClick={() => radioGroup.setValue('Solid')}>
           Set to Solid
         </Button>
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

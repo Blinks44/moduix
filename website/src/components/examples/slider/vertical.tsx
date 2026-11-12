@@ -7,7 +7,6 @@ import {
 } from '@moduix/react/slider';
 import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function VerticalSliderDemo() {
   const [value, setValue] = useState([60]);
@@ -27,9 +26,9 @@ export default function VerticalSliderDemo() {
           <SliderThumbs />
         </SliderControl>
       </Slider>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Output: {value.join(', ')}</output>
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

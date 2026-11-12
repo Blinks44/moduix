@@ -6,7 +6,6 @@ import {
   ClipboardValueText,
 } from '@moduix/react/clipboard';
 import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/clipboard/component-copy-status.module.css';
 
 export default function ClipboardStatusDemo() {
@@ -30,9 +29,9 @@ export default function ClipboardStatusDemo() {
           </ClipboardTrigger>
         </ClipboardControl>
       </Clipboard>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Copied {copyCount} times</output>
-      </PreviewMeta>
+      </div>
     </div>
   );
 }

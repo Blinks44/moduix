@@ -10,9 +10,16 @@
     DatePickerPositioner,
     DatePickerView,
   } from '@moduix/svelte/date-picker';
+
+  let submitted = $state('Nothing submitted');
+
+  const handleSubmit = (event: SubmitEvent & { currentTarget: HTMLFormElement }) => {
+    event.preventDefault();
+    submitted = String(new FormData(event.currentTarget).get('delivery-date') ?? '');
+  };
 </script>
 
-<form onsubmit={(event) => event.preventDefault()}>
+<form onsubmit={handleSubmit}>
   <DatePicker
     defaultValue={[parseDate('2026-06-22')]}
     minView="day"
@@ -27,5 +34,8 @@
       </DatePickerContent>
     </DatePickerPositioner>
   </DatePicker>
-  <Button type="submit">Submit</Button>
+  <div data-preview-meta>
+    <output>Submitted: {submitted}</output>
+    <Button type="submit" size="sm">Submit</Button>
+  </div>
 </form>

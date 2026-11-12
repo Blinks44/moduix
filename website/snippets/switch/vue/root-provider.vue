@@ -19,7 +19,7 @@ const switchApi = useSwitch({ defaultChecked: true });
       <SwitchLabel>External state owner</SwitchLabel>
       <SwitchHiddenInput />
     </SwitchRootProvider>
-    <div>
+    <div data-preview-meta>
       <output>Current value: {{ String(switchApi.checked) }}</output>
       <Button variant="outline" @click="switchApi.toggleChecked">Toggle externally</Button>
     </div>

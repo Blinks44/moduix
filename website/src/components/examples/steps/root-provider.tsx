@@ -11,7 +11,6 @@ import {
   StepsTrigger,
   useSteps,
 } from '@moduix/react/steps';
-import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/steps/steps-root-provider.module.css';
 
 const items = [
@@ -64,9 +63,9 @@ export default function RootProviderStepsDemo() {
           <StepsNextTrigger>Next</StepsNextTrigger>
         </div>
       </StepsRootProvider>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Current step: {steps.value + 1}</output>
-      </PreviewMeta>
+      </div>
     </div>
   );
 }

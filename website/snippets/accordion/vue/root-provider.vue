@@ -44,5 +44,7 @@ const accordion = useAccordion({ defaultValue: ['what-is-ark-ui'] });
       </AccordionItemContent>
     </AccordionItem>
   </AccordionRootProvider>
-  <output>Open sections: {{ accordion.value.join(', ') }}</output>
+  <div data-preview-meta>
+    <output>Open sections: {{ accordion.value.join(', ') }}</output>
+  </div>
 </template>

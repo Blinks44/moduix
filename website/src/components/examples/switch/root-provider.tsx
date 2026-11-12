@@ -7,7 +7,6 @@ import {
   SwitchRootProvider,
   useSwitch,
 } from '@moduix/react/switch';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function SwitchRootProviderDemo() {
   const switchApi = useSwitch({ defaultChecked: true });
@@ -19,12 +18,12 @@ export default function SwitchRootProviderDemo() {
         <SwitchLabel>External state owner</SwitchLabel>
         <SwitchHiddenInput />
       </SwitchRootProvider>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Current value: {String(switchApi.checked)}</output>
         <Button variant="outline" onClick={() => switchApi.toggleChecked()}>
           Toggle externally
         </Button>
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

@@ -9,7 +9,6 @@ import {
   ListboxLabel,
   useListboxContext,
 } from '@moduix/react/listbox';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 const days = createListCollection({
   items: [
@@ -49,12 +48,12 @@ function SelectAllMeta() {
   const allValues = days.items.map((item) => item.value);
   const allSelected = listbox.value.length === allValues.length;
   return (
-    <PreviewMeta style={{ placeSelf: 'center' }}>
+    <div data-preview-meta style={{ placeSelf: 'center' }}>
       <output>Selected: {listbox.value.length}</output>
       <Button onClick={() => listbox.setValue(allSelected ? [] : allValues)}>
         {allSelected ? 'Clear all' : 'Select all'}
       </Button>
-    </PreviewMeta>
+    </div>
   );
 }
 

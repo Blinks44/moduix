@@ -30,7 +30,9 @@ export default function ValidationTagsInput() {
           <TagsInputClearTrigger aria-label="Clear labels" />
         </TagsInputControl>
       </TagsInput>
-      <output>Last invalid reason: {invalidReason()}</output>
+      <div data-preview-meta>
+        <output>Last invalid reason: {invalidReason()}</output>
+      </div>
     </div>
   );
 }

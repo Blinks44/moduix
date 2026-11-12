@@ -23,6 +23,8 @@
       <TagsInputClearTrigger aria-label="Clear frameworks" />
     </TagsInputControl>
   </TagsInput>
-  <output>Input: {inputValue || 'empty'}</output>
-  <Button type="button" size="sm" onclick={() => (inputValue = 'React')}>Set React</Button>
+  <div data-preview-meta>
+    <output>Input: {inputValue || 'empty'}</output>
+    <Button type="button" size="sm" onclick={() => (inputValue = 'React')}>Set React</Button>
+  </div>
 </Stack>

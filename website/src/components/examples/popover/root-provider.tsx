@@ -12,7 +12,6 @@ import {
   usePopover,
 } from '@moduix/react/popover';
 import { Stack } from '@moduix/react/stack';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function RootProviderDemo() {
   const popover = usePopover({
@@ -39,12 +38,12 @@ export default function RootProviderDemo() {
           </PopoverContent>
         </PopoverPositioner>
       </PopoverRootProvider>
-      <PreviewMeta>
+      <div data-preview-meta>
         <output>Open: {popover.open ? 'yes' : 'no'}</output>
         <Button size="sm" onClick={() => popover.setOpen(!popover.open)}>
           Toggle externally
         </Button>
-      </PreviewMeta>
+      </div>
     </Stack>
   );
 }

@@ -15,7 +15,9 @@ export default function ControlledRadioGroupDemo() {
           <RadioGroupOption value={framework}>{framework}</RadioGroupOption>
         ))}
       </RadioGroup>
-      <output>Selected: {value() ?? 'none'}</output>
+      <div data-preview-meta>
+        <output>Selected: {value() ?? 'none'}</output>
+      </div>
     </Stack>
   );
 }

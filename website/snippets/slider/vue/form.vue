@@ -38,8 +38,10 @@ const handleReset = () => {
         </SliderThumb>
       </SliderControl>
     </Slider>
-    <output>Submitted: {{ submitted }}</output>
-    <button type="submit">Submit</button>
-    <button type="reset">Reset</button>
+    <div data-preview-meta>
+      <output>Submitted: {{ submitted }}</output>
+      <button type="submit">Submit</button>
+      <button type="reset">Reset</button>
+    </div>
   </form>
 </template>

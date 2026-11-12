@@ -130,10 +130,6 @@ main { display: grid; justify-items: center; gap: 1rem; padding: 3rem 1rem; }
 main > * { max-width: 100%; }
 [data-preview-meta] { display: grid; gap: 1rem; padding: 1rem; border: 1px solid var(--moduix-border); border-radius: 0.5rem; }
 @media (prefers-color-scheme: dark) { :root { color-scheme: dark; } }`;
-  if (framework === 'react') {
-    files['src/components/mdx/Components.tsx'] = `import type { ComponentProps } from 'react';
-export function PreviewMeta(props: ComponentProps<'div'>) { return <div {...props} data-preview-meta />; }`;
-  }
   return {
     title: `moduix · ${project.entry
       .split('/')

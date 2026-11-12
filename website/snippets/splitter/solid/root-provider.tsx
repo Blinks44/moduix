@@ -36,11 +36,13 @@ export default function RootProviderSplitterDemo() {
           B
         </SplitterPanel>
       </SplitterRootProvider>
-      <output class={styles.status}>Sizes: {splitter().getSizes().join(' / ')}</output>
-      <Stack align="center" gap="2">
-        <Button onClick={() => splitter().resetSizes()}>Reset</Button>
-        <Button onClick={() => splitter().resizePanel('a', 25)}>Set A to 25%</Button>
-      </Stack>
+      <div data-preview-meta>
+        <output class={styles.status}>Sizes: {splitter().getSizes().join(' / ')}</output>
+        <Stack align="center" gap="2">
+          <Button onClick={() => splitter().resetSizes()}>Reset</Button>
+          <Button onClick={() => splitter().resizePanel('a', 25)}>Set A to 25%</Button>
+        </Stack>
+      </div>
     </div>
   );
 }

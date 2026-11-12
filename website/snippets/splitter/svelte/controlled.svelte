@@ -16,5 +16,7 @@
     <SplitterResizeTrigger id="a:b" aria-label="Resize panels" />
     <SplitterPanel id="b" class={styles.panel}>B</SplitterPanel>
   </Splitter>
-  <output class={styles.status}>Sizes: {size.join(' / ')}</output>
+  <div data-preview-meta>
+    <output class={styles.status}>Sizes: {size.join(' / ')}</output>
+  </div>
 </div>

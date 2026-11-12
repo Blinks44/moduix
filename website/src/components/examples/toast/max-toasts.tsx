@@ -1,8 +1,6 @@
 import { Button } from '@moduix/react/button';
 import { Stack } from '@moduix/react/stack';
 import { ToastToaster, createToaster } from '@moduix/react/toast';
-import { useState } from 'react';
-import { PreviewMeta } from '@/components/mdx/Components';
 
 const toaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 16, max: 3 });
 const descriptions = [
@@ -14,35 +12,28 @@ const descriptions = [
 ];
 
 export default function App() {
-  const [event, setEvent] = useState('No toast created');
-
   return (
     <Stack align="center" gap="3">
       <ToastToaster toaster={toaster} />
-      <PreviewMeta>
-        <output>Last event: {event}</output>
-        <Button
-          onClick={() => {
-            toaster.info({
-              title: 'New notification',
-              description: 'You have a new message in your inbox.',
-            });
-            setEvent('One notification created');
-          }}
-        >
-          Add notification
-        </Button>
-        <Button
-          onClick={() => {
-            descriptions.forEach((description) => {
-              toaster.info({ title: 'Notification', description });
-            });
-            setEvent('Five notifications created');
-          }}
-        >
-          Add 5 notifications
-        </Button>
-      </PreviewMeta>
+      <Button
+        onClick={() => {
+          toaster.info({
+            title: 'New notification',
+            description: 'You have a new message in your inbox.',
+          });
+        }}
+      >
+        Add notification
+      </Button>
+      <Button
+        onClick={() => {
+          descriptions.forEach((description) => {
+            toaster.info({ title: 'Notification', description });
+          });
+        }}
+      >
+        Add 5 notifications
+      </Button>
     </Stack>
   );
 }

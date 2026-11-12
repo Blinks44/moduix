@@ -30,6 +30,8 @@
       </RatingGroupContext>
     </RatingGroupControl>
   </RatingGroupRootProvider>
-  <output>Current value: {ratingGroup().value}</output>
-  <Button type="button" size="sm" onclick={() => ratingGroup().setValue(5)}>Set to 5</Button>
+  <div data-preview-meta>
+    <output>Current value: {ratingGroup().value}</output>
+    <Button type="button" size="sm" onclick={() => ratingGroup().setValue(5)}>Set to 5</Button>
+  </div>
 </Stack>

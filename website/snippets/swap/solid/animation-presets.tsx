@@ -4,6 +4,7 @@ import { Swap, SwapIndicator, type SwapAnimation } from '@moduix/solid/swap';
 import CheckIcon from 'lucide-solid/icons/check';
 import DownloadIcon from 'lucide-solid/icons/download';
 import { createSignal, For } from 'solid-js';
+import styles from '@/components/examples/swap/swap-animation-presets.module.css';
 
 const animations = ['fade', 'scale', 'rotate', 'flip'] as const;
 
@@ -27,21 +28,23 @@ export default function SwapAnimationPresetsDemo() {
         </Swap>
       </Button>
       <Stack align="center" gap="2">
-        <output>Animation: {animation()}</output>
-        <Stack direction="row" justify="center" wrap="wrap" gap="0.5rem">
-          <For each={animations}>
-            {(name) => (
-              <Button
-                aria-pressed={animation() === name}
-                size="sm"
-                variant={animation() === name ? 'default' : 'outline'}
-                onClick={() => setAnimation(name)}
-              >
-                {name}
-              </Button>
-            )}
-          </For>
-        </Stack>
+        <div data-preview-meta class={styles.controls}>
+          <output>Animation: {animation()}</output>
+          <Stack direction="row" justify="center" wrap="wrap" gap="0.5rem">
+            <For each={animations}>
+              {(name) => (
+                <Button
+                  aria-pressed={animation() === name}
+                  size="sm"
+                  variant={animation() === name ? 'default' : 'outline'}
+                  onClick={() => setAnimation(name)}
+                >
+                  {name}
+                </Button>
+              )}
+            </For>
+          </Stack>
+        </div>
       </Stack>
     </Stack>
   );

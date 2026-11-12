@@ -12,5 +12,7 @@ const value = ref('https://moduix.dev/docs/qr-code');
       <QrCodePattern />
     </QrCodeFrame>
   </QrCode>
-  <output>Encoded content: {{ value || 'empty' }}</output>
+  <div data-preview-meta>
+    <output>Encoded content: {{ value || 'empty' }}</output>
+  </div>
 </template>

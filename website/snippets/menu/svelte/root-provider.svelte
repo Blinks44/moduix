@@ -46,5 +46,7 @@
       </MenuContext>
     </MenuRootProvider>
   </Stack>
-  <Button size="sm" onclick={highlightCopy}>Highlight Copy</Button>
+  <div data-preview-meta>
+    <Button size="sm" onclick={highlightCopy}>Highlight Copy</Button>
+  </div>
 </div>

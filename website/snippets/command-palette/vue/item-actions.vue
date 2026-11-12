@@ -113,5 +113,7 @@ const handleSelect = (details: { itemValue: string }) => {
       </CommandPaletteCombobox>
     </CommandPalettePanel>
   </CommandPalette>
-  <output>Last action: {{ lastAction }}</output>
+  <div data-preview-meta>
+    <output>Last action: {{ lastAction }}</output>
+  </div>
 </template>
