@@ -1,5 +1,13 @@
 # @moduix/solid-tailwind
 
+## 3.3.1
+
+### Patch Changes
+
+### Split Button
+
+- 77c0a86: Fix the `solid` export condition build, which lost the `Menu` root import, so bundlers using that condition, such as `vite-plugin-solid`, rendered the menu without its root and threw a missing `PresenceProvider` error.
+
 ## 3.3.0
 
 ### Minor Changes
