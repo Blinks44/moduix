@@ -178,14 +178,38 @@
   font-size: 12px;
 }
 
+/* The panel is the only scroll container, in both directions. Rspress gives each block its own
+   scroll (`defaultCodeOverflow` sets an inline max-height), and a wheel or trackpad gesture that
+   latched onto a nested block stalled the panel. The grid column takes the widest block, so every
+   block keeps a full-width background. */
 .code {
+  display: grid;
+  grid-template-columns: minmax(max-content, 1fr);
   max-height: 520px;
   overflow: auto;
 
   :global(.rp-codeblock) {
     margin: 0;
+    overflow: visible;
+    contain: none;
     border: 0;
     border-radius: 0;
+  }
+
+  /* Keeps the file name in view while wide code scrolls sideways. */
+  :global(.rp-codeblock__title) {
+    position: sticky;
+    inset-inline-start: 0;
+    max-width: 100cqi;
+  }
+
+  :global(.rp-codeblock__content--scroll) {
+    max-height: none !important;
+    overflow: visible;
+  }
+
+  :global(.rp-codeblock__content__scroll-container) {
+    overflow: visible;
   }
 
   :global(.rp-codeblock) + :global(.rp-codeblock) {
