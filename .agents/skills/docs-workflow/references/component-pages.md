@@ -8,12 +8,15 @@ established flat naming contract everywhere. Treat any remaining dotted moduix e
 site-wide framework and styling support matrix or explain which runtime powers a documentation preview.
 Call out availability only when a component has a real exception, such as a missing adapter or styling track.
 Show only installation choices that actually ship; an incomplete adapter or styling track must stay visibly unavailable.
-Keep non-React source display-only when it cannot run in the React-based documentation application.
 Render each standard example with `<Example name="<component>/<name>" />` at the top level of the page.
-`website/plugins/example-loader.js` expands it at build time into the React preview, the React, Solid,
-and Vue source tabs, and the CSS files the React example imports. It requires
-`src/components/examples/<component>/<name>.tsx`, `snippets/<component>/solid/<name>.tsx`, and
-`snippets/<component>/vue/<name>.vue`. Pass `width="sm"` or `clientOnly` through to `ExampleFrame`.
+`website/plugins/example-loader.js` expands it at build time into a live preview of the selected
+framework, the React, Solid, Vue, and Svelte sources, the CSS files the React example imports, and
+a StackBlitz project per framework. It requires `src/components/examples/<component>/<name>.tsx`,
+`snippets/<component>/solid/<name>.tsx`, `snippets/<component>/vue/<name>.vue`, and
+`snippets/<component>/svelte/<name>.svelte`. Every snippet must run on its own: its default export
+renders without props. A Vue or Svelte example that only works inside a parent, such as a provider,
+adds `<name>.preview.vue` or `<name>.preview.svelte` with that parent; the preview and StackBlitz run it
+while the page shows `<name>`. Pass `width="sm"` or `clientOnly` through to `ExampleFrame`.
 Write the explicit `ExampleFrame` and `ExampleCode` markup only when an example needs a `PreviewFrame`,
 extra source files, or a missing framework.
 

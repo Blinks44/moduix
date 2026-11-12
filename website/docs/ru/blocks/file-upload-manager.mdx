@@ -10,6 +10,7 @@ import fileUploadManagerVue from '../../../snippets/blocks/vue/file-upload-manag
 import fileUploadManagerSvelte from '../../../snippets/blocks/svelte/file-upload-manager.svelte?raw';
 import fileUploadManagerReact from '../../../src/components/blocks/file-upload-manager.tsx?raw';
 import fileUploadManagerCss from '../../../src/components/blocks/file-upload-manager.module.css?raw';
+export const fileUploadManagerLive = { solid: () => import('../../../snippets/blocks/solid/file-upload-manager.tsx').then((module) => ({ default: module.FileUploadManager })), vue: () => import('../../../snippets/blocks/vue/file-upload-manager.vue'), svelte: () => import('../../../snippets/blocks/svelte/file-upload-manager.svelte') };
 
 # Загрузка файлов
 
@@ -18,7 +19,9 @@ import fileUploadManagerCss from '../../../src/components/blocks/file-upload-man
   sources={{ react: fileUploadManagerReact, solid: fileUploadManagerSolid, vue: fileUploadManagerVue, svelte: fileUploadManagerSvelte }}
   files={[{ name: 'file-upload-manager.module.css', code: fileUploadManagerCss }]}
 >
-  <FileUploadManager />
+  <FrameworkPreview live={fileUploadManagerLive}>
+    <FileUploadManager />
+  </FrameworkPreview>
 </ExamplePanel>
 
 Используйте этот блок в форме или рабочем сценарии, где пользователю нужно добавлять и проверять вложения.

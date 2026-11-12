@@ -33,8 +33,9 @@ or component-index pages, read [the framework-support contract](references/frame
 - Use public imports from the shipped or explicitly staged package the example documents. Current
   shipped package roots are `@moduix/react`, `@moduix/solid`, `@moduix/vue`, `@moduix/svelte`,
   `@moduix/react-tailwind`, `@moduix/solid-tailwind`, `@moduix/vue-tailwind`, and
-  `@moduix/svelte-tailwind`. Discover later adapters from package exports and registries. The documentation application runs React; do not silently present
-  its live preview as a different runtime or styling variant.
+  `@moduix/svelte-tailwind`. Discover later adapters from package exports and registries. Live previews run the framework
+  selected in the panel with CSS Modules; do not silently present a preview as a different styling
+  variant.
 - Keep prose and snippets consumer-facing, complete, and production-like. Do not hide required setup, callbacks, collection data, or Ark composition behind docs-only helpers.
 - Write the brand as lowercase `moduix`. In public docs, avoid contract wording such as "owns", "owned", and "ownership" (ru "владеет", fr "possède"): say what the part does (manages, controls, renders, handles), and call package versus copied registry source the install method.
 - Render every reader-facing package installation, dependency update, executable package, registry CLI, or skill installation command with Rspress `PackageManagerTabs`. Pass a manager-neutral command such as `install <package>` and set `dlx` for temporary executables. Do not hardcode npm, pnpm, Yarn, Bun, or Deno commands in MDX unless manager-specific behavior is the subject of the page.

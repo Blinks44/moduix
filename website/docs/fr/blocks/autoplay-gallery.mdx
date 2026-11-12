@@ -10,6 +10,7 @@ import autoplayGalleryVue from '../../../snippets/blocks/vue/autoplay-gallery.vu
 import autoplayGallerySvelte from '../../../snippets/blocks/svelte/autoplay-gallery.svelte?raw';
 import autoplayGalleryReact from '../../../src/components/blocks/autoplay-gallery.tsx?raw';
 import autoplayGalleryCss from '../../../src/components/blocks/autoplay-gallery.module.css?raw';
+export const autoplayGalleryLive = { solid: () => import('../../../snippets/blocks/solid/autoplay-gallery.tsx').then((module) => ({ default: module.AutoplayGallery })), vue: () => import('../../../snippets/blocks/vue/autoplay-gallery.vue'), svelte: () => import('../../../snippets/blocks/svelte/autoplay-gallery.svelte') };
 
 # Galerie à lecture automatique
 
@@ -18,7 +19,9 @@ import autoplayGalleryCss from '../../../src/components/blocks/autoplay-gallery.
   sources={{ react: autoplayGalleryReact, solid: autoplayGallerySolid, vue: autoplayGalleryVue, svelte: autoplayGallerySvelte }}
   files={[{ name: 'autoplay-gallery.module.css', code: autoplayGalleryCss }]}
 >
-  <AutoplayGallery />
+  <FrameworkPreview live={autoplayGalleryLive}>
+    <AutoplayGallery />
+  </FrameworkPreview>
 </ExamplePanel>
 
 Utilisez cette composition pour du contenu mis en avant qui défile automatiquement tout en restant facile à parcourir.

@@ -1,5 +1,11 @@
+import { pluginBabel } from '@rsbuild/plugin-babel';
+import { pluginSolid } from '@rsbuild/plugin-solid';
+import { pluginSvelte } from '@rsbuild/plugin-svelte';
+import { pluginVue } from '@rsbuild/plugin-vue';
 import { defineConfig } from '@rspress/core';
 import { pluginPreview } from '@rspress/plugin-preview';
+import { globSync } from 'node:fs';
+import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { pluginLastUpdatedDate } from './plugins/last-updated-date';
 import { moduixShikiTheme } from './theme/shiki-theme';
@@ -31,6 +37,11 @@ const locales = [
       'Доступные компоненты для React, Solid, Vue и Svelte на базе Ark UI. Один API во всех фреймворках, стили на CSS Modules или Tailwind CSS. Установка из npm или копирование исходников через CLI shadcn.',
   },
 ];
+const blockStyles = new Map(
+  globSync('src/components/blocks/**/*.module.css', {
+    cwd: fileURLToPath(new URL('.', import.meta.url)),
+  }).map((file) => [`./${path.basename(file)}`, fileURLToPath(new URL(file, import.meta.url))]),
+);
 const socialImage = `${siteOrigin}/banner.jpg`;
 const socialImageAlt = 'moduix component library';
 
@@ -102,6 +113,23 @@ export default defineConfig({
     },
   },
   builderConfig: {
+    dev: {
+      // Live previews import snippets and framework runtimes on demand. Lazily compiled, they arrive
+      // as hot updates that fail on the first load in dev, so they compile with their page instead.
+      lazyCompilation: {
+        test: (module) =>
+          !/[\\/](?:snippets|node_modules)[\\/]/.test(module.nameForCondition() ?? ''),
+      },
+    },
+    plugins: [
+      // Solid JSX goes through Babel before SWC compiles the React JSX of the rest of the site. The
+      // `.jsx` files are the Solid builds of `@moduix/solid`, Ark Solid, and Lucide Solid.
+      pluginBabel({ include: [/[\\/]snippets[\\/].+[\\/]solid[\\/].+\.tsx$/, /\.jsx$/] }),
+      pluginSolid(),
+      pluginVue(),
+      // Svelte 5 strips TypeScript itself; svelte-preprocess would downlevel `$props()` destructuring.
+      pluginSvelte({ svelteLoaderOptions: { preprocess: [] } }),
+    ],
     resolve: {
       alias: {
         '@/registry/react/ui': fileURLToPath(
@@ -113,7 +141,31 @@ export default defineConfig({
       template: fileURLToPath(new URL('./index.html', import.meta.url)),
     },
     tools: {
-      rspack: (_, { addRules }) => {
+      // The example loader imports `?raw` sources, which the Vue and Svelte loaders would compile.
+      bundlerChain: (chain, { CHAIN_ID }) => {
+        for (const id of [CHAIN_ID.RULE.VUE, CHAIN_ID.RULE.SVELTE]) {
+          chain.module.rule(id).resourceQuery({ not: /[?&]raw(?:&|=|$)/ });
+        }
+      },
+      rspack: (_, { addRules, appendPlugins, rspack }) => {
+        // Block snippets use the paths of installed registry code: components by their registry
+        // paths and styles next to the block, which the site keeps in `src/components/blocks`.
+        appendPlugins(
+          new rspack.NormalModuleReplacementPlugin(
+            /^(?:@\/|\.\/[\w-]+\.module\.css$)/,
+            (resource) => {
+              const framework = resource.context.match(
+                /[\\/]snippets[\\/].+[\\/](solid|vue|svelte)$/,
+              )?.[1];
+              if (!framework) return;
+              const component = resource.request.match(
+                /^@\/(?:components|registry\/\w+)\/ui\/(.+)$/,
+              )?.[1];
+              if (component) resource.request = `@moduix/${framework}/${component}`;
+              else resource.request = blockStyles.get(resource.request) ?? resource.request;
+            },
+          ),
+        );
         addRules({
           test: /\.mdx$/,
           enforce: 'pre',

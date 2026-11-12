@@ -2,7 +2,9 @@
   width: 100%;
   contain: layout;
 
-  > div {
+  /* The shell root, also inside the `display: contents` host of a Solid, Vue, or Svelte preview. */
+  > div:not([data-live-preview]),
+  > [data-live-preview] > div {
     min-height: 38rem;
   }
   h1 {

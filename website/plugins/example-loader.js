@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { exampleProject } from './example-project.js';
 
 // Expands `<Example name="button/basic" />` in MDX into an `ExamplePanel` with the live React
-// preview and the raw React, Solid, Vue, Svelte, and CSS sources, and `<Usage />` into the raw sources of the
+// preview, lazy Solid, Vue, and Svelte previews, and the raw React, Solid, Vue, Svelte, and CSS sources, and `<Usage />` into the raw sources of the
 // Basic example named after the page file (`button.mdx` uses `button/basic`). It runs as a loader,
 // not a remark plugin, because Rspress skips custom remark plugins when it renders the Markdown pages
 // used by llms.txt.
@@ -24,6 +24,12 @@ function cssImports(reactFile) {
       ? path.join(websiteRoot, 'src', specifier.slice(2))
       : path.join(path.dirname(reactFile), specifier),
   );
+}
+
+// A Vue or Svelte example that needs a parent, such as a provider, runs from its `<name>.preview` file.
+function previewFile(file) {
+  const wrapper = file.replace(/(\.\w+)$/, '.preview$1');
+  return existsSync(wrapper) ? wrapper : file;
 }
 
 export default function exampleLoader(source) {
@@ -50,7 +56,7 @@ export default function exampleLoader(source) {
     imports.add(`import ${identifier}Solid from '${relative(solidFile)}?raw';`);
     imports.add(`import ${identifier}Vue from '${relative(vueFile)}?raw';`);
     imports.add(`import ${identifier}Svelte from '${relative(svelteFile)}?raw';`);
-    return { identifier, reactFile, dir, base };
+    return { identifier, reactFile, solidFile, vueFile, svelteFile, dir, base };
   };
   const sources = (identifier) =>
     `{{ react: ${identifier}React, solid: ${identifier}Solid, vue: ${identifier}Vue, svelte: ${identifier}Svelte }}`;
@@ -62,16 +68,28 @@ export default function exampleLoader(source) {
       () => `<UsageCode sources=${sources(addSources(`${page}/basic`).identifier)} />`,
     )
     .replace(examplePattern, (_, name, attributes) => {
-      const { identifier, reactFile, dir, base } = addSources(name);
+      const { identifier, reactFile, solidFile, vueFile, svelteFile, dir, base } = addSources(name);
       imports.add(`import ${identifier} from '@/components/examples/${dir}/${base}.tsx';`);
+      // A module-level object keeps the loaders stable across renders of the panel.
+      imports.add(
+        `export const ${identifier}Live = { solid: () => import('${relative(solidFile)}'), vue: () => import('${relative(previewFile(vueFile))}'), svelte: () => import('${relative(previewFile(svelteFile))}') };`,
+      );
       const files = cssImports(reactFile).map((file, index) => {
         imports.add(`import ${identifier}Css${index} from '${relative(file)}?raw';`);
         return `{ name: '${path.basename(file)}', code: ${identifier}Css${index} }`;
       });
 
-      const project = exampleProject(reactFile, (file) => this.addDependency(file));
-      return `<ExamplePanel${attributes} project={${JSON.stringify(project)}} sources=${sources(identifier)} files={[${files.join(', ')}]}>
-  <${identifier} />
+      const addDependency = (file) => this.addDependency(file);
+      const projects = {
+        react: exampleProject(reactFile, addDependency),
+        solid: exampleProject(solidFile, addDependency),
+        vue: exampleProject(previewFile(vueFile), addDependency),
+        svelte: exampleProject(previewFile(svelteFile), addDependency),
+      };
+      return `<ExamplePanel${attributes} projects={${JSON.stringify(projects)}} sources=${sources(identifier)} files={[${files.join(', ')}]}>
+  <FrameworkPreview live={${identifier}Live}>
+    <${identifier} />
+  </FrameworkPreview>
 </ExamplePanel>`;
     });
 

@@ -252,9 +252,9 @@
     "fr": "Copié"
   },
   "exampleRenderer": {
-    "en": "Preview runs React · CSS Modules",
-    "ru": "Превью работает на React · CSS Modules",
-    "fr": "L’aperçu utilise React · CSS Modules"
+    "en": "Preview uses CSS Modules",
+    "ru": "Превью использует CSS Modules",
+    "fr": "L’aperçu utilise CSS Modules"
   },
   "showCode": {
     "en": "Show code",

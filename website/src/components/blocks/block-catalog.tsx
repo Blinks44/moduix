@@ -5,7 +5,7 @@ import type { ReactNode } from 'react';
 import { ScaledPreview } from '../docs/scaled-preview';
 import { AnalyticsOverview } from './analytics-overview';
 import { AppHeader } from './app-header';
-import { AppShellExample } from './app-shell/app-shell-example';
+import { AppShellExample, AppShellPreview } from './app-shell/app-shell-example';
 import { AutoplayGallery } from './autoplay-gallery';
 import styles from './block-catalog.module.css';
 import DataTableBasic from './data-table/basic';
@@ -26,7 +26,15 @@ const prevent = (event: { preventDefault: () => void }) => event.preventDefault(
 const blocks: { slug: string; width: number; preview: ReactNode }[] = [
   { slug: 'app-header', width: 760, preview: <AppHeader /> },
   { slug: 'sidebar-dashboard', width: 1000, preview: <SidebarDashboard /> },
-  { slug: 'app-shell', width: 1280, preview: <AppShellExample /> },
+  {
+    slug: 'app-shell',
+    width: 1280,
+    preview: (
+      <AppShellPreview>
+        <AppShellExample />
+      </AppShellPreview>
+    ),
+  },
   { slug: 'login-simple', width: 420, preview: <LoginSimple onSubmit={prevent} /> },
   { slug: 'sign-up', width: 420, preview: <SignUp onSubmit={prevent} /> },
   { slug: 'forgot-password', width: 420, preview: <ForgotPassword onSubmit={prevent} /> },

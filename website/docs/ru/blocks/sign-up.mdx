@@ -14,6 +14,7 @@ import signUpRouteVue from '../../../snippets/blocks/vue/sign-up-route.vue?raw';
 import signUpRouteSvelte from '../../../snippets/blocks/svelte/sign-up-route.svelte?raw';
 import signUpReact from '../../../src/components/blocks/sign-up/sign-up.tsx?raw';
 import signUpCss from '../../../src/components/blocks/sign-up/sign-up-form.module.css?raw';
+export const signUpLive = { solid: () => import('../../../snippets/blocks/solid/sign-up.tsx').then((module) => ({ default: module.SignUp })), vue: () => import('../../../snippets/blocks/vue/sign-up.vue'), svelte: () => import('../../../snippets/blocks/svelte/sign-up.svelte') };
 
 # Регистрация
 
@@ -23,7 +24,9 @@ import signUpCss from '../../../src/components/blocks/sign-up/sign-up-form.modul
   files={[{ name: 'sign-up-form.module.css', code: signUpCss }]}
 >
   <PreviewFrame maxWidth="sm">
-    <SignUp onSubmit={(event) => event.preventDefault()} />
+    <FrameworkPreview live={signUpLive}>
+      <SignUp onSubmit={(event) => event.preventDefault()} />
+    </FrameworkPreview>
   </PreviewFrame>
 </ExamplePanel>
 

@@ -10,6 +10,7 @@ import verificationCodeVue from '../../../snippets/blocks/vue/verification-code.
 import verificationCodeSvelte from '../../../snippets/blocks/svelte/verification-code.svelte?raw';
 import verificationCodeReact from '../../../src/components/blocks/verification-code/verification-code.tsx?raw';
 import verificationCodeCss from '../../../src/components/blocks/verification-code/verification-code-form.module.css?raw';
+export const verificationCodeLive = { solid: () => import('../../../snippets/blocks/solid/verification-code.tsx').then((module) => ({ default: module.VerificationCode })), vue: () => import('../../../snippets/blocks/vue/verification-code.vue'), svelte: () => import('../../../snippets/blocks/svelte/verification-code.svelte') };
 
 # Verification code
 
@@ -19,7 +20,9 @@ import verificationCodeCss from '../../../src/components/blocks/verification-cod
   files={[{ name: 'verification-code-form.module.css', code: verificationCodeCss }]}
 >
   <PreviewFrame maxWidth="sm">
-    <VerificationCode onSubmit={(event) => event.preventDefault()} />
+    <FrameworkPreview live={verificationCodeLive}>
+      <VerificationCode onSubmit={(event) => event.preventDefault()} />
+    </FrameworkPreview>
   </PreviewFrame>
 </ExamplePanel>
 

@@ -10,6 +10,7 @@ import expandableAvatarGroupVue from '../../../snippets/blocks/vue/expandable-av
 import expandableAvatarGroupSvelte from '../../../snippets/blocks/svelte/expandable-avatar-group.svelte?raw';
 import expandableAvatarGroupReact from '../../../src/components/blocks/expandable-avatar-group.tsx?raw';
 import expandableAvatarGroupCss from '../../../src/components/blocks/expandable-avatar-group.module.css?raw';
+export const expandableAvatarGroupLive = { solid: () => import('../../../snippets/blocks/solid/expandable-avatar-group.tsx').then((module) => ({ default: module.ExpandableAvatarGroup })), vue: () => import('../../../snippets/blocks/vue/expandable-avatar-group.vue'), svelte: () => import('../../../snippets/blocks/svelte/expandable-avatar-group.svelte') };
 
 # Expandable avatar group
 
@@ -19,7 +20,9 @@ import expandableAvatarGroupCss from '../../../src/components/blocks/expandable-
   files={[{ name: 'expandable-avatar-group.module.css', code: expandableAvatarGroupCss }]}
 >
   <PreviewFrame maxWidth="sm">
-    <ExpandableAvatarGroup />
+    <FrameworkPreview live={expandableAvatarGroupLive}>
+      <ExpandableAvatarGroup />
+    </FrameworkPreview>
   </PreviewFrame>
 </ExamplePanel>
 

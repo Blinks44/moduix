@@ -1462,6 +1462,18 @@ importers:
       '@moduix/vue-tailwind':
         specifier: workspace:*
         version: link:../packages/vue-tailwind
+      '@rsbuild/plugin-babel':
+        specifier: 'catalog:'
+        version: 2.1.0(@rsbuild/core@2.3.0)(@rspack/core@2.3.1(@swc/helpers@0.5.23))(supports-color@10.2.2)
+      '@rsbuild/plugin-solid':
+        specifier: 'catalog:'
+        version: 1.2.2(@babel/core@7.29.7(supports-color@10.2.2))(@rsbuild/core@2.3.0)(solid-js@1.9.18)(supports-color@10.2.2)
+      '@rsbuild/plugin-svelte':
+        specifier: 'catalog:'
+        version: 2.0.1(@babel/core@7.29.7(supports-color@10.2.2))(@rsbuild/core@2.3.0)(svelte@5.57.3)(typescript@6.0.3)
+      '@rsbuild/plugin-vue':
+        specifier: 'catalog:'
+        version: 2.0.1(@rsbuild/core@2.3.0)(@rspack/core@2.3.1(@swc/helpers@0.5.23))(vue@3.5.45(typescript@6.0.3))
       '@rspress/plugin-preview':
         specifier: ^2.1.1
         version: 2.1.1(@rspack/core@2.3.1(@swc/helpers@0.5.23))(@rspress/core@2.1.1(@rspack/core@2.3.1(@swc/helpers@0.5.23))(micromark-util-types@2.0.2)(micromark@4.0.2(supports-color@10.2.2))(supports-color@10.2.2))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
@@ -10333,6 +10345,19 @@ snapshots:
     transitivePeerDependencies:
       - '@module-federation/runtime-tools'
 
+  '@rsbuild/plugin-babel@1.2.1(@rsbuild/core@2.3.0)(supports-color@10.2.2)':
+    dependencies:
+      '@babel/core': 7.29.7(supports-color@10.2.2)
+      '@babel/plugin-proposal-decorators': 7.29.7(@babel/core@7.29.7(supports-color@10.2.2))(supports-color@10.2.2)
+      '@babel/plugin-transform-class-properties': 7.29.7(@babel/core@7.29.7(supports-color@10.2.2))(supports-color@10.2.2)
+      '@babel/preset-typescript': 7.29.7(@babel/core@7.29.7(supports-color@10.2.2))(supports-color@10.2.2)
+      '@types/babel__core': 7.20.5
+      reduce-configs: 1.1.2
+    optionalDependencies:
+      '@rsbuild/core': 2.3.0
+    transitivePeerDependencies:
+      - supports-color
+
   '@rsbuild/plugin-babel@1.2.1(@rsbuild/core@2.3.1)(supports-color@10.2.2)':
     dependencies:
       '@babel/core': 7.29.7(supports-color@10.2.2)
@@ -10345,6 +10370,22 @@ snapshots:
       '@rsbuild/core': 2.3.1
     transitivePeerDependencies:
       - supports-color
+
+  '@rsbuild/plugin-babel@2.1.0(@rsbuild/core@2.3.0)(@rspack/core@2.3.1(@swc/helpers@0.5.23))(supports-color@10.2.2)':
+    dependencies:
+      '@babel/core': 7.29.7(supports-color@10.2.2)
+      '@babel/plugin-proposal-decorators': 7.29.7(@babel/core@7.29.7(supports-color@10.2.2))(supports-color@10.2.2)
+      '@babel/plugin-transform-class-properties': 7.29.7(@babel/core@7.29.7(supports-color@10.2.2))(supports-color@10.2.2)
+      '@babel/preset-typescript': 7.29.7(@babel/core@7.29.7(supports-color@10.2.2))(supports-color@10.2.2)
+      '@types/babel__core': 7.20.5
+      babel-loader: 10.1.1(@babel/core@7.29.7(supports-color@10.2.2))(@rspack/core@2.3.1(@swc/helpers@0.5.23))(webpack@5.109.2(clean-css@5.3.3)(esbuild@0.28.2)(html-minifier-terser@7.2.0)(lightningcss@1.33.0)(postcss@8.5.31))
+      reduce-configs: 1.1.2
+    optionalDependencies:
+      '@rsbuild/core': 2.3.0
+    transitivePeerDependencies:
+      - '@rspack/core'
+      - supports-color
+      - webpack
 
   '@rsbuild/plugin-babel@2.1.0(@rsbuild/core@2.3.1)(@rspack/core@2.3.1(@swc/helpers@0.5.23))(supports-color@10.2.2)(webpack@5.109.2(clean-css@5.3.3)(esbuild@0.28.2)(html-minifier-terser@7.2.0)(lightningcss@1.33.0)(postcss@8.5.31))':
     dependencies:
@@ -10380,6 +10421,18 @@ snapshots:
     transitivePeerDependencies:
       - '@rspack/core'
 
+  '@rsbuild/plugin-solid@1.2.2(@babel/core@7.29.7(supports-color@10.2.2))(@rsbuild/core@2.3.0)(solid-js@1.9.18)(supports-color@10.2.2)':
+    dependencies:
+      '@rsbuild/plugin-babel': 1.2.1(@rsbuild/core@2.3.0)(supports-color@10.2.2)
+      babel-preset-solid: 1.9.15(@babel/core@7.29.7(supports-color@10.2.2))(solid-js@1.9.18)
+      solid-refresh: 0.6.3(solid-js@1.9.18)(supports-color@10.2.2)
+    optionalDependencies:
+      '@rsbuild/core': 2.3.0
+    transitivePeerDependencies:
+      - '@babel/core'
+      - solid-js
+      - supports-color
+
   '@rsbuild/plugin-solid@1.2.2(@babel/core@7.29.7(supports-color@10.2.2))(@rsbuild/core@2.3.1)(solid-js@1.9.18)(supports-color@10.2.2)':
     dependencies:
       '@rsbuild/plugin-babel': 1.2.1(@rsbuild/core@2.3.1)(supports-color@10.2.2)
@@ -10391,6 +10444,25 @@ snapshots:
       - '@babel/core'
       - solid-js
       - supports-color
+
+  '@rsbuild/plugin-svelte@2.0.1(@babel/core@7.29.7(supports-color@10.2.2))(@rsbuild/core@2.3.0)(svelte@5.57.3)(typescript@6.0.3)':
+    dependencies:
+      svelte: 5.57.3
+      svelte-loader: 3.2.4(svelte@5.57.3)
+      svelte-preprocess: 6.0.5(@babel/core@7.29.7(supports-color@10.2.2))(postcss@8.5.31)(pug@3.0.4)(svelte@5.57.3)(typescript@6.0.3)
+    optionalDependencies:
+      '@rsbuild/core': 2.3.0
+    transitivePeerDependencies:
+      - '@babel/core'
+      - coffeescript
+      - less
+      - postcss
+      - postcss-load-config
+      - pug
+      - sass
+      - stylus
+      - sugarss
+      - typescript
 
   '@rsbuild/plugin-svelte@2.0.1(@babel/core@7.29.7(supports-color@10.2.2))(@rsbuild/core@2.3.1)(postcss@8.5.31)(pug@3.0.4)(svelte@5.57.3)(typescript@6.0.3)':
     dependencies:
@@ -10419,6 +10491,16 @@ snapshots:
     transitivePeerDependencies:
       - '@rspack/core'
       - webpack
+
+  '@rsbuild/plugin-vue@2.0.1(@rsbuild/core@2.3.0)(@rspack/core@2.3.1(@swc/helpers@0.5.23))(vue@3.5.45(typescript@6.0.3))':
+    dependencies:
+      rspack-vue-loader: 17.7.1(@rspack/core@2.3.1(@swc/helpers@0.5.23))(vue@3.5.45(typescript@6.0.3))
+    optionalDependencies:
+      '@rsbuild/core': 2.3.0
+    transitivePeerDependencies:
+      - '@rspack/core'
+      - '@vue/compiler-sfc'
+      - vue
 
   '@rsbuild/plugin-vue@2.0.1(@rsbuild/core@2.3.1)(@vue/compiler-sfc@3.5.44)(vue@3.5.45(typescript@6.0.3))':
     dependencies:
@@ -15580,6 +15662,14 @@ snapshots:
     optionalDependencies:
       '@microsoft/api-extractor': 7.59.1(@types/node@24.19.2)
       typescript: 7.0.2
+
+  rspack-vue-loader@17.7.1(@rspack/core@2.3.1(@swc/helpers@0.5.23))(vue@3.5.45(typescript@6.0.3)):
+    dependencies:
+      '@rspack/lite-tapable': 1.1.5
+      chalk: 4.1.2
+    optionalDependencies:
+      '@rspack/core': 2.3.1(@swc/helpers@0.5.23)
+      vue: 3.5.45(typescript@6.0.3)
 
   rspack-vue-loader@17.7.1(@vue/compiler-sfc@3.5.44)(vue@3.5.45(typescript@6.0.3)):
     dependencies:

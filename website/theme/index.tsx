@@ -63,6 +63,7 @@ import {
   StyleTrackCards,
 } from '@/components/mdx/Components';
 import { ExamplePanel, FrameworkCode } from '@/components/mdx/example-panel';
+import { FrameworkPreview } from '@/components/mdx/live-preview';
 import { UsageCode } from '@/components/mdx/usage';
 import { Tag } from './components/Tag';
 import { moduixShikiTheme } from './shiki-theme';
@@ -303,6 +304,7 @@ const mdxComponents = {
   ExampleFrame,
   ExamplePanel,
   FrameworkCode,
+  FrameworkPreview,
   PreviewFrame,
   PackageManagerTabs,
   BlockInstall,

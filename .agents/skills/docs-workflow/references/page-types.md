@@ -162,8 +162,10 @@ Use this structure (Sign in is the reference, after the "Docs · Block · Sign i
 1. frontmatter `block: <name>` adds the "Blocks / <section>" breadcrumb from the sidebar and the
    Source and Report issue links; the description states the product outcome, so the page has no
    separate intro;
-2. one `ExamplePanel` with the live preview, the native source of every supported framework in
-   `sources`, and the shared stylesheet in `files`;
+2. one `ExamplePanel` with the native source of every supported framework in `sources`, the shared
+   stylesheet in `files`, and the React block wrapped in `<FrameworkPreview live={...}>`. Declare
+   `live` with a module-level `export const` of `solid`, `vue`, and `svelte` lazy imports, mapping a
+   named Solid export to `default`;
 3. `## Install` with `BlockInstall`: one shadcn command for the framework and styling chosen in the
    panel, and the UI components it adds, read from `website/registry.json`;
 4. the smallest integration step for routes, data, authentication, uploads, or other product logic
@@ -172,7 +174,7 @@ Use this structure (Sign in is the reference, after the "Docs · Block · Sign i
 5. only the customization, responsive, accessibility, motion, and production-state guidance that is
    specific to the block, as short tables or lists.
 
-The panel renders the React source and labels other selections honestly. Keep one framework-neutral
+The panel renders the selected framework with CSS Modules and labels the Tailwind selection. Keep one framework-neutral
 stylesheet when the visual contract is shared. A block may use the full documentation canvas when its
 layout, spatial relationships, or responsive shell are part of the lesson. Wrap narrow flows such as
 authentication forms in `<PreviewFrame maxWidth="sm">`; keep that width consistent across locales.

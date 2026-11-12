@@ -10,6 +10,7 @@ import analyticsOverviewVue from '../../../snippets/blocks/vue/analytics-overvie
 import analyticsOverviewSvelte from '../../../snippets/blocks/svelte/analytics-overview.svelte?raw';
 import analyticsOverviewReact from '../../../src/components/blocks/analytics-overview.tsx?raw';
 import analyticsOverviewCss from '../../../src/components/blocks/analytics-overview.module.css?raw';
+export const analyticsOverviewLive = { solid: () => import('../../../snippets/blocks/solid/analytics-overview.tsx'), vue: () => import('../../../snippets/blocks/vue/analytics-overview.vue'), svelte: () => import('../../../snippets/blocks/svelte/analytics-overview.svelte') };
 
 # Analytics overview
 
@@ -18,7 +19,9 @@ import analyticsOverviewCss from '../../../src/components/blocks/analytics-overv
   sources={{ react: analyticsOverviewReact, solid: analyticsOverviewSolid, vue: analyticsOverviewVue, svelte: analyticsOverviewSvelte }}
   files={[{ name: 'analytics-overview.module.css', code: analyticsOverviewCss }]}
 >
-  <AnalyticsOverview />
+  <FrameworkPreview live={analyticsOverviewLive}>
+    <AnalyticsOverview />
+  </FrameworkPreview>
 </ExamplePanel>
 
 Use this block at the top of a dashboard to show a few key numbers and how they changed. Each card

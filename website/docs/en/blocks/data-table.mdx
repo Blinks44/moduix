@@ -22,6 +22,9 @@ import dataTableBasicReact from '../../../src/components/blocks/data-table/basic
 import dataTableBasicCss from '../../../src/components/blocks/data-table/payment-table.module.css?raw';
 import dataTableReact from '../../../src/components/blocks/data-table/sorting-filtering-and-pagination.tsx?raw';
 import dataTableCss from '../../../src/components/blocks/data-table/payment-table.module.css?raw';
+export const dataTableCatalogLive = { solid: () => import('../../../snippets/blocks/solid/data-table-component-catalog.tsx').then((module) => ({ default: module.DataTable })), vue: () => import('../../../snippets/blocks/vue/data-table.vue'), svelte: () => import('../../../snippets/blocks/svelte/data-table.svelte') };
+export const dataTableBasicLive = { solid: () => import('../../../snippets/blocks/solid/data-table-basic.tsx'), vue: () => import('../../../snippets/blocks/vue/data-table-basic.vue'), svelte: () => import('../../../snippets/blocks/svelte/data-table-basic.svelte') };
+export const dataTableLive = { solid: () => import('../../../snippets/blocks/solid/data-table.tsx'), vue: () => import('../../../snippets/blocks/vue/data-table-controls.vue'), svelte: () => import('../../../snippets/blocks/svelte/data-table-controls.svelte') };
 
 # Data Table
 
@@ -30,7 +33,9 @@ import dataTableCss from '../../../src/components/blocks/data-table/payment-tabl
   sources={{ react: dataTableCatalogReact, solid: dataTableCatalogSolid, vue: dataTableVue, svelte: dataTableSvelte }}
   files={[{ name: 'data-table.module.css', code: dataTableCatalogCss }]}
 >
-  <DataTable />
+  <FrameworkPreview live={dataTableCatalogLive}>
+    <DataTable />
+  </FrameworkPreview>
 </ExamplePanel>
 
 `Data Table` is a composition pattern, not a component exported by moduix. Use the semantic and
@@ -106,7 +111,9 @@ features only when the table needs them.
   files={[{ name: 'payment-table.module.css', code: dataTableBasicCss }]}
 >
   <PreviewFrame maxWidth="lg">
-    <DataTableBasic />
+    <FrameworkPreview live={dataTableBasicLive}>
+      <DataTableBasic />
+    </FrameworkPreview>
   </PreviewFrame>
 </ExamplePanel>
 
@@ -143,7 +150,9 @@ Import the individual built-in filter and sort functions that a table uses and r
   sources={{ react: dataTableReact, solid: dataTableSolid, vue: dataTableControlsVue, svelte: dataTableControlsSvelte }}
   files={[{ name: 'payment-table.module.css', code: dataTableCss }]}
 >
-  <InteractiveDataTable />
+  <FrameworkPreview live={dataTableLive}>
+    <InteractiveDataTable />
+  </FrameworkPreview>
 </ExamplePanel>
 
 For a sortable header, render a real button inside `TableColumnHeader`. The example uses Lucide

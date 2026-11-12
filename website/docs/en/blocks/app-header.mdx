@@ -10,6 +10,7 @@ import appHeaderVue from '../../../snippets/blocks/vue/app-header.vue?raw';
 import appHeaderSvelte from '../../../snippets/blocks/svelte/app-header.svelte?raw';
 import appHeaderReact from '../../../src/components/blocks/app-header.tsx?raw';
 import appHeaderCss from '../../../src/components/blocks/app-header.module.css?raw';
+export const appHeaderLive = { solid: () => import('../../../snippets/blocks/solid/app-header.tsx').then((module) => ({ default: module.AppHeader })), vue: () => import('../../../snippets/blocks/vue/app-header.vue'), svelte: () => import('../../../snippets/blocks/svelte/app-header.svelte') };
 
 # App header
 
@@ -18,7 +19,9 @@ import appHeaderCss from '../../../src/components/blocks/app-header.module.css?r
   sources={{ react: appHeaderReact, solid: appHeaderSolid, vue: appHeaderVue, svelte: appHeaderSvelte }}
   files={[{ name: 'app-header.module.css', code: appHeaderCss }]}
 >
-  <AppHeader />
+  <FrameworkPreview live={appHeaderLive}>
+    <AppHeader />
+  </FrameworkPreview>
 </ExamplePanel>
 
 Use this header when your application has one main navigation level and a small set of global actions.
