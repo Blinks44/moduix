@@ -1,22 +1,20 @@
 <script lang="ts">
   import { createListCollection } from '@ark-ui/svelte/collection';
-  import { FieldLabel, FieldRoot as Field } from '@ark-ui/svelte/field';
+  import { Field, FieldLabel } from '@moduix/svelte/field';
+  import { Fieldset, FieldsetHelperText, FieldsetLegend } from '@moduix/svelte/fieldset';
+  import { Input } from '@moduix/svelte/input';
   import {
+    Select,
     SelectContent,
     SelectControl,
     SelectHiddenSelect,
     SelectIndicator,
-    SelectItem,
-    SelectItemIndicator,
-    SelectItemText,
     SelectLabel,
+    SelectOption,
     SelectPositioner,
-    SelectRoot,
     SelectTrigger,
     SelectValueText,
-  } from '@ark-ui/svelte/select';
-  import { Fieldset, FieldsetHelperText, FieldsetLegend } from '@moduix/svelte/fieldset';
-  import { Input } from '@moduix/svelte/input';
+  } from '@moduix/svelte/select';
   import styles from '@/components/examples/fieldset/fieldset-input-with-select.module.css';
 
   const countryCodes = createListCollection({
@@ -32,7 +30,7 @@
 <Fieldset class={styles.root}>
   <FieldsetLegend>Mobile number</FieldsetLegend>
   <div class={styles.phoneInput}>
-    <SelectRoot
+    <Select
       class={styles.countryCode}
       collection={countryCodes}
       defaultValue={['+1']}
@@ -48,15 +46,12 @@
       <SelectPositioner>
         <SelectContent>
           {#each countryCodes.items as item (item.value)}
-            <SelectItem {item}>
-              <SelectItemText>{item.label}</SelectItemText>
-              <SelectItemIndicator />
-            </SelectItem>
+            <SelectOption {item}>{item.label}</SelectOption>
           {/each}
         </SelectContent>
       </SelectPositioner>
       <SelectHiddenSelect />
-    </SelectRoot>
+    </Select>
     <Field>
       <FieldLabel>Phone</FieldLabel>
       <Input type="tel" aria-label="Phone number" />

@@ -7,6 +7,7 @@
     ImageCropperViewport,
     useImageCropper,
   } from '@moduix/svelte/image-cropper';
+  import { Stack } from '@moduix/svelte/stack';
 
   const sampleImage =
     'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=640&h=400&q=90';
@@ -33,7 +34,7 @@
   };
 </script>
 
-<div>
+<Stack align="center" gap="3">
   <ImageCropperRootProvider value={imageCropper} aria-label="Image cropper">
     <ImageCropperViewport>
       <ImageCropperImage src={sampleImage} alt="Landscape" crossorigin="anonymous" />
@@ -42,9 +43,9 @@
   </ImageCropperRootProvider>
   <div data-preview-meta>
     <output>{status}</output>
+    {#if preview}
+      <img src={preview} alt="Cropped preview" width="128" height="128" />
+    {/if}
+    <Button type="button" onclick={handleCrop}>Create crop preview</Button>
   </div>
-  {#if preview}
-    <img src={preview} alt="Cropped preview" width="128" height="128" />
-  {/if}
-  <Button type="button" onclick={handleCrop}>Create crop preview</Button>
-</div>
+</Stack>

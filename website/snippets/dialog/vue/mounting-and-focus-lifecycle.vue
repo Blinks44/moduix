@@ -11,19 +11,21 @@ import {
   DialogTrigger,
 } from '@moduix/vue/dialog';
 import { Field, FieldLabel } from '@moduix/vue/field';
-import { ref } from 'vue';
+import { Input } from '@moduix/vue/input';
+import { useTemplateRef } from 'vue';
+import type { ComponentPublicInstance } from 'vue';
 
-const inputRef = ref<HTMLInputElement | null>(null);
-const finalFocusRef = ref<HTMLElement | null>(null);
+const input = useTemplateRef<ComponentPublicInstance>('input');
+const finalFocus = useTemplateRef<ComponentPublicInstance>('finalFocus');
 </script>
 
 <template>
-  <Button ref="finalFocusRef">Final focus target</Button>
+  <Button ref="finalFocus">Final focus target</Button>
   <Dialog
     lazy-mount
     unmount-on-exit
-    :initial-focus-el="() => inputRef"
-    :final-focus-el="() => finalFocusRef"
+    :initial-focus-el="() => input?.$el"
+    :final-focus-el="() => finalFocus?.$el"
   >
     <DialogTrigger as-child><Button>Edit profile</Button></DialogTrigger>
     <DialogBackdrop />
@@ -33,7 +35,7 @@ const finalFocusRef = ref<HTMLElement | null>(null);
         <DialogBody>
           <Field>
             <FieldLabel>Name</FieldLabel>
-            <input ref="inputRef" />
+            <Input ref="input" />
           </Field>
         </DialogBody>
         <DialogCloseIcon />

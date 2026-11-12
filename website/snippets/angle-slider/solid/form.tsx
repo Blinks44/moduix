@@ -5,6 +5,7 @@ import {
   AngleSliderLabel,
   AngleSliderMarks,
 } from '@moduix/solid/angle-slider';
+import { Button } from '@moduix/solid/button';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/angle-slider/angle-slider-form.module.css';
 
@@ -29,7 +30,9 @@ export default function AngleSliderFormDemo() {
       </AngleSlider>
       <div data-preview-meta>
         <output>Submitted: {submitted()}</output>
-        <button type="submit">Submit</button>
+        <Button type="submit" size="sm">
+          Submit
+        </Button>
       </div>
     </form>
   );

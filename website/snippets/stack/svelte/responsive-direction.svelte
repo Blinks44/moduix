@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Stack } from '@moduix/svelte/stack';
+  import { Text } from '@moduix/svelte/text';
 </script>
 
 <Stack
@@ -8,6 +9,6 @@
   justify="center"
   style="inline-size: 100%"
 >
-  <strong>Adaptive layout</strong>
-  <span>Column on mobile, row from desktop width.</span>
+  <Text weight="semibold">Adaptive layout</Text>
+  <Text tone="muted">Column on mobile, row from desktop width.</Text>
 </Stack>

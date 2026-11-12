@@ -13,6 +13,7 @@ import {
   DatePickerMonthSelect,
   DatePickerYearSelect,
 } from '@moduix/solid/date-picker';
+import styles from '@/components/examples/date-picker/date-picker-month-year-select.module.css';
 
 export default function MonthYearSelectDatePickerDemo() {
   return (
@@ -21,20 +22,15 @@ export default function MonthYearSelectDatePickerDemo() {
       <DatePickerField />
       <DatePickerPositioner>
         <DatePickerContent>
-          <DatePickerViewControl>
-            <div
-              style={{
-                display: 'grid',
-                'grid-template-columns': 'minmax(7rem, 1fr) minmax(6.25rem, 1fr)',
-                gap: '0.25rem',
-                'min-width': '0',
-              }}
-            >
+          <DatePickerViewControl class={styles.control}>
+            <div class={styles.selects}>
               <DatePickerMonthSelect />
               <DatePickerYearSelect />
             </div>
-            <DatePickerPrevTrigger />
-            <DatePickerNextTrigger />
+            <div class={styles.nav}>
+              <DatePickerPrevTrigger />
+              <DatePickerNextTrigger />
+            </div>
           </DatePickerViewControl>
           <DatePickerView view="day">
             <DatePickerDayTable showHeader={false} />

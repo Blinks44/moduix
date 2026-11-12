@@ -16,6 +16,13 @@
     MenuTrigger,
     MenuViewport,
   } from '@moduix/svelte/menu';
+  import styles from '@/components/examples/breadcrumbs/breadcrumbs-collapsed-path.module.css';
+
+  const collapsedItems = [
+    { href: '/docs', label: 'Docs' },
+    { href: '/docs/quick-start', label: 'Quick Start' },
+    { href: '/docs/composition-patterns', label: 'Composition Patterns' },
+  ];
 </script>
 
 <Breadcrumbs>
@@ -32,21 +39,15 @@
           {/snippet}
         </MenuTrigger>
         <MenuPositioner>
-          <MenuContent>
+          <MenuContent class={styles.content}>
             <MenuViewport>
-              <MenuItem value="engineering">
-                {#snippet asChild(props)}<a {...props()} href="/engineering">Engineering</a
-                  >{/snippet}
-              </MenuItem>
-              <MenuItem value="backend">
-                {#snippet asChild(props)}<a {...props()} href="/engineering/backend">Backend</a
-                  >{/snippet}
-              </MenuItem>
-              <MenuItem value="golang">
-                {#snippet asChild(props)}<a {...props()} href="/engineering/backend/golang"
-                    >Golang</a
-                  >{/snippet}
-              </MenuItem>
+              {#each collapsedItems as item (item.href)}
+                <MenuItem value={item.href}>
+                  {#snippet asChild(props)}
+                    <a {...props()} href={item.href}>{item.label}</a>
+                  {/snippet}
+                </MenuItem>
+              {/each}
             </MenuViewport>
           </MenuContent>
         </MenuPositioner>
@@ -54,7 +55,7 @@
     </BreadcrumbsItem>
     <BreadcrumbsSeparator />
     <BreadcrumbsItem>
-      <BreadcrumbsLink href="/vacancies">Vacancies</BreadcrumbsLink>
+      <BreadcrumbsLink href="/docs/breadcrumbs">Breadcrumbs</BreadcrumbsLink>
     </BreadcrumbsItem>
     <BreadcrumbsSeparator />
     <BreadcrumbsItem><BreadcrumbsPage>Go Developer</BreadcrumbsPage></BreadcrumbsItem>

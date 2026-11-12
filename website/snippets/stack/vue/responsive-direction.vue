@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Stack } from '@moduix/vue/stack';
+import { Text } from '@moduix/vue/text';
 </script>
 
 <template>
@@ -9,7 +10,7 @@ import { Stack } from '@moduix/vue/stack';
     justify="center"
     style="inline-size: 100%"
   >
-    <strong>Adaptive layout</strong>
-    <span>Column on mobile, row from desktop width.</span>
+    <Text weight="semibold">Adaptive layout</Text>
+    <Text tone="muted">Column on mobile, row from desktop width.</Text>
   </Stack>
 </template>

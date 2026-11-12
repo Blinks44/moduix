@@ -1,3 +1,4 @@
+import { Button } from '@moduix/solid/button';
 import {
   SliderControl,
   SliderLabel,
@@ -29,9 +30,9 @@ export default function RootProviderSliderDemo() {
       </SliderRootProvider>
       <div data-preview-meta>
         <output>Current: {slider().value.join(', ')}</output>
-        <button type="button" onClick={() => slider().focus()}>
+        <Button onClick={() => slider().focus()} size="sm">
           Focus
-        </button>
+        </Button>
       </div>
     </Stack>
   );

@@ -14,6 +14,7 @@ import {
   useDialog,
 } from '@moduix/vue/dialog';
 import { Field, FieldLabel } from '@moduix/vue/field';
+import { Textarea } from '@moduix/vue/textarea';
 import { computed, ref } from 'vue';
 
 const formContent = ref('');
@@ -52,7 +53,7 @@ const handleDiscard = () => {
         <DialogBody>
           <Field>
             <FieldLabel>Content</FieldLabel>
-            <textarea v-model="formContent" placeholder="Enter some text..." rows="4" />
+            <Textarea v-model="formContent" placeholder="Enter some text..." :rows="4" />
           </Field>
         </DialogBody>
       </DialogContent>

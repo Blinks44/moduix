@@ -18,13 +18,14 @@ import {
 } from '@moduix/vue/hover-card';
 import { Stack } from '@moduix/vue/stack';
 import { ref } from 'vue';
+import type { ComponentPublicInstance } from 'vue';
 import styles from '@/components/examples/hover-card/hover-card-dialog.module.css';
 
-const titleRef = ref<HTMLElement | null>(null);
+const titleRef = ref<ComponentPublicInstance | null>(null);
 </script>
 
 <template>
-  <Dialog :initial-focus-el="() => titleRef">
+  <Dialog :initial-focus-el="() => titleRef?.$el">
     <DialogTrigger as-child><Button>View profile</Button></DialogTrigger>
     <DialogBackdrop />
     <DialogPositioner>

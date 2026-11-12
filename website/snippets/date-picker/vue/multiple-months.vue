@@ -12,6 +12,7 @@ import {
   DatePickerRangeText,
   DatePickerViewControl,
 } from '@moduix/vue/date-picker';
+import styles from '@/components/examples/date-picker/date-picker-multiple-months.module.css';
 </script>
 
 <template>
@@ -19,15 +20,15 @@ import {
     <DatePickerLabel>Planning window</DatePickerLabel>
     <DatePickerField />
     <DatePickerPositioner>
-      <DatePickerContent>
+      <DatePickerContent :class="styles.content">
         <DatePickerViewControl>
           <DatePickerPrevTrigger />
           <DatePickerRangeText />
           <DatePickerNextTrigger />
         </DatePickerViewControl>
-        <div>
-          <DatePickerDayTable :show-header="false" />
-          <DatePickerDayTable :offset="1" :show-header="false" />
+        <div :class="styles.months">
+          <DatePickerDayTable :class="styles.table" :show-header="false" />
+          <DatePickerDayTable :class="styles.table" :offset="1" :show-header="false" />
         </div>
       </DatePickerContent>
     </DatePickerPositioner>

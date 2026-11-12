@@ -13,22 +13,26 @@ import {
   DatePickerYearTable,
   useDatePicker,
 } from '@moduix/vue/date-picker';
+import { Stack } from '@moduix/vue/stack';
 
 const datePicker = useDatePicker({ defaultValue: [today('UTC')] });
 </script>
 
 <template>
-  <DatePickerRootProvider :value="datePicker">
-    <DatePickerLabel>Report date</DatePickerLabel><DatePickerField />
-    <DatePickerPositioner>
-      <DatePickerContent>
-        <DatePickerView view="day"><DatePickerDayTable /></DatePickerView
-        ><DatePickerView view="month"><DatePickerMonthTable /></DatePickerView
-        ><DatePickerView view="year"><DatePickerYearTable /></DatePickerView>
-      </DatePickerContent>
-    </DatePickerPositioner>
-  </DatePickerRootProvider>
-  <div data-preview-meta>
-    <Button size="sm" variant="secondary" @click="datePicker.clearValue()">Clear</Button>
-  </div>
+  <Stack align="center">
+    <DatePickerRootProvider :value="datePicker">
+      <DatePickerLabel>Report date</DatePickerLabel>
+      <DatePickerField />
+      <DatePickerPositioner>
+        <DatePickerContent>
+          <DatePickerView view="day"><DatePickerDayTable /></DatePickerView>
+          <DatePickerView view="month"><DatePickerMonthTable /></DatePickerView>
+          <DatePickerView view="year"><DatePickerYearTable /></DatePickerView>
+        </DatePickerContent>
+      </DatePickerPositioner>
+    </DatePickerRootProvider>
+    <div data-preview-meta>
+      <Button size="sm" variant="secondary" @click="datePicker.clearValue()">Clear</Button>
+    </div>
+  </Stack>
 </template>

@@ -5,6 +5,7 @@ import {
   ImageCropperImage,
   ImageCropperViewport,
 } from '@moduix/vue/image-cropper';
+import { Stack } from '@moduix/vue/stack';
 import { ref } from 'vue';
 
 const sampleImage =
@@ -14,7 +15,7 @@ const zoom = ref(1);
 </script>
 
 <template>
-  <div>
+  <Stack align="center" gap="3">
     <ImageCropper
       aria-label="Image cropper"
       @crop-change="crop = $event.crop"
@@ -31,5 +32,5 @@ const zoom = ref(1);
         {{ Math.round(crop.width) }} x {{ Math.round(crop.height) }}
       </output>
     </div>
-  </div>
+  </Stack>
 </template>

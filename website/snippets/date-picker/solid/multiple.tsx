@@ -14,10 +14,12 @@ import {
   DatePickerYearTable,
 } from '@moduix/solid/date-picker';
 import { For, Show } from 'solid-js';
+import styles from '@/components/examples/date-picker/date-picker-multiple.module.css';
 
 export default function MultipleDatePickerDemo() {
   return (
     <DatePicker
+      class={styles.root}
       selectionMode="multiple"
       defaultValue={[parseDate('2026-06-22'), parseDate('2026-06-24')]}
       maxSelectedDates={3}
@@ -26,25 +28,31 @@ export default function MultipleDatePickerDemo() {
       <DatePickerControl>
         <DatePickerContext>
           {(datePicker) => (
-            <Show when={datePicker().value.length > 0} fallback={<span>Select dates</span>}>
-              <For each={datePicker().value}>
-                {(date, index) => (
-                  <span>
-                    {date.toString()}
-                    <button
-                      type="button"
-                      onClick={() =>
-                        datePicker().setValue(
-                          datePicker().value.filter((_, itemIndex) => itemIndex !== index()),
-                        )
-                      }
-                    >
-                      ×
-                    </button>
-                  </span>
-                )}
-              </For>
-            </Show>
+            <div class={styles.selectedDates}>
+              <Show
+                when={datePicker().value.length > 0}
+                fallback={<span class={styles.placeholder}>Select dates</span>}
+              >
+                <For each={datePicker().value}>
+                  {(date, index) => (
+                    <span class={styles.selectedDate}>
+                      {date.toString()}
+                      <button
+                        type="button"
+                        class={styles.remove}
+                        onClick={() =>
+                          datePicker().setValue(
+                            datePicker().value.filter((_, itemIndex) => itemIndex !== index()),
+                          )
+                        }
+                      >
+                        ×
+                      </button>
+                    </span>
+                  )}
+                </For>
+              </Show>
+            </div>
           )}
         </DatePickerContext>
         <DatePickerClearTrigger aria-label="Clear dates" />

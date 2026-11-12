@@ -7,6 +7,7 @@
     RatingGroupItems,
     RatingGroupLabel,
   } from '@moduix/svelte/rating-group';
+  import styles from '@/components/examples/rating-group/component-forms.module.css';
 
   let submitted = $state('Nothing submitted');
 
@@ -17,7 +18,7 @@
   };
 </script>
 
-<form onsubmit={handleSubmit}>
+<form class={styles.stack} onsubmit={handleSubmit}>
   <RatingGroup name="review" defaultValue={4} required>
     <RatingGroupLabel>Review score</RatingGroupLabel>
     <RatingGroupControl>
@@ -26,7 +27,7 @@
     <RatingGroupHiddenInput />
   </RatingGroup>
   <div data-preview-meta>
-    <output>Submitted: {submitted}</output>
+    <output class={styles.hint}>Submitted: {submitted}</output>
     <Button type="submit">Submit</Button>
   </div>
 </form>

@@ -10,6 +10,7 @@
   } from '@moduix/svelte/card';
   import { Kbd } from '@moduix/svelte/kbd';
   import { Stack } from '@moduix/svelte/stack';
+  import styles from '@/components/examples/hotkeys/hotkeys-sequences.module.css';
 
   let destination = $state('Home');
   const formatHotkey = useFormatHotkey();
@@ -32,13 +33,13 @@
   }));
 </script>
 
-<Card>
+<Card class={styles.root}>
   <CardHeader>
     <CardTitle>Workspace navigation</CardTitle>
     <CardDescription>Press G, then I or D before the sequence times out.</CardDescription>
   </CardHeader>
   <CardBody>
-    <Stack gap="3">
+    <Stack class={styles.stack} gap="3">
       <Stack align="center" direction="row" justify="space-between">
         <span>Open inbox</span>
         <Kbd>{formatHotkey('g > i')}</Kbd>

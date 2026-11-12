@@ -30,7 +30,7 @@ const snapPoints = [0.18, 1];
           ></DrawerHeader
         ><DrawerBody :class="styles.body"
           ><Card size="sm" :class="styles.card"
-            ><CardBody>The trigger and close controls update the same state.</CardBody></Card
+            ><CardBody>The trigger and close controls both update the same state.</CardBody></Card
           ></DrawerBody
         ></DrawerContent
       ></DrawerPositioner

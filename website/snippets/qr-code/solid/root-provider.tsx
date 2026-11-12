@@ -1,4 +1,5 @@
 import { QrCodeFrame, QrCodePattern, QrCodeRootProvider, useQrCode } from '@moduix/solid/qr-code';
+import { Stack } from '@moduix/solid/stack';
 
 export default function RootProviderQrCodeDemo() {
   const qrCode = useQrCode({
@@ -6,7 +7,7 @@ export default function RootProviderQrCodeDemo() {
   });
 
   return (
-    <>
+    <Stack align="center" gap="3">
       <QrCodeRootProvider value={qrCode}>
         <QrCodeFrame>
           <QrCodePattern />
@@ -15,6 +16,6 @@ export default function RootProviderQrCodeDemo() {
       <div data-preview-meta>
         <output>Encoded URL: {qrCode().value}</output>
       </div>
-    </>
+    </Stack>
   );
 }

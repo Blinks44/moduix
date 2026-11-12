@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Button } from '@moduix/vue/button';
 import {
   SliderControl,
   SliderLabel,
@@ -30,7 +31,7 @@ const slider = useSlider({
     </SliderRootProvider>
     <div data-preview-meta>
       <output>Current: {{ slider.value.join(', ') }}</output>
-      <button type="button" @click="slider.focus()">Focus</button>
+      <Button size="sm" @click="slider.focus()">Focus</Button>
     </div>
   </Stack>
 </template>

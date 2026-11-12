@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { Button } from '@moduix/svelte/button';
   import {
     CheckboxControl,
     CheckboxHiddenInput,
@@ -19,8 +20,13 @@
   </CheckboxRootProvider>
   <div data-preview-meta>
     <output>{checkbox().checked ? 'Checked' : 'Unchecked'}</output>
-    <button type="button" onclick={() => checkbox().setChecked(!checkbox().checked)}>
+    <Button
+      type="button"
+      size="sm"
+      variant="outline"
+      onclick={() => checkbox().setChecked(!checkbox().checked)}
+    >
       {checkbox().checked ? 'Uncheck' : 'Check'}
-    </button>
+    </Button>
   </div>
 </Stack>

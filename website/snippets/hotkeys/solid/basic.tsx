@@ -11,6 +11,7 @@ import {
 import { Kbd } from '@moduix/solid/kbd';
 import { Stack } from '@moduix/solid/stack';
 import { createSignal } from 'solid-js';
+import styles from '@/components/examples/hotkeys/hotkeys-basic.module.css';
 
 export default function HotkeysBasicDemo() {
   const [status, setStatus] = createSignal('Not saved');
@@ -28,26 +29,24 @@ export default function HotkeysBasicDemo() {
   });
 
   return (
-    <Card>
+    <Card class={styles.root}>
       <CardHeader>
         <CardTitle>Draft</CardTitle>
         <CardDescription>Save your changes without leaving the keyboard.</CardDescription>
       </CardHeader>
       <CardBody>
-        <Stack align="center" direction="row" justify="space-between">
+        <Stack align="center" direction="row" justify="space-between" class={styles.stack}>
           <span>Save draft</span>
           <Kbd>{formatHotkey('mod+S')}</Kbd>
         </Stack>
       </CardBody>
       <CardFooter>
-        <Stack align="center" direction="row" justify="space-between">
-          <div data-preview-meta style={{ 'margin-inline': 'auto', 'place-items': 'center' }}>
-            <output aria-live="polite">{status()}</output>
-            <Button onClick={saveDraft} type="button">
-              Save draft
-            </Button>
-          </div>
-        </Stack>
+        <div data-preview-meta style={{ 'margin-inline': 'auto', 'place-items': 'center' }}>
+          <output aria-live="polite">{status()}</output>
+          <Button onClick={saveDraft} type="button">
+            Save draft
+          </Button>
+        </div>
       </CardFooter>
     </Card>
   );

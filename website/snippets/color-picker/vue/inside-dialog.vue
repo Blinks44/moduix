@@ -1,13 +1,4 @@
 <script setup lang="ts">
-import {
-  DialogBackdrop,
-  DialogContent,
-  DialogDescription,
-  DialogPositioner,
-  DialogRoot,
-  DialogTitle,
-  DialogTrigger,
-} from '@ark-ui/vue/dialog';
 import { Button } from '@moduix/vue/button';
 import {
   ColorPicker,
@@ -20,15 +11,26 @@ import {
   ColorPickerArea,
   ColorPickerChannelInput,
 } from '@moduix/vue/color-picker';
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogCloseIcon,
+  DialogContent,
+  DialogDescription,
+  DialogPositioner,
+  DialogTitle,
+  DialogTrigger,
+} from '@moduix/vue/dialog';
 import { Stack } from '@moduix/vue/stack';
 </script>
 
 <template>
-  <DialogRoot>
+  <Dialog>
     <DialogTrigger as-child><Button>Open dialog</Button></DialogTrigger>
     <DialogBackdrop />
     <DialogPositioner>
       <DialogContent>
+        <DialogCloseIcon />
         <DialogTitle>Choose a color</DialogTitle>
         <DialogDescription>
           The color picker stays inside the dialog stacking context.
@@ -49,5 +51,5 @@ import { Stack } from '@moduix/vue/stack';
         </Stack>
       </DialogContent>
     </DialogPositioner>
-  </DialogRoot>
+  </Dialog>
 </template>

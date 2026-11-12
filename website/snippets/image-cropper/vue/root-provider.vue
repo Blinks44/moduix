@@ -8,6 +8,7 @@ import {
   ImageCropperViewport,
   useImageCropper,
 } from '@moduix/vue/image-cropper';
+import { Stack } from '@moduix/vue/stack';
 import { ref } from 'vue';
 
 const sampleImage =
@@ -22,7 +23,7 @@ const handleReset = () => {
 </script>
 
 <template>
-  <div>
+  <Stack align="center" gap="3">
     <ImageCropperRootProvider :value="imageCropper" aria-label="Image cropper">
       <ImageCropperViewport>
         <ImageCropperImage :src="sampleImage" alt="Landscape" cross-origin="anonymous" />
@@ -35,5 +36,5 @@ const handleReset = () => {
         <RestartIcon />
       </Button>
     </div>
-  </div>
+  </Stack>
 </template>

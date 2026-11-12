@@ -6,6 +6,7 @@ import {
   ImageCropperViewport,
   useImageCropper,
 } from '@moduix/solid/image-cropper';
+import { Stack } from '@moduix/solid/stack';
 import { Show, createSignal } from 'solid-js';
 
 const sampleImage =
@@ -34,7 +35,7 @@ export default function CropPreviewImageCropperDemo() {
   };
 
   return (
-    <div>
+    <Stack align="center" gap="3">
       <ImageCropperRootProvider value={imageCropper} aria-label="Image cropper">
         <ImageCropperViewport>
           <ImageCropperImage src={sampleImage} alt="Landscape" crossOrigin="anonymous" />
@@ -43,13 +44,13 @@ export default function CropPreviewImageCropperDemo() {
       </ImageCropperRootProvider>
       <div data-preview-meta>
         <output>{status()}</output>
+        <Show when={preview()}>
+          {(src) => <img src={src()} alt="Cropped preview" width="128" height="128" />}
+        </Show>
+        <Button type="button" onClick={handleCrop}>
+          Create crop preview
+        </Button>
       </div>
-      <Show when={preview()}>
-        {(src) => <img src={src()} alt="Cropped preview" width="128" height="128" />}
-      </Show>
-      <Button type="button" onClick={handleCrop}>
-        Create crop preview
-      </Button>
-    </div>
+    </Stack>
   );
 }

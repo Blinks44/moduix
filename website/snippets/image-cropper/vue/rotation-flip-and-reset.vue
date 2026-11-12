@@ -15,6 +15,7 @@ import {
   ImageCropperImage,
   ImageCropperViewport,
 } from '@moduix/vue/image-cropper';
+import { Stack } from '@moduix/vue/stack';
 import { ref } from 'vue';
 
 const sampleImage =
@@ -24,10 +25,10 @@ const flip = ref({ horizontal: false, vertical: false });
 </script>
 
 <template>
-  <div data-preview-meta>
+  <Stack align="center" gap="3">
     <ImageCropper v-model:rotation="rotation" v-model:flip="flip" aria-label="Image cropper">
       <ImageCropperContext v-slot="context">
-        <div>
+        <Stack direction="row" wrap="wrap" gap="1">
           <Button size="sm" type="button" aria-label="Zoom out" @click="context.zoomBy(-0.1)"
             ><ZoomOutIcon
           /></Button>
@@ -58,13 +59,15 @@ const flip = ref({ horizontal: false, vertical: false });
           <Button size="sm" type="button" aria-label="Reset crop" @click="context.reset()"
             ><RestartIcon
           /></Button>
-        </div>
+        </Stack>
       </ImageCropperContext>
       <ImageCropperViewport>
         <ImageCropperImage :src="sampleImage" alt="Landscape" cross-origin="anonymous" />
         <ImageCropperCropArea />
       </ImageCropperViewport>
     </ImageCropper>
-    <output>Rotation: {{ rotation }}deg, horizontal flip: {{ String(flip.horizontal) }}</output>
-  </div>
+    <div data-preview-meta>
+      <output>Rotation: {{ rotation }}deg, horizontal flip: {{ String(flip.horizontal) }}</output>
+    </div>
+  </Stack>
 </template>

@@ -1,19 +1,13 @@
 <script lang="ts">
+  import { Separator } from '@moduix/svelte/separator';
   import { Stack } from '@moduix/svelte/stack';
+  import { Text } from '@moduix/svelte/text';
 </script>
 
 <Stack direction="row" align="center" justify="center" gap="2.5" style="inline-size: 100%">
-  <strong>Design</strong>
-  <span
-    role="separator"
-    aria-hidden="true"
-    style="inline-size: 1px; align-self: stretch; background: var(--moduix-border)"
-  ></span>
-  <span>Engineering</span>
-  <span
-    role="separator"
-    aria-hidden="true"
-    style="inline-size: 1px; align-self: stretch; background: var(--moduix-border)"
-  ></span>
-  <span>Docs</span>
+  <Text weight="semibold">Design</Text>
+  <Separator orientation="vertical" aria-hidden="true" />
+  <Text tone="muted">Engineering</Text>
+  <Separator orientation="vertical" aria-hidden="true" />
+  <Text tone="muted">Docs</Text>
 </Stack>

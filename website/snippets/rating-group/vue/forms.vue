@@ -8,6 +8,7 @@ import {
   RatingGroupLabel,
 } from '@moduix/vue/rating-group';
 import { ref } from 'vue';
+import styles from '@/components/examples/rating-group/component-forms.module.css';
 
 const submitted = ref('Nothing submitted');
 
@@ -19,7 +20,7 @@ const handleSubmit = (event: SubmitEvent) => {
 </script>
 
 <template>
-  <form @submit="handleSubmit">
+  <form :class="styles.stack" @submit="handleSubmit">
     <RatingGroup name="review" :default-value="4" required>
       <RatingGroupLabel>Review score</RatingGroupLabel>
       <RatingGroupControl>
@@ -28,7 +29,7 @@ const handleSubmit = (event: SubmitEvent) => {
       <RatingGroupHiddenInput />
     </RatingGroup>
     <div data-preview-meta>
-      <output>Submitted: {{ submitted }}</output>
+      <output :class="styles.hint">Submitted: {{ submitted }}</output>
       <Button type="submit">Submit</Button>
     </div>
   </form>

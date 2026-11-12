@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { FieldErrorText, FieldLabel, FieldRoot as Field } from '@ark-ui/vue/field';
+import { Field, FieldErrorText, FieldLabel } from '@moduix/vue/field';
 import { Fieldset, FieldsetErrorText, FieldsetLegend } from '@moduix/vue/fieldset';
 import { Input } from '@moduix/vue/input';
 import styles from '@/components/examples/fieldset/fieldset-invalid.module.css';

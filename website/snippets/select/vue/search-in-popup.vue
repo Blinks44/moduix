@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { createListCollection } from '@ark-ui/vue/collection';
 import { Search } from '@lucide/vue';
-import { Input } from '@moduix/vue/input';
+import { InputGroup, InputGroupAddon, InputGroupInput } from '@moduix/vue/input-group';
 import {
   Select,
   SelectContent,
@@ -11,6 +11,7 @@ import {
   SelectPositioner,
 } from '@moduix/vue/select';
 import { computed, nextTick, ref, watch } from 'vue';
+import type { ComponentPublicInstance } from 'vue';
 import styles from '@/components/examples/select/select-search-in-popup.module.css';
 
 const fruits = [
@@ -27,7 +28,7 @@ const fruits = [
 ];
 const open = ref(false);
 const query = ref('');
-const inputRef = ref<HTMLInputElement>();
+const inputRef = ref<ComponentPublicInstance>();
 const popupRef = ref<HTMLElement>();
 const collection = computed(() =>
   createListCollection({
@@ -35,7 +36,7 @@ const collection = computed(() =>
   }),
 );
 watch(open, (value) => {
-  if (value) nextTick(() => inputRef.value?.focus());
+  if (value) nextTick(() => (inputRef.value?.$el as HTMLInputElement | undefined)?.focus());
   else query.value = '';
 });
 function updateQuery(event: Event) {
@@ -61,13 +62,18 @@ function keepPopupOpen(event: { detail: { target: EventTarget }; preventDefault:
     <SelectPositioner>
       <div ref="popupRef" :class="styles.popup">
         <div :class="styles.popupHeader">
-          <Search aria-hidden="true" /><Input
-            ref="inputRef"
-            aria-label="Filter fruits"
-            :value="query"
-            placeholder="Filter fruits"
-            @input="updateQuery"
-          />
+          <InputGroup>
+            <InputGroupAddon>
+              <Search aria-hidden="true" />
+            </InputGroupAddon>
+            <InputGroupInput
+              ref="inputRef"
+              aria-label="Filter fruits"
+              :value="query"
+              placeholder="Filter fruits"
+              @input="updateQuery"
+            />
+          </InputGroup>
         </div>
         <SelectContent :class="styles.popupContent">
           <template v-if="collection.items.length"

@@ -7,6 +7,7 @@ import {
   ImageCropperImage,
   ImageCropperViewport,
 } from '@moduix/vue/image-cropper';
+import { Stack } from '@moduix/vue/stack';
 import { ref } from 'vue';
 
 const sampleImage =
@@ -17,7 +18,7 @@ const zoom = ref(1);
 </script>
 
 <template>
-  <div>
+  <Stack align="center" gap="3">
     <ImageCropper
       v-model:zoom="zoom"
       :min-zoom="minZoom"
@@ -48,5 +49,5 @@ const zoom = ref(1);
         <ZoomInIcon />
       </Button>
     </div>
-  </div>
+  </Stack>
 </template>

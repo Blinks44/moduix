@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Bleed } from '@moduix/svelte/bleed';
+  import { Text } from '@moduix/svelte/text';
   import styles from '@/components/examples/bleed/bleed-basic.module.css';
 
   const content = {
@@ -10,9 +11,9 @@
 </script>
 
 <div class={styles.root}>
-  <p style="margin: 0">{content.before}</p>
+  <Text tone="muted">{content.before}</Text>
   <Bleed class={styles.surface}>
-    <p style="margin: 0">{content.surface}</p>
+    <Text weight="semibold">{content.surface}</Text>
   </Bleed>
-  <p style="margin: 0">{content.after}</p>
+  <Text tone="muted">{content.after}</Text>
 </div>

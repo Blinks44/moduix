@@ -10,6 +10,7 @@ import {
   DatePickerDayTable,
 } from '@moduix/solid/date-picker';
 import { createSignal } from 'solid-js';
+import styles from '@/components/examples/date-picker/date-picker-form.module.css';
 
 export default function DatePickerFormDemo() {
   const [submitted, setSubmitted] = createSignal('Nothing submitted');
@@ -20,7 +21,7 @@ export default function DatePickerFormDemo() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form class={styles.root} onSubmit={handleSubmit}>
       <DatePicker
         defaultValue={[parseDate('2026-06-22')]}
         maxView="day"

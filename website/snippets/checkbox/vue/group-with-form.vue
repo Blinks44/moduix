@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Button } from '@moduix/vue/button';
 import {
   Checkbox,
   CheckboxControl,
@@ -34,7 +35,7 @@ const handleSubmit = (event: SubmitEvent) => {
     </CheckboxGroup>
     <div data-preview-meta>
       <output>{{ submitted }}</output>
-      <button type="submit">Submit</button>
+      <Button type="submit" size="sm">Submit</Button>
     </div>
   </form>
 </template>

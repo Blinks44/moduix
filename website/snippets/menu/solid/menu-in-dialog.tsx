@@ -20,6 +20,7 @@ import {
   MenuItem,
   MenuSeparator,
 } from '@moduix/solid/menu';
+import styles from '@/components/examples/menu/menu-menu-in-dialog.module.css';
 
 export default function MenuInDialogDemo() {
   return (
@@ -33,7 +34,7 @@ export default function MenuInDialogDemo() {
             <DialogCloseIcon />
             <DialogDescription>Choose an action without leaving the dialog.</DialogDescription>
           </DialogHeader>
-          <div>
+          <div class={styles.stack}>
             <Menu portalled={false} positioning={{ strategy: 'fixed', hideWhenDetached: true }}>
               <MenuTrigger asChild={(props) => <Button {...props()} variant="outline" />}>
                 Actions

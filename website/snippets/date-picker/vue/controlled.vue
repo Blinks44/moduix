@@ -12,6 +12,7 @@ import {
   DatePickerView,
   DatePickerYearTable,
 } from '@moduix/vue/date-picker';
+import { Stack } from '@moduix/vue/stack';
 import { shallowRef } from 'vue';
 
 type DatePickerValue = NonNullable<DatePickerRootProps['modelValue']>;
@@ -19,18 +20,20 @@ const value = shallowRef<DatePickerValue>([parseDate('2026-06-22') as DatePicker
 </script>
 
 <template>
-  <DatePicker v-model="value">
-    <DatePickerLabel>Controlled date</DatePickerLabel>
-    <DatePickerField />
-    <DatePickerPositioner>
-      <DatePickerContent>
-        <DatePickerView view="day"><DatePickerDayTable /></DatePickerView
-        ><DatePickerView view="month"><DatePickerMonthTable /></DatePickerView
-        ><DatePickerView view="year"><DatePickerYearTable /></DatePickerView>
-      </DatePickerContent>
-    </DatePickerPositioner>
+  <Stack align="center">
+    <DatePicker v-model="value">
+      <DatePickerLabel>Controlled date</DatePickerLabel>
+      <DatePickerField />
+      <DatePickerPositioner>
+        <DatePickerContent>
+          <DatePickerView view="day"><DatePickerDayTable /></DatePickerView>
+          <DatePickerView view="month"><DatePickerMonthTable /></DatePickerView>
+          <DatePickerView view="year"><DatePickerYearTable /></DatePickerView>
+        </DatePickerContent>
+      </DatePickerPositioner>
+    </DatePicker>
     <div data-preview-meta>
       <output>Current value: {{ value[0]?.toString() ?? 'empty' }}</output>
     </div>
-  </DatePicker>
+  </Stack>
 </template>

@@ -31,33 +31,35 @@
   const steps = useSteps({ count: items.length });
 </script>
 
-<StepsRootProvider class={styles.root} value={steps}>
-  <StepsList>
+<div class={styles.container}>
+  <StepsRootProvider class={styles.root} value={steps}>
+    <StepsList>
+      {#each items as item, index (item.title)}
+        <StepsItem {index}>
+          <StepsTrigger>
+            <StepsIndicator />
+            <span class={styles.label}>
+              <strong>{item.title}</strong>
+              <small class={styles.description}>{item.description}</small>
+            </span>
+          </StepsTrigger>
+          <StepsSeparator />
+        </StepsItem>
+      {/each}
+    </StepsList>
+
     {#each items as item, index (item.title)}
-      <StepsItem {index}>
-        <StepsTrigger>
-          <StepsIndicator />
-          <span class={styles.label}>
-            <strong>{item.title}</strong>
-            <small class={styles.description}>{item.description}</small>
-          </span>
-        </StepsTrigger>
-        <StepsSeparator />
-      </StepsItem>
+      <StepsContent {index}>{item.title} - {item.description}</StepsContent>
     {/each}
-  </StepsList>
 
-  {#each items as item, index (item.title)}
-    <StepsContent {index}>{item.title} - {item.description}</StepsContent>
-  {/each}
+    <StepsCompletedContent>Steps complete. The workspace is ready.</StepsCompletedContent>
 
-  <StepsCompletedContent>Steps complete. The workspace is ready.</StepsCompletedContent>
-
-  <div class={styles.actions}>
-    <StepsPrevTrigger>Back</StepsPrevTrigger>
-    <StepsNextTrigger>Next</StepsNextTrigger>
+    <div class={styles.actions}>
+      <StepsPrevTrigger>Back</StepsPrevTrigger>
+      <StepsNextTrigger>Next</StepsNextTrigger>
+    </div>
+  </StepsRootProvider>
+  <div data-preview-meta>
+    <output>Current step: {steps().value + 1}</output>
   </div>
-</StepsRootProvider>
-<div data-preview-meta>
-  <output>Current step: {steps().value + 1}</output>
 </div>

@@ -10,6 +10,7 @@
     DatePickerPositioner,
     DatePickerView,
   } from '@moduix/svelte/date-picker';
+  import styles from '@/components/examples/date-picker/date-picker-form.module.css';
 
   let submitted = $state('Nothing submitted');
 
@@ -19,7 +20,7 @@
   };
 </script>
 
-<form onsubmit={handleSubmit}>
+<form class={styles.root} onsubmit={handleSubmit}>
   <DatePicker
     defaultValue={[parseDate('2026-06-22')]}
     minView="day"

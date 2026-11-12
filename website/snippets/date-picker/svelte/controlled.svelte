@@ -11,21 +11,24 @@
     DatePickerView,
     DatePickerYearTable,
   } from '@moduix/svelte/date-picker';
+  import { Stack } from '@moduix/svelte/stack';
 
   let value = $state<DateValue[]>([parseDate('2026-06-22')]);
 </script>
 
-<DatePicker bind:value>
-  <DatePickerLabel>Controlled date</DatePickerLabel>
-  <DatePickerField />
-  <DatePickerPositioner>
-    <DatePickerContent>
-      <DatePickerView view="day"><DatePickerDayTable /></DatePickerView>
-      <DatePickerView view="month"><DatePickerMonthTable /></DatePickerView>
-      <DatePickerView view="year"><DatePickerYearTable /></DatePickerView>
-    </DatePickerContent>
-  </DatePickerPositioner>
+<Stack align="center">
+  <DatePicker bind:value>
+    <DatePickerLabel>Controlled date</DatePickerLabel>
+    <DatePickerField />
+    <DatePickerPositioner>
+      <DatePickerContent>
+        <DatePickerView view="day"><DatePickerDayTable /></DatePickerView>
+        <DatePickerView view="month"><DatePickerMonthTable /></DatePickerView>
+        <DatePickerView view="year"><DatePickerYearTable /></DatePickerView>
+      </DatePickerContent>
+    </DatePickerPositioner>
+  </DatePicker>
   <div data-preview-meta>
     <output>Current value: {value[0]?.toString() ?? 'empty'}</output>
   </div>
-</DatePicker>
+</Stack>

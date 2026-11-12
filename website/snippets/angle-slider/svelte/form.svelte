@@ -6,6 +6,7 @@
     AngleSliderLabel,
     AngleSliderMarks,
   } from '@moduix/svelte/angle-slider';
+  import { Button } from '@moduix/svelte/button';
   import styles from '@/components/examples/angle-slider/angle-slider-form.module.css';
 
   let submitted = $state('Nothing submitted');
@@ -28,6 +29,6 @@
   </AngleSlider>
   <div data-preview-meta>
     <output>Submitted: {submitted}</output>
-    <button type="submit">Submit</button>
+    <Button type="submit" size="sm">Submit</Button>
   </div>
 </form>

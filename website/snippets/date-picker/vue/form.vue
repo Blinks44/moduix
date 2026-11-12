@@ -11,6 +11,7 @@ import {
   DatePickerView,
 } from '@moduix/vue/date-picker';
 import { ref } from 'vue';
+import styles from '@/components/examples/date-picker/date-picker-form.module.css';
 
 const submitted = ref('Nothing submitted');
 
@@ -21,7 +22,7 @@ const handleSubmit = (event: Event) => {
 </script>
 
 <template>
-  <form @submit.prevent="handleSubmit">
+  <form :class="styles.root" @submit.prevent="handleSubmit">
     <DatePicker
       :default-value="[parseDate('2026-06-22')]"
       min-view="day"

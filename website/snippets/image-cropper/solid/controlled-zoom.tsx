@@ -5,6 +5,7 @@ import {
   ImageCropperImage,
   ImageCropperViewport,
 } from '@moduix/solid/image-cropper';
+import { Stack } from '@moduix/solid/stack';
 import { ZoomIn as ZoomInIcon, ZoomOut as ZoomOutIcon } from 'lucide-solid';
 import { createSignal } from 'solid-js';
 
@@ -18,7 +19,7 @@ export default function ControlledZoomImageCropperDemo() {
   const [zoom, setZoom] = createSignal(1);
 
   return (
-    <div>
+    <Stack align="center" gap="3">
       <ImageCropper
         zoom={zoom()}
         minZoom={minZoom}
@@ -50,6 +51,6 @@ export default function ControlledZoomImageCropperDemo() {
           <ZoomInIcon />
         </Button>
       </div>
-    </div>
+    </Stack>
   );
 }

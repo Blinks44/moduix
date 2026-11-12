@@ -11,6 +11,7 @@
     DialogTrigger,
   } from '@moduix/svelte/dialog';
   import { Field, FieldLabel } from '@moduix/svelte/field';
+  import { Input } from '@moduix/svelte/input';
 
   let inputRef = $state<HTMLInputElement | null>(null);
   let finalFocusRef = $state<HTMLButtonElement | null>(null);
@@ -28,7 +29,7 @@
       <DialogBody>
         <Field>
           <FieldLabel>Name</FieldLabel>
-          <input bind:this={inputRef} />
+          <Input bind:ref={inputRef} />
         </Field>
       </DialogBody>
       <DialogCloseIcon />

@@ -19,6 +19,7 @@ export default function RootProviderCheckboxDemo() {
         <CheckboxHiddenInput />
       </CheckboxRootProvider>
       <div data-preview-meta>
+        <output>{checkbox.checked ? 'Checked' : 'Unchecked'}</output>
         <Button
           type="button"
           size="sm"

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { CalendarDateTime } from '@internationalized/date';
+import { CalendarDateTime, DateFormatter } from '@internationalized/date';
 import {
   DateInput,
   DateInputControl,
@@ -18,7 +18,14 @@ import {
   DatePickerView,
   DatePickerYearTable,
 } from '@moduix/vue/date-picker';
+import { Stack } from '@moduix/vue/stack';
 import { shallowRef } from 'vue';
+
+const timeFormatter = new DateFormatter('en-US', {
+  hour: '2-digit',
+  hourCycle: 'h23',
+  minute: '2-digit',
+});
 
 type DatePickerValue = NonNullable<DatePickerRootProps['modelValue']>;
 const value = shallowRef<DatePickerValue>([
@@ -43,17 +50,23 @@ const handleDateChange = (details: { value: DatePickerValue }) => {
 </script>
 
 <template>
-  <DatePicker v-model="value" @value-change="handleDateChange">
-    <DatePickerLabel>Appointment</DatePickerLabel><DatePickerField />
-    <DatePickerPositioner>
-      <DatePickerContent>
-        <DatePickerView view="day"><DatePickerDayTable /></DatePickerView
-        ><DatePickerView view="month"><DatePickerMonthTable /></DatePickerView
-        ><DatePickerView view="year"><DatePickerYearTable /></DatePickerView>
-      </DatePickerContent>
-    </DatePickerPositioner>
-  </DatePicker>
-  <DateInput v-model="value"
-    ><DateInputLabel>Time</DateInputLabel><DateInputControl><DateInputSegments /></DateInputControl
-  ></DateInput>
+  <Stack direction="row" align="flex-end" wrap="wrap" gap="3">
+    <DatePicker :model-value="value" @value-change="handleDateChange">
+      <DatePickerLabel>Appointment</DatePickerLabel>
+      <DatePickerField />
+      <DatePickerPositioner>
+        <DatePickerContent>
+          <DatePickerView view="day"><DatePickerDayTable /></DatePickerView>
+          <DatePickerView view="month"><DatePickerMonthTable /></DatePickerView>
+          <DatePickerView view="year"><DatePickerYearTable /></DatePickerView>
+        </DatePickerContent>
+      </DatePickerPositioner>
+    </DatePicker>
+    <DateInput v-model="value" :formatter="timeFormatter" granularity="minute" :hour-cycle="24">
+      <DateInputLabel>Time</DateInputLabel>
+      <DateInputControl>
+        <DateInputSegments />
+      </DateInputControl>
+    </DateInput>
+  </Stack>
 </template>

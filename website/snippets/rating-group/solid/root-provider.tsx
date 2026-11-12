@@ -10,6 +10,7 @@ import {
 } from '@moduix/solid/rating-group';
 import { Stack } from '@moduix/solid/stack';
 import { For } from 'solid-js';
+import styles from '@/components/examples/rating-group/component-root-provider.module.css';
 
 export default function RootProviderRatingGroupDemo() {
   const ratingGroup = useRatingGroup({
@@ -36,7 +37,7 @@ export default function RootProviderRatingGroupDemo() {
         </RatingGroupControl>
       </RatingGroupRootProvider>
       <div data-preview-meta>
-        <output>Current value: {ratingGroup().value}</output>
+        <output class={styles.hint}>Current value: {ratingGroup().value}</output>
         <Button type="button" size="sm" onClick={() => ratingGroup().setValue(5)}>
           Set to 5
         </Button>

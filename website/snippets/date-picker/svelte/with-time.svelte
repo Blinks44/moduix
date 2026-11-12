@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { DateValue } from '@ark-ui/svelte/date-picker';
-  import { CalendarDateTime } from '@internationalized/date';
+  import { CalendarDateTime, DateFormatter } from '@internationalized/date';
   import {
     DateInput,
     DateInputControl,
@@ -18,6 +18,13 @@
     DatePickerView,
     DatePickerYearTable,
   } from '@moduix/svelte/date-picker';
+  import { Stack } from '@moduix/svelte/stack';
+
+  const timeFormatter = new DateFormatter('en-US', {
+    hour: '2-digit',
+    hourCycle: 'h23',
+    minute: '2-digit',
+  });
 
   let value = $state<DateValue[]>([new CalendarDateTime(2026, 6, 22, 14, 30)]);
   const handleDateChange = (details: { value: DateValue[] }) => {
@@ -30,18 +37,20 @@
   };
 </script>
 
-<DatePicker bind:value onValueChange={handleDateChange}>
-  <DatePickerLabel>Appointment</DatePickerLabel>
-  <DatePickerField />
-  <DatePickerPositioner>
-    <DatePickerContent>
-      <DatePickerView view="day"><DatePickerDayTable /></DatePickerView>
-      <DatePickerView view="month"><DatePickerMonthTable /></DatePickerView>
-      <DatePickerView view="year"><DatePickerYearTable /></DatePickerView>
-    </DatePickerContent>
-  </DatePickerPositioner>
-</DatePicker>
-<DateInput bind:value>
-  <DateInputLabel>Time</DateInputLabel>
-  <DateInputControl><DateInputSegments /></DateInputControl>
-</DateInput>
+<Stack direction="row" align="flex-end" wrap="wrap" gap="3">
+  <DatePicker {value} onValueChange={handleDateChange}>
+    <DatePickerLabel>Appointment</DatePickerLabel>
+    <DatePickerField />
+    <DatePickerPositioner>
+      <DatePickerContent>
+        <DatePickerView view="day"><DatePickerDayTable /></DatePickerView>
+        <DatePickerView view="month"><DatePickerMonthTable /></DatePickerView>
+        <DatePickerView view="year"><DatePickerYearTable /></DatePickerView>
+      </DatePickerContent>
+    </DatePickerPositioner>
+  </DatePicker>
+  <DateInput bind:value formatter={timeFormatter} granularity="minute" hourCycle={24}>
+    <DateInputLabel>Time</DateInputLabel>
+    <DateInputControl><DateInputSegments /></DateInputControl>
+  </DateInput>
+</Stack>

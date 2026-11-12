@@ -11,6 +11,7 @@ import {
   DatePickerMonthTable,
   DatePickerYearTable,
 } from '@moduix/solid/date-picker';
+import styles from '@/components/examples/date-picker/date-picker-select-today.module.css';
 
 export default function SelectTodayDatePickerDemo() {
   return (
@@ -23,9 +24,11 @@ export default function SelectTodayDatePickerDemo() {
             <DatePickerDayTable />
             <DatePickerContext>
               {(datePicker) => (
-                <Button size="sm" variant="secondary" onClick={() => datePicker().selectToday()}>
-                  Today
-                </Button>
+                <div class={styles.todayRow}>
+                  <Button size="sm" variant="secondary" onClick={() => datePicker().selectToday()}>
+                    Today
+                  </Button>
+                </div>
               )}
             </DatePickerContext>
           </DatePickerView>

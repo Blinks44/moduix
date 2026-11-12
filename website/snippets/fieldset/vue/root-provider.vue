@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { FieldLabel, FieldRoot as Field } from '@ark-ui/vue/field';
+import { Field, FieldLabel } from '@moduix/vue/field';
 import {
   FieldsetErrorText,
   FieldsetLegend,
