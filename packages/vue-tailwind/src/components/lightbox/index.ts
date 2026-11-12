@@ -55,7 +55,7 @@ export type {
   UseDialogReturn as UseLightboxReturn,
 } from '@ark-ui/vue/dialog';
 
-export type { LightboxBindProps, LightboxImageSelectDetails } from './lightbox';
+export type { LightboxBindProps, LightboxImageSelectDetails } from './lightbox-bind';
 export type { Props as LightboxRootProps } from './Lightbox.vue';
 export type { Props as LightboxRootProviderProps } from './LightboxRootProvider.vue';
 export type { Props as LightboxImageProps } from './LightboxImage.vue';
