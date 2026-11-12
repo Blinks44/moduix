@@ -5,6 +5,10 @@ type LiveFramework = 'solid' | 'vue' | 'svelte';
 type LiveExamples = Record<LiveFramework, () => Promise<{ default: unknown }>>;
 type Unmount = () => void;
 
+// Vue numbers `useId()` per app, so every preview app would generate the same ids and Ark parts
+// would resolve elements from another example on the page. A per-app prefix keeps ids unique.
+let vueAppCount = 0;
+
 // Each framework renders its example into a plain element and returns the cleanup. The runtimes load
 // lazily, so pages viewed with React never download Solid, Vue, or Svelte.
 const mounters: Record<LiveFramework, (component: never, target: HTMLElement) => Promise<Unmount>> =
@@ -19,6 +23,7 @@ const mounters: Record<LiveFramework, (component: never, target: HTMLElement) =>
     vue: async (component, target) => {
       const { createApp } = await import('vue');
       const app = createApp(component);
+      app.config.idPrefix = `preview-${++vueAppCount}`;
       app.mount(target);
       return () => app.unmount();
     },
