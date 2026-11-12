@@ -1,5 +1,13 @@
 # @moduix/vue-tailwind
 
+## 3.3.1
+
+### Patch Changes
+
+### Lightbox
+
+- 77c0a86: Rename the internal `lightbox` helper module to `lightbox-bind`, so it no longer overwrites `Lightbox.js` on case-insensitive file systems such as macOS and Windows.
+
 ## 3.3.0
 
 ### Minor Changes
