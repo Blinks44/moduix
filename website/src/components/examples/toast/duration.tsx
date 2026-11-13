@@ -1,6 +1,7 @@
 import { Button } from '@moduix/react/button';
-import { Stack } from '@moduix/react/stack';
 import { ToastToaster, createToaster } from '@moduix/react/toast';
+import { useState } from 'react';
+import styles from '@/components/examples/toast/toast-options.module.css';
 
 const durations = [
   { label: '1s', value: 1000 },
@@ -12,13 +13,24 @@ const durations = [
 const toaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 16 });
 
 export default function App() {
+  const [duration, setDuration] = useState(durations[2]);
+
   return (
-    <Stack align="center" gap="3">
+    <div className={styles.root}>
       <ToastToaster toaster={toaster} />
-      {durations.map((duration) => (
+      <div data-preview-meta>
+        <output>Duration: {duration.label}</output>
+        {durations.map((item) => (
+          <Button
+            key={item.label}
+            variant={item.label === duration.label ? 'default' : 'outline'}
+            onClick={() => setDuration(item)}
+          >
+            {item.label}
+          </Button>
+        ))}
         <Button
-          key={duration.label}
-          onClick={() => {
+          onClick={() =>
             toaster.info({
               title: 'Reminder set',
               description:
@@ -26,12 +38,12 @@ export default function App() {
                   ? 'This notification will stay until dismissed.'
                   : `This notification will disappear in ${duration.label}.`,
               duration: duration.value,
-            });
-          }}
+            })
+          }
         >
-          {duration.label}
+          Show toast
         </Button>
-      ))}
-    </Stack>
+      </div>
+    </div>
   );
 }

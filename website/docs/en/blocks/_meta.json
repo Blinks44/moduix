@@ -15,6 +15,7 @@
     "label": "Sidebar dashboard"
   },
   { "type": "file", "name": "app-shell", "label": "App shell" },
+  { "type": "file", "name": "projects-dashboard", "label": "Projects dashboard" },
   {
     "type": "section-header",
     "label": "Access"

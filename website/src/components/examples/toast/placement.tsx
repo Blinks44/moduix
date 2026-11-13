@@ -1,7 +1,7 @@
 import { Button } from '@moduix/react/button';
 import { ToastToaster, createToaster } from '@moduix/react/toast';
 import { useState } from 'react';
-import styles from '@/components/examples/toast/toast-placement.module.css';
+import styles from '@/components/examples/toast/toast-options.module.css';
 
 const placements = ['top-start', 'top', 'top-end', 'bottom-start', 'bottom', 'bottom-end'] as const;
 type Placement = (typeof placements)[number];

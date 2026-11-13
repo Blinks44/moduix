@@ -1,6 +1,7 @@
 import { Button } from '@moduix/solid/button';
-import { Stack } from '@moduix/solid/stack';
 import { ToastToaster, createToaster } from '@moduix/solid/toast';
+import { createSignal } from 'solid-js';
+import styles from '@/components/examples/toast/toast-options.module.css';
 
 const durations = [
   { label: '1s', value: 1000 },
@@ -12,25 +13,36 @@ const durations = [
 const toaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 16 });
 
 export default function ToastDuration() {
+  const [duration, setDuration] = createSignal(durations[2]!);
+
   return (
-    <Stack align="center" gap="3">
+    <div class={styles.root}>
       <ToastToaster toaster={toaster} />
-      {durations.map((duration) => (
+      <div data-preview-meta>
+        <output>Duration: {duration().label}</output>
+        {durations.map((item) => (
+          <Button
+            variant={item.label === duration().label ? 'default' : 'outline'}
+            onClick={() => setDuration(item)}
+          >
+            {item.label}
+          </Button>
+        ))}
         <Button
           onClick={() =>
             toaster.info({
               title: 'Reminder set',
               description:
-                duration.value === Infinity
+                duration().value === Infinity
                   ? 'This notification will stay until dismissed.'
-                  : `This notification will disappear in ${duration.label}.`,
-              duration: duration.value,
+                  : `This notification will disappear in ${duration().label}.`,
+              duration: duration().value,
             })
           }
         >
-          {duration.label}
+          Show toast
         </Button>
-      ))}
-    </Stack>
+      </div>
+    </div>
   );
 }

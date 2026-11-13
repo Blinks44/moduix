@@ -45,18 +45,21 @@
     &[data-type='success'] {
       --_toast-bg: color-mix(in oklab, var(--moduix-success) 10%, var(--moduix-background));
       --_toast-border-color: color-mix(in oklab, var(--moduix-success) 34%, transparent);
+      --_toast-hover: color-mix(in oklab, var(--moduix-success) 16%, transparent);
       --_toast-color: var(--moduix-foreground);
     }
 
     &[data-type='warning'] {
       --_toast-bg: color-mix(in oklab, var(--moduix-warning) 13%, var(--moduix-background));
       --_toast-border-color: color-mix(in oklab, var(--moduix-warning) 38%, transparent);
+      --_toast-hover: color-mix(in oklab, var(--moduix-warning) 20%, transparent);
       --_toast-color: var(--moduix-foreground);
     }
 
     &[data-type='error'] {
       --_toast-bg: color-mix(in oklab, var(--moduix-destructive) 9%, var(--moduix-background));
       --_toast-border-color: color-mix(in oklab, var(--moduix-destructive) 35%, transparent);
+      --_toast-hover: color-mix(in oklab, var(--moduix-destructive) 14%, transparent);
       --_toast-color: var(--moduix-foreground);
     }
   }
@@ -109,7 +112,7 @@
 
     @media (hover: hover) {
       &:hover {
-        background-color: var(--moduix-accent);
+        background-color: var(--_toast-hover, var(--moduix-accent));
       }
     }
 
@@ -120,6 +123,8 @@
   }
 
   .closeTrigger {
+    /* Typed toasts tint the hover with their own color instead of the neutral muted fill. */
+    --moduix-close-button-bg-hover: var(--_toast-hover, var(--moduix-muted));
     position: absolute;
     inset-block-start: var(--moduix-spacing-2);
     inset-inline-end: var(--moduix-spacing-2);

@@ -1,0 +1,65 @@
+---
+title: Панель проектов
+description: Рабочий трекер проектов с боковой навигацией, живыми показателями, таблицей и формой в диалоге, которая добавляет строку и подтверждает действие уведомлением.
+block: projects-dashboard
+pageType: doc-wide
+outline: false
+---
+
+import { ProjectsDashboard } from '@/components/blocks/projects-dashboard';
+import projectsDashboardSolid from '../../../snippets/blocks/solid/projects-dashboard.tsx?raw';
+import projectsDashboardVue from '../../../snippets/blocks/vue/projects-dashboard.vue?raw';
+import projectsDashboardSvelte from '../../../snippets/blocks/svelte/projects-dashboard.svelte?raw';
+import projectsDashboardReact from '../../../src/components/blocks/projects-dashboard.tsx?raw';
+import projectsDashboardCss from '../../../src/components/blocks/projects-dashboard.module.css?raw';
+export const projectsDashboardLive = { solid: () => import('../../../snippets/blocks/solid/projects-dashboard.tsx').then((module) => ({ default: module.ProjectsDashboard })), vue: () => import('../../../snippets/blocks/vue/projects-dashboard.vue'), svelte: () => import('../../../snippets/blocks/svelte/projects-dashboard.svelte') };
+
+# Панель проектов
+
+<ExamplePanel
+  clientOnly
+  sources={{ react: projectsDashboardReact, solid: projectsDashboardSolid, vue: projectsDashboardVue, svelte: projectsDashboardSvelte }}
+  files={[{ name: 'projects-dashboard.module.css', code: projectsDashboardCss }]}
+>
+  <FrameworkPreview live={projectsDashboardLive}>
+    <ProjectsDashboard />
+  </FrameworkPreview>
+</ExamplePanel>
+
+Начните с этого блока, если делаете внутренний инструмент. Нажмите **New project**, заполните форму
+и отправьте её: диалог закроется, проект появится первой строкой таблицы, карточки показателей
+обновятся, а уведомление подтвердит изменение.
+
+Блок собран из `Sidebar` для навигации, `Dialog` с `Field`, `Input` и `Select` для формы,
+`Table` и `Badge` для списка и `Toast` для обратной связи. Это готовая к копированию композиция, а
+не компонент `ProjectsDashboard` из moduix.
+
+## Установка
+
+<BlockInstall name="projects-dashboard" />
+
+## Подключение данных
+
+В примере проекты хранятся в локальном состоянии, поэтому он работает без сервера. В приложении
+загружайте список из своего API и отправляйте туда данные формы в `createProject`. Закрывайте
+диалог и показывайте уведомление об успехе после ответа сервера, а при ошибке показывайте
+уведомление типа `error` через тот же `toaster`.
+
+Замените якорь `#projects` и другие демонстрационные ссылки маршрутами приложения. Если роутер
+предоставляет компонент ссылки, используйте его с `SidebarNavigationButton` и пропом `asChild`.
+Части `Sidebar` описаны в [документации Sidebar](/docs/sidebar).
+
+## Поведение формы
+
+| Часть                | Поведение                                                                                                 |
+| -------------------- | --------------------------------------------------------------------------------------------------------- |
+| `Field required`     | Делает поле обязательным: браузер не отправит пустую форму и переведёт фокус на первое незаполненное поле. |
+| `Select name`        | `SelectHiddenSelect` рендерит нативный `select`, поэтому выбранный статус попадает в `FormData`.         |
+| `Dialog open`        | Диалог управляемый, поэтому форма закрывает его только после успешной отправки.                          |
+| `DialogCloseTrigger` | **Cancel** закрывает диалог, не меняя список. Escape и клик по подложке работают так же.                 |
+
+## Адаптивное поведение
+
+`Sidebar` не предоставляет мобильную выдвижную панель. На небольших экранах добавьте `Drawer` или
+другой оверлей со своей навигацией. CSS примера переводит карточки показателей в одну колонку при
+ширине меньше `40rem`, а `TableScrollArea` даёт таблице прокручиваться по горизонтали.

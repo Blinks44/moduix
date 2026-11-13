@@ -1,5 +1,5 @@
 import type { JSX } from 'solid-js';
-import { createContext, Show, splitProps, useContext } from 'solid-js';
+import { children, createContext, Show, splitProps, useContext } from 'solid-js';
 import { Portal } from 'solid-js/web';
 
 type PortalRef = HTMLElement | (() => HTMLElement | null | undefined);
@@ -25,10 +25,15 @@ function resolvePortalMount(portalRef: PortalRef | undefined): HTMLElement | und
 
 export function OverlayPortal(props: { children: JSX.Element }) {
   const context = useContext(OverlayPortalContext);
+  const content = children(() => props.children);
 
+  // Solid's Portal mounts a wrapper element. Create it only with content: a modal dialog hides the
+  // wrappers that exist when it opens, and a lazily mounted overlay would then render inside one.
   return (
-    <Show when={context.portalled !== false} fallback={props.children}>
-      <Portal mount={resolvePortalMount(context.portalRef)}>{props.children}</Portal>
+    <Show when={context.portalled !== false} fallback={content()}>
+      <Show when={content.toArray().length > 0}>
+        <Portal mount={resolvePortalMount(context.portalRef)}>{content()}</Portal>
+      </Show>
     </Show>
   );
 }

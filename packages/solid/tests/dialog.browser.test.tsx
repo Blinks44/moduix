@@ -1,7 +1,8 @@
+import { createListCollection } from '@ark-ui/solid/collection';
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render } from '@solidjs/testing-library';
-import { createSignal, type JSX } from 'solid-js';
+import { For, createSignal, type JSX } from 'solid-js';
 import {
   Button,
   Dialog,
@@ -22,6 +23,12 @@ import {
   PopoverContent,
   PopoverPositioner,
   PopoverTrigger,
+  Select,
+  SelectContent,
+  SelectField,
+  SelectLabel,
+  SelectOption,
+  SelectPositioner,
   useDialog,
 } from '@/index';
 
@@ -199,6 +206,31 @@ test('supports controlled open state', async () => {
   await page.getByRole('button', { name: 'Close dialog' }).click();
 
   await expect.poll(() => details).toEqual([{ open: true }, { open: false }]);
+});
+
+test('keeps a portalled select listbox accessible inside a modal dialog', async () => {
+  const statuses = createListCollection({ items: ['Planning', 'Done'] });
+
+  render(() => (
+    <Dialog defaultOpen>
+      <DialogParts>
+        <Select collection={statuses}>
+          <SelectLabel>Status</SelectLabel>
+          <SelectField />
+          <SelectPositioner>
+            <SelectContent>
+              <For each={statuses.items}>
+                {(item) => <SelectOption item={item}>{item}</SelectOption>}
+              </For>
+            </SelectContent>
+          </SelectPositioner>
+        </Select>
+      </DialogParts>
+    </Dialog>
+  ));
+
+  await page.getByRole('combobox', { name: 'Status' }).click();
+  await expect.element(page.getByRole('option', { name: 'Done' })).toBeVisible();
 });
 
 test('renders overlays inline when portalled is false', async () => {

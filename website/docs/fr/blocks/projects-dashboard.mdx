@@ -1,0 +1,67 @@
+---
+title: Tableau de bord des projets
+description: Un suivi de projets fonctionnel avec navigation latérale, statistiques à jour, tableau des projets et formulaire en dialogue qui ajoute une ligne et confirme par une notification.
+block: projects-dashboard
+pageType: doc-wide
+outline: false
+---
+
+import { ProjectsDashboard } from '@/components/blocks/projects-dashboard';
+import projectsDashboardSolid from '../../../snippets/blocks/solid/projects-dashboard.tsx?raw';
+import projectsDashboardVue from '../../../snippets/blocks/vue/projects-dashboard.vue?raw';
+import projectsDashboardSvelte from '../../../snippets/blocks/svelte/projects-dashboard.svelte?raw';
+import projectsDashboardReact from '../../../src/components/blocks/projects-dashboard.tsx?raw';
+import projectsDashboardCss from '../../../src/components/blocks/projects-dashboard.module.css?raw';
+export const projectsDashboardLive = { solid: () => import('../../../snippets/blocks/solid/projects-dashboard.tsx').then((module) => ({ default: module.ProjectsDashboard })), vue: () => import('../../../snippets/blocks/vue/projects-dashboard.vue'), svelte: () => import('../../../snippets/blocks/svelte/projects-dashboard.svelte') };
+
+# Tableau de bord des projets
+
+<ExamplePanel
+  clientOnly
+  sources={{ react: projectsDashboardReact, solid: projectsDashboardSolid, vue: projectsDashboardVue, svelte: projectsDashboardSvelte }}
+  files={[{ name: 'projects-dashboard.module.css', code: projectsDashboardCss }]}
+>
+  <FrameworkPreview live={projectsDashboardLive}>
+    <ProjectsDashboard />
+  </FrameworkPreview>
+</ExamplePanel>
+
+Partez de ce bloc pour un outil interne. Cliquez sur **New project**, remplissez le formulaire et
+envoyez-le : le dialogue se ferme, le projet apparaît en tête du tableau, les cartes de statistiques
+se mettent à jour et une notification confirme le changement.
+
+Le bloc combine `Sidebar` pour la navigation, `Dialog` avec `Field`, `Input` et `Select` pour le
+formulaire, `Table` et `Badge` pour la liste, et `Toast` pour le retour. Il s’agit d’une composition
+prête à copier, pas d’un composant `ProjectsDashboard` exporté par moduix.
+
+## Installation
+
+<BlockInstall name="projects-dashboard" />
+
+## Connecter vos données
+
+L’exemple garde les projets dans un état local pour fonctionner sans serveur. Dans votre
+application, chargez la liste depuis votre API et envoyez-lui les données du formulaire dans
+`createProject`. Fermez le dialogue et affichez la notification de succès une fois la requête
+terminée ; en cas d’échec, affichez une notification `error` avec le même `toaster`.
+
+Remplacez l’ancre `#projects` et les autres liens de démonstration par les routes de votre
+application. Si votre routeur fournit un composant de lien, utilisez-le avec
+`SidebarNavigationButton` et la prop `asChild`. Les parties `Sidebar` sont décrites dans la
+[documentation de Sidebar](/docs/sidebar).
+
+## Comportement du formulaire
+
+| Partie               | Comportement                                                                                                         |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `Field required`     | Rend le champ obligatoire : le navigateur bloque l’envoi d’un formulaire vide et place le focus sur le premier champ invalide. |
+| `Select name`        | `SelectHiddenSelect` rend un `select` natif, si bien que le statut choisi figure dans `FormData`.                   |
+| `Dialog open`        | Le dialogue est contrôlé : le formulaire ne le ferme qu’après un envoi réussi.                                       |
+| `DialogCloseTrigger` | **Cancel** ferme le dialogue sans modifier la liste ; Échap et un clic sur l’arrière-plan font de même.              |
+
+## Comportement adaptatif
+
+`Sidebar` ne fournit pas de tiroir mobile. Sur les petits écrans, composez un `Drawer` ou un autre
+panneau superposé avec votre navigation. La feuille de style de l’exemple passe les cartes de
+statistiques sur une colonne sous `40rem`, et `TableScrollArea` permet de faire défiler le tableau
+horizontalement.
