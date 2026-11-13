@@ -39,7 +39,12 @@
   <ToastCloseTrigger {...props} bind:ref>
     {#snippet asChild(triggerProps)}
       <CloseButton
-        {...triggerProps({ class: cn('absolute end-2 top-2', className) })}
+        {...triggerProps({
+          class: cn(
+            'absolute end-2 top-2 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-[color:var(--_toast-hover,var(--color-muted))]',
+            className,
+          ),
+        })}
         {children}
         aria-label={resolvedAriaLabel}
         aria-labelledby={ariaLabelledby}

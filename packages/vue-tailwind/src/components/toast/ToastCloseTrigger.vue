@@ -41,7 +41,12 @@ const resolvedAriaLabel = computed(() =>
     <CloseButton
       :aria-label="resolvedAriaLabel"
       :aria-labelledby="ariaLabelledby"
-      :class="cn('absolute end-2 top-2', className)"
+      :class="
+        cn(
+          'absolute end-2 top-2 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-[color:var(--_toast-hover,var(--color-muted))]',
+          className,
+        )
+      "
       data-slot="toast-close-trigger"
     >
       <slot v-if="$slots.default" />
