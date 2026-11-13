@@ -161,7 +161,8 @@ Use this structure (Sign in is the reference, after the "Docs · Block · Sign i
 
 1. frontmatter `block: <name>` adds the "Blocks / <section>" breadcrumb from the sidebar and the
    Source and Report issue links; the description states the product outcome, so the page has no
-   separate intro;
+   separate intro. Every block page also sets `pageType: doc-wide` and `outline: false`: block
+   pages are short, and the preview gets the full canvas;
 2. one `ExamplePanel` with the native source of every supported framework in `sources`, the shared
    stylesheet in `files`, and the React block wrapped in `<FrameworkPreview live={...}>`. Declare
    `live` with a module-level `export const` of `solid`, `vue`, and `svelte` lazy imports, mapping a
