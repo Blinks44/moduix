@@ -15,6 +15,7 @@
     "label": "Tableau latéral"
   },
   { "type": "file", "name": "app-shell", "label": "Structure d’application" },
+  { "type": "file", "name": "projects-dashboard", "label": "Tableau de bord des projets" },
   {
     "type": "section-header",
     "label": "Accès"

@@ -14,6 +14,7 @@ import { FileUploadManager } from './file-upload-manager';
 import { ForgotPassword } from './forgot-password/forgot-password';
 import { LoginSimple } from './login-simple/login-simple';
 import { ParallaxCard } from './parallax-card';
+import { ProjectsDashboard } from './projects-dashboard';
 import { ResetPassword } from './reset-password/reset-password';
 import { SidebarDashboard } from './sidebar-dashboard';
 import { SignUp } from './sign-up/sign-up';
@@ -35,6 +36,7 @@ const blocks: { slug: string; width: number; preview: ReactNode }[] = [
       </AppShellPreview>
     ),
   },
+  { slug: 'projects-dashboard', width: 1000, preview: <ProjectsDashboard /> },
   { slug: 'login-simple', width: 420, preview: <LoginSimple onSubmit={prevent} /> },
   { slug: 'sign-up', width: 420, preview: <SignUp onSubmit={prevent} /> },
   { slug: 'forgot-password', width: 420, preview: <ForgotPassword onSubmit={prevent} /> },

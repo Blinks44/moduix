@@ -15,6 +15,7 @@
     "label": "Сайдбар"
   },
   { "type": "file", "name": "app-shell", "label": "Каркас приложения" },
+  { "type": "file", "name": "projects-dashboard", "label": "Панель проектов" },
   {
     "type": "section-header",
     "label": "Доступ"

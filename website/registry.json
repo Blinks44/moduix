@@ -55,6 +55,37 @@
       ]
     },
     {
+      "name": "react-tailwind-projects-dashboard",
+      "type": "registry:block",
+      "title": "Projects dashboard",
+      "description": "Project tracker with a sidebar, live metrics, a table, and a dialog form with toast feedback.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": [
+        "https://moduix.dev/r/react-tailwind/badge.json",
+        "https://moduix.dev/r/react-tailwind/button.json",
+        "https://moduix.dev/r/react-tailwind/card.json",
+        "https://moduix.dev/r/react-tailwind/dialog.json",
+        "https://moduix.dev/r/react-tailwind/field.json",
+        "https://moduix.dev/r/react-tailwind/input.json",
+        "https://moduix.dev/r/react-tailwind/select.json",
+        "https://moduix.dev/r/react-tailwind/sidebar.json",
+        "https://moduix.dev/r/react-tailwind/table.json",
+        "https://moduix.dev/r/react-tailwind/toast.json"
+      ],
+      "files": [
+        {
+          "path": "src/components/blocks/projects-dashboard.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/projects-dashboard/projects-dashboard.tsx"
+        },
+        {
+          "path": "src/components/blocks/projects-dashboard.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/projects-dashboard/projects-dashboard.module.css"
+        }
+      ]
+    },
+    {
       "name": "react-tailwind-app-shell",
       "type": "registry:block",
       "title": "App shell",
@@ -394,6 +425,37 @@
           "path": "src/components/blocks/sidebar-dashboard.module.css",
           "type": "registry:file",
           "target": "@components/blocks/sidebar-dashboard/sidebar-dashboard.module.css"
+        }
+      ]
+    },
+    {
+      "name": "react-projects-dashboard",
+      "type": "registry:block",
+      "title": "Projects dashboard",
+      "description": "Project tracker with a sidebar, live metrics, a table, and a dialog form with toast feedback.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": [
+        "https://moduix.dev/r/react/badge.json",
+        "https://moduix.dev/r/react/button.json",
+        "https://moduix.dev/r/react/card.json",
+        "https://moduix.dev/r/react/dialog.json",
+        "https://moduix.dev/r/react/field.json",
+        "https://moduix.dev/r/react/input.json",
+        "https://moduix.dev/r/react/select.json",
+        "https://moduix.dev/r/react/sidebar.json",
+        "https://moduix.dev/r/react/table.json",
+        "https://moduix.dev/r/react/toast.json"
+      ],
+      "files": [
+        {
+          "path": "src/components/blocks/projects-dashboard.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/projects-dashboard/projects-dashboard.tsx"
+        },
+        {
+          "path": "src/components/blocks/projects-dashboard.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/projects-dashboard/projects-dashboard.module.css"
         }
       ]
     },
@@ -741,6 +803,37 @@
       ]
     },
     {
+      "name": "solid-tailwind-projects-dashboard",
+      "type": "registry:block",
+      "title": "Projects dashboard",
+      "description": "Project tracker with a sidebar, live metrics, a table, and a dialog form with toast feedback.",
+      "dependencies": ["lucide-solid"],
+      "registryDependencies": [
+        "https://moduix.dev/r/solid-tailwind/badge.json",
+        "https://moduix.dev/r/solid-tailwind/button.json",
+        "https://moduix.dev/r/solid-tailwind/card.json",
+        "https://moduix.dev/r/solid-tailwind/dialog.json",
+        "https://moduix.dev/r/solid-tailwind/field.json",
+        "https://moduix.dev/r/solid-tailwind/input.json",
+        "https://moduix.dev/r/solid-tailwind/select.json",
+        "https://moduix.dev/r/solid-tailwind/sidebar.json",
+        "https://moduix.dev/r/solid-tailwind/table.json",
+        "https://moduix.dev/r/solid-tailwind/toast.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/solid/projects-dashboard.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/projects-dashboard/projects-dashboard.tsx"
+        },
+        {
+          "path": "src/components/blocks/projects-dashboard.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/projects-dashboard/projects-dashboard.module.css"
+        }
+      ]
+    },
+    {
       "name": "solid-tailwind-app-shell",
       "type": "registry:block",
       "title": "App shell",
@@ -1084,6 +1177,37 @@
       ]
     },
     {
+      "name": "solid-projects-dashboard",
+      "type": "registry:block",
+      "title": "Projects dashboard",
+      "description": "Project tracker with a sidebar, live metrics, a table, and a dialog form with toast feedback.",
+      "dependencies": ["lucide-solid"],
+      "registryDependencies": [
+        "https://moduix.dev/r/solid/badge.json",
+        "https://moduix.dev/r/solid/button.json",
+        "https://moduix.dev/r/solid/card.json",
+        "https://moduix.dev/r/solid/dialog.json",
+        "https://moduix.dev/r/solid/field.json",
+        "https://moduix.dev/r/solid/input.json",
+        "https://moduix.dev/r/solid/select.json",
+        "https://moduix.dev/r/solid/sidebar.json",
+        "https://moduix.dev/r/solid/table.json",
+        "https://moduix.dev/r/solid/toast.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/solid/projects-dashboard.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/projects-dashboard/projects-dashboard.tsx"
+        },
+        {
+          "path": "src/components/blocks/projects-dashboard.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/projects-dashboard/projects-dashboard.module.css"
+        }
+      ]
+    },
+    {
       "name": "solid-app-shell",
       "type": "registry:block",
       "title": "App shell",
@@ -1423,6 +1547,37 @@
           "path": "src/components/blocks/sidebar-dashboard.module.css",
           "type": "registry:file",
           "target": "@components/blocks/sidebar-dashboard/sidebar-dashboard.module.css"
+        }
+      ]
+    },
+    {
+      "name": "vue-tailwind-projects-dashboard",
+      "type": "registry:block",
+      "title": "Projects dashboard",
+      "description": "Project tracker with a sidebar, live metrics, a table, and a dialog form with toast feedback.",
+      "dependencies": ["@lucide/vue"],
+      "registryDependencies": [
+        "https://moduix.dev/r/vue-tailwind/badge.json",
+        "https://moduix.dev/r/vue-tailwind/button.json",
+        "https://moduix.dev/r/vue-tailwind/card.json",
+        "https://moduix.dev/r/vue-tailwind/dialog.json",
+        "https://moduix.dev/r/vue-tailwind/field.json",
+        "https://moduix.dev/r/vue-tailwind/input.json",
+        "https://moduix.dev/r/vue-tailwind/select.json",
+        "https://moduix.dev/r/vue-tailwind/sidebar.json",
+        "https://moduix.dev/r/vue-tailwind/table.json",
+        "https://moduix.dev/r/vue-tailwind/toast.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/vue/projects-dashboard.vue",
+          "type": "registry:component",
+          "target": "@components/blocks/projects-dashboard/projects-dashboard.vue"
+        },
+        {
+          "path": "src/components/blocks/projects-dashboard.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/projects-dashboard/projects-dashboard.module.css"
         }
       ]
     },
@@ -1775,6 +1930,37 @@
       ]
     },
     {
+      "name": "vue-projects-dashboard",
+      "type": "registry:block",
+      "title": "Projects dashboard",
+      "description": "Project tracker with a sidebar, live metrics, a table, and a dialog form with toast feedback.",
+      "dependencies": ["@lucide/vue"],
+      "registryDependencies": [
+        "https://moduix.dev/r/vue/badge.json",
+        "https://moduix.dev/r/vue/button.json",
+        "https://moduix.dev/r/vue/card.json",
+        "https://moduix.dev/r/vue/dialog.json",
+        "https://moduix.dev/r/vue/field.json",
+        "https://moduix.dev/r/vue/input.json",
+        "https://moduix.dev/r/vue/select.json",
+        "https://moduix.dev/r/vue/sidebar.json",
+        "https://moduix.dev/r/vue/table.json",
+        "https://moduix.dev/r/vue/toast.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/vue/projects-dashboard.vue",
+          "type": "registry:component",
+          "target": "@components/blocks/projects-dashboard/projects-dashboard.vue"
+        },
+        {
+          "path": "src/components/blocks/projects-dashboard.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/projects-dashboard/projects-dashboard.module.css"
+        }
+      ]
+    },
+    {
       "name": "vue-app-shell",
       "type": "registry:block",
       "title": "App shell",
@@ -2123,6 +2309,37 @@
       ]
     },
     {
+      "name": "svelte-tailwind-projects-dashboard",
+      "type": "registry:block",
+      "title": "Projects dashboard",
+      "description": "Project tracker with a sidebar, live metrics, a table, and a dialog form with toast feedback.",
+      "dependencies": ["@lucide/svelte"],
+      "registryDependencies": [
+        "https://moduix.dev/r/svelte-tailwind/badge.json",
+        "https://moduix.dev/r/svelte-tailwind/button.json",
+        "https://moduix.dev/r/svelte-tailwind/card.json",
+        "https://moduix.dev/r/svelte-tailwind/dialog.json",
+        "https://moduix.dev/r/svelte-tailwind/field.json",
+        "https://moduix.dev/r/svelte-tailwind/input.json",
+        "https://moduix.dev/r/svelte-tailwind/select.json",
+        "https://moduix.dev/r/svelte-tailwind/sidebar.json",
+        "https://moduix.dev/r/svelte-tailwind/table.json",
+        "https://moduix.dev/r/svelte-tailwind/toast.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/svelte/projects-dashboard.svelte",
+          "type": "registry:component",
+          "target": "@components/blocks/projects-dashboard/projects-dashboard.svelte"
+        },
+        {
+          "path": "src/components/blocks/projects-dashboard.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/projects-dashboard/projects-dashboard.module.css"
+        }
+      ]
+    },
+    {
       "name": "svelte-tailwind-app-shell",
       "type": "registry:block",
       "title": "App shell",
@@ -2467,6 +2684,37 @@
           "path": "src/components/blocks/sidebar-dashboard.module.css",
           "type": "registry:file",
           "target": "@components/blocks/sidebar-dashboard/sidebar-dashboard.module.css"
+        }
+      ]
+    },
+    {
+      "name": "svelte-projects-dashboard",
+      "type": "registry:block",
+      "title": "Projects dashboard",
+      "description": "Project tracker with a sidebar, live metrics, a table, and a dialog form with toast feedback.",
+      "dependencies": ["@lucide/svelte"],
+      "registryDependencies": [
+        "https://moduix.dev/r/svelte/badge.json",
+        "https://moduix.dev/r/svelte/button.json",
+        "https://moduix.dev/r/svelte/card.json",
+        "https://moduix.dev/r/svelte/dialog.json",
+        "https://moduix.dev/r/svelte/field.json",
+        "https://moduix.dev/r/svelte/input.json",
+        "https://moduix.dev/r/svelte/select.json",
+        "https://moduix.dev/r/svelte/sidebar.json",
+        "https://moduix.dev/r/svelte/table.json",
+        "https://moduix.dev/r/svelte/toast.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/svelte/projects-dashboard.svelte",
+          "type": "registry:component",
+          "target": "@components/blocks/projects-dashboard/projects-dashboard.svelte"
+        },
+        {
+          "path": "src/components/blocks/projects-dashboard.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/projects-dashboard/projects-dashboard.module.css"
         }
       ]
     },

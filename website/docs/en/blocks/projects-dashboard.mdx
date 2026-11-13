@@ -1,0 +1,65 @@
+---
+title: Projects dashboard
+description: A working project tracker with a sidebar, live metrics, a projects table, and a dialog form that adds rows and confirms with a toast.
+block: projects-dashboard
+pageType: doc-wide
+outline: false
+---
+
+import { ProjectsDashboard } from '@/components/blocks/projects-dashboard';
+import projectsDashboardSolid from '../../../snippets/blocks/solid/projects-dashboard.tsx?raw';
+import projectsDashboardVue from '../../../snippets/blocks/vue/projects-dashboard.vue?raw';
+import projectsDashboardSvelte from '../../../snippets/blocks/svelte/projects-dashboard.svelte?raw';
+import projectsDashboardReact from '../../../src/components/blocks/projects-dashboard.tsx?raw';
+import projectsDashboardCss from '../../../src/components/blocks/projects-dashboard.module.css?raw';
+export const projectsDashboardLive = { solid: () => import('../../../snippets/blocks/solid/projects-dashboard.tsx').then((module) => ({ default: module.ProjectsDashboard })), vue: () => import('../../../snippets/blocks/vue/projects-dashboard.vue'), svelte: () => import('../../../snippets/blocks/svelte/projects-dashboard.svelte') };
+
+# Projects dashboard
+
+<ExamplePanel
+  clientOnly
+  sources={{ react: projectsDashboardReact, solid: projectsDashboardSolid, vue: projectsDashboardVue, svelte: projectsDashboardSvelte }}
+  files={[{ name: 'projects-dashboard.module.css', code: projectsDashboardCss }]}
+>
+  <FrameworkPreview live={projectsDashboardLive}>
+    <ProjectsDashboard />
+  </FrameworkPreview>
+</ExamplePanel>
+
+Use this block as a starting point for an internal tool. Select **New project**, fill in the form,
+and submit it: the dialog closes, the project appears at the top of the table, the metric cards
+update, and a toast confirms the change.
+
+It combines `Sidebar` for navigation, `Dialog` with `Field`, `Input`, and `Select` for the form,
+`Table` and `Badge` for the list, and `Toast` for feedback. This is a copy-ready composition, not a
+`ProjectsDashboard` component exported by moduix.
+
+## Install
+
+<BlockInstall name="projects-dashboard" />
+
+## Connect your data
+
+The example keeps projects in local state so it runs without a backend. In your application, load
+the list from your API and send the form data to it in `createProject`. Close the dialog and show
+the success toast after the request resolves, and show an `error` toast with the same `toaster` when
+it fails.
+
+Replace the `#projects` and other example anchors with routes from your application. If your router
+provides a link component, use it with `SidebarNavigationButton` and the `asChild` prop. The
+`Sidebar` parts are covered in the [Sidebar docs](/docs/sidebar).
+
+## Form behavior
+
+| Part              | Behavior                                                                                                   |
+| ----------------- | ---------------------------------------------------------------------------------------------------------- |
+| `Field required`  | Marks the input as required, so the browser blocks an empty submit and focuses the first invalid input.   |
+| `Select name`     | `SelectHiddenSelect` renders a native `select`, so the chosen status is included in `FormData`.          |
+| `Dialog open`     | The dialog is controlled, so the form closes it only after a successful submit.                           |
+| `DialogCloseTrigger` | **Cancel** closes the dialog without changing the list; Escape and the backdrop do the same.          |
+
+## Responsive behavior
+
+`Sidebar` does not provide a mobile drawer. For smaller screens, compose `Drawer` or another overlay
+with your navigation. The example CSS stacks the metric cards below `40rem`, and `TableScrollArea`
+lets the table scroll horizontally.
