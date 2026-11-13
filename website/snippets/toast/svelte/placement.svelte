@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Button } from '@moduix/svelte/button';
   import { ToastToaster, createToaster } from '@moduix/svelte/toast';
-  import styles from '@/components/examples/toast/toast-placement.module.css';
+  import styles from '@/components/examples/toast/toast-options.module.css';
 
   const placements = [
     'top-start',
