@@ -1,5 +1,15 @@
 # @moduix/solid-tailwind
 
+## 3.3.2
+
+### Patch Changes
+
+- eccc10c: Keep portalled overlays opened inside a modal dialog, such as a Select listbox or a Menu, visible to assistive technology.
+
+### Toast
+
+- eccc10c: Tint the close and action button hover with the toast type color on success, warning, and error toasts instead of a neutral gray.
+
 ## 3.3.1
 
 ### Patch Changes
