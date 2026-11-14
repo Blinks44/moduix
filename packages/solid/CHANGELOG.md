@@ -1,5 +1,13 @@
 # @moduix/solid
 
+## 3.3.3
+
+### Patch Changes
+
+### Badge
+
+- 6ee4628: Stop clipping the label inside table cells. The root no longer sets `max-width: 100%`, which let auto-layout tables size a column narrower than its badges.
+
 ## 3.3.2
 
 ### Patch Changes
