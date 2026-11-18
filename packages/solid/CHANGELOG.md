@@ -1,5 +1,11 @@
 # @moduix/solid
 
+## 3.3.4
+
+### Patch Changes
+
+- dbef5b5: Fix compatibility with newer lucide-solid releases in Solid packages and registry installs.
+
 ## 3.3.3
 
 ### Patch Changes
