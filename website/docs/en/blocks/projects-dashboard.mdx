@@ -1,6 +1,6 @@
 ---
 title: Projects dashboard
-description: A working project tracker with a sidebar, live metrics, a projects table, and a dialog form that adds rows and confirms with a toast.
+description: A working project tracker with a resizable sidebar and nested navigation, live metrics, a projects table, and a dialog form that adds rows and confirms with a toast.
 block: projects-dashboard
 pageType: doc-wide
 outline: false
@@ -30,7 +30,7 @@ Use this block as a starting point for an internal tool. Select **New project**,
 and submit it: the dialog closes, the project appears at the top of the table, the metric cards
 update, and a toast confirms the change.
 
-It combines `Sidebar` for navigation, `Dialog` with `Field`, `Input`, and `Select` for the form,
+It combines `Sidebar` with `Collapsible` and `Menu` for resizable, nested navigation and a workspace menu, `Dialog` with `Field`, `Input`, and `Select` for the form,
 `Table` and `Badge` for the list, and `Toast` for feedback. This is a copy-ready composition, not a
 `ProjectsDashboard` component exported by moduix.
 

@@ -31,6 +31,25 @@
   font-size: var(--moduix-text-xs);
 }
 
+.workspaceMark {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: var(--moduix-size-sm);
+  height: var(--moduix-size-sm);
+  border-radius: var(--moduix-radius-sm);
+  background-color: var(--moduix-muted);
+  color: var(--moduix-foreground);
+  font-size: var(--moduix-text-xs);
+  font-weight: var(--moduix-weight-semibold);
+}
+
+.workspaceMenu {
+  width: 11rem;
+  min-width: 11rem;
+  max-width: 11rem;
+}
+
 .content {
   display: grid;
   align-content: start;

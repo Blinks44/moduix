@@ -1,5 +1,7 @@
 <script lang="ts">
   import { createListCollection } from '@ark-ui/svelte/collection';
+  import ChevronsUpDown from '@lucide/svelte/icons/chevrons-up-down';
+  import FileText from '@lucide/svelte/icons/file-text';
   import FolderOpen from '@lucide/svelte/icons/folder-open';
   import Gauge from '@lucide/svelte/icons/gauge';
   import Plus from '@lucide/svelte/icons/plus';
@@ -8,6 +10,12 @@
   import { Badge } from '@/components/ui/badge';
   import { Button } from '@/components/ui/button';
   import { Card, CardBody } from '@/components/ui/card';
+  import {
+    Collapsible,
+    CollapsibleContent,
+    CollapsibleIndicator,
+    CollapsibleTrigger,
+  } from '@/components/ui/collapsible';
   import {
     Dialog,
     DialogBackdrop,
@@ -25,6 +33,16 @@
   import { Field, FieldLabel } from '@/components/ui/field';
   import { Input } from '@/components/ui/input';
   import {
+    Menu,
+    MenuContent,
+    MenuIndicator,
+    MenuItem,
+    MenuItemText,
+    MenuPositioner,
+    MenuTrigger,
+    MenuViewport,
+  } from '@/components/ui/menu';
+  import {
     Select,
     SelectContent,
     SelectField,
@@ -36,14 +54,21 @@
   import {
     Sidebar,
     SidebarContent,
+    SidebarFooter,
     SidebarGroup,
+    SidebarGroupLabel,
     SidebarHeader,
     SidebarInset,
     SidebarLabel,
+    SidebarNavigationBadge,
     SidebarNavigationButton,
     SidebarNavigationItem,
     SidebarNavigationList,
+    SidebarNavigationSubButton,
+    SidebarNavigationSubItem,
+    SidebarNavigationSubList,
     SidebarPanel,
+    SidebarResizeTrigger,
     SidebarTooltip,
     SidebarTrigger,
   } from '@/components/ui/sidebar';
@@ -74,9 +99,7 @@
     items: Object.keys(statusVariant).map((status) => ({ label: status, value: status })),
   });
 
-  const navigation = [
-    { label: 'Overview', href: '#overview', icon: Gauge },
-    { label: 'Projects', href: '#projects', icon: FolderOpen, active: true },
+  const manageItems = [
     { label: 'Team', href: '#team', icon: Users },
     { label: 'Settings', href: '#settings', icon: Settings },
   ];
@@ -126,12 +149,80 @@
     </SidebarHeader>
     <SidebarContent>
       <SidebarGroup>
+        <SidebarGroupLabel>Workspace</SidebarGroupLabel>
         <SidebarNavigationList>
-          {#each navigation as item (item.label)}
+          <SidebarNavigationItem>
+            <SidebarTooltip content="Overview">
+              {#snippet children(tooltipProps)}
+                <SidebarNavigationButton {...tooltipProps()}>
+                  {#snippet asChild(buttonProps)}
+                    <a {...buttonProps()} href="#overview">
+                      <Gauge /><SidebarLabel>Overview</SidebarLabel>
+                    </a>
+                  {/snippet}
+                </SidebarNavigationButton>
+              {/snippet}
+            </SidebarTooltip>
+          </SidebarNavigationItem>
+          <SidebarNavigationItem>
+            <Collapsible defaultOpen>
+              <SidebarTooltip content="Projects">
+                {#snippet children(tooltipProps)}
+                  <CollapsibleTrigger>
+                    {#snippet asChild(triggerProps)}
+                      <SidebarNavigationButton {...tooltipProps(triggerProps())}>
+                        <FolderOpen /><SidebarLabel>Projects</SidebarLabel><CollapsibleIndicator />
+                      </SidebarNavigationButton>
+                    {/snippet}
+                  </CollapsibleTrigger>
+                {/snippet}
+              </SidebarTooltip>
+              <CollapsibleContent>
+                <SidebarNavigationSubList>
+                  <SidebarNavigationSubItem>
+                    <SidebarNavigationSubButton active>
+                      {#snippet asChild(props)}
+                        <a {...props()} href="#projects"
+                          ><SidebarLabel>All projects</SidebarLabel></a
+                        >
+                      {/snippet}
+                    </SidebarNavigationSubButton>
+                    <SidebarNavigationBadge>{projects.length}</SidebarNavigationBadge>
+                  </SidebarNavigationSubItem>
+                  <SidebarNavigationSubItem>
+                    <SidebarNavigationSubButton>
+                      {#snippet asChild(props)}
+                        <a {...props()} href="#archived"><SidebarLabel>Archived</SidebarLabel></a>
+                      {/snippet}
+                    </SidebarNavigationSubButton>
+                  </SidebarNavigationSubItem>
+                </SidebarNavigationSubList>
+              </CollapsibleContent>
+            </Collapsible>
+          </SidebarNavigationItem>
+          <SidebarNavigationItem>
+            <SidebarTooltip content="Documents">
+              {#snippet children(tooltipProps)}
+                <SidebarNavigationButton {...tooltipProps()}>
+                  {#snippet asChild(buttonProps)}
+                    <a {...buttonProps()} href="#documents">
+                      <FileText /><SidebarLabel>Documents</SidebarLabel>
+                    </a>
+                  {/snippet}
+                </SidebarNavigationButton>
+              {/snippet}
+            </SidebarTooltip>
+          </SidebarNavigationItem>
+        </SidebarNavigationList>
+      </SidebarGroup>
+      <SidebarGroup>
+        <SidebarGroupLabel>Manage</SidebarGroupLabel>
+        <SidebarNavigationList>
+          {#each manageItems as item (item.label)}
             <SidebarNavigationItem>
               <SidebarTooltip content={item.label}>
                 {#snippet children(tooltipProps)}
-                  <SidebarNavigationButton {...tooltipProps()} active={item.active}>
+                  <SidebarNavigationButton {...tooltipProps()}>
                     {#snippet asChild(buttonProps)}
                       <a {...buttonProps()} href={item.href}>
                         <item.icon />
@@ -146,8 +237,43 @@
         </SidebarNavigationList>
       </SidebarGroup>
     </SidebarContent>
+    <SidebarFooter>
+      <SidebarNavigationList>
+        <SidebarNavigationItem>
+          <Menu positioning={{ placement: 'right-end', gutter: 8, flip: false }}>
+            <MenuTrigger>
+              {#snippet asChild(triggerProps)}
+                <SidebarNavigationButton
+                  {...triggerProps()}
+                  size="lg"
+                  aria-label="Open workspace menu"
+                  title="Workspace"
+                >
+                  <span class={styles.workspaceMark} data-sidebar-icon>AC</span>
+                  <SidebarLabel>Acme Inc.</SidebarLabel>
+                  <MenuIndicator><ChevronsUpDown /></MenuIndicator>
+                </SidebarNavigationButton>
+              {/snippet}
+            </MenuTrigger>
+            <MenuPositioner>
+              <MenuContent class={styles.workspaceMenu}>
+                <MenuViewport>
+                  <MenuItem value="workspace-settings">
+                    <MenuItemText><Settings />Workspace settings</MenuItemText>
+                  </MenuItem>
+                  <MenuItem value="manage-members">
+                    <MenuItemText><Users />Manage members</MenuItemText>
+                  </MenuItem>
+                </MenuViewport>
+              </MenuContent>
+            </MenuPositioner>
+          </Menu>
+        </SidebarNavigationItem>
+      </SidebarNavigationList>
+    </SidebarFooter>
   </SidebarPanel>
 
+  <SidebarResizeTrigger />
   <SidebarTrigger />
 
   <SidebarInset>

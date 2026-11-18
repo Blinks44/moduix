@@ -1,10 +1,16 @@
 <script setup lang="ts">
 import { createListCollection } from '@ark-ui/vue/collection';
-import { FolderOpen, Gauge, Plus, Settings, Users } from '@lucide/vue';
+import { ChevronsUpDown, FileText, FolderOpen, Gauge, Plus, Settings, Users } from '@lucide/vue';
 import { ref } from 'vue';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardBody } from '@/components/ui/card';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleIndicator,
+  CollapsibleTrigger,
+} from '@/components/ui/collapsible';
 import {
   Dialog,
   DialogBackdrop,
@@ -22,6 +28,16 @@ import {
 import { Field, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import {
+  Menu,
+  MenuContent,
+  MenuIndicator,
+  MenuItem,
+  MenuItemText,
+  MenuPositioner,
+  MenuTrigger,
+  MenuViewport,
+} from '@/components/ui/menu';
+import {
   Select,
   SelectContent,
   SelectField,
@@ -33,14 +49,21 @@ import {
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
+  SidebarGroupLabel,
   SidebarHeader,
   SidebarInset,
   SidebarLabel,
+  SidebarNavigationBadge,
   SidebarNavigationButton,
   SidebarNavigationItem,
   SidebarNavigationList,
+  SidebarNavigationSubButton,
+  SidebarNavigationSubItem,
+  SidebarNavigationSubList,
   SidebarPanel,
+  SidebarResizeTrigger,
   SidebarTooltip,
   SidebarTrigger,
 } from '@/components/ui/sidebar';
@@ -71,9 +94,7 @@ const statuses = createListCollection({
   items: Object.keys(statusVariant).map((status) => ({ label: status, value: status })),
 });
 
-const navigation = [
-  { label: 'Overview', href: '#overview', icon: Gauge },
-  { label: 'Projects', href: '#projects', icon: FolderOpen, active: true },
+const manageItems = [
   { label: 'Team', href: '#team', icon: Users },
   { label: 'Settings', href: '#settings', icon: Settings },
 ];
@@ -124,10 +145,56 @@ function createProject(event: SubmitEvent) {
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
+          <SidebarGroupLabel>Workspace</SidebarGroupLabel>
           <SidebarNavigationList>
-            <SidebarNavigationItem v-for="item in navigation" :key="item.label">
+            <SidebarNavigationItem>
+              <SidebarTooltip content="Overview">
+                <SidebarNavigationButton as-child>
+                  <a href="#overview"><Gauge /><SidebarLabel>Overview</SidebarLabel></a>
+                </SidebarNavigationButton>
+              </SidebarTooltip>
+            </SidebarNavigationItem>
+            <SidebarNavigationItem>
+              <Collapsible default-open>
+                <SidebarTooltip content="Projects">
+                  <CollapsibleTrigger as-child>
+                    <SidebarNavigationButton>
+                      <FolderOpen /><SidebarLabel>Projects</SidebarLabel><CollapsibleIndicator />
+                    </SidebarNavigationButton>
+                  </CollapsibleTrigger>
+                </SidebarTooltip>
+                <CollapsibleContent>
+                  <SidebarNavigationSubList>
+                    <SidebarNavigationSubItem>
+                      <SidebarNavigationSubButton as-child active>
+                        <a href="#projects"><SidebarLabel>All projects</SidebarLabel></a>
+                      </SidebarNavigationSubButton>
+                      <SidebarNavigationBadge>{{ projects.length }}</SidebarNavigationBadge>
+                    </SidebarNavigationSubItem>
+                    <SidebarNavigationSubItem>
+                      <SidebarNavigationSubButton as-child>
+                        <a href="#archived"><SidebarLabel>Archived</SidebarLabel></a>
+                      </SidebarNavigationSubButton>
+                    </SidebarNavigationSubItem>
+                  </SidebarNavigationSubList>
+                </CollapsibleContent>
+              </Collapsible>
+            </SidebarNavigationItem>
+            <SidebarNavigationItem>
+              <SidebarTooltip content="Documents">
+                <SidebarNavigationButton as-child>
+                  <a href="#documents"><FileText /><SidebarLabel>Documents</SidebarLabel></a>
+                </SidebarNavigationButton>
+              </SidebarTooltip>
+            </SidebarNavigationItem>
+          </SidebarNavigationList>
+        </SidebarGroup>
+        <SidebarGroup>
+          <SidebarGroupLabel>Manage</SidebarGroupLabel>
+          <SidebarNavigationList>
+            <SidebarNavigationItem v-for="item in manageItems" :key="item.label">
               <SidebarTooltip :content="item.label">
-                <SidebarNavigationButton as-child :active="item.active">
+                <SidebarNavigationButton as-child>
                   <a :href="item.href">
                     <component :is="item.icon" />
                     <SidebarLabel>{{ item.label }}</SidebarLabel>
@@ -138,8 +205,40 @@ function createProject(event: SubmitEvent) {
           </SidebarNavigationList>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter>
+        <SidebarNavigationList>
+          <SidebarNavigationItem>
+            <Menu :positioning="{ placement: 'right-end', gutter: 8, flip: false }">
+              <MenuTrigger as-child>
+                <SidebarNavigationButton
+                  size="lg"
+                  aria-label="Open workspace menu"
+                  title="Workspace"
+                >
+                  <span :class="styles.workspaceMark" data-sidebar-icon>AC</span>
+                  <SidebarLabel>Acme Inc.</SidebarLabel>
+                  <MenuIndicator><ChevronsUpDown /></MenuIndicator>
+                </SidebarNavigationButton>
+              </MenuTrigger>
+              <MenuPositioner>
+                <MenuContent :class="styles.workspaceMenu">
+                  <MenuViewport>
+                    <MenuItem value="workspace-settings">
+                      <MenuItemText><Settings />Workspace settings</MenuItemText>
+                    </MenuItem>
+                    <MenuItem value="manage-members">
+                      <MenuItemText><Users />Manage members</MenuItemText>
+                    </MenuItem>
+                  </MenuViewport>
+                </MenuContent>
+              </MenuPositioner>
+            </Menu>
+          </SidebarNavigationItem>
+        </SidebarNavigationList>
+      </SidebarFooter>
     </SidebarPanel>
 
+    <SidebarResizeTrigger />
     <SidebarTrigger />
 
     <SidebarInset>

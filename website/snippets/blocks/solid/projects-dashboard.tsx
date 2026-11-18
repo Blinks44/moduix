@@ -1,9 +1,15 @@
 import { createListCollection } from '@ark-ui/solid/collection';
-import { FolderOpen, Gauge, Plus, Settings, Users } from 'lucide-solid';
+import { ChevronsUpDown, FileText, FolderOpen, Gauge, Plus, Settings, Users } from 'lucide-solid';
 import { For, createSignal } from 'solid-js';
 import { Badge } from '@/registry/solid/ui/badge';
 import { Button } from '@/registry/solid/ui/button';
 import { Card, CardBody } from '@/registry/solid/ui/card';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleIndicator,
+  CollapsibleTrigger,
+} from '@/registry/solid/ui/collapsible';
 import {
   Dialog,
   DialogBackdrop,
@@ -21,6 +27,16 @@ import {
 import { Field, FieldLabel } from '@/registry/solid/ui/field';
 import { Input } from '@/registry/solid/ui/input';
 import {
+  Menu,
+  MenuContent,
+  MenuIndicator,
+  MenuItem,
+  MenuItemText,
+  MenuPositioner,
+  MenuTrigger,
+  MenuViewport,
+} from '@/registry/solid/ui/menu';
+import {
   Select,
   SelectContent,
   SelectField,
@@ -32,14 +48,21 @@ import {
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
+  SidebarGroupLabel,
   SidebarHeader,
   SidebarInset,
   SidebarLabel,
+  SidebarNavigationBadge,
   SidebarNavigationButton,
   SidebarNavigationItem,
   SidebarNavigationList,
+  SidebarNavigationSubButton,
+  SidebarNavigationSubItem,
+  SidebarNavigationSubList,
   SidebarPanel,
+  SidebarResizeTrigger,
   SidebarTooltip,
   SidebarTrigger,
 } from '@/registry/solid/ui/sidebar';
@@ -70,9 +93,7 @@ const statuses = createListCollection({
   items: Object.keys(statusVariant).map((status) => ({ label: status, value: status })),
 });
 
-const navigation = [
-  { label: 'Overview', href: '#overview', icon: Gauge },
-  { label: 'Projects', href: '#projects', icon: FolderOpen, active: true },
+const manageItems = [
   { label: 'Team', href: '#team', icon: Users },
   { label: 'Settings', href: '#settings', icon: Settings },
 ];
@@ -126,15 +147,87 @@ export function ProjectsDashboard() {
         </SidebarHeader>
         <SidebarContent>
           <SidebarGroup>
+            <SidebarGroupLabel>Workspace</SidebarGroupLabel>
             <SidebarNavigationList>
-              <For each={navigation}>
+              <SidebarNavigationItem>
+                <SidebarTooltip content="Overview">
+                  {(props) => (
+                    <SidebarNavigationButton
+                      {...props()}
+                      asChild={(buttonProps) => (
+                        <a {...buttonProps()} href="#overview">
+                          <Gauge />
+                          <SidebarLabel>Overview</SidebarLabel>
+                        </a>
+                      )}
+                    />
+                  )}
+                </SidebarTooltip>
+              </SidebarNavigationItem>
+              <SidebarNavigationItem>
+                <Collapsible defaultOpen>
+                  <SidebarTooltip content="Projects">
+                    {(props) => (
+                      <CollapsibleTrigger
+                        {...props()}
+                        asChild={(triggerProps) => <SidebarNavigationButton {...triggerProps()} />}
+                      >
+                        <FolderOpen />
+                        <SidebarLabel>Projects</SidebarLabel>
+                        <CollapsibleIndicator />
+                      </CollapsibleTrigger>
+                    )}
+                  </SidebarTooltip>
+                  <CollapsibleContent>
+                    <SidebarNavigationSubList>
+                      <SidebarNavigationSubItem>
+                        <SidebarNavigationSubButton
+                          active
+                          asChild={(props) => <a {...props()} href="#projects" />}
+                        >
+                          <SidebarLabel>All projects</SidebarLabel>
+                        </SidebarNavigationSubButton>
+                        <SidebarNavigationBadge>{projects().length}</SidebarNavigationBadge>
+                      </SidebarNavigationSubItem>
+                      <SidebarNavigationSubItem>
+                        <SidebarNavigationSubButton
+                          asChild={(props) => <a {...props()} href="#archived" />}
+                        >
+                          <SidebarLabel>Archived</SidebarLabel>
+                        </SidebarNavigationSubButton>
+                      </SidebarNavigationSubItem>
+                    </SidebarNavigationSubList>
+                  </CollapsibleContent>
+                </Collapsible>
+              </SidebarNavigationItem>
+              <SidebarNavigationItem>
+                <SidebarTooltip content="Documents">
+                  {(props) => (
+                    <SidebarNavigationButton
+                      {...props()}
+                      asChild={(buttonProps) => (
+                        <a {...buttonProps()} href="#documents">
+                          <FileText />
+                          <SidebarLabel>Documents</SidebarLabel>
+                        </a>
+                      )}
+                    />
+                  )}
+                </SidebarTooltip>
+              </SidebarNavigationItem>
+            </SidebarNavigationList>
+          </SidebarGroup>
+
+          <SidebarGroup>
+            <SidebarGroupLabel>Manage</SidebarGroupLabel>
+            <SidebarNavigationList>
+              <For each={manageItems}>
                 {(item) => (
                   <SidebarNavigationItem>
                     <SidebarTooltip content={item.label}>
                       {(props) => (
                         <SidebarNavigationButton
                           {...props()}
-                          active={item.active}
                           asChild={(buttonProps) => (
                             <a {...buttonProps()} href={item.href}>
                               <item.icon />
@@ -150,8 +243,54 @@ export function ProjectsDashboard() {
             </SidebarNavigationList>
           </SidebarGroup>
         </SidebarContent>
+
+        <SidebarFooter>
+          <SidebarNavigationList>
+            <SidebarNavigationItem>
+              <Menu positioning={{ placement: 'right-end', gutter: 8, flip: false }}>
+                <MenuTrigger
+                  asChild={(props) => (
+                    <SidebarNavigationButton
+                      {...props()}
+                      size="lg"
+                      aria-label="Open workspace menu"
+                      title="Workspace"
+                    />
+                  )}
+                >
+                  <span class={styles.workspaceMark} data-sidebar-icon>
+                    AC
+                  </span>
+                  <SidebarLabel>Acme Inc.</SidebarLabel>
+                  <MenuIndicator>
+                    <ChevronsUpDown />
+                  </MenuIndicator>
+                </MenuTrigger>
+                <MenuPositioner>
+                  <MenuContent class={styles.workspaceMenu}>
+                    <MenuViewport>
+                      <MenuItem value="workspace-settings">
+                        <MenuItemText>
+                          <Settings />
+                          Workspace settings
+                        </MenuItemText>
+                      </MenuItem>
+                      <MenuItem value="manage-members">
+                        <MenuItemText>
+                          <Users />
+                          Manage members
+                        </MenuItemText>
+                      </MenuItem>
+                    </MenuViewport>
+                  </MenuContent>
+                </MenuPositioner>
+              </Menu>
+            </SidebarNavigationItem>
+          </SidebarNavigationList>
+        </SidebarFooter>
       </SidebarPanel>
 
+      <SidebarResizeTrigger />
       <SidebarTrigger />
 
       <SidebarInset>

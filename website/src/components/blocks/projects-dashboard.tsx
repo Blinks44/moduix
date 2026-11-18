@@ -1,11 +1,26 @@
 'use client';
 
 import { createListCollection } from '@ark-ui/react/collection';
-import { FolderOpen, Gauge, Plus, Settings, Users } from 'lucide-react';
+import {
+  ChevronsUpDown,
+  FileText,
+  FolderOpen,
+  Gauge,
+  LogOut,
+  Plus,
+  Settings,
+  Users,
+} from 'lucide-react';
 import { useState, type FormEvent } from 'react';
 import { Badge } from '@/registry/react/ui/badge';
 import { Button } from '@/registry/react/ui/button';
 import { Card, CardBody } from '@/registry/react/ui/card';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleIndicator,
+  CollapsibleTrigger,
+} from '@/registry/react/ui/collapsible';
 import {
   Dialog,
   DialogBackdrop,
@@ -23,6 +38,17 @@ import {
 import { Field, FieldLabel } from '@/registry/react/ui/field';
 import { Input } from '@/registry/react/ui/input';
 import {
+  Menu,
+  MenuContent,
+  MenuIndicator,
+  MenuItem,
+  MenuItemText,
+  MenuPositioner,
+  MenuSeparator,
+  MenuTrigger,
+  MenuViewport,
+} from '@/registry/react/ui/menu';
+import {
   Select,
   SelectContent,
   SelectField,
@@ -33,15 +59,24 @@ import {
 } from '@/registry/react/ui/select';
 import {
   Sidebar,
+  SidebarCollapsedContent,
   SidebarContent,
+  SidebarExpandedContent,
+  SidebarFooter,
   SidebarGroup,
+  SidebarGroupLabel,
   SidebarHeader,
   SidebarInset,
   SidebarLabel,
+  SidebarNavigationBadge,
   SidebarNavigationButton,
   SidebarNavigationItem,
   SidebarNavigationList,
+  SidebarNavigationSubButton,
+  SidebarNavigationSubItem,
+  SidebarNavigationSubList,
   SidebarPanel,
+  SidebarResizeTrigger,
   SidebarTooltip,
   SidebarTrigger,
 } from '@/registry/react/ui/sidebar';
@@ -72,9 +107,7 @@ const statuses = createListCollection({
   items: Object.keys(statusVariant).map((status) => ({ label: status, value: status })),
 });
 
-const navigation = [
-  { label: 'Overview', href: '#overview', icon: Gauge },
-  { label: 'Projects', href: '#projects', icon: FolderOpen, active: true },
+const manageItems = [
   { label: 'Team', href: '#team', icon: Users },
   { label: 'Settings', href: '#settings', icon: Settings },
 ];
@@ -127,11 +160,89 @@ export function ProjectsDashboard() {
         </SidebarHeader>
         <SidebarContent>
           <SidebarGroup>
+            <SidebarGroupLabel>Workspace</SidebarGroupLabel>
             <SidebarNavigationList>
-              {navigation.map((item) => (
+              <SidebarNavigationItem>
+                <SidebarTooltip content="Overview">
+                  <SidebarNavigationButton asChild>
+                    <a href="#overview">
+                      <Gauge />
+                      <SidebarLabel>Overview</SidebarLabel>
+                    </a>
+                  </SidebarNavigationButton>
+                </SidebarTooltip>
+              </SidebarNavigationItem>
+              <SidebarNavigationItem>
+                <SidebarExpandedContent>
+                  <Collapsible defaultOpen>
+                    <SidebarTooltip content="Projects">
+                      <CollapsibleTrigger asChild>
+                        <SidebarNavigationButton>
+                          <FolderOpen />
+                          <SidebarLabel>Projects</SidebarLabel>
+                          <CollapsibleIndicator />
+                        </SidebarNavigationButton>
+                      </CollapsibleTrigger>
+                    </SidebarTooltip>
+                    <CollapsibleContent>
+                      <SidebarNavigationSubList>
+                        <SidebarNavigationSubItem>
+                          <SidebarNavigationSubButton href="#projects" active>
+                            <SidebarLabel>All projects</SidebarLabel>
+                          </SidebarNavigationSubButton>
+                          <SidebarNavigationBadge>{projects.length}</SidebarNavigationBadge>
+                        </SidebarNavigationSubItem>
+                        <SidebarNavigationSubItem>
+                          <SidebarNavigationSubButton href="#archived">
+                            <SidebarLabel>Archived</SidebarLabel>
+                          </SidebarNavigationSubButton>
+                        </SidebarNavigationSubItem>
+                      </SidebarNavigationSubList>
+                    </CollapsibleContent>
+                  </Collapsible>
+                </SidebarExpandedContent>
+                <SidebarCollapsedContent>
+                  <Menu positioning={{ placement: 'right-start', gutter: 8 }}>
+                    <MenuTrigger asChild>
+                      <SidebarNavigationButton aria-label="Open projects" title="Projects" active>
+                        <FolderOpen />
+                      </SidebarNavigationButton>
+                    </MenuTrigger>
+                    <MenuPositioner>
+                      <MenuContent>
+                        <MenuViewport>
+                          <MenuItem value="all-projects" asChild>
+                            <a href="#projects">All projects</a>
+                          </MenuItem>
+                          <MenuItem value="archived" asChild>
+                            <a href="#archived">Archived</a>
+                          </MenuItem>
+                        </MenuViewport>
+                      </MenuContent>
+                    </MenuPositioner>
+                  </Menu>
+                </SidebarCollapsedContent>
+              </SidebarNavigationItem>
+              <SidebarNavigationItem>
+                <SidebarTooltip content="Documents">
+                  <SidebarNavigationButton asChild>
+                    <a href="#documents">
+                      <FileText />
+                      <SidebarLabel>Documents</SidebarLabel>
+                    </a>
+                  </SidebarNavigationButton>
+                </SidebarTooltip>
+              </SidebarNavigationItem>
+            </SidebarNavigationList>
+          </SidebarGroup>
+
+          <SidebarGroup>
+            <SidebarGroupLabel>Manage</SidebarGroupLabel>
+            <SidebarNavigationList>
+              {manageItems.map((item) => (
                 <SidebarNavigationItem key={item.label}>
                   <SidebarTooltip content={item.label}>
-                    <SidebarNavigationButton asChild active={item.active}>
+                    <SidebarNavigationButton asChild>
                       <a href={item.href}>
                         <item.icon />
                         <SidebarLabel>{item.label}</SidebarLabel>
@@ -143,8 +254,58 @@ export function ProjectsDashboard() {
             </SidebarNavigationList>
           </SidebarGroup>
         </SidebarContent>
+
+        <SidebarFooter>
+          <SidebarNavigationList>
+            <SidebarNavigationItem>
+              <Menu positioning={{ placement: 'right-end', gutter: 8, flip: false }}>
+                <MenuTrigger asChild>
+                  <SidebarNavigationButton
+                    size="lg"
+                    aria-label="Open workspace menu"
+                    title="Workspace"
+                  >
+                    <span className={styles.workspaceMark} data-sidebar-icon>
+                      AC
+                    </span>
+                    <SidebarLabel>Acme Inc.</SidebarLabel>
+                    <MenuIndicator>
+                      <ChevronsUpDown />
+                    </MenuIndicator>
+                  </SidebarNavigationButton>
+                </MenuTrigger>
+                <MenuPositioner>
+                  <MenuContent className={styles.workspaceMenu}>
+                    <MenuViewport>
+                      <MenuItem value="workspace-settings">
+                        <MenuItemText>
+                          <Settings />
+                          Workspace settings
+                        </MenuItemText>
+                      </MenuItem>
+                      <MenuItem value="manage-members">
+                        <MenuItemText>
+                          <Users />
+                          Manage members
+                        </MenuItemText>
+                      </MenuItem>
+                      <MenuSeparator />
+                      <MenuItem value="sign-out" tone="destructive">
+                        <MenuItemText>
+                          <LogOut />
+                          Sign out
+                        </MenuItemText>
+                      </MenuItem>
+                    </MenuViewport>
+                  </MenuContent>
+                </MenuPositioner>
+              </Menu>
+            </SidebarNavigationItem>
+          </SidebarNavigationList>
+        </SidebarFooter>
       </SidebarPanel>
 
+      <SidebarResizeTrigger />
       <SidebarTrigger />
 
       <SidebarInset>
