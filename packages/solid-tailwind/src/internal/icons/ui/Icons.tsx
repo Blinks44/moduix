@@ -141,7 +141,7 @@ export { default as EllipsisIcon } from 'lucide-solid/icons/ellipsis';
 export { default as EyeClosedIcon } from 'lucide-solid/icons/eye-closed';
 export { default as EyeIcon } from 'lucide-solid/icons/eye';
 export { default as FileIcon } from 'lucide-solid/icons/file';
-export { default as FlipHorizontalIcon } from 'lucide-solid/icons/square-centerline-dashed-horizontal';
+export { SquareCenterlineDashedHorizontal as FlipHorizontalIcon } from 'lucide-solid';
 export { default as FolderIcon } from 'lucide-solid/icons/folder';
 export { default as FolderOpenIcon } from 'lucide-solid/icons/folder-open';
 export { default as GripIcon } from 'lucide-solid/icons/grip';

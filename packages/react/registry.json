@@ -2419,6 +2419,14 @@
       "files": []
     },
     {
+      "name": "projects-dashboard",
+      "type": "registry:block",
+      "title": "Projects dashboard",
+      "description": "Project tracker with a sidebar, live metrics, a table, and a dialog form with toast feedback.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/react-projects-dashboard.json"],
+      "files": []
+    },
+    {
       "name": "sidebar-dashboard",
       "type": "registry:block",
       "title": "Sidebar dashboard",
