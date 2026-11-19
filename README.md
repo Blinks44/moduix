@@ -17,6 +17,8 @@ or Tailwind CSS v4, and install from npm or copy the source into your app with t
 [Blocks](https://moduix.dev/blocks) ·
 [Packages](#current-packages)
 
+[![Projects dashboard built with moduix for Solid: a dialog form adds a row, the counters update, and a toast confirms it](.github/assets/projects-dashboard.gif)](https://moduix.dev/blocks/projects-dashboard)
+
 ## Current packages
 
 | Runtime | CSS Modules                                                      | Tailwind                                                                           |
