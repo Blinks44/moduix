@@ -2,7 +2,7 @@ import { useI18n } from '@rspress/core/runtime';
 import { CodeBlockRuntime, useStorageValue } from '@rspress/core/theme';
 import sdk from '@stackblitz/sdk';
 import { ArrowUpRight, Check, ChevronDown, Copy, RotateCw } from 'lucide-react';
-import { useState, type ComponentProps, type ReactNode } from 'react';
+import { useEffect, useState, type ComponentProps, type ReactNode } from 'react';
 import styles from './example-panel.module.css';
 import { createExampleProject, type ExampleProject } from './example-project';
 import { ExampleFrame } from './reference';
@@ -32,6 +32,14 @@ function useStoredIndex(groupId: string, length: number) {
 function useExampleSelection() {
   const [frameworkIndex, setFramework] = useStoredIndex('framework', frameworks.length);
   const [stylingIndex, setStyling] = useStoredIndex('styling', stylings.length);
+
+  // Shared links can open the examples on a framework, e.g. `?framework=solid`.
+  useEffect(() => {
+    const value = new URLSearchParams(window.location.search).get('framework');
+    const index = frameworks.findIndex((item) => item.value === value);
+    if (index >= 0) setFramework(String(index));
+    // Apply the link once; later selections belong to the reader.
+  }, []);
 
   return {
     framework: frameworks[frameworkIndex],
