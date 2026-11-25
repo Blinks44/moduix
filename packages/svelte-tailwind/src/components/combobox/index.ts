@@ -9,7 +9,9 @@ export { default as Combobox } from './Combobox.svelte';
 export { default as ComboboxClearTrigger } from './ComboboxClearTrigger.svelte';
 export { default as ComboboxContent } from './ComboboxContent.svelte';
 export { default as ComboboxControl } from './ComboboxControl.svelte';
+export { default as ComboboxDropdown } from './ComboboxDropdown.svelte';
 export { default as ComboboxEmpty } from './ComboboxEmpty.svelte';
+export { default as ComboboxField } from './ComboboxField.svelte';
 export { default as ComboboxInput } from './ComboboxInput.svelte';
 export { default as ComboboxItem } from './ComboboxItem.svelte';
 export { default as ComboboxItemGroup } from './ComboboxItemGroup.svelte';
@@ -56,6 +58,8 @@ export type {
 } from '@ark-ui/svelte/combobox';
 export type { PortalRef } from '@/lib/moduix/overlayPortal';
 export type { ComboboxRootProps } from './Combobox.svelte';
+export type { ComboboxDropdownProps } from './ComboboxDropdown.svelte';
+export type { ComboboxFieldProps } from './ComboboxField.svelte';
 export type { ComboboxOptionProps } from './ComboboxOption.svelte';
 export type { ComboboxRootProviderProps } from './ComboboxRootProvider.svelte';
 export type { ComboboxStatusProps } from './ComboboxStatus.svelte';
@@ -68,5 +72,10 @@ export type {
   UseListCollectionProps,
   UseListCollectionReturn,
 } from '@ark-ui/svelte/collection';
+export {
+  useFilteredCollection,
+  type UseFilteredCollectionProps,
+  type UseFilteredCollectionReturn,
+} from '@/lib/moduix/filteredCollection';
 export { useFilter } from '@ark-ui/svelte/locale';
 export type { UseFilterProps, UseFilterReturn } from '@ark-ui/svelte/locale';

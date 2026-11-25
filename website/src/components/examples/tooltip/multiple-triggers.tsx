@@ -1,5 +1,5 @@
 import { Button } from '@moduix/react/button';
-import { Tooltip, TooltipBody, TooltipTrigger } from '@moduix/react/tooltip';
+import { Tooltip, TooltipPanel, TooltipTrigger } from '@moduix/react/tooltip';
 import { Info as InfoIcon, Plus as PlusIcon, Share as ShareIcon } from 'lucide-react';
 import { useState } from 'react';
 import styles from '@/components/examples/tooltip/component-multiple-triggers.module.css';
@@ -42,13 +42,13 @@ export default function MultipleTriggersTooltipDemo() {
           </TooltipTrigger>
         ))}
       </div>
-      <TooltipBody>
+      <TooltipPanel>
         {activeTool ? (
           <>
             {activeTool.label} ({activeTool.shortcut})
           </>
         ) : null}
-      </TooltipBody>
+      </TooltipPanel>
     </Tooltip>
   );
 }

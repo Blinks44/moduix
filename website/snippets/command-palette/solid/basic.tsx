@@ -17,8 +17,7 @@ import {
   CommandPalettePanel,
   CommandPaletteSearch,
   CommandPaletteTrigger,
-  useListCollection,
-  useFilter,
+  useFilteredCollection,
 } from '@moduix/solid/command-palette';
 import { For } from 'solid-js';
 
@@ -72,36 +71,24 @@ const commandItems = [
 ];
 
 export default function CommandPaletteDemo() {
-  const filterOptions = useFilter({ sensitivity: 'base' });
-  const collectionState = useListCollection({
+  const { collection, filter } = useFilteredCollection({
     initialItems: commandItems,
     itemToString: (item) => `${item.label} ${item.description} ${item.section}`,
     itemToValue: (item) => item.id,
-    filter: (itemText, filterText) => filterOptions().contains(itemText, filterText),
     groupBy: (item) => item.section,
   });
 
   return (
-    <CommandPalette
-      aria-label="Command palette"
-      onOpenChange={(details) => {
-        if (!details.open) {
-          collectionState.filter('');
-        }
-      }}
-    >
+    <CommandPalette aria-label="Command palette">
       <CommandPaletteTrigger
         asChild={(triggerProps) => <Button {...triggerProps()}>Open palette</Button>}
       />
       <CommandPalettePanel>
-        <CommandPaletteCombobox
-          collection={collectionState.collection()}
-          onInputValueChange={(details) => collectionState.filter(details.inputValue)}
-        >
+        <CommandPaletteCombobox collection={collection()} filter={filter}>
           <CommandPaletteSearch placeholder="Search commands, pages, and settings..." />
           <CommandPaletteList>
             <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>
-            <For each={collectionState.collection().group()}>
+            <For each={collection().group()}>
               {([section, items]) => (
                 <CommandPaletteItemGroup>
                   <CommandPaletteItemGroupLabel>{section}</CommandPaletteItemGroupLabel>

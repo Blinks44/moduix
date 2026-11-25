@@ -15,7 +15,9 @@ import {
   CommandPaletteRootProvider,
   CommandPaletteSearch,
   CommandPaletteTitle,
+  CommandPaletteTrigger,
   useDialog,
+  useFilteredCollection,
 } from '@/index';
 
 const commands = createListCollection({
@@ -241,4 +243,74 @@ test('renders a decorative search icon before the input', () => {
   const icon = document.querySelector('[data-slot="command-palette-search-icon"]');
   expect(icon?.getAttribute('aria-hidden')).toBe('true');
   expect(icon?.nextElementSibling?.getAttribute('data-slot')).toBe('command-palette-input');
+});
+
+test('filters commands via filter prop and resets the filter when the palette closes', async () => {
+  function FilterablePalette({ unmountOnExit = true }: { unmountOnExit?: boolean }) {
+    const { collection, filter } = useFilteredCollection({
+      initialItems: [
+        { label: 'New project', value: 'new-project' },
+        { label: 'Workspace settings', value: 'settings' },
+      ],
+    });
+
+    return (
+      <CommandPalette
+        aria-label="Filterable palette"
+        portalled={false}
+        unmountOnExit={unmountOnExit}
+      >
+        <CommandPaletteTrigger>Open filterable palette</CommandPaletteTrigger>
+        <CommandPalettePanel>
+          <CommandPaletteCombobox collection={collection} filter={filter}>
+            <CommandPaletteSearch placeholder="Type a command" />
+            <CommandPaletteList>
+              {collection.items.map((item) => (
+                <CommandPaletteItem key={item.value} item={item}>
+                  {item.label}
+                </CommandPaletteItem>
+              ))}
+            </CommandPaletteList>
+          </CommandPaletteCombobox>
+        </CommandPalettePanel>
+      </CommandPalette>
+    );
+  }
+
+  for (const unmountOnExit of [true, false]) {
+    const { unmount } = render(<FilterablePalette unmountOnExit={unmountOnExit} />);
+    const trigger = page.getByRole('button', { name: 'Open filterable palette', exact: true });
+
+    await trigger.click();
+    await expect
+      .element(page.getByRole('option', { name: 'New project', exact: true }))
+      .toBeVisible();
+    await expect
+      .element(page.getByRole('option', { name: 'Workspace settings', exact: true }))
+      .toBeVisible();
+
+    const search = page.getByPlaceholder('Type a command');
+    await search.fill('settings');
+    await expect
+      .element(page.getByRole('option', { name: 'Workspace settings', exact: true }))
+      .toBeVisible();
+    await expect
+      .element(page.getByRole('option', { name: 'New project', exact: true }))
+      .toHaveCount(0);
+
+    await search.press('Escape');
+    await expect
+      .element(page.getByRole('dialog', { name: 'Filterable palette', exact: true }))
+      .not.toBeVisible();
+
+    await trigger.click();
+    await expect
+      .element(page.getByRole('option', { name: 'New project', exact: true }))
+      .toBeVisible();
+    await expect
+      .element(page.getByRole('option', { name: 'Workspace settings', exact: true }))
+      .toBeVisible();
+
+    unmount();
+  }
 });

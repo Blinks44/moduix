@@ -9,6 +9,7 @@ import DialogContext from './DialogContext.vue';
 import DialogDescription from './DialogDescription.vue';
 import DialogFooter from './DialogFooter.vue';
 import DialogHeader from './DialogHeader.vue';
+import DialogPanel from './DialogPanel.vue';
 import DialogPositioner from './DialogPositioner.vue';
 import DialogRootProvider from './DialogRootProvider.vue';
 import DialogTitle from './DialogTitle.vue';
@@ -25,6 +26,7 @@ export {
   DialogDescription,
   DialogFooter,
   DialogHeader,
+  DialogPanel,
   DialogPositioner,
   DialogRootProvider,
   DialogTitle,

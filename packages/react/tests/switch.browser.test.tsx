@@ -157,3 +157,23 @@ test('keeps controlled state and invalid styling hooks Ark-shaped', async () => 
     .element(page.getByRole('checkbox', { name: 'Enable alerts', exact: true }))
     .toBeChecked();
 });
+
+test('supports shorthand label and built-in hidden input', async () => {
+  const { container } = render(
+    <form>
+      <Switch defaultChecked label="Dark mode" name="dark-mode" value="on" />
+      <Switch aria-label="Compact mode" name="compact" />
+      <Switch hiddenInput={false} label="No hidden input" name="skipped" defaultChecked />
+    </form>,
+  );
+
+  const form = container.querySelector('form')!;
+  expect(container.querySelectorAll('input[type="checkbox"]')).toHaveLength(2);
+  expect(Array.from(new FormData(form).entries())).toEqual([['dark-mode', 'on']]);
+
+  const darkMode = page.getByRole('checkbox', { name: 'Dark mode', exact: true });
+  await expect.element(darkMode).toBeChecked();
+  await page.getByText('Dark mode', { exact: true }).click();
+  await expect.element(darkMode).not.toBeChecked();
+  expect(Array.from(new FormData(form).entries())).toEqual([]);
+});

@@ -1,11 +1,20 @@
 <script module lang="ts">
-  import type { SelectControlProps, SelectValueTextProps } from '@ark-ui/svelte/select';
+  import type {
+    SelectClearTriggerProps,
+    SelectControlProps,
+    SelectTriggerProps,
+    SelectValueTextProps,
+  } from '@ark-ui/svelte/select';
   import type { Snippet } from 'svelte';
 
   export interface SelectFieldProps extends Omit<SelectControlProps, 'asChild' | 'children'> {
+    clearable?: boolean;
     clearLabel?: string;
+    clearTriggerProps?: SelectClearTriggerProps;
     indicator?: Snippet;
     placeholder?: SelectValueTextProps['placeholder'];
+    triggerProps?: SelectTriggerProps;
+    valueTextProps?: SelectValueTextProps;
   }
 </script>
 
@@ -17,18 +26,32 @@
   import SelectValueText from './SelectValueText.svelte';
 
   let {
+    clearable,
     clearLabel,
+    clearTriggerProps,
     indicator,
     placeholder,
     ref = $bindable(null),
+    triggerProps,
+    valueTextProps,
     ...props
   }: SelectFieldProps = $props();
+
+  const showClearTrigger = $derived(clearable ?? (clearLabel != null || clearTriggerProps != null));
+  const resolvedValueTextProps = $derived({
+    ...(placeholder === undefined ? {} : { placeholder }),
+    ...valueTextProps,
+  });
+  const resolvedClearTriggerProps = $derived({
+    ...(clearLabel === undefined ? {} : { 'aria-label': clearLabel }),
+    ...clearTriggerProps,
+  });
 </script>
 
 <SelectControl {...props} bind:ref>
-  <SelectTrigger>
-    <SelectValueText {placeholder} />
+  <SelectTrigger {...triggerProps}>
+    <SelectValueText {...resolvedValueTextProps} />
   </SelectTrigger>
-  {#if clearLabel}<SelectClearTrigger aria-label={clearLabel} />{/if}
+  {#if showClearTrigger}<SelectClearTrigger {...resolvedClearTriggerProps} />{/if}
   <SelectIndicator children={indicator} />
 </SelectControl>

@@ -16,6 +16,7 @@ export { default as DrawerFooter } from './DrawerFooter.svelte';
 export { default as DrawerGrabber } from './DrawerGrabber.svelte';
 export { default as DrawerGrabberIndicator } from './DrawerGrabberIndicator.svelte';
 export { default as DrawerHeader } from './DrawerHeader.svelte';
+export { default as DrawerPanel } from './DrawerPanel.svelte';
 export { default as DrawerIndent } from './DrawerIndent.svelte';
 export { default as DrawerIndentBackground } from './DrawerIndentBackground.svelte';
 export { default as DrawerPositioner } from './DrawerPositioner.svelte';

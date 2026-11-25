@@ -1,16 +1,16 @@
 <script lang="ts">
   import {
     Select,
-    SelectContent,
+    SelectDropdown,
     SelectField,
     SelectHiddenSelect,
     SelectItemGroup,
     SelectItemGroupLabel,
     SelectLabel,
     SelectOption,
-    SelectPositioner,
     createListCollection,
   } from '@moduix/svelte/select';
+
   const fruits = createListCollection({
     items: [
       { label: 'Apple', value: 'apple' },
@@ -23,15 +23,13 @@
 <Select collection={fruits}>
   <SelectLabel>Choose fruit</SelectLabel>
   <SelectField placeholder="Select an option" clearLabel="Clear selection" />
-  <SelectPositioner>
-    <SelectContent>
-      <SelectItemGroup>
-        <SelectItemGroupLabel>Fruits</SelectItemGroupLabel>
-        {#each fruits.items as item (item.value)}
-          <SelectOption {item}>{item.label}</SelectOption>
-        {/each}
-      </SelectItemGroup>
-    </SelectContent>
-  </SelectPositioner>
+  <SelectDropdown>
+    <SelectItemGroup>
+      <SelectItemGroupLabel>Fruits</SelectItemGroupLabel>
+      {#each fruits.items as item (item.value)}
+        <SelectOption {item}>{item.label}</SelectOption>
+      {/each}
+    </SelectItemGroup>
+  </SelectDropdown>
   <SelectHiddenSelect />
 </Select>

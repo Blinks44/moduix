@@ -29,8 +29,14 @@ export { default as CommandPaletteTitle } from './CommandPaletteTitle.vue';
 export { default as CommandPaletteTrigger } from './CommandPaletteTrigger.vue';
 
 export type { Props as CommandPaletteRootProps } from './CommandPalette.vue';
+export type { Props as CommandPaletteComboboxProps } from './CommandPaletteCombobox.vue';
 export type { Props as CommandPaletteRootProviderProps } from './CommandPaletteRootProvider.vue';
 
+export { useFilteredCollection } from '@/lib/moduix/filteredCollection';
+export type {
+  UseFilteredCollectionProps,
+  UseFilteredCollectionReturn,
+} from '@/lib/moduix/filteredCollection';
 export { createListCollection, useListCollection } from '@ark-ui/vue/collection';
 export type {
   CollectionItem,

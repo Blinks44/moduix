@@ -8,6 +8,7 @@ export { default as DialogContent } from './DialogContent.svelte';
 export { default as DialogDescription } from './DialogDescription.svelte';
 export { default as DialogFooter } from './DialogFooter.svelte';
 export { default as DialogHeader } from './DialogHeader.svelte';
+export { default as DialogPanel } from './DialogPanel.svelte';
 export { default as DialogPositioner } from './DialogPositioner.svelte';
 export { default as DialogRootProvider } from './DialogRootProvider.svelte';
 export { default as DialogTitle } from './DialogTitle.svelte';

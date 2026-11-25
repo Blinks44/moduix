@@ -1,5 +1,5 @@
 import { Button } from '@moduix/react/button';
-import { Tooltip, TooltipBody, TooltipTrigger } from '@moduix/react/tooltip';
+import { Tooltip, TooltipPanel, TooltipTrigger } from '@moduix/react/tooltip';
 import { useState } from 'react';
 
 export default function ControlledTooltipDemo() {
@@ -8,7 +8,7 @@ export default function ControlledTooltipDemo() {
     <>
       <Tooltip open={open} onOpenChange={(details) => setOpen(details.open)}>
         <TooltipTrigger>Controlled tooltip</TooltipTrigger>
-        <TooltipBody>Open: {String(open)}</TooltipBody>
+        <TooltipPanel>Open: {String(open)}</TooltipPanel>
       </Tooltip>
       <div data-preview-meta>
         <output>Open: {String(open)}</output>

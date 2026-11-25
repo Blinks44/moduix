@@ -1,5 +1,5 @@
 import { Button } from '@moduix/solid/button';
-import { Tooltip, TooltipBody, TooltipDisabledTrigger } from '@moduix/solid/tooltip';
+import { Tooltip, TooltipPanel, TooltipDisabledTrigger } from '@moduix/solid/tooltip';
 
 export default function DisabledTriggerTooltipDemo() {
   return (
@@ -7,7 +7,7 @@ export default function DisabledTriggerTooltipDemo() {
       <TooltipDisabledTrigger aria-label="Create project is unavailable">
         <Button disabled>Create project</Button>
       </TooltipDisabledTrigger>
-      <TooltipBody>Projects are unavailable while offline.</TooltipBody>
+      <TooltipPanel>Projects are unavailable while offline.</TooltipPanel>
     </Tooltip>
   );
 }

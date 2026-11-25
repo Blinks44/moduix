@@ -10,6 +10,7 @@ import {
   useSelect,
   useSelectContext,
   SelectLabel,
+  SelectDropdown,
   SelectField,
   SelectPositioner,
   SelectContent,
@@ -273,4 +274,36 @@ test('renders an option row with a replaceable indicator', async () => {
   await expect
     .poll(() => document.querySelector('[data-testid="custom-indicator"]'))
     .not.toBeNull();
+});
+
+test('supports SelectDropdown and SelectField clearable and sub-part props', async () => {
+  render(
+    <Select collection={fruits} defaultValue={['apple']} portalled={false}>
+      <SelectLabel>Sugar fruit</SelectLabel>
+      <SelectField
+        clearable={false}
+        placeholder="Pick fruit"
+        triggerProps={{ title: 'Custom trigger' }}
+        valueTextProps={{ className: 'custom-value-text' }}
+      />
+      <SelectDropdown data-testid="select-dropdown">
+        {fruits.items.map((item) => (
+          <SelectOption key={item.value} item={item}>
+            {item.label}
+          </SelectOption>
+        ))}
+      </SelectDropdown>
+    </Select>,
+  );
+
+  expect(document.querySelector('[data-slot="select-clear-trigger"]')).toBeNull();
+  expect(document.querySelector('[title="Custom trigger"]')).not.toBeNull();
+  expect(document.querySelector('.custom-value-text')?.textContent).toBe('Apple');
+
+  await page.getByRole('combobox', { name: 'Sugar fruit', exact: true }).click();
+  await expect.element(page.getByRole('option', { name: 'Mango', exact: true })).toBeVisible();
+  await page.getByRole('option', { name: 'Mango', exact: true }).click();
+  await expect
+    .element(page.getByRole('combobox', { name: 'Sugar fruit', exact: true }))
+    .toContainText('Mango');
 });

@@ -596,7 +596,7 @@
           "type": "registry:component"
         },
         {
-          "path": "src/components/tooltip/TooltipBody.vue",
+          "path": "src/components/tooltip/TooltipPanel.vue",
           "target": "@components/ui/tooltip/TooltipBody.vue",
           "type": "registry:component"
         },
@@ -666,6 +666,11 @@
           "path": "src/components/toast/index.ts",
           "target": "@components/ui/toast/index.ts",
           "type": "registry:component"
+        },
+        {
+          "path": "src/components/toast/toastStore.ts",
+          "type": "registry:component",
+          "target": "components/ui/toast/toastStore.ts"
         }
       ]
     },
@@ -2322,6 +2327,16 @@
           "type": "registry:component"
         },
         {
+          "path": "src/components/date-picker/DatePickerCalendar.vue",
+          "target": "@components/ui/date-picker/DatePickerCalendar.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerPanel.vue",
+          "target": "@components/ui/date-picker/DatePickerPanel.vue",
+          "type": "registry:component"
+        },
+        {
           "path": "src/components/date-picker/index.ts",
           "target": "@components/ui/date-picker/index.ts",
           "type": "registry:component"
@@ -2541,6 +2556,11 @@
         {
           "path": "src/components/select/SelectOption.vue",
           "target": "@components/ui/select/SelectOption.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectDropdown.vue",
+          "target": "@components/ui/select/SelectDropdown.vue",
           "type": "registry:component"
         },
         {
@@ -2948,7 +2968,8 @@
         "@moduix-vue-tailwind/icons",
         "@moduix-vue-tailwind/close-button",
         "@moduix-vue-tailwind/overlay-portal",
-        "@moduix-vue-tailwind/a11y-labels"
+        "@moduix-vue-tailwind/a11y-labels",
+        "@moduix-vue-tailwind/filtered-collection"
       ],
       "files": [
         {
@@ -3052,6 +3073,16 @@
           "type": "registry:component"
         },
         {
+          "path": "src/components/combobox/ComboboxField.vue",
+          "target": "@components/ui/combobox/ComboboxField.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxDropdown.vue",
+          "target": "@components/ui/combobox/ComboboxDropdown.vue",
+          "type": "registry:component"
+        },
+        {
           "path": "src/components/combobox/index.ts",
           "target": "@components/ui/combobox/index.ts",
           "type": "registry:component"
@@ -3071,7 +3102,8 @@
         "@moduix-vue-tailwind/kbd",
         "@moduix-vue-tailwind/overlay-portal",
         "@moduix-vue-tailwind/scroll-area",
-        "@moduix-vue-tailwind/a11y-labels"
+        "@moduix-vue-tailwind/a11y-labels",
+        "@moduix-vue-tailwind/filtered-collection"
       ],
       "files": [
         {
@@ -3530,6 +3562,10 @@
           "type": "registry:component"
         },
         {
+          "path": "src/components/dialog/DialogPanel.vue",
+          "type": "registry:ui"
+        },
+        {
           "path": "src/components/dialog/DialogTitle.vue",
           "target": "@components/ui/dialog/DialogTitle.vue",
           "type": "registry:component"
@@ -3619,6 +3655,10 @@
           "path": "src/components/drawer/DrawerContent.vue",
           "target": "@components/ui/drawer/DrawerContent.vue",
           "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerPanel.vue",
+          "type": "registry:ui"
         },
         {
           "path": "src/components/drawer/DrawerGrabber.vue",
@@ -4262,7 +4302,11 @@
         "clsx@^2.1.1",
         "tailwind-merge@^3.7.1"
       ],
-      "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+      "registryDependencies": [
+        "@moduix-vue-tailwind/foundation",
+        "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/spinner"
+      ],
       "files": [
         {
           "path": "src/components/button/Button.vue",
@@ -5431,6 +5475,19 @@
         {
           "path": "src/internal/overlayPortal/index.ts",
           "target": "@lib/moduix/overlayPortal/index.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "filtered-collection",
+      "type": "registry:item",
+      "title": "moduix filtered collection",
+      "description": "Internal filtered collection helper used by searchable list registry components.",
+      "files": [
+        {
+          "path": "src/internal/filteredCollection.ts",
+          "target": "@lib/moduix/filteredCollection.ts",
           "type": "registry:lib"
         }
       ]

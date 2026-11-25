@@ -1,5 +1,5 @@
 import { Button } from '@moduix/solid/button';
-import { Tooltip, TooltipBody, TooltipTrigger } from '@moduix/solid/tooltip';
+import { Tooltip, TooltipPanel, TooltipTrigger } from '@moduix/solid/tooltip';
 import { Bell as BellIcon } from 'lucide-solid';
 
 export default function TooltipDemo() {
@@ -13,7 +13,7 @@ export default function TooltipDemo() {
           </Button>
         )}
       />
-      <TooltipBody>Notifications</TooltipBody>
+      <TooltipPanel>Notifications</TooltipPanel>
     </Tooltip>
   );
 }

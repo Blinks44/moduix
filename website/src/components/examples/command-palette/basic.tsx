@@ -17,8 +17,7 @@ import {
   CommandPalettePanel,
   CommandPaletteSearch,
   CommandPaletteTrigger,
-  useListCollection,
-  useFilter,
+  useFilteredCollection,
 } from '@moduix/react/command-palette';
 import {
   ArrowUpRight as ArrowUpRightIcon,
@@ -91,32 +90,20 @@ const commandItems = [
 ];
 
 export default function CommandPaletteDemo() {
-  const { contains } = useFilter({ sensitivity: 'base' });
-  const { collection, filter } = useListCollection({
+  const { collection, filter } = useFilteredCollection({
     initialItems: commandItems,
     itemToString: (item) => `${item.label} ${item.description} ${item.section}`,
     itemToValue: (item) => item.id,
-    filter: contains,
     groupBy: (item) => item.section,
   });
 
   return (
-    <CommandPalette
-      aria-label="Command palette"
-      onOpenChange={(details) => {
-        if (!details.open) {
-          filter('');
-        }
-      }}
-    >
+    <CommandPalette aria-label="Command palette">
       <CommandPaletteTrigger asChild>
         <Button>Open palette</Button>
       </CommandPaletteTrigger>
       <CommandPalettePanel>
-        <CommandPaletteCombobox
-          collection={collection}
-          onInputValueChange={(details) => filter(details.inputValue)}
-        >
+        <CommandPaletteCombobox collection={collection} filter={filter}>
           <CommandPaletteSearch placeholder="Search commands, pages, and settings..." />
           <CommandPaletteList>
             <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>

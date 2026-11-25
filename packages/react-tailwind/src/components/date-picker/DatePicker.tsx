@@ -64,6 +64,11 @@ type DatePickerMonthTableProps = DatePickerTableSugarProps & {
   format?: 'short' | 'long';
 };
 type DatePickerYearTableProps = DatePickerTableSugarProps;
+type DatePickerCalendarProps = {
+  monthFormat?: 'short' | 'long';
+  showHeader?: boolean;
+};
+type DatePickerPanelProps = ComponentProps<typeof DatePickerPrimitive.Content>;
 
 const rootClass =
   "group/date-picker inline-flex w-75 max-w-full flex-col items-start gap-1 text-foreground has-[input[data-index='1']]:w-96 data-disabled:opacity-disabled [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100";
@@ -727,10 +732,40 @@ const DatePickerValueText = forwardRef<
   );
 });
 
+function DatePickerCalendar({ monthFormat, showHeader = true }: DatePickerCalendarProps) {
+  return (
+    <>
+      <DatePickerView view="day">
+        <DatePickerDayTable showHeader={showHeader} />
+      </DatePickerView>
+      <DatePickerView view="month">
+        <DatePickerMonthTable format={monthFormat} showHeader={showHeader} />
+      </DatePickerView>
+      <DatePickerView view="year">
+        <DatePickerYearTable showHeader={showHeader} />
+      </DatePickerView>
+    </>
+  );
+}
+
+const DatePickerPanel = forwardRef<
+  ComponentRef<typeof DatePickerPrimitive.Content>,
+  DatePickerPanelProps
+>(function DatePickerPanel({ asChild, children, ...props }, ref) {
+  return (
+    <DatePickerPositioner>
+      <DatePickerContent ref={ref} asChild={asChild} {...props}>
+        {asChild ? children : (children ?? <DatePickerCalendar />)}
+      </DatePickerContent>
+    </DatePickerPositioner>
+  );
+});
+
 const DatePickerContext = DatePickerPrimitive.Context;
 
 export {
   DatePicker,
+  DatePickerCalendar,
   DatePickerClearTrigger,
   DatePickerContext,
   DatePickerContent,
@@ -742,6 +777,7 @@ export {
   DatePickerMonthSelect,
   DatePickerMonthTable,
   DatePickerNextTrigger,
+  DatePickerPanel,
   DatePickerPositioner,
   DatePickerPresetTrigger,
   DatePickerPrevTrigger,
@@ -768,9 +804,11 @@ export {
   useDatePickerContext,
 };
 export type {
+  DatePickerCalendarProps,
   DatePickerDayTableProps,
   DatePickerFieldProps,
   DatePickerMonthTableProps,
+  DatePickerPanelProps,
   DatePickerRangeFieldProps,
   DatePickerRootProps,
   DatePickerRootProviderProps,

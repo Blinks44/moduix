@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Info as InfoIcon, Plus as PlusIcon, Share as ShareIcon } from '@lucide/svelte';
   import { Button } from '@moduix/svelte/button';
-  import { Tooltip, TooltipBody, TooltipTrigger } from '@moduix/svelte/tooltip';
+  import { Tooltip, TooltipPanel, TooltipTrigger } from '@moduix/svelte/tooltip';
   import styles from '@/components/examples/tooltip/component-multiple-triggers.module.css';
 
   const tooltipTools = [
@@ -29,7 +29,7 @@
       </TooltipTrigger>
     {/each}
   </div>
-  <TooltipBody>
+  <TooltipPanel>
     {#if activeTool}{activeTool.label} ({activeTool.shortcut}){/if}
-  </TooltipBody>
+  </TooltipPanel>
 </Tooltip>

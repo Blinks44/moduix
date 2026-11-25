@@ -4,7 +4,9 @@ import ComboboxClearTrigger from './ComboboxClearTrigger.vue';
 import ComboboxContent from './ComboboxContent.vue';
 import ComboboxContext from './ComboboxContext.vue';
 import ComboboxControl from './ComboboxControl.vue';
+import ComboboxDropdown from './ComboboxDropdown.vue';
 import ComboboxEmpty from './ComboboxEmpty.vue';
+import ComboboxField from './ComboboxField.vue';
 import ComboboxInput from './ComboboxInput.vue';
 import ComboboxItem from './ComboboxItem.vue';
 import ComboboxItemContext from './ComboboxItemContext.vue';
@@ -26,7 +28,9 @@ export {
   ComboboxContent,
   ComboboxControl,
   ComboboxContext,
+  ComboboxDropdown,
   ComboboxEmpty,
+  ComboboxField,
   ComboboxInput,
   ComboboxItem,
   ComboboxItemContext,
@@ -77,6 +81,8 @@ export type {
   UseComboboxProps,
   UseComboboxReturn,
 } from '@ark-ui/vue/combobox';
+export type { Props as ComboboxDropdownProps } from './ComboboxDropdown.vue';
+export type { Props as ComboboxFieldProps } from './ComboboxField.vue';
 
 export { createListCollection, useListCollection } from '@ark-ui/vue/collection';
 export type {
@@ -86,6 +92,11 @@ export type {
   UseListCollectionProps,
   UseListCollectionReturn,
 } from '@ark-ui/vue/collection';
+export {
+  useFilteredCollection,
+  type UseFilteredCollectionProps,
+  type UseFilteredCollectionReturn,
+} from '@/lib/moduix/filteredCollection';
 export { useFilter } from '@ark-ui/vue/locale';
 export type { UseFilterProps, UseFilterReturn } from '@ark-ui/vue/locale';
 export type {

@@ -1,10 +1,13 @@
 import { Switch as SwitchPrimitive, useSwitch, useSwitchContext } from '@ark-ui/solid/switch';
-import type { ComponentProps } from 'solid-js';
-import { children, splitProps } from 'solid-js';
+import type { ComponentProps, JSX } from 'solid-js';
+import { Show, children, splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 
 type SwitchSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 type SwitchRootProps = ComponentProps<typeof SwitchPrimitive.Root> & {
+  hiddenInput?: boolean;
+  hiddenInputProps?: ComponentProps<typeof SwitchPrimitive.HiddenInput>;
+  label?: JSX.Element;
   size?: SwitchSize;
 };
 type SwitchRootProviderProps = ComponentProps<typeof SwitchPrimitive.RootProvider> & {
@@ -12,20 +15,63 @@ type SwitchRootProviderProps = ComponentProps<typeof SwitchPrimitive.RootProvide
 };
 
 function Switch(props: SwitchRootProps) {
-  const [local, others] = splitProps(props, ['children', 'class', 'size']);
+  const [local, others] = splitProps(props, [
+    'asChild',
+    'children',
+    'class',
+    'hiddenInput',
+    'hiddenInputProps',
+    'label',
+    'size',
+  ]);
+  const rootClass = () =>
+    cn(
+      'group/switch inline-flex w-fit cursor-pointer items-center gap-2 align-middle text-foreground data-disabled:cursor-default data-disabled:opacity-disabled data-readonly:cursor-default',
+      local.class,
+    );
 
   return (
-    <SwitchPrimitive.Root
-      class={cn(
-        'group/switch inline-flex w-fit cursor-pointer items-center gap-2 align-middle text-foreground data-disabled:cursor-default data-disabled:opacity-disabled data-readonly:cursor-default',
-        local.class,
-      )}
-      {...others}
-      data-size={local.size ?? 'md'}
-      data-slot="switch-root"
+    <Show
+      when={local.asChild}
+      fallback={
+        <SwitchPrimitive.Root
+          class={rootClass()}
+          {...others}
+          data-size={local.size ?? 'md'}
+          data-slot="switch-root"
+        >
+          <Show
+            when={local.children === undefined}
+            fallback={
+              <>
+                {local.children}
+                <Show when={local.hiddenInput}>
+                  <SwitchHiddenInput {...local.hiddenInputProps} />
+                </Show>
+              </>
+            }
+          >
+            <SwitchControl />
+            <Show when={local.label != null}>
+              <SwitchLabel>{local.label}</SwitchLabel>
+            </Show>
+            <Show when={local.hiddenInput !== false}>
+              <SwitchHiddenInput {...local.hiddenInputProps} />
+            </Show>
+          </Show>
+        </SwitchPrimitive.Root>
+      }
     >
-      {local.children}
-    </SwitchPrimitive.Root>
+      <SwitchPrimitive.Root
+        asChild={local.asChild}
+        class={rootClass()}
+        {...others}
+        data-size={local.size ?? 'md'}
+        data-slot="switch-root"
+      >
+        {local.children}
+      </SwitchPrimitive.Root>
+    </Show>
   );
 }
 

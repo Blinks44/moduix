@@ -11,6 +11,7 @@ import {
   ToastTitle,
   ToastToaster,
   createToaster,
+  toast,
   useToastContext,
 } from '@/index';
 
@@ -203,3 +204,30 @@ test.each(
     }
   },
 );
+
+test('renders toasts via default ToastToaster and Sonner-like toast helper', async () => {
+  const view = render(<ToastToaster />);
+
+  try {
+    const id = toast('Draft saved', {
+      description: 'Synced to cloud.',
+      duration: Infinity,
+    });
+    await expect.element(page.getByText('Draft saved')).toBeVisible();
+    await expect.element(page.getByText('Synced to cloud.')).toBeVisible();
+
+    toast.success('Published', { duration: Infinity });
+    const published = await screen.findByText('Published');
+    expect(published.closest('[data-slot="toast-root"]')?.getAttribute('data-type')).toBe(
+      'success',
+    );
+
+    toast.dismiss(id);
+    await expect.element(page.getByText('Draft saved')).toHaveCount(0);
+    toast.dismiss();
+    await expect.element(page.getByText('Published')).toHaveCount(0);
+  } finally {
+    toast.remove();
+    view.unmount();
+  }
+});

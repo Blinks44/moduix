@@ -345,6 +345,19 @@
       ]
     },
     {
+      "name": "filtered-collection",
+      "type": "registry:item",
+      "title": "moduix filtered collection",
+      "description": "Internal filtered collection helper used by searchable list registry components.",
+      "files": [
+        {
+          "path": "src/internal/filteredCollection.ts",
+          "target": "@lib/moduix/filteredCollection.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
       "name": "button",
       "type": "registry:item",
       "title": "Button",
@@ -355,7 +368,11 @@
         "clsx@^2.1.1",
         "tailwind-merge@^3.7.1"
       ],
-      "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
+      "registryDependencies": [
+        "@moduix-svelte-tailwind/foundation",
+        "@moduix-svelte-tailwind/cn",
+        "@moduix-svelte-tailwind/spinner"
+      ],
       "files": [
         {
           "path": "src/components/button/Button.svelte",
@@ -437,6 +454,10 @@
           "path": "src/components/dialog/DialogContent.svelte",
           "target": "@components/ui/dialog/DialogContent.svelte",
           "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/DialogPanel.svelte",
+          "type": "registry:ui"
         },
         {
           "path": "src/components/dialog/DialogDescription.svelte",
@@ -583,6 +604,11 @@
         {
           "path": "src/components/select/SelectValueText.svelte",
           "target": "@components/ui/select/SelectValueText.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectDropdown.svelte",
+          "target": "@components/ui/select/SelectDropdown.svelte",
           "type": "registry:component"
         },
         {
@@ -2103,7 +2129,7 @@
           "type": "registry:component"
         },
         {
-          "path": "src/components/tooltip/TooltipBody.svelte",
+          "path": "src/components/tooltip/TooltipPanel.svelte",
           "target": "@components/ui/tooltip/TooltipBody.svelte",
           "type": "registry:component"
         },
@@ -2366,6 +2392,10 @@
           "path": "src/components/drawer/DrawerContent.svelte",
           "target": "@components/ui/drawer/DrawerContent.svelte",
           "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerPanel.svelte",
+          "type": "registry:ui"
         },
         {
           "path": "src/components/drawer/DrawerGrabber.svelte",
@@ -2765,7 +2795,8 @@
         "@moduix-svelte-tailwind/icons",
         "@moduix-svelte-tailwind/close-button",
         "@moduix-svelte-tailwind/overlay-portal",
-        "@moduix-svelte-tailwind/a11y-labels"
+        "@moduix-svelte-tailwind/a11y-labels",
+        "@moduix-svelte-tailwind/filtered-collection"
       ],
       "files": [
         {
@@ -2856,6 +2887,16 @@
         {
           "path": "src/components/combobox/ComboboxOption.svelte",
           "target": "@components/ui/combobox/ComboboxOption.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxField.svelte",
+          "target": "@components/ui/combobox/ComboboxField.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxDropdown.svelte",
+          "target": "@components/ui/combobox/ComboboxDropdown.svelte",
           "type": "registry:component"
         },
         {
@@ -3869,6 +3910,16 @@
         {
           "path": "src/components/date-picker/DatePickerYearTable.svelte",
           "target": "@components/ui/date-picker/DatePickerYearTable.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerCalendar.svelte",
+          "target": "@components/ui/date-picker/DatePickerCalendar.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerPanel.svelte",
+          "target": "@components/ui/date-picker/DatePickerPanel.svelte",
           "type": "registry:component"
         },
         {
@@ -5146,7 +5197,8 @@
         "@moduix-svelte-tailwind/kbd",
         "@moduix-svelte-tailwind/overlay-portal",
         "@moduix-svelte-tailwind/scroll-area",
-        "@moduix-svelte-tailwind/a11y-labels"
+        "@moduix-svelte-tailwind/a11y-labels",
+        "@moduix-svelte-tailwind/filtered-collection"
       ],
       "files": [
         {
@@ -5646,6 +5698,11 @@
           "path": "src/components/toast/index.ts",
           "target": "@components/ui/toast/index.ts",
           "type": "registry:component"
+        },
+        {
+          "path": "src/components/toast/toastStore.ts",
+          "type": "registry:component",
+          "target": "components/ui/toast/toastStore.ts"
         }
       ]
     },

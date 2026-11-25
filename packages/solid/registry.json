@@ -113,6 +113,19 @@
       ]
     },
     {
+      "name": "filtered-collection",
+      "type": "registry:item",
+      "title": "moduix filtered collection",
+      "description": "Internal filtered collection helper used by searchable list registry components.",
+      "files": [
+        {
+          "path": "src/internal/filteredCollection.ts",
+          "target": "@lib/moduix/filteredCollection.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
       "name": "foundation",
       "type": "registry:item",
       "title": "moduix Solid core",
@@ -354,7 +367,7 @@
       "title": "Button",
       "description": "moduix Solid Button component.",
       "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
-      "registryDependencies": ["@moduix-solid/foundation"],
+      "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/spinner"],
       "files": [
         {
           "path": "src/components/button/Button.tsx",
@@ -539,7 +552,8 @@
         "@moduix-solid/close-button",
         "@moduix-solid/foundation",
         "@moduix-solid/icons",
-        "@moduix-solid/overlay-portal"
+        "@moduix-solid/overlay-portal",
+        "@moduix-solid/filtered-collection"
       ],
       "files": [
         {
@@ -2179,7 +2193,8 @@
         "@moduix-solid/kbd",
         "@moduix-solid/overlay-portal",
         "@moduix-solid/scroll-area",
-        "@moduix-solid/event-handlers"
+        "@moduix-solid/event-handlers",
+        "@moduix-solid/filtered-collection"
       ],
       "files": [
         {

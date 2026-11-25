@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Button } from '@moduix/svelte/button';
-  import { Tooltip, TooltipBody, TooltipTrigger } from '@moduix/svelte/tooltip';
+  import { Tooltip, TooltipPanel, TooltipTrigger } from '@moduix/svelte/tooltip';
   import styles from '@/components/examples/tooltip/component-positioning.module.css';
 
   const tooltipPlacements = ['top', 'right', 'bottom', 'left'] as const;
@@ -18,7 +18,7 @@
     <TooltipTrigger aria-label={'Tooltip placement: ' + placement}>
       {#snippet asChild(props)}<Button {...props()}>Hover or focus</Button>{/snippet}
     </TooltipTrigger>
-    <TooltipBody>Placement: {placement}</TooltipBody>
+    <TooltipPanel>Placement: {placement}</TooltipPanel>
   </Tooltip>
   <div data-preview-meta class={styles.meta}>
     <output>Placement: {placement}</output>

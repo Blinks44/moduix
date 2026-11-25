@@ -27,10 +27,15 @@ type SelectFieldProps = Omit<
   ComponentProps<typeof SelectPrimitive.Control>,
   'asChild' | 'children'
 > & {
+  clearable?: boolean;
   clearLabel?: string;
+  clearTriggerProps?: ComponentProps<typeof SelectPrimitive.ClearTrigger>;
   indicator?: JSX.Element;
   placeholder?: ComponentProps<typeof SelectPrimitive.ValueText>['placeholder'];
+  triggerProps?: ComponentProps<typeof SelectPrimitive.Trigger>;
+  valueTextProps?: ComponentProps<typeof SelectPrimitive.ValueText>;
 };
+type SelectDropdownProps = ComponentProps<typeof SelectPrimitive.Content>;
 
 function Select<T extends CollectionItem>(props: SelectRootProps<T>) {
   const [local, others] = splitProps(props, [
@@ -191,14 +196,26 @@ function SelectIndicator(props: ComponentProps<typeof SelectPrimitive.Indicator>
 }
 
 function SelectField(props: SelectFieldProps) {
-  const [local, others] = splitProps(props, ['clearLabel', 'indicator', 'placeholder']);
+  const [local, others] = splitProps(props, [
+    'clearable',
+    'clearLabel',
+    'clearTriggerProps',
+    'indicator',
+    'placeholder',
+    'triggerProps',
+    'valueTextProps',
+  ]);
+  const showClearTrigger = () =>
+    local.clearable ?? (local.clearLabel != null || local.clearTriggerProps != null);
 
   return (
     <SelectControl {...others}>
-      <SelectTrigger>
-        <SelectValueText placeholder={local.placeholder} />
+      <SelectTrigger {...local.triggerProps}>
+        <SelectValueText placeholder={local.placeholder} {...local.valueTextProps} />
       </SelectTrigger>
-      {local.clearLabel && <SelectClearTrigger aria-label={local.clearLabel} />}
+      {showClearTrigger() && (
+        <SelectClearTrigger aria-label={local.clearLabel} {...local.clearTriggerProps} />
+      )}
       <SelectIndicator>{local.indicator}</SelectIndicator>
     </SelectControl>
   );
@@ -227,6 +244,14 @@ function SelectContent(props: ComponentProps<typeof SelectPrimitive.Content>) {
       {...others}
       data-slot="select-content"
     />
+  );
+}
+
+function SelectDropdown(props: SelectDropdownProps) {
+  return (
+    <SelectPositioner>
+      <SelectContent {...props} />
+    </SelectPositioner>
   );
 }
 
@@ -334,6 +359,7 @@ export {
   SelectContext,
   SelectControl,
   SelectContent,
+  SelectDropdown,
   SelectField,
   SelectHiddenSelect,
   SelectIndicator,
@@ -355,7 +381,13 @@ export {
   useSelectItemContext,
 };
 
-export type { SelectFieldProps, SelectOptionProps, SelectRootProps, SelectRootProviderProps };
+export type {
+  SelectDropdownProps,
+  SelectFieldProps,
+  SelectOptionProps,
+  SelectRootProps,
+  SelectRootProviderProps,
+};
 
 export type {
   SelectClearTriggerProps,

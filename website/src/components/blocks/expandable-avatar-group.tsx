@@ -1,7 +1,7 @@
 'use client';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/registry/react/ui/avatar';
-import { Tooltip, TooltipBody, TooltipTrigger } from '@/registry/react/ui/tooltip';
+import { Tooltip, TooltipPanel, TooltipTrigger } from '@/registry/react/ui/tooltip';
 import styles from './expandable-avatar-group.module.css';
 
 const members = [
@@ -66,10 +66,10 @@ export function ExpandableAvatarGroup() {
               </Avatar>
             </button>
           </TooltipTrigger>
-          <TooltipBody className={styles.tooltip}>
+          <TooltipPanel className={styles.tooltip}>
             <strong>{member.name}</strong>
             <span>{member.role}</span>
-          </TooltipBody>
+          </TooltipPanel>
         </Tooltip>
       ))}
     </div>

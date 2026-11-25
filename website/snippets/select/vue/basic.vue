@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import {
   Select,
-  SelectContent,
+  SelectDropdown,
   SelectField,
   SelectHiddenSelect,
   SelectItemGroup,
   SelectItemGroupLabel,
   SelectLabel,
   SelectOption,
-  SelectPositioner,
   createListCollection,
 } from '@moduix/vue/select';
+
 const fruits = createListCollection({
   items: [
     { label: 'Apple', value: 'apple' },
@@ -24,16 +24,14 @@ const fruits = createListCollection({
   <Select :collection="fruits">
     <SelectLabel>Choose fruit</SelectLabel>
     <SelectField placeholder="Select an option" clear-label="Clear selection" />
-    <SelectPositioner>
-      <SelectContent>
-        <SelectItemGroup>
-          <SelectItemGroupLabel>Fruits</SelectItemGroupLabel>
-          <SelectOption v-for="item in fruits.items" :key="item.value" :item="item">{{
-            item.label
-          }}</SelectOption>
-        </SelectItemGroup>
-      </SelectContent>
-    </SelectPositioner>
+    <SelectDropdown>
+      <SelectItemGroup>
+        <SelectItemGroupLabel>Fruits</SelectItemGroupLabel>
+        <SelectOption v-for="item in fruits.items" :key="item.value" :item="item">
+          {{ item.label }}
+        </SelectOption>
+      </SelectItemGroup>
+    </SelectDropdown>
     <SelectHiddenSelect />
   </Select>
 </template>

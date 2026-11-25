@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Button } from '@moduix/vue/button';
-import { Tooltip, TooltipBody, TooltipTrigger } from '@moduix/vue/tooltip';
+import { Tooltip, TooltipPanel, TooltipTrigger } from '@moduix/vue/tooltip';
 import { computed, ref } from 'vue';
 import styles from '@/components/examples/tooltip/component-positioning.module.css';
 
@@ -20,7 +20,7 @@ const positioning = computed(() => ({
       <TooltipTrigger as-child :aria-label="'Tooltip placement: ' + placement">
         <Button>Hover or focus</Button>
       </TooltipTrigger>
-      <TooltipBody>Placement: {{ placement }}</TooltipBody>
+      <TooltipPanel>Placement: {{ placement }}</TooltipPanel>
     </Tooltip>
     <div data-preview-meta :class="styles.meta">
       <output>Placement: {{ placement }}</output>

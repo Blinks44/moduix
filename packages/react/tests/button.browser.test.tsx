@@ -77,8 +77,8 @@ test('aria-disabled prevents activation and disables a native button', async () 
   expect(activationCount).toBe(0);
 });
 
-test('wires the loading state without taking over its content', async () => {
-  render(<Button loading>Saving</Button>);
+test('renders a built-in spinner when loading and supports loadingText and loadingIndicator', async () => {
+  const { rerender } = render(<Button loading>Saving</Button>);
 
   const button = screen.getByRole('button', { name: 'Saving' });
 
@@ -93,6 +93,30 @@ test('wires the loading state without taking over its content', async () => {
     .element(page.getByRole('button', { name: 'Saving' }))
     .toHaveAttribute('data-disabled');
   expect(button.hasAttribute('data-loading')).toBe(true);
+  expect(button.querySelector('[data-slot="spinner-root"]')).not.toBeNull();
+
+  rerender(
+    <Button loading loadingText="Submitting...">
+      Save
+    </Button>,
+  );
+  expect(screen.getByRole('button', { name: 'Submitting...' })).toBe(button);
+  expect(button.querySelector('[data-slot="spinner-root"]')).not.toBeNull();
+
+  rerender(
+    <Button loading loadingIndicator={false}>
+      Saving
+    </Button>,
+  );
+  expect(button.querySelector('[data-slot="spinner-root"]')).toBeNull();
+
+  rerender(
+    <Button aria-label="Refresh" loading size="icon-md">
+      <span data-testid="icon-child">↻</span>
+    </Button>,
+  );
+  expect(screen.queryByTestId('icon-child')).toBeNull();
+  expect(button.querySelector('[data-slot="spinner-root"]')).not.toBeNull();
 });
 
 test('applies explicit recipe values to the root', () => {

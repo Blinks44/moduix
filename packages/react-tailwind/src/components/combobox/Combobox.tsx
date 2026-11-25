@@ -26,14 +26,32 @@ import { CloseButton } from '../close-button';
 
 const rootClass = 'flex w-64 max-w-full min-w-0 flex-col gap-1.5 text-foreground';
 
-type ComboboxRootProps<T extends CollectionItem> = ArkComboboxRootProps<T> & OverlayPortalProps;
+type ComboboxSugarProps = OverlayPortalProps & {
+  filter?: (inputValue: string) => void;
+};
+type ComboboxRootProps<T extends CollectionItem> = ArkComboboxRootProps<T> & ComboboxSugarProps;
 type ComboboxRootProviderProps<T extends CollectionItem> = ArkComboboxRootProviderProps<T> &
   OverlayPortalProps;
+type ComboboxFieldProps = Omit<
+  ComponentProps<typeof ComboboxPrimitive.Control>,
+  'asChild' | 'children'
+> & {
+  clearable?: boolean;
+  clearLabel?: string;
+  clearTriggerProps?: ComponentProps<typeof ComboboxPrimitive.ClearTrigger>;
+  inputProps?: ComponentProps<typeof ComboboxPrimitive.Input>;
+  placeholder?: ComponentProps<typeof ComboboxPrimitive.Input>['placeholder'];
+  triggerLabel?: string;
+  triggerProps?: ComponentProps<typeof ComboboxPrimitive.Trigger>;
+};
+type ComboboxDropdownProps = ComponentProps<typeof ComboboxPrimitive.Content>;
 
 const Combobox = forwardRef(function Combobox<T extends CollectionItem>(
   {
     className,
+    filter,
     lazyMount = true,
+    onInputValueChange,
     portalled,
     portalRef,
     unmountOnExit = true,
@@ -41,19 +59,28 @@ const Combobox = forwardRef(function Combobox<T extends CollectionItem>(
   }: ComboboxRootProps<T>,
   ref: ForwardedRef<HTMLDivElement>,
 ) {
+  const handleInputValueChange: ArkComboboxRootProps<T>['onInputValueChange'] =
+    filter || onInputValueChange
+      ? (details) => {
+          filter?.(details.inputValue);
+          onInputValueChange?.(details);
+        }
+      : undefined;
+
   return (
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
       <ComboboxPrimitive.Root
         ref={ref}
         className={cn(rootClass, className)}
         lazyMount={lazyMount}
+        onInputValueChange={handleInputValueChange}
         unmountOnExit={unmountOnExit}
         {...props}
         data-slot="combobox-root"
       />
     </OverlayPortalProvider>
   );
-}) as ArkComboboxRootComponent<OverlayPortalProps>;
+}) as ArkComboboxRootComponent<ComboboxSugarProps>;
 
 const ComboboxRootProvider = forwardRef(function ComboboxRootProvider<T extends CollectionItem>(
   {
@@ -369,6 +396,49 @@ const ComboboxOption = forwardRef<ComponentRef<typeof ComboboxPrimitive.Item>, C
   },
 );
 
+const ComboboxField = forwardRef<
+  ComponentRef<typeof ComboboxPrimitive.Control>,
+  ComboboxFieldProps
+>(function ComboboxField(
+  {
+    clearable,
+    clearLabel,
+    clearTriggerProps,
+    inputProps,
+    placeholder,
+    triggerLabel,
+    triggerProps,
+    ...props
+  },
+  ref,
+) {
+  const showClearTrigger = clearable ?? (clearLabel != null || clearTriggerProps != null);
+
+  return (
+    <ComboboxControl ref={ref} {...props}>
+      <ComboboxInput placeholder={placeholder} {...inputProps} />
+      {showClearTrigger ? (
+        <ComboboxClearTrigger aria-label={clearLabel} {...clearTriggerProps} />
+      ) : null}
+      <ComboboxTrigger
+        {...(triggerLabel !== undefined ? { 'aria-label': triggerLabel } : undefined)}
+        {...triggerProps}
+      />
+    </ComboboxControl>
+  );
+});
+
+const ComboboxDropdown = forwardRef<
+  ComponentRef<typeof ComboboxPrimitive.Content>,
+  ComboboxDropdownProps
+>(function ComboboxDropdown(props, ref) {
+  return (
+    <ComboboxPositioner>
+      <ComboboxContent ref={ref} {...props} />
+    </ComboboxPositioner>
+  );
+});
+
 const ComboboxContext = ComboboxPrimitive.Context;
 const ComboboxItemContext = ComboboxPrimitive.ItemContext;
 
@@ -378,7 +448,9 @@ export {
   ComboboxContext,
   ComboboxContent,
   ComboboxControl,
+  ComboboxDropdown,
   ComboboxEmpty,
+  ComboboxField,
   ComboboxInput,
   ComboboxItem,
   ComboboxItemContext,
@@ -398,7 +470,13 @@ export {
   useComboboxItemContext,
 };
 
-export type { ComboboxOptionProps, ComboboxRootProps, ComboboxRootProviderProps };
+export type {
+  ComboboxDropdownProps,
+  ComboboxFieldProps,
+  ComboboxOptionProps,
+  ComboboxRootProps,
+  ComboboxRootProviderProps,
+};
 
 export type {
   ComboboxClearTriggerProps,
@@ -436,6 +514,11 @@ export type {
   UseListCollectionProps,
   UseListCollectionReturn,
 } from '@ark-ui/react/collection';
+export {
+  useFilteredCollection,
+  type UseFilteredCollectionProps,
+  type UseFilteredCollectionReturn,
+} from '@/lib/moduix/filteredCollection';
 export { useFilter } from '@ark-ui/react/locale';
 export type { UseFilterProps, UseFilterReturn } from '@ark-ui/react/locale';
 export type {

@@ -1,13 +1,8 @@
 <script setup lang="ts">
 import { Button } from '@moduix/vue/button';
-import { Spinner } from '@moduix/vue/spinner';
 import { ref } from 'vue';
 
 const delay = 1800;
-const labels = {
-  idle: 'Save Changes',
-  pending: 'Saving',
-};
 const pending = ref(false);
 
 const save = () => {
@@ -17,11 +12,5 @@ const save = () => {
 </script>
 
 <template>
-  <Button :loading="pending" @click="save">
-    <template v-if="pending">
-      <Spinner decorative size="sm" />
-      {{ labels.pending }}
-    </template>
-    <template v-else>{{ labels.idle }}</template>
-  </Button>
+  <Button :loading="pending" loading-text="Saving" @click="save">Save Changes</Button>
 </template>

@@ -1,11 +1,5 @@
-import { Switch, SwitchControl, SwitchHiddenInput, SwitchLabel } from '@moduix/solid/switch';
+import { Switch } from '@moduix/solid/switch';
 
 export default function SwitchDemo() {
-  return (
-    <Switch defaultChecked>
-      <SwitchControl />
-      <SwitchLabel>Enable notifications</SwitchLabel>
-      <SwitchHiddenInput />
-    </Switch>
-  );
+  return <Switch defaultChecked label="Enable notifications" />;
 }

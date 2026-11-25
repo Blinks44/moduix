@@ -7,22 +7,46 @@ import {
   useCheckboxGroup,
   useCheckboxGroupContext,
 } from '@ark-ui/react/checkbox';
-import type { ComponentProps, ComponentRef } from 'react';
+import type { ComponentProps, ComponentRef, ReactNode } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 import { CheckIcon, IndeterminateIcon } from '@/lib/moduix/icons/ui';
 
 type CheckboxSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-type CheckboxRootProps = ComponentProps<typeof CheckboxPrimitive.Root> & { size?: CheckboxSize };
+type CheckboxRootProps = ComponentProps<typeof CheckboxPrimitive.Root> & {
+  hiddenInput?: boolean;
+  hiddenInputProps?: ComponentProps<typeof CheckboxPrimitive.HiddenInput>;
+  label?: ReactNode;
+  size?: CheckboxSize;
+};
 type CheckboxRootProviderProps = ComponentProps<typeof CheckboxPrimitive.RootProvider> & {
   size?: CheckboxSize;
 };
 
 const Checkbox = forwardRef<ComponentRef<typeof CheckboxPrimitive.Root>, CheckboxRootProps>(
-  function Checkbox({ className, size = 'md', ...props }, ref) {
+  function Checkbox(
+    { asChild, children, className, hiddenInput, hiddenInputProps, label, size = 'md', ...props },
+    ref,
+  ) {
+    const content = asChild ? (
+      children
+    ) : children === undefined ? (
+      <>
+        <CheckboxControl />
+        {label != null ? <CheckboxLabel>{label}</CheckboxLabel> : null}
+        {hiddenInput !== false ? <CheckboxHiddenInput {...hiddenInputProps} /> : null}
+      </>
+    ) : (
+      <>
+        {children}
+        {hiddenInput ? <CheckboxHiddenInput {...hiddenInputProps} /> : null}
+      </>
+    );
+
     return (
       <CheckboxPrimitive.Root
         ref={ref}
+        asChild={asChild}
         className={cn(
           'group/checkbox inline-flex cursor-pointer items-center gap-2 align-middle text-foreground data-disabled:cursor-default data-disabled:opacity-disabled data-readonly:cursor-default',
           className,
@@ -30,7 +54,9 @@ const Checkbox = forwardRef<ComponentRef<typeof CheckboxPrimitive.Root>, Checkbo
         {...props}
         data-size={size}
         data-slot="checkbox-root"
-      />
+      >
+        {content}
+      </CheckboxPrimitive.Root>
     );
   },
 );

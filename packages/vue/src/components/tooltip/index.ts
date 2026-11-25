@@ -2,12 +2,15 @@ import { TooltipContext, useTooltip, useTooltipContext } from '@ark-ui/vue/toolt
 import Tooltip from './Tooltip.vue';
 import TooltipArrow from './TooltipArrow.vue';
 import TooltipArrowTip from './TooltipArrowTip.vue';
-import TooltipBody from './TooltipBody.vue';
 import TooltipContent from './TooltipContent.vue';
 import TooltipDisabledTrigger from './TooltipDisabledTrigger.vue';
+import TooltipPanel from './TooltipPanel.vue';
 import TooltipPositioner from './TooltipPositioner.vue';
 import TooltipRootProvider from './TooltipRootProvider.vue';
 import TooltipTrigger from './TooltipTrigger.vue';
+
+/** @deprecated Use `TooltipPanel` instead. */
+const TooltipBody = TooltipPanel;
 
 export {
   Tooltip,
@@ -17,6 +20,7 @@ export {
   TooltipContext,
   TooltipContent,
   TooltipDisabledTrigger,
+  TooltipPanel,
   TooltipPositioner,
   TooltipRootProvider,
   TooltipTrigger,

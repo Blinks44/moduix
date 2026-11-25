@@ -32,6 +32,11 @@ export type { CommandPaletteRootProps } from './CommandPalette.svelte';
 export type { CommandPaletteRootProviderProps } from './CommandPaletteRootProvider.svelte';
 export type { CommandPaletteComboboxProps } from './CommandPaletteCombobox.svelte';
 
+export { useFilteredCollection } from '@/lib/moduix/filteredCollection';
+export type {
+  UseFilteredCollectionProps,
+  UseFilteredCollectionReturn,
+} from '@/lib/moduix/filteredCollection';
 export { createListCollection, useListCollection } from '@ark-ui/svelte/collection';
 export type {
   CollectionItem,

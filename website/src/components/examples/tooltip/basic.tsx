@@ -1,5 +1,5 @@
 import { Button } from '@moduix/react/button';
-import { Tooltip, TooltipBody, TooltipTrigger } from '@moduix/react/tooltip';
+import { Tooltip, TooltipPanel, TooltipTrigger } from '@moduix/react/tooltip';
 import { Bell as BellIcon } from 'lucide-react';
 
 export default function TooltipDemo() {
@@ -11,7 +11,7 @@ export default function TooltipDemo() {
           Notifications
         </Button>
       </TooltipTrigger>
-      <TooltipBody>Notifications</TooltipBody>
+      <TooltipPanel>Notifications</TooltipPanel>
     </Tooltip>
   );
 }

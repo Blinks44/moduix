@@ -2,12 +2,10 @@
 import { Button } from '@moduix/vue/button';
 import {
   Dialog,
-  DialogBackdrop,
   DialogCloseIcon,
-  DialogContent,
   DialogDescription,
   DialogHeader,
-  DialogPositioner,
+  DialogPanel,
   DialogTitle,
   DialogTrigger,
 } from '@moduix/vue/dialog';
@@ -16,15 +14,12 @@ import {
 <template>
   <Dialog>
     <DialogTrigger as-child><Button>View notifications</Button></DialogTrigger>
-    <DialogBackdrop />
-    <DialogPositioner>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Notifications</DialogTitle>
-          <DialogCloseIcon />
-          <DialogDescription>You are all caught up. Good job!</DialogDescription>
-        </DialogHeader>
-      </DialogContent>
-    </DialogPositioner>
+    <DialogPanel>
+      <DialogHeader>
+        <DialogTitle>Notifications</DialogTitle>
+        <DialogCloseIcon />
+        <DialogDescription>You are all caught up. Good job!</DialogDescription>
+      </DialogHeader>
+    </DialogPanel>
   </Dialog>
 </template>

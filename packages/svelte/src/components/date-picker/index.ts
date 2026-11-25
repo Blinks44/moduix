@@ -1,5 +1,6 @@
 export { DatePickerContext, useDatePicker, useDatePickerContext } from '@ark-ui/svelte/date-picker';
 export { default as DatePicker } from './DatePicker.svelte';
+export { default as DatePickerCalendar } from './DatePickerCalendar.svelte';
 export { default as DatePickerClearTrigger } from './DatePickerClearTrigger.svelte';
 export { default as DatePickerContent } from './DatePickerContent.svelte';
 export { default as DatePickerControl } from './DatePickerControl.svelte';
@@ -10,6 +11,7 @@ export { default as DatePickerLabel } from './DatePickerLabel.svelte';
 export { default as DatePickerMonthSelect } from './DatePickerMonthSelect.svelte';
 export { default as DatePickerMonthTable } from './DatePickerMonthTable.svelte';
 export { default as DatePickerNextTrigger } from './DatePickerNextTrigger.svelte';
+export { default as DatePickerPanel } from './DatePickerPanel.svelte';
 export { default as DatePickerPositioner } from './DatePickerPositioner.svelte';
 export { default as DatePickerPresetTrigger } from './DatePickerPresetTrigger.svelte';
 export { default as DatePickerPrevTrigger } from './DatePickerPrevTrigger.svelte';
@@ -35,8 +37,10 @@ export { default as DatePickerYearTable } from './DatePickerYearTable.svelte';
 
 export type { DatePickerRootProps } from './DatePicker.svelte';
 export type { DatePickerRootProviderProps } from './DatePickerRootProvider.svelte';
+export type { DatePickerCalendarProps } from './DatePickerCalendar.svelte';
 export type { DatePickerDayTableProps } from './DatePickerDayTable.svelte';
 export type { DatePickerMonthTableProps } from './DatePickerMonthTable.svelte';
+export type { DatePickerPanelProps } from './DatePickerPanel.svelte';
 export type { DatePickerYearTableProps } from './DatePickerYearTable.svelte';
 export type { DatePickerFieldProps } from './DatePickerField.svelte';
 export type { DatePickerValueTextProps } from './DatePickerValueText.svelte';

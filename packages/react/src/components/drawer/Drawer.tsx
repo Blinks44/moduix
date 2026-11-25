@@ -119,6 +119,19 @@ const DrawerContent = forwardRef<ComponentRef<typeof DrawerPrimitive.Content>, D
   },
 );
 
+const DrawerPanel = forwardRef<ComponentRef<typeof DrawerPrimitive.Content>, DrawerContentProps>(
+  function DrawerPanel(props, ref) {
+    return (
+      <>
+        <DrawerBackdrop />
+        <DrawerPositioner>
+          <DrawerContent ref={ref} {...props} />
+        </DrawerPositioner>
+      </>
+    );
+  },
+);
+
 const DrawerGrabber = forwardRef<
   ComponentRef<typeof DrawerPrimitive.Grabber>,
   ComponentProps<typeof DrawerPrimitive.Grabber>
@@ -301,6 +314,7 @@ export {
   DrawerHeader,
   DrawerIndent,
   DrawerIndentBackground,
+  DrawerPanel,
   DrawerPositioner,
   DrawerRootProvider,
   DrawerStack,

@@ -3,6 +3,7 @@ import Toast from './Toast.vue';
 import ToastActionTrigger from './ToastActionTrigger.vue';
 import ToastCloseTrigger from './ToastCloseTrigger.vue';
 import ToastDescription from './ToastDescription.vue';
+import { toast } from './toastStore';
 import ToastTitle from './ToastTitle.vue';
 import ToastToaster from './ToastToaster.vue';
 
@@ -15,6 +16,7 @@ export {
   ToastTitle,
   ToastToaster,
   createToaster,
+  toast,
   useToastContext,
 };
 
@@ -24,6 +26,7 @@ export type { Props as ToastCloseTriggerProps } from './ToastCloseTrigger.vue';
 export type { Props as ToastDescriptionProps } from './ToastDescription.vue';
 export type { Props as ToastTitleProps } from './ToastTitle.vue';
 export type { Props as ToasterProps } from './ToastToaster.vue';
+export type { ToastHelper, ToastMessage, ToastMessageOptions } from './toastStore';
 
 export type {
   CreateToasterProps,

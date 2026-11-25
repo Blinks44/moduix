@@ -9,6 +9,7 @@ import SelectClearTrigger from './SelectClearTrigger.vue';
 import SelectContent from './SelectContent.vue';
 import SelectContext from './SelectContext.vue';
 import SelectControl from './SelectControl.vue';
+import SelectDropdown from './SelectDropdown.vue';
 import SelectField from './SelectField.vue';
 import SelectIndicator from './SelectIndicator.vue';
 import SelectItem from './SelectItem.vue';
@@ -31,6 +32,7 @@ export {
   SelectContent,
   SelectContext,
   SelectControl,
+  SelectDropdown,
   SelectField,
   SelectHiddenSelect,
   SelectIndicator,
@@ -87,6 +89,8 @@ export type {
 } from '@ark-ui/vue/select';
 
 export type { PortalRef } from '@/lib/moduix/overlayPortal/context';
+export type { Props as SelectDropdownProps } from './SelectDropdown.vue';
+export type { Props as SelectFieldProps } from './SelectField.vue';
 
 export { createListCollection, useListCollection } from '@ark-ui/vue/collection';
 export type {

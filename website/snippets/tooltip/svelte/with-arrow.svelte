@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { Tooltip, TooltipArrow, TooltipBody, TooltipTrigger } from '@moduix/svelte/tooltip';
+  import { Tooltip, TooltipArrow, TooltipPanel, TooltipTrigger } from '@moduix/svelte/tooltip';
 </script>
 
 <Tooltip>
   <TooltipTrigger>Hover or focus</TooltipTrigger>
-  <TooltipBody>
+  <TooltipPanel>
     <TooltipArrow />
     Tooltip with arrow
-  </TooltipBody>
+  </TooltipPanel>
 </Tooltip>

@@ -11,6 +11,7 @@ import {
   DialogContext,
   DialogContent,
   DialogFooter,
+  DialogPanel,
   DialogPositioner,
   DialogRootProvider,
   DialogTitle,
@@ -378,4 +379,27 @@ test('forwards refs through native parts and keeps asChild composition native', 
   expect(closeIconRef?.getAttribute('data-slot')).toBe('dialog-close-icon');
   expect(contentRef).toBe(document.querySelector('[role="dialog"]'));
   expect(contentRef.tagName).toBe('SECTION');
+});
+
+test('DialogPanel composes backdrop, positioner, and content while forwarding content props', async () => {
+  render(
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button>Open panel</Button>
+      </DialogTrigger>
+      <DialogPanel size="lg">
+        <DialogTitle>Quick dialog</DialogTitle>
+        <DialogCloseIcon />
+      </DialogPanel>
+    </Dialog>,
+  );
+
+  await page.getByRole('button', { name: 'Open panel' }).click();
+  await expect.element(page.getByRole('dialog')).toBeVisible();
+  await expect.element(page.getByRole('dialog')).toHaveAttribute('data-size', 'lg');
+  expect(document.querySelector('[data-slot="dialog-backdrop"]')).not.toBeNull();
+  expect(document.querySelector('[data-slot="dialog-positioner"]')).not.toBeNull();
+
+  await page.getByRole('button', { name: 'Close dialog' }).click();
+  await expect.element(page.getByRole('dialog')).toHaveCount(0);
 });

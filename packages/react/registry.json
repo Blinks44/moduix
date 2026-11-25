@@ -86,6 +86,19 @@
       ]
     },
     {
+      "name": "filtered-collection",
+      "type": "registry:item",
+      "title": "moduix filtered collection",
+      "description": "Internal filtered collection helper used by searchable list registry components.",
+      "files": [
+        {
+          "path": "src/internal/filteredCollection.ts",
+          "target": "@lib/moduix/filteredCollection.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
       "name": "foundation",
       "type": "registry:item",
       "title": "moduix React core",
@@ -327,7 +340,7 @@
       "title": "Button",
       "description": "moduix React Button component.",
       "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
-      "registryDependencies": ["@moduix-react/foundation"],
+      "registryDependencies": ["@moduix-react/foundation", "@moduix-react/spinner"],
       "files": [
         {
           "path": "src/components/button/Button.tsx",
@@ -486,7 +499,8 @@
         "@moduix-react/close-button",
         "@moduix-react/foundation",
         "@moduix-react/icons",
-        "@moduix-react/overlay-portal"
+        "@moduix-react/overlay-portal",
+        "@moduix-react/filtered-collection"
       ],
       "files": [
         {
@@ -548,7 +562,8 @@
         "@moduix-react/icons",
         "@moduix-react/kbd",
         "@moduix-react/overlay-portal",
-        "@moduix-react/scroll-area"
+        "@moduix-react/scroll-area",
+        "@moduix-react/filtered-collection"
       ],
       "files": [
         {

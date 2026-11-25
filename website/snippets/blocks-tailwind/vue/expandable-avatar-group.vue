@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Tooltip, TooltipBody, TooltipTrigger } from '@/components/ui/tooltip';
+import { Tooltip, TooltipPanel, TooltipTrigger } from '@/components/ui/tooltip';
 
 const members = [
   {
@@ -68,9 +68,9 @@ const members = [
           >
         </button>
       </TooltipTrigger>
-      <TooltipBody
+      <TooltipPanel
         class="grid gap-0.5 [&_span]:text-xs [&_span]:text-muted-foreground [&_strong]:font-semibold"
-        ><strong>{{ member.name }}</strong><span>{{ member.role }}</span></TooltipBody
+        ><strong>{{ member.name }}</strong><span>{{ member.role }}</span></TooltipPanel
       >
     </Tooltip>
   </div>

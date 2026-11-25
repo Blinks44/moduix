@@ -119,6 +119,19 @@ const DialogContent = forwardRef<ComponentRef<typeof DialogPrimitive.Content>, D
   },
 );
 
+const DialogPanel = forwardRef<ComponentRef<typeof DialogPrimitive.Content>, DialogContentProps>(
+  function DialogPanel(props, ref) {
+    return (
+      <>
+        <DialogBackdrop />
+        <DialogPositioner>
+          <DialogContent ref={ref} {...props} />
+        </DialogPositioner>
+      </>
+    );
+  },
+);
+
 const DialogTitle = forwardRef<
   ComponentRef<typeof DialogPrimitive.Title>,
   ComponentProps<typeof DialogPrimitive.Title>
@@ -227,6 +240,7 @@ export {
   DialogDescription,
   DialogFooter,
   DialogHeader,
+  DialogPanel,
   DialogPositioner,
   DialogRootProvider,
   DialogTitle,

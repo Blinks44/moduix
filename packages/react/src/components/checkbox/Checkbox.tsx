@@ -8,27 +8,53 @@ import {
   useCheckboxGroupContext,
 } from '@ark-ui/react/checkbox';
 import { clsx } from 'clsx';
-import type { ComponentProps, ComponentRef } from 'react';
+import type { ComponentProps, ComponentRef, ReactNode } from 'react';
 import { forwardRef } from 'react';
 import { CheckIcon, IndeterminateIcon } from '@/lib/moduix/icons/ui';
 import styles from './Checkbox.module.css';
 
 type CheckboxSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-type CheckboxRootProps = ComponentProps<typeof CheckboxPrimitive.Root> & { size?: CheckboxSize };
+type CheckboxRootProps = ComponentProps<typeof CheckboxPrimitive.Root> & {
+  hiddenInput?: boolean;
+  hiddenInputProps?: ComponentProps<typeof CheckboxPrimitive.HiddenInput>;
+  label?: ReactNode;
+  size?: CheckboxSize;
+};
 type CheckboxRootProviderProps = ComponentProps<typeof CheckboxPrimitive.RootProvider> & {
   size?: CheckboxSize;
 };
 
 const Checkbox = forwardRef<ComponentRef<typeof CheckboxPrimitive.Root>, CheckboxRootProps>(
-  function Checkbox({ className, size = 'md', ...props }, ref) {
+  function Checkbox(
+    { asChild, children, className, hiddenInput, hiddenInputProps, label, size = 'md', ...props },
+    ref,
+  ) {
+    const content = asChild ? (
+      children
+    ) : children === undefined ? (
+      <>
+        <CheckboxControl />
+        {label != null ? <CheckboxLabel>{label}</CheckboxLabel> : null}
+        {hiddenInput !== false ? <CheckboxHiddenInput {...hiddenInputProps} /> : null}
+      </>
+    ) : (
+      <>
+        {children}
+        {hiddenInput ? <CheckboxHiddenInput {...hiddenInputProps} /> : null}
+      </>
+    );
+
     return (
       <CheckboxPrimitive.Root
         ref={ref}
+        asChild={asChild}
         className={clsx(styles.root, className)}
         {...props}
         data-size={size}
         data-slot="checkbox-root"
-      />
+      >
+        {content}
+      </CheckboxPrimitive.Root>
     );
   },
 );

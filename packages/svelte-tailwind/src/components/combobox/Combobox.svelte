@@ -4,7 +4,9 @@
   import type { OverlayPortalProps } from '@/lib/moduix/overlayPortal';
 
   export interface ComboboxRootProps<T extends CollectionItem = CollectionItem>
-    extends ArkComboboxRootProps<T>, OverlayPortalProps {}
+    extends ArkComboboxRootProps<T>, OverlayPortalProps {
+    filter?: (inputValue: string) => void;
+  }
 
   const rootClass = 'flex w-64 max-w-full min-w-0 flex-col gap-1.5 text-foreground';
 </script>
@@ -16,9 +18,11 @@
 
   let {
     class: className,
+    filter,
     highlightedValue = $bindable(),
     inputValue = $bindable(),
     lazyMount = true,
+    onInputValueChange,
     open = $bindable(),
     portalled = true,
     portalRef,
@@ -27,6 +31,11 @@
     value = $bindable(),
     ...props
   }: ComboboxRootProps<T> = $props();
+
+  const handleInputValueChange: ComboboxRootProps<T>['onInputValueChange'] = (details) => {
+    filter?.(details.inputValue);
+    onInputValueChange?.(details);
+  };
 
   setOverlayPortalContext({
     portalled: () => portalled,
@@ -42,6 +51,7 @@
   bind:open
   bind:highlightedValue
   {lazyMount}
+  onInputValueChange={filter || onInputValueChange ? handleInputValueChange : undefined}
   {unmountOnExit}
   class={cn(rootClass, className)}
   data-slot="combobox-root"

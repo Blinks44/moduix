@@ -2,17 +2,15 @@ import { Button } from '@moduix/react/button';
 import { Card, CardBody } from '@moduix/react/card';
 import {
   Drawer,
-  DrawerBackdrop,
   DrawerBody,
   DrawerCloseIcon,
   DrawerCloseTrigger,
-  DrawerContent,
   DrawerDescription,
   DrawerFooter,
   DrawerGrabber,
   DrawerGrabberIndicator,
   DrawerHeader,
-  DrawerPositioner,
+  DrawerPanel,
   DrawerTitle,
   DrawerTrigger,
 } from '@moduix/react/drawer';
@@ -31,36 +29,33 @@ export default function DrawerDemo() {
       <DrawerTrigger asChild>
         <Button>Open drawer</Button>
       </DrawerTrigger>
-      <DrawerBackdrop />
-      <DrawerPositioner>
-        <DrawerContent>
-          <DrawerGrabber>
-            <DrawerGrabberIndicator />
-          </DrawerGrabber>
-          <DrawerHeader>
-            <DrawerTitle>Notifications</DrawerTitle>
-            <DrawerCloseIcon />
-            <DrawerDescription>Three updates need your attention.</DrawerDescription>
-          </DrawerHeader>
-          <DrawerBody className={styles.body}>
-            <Card size="sm" className={styles.card}>
-              <CardBody>
-                <ul>
-                  {notifications.map((notification) => (
-                    <li key={notification}>{notification}</li>
-                  ))}
-                </ul>
-              </CardBody>
-            </Card>
-          </DrawerBody>
-          <DrawerFooter>
-            <Button>View inbox</Button>
-            <DrawerCloseTrigger asChild>
-              <Button variant="outline">Close</Button>
-            </DrawerCloseTrigger>
-          </DrawerFooter>
-        </DrawerContent>
-      </DrawerPositioner>
+      <DrawerPanel>
+        <DrawerGrabber>
+          <DrawerGrabberIndicator />
+        </DrawerGrabber>
+        <DrawerHeader>
+          <DrawerTitle>Notifications</DrawerTitle>
+          <DrawerCloseIcon />
+          <DrawerDescription>Three updates need your attention.</DrawerDescription>
+        </DrawerHeader>
+        <DrawerBody className={styles.body}>
+          <Card size="sm" className={styles.card}>
+            <CardBody>
+              <ul>
+                {notifications.map((notification) => (
+                  <li key={notification}>{notification}</li>
+                ))}
+              </ul>
+            </CardBody>
+          </Card>
+        </DrawerBody>
+        <DrawerFooter>
+          <Button>View inbox</Button>
+          <DrawerCloseTrigger asChild>
+            <Button variant="outline">Close</Button>
+          </DrawerCloseTrigger>
+        </DrawerFooter>
+      </DrawerPanel>
     </Drawer>
   );
 }

@@ -18,9 +18,9 @@ import {
   CommandPalettePanel,
   CommandPaletteSearch,
   CommandPaletteTrigger,
-  useListCollection,
-  useFilter,
+  useFilteredCollection,
 } from '@moduix/vue/command-palette';
+
 const commandItems = [
   {
     id: 'new-project',
@@ -70,30 +70,21 @@ const commandItems = [
   },
 ];
 
-const filterOptions = useFilter({ sensitivity: 'base' });
-const { collection, filter } = useListCollection({
+const { collection, filter } = useFilteredCollection({
   initialItems: commandItems,
   itemToString: (item) => `${item.label} ${item.description} ${item.section}`,
   itemToValue: (item) => item.id,
-  filter: (itemText, filterText) => filterOptions.value.contains(itemText, filterText),
   groupBy: (item) => item.section,
 });
-
-const handleOpenChange = (details: { open: boolean }) => {
-  if (!details.open) filter('');
-};
 </script>
 
 <template>
-  <CommandPalette aria-label="Command palette" @open-change="handleOpenChange">
+  <CommandPalette aria-label="Command palette">
     <CommandPaletteTrigger as-child>
       <Button>Open palette</Button>
     </CommandPaletteTrigger>
     <CommandPalettePanel>
-      <CommandPaletteCombobox
-        :collection="collection"
-        @input-value-change="filter($event.inputValue)"
-      >
+      <CommandPaletteCombobox :collection="collection" :filter="filter">
         <CommandPaletteSearch placeholder="Search commands, pages, and settings..." />
         <CommandPaletteList>
           <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>

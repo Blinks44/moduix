@@ -326,12 +326,25 @@
       ]
     },
     {
+      "name": "filtered-collection",
+      "type": "registry:item",
+      "title": "moduix filtered collection",
+      "description": "Internal filtered collection helper used by searchable list registry components.",
+      "files": [
+        {
+          "path": "src/internal/filteredCollection.ts",
+          "target": "@lib/moduix/filteredCollection.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
       "name": "button",
       "type": "registry:item",
       "title": "Button",
       "description": "moduix Svelte Button component.",
       "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
-      "registryDependencies": ["@moduix-svelte/foundation"],
+      "registryDependencies": ["@moduix-svelte/foundation", "@moduix-svelte/spinner"],
       "files": [
         {
           "path": "src/components/button/Button.module.css",
@@ -426,6 +439,10 @@
           "path": "src/components/dialog/DialogContent.svelte",
           "target": "@components/ui/dialog/DialogContent.svelte",
           "type": "registry:component"
+        },
+        {
+          "path": "src/components/dialog/DialogPanel.svelte",
+          "type": "registry:ui"
         },
         {
           "path": "src/components/dialog/DialogDescription.svelte",
@@ -576,6 +593,11 @@
         {
           "path": "src/components/select/SelectValueText.svelte",
           "target": "@components/ui/select/SelectValueText.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/select/SelectDropdown.svelte",
+          "target": "@components/ui/select/SelectDropdown.svelte",
           "type": "registry:component"
         },
         {
@@ -2164,7 +2186,7 @@
           "type": "registry:component"
         },
         {
-          "path": "src/components/tooltip/TooltipBody.svelte",
+          "path": "src/components/tooltip/TooltipPanel.svelte",
           "target": "@components/ui/tooltip/TooltipBody.svelte",
           "type": "registry:component"
         },
@@ -2426,6 +2448,10 @@
           "path": "src/components/drawer/DrawerContent.svelte",
           "target": "@components/ui/drawer/DrawerContent.svelte",
           "type": "registry:component"
+        },
+        {
+          "path": "src/components/drawer/DrawerPanel.svelte",
+          "type": "registry:ui"
         },
         {
           "path": "src/components/drawer/DrawerGrabber.svelte",
@@ -2841,7 +2867,8 @@
         "@moduix-svelte/icons",
         "@moduix-svelte/close-button",
         "@moduix-svelte/overlay-portal",
-        "@moduix-svelte/a11y-labels"
+        "@moduix-svelte/a11y-labels",
+        "@moduix-svelte/filtered-collection"
       ],
       "files": [
         {
@@ -2932,6 +2959,16 @@
         {
           "path": "src/components/combobox/ComboboxOption.svelte",
           "target": "@components/ui/combobox/ComboboxOption.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxField.svelte",
+          "target": "@components/ui/combobox/ComboboxField.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/combobox/ComboboxDropdown.svelte",
+          "target": "@components/ui/combobox/ComboboxDropdown.svelte",
           "type": "registry:component"
         },
         {
@@ -3924,6 +3961,16 @@
         {
           "path": "src/components/date-picker/DatePickerYearTable.svelte",
           "target": "@components/ui/date-picker/DatePickerYearTable.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerCalendar.svelte",
+          "target": "@components/ui/date-picker/DatePickerCalendar.svelte",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerPanel.svelte",
+          "target": "@components/ui/date-picker/DatePickerPanel.svelte",
           "type": "registry:component"
         },
         {
@@ -5249,7 +5296,8 @@
         "@moduix-svelte/kbd",
         "@moduix-svelte/overlay-portal",
         "@moduix-svelte/scroll-area",
-        "@moduix-svelte/a11y-labels"
+        "@moduix-svelte/a11y-labels",
+        "@moduix-svelte/filtered-collection"
       ],
       "files": [
         {
@@ -5755,6 +5803,11 @@
           "path": "src/components/toast/index.ts",
           "target": "@components/ui/toast/index.ts",
           "type": "registry:component"
+        },
+        {
+          "path": "src/components/toast/toastStore.ts",
+          "type": "registry:component",
+          "target": "components/ui/toast/toastStore.ts"
         }
       ]
     },

@@ -1,5 +1,5 @@
 import { Button } from '@moduix/solid/button';
-import { Tooltip, TooltipBody, TooltipTrigger } from '@moduix/solid/tooltip';
+import { Tooltip, TooltipPanel, TooltipTrigger } from '@moduix/solid/tooltip';
 import { createSignal } from 'solid-js';
 
 export default function ControlledTooltipDemo() {
@@ -9,7 +9,7 @@ export default function ControlledTooltipDemo() {
     <div data-preview-meta>
       <Tooltip open={open()} onOpenChange={(details) => setOpen(details.open)}>
         <TooltipTrigger>Controlled tooltip</TooltipTrigger>
-        <TooltipBody>Open: {String(open())}</TooltipBody>
+        <TooltipPanel>Open: {String(open())}</TooltipPanel>
       </Tooltip>
       <output>Open: {String(open())}</output>
       <Button size="sm" variant="outline" onClick={() => setOpen((value) => !value)}>

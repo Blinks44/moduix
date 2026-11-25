@@ -116,6 +116,19 @@
       ]
     },
     {
+      "name": "filtered-collection",
+      "type": "registry:item",
+      "title": "moduix filtered collection",
+      "description": "Internal filtered collection helper used by searchable list registry components.",
+      "files": [
+        {
+          "path": "src/internal/filteredCollection.ts",
+          "target": "@lib/moduix/filteredCollection.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
       "name": "theme-contrast",
       "type": "registry:theme",
       "title": "Contrast theme",
@@ -343,7 +356,11 @@
         "clsx@^2.1.1",
         "tailwind-merge@^3.7.1"
       ],
-      "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
+      "registryDependencies": [
+        "@moduix-solid-tailwind/foundation",
+        "@moduix-solid-tailwind/cn",
+        "@moduix-solid-tailwind/spinner"
+      ],
       "files": [
         {
           "path": "src/components/button/Button.tsx",
@@ -492,7 +509,8 @@
         "@moduix-solid-tailwind/a11y-labels",
         "@moduix-solid-tailwind/icons",
         "@moduix-solid-tailwind/close-button",
-        "@moduix-solid-tailwind/overlay-portal"
+        "@moduix-solid-tailwind/overlay-portal",
+        "@moduix-solid-tailwind/filtered-collection"
       ],
       "files": [
         {
@@ -1202,7 +1220,8 @@
         "@moduix-solid-tailwind/kbd",
         "@moduix-solid-tailwind/overlay-portal",
         "@moduix-solid-tailwind/scroll-area",
-        "@moduix-solid-tailwind/event-handlers"
+        "@moduix-solid-tailwind/event-handlers",
+        "@moduix-solid-tailwind/filtered-collection"
       ],
       "files": [
         {

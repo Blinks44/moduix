@@ -1,12 +1,11 @@
 import {
   Select,
-  SelectLabel,
+  SelectDropdown,
   SelectField,
-  SelectPositioner,
-  SelectContent,
+  SelectHiddenSelect,
   SelectItemGroup,
   SelectItemGroupLabel,
-  SelectHiddenSelect,
+  SelectLabel,
   SelectOption,
   createListCollection,
 } from '@moduix/solid/select';
@@ -25,16 +24,14 @@ export default function SelectDemo() {
     <Select collection={fruits}>
       <SelectLabel>Choose fruit</SelectLabel>
       <SelectField placeholder="Select an option" clearLabel="Clear selection" />
-      <SelectPositioner>
-        <SelectContent>
-          <SelectItemGroup>
-            <SelectItemGroupLabel>Fruits</SelectItemGroupLabel>
-            <For each={fruits.items}>
-              {(item) => <SelectOption item={item}>{item.label}</SelectOption>}
-            </For>
-          </SelectItemGroup>
-        </SelectContent>
-      </SelectPositioner>
+      <SelectDropdown>
+        <SelectItemGroup>
+          <SelectItemGroupLabel>Fruits</SelectItemGroupLabel>
+          <For each={fruits.items}>
+            {(item) => <SelectOption item={item}>{item.label}</SelectOption>}
+          </For>
+        </SelectItemGroup>
+      </SelectDropdown>
       <SelectHiddenSelect />
     </Select>
   );

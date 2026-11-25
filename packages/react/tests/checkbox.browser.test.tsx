@@ -183,3 +183,23 @@ test('keeps controlled indeterminate state transitions Ark-shaped', async () => 
     .element(page.getByRole('checkbox', { name: 'Select all', exact: true }))
     .toBeChecked();
 });
+
+test('supports shorthand label and built-in hidden input', async () => {
+  const { container } = render(
+    <form>
+      <Checkbox defaultChecked label="Marketing emails" name="marketing" value="yes" />
+      <Checkbox aria-label="Standalone" name="standalone" />
+      <Checkbox hiddenInput={false} label="No hidden input" name="skipped" defaultChecked />
+    </form>,
+  );
+
+  const form = container.querySelector('form')!;
+  expect(container.querySelectorAll('input[type="checkbox"]')).toHaveLength(2);
+  expect(Array.from(new FormData(form).entries())).toEqual([['marketing', 'yes']]);
+
+  const marketing = page.getByRole('checkbox', { name: 'Marketing emails', exact: true });
+  await expect.element(marketing).toBeChecked();
+  await page.getByText('Marketing emails', { exact: true }).click();
+  await expect.element(marketing).not.toBeChecked();
+  expect(Array.from(new FormData(form).entries())).toEqual([]);
+});

@@ -120,16 +120,19 @@ const TooltipContent = forwardRef<
   );
 });
 
-const TooltipBody = forwardRef<
+const TooltipPanel = forwardRef<
   ComponentRef<typeof TooltipPrimitive.Content>,
   ComponentProps<typeof TooltipPrimitive.Content>
->(function TooltipBody(props, ref) {
+>(function TooltipPanel(props, ref) {
   return (
     <TooltipPositioner>
       <TooltipContent ref={ref} {...props} />
     </TooltipPositioner>
   );
 });
+
+/** @deprecated Use `TooltipPanel` instead. */
+const TooltipBody = TooltipPanel;
 
 const TooltipArrow = forwardRef<
   ComponentRef<typeof TooltipPrimitive.Arrow>,
@@ -174,6 +177,7 @@ export {
   TooltipContext,
   TooltipContent,
   TooltipDisabledTrigger,
+  TooltipPanel,
   TooltipPositioner,
   TooltipRootProvider,
   TooltipTrigger,

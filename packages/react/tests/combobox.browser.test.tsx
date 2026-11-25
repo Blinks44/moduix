@@ -10,6 +10,9 @@ import {
   ComboboxClearTrigger,
   ComboboxContent,
   ComboboxControl,
+  ComboboxDropdown,
+  ComboboxEmpty,
+  ComboboxField,
   ComboboxInput,
   ComboboxLabel,
   ComboboxList,
@@ -17,6 +20,7 @@ import {
   ComboboxPositioner,
   ComboboxRootProvider,
   ComboboxTrigger,
+  useFilteredCollection,
 } from '@/index';
 
 const fruits = createListCollection({
@@ -169,4 +173,52 @@ test('exposes RootProvider state through the moduix context hook', async () => {
   render(<ProviderCombobox />);
 
   await expect.element(page.getByText('open')).toBeVisible();
+});
+
+test('filters via useFilteredCollection, filter prop, ComboboxField, and ComboboxDropdown', async () => {
+  const inputChanges: string[] = [];
+
+  function SugarCombobox() {
+    const { collection, filter } = useFilteredCollection({
+      initialItems: [
+        { label: 'Apple', value: 'apple' },
+        { label: 'Banana', value: 'banana' },
+        { label: 'Mango', value: 'mango' },
+      ],
+    });
+
+    return (
+      <Combobox
+        collection={collection}
+        filter={filter}
+        portalled={false}
+        onInputValueChange={(details) => inputChanges.push(details.inputValue)}
+      >
+        <ComboboxLabel>Search fruit</ComboboxLabel>
+        <ComboboxField placeholder="Search..." triggerLabel="Toggle fruit list" />
+        <ComboboxDropdown>
+          <ComboboxEmpty>No matches</ComboboxEmpty>
+          <ComboboxList>
+            {collection.items.map((item) => (
+              <ComboboxOption key={item.value} item={item}>
+                {item.label}
+              </ComboboxOption>
+            ))}
+          </ComboboxList>
+        </ComboboxDropdown>
+      </Combobox>
+    );
+  }
+
+  render(<SugarCombobox />);
+
+  const input = page.getByRole('combobox', { name: 'Search fruit', exact: true });
+  await input.fill('man');
+
+  await expect.element(page.getByRole('option', { name: 'Mango', exact: true })).toBeVisible();
+  await expect.element(page.getByRole('option', { name: 'Apple', exact: true })).toHaveCount(0);
+  expect(inputChanges).toContain('man');
+
+  await page.getByRole('option', { name: 'Mango', exact: true }).click();
+  await expect.element(input).toHaveValue('Mango');
 });

@@ -10,6 +10,7 @@ import {
   TooltipArrow,
   TooltipBody,
   TooltipDisabledTrigger,
+  TooltipPanel,
   TooltipRootProvider,
   TooltipTrigger,
 } from '@/components/tooltip';
@@ -175,4 +176,17 @@ test('lets long content grow instead of spilling past the surface', async () => 
   await expect.element(page.getByRole('tooltip')).toBeVisible();
   const content = document.querySelector<HTMLElement>('[data-slot="tooltip-content"]')!;
   expect(content.scrollHeight).toBeLessThanOrEqual(content.clientHeight + 1);
+});
+
+test('renders TooltipPanel as the primary surface while keeping TooltipBody as an alias', async () => {
+  expect(TooltipBody).toBe(TooltipPanel);
+
+  render(
+    <Tooltip open portalled={false}>
+      <TooltipTrigger>Publish</TooltipTrigger>
+      <TooltipPanel>Publish changes</TooltipPanel>
+    </Tooltip>,
+  );
+
+  await expect.element(page.getByRole('tooltip')).toHaveText('Publish changes');
 });

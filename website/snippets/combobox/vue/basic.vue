@@ -1,48 +1,41 @@
 <script setup lang="ts">
 import {
   Combobox,
-  ComboboxClearTrigger,
-  ComboboxContent,
-  ComboboxControl,
+  ComboboxDropdown,
   ComboboxEmpty,
-  ComboboxInput,
+  ComboboxField,
   ComboboxLabel,
   ComboboxList,
   ComboboxOption,
-  ComboboxPositioner,
-  ComboboxTrigger,
-  useListCollection,
-  useFilter,
+  useFilteredCollection,
 } from '@moduix/vue/combobox';
+
 const fruits = [
   { label: 'Apple', value: 'apple' },
   { label: 'Banana', value: 'banana' },
   { label: 'Mango', value: 'mango' },
 ];
-const filterOptions = useFilter({ sensitivity: 'base' });
-const { collection, filter } = useListCollection({
+
+const { collection, filter } = useFilteredCollection({
   initialItems: fruits,
-  filter: (itemText, filterText) => filterOptions.value.contains(itemText, filterText),
 });
 </script>
 
 <template>
-  <Combobox :collection="collection" @input-value-change="filter($event.inputValue)">
+  <Combobox :collection="collection" :filter="filter">
     <ComboboxLabel>Choose fruit</ComboboxLabel>
-    <ComboboxControl>
-      <ComboboxInput placeholder="e.g. Mango" />
-      <ComboboxClearTrigger aria-label="Clear selection" />
-      <ComboboxTrigger aria-label="Open options" />
-    </ComboboxControl>
-    <ComboboxPositioner>
-      <ComboboxContent>
-        <ComboboxEmpty>No fruits found.</ComboboxEmpty>
-        <ComboboxList>
-          <ComboboxOption v-for="item in collection.items" :key="item.value" :item="item">
-            {{ item.label }}
-          </ComboboxOption>
-        </ComboboxList>
-      </ComboboxContent>
-    </ComboboxPositioner>
+    <ComboboxField
+      placeholder="e.g. Mango"
+      clear-label="Clear selection"
+      trigger-label="Open options"
+    />
+    <ComboboxDropdown>
+      <ComboboxEmpty>No fruits found.</ComboboxEmpty>
+      <ComboboxList>
+        <ComboboxOption v-for="item in collection.items" :key="item.value" :item="item">
+          {{ item.label }}
+        </ComboboxOption>
+      </ComboboxList>
+    </ComboboxDropdown>
   </Combobox>
 </template>

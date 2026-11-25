@@ -31,10 +31,15 @@ type SelectFieldProps = Omit<
   ComponentProps<typeof SelectPrimitive.Control>,
   'asChild' | 'children'
 > & {
+  clearable?: boolean;
   clearLabel?: string;
+  clearTriggerProps?: ComponentProps<typeof SelectPrimitive.ClearTrigger>;
   indicator?: ReactNode;
   placeholder?: ComponentProps<typeof SelectPrimitive.ValueText>['placeholder'];
+  triggerProps?: ComponentProps<typeof SelectPrimitive.Trigger>;
+  valueTextProps?: ComponentProps<typeof SelectPrimitive.ValueText>;
 };
+type SelectDropdownProps = ComponentProps<typeof SelectPrimitive.Content>;
 
 const Select = forwardRef(function Select<T extends CollectionItem>(
   {
@@ -198,13 +203,29 @@ const SelectIndicator = forwardRef<
 });
 
 const SelectField = forwardRef<ComponentRef<typeof SelectPrimitive.Control>, SelectFieldProps>(
-  function SelectField({ clearLabel, indicator, placeholder, ...props }, ref) {
+  function SelectField(
+    {
+      clearable,
+      clearLabel,
+      clearTriggerProps,
+      indicator,
+      placeholder,
+      triggerProps,
+      valueTextProps,
+      ...props
+    },
+    ref,
+  ) {
+    const showClearTrigger = clearable ?? (clearLabel != null || clearTriggerProps != null);
+
     return (
       <SelectControl ref={ref} {...props}>
-        <SelectTrigger>
-          <SelectValueText placeholder={placeholder} />
+        <SelectTrigger {...triggerProps}>
+          <SelectValueText placeholder={placeholder} {...valueTextProps} />
         </SelectTrigger>
-        {clearLabel && <SelectClearTrigger aria-label={clearLabel} />}
+        {showClearTrigger ? (
+          <SelectClearTrigger aria-label={clearLabel} {...clearTriggerProps} />
+        ) : null}
         <SelectIndicator>{indicator}</SelectIndicator>
       </SelectControl>
     );
@@ -238,6 +259,17 @@ const SelectContent = forwardRef<
       {...props}
       data-slot="select-content"
     />
+  );
+});
+
+const SelectDropdown = forwardRef<
+  ComponentRef<typeof SelectPrimitive.Content>,
+  SelectDropdownProps
+>(function SelectDropdown(props, ref) {
+  return (
+    <SelectPositioner>
+      <SelectContent ref={ref} {...props} />
+    </SelectPositioner>
   );
 });
 
@@ -356,6 +388,7 @@ export {
   SelectContext,
   SelectControl,
   SelectContent,
+  SelectDropdown,
   SelectField,
   SelectHiddenSelect,
   SelectIndicator,
@@ -377,7 +410,13 @@ export {
   useSelectItemContext,
 };
 
-export type { SelectFieldProps, SelectOptionProps, SelectRootProps, SelectRootProviderProps };
+export type {
+  SelectDropdownProps,
+  SelectFieldProps,
+  SelectOptionProps,
+  SelectRootProps,
+  SelectRootProviderProps,
+};
 
 export type {
   SelectClearTriggerProps,

@@ -3,10 +3,11 @@
   import type { Snippet } from 'svelte';
   import type { PortalRef } from '@/lib/moduix/overlayPortal';
 
-  export interface ToasterProps extends Omit<ArkToasterProps, 'children'> {
+  export interface ToasterProps extends Omit<ArkToasterProps, 'children' | 'toaster'> {
     children?: Snippet<[() => ToastOptions]>;
     portalRef?: PortalRef;
     portalled?: boolean;
+    toaster?: ArkToasterProps['toaster'];
   }
 </script>
 
@@ -19,6 +20,7 @@
   import ToastActionTrigger from './ToastActionTrigger.svelte';
   import ToastCloseTrigger from './ToastCloseTrigger.svelte';
   import ToastDescription from './ToastDescription.svelte';
+  import { defaultToaster } from './toastStore';
   import ToastTitle from './ToastTitle.svelte';
   import ToastValue from './ToastValue.svelte';
 
@@ -28,6 +30,7 @@
     portalRef,
     portalled = true,
     ref = $bindable(null),
+    toaster = defaultToaster,
     ...props
   }: ToasterProps = $props();
 
@@ -39,6 +42,7 @@
 <Portal {container} disabled={!portalled}>
   <Toaster
     {...props}
+    {toaster}
     bind:ref
     class={cn(
       '[@media(max-width:40rem)]:w-[calc(100vw-env(safe-area-inset-left,0px)-env(safe-area-inset-right,0px)-var(--viewport-offset-left)-var(--viewport-offset-right))]',

@@ -3,17 +3,15 @@
   import { Card, CardBody } from '@moduix/svelte/card';
   import {
     Drawer,
-    DrawerBackdrop,
     DrawerBody,
     DrawerCloseIcon,
     DrawerCloseTrigger,
-    DrawerContent,
     DrawerDescription,
     DrawerFooter,
     DrawerGrabber,
     DrawerGrabberIndicator,
     DrawerHeader,
-    DrawerPositioner,
+    DrawerPanel,
     DrawerTitle,
     DrawerTrigger,
   } from '@moduix/svelte/drawer';
@@ -31,32 +29,29 @@
   <DrawerTrigger>
     {#snippet asChild(props)}<Button {...props()}>Open drawer</Button>{/snippet}
   </DrawerTrigger>
-  <DrawerBackdrop />
-  <DrawerPositioner>
-    <DrawerContent>
-      <DrawerGrabber><DrawerGrabberIndicator /></DrawerGrabber>
-      <DrawerHeader>
-        <DrawerTitle>Notifications</DrawerTitle>
-        <DrawerCloseIcon />
-        <DrawerDescription>Three updates need your attention.</DrawerDescription>
-      </DrawerHeader>
-      <DrawerBody class={styles.body}>
-        <Card size="sm" class={styles.card}>
-          <CardBody>
-            <ul>
-              {#each notifications as notification (notification)}
-                <li>{notification}</li>
-              {/each}
-            </ul>
-          </CardBody>
-        </Card>
-      </DrawerBody>
-      <DrawerFooter>
-        <Button>View inbox</Button>
-        <DrawerCloseTrigger>
-          {#snippet asChild(props)}<Button {...props()} variant="outline">Close</Button>{/snippet}
-        </DrawerCloseTrigger>
-      </DrawerFooter>
-    </DrawerContent>
-  </DrawerPositioner>
+  <DrawerPanel>
+    <DrawerGrabber><DrawerGrabberIndicator /></DrawerGrabber>
+    <DrawerHeader>
+      <DrawerTitle>Notifications</DrawerTitle>
+      <DrawerCloseIcon />
+      <DrawerDescription>Three updates need your attention.</DrawerDescription>
+    </DrawerHeader>
+    <DrawerBody class={styles.body}>
+      <Card size="sm" class={styles.card}>
+        <CardBody>
+          <ul>
+            {#each notifications as notification (notification)}
+              <li>{notification}</li>
+            {/each}
+          </ul>
+        </CardBody>
+      </Card>
+    </DrawerBody>
+    <DrawerFooter>
+      <Button>View inbox</Button>
+      <DrawerCloseTrigger>
+        {#snippet asChild(props)}<Button {...props()} variant="outline">Close</Button>{/snippet}
+      </DrawerCloseTrigger>
+    </DrawerFooter>
+  </DrawerPanel>
 </Drawer>

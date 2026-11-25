@@ -10,6 +10,7 @@ export { default as Select } from './Select.svelte';
 export { default as SelectClearTrigger } from './SelectClearTrigger.svelte';
 export { default as SelectContent } from './SelectContent.svelte';
 export { default as SelectControl } from './SelectControl.svelte';
+export { default as SelectDropdown } from './SelectDropdown.svelte';
 export { default as SelectField } from './SelectField.svelte';
 export { default as SelectIndicator } from './SelectIndicator.svelte';
 export { default as SelectItem } from './SelectItem.svelte';
@@ -56,6 +57,7 @@ export type {
 } from '@ark-ui/svelte/select';
 export type { PortalRef } from '@/lib/moduix/overlayPortal';
 export type { SelectRootProps } from './Select.svelte';
+export type { SelectDropdownProps } from './SelectDropdown.svelte';
 export type { SelectFieldProps } from './SelectField.svelte';
 export type { SelectOptionProps } from './SelectOption.svelte';
 export type { SelectRootProviderProps } from './SelectRootProvider.svelte';

@@ -3,6 +3,7 @@ import {
   Toaster as ToasterPrimitive,
   createToaster,
   useToastContext,
+  type CreateToasterReturn,
   type ToastOptions,
 } from '@ark-ui/solid/toast';
 import type { Accessor, ComponentProps } from 'solid-js';
@@ -17,13 +18,125 @@ import {
 import { CloseButton } from '../close-button';
 import { Spinner } from '../spinner';
 
-type ToasterProps = Omit<ComponentProps<typeof ToasterPrimitive>, 'children'> &
+type ToastMessage = ToastOptions['title'];
+type ToastMessageOptions = Omit<ToastOptions, 'title' | 'type'>;
+
+function isToastOptions(value: ToastMessage | ToastOptions): value is ToastOptions {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    Object.getPrototypeOf(value) === Object.prototype &&
+    !('$$typeof' in value) &&
+    !('__v_isVNode' in value)
+  );
+}
+
+function toToastOptions(
+  input: ToastMessage | ToastOptions,
+  options?: Omit<ToastOptions, 'title'>,
+): ToastOptions {
+  if (isToastOptions(input)) {
+    return options ? { ...input, ...options } : input;
+  }
+
+  return { ...options, title: input };
+}
+
+const defaultToaster = createToaster({
+  placement: 'bottom-end',
+  overlap: true,
+  gap: 16,
+});
+
+function createTypedToast(
+  type: ToastOptions['type'],
+  input: ToastMessage | Omit<ToastOptions, 'type'>,
+  options?: ToastMessageOptions,
+) {
+  return defaultToaster.create({ ...toToastOptions(input, options), type });
+}
+
+interface ToastHelper {
+  (input: ToastMessage | ToastOptions, options?: Omit<ToastOptions, 'title'>): string;
+  create: (input: ToastMessage | ToastOptions, options?: Omit<ToastOptions, 'title'>) => string;
+  success: (
+    input: ToastMessage | Omit<ToastOptions, 'type'>,
+    options?: ToastMessageOptions,
+  ) => string;
+  error: (
+    input: ToastMessage | Omit<ToastOptions, 'type'>,
+    options?: ToastMessageOptions,
+  ) => string;
+  info: (input: ToastMessage | Omit<ToastOptions, 'type'>, options?: ToastMessageOptions) => string;
+  warning: (
+    input: ToastMessage | Omit<ToastOptions, 'type'>,
+    options?: ToastMessageOptions,
+  ) => string;
+  loading: (
+    input: ToastMessage | Omit<ToastOptions, 'type'>,
+    options?: ToastMessageOptions,
+  ) => string;
+  promise: CreateToasterReturn['promise'];
+  dismiss: CreateToasterReturn['dismiss'];
+  remove: CreateToasterReturn['remove'];
+  update: CreateToasterReturn['update'];
+  pause: CreateToasterReturn['pause'];
+  resume: CreateToasterReturn['resume'];
+  isVisible: CreateToasterReturn['isVisible'];
+  isDismissed: CreateToasterReturn['isDismissed'];
+  getVisibleToasts: CreateToasterReturn['getVisibleToasts'];
+  getCount: CreateToasterReturn['getCount'];
+  expand: CreateToasterReturn['expand'];
+  collapse: CreateToasterReturn['collapse'];
+  toaster: CreateToasterReturn;
+}
+
+const toast: ToastHelper = Object.assign(
+  (input: ToastMessage | ToastOptions, options?: Omit<ToastOptions, 'title'>) =>
+    defaultToaster.create(toToastOptions(input, options)),
+  {
+    create: (input: ToastMessage | ToastOptions, options?: Omit<ToastOptions, 'title'>) =>
+      defaultToaster.create(toToastOptions(input, options)),
+    success: (input: ToastMessage | Omit<ToastOptions, 'type'>, options?: ToastMessageOptions) =>
+      createTypedToast('success', input, options),
+    error: (input: ToastMessage | Omit<ToastOptions, 'type'>, options?: ToastMessageOptions) =>
+      createTypedToast('error', input, options),
+    info: (input: ToastMessage | Omit<ToastOptions, 'type'>, options?: ToastMessageOptions) =>
+      createTypedToast('info', input, options),
+    warning: (input: ToastMessage | Omit<ToastOptions, 'type'>, options?: ToastMessageOptions) =>
+      createTypedToast('warning', input, options),
+    loading: (input: ToastMessage | Omit<ToastOptions, 'type'>, options?: ToastMessageOptions) =>
+      createTypedToast('loading', input, options),
+    promise: defaultToaster.promise,
+    dismiss: defaultToaster.dismiss,
+    remove: defaultToaster.remove,
+    update: defaultToaster.update,
+    pause: defaultToaster.pause,
+    resume: defaultToaster.resume,
+    isVisible: defaultToaster.isVisible,
+    isDismissed: defaultToaster.isDismissed,
+    getVisibleToasts: defaultToaster.getVisibleToasts,
+    getCount: defaultToaster.getCount,
+    expand: defaultToaster.expand,
+    collapse: defaultToaster.collapse,
+    toaster: defaultToaster,
+  },
+);
+
+type ToasterProps = Omit<ComponentProps<typeof ToasterPrimitive>, 'children' | 'toaster'> &
   OverlayPortalProps & {
     children?: ComponentProps<typeof ToasterPrimitive>['children'];
+    toaster?: ComponentProps<typeof ToasterPrimitive>['toaster'];
   };
 
 function ToastToaster(props: ToasterProps) {
-  const [local, others] = splitProps(props, ['children', 'class', 'portalRef', 'portalled']);
+  const [local, others] = splitProps(props, [
+    'children',
+    'class',
+    'portalRef',
+    'portalled',
+    'toaster',
+  ]);
 
   return (
     <OverlayPortalProvider portalled={local.portalled} portalRef={local.portalRef}>
@@ -33,6 +146,7 @@ function ToastToaster(props: ToasterProps) {
             '[@media(max-width:40rem)]:w-[calc(100vw-env(safe-area-inset-left,0px)-env(safe-area-inset-right,0px)-var(--viewport-offset-left)-var(--viewport-offset-right))]',
             local.class,
           )}
+          toaster={local.toaster ?? defaultToaster}
           {...others}
           data-slot="toast-toaster"
           children={local.children ?? ((toast) => <DefaultToast toast={toast} />)}
@@ -188,6 +302,7 @@ export {
   ToastTitle,
   ToastToaster,
   createToaster,
+  toast,
   useToastContext,
 };
 
@@ -209,4 +324,4 @@ export type {
   ToastType,
   UseToastContext,
 } from '@ark-ui/solid/toast';
-export type { ToasterProps };
+export type { ToastHelper, ToastMessage, ToastMessageOptions, ToasterProps };

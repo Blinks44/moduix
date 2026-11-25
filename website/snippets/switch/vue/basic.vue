@@ -1,11 +1,7 @@
 <script setup lang="ts">
-import { Switch, SwitchControl, SwitchHiddenInput, SwitchLabel } from '@moduix/vue/switch';
+import { Switch } from '@moduix/vue/switch';
 </script>
 
 <template>
-  <Switch :default-checked="true">
-    <SwitchControl />
-    <SwitchLabel>Enable notifications</SwitchLabel>
-    <SwitchHiddenInput />
-  </Switch>
+  <Switch default-checked label="Enable notifications" />
 </template>

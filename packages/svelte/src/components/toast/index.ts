@@ -5,9 +5,11 @@ export { default as ToastCloseTrigger } from './ToastCloseTrigger.svelte';
 export { default as ToastDescription } from './ToastDescription.svelte';
 export { default as ToastTitle } from './ToastTitle.svelte';
 export { default as ToastToaster } from './ToastToaster.svelte';
+export { toast } from './toastStore';
 
 export type { ToastCloseTriggerProps } from './ToastCloseTrigger.svelte';
 export type { ToasterProps } from './ToastToaster.svelte';
+export type { ToastHelper, ToastMessage, ToastMessageOptions } from './toastStore';
 
 export type {
   CreateToasterProps,

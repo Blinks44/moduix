@@ -1,6 +1,6 @@
 import { For } from 'solid-js';
 import { Avatar, AvatarFallback, AvatarImage } from '@/registry/solid/ui/avatar';
-import { Tooltip, TooltipBody, TooltipTrigger } from '@/registry/solid/ui/tooltip';
+import { Tooltip, TooltipPanel, TooltipTrigger } from '@/registry/solid/ui/tooltip';
 
 const members = [
   {
@@ -68,10 +68,10 @@ export function ExpandableAvatarGroup() {
                 <AvatarFallback>{member.name.slice(0, 1)}</AvatarFallback>
               </Avatar>
             </TooltipTrigger>
-            <TooltipBody class="grid gap-0.5 [&_span]:text-xs [&_span]:text-muted-foreground [&_strong]:font-semibold">
+            <TooltipPanel class="grid gap-0.5 [&_span]:text-xs [&_span]:text-muted-foreground [&_strong]:font-semibold">
               <strong>{member.name}</strong>
               <span>{member.role}</span>
-            </TooltipBody>
+            </TooltipPanel>
           </Tooltip>
         )}
       </For>

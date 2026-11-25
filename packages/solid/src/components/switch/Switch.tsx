@@ -1,11 +1,14 @@
 import { Switch as SwitchPrimitive, useSwitch, useSwitchContext } from '@ark-ui/solid/switch';
 import { clsx } from 'clsx';
-import type { ComponentProps } from 'solid-js';
-import { children, splitProps } from 'solid-js';
+import type { ComponentProps, JSX } from 'solid-js';
+import { Show, children, splitProps } from 'solid-js';
 import styles from './Switch.module.css';
 
 type SwitchSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 type SwitchRootProps = ComponentProps<typeof SwitchPrimitive.Root> & {
+  hiddenInput?: boolean;
+  hiddenInputProps?: ComponentProps<typeof SwitchPrimitive.HiddenInput>;
+  label?: JSX.Element;
   size?: SwitchSize;
 };
 type SwitchRootProviderProps = ComponentProps<typeof SwitchPrimitive.RootProvider> & {
@@ -13,17 +16,58 @@ type SwitchRootProviderProps = ComponentProps<typeof SwitchPrimitive.RootProvide
 };
 
 function Switch(props: SwitchRootProps) {
-  const [local, others] = splitProps(props, ['children', 'class', 'size']);
+  const [local, others] = splitProps(props, [
+    'asChild',
+    'children',
+    'class',
+    'hiddenInput',
+    'hiddenInputProps',
+    'label',
+    'size',
+  ]);
 
   return (
-    <SwitchPrimitive.Root
-      class={clsx(styles.root, local.class)}
-      {...others}
-      data-size={local.size ?? 'md'}
-      data-slot="switch-root"
+    <Show
+      when={local.asChild}
+      fallback={
+        <SwitchPrimitive.Root
+          class={clsx(styles.root, local.class)}
+          {...others}
+          data-size={local.size ?? 'md'}
+          data-slot="switch-root"
+        >
+          <Show
+            when={local.children === undefined}
+            fallback={
+              <>
+                {local.children}
+                <Show when={local.hiddenInput}>
+                  <SwitchHiddenInput {...local.hiddenInputProps} />
+                </Show>
+              </>
+            }
+          >
+            <SwitchControl />
+            <Show when={local.label != null}>
+              <SwitchLabel>{local.label}</SwitchLabel>
+            </Show>
+            <Show when={local.hiddenInput !== false}>
+              <SwitchHiddenInput {...local.hiddenInputProps} />
+            </Show>
+          </Show>
+        </SwitchPrimitive.Root>
+      }
     >
-      {local.children}
-    </SwitchPrimitive.Root>
+      <SwitchPrimitive.Root
+        asChild={local.asChild}
+        class={clsx(styles.root, local.class)}
+        {...others}
+        data-size={local.size ?? 'md'}
+        data-slot="switch-root"
+      >
+        {local.children}
+      </SwitchPrimitive.Root>
+    </Show>
   );
 }
 

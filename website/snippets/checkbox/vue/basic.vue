@@ -1,16 +1,7 @@
 <script setup lang="ts">
-import {
-  Checkbox,
-  CheckboxControl,
-  CheckboxHiddenInput,
-  CheckboxLabel,
-} from '@moduix/vue/checkbox';
+import { Checkbox } from '@moduix/vue/checkbox';
 </script>
 
 <template>
-  <Checkbox>
-    <CheckboxControl />
-    <CheckboxLabel>Enable notifications</CheckboxLabel>
-    <CheckboxHiddenInput />
-  </Checkbox>
+  <Checkbox label="Enable notifications" />
 </template>

@@ -123,6 +123,17 @@ function DrawerContent(props: DrawerContentProps) {
   );
 }
 
+function DrawerPanel(props: DrawerContentProps) {
+  return (
+    <>
+      <DrawerBackdrop />
+      <DrawerPositioner>
+        <DrawerContent {...props} />
+      </DrawerPositioner>
+    </>
+  );
+}
+
 function DrawerGrabber(props: ComponentProps<typeof DrawerPrimitive.Grabber>) {
   const [local, others] = splitProps(props, ['class']);
 
@@ -266,6 +277,7 @@ export {
   DrawerHeader,
   DrawerIndent,
   DrawerIndentBackground,
+  DrawerPanel,
   DrawerPositioner,
   DrawerRootProvider,
   DrawerStack,

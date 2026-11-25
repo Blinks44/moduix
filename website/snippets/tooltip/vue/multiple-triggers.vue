@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Info as InfoIcon, Plus as PlusIcon, Share as ShareIcon } from '@lucide/vue';
 import { Button } from '@moduix/vue/button';
-import { Tooltip, TooltipBody, TooltipTrigger } from '@moduix/vue/tooltip';
+import { Tooltip, TooltipPanel, TooltipTrigger } from '@moduix/vue/tooltip';
 import { shallowRef } from 'vue';
 import styles from '@/components/examples/tooltip/component-multiple-triggers.module.css';
 
@@ -33,8 +33,8 @@ const handleTriggerValueChange = ({ value }: { value?: string | null }) => {
         </Button>
       </TooltipTrigger>
     </div>
-    <TooltipBody>
+    <TooltipPanel>
       <template v-if="activeTool">{{ activeTool.label }} ({{ activeTool.shortcut }})</template>
-    </TooltipBody>
+    </TooltipPanel>
   </Tooltip>
 </template>

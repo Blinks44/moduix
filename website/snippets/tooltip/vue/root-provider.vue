@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useTooltip, TooltipBody, TooltipRootProvider, TooltipTrigger } from '@moduix/vue/tooltip';
+import { useTooltip, TooltipPanel, TooltipRootProvider, TooltipTrigger } from '@moduix/vue/tooltip';
 
 const tooltip = useTooltip();
 </script>
@@ -7,7 +7,7 @@ const tooltip = useTooltip();
 <template>
   <TooltipRootProvider :value="tooltip">
     <TooltipTrigger>RootProvider tooltip</TooltipTrigger>
-    <TooltipBody>State is owned outside the tree.</TooltipBody>
+    <TooltipPanel>State is owned outside the tree.</TooltipPanel>
   </TooltipRootProvider>
   <div data-preview-meta>
     <output>Open: {{ tooltip.open }}</output>

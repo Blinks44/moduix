@@ -22,25 +22,51 @@ import { CloseButton } from '../close-button';
 
 const rootClass = 'flex w-64 max-w-full min-w-0 flex-col gap-1.5 text-foreground';
 
-type ComboboxRootProps<T extends CollectionItem> = ArkComboboxRootProps<T> & OverlayPortalProps;
+type ComboboxRootProps<T extends CollectionItem> = ArkComboboxRootProps<T> &
+  OverlayPortalProps & {
+    filter?: (inputValue: string) => void;
+  };
 type ComboboxRootProviderProps<T extends CollectionItem> = ArkComboboxRootProviderProps<T> &
   OverlayPortalProps;
+type ComboboxFieldProps = Omit<
+  ComponentProps<typeof ComboboxPrimitive.Control>,
+  'asChild' | 'children'
+> & {
+  clearable?: boolean;
+  clearLabel?: string;
+  clearTriggerProps?: ComponentProps<typeof ComboboxPrimitive.ClearTrigger>;
+  inputProps?: ComponentProps<typeof ComboboxPrimitive.Input>;
+  placeholder?: ComponentProps<typeof ComboboxPrimitive.Input>['placeholder'];
+  triggerLabel?: string;
+  triggerProps?: ComponentProps<typeof ComboboxPrimitive.Trigger>;
+};
+type ComboboxDropdownProps = ComponentProps<typeof ComboboxPrimitive.Content>;
 
 function Combobox<T extends CollectionItem>(props: ComboboxRootProps<T>) {
   const [local, others] = splitProps(props, [
     'children',
     'class',
+    'filter',
     'lazyMount',
+    'onInputValueChange',
     'portalled',
     'portalRef',
     'unmountOnExit',
   ]);
+
+  const handleInputValueChange: ArkComboboxRootProps<T>['onInputValueChange'] = (details) => {
+    local.filter?.(details.inputValue);
+    local.onInputValueChange?.(details);
+  };
 
   return (
     <OverlayPortalProvider portalled={local.portalled} portalRef={local.portalRef}>
       <ComboboxPrimitive.Root
         class={cn(rootClass, local.class)}
         lazyMount={local.lazyMount ?? true}
+        onInputValueChange={
+          local.filter || local.onInputValueChange ? handleInputValueChange : undefined
+        }
         unmountOnExit={local.unmountOnExit ?? true}
         {...others}
         data-slot="combobox-root"
@@ -353,6 +379,41 @@ function ComboboxOption(props: ComboboxOptionProps) {
   );
 }
 
+function ComboboxField(props: ComboboxFieldProps) {
+  const [local, others] = splitProps(props, [
+    'clearable',
+    'clearLabel',
+    'clearTriggerProps',
+    'inputProps',
+    'placeholder',
+    'triggerLabel',
+    'triggerProps',
+  ]);
+  const showClearTrigger = () =>
+    local.clearable ?? (local.clearLabel != null || local.clearTriggerProps != null);
+
+  return (
+    <ComboboxControl {...others}>
+      <ComboboxInput placeholder={local.placeholder} {...local.inputProps} />
+      {showClearTrigger() && (
+        <ComboboxClearTrigger aria-label={local.clearLabel} {...local.clearTriggerProps} />
+      )}
+      <ComboboxTrigger
+        {...(local.triggerLabel !== undefined ? { 'aria-label': local.triggerLabel } : undefined)}
+        {...local.triggerProps}
+      />
+    </ComboboxControl>
+  );
+}
+
+function ComboboxDropdown(props: ComboboxDropdownProps) {
+  return (
+    <ComboboxPositioner>
+      <ComboboxContent {...props} />
+    </ComboboxPositioner>
+  );
+}
+
 const ComboboxContext = ComboboxPrimitive.Context;
 const ComboboxItemContext = ComboboxPrimitive.ItemContext;
 
@@ -362,7 +423,9 @@ export {
   ComboboxContext,
   ComboboxContent,
   ComboboxControl,
+  ComboboxDropdown,
   ComboboxEmpty,
+  ComboboxField,
   ComboboxInput,
   ComboboxItem,
   ComboboxItemContext,
@@ -382,7 +445,13 @@ export {
   useComboboxItemContext,
 };
 
-export type { ComboboxOptionProps, ComboboxRootProps, ComboboxRootProviderProps };
+export type {
+  ComboboxDropdownProps,
+  ComboboxFieldProps,
+  ComboboxOptionProps,
+  ComboboxRootProps,
+  ComboboxRootProviderProps,
+};
 
 export type {
   ComboboxClearTriggerProps,
@@ -420,6 +489,11 @@ export type {
   UseListCollectionProps,
   UseListCollectionReturn,
 } from '@ark-ui/solid/collection';
+export {
+  useFilteredCollection,
+  type UseFilteredCollectionProps,
+  type UseFilteredCollectionReturn,
+} from '@/lib/moduix/filteredCollection';
 export { useFilter } from '@ark-ui/solid/locale';
 export type { UseFilterProps, UseFilterReturn } from '@ark-ui/solid/locale';
 export type {

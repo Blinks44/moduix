@@ -3,8 +3,10 @@
 import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { cva } from 'class-variance-authority';
+import type { ReactNode } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
+import { Spinner } from '../spinner';
 
 type ButtonVariant =
   | 'default'
@@ -19,6 +21,8 @@ type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'icon-sm' | 'icon-md' | 'ic
 
 type ButtonRootProps = HTMLArkProps<'button'> & {
   loading?: boolean;
+  loadingIndicator?: ReactNode | false;
+  loadingText?: ReactNode;
   variant?: ButtonVariant;
   size?: ButtonSize;
   'data-scope'?: string;
@@ -63,9 +67,12 @@ const buttonVariants = cva(
 const Button = forwardRef<HTMLButtonElement, ButtonRootProps>(function Button(
   {
     asChild,
+    children,
     className,
     disabled,
     loading = false,
+    loadingIndicator,
+    loadingText,
     onClickCapture,
     size = 'md',
     type,
@@ -80,6 +87,20 @@ const Button = forwardRef<HTMLButtonElement, ButtonRootProps>(function Button(
   ref,
 ) {
   const isDisabled = disabled || loading || ariaDisabled === true || ariaDisabled === 'true';
+  const isIconSize = size === 'icon-sm' || size === 'icon-md' || size === 'icon-lg';
+  const indicator =
+    loadingIndicator === false || loadingIndicator === null
+      ? null
+      : (loadingIndicator ?? <Spinner decorative size="sm" />);
+  const content =
+    loading && !asChild ? (
+      <>
+        {indicator}
+        {loadingText !== undefined ? loadingText : isIconSize ? null : children}
+      </>
+    ) : (
+      children
+    );
 
   return (
     <ark.button
@@ -107,7 +128,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonRootProps>(function Button(
       data-disabled={isDisabled ? '' : undefined}
       data-loading={loading ? '' : undefined}
       className={cn(buttonVariants({ variant, size }), className)}
-    />
+    >
+      {content}
+    </ark.button>
   );
 });
 

@@ -1,36 +1,51 @@
+<script lang="ts">
+import type { ToasterBaseProps } from '@ark-ui/vue/toast';
+import { defineComponent } from 'vue';
+import type { HTMLAttributes, VNodeChild } from 'vue';
+import type { PortalRef } from '@/lib/moduix/overlayPortal/context';
+
+export interface Props
+  extends
+    /* @vue-ignore */ Omit<ToasterBaseProps, 'toaster'>,
+    /* @vue-ignore */ Omit<HTMLAttributes, 'dir'> {
+  asChild?: boolean;
+  class?: HTMLAttributes['class'];
+  portalRef?: PortalRef;
+  portalled?: boolean;
+  toaster?: ToasterBaseProps['toaster'];
+}
+
+const VNodeOutlet = defineComponent((props: { value: VNodeChild }) => () => props.value, {
+  props: ['value'],
+});
+</script>
+
 <script setup lang="ts">
 import { Toaster as ArkToaster } from '@ark-ui/vue/toast';
-import type { ToasterBaseProps, ToastOptions } from '@ark-ui/vue/toast';
-import { computed, defineComponent, toValue, useAttrs } from 'vue';
-import type { HTMLAttributes, VNodeChild } from 'vue';
+import type { ToastOptions } from '@ark-ui/vue/toast';
+import { computed, toValue, useAttrs } from 'vue';
 import { cn } from '@/lib/moduix/cn';
-import type { PortalRef } from '@/lib/moduix/overlayPortal/context';
 import Spinner from '../spinner/Spinner.vue';
 import Toast from './Toast.vue';
 import ToastActionTrigger from './ToastActionTrigger.vue';
 import ToastCloseTrigger from './ToastCloseTrigger.vue';
 import ToastDescription from './ToastDescription.vue';
+import { defaultToaster } from './toastStore';
 import ToastTitle from './ToastTitle.vue';
 
 defineOptions({ inheritAttrs: false });
 
-export interface Props
-  extends /* @vue-ignore */ ToasterBaseProps, /* @vue-ignore */ Omit<HTMLAttributes, 'dir'> {
-  asChild?: boolean;
-  class?: HTMLAttributes['class'];
-  portalRef?: PortalRef;
-  portalled?: boolean;
-  toaster: ToasterBaseProps['toaster'];
-}
-
-const { asChild, class: className, portalRef, portalled = true, toaster } = defineProps<Props>();
+const {
+  asChild,
+  class: className,
+  portalRef,
+  portalled = true,
+  toaster = defaultToaster,
+} = defineProps<Props>();
 defineSlots<{ default?: (toast: ToastOptions) => unknown }>();
 
 const attrs = useAttrs();
 const portalTarget = computed(() => toValue(portalRef) ?? 'body');
-const VNodeOutlet = defineComponent((props: { value: VNodeChild }) => () => props.value, {
-  props: ['value'],
-});
 </script>
 
 <template>

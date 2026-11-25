@@ -5,6 +5,7 @@ import { cva } from 'class-variance-authority';
 import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/moduix/cn';
+import Spinner from '../spinner/Spinner.vue';
 
 defineOptions({ inheritAttrs: false });
 
@@ -29,6 +30,8 @@ export interface Props extends /* @vue-ignore */ HTMLArkProps<'button'> {
   class?: HTMLAttributes['class'];
   disabled?: boolean;
   loading?: boolean;
+  loadingIndicator?: boolean;
+  loadingText?: string;
   size?: ButtonSize;
   type?: 'button' | 'reset' | 'submit';
   variant?: ButtonVariant;
@@ -78,12 +81,17 @@ const {
   class: className,
   disabled = false,
   loading = false,
+  loadingIndicator = true,
+  loadingText = undefined,
   size = 'md',
   type,
   variant = 'default',
 } = defineProps<Props>();
 
-defineSlots<{ default?: () => unknown }>();
+defineSlots<{
+  default?: () => unknown;
+  'loading-indicator'?: () => unknown;
+}>();
 const emit = defineEmits<{
   click: [event: MouseEvent];
   clickCapture: [event: MouseEvent];
@@ -93,6 +101,7 @@ const attrs = useAttrs();
 const isDisabled = computed(
   () => disabled || loading || ariaDisabled === true || ariaDisabled === 'true',
 );
+const isIconSize = computed(() => size === 'icon-sm' || size === 'icon-md' || size === 'icon-lg');
 
 const handleClickCapture = (event: MouseEvent) => {
   if (isDisabled.value) {
@@ -124,6 +133,13 @@ const handleClickCapture = (event: MouseEvent) => {
     :data-loading="loading ? '' : undefined"
     :class="cn(buttonVariants({ variant, size }), className)"
   >
-    <slot />
+    <template v-if="loading && !asChild">
+      <slot name="loading-indicator">
+        <Spinner v-if="loadingIndicator" decorative size="sm" />
+      </slot>
+      <template v-if="loadingText !== undefined">{{ loadingText }}</template>
+      <slot v-else-if="!isIconSize" />
+    </template>
+    <slot v-else />
   </ark.button>
 </template>

@@ -12,7 +12,7 @@ import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { isHotKey } from '@ark-ui/react/hotkeys';
 import type { ComponentProps, ComponentRef, ForwardedRef } from 'react';
-import { forwardRef, useEffect } from 'react';
+import { forwardRef, useEffect, useRef } from 'react';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import { CheckIcon, CloseIcon, SearchIcon } from '@/lib/moduix/icons/ui';
@@ -219,6 +219,13 @@ const CommandPaletteHeader = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
   },
 );
 
+type CommandPaletteComboboxSugarProps = {
+  filter?: (inputValue: string) => void;
+};
+
+type CommandPaletteComboboxProps<T extends CollectionItem> = ComboboxRootProps<T> &
+  CommandPaletteComboboxSugarProps;
+
 const CommandPaletteCombobox = forwardRef(function CommandPaletteCombobox<T extends CollectionItem>(
   {
     className,
@@ -227,12 +234,42 @@ const CommandPaletteCombobox = forwardRef(function CommandPaletteCombobox<T exte
     selectionBehavior = 'preserve',
     closeOnSelect = true,
     disableLayer = true,
+    filter,
+    onInputValueChange,
     onSelect,
     ...props
-  }: ComboboxRootProps<T>,
+  }: CommandPaletteComboboxProps<T>,
   ref: ForwardedRef<HTMLDivElement>,
 ) {
   const dialog = useDialogContext();
+  const filterRef = useRef(filter);
+
+  useEffect(() => {
+    filterRef.current = filter;
+  }, [filter]);
+
+  const wasOpenRef = useRef(dialog.open);
+
+  useEffect(() => {
+    if (wasOpenRef.current && !dialog.open) {
+      filterRef.current?.('');
+    }
+    wasOpenRef.current = dialog.open;
+  }, [dialog.open]);
+
+  useEffect(() => {
+    return () => {
+      if (wasOpenRef.current) {
+        filterRef.current?.('');
+      }
+    };
+  }, []);
+
+  const handleInputValueChange: ComboboxRootProps<T>['onInputValueChange'] = (details) => {
+    filter?.(details.inputValue);
+    onInputValueChange?.(details);
+  };
+
   const handleSelect: ComboboxRootProps<T>['onSelect'] = (details) => {
     onSelect?.(details);
 
@@ -250,12 +287,13 @@ const CommandPaletteCombobox = forwardRef(function CommandPaletteCombobox<T exte
       selectionBehavior={selectionBehavior}
       closeOnSelect={closeOnSelect}
       disableLayer={disableLayer}
+      onInputValueChange={handleInputValueChange}
       onSelect={handleSelect}
       {...props}
       data-slot="command-palette-combobox"
     />
   );
-}) as ComboboxRootComponent;
+}) as ComboboxRootComponent<CommandPaletteComboboxSugarProps>;
 
 const CommandPaletteControl = forwardRef<
   ComponentRef<typeof ComboboxPrimitive.Control>,
@@ -613,8 +651,17 @@ export {
   CommandPaletteTrigger,
 };
 
-export type { CommandPaletteRootProps, CommandPaletteRootProviderProps };
+export type {
+  CommandPaletteComboboxProps,
+  CommandPaletteRootProps,
+  CommandPaletteRootProviderProps,
+};
 
+export { useFilteredCollection } from '@/lib/moduix/filteredCollection';
+export type {
+  UseFilteredCollectionProps,
+  UseFilteredCollectionReturn,
+} from '@/lib/moduix/filteredCollection';
 export { createListCollection, useListCollection } from '@ark-ui/react/collection';
 export type {
   CollectionItem,

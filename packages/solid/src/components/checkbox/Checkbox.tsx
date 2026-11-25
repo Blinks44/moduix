@@ -6,13 +6,16 @@ import {
   useCheckboxGroupContext,
 } from '@ark-ui/solid/checkbox';
 import { clsx } from 'clsx';
-import type { ComponentProps } from 'solid-js';
-import { children, splitProps } from 'solid-js';
+import type { ComponentProps, JSX } from 'solid-js';
+import { Show, children, splitProps } from 'solid-js';
 import { CheckIcon, IndeterminateIcon } from '@/lib/moduix/icons/ui';
 import styles from './Checkbox.module.css';
 
 type CheckboxSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 type CheckboxRootProps = ComponentProps<typeof CheckboxPrimitive.Root> & {
+  hiddenInput?: boolean;
+  hiddenInputProps?: ComponentProps<typeof CheckboxPrimitive.HiddenInput>;
+  label?: JSX.Element;
   size?: CheckboxSize;
 };
 type CheckboxRootProviderProps = ComponentProps<typeof CheckboxPrimitive.RootProvider> & {
@@ -20,17 +23,58 @@ type CheckboxRootProviderProps = ComponentProps<typeof CheckboxPrimitive.RootPro
 };
 
 function Checkbox(props: CheckboxRootProps) {
-  const [local, others] = splitProps(props, ['children', 'class', 'size']);
+  const [local, others] = splitProps(props, [
+    'asChild',
+    'children',
+    'class',
+    'hiddenInput',
+    'hiddenInputProps',
+    'label',
+    'size',
+  ]);
 
   return (
-    <CheckboxPrimitive.Root
-      class={clsx(styles.root, local.class)}
-      {...others}
-      data-size={local.size ?? 'md'}
-      data-slot="checkbox-root"
+    <Show
+      when={local.asChild}
+      fallback={
+        <CheckboxPrimitive.Root
+          class={clsx(styles.root, local.class)}
+          {...others}
+          data-size={local.size ?? 'md'}
+          data-slot="checkbox-root"
+        >
+          <Show
+            when={local.children === undefined}
+            fallback={
+              <>
+                {local.children}
+                <Show when={local.hiddenInput}>
+                  <CheckboxHiddenInput {...local.hiddenInputProps} />
+                </Show>
+              </>
+            }
+          >
+            <CheckboxControl />
+            <Show when={local.label != null}>
+              <CheckboxLabel>{local.label}</CheckboxLabel>
+            </Show>
+            <Show when={local.hiddenInput !== false}>
+              <CheckboxHiddenInput {...local.hiddenInputProps} />
+            </Show>
+          </Show>
+        </CheckboxPrimitive.Root>
+      }
     >
-      {local.children}
-    </CheckboxPrimitive.Root>
+      <CheckboxPrimitive.Root
+        asChild={local.asChild}
+        class={clsx(styles.root, local.class)}
+        {...others}
+        data-size={local.size ?? 'md'}
+        data-slot="checkbox-root"
+      >
+        {local.children}
+      </CheckboxPrimitive.Root>
+    </Show>
   );
 }
 

@@ -34,7 +34,7 @@ and provider/context APIs without remapping them.
 - `TooltipDisabledTrigger` renders Ark trigger behavior on a focusable `span` (`tabIndex` defaults to
   `0`) around one disabled native control and makes that child ignore pointer events. Give the
   wrapper its own accessible name.
-- `TooltipBody` renders `TooltipPositioner` and `TooltipContent` and forwards props and ref to the
+- `TooltipPanel` renders `TooltipPositioner` and `TooltipContent` and forwards props and ref to the
   content. It has no DOM node or `data-slot` of its own.
 - `TooltipArrow` renders `TooltipArrowTip` when it has no children.
 
@@ -51,7 +51,7 @@ Tooltip
 ```
 
 Every rendered part has `data-slot="tooltip-<part>"` in kebab-case. `Tooltip`,
-`TooltipRootProvider`, `TooltipContext`, and `TooltipBody` render no DOM of their own. The package
+`TooltipRootProvider`, `TooltipContext`, and `TooltipPanel` render no DOM of their own. The package
 also exports `useTooltip`, `useTooltipContext`, `TooltipRootProps`, `TooltipRootProviderProps`, and
 the Ark part prop, detail, and hook types.
 
@@ -59,7 +59,7 @@ the Ark part prop, detail, and hook types.
 
 ```tsx
 import { Button } from '@moduix/react/button';
-import { Tooltip, TooltipBody, TooltipTrigger } from '@moduix/react/tooltip';
+import { Tooltip, TooltipPanel, TooltipTrigger } from '@moduix/react/tooltip';
 
 export function TooltipDemo() {
   return (
@@ -67,14 +67,14 @@ export function TooltipDemo() {
       <TooltipTrigger asChild>
         <Button>Save</Button>
       </TooltipTrigger>
-      <TooltipBody>Save changes</TooltipBody>
+      <TooltipPanel>Save changes</TooltipPanel>
     </Tooltip>
   );
 }
 ```
 
 The docs "Build from parts" example uses explicit `TooltipPositioner` and `TooltipContent`
-instead of `TooltipBody`.
+instead of `TooltipPanel`.
 
 ## Accessibility and state
 
@@ -100,7 +100,7 @@ them with a class on the part. Tailwind variants use the same tokens through the
 
 ## Agent notes
 
-- Keep `TooltipPositioner` and `TooltipContent` explicit in the advanced example; `TooltipBody` is
+- Keep `TooltipPositioner` and `TooltipContent` explicit in the advanced example; `TooltipPanel` is
   the shortcut for ordinary examples.
 - Keep positioning options on `Tooltip` and `useTooltip`.
 - Mirror future Ark provider, context, hook, part, or public type additions through the barrel.

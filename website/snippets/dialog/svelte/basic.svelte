@@ -2,12 +2,10 @@
   import { Button } from '@moduix/svelte/button';
   import {
     Dialog,
-    DialogBackdrop,
     DialogCloseIcon,
-    DialogContent,
     DialogDescription,
     DialogHeader,
-    DialogPositioner,
+    DialogPanel,
     DialogTitle,
     DialogTrigger,
   } from '@moduix/svelte/dialog';
@@ -17,14 +15,11 @@
   <DialogTrigger>
     {#snippet asChild(props)}<Button {...props()}>View notifications</Button>{/snippet}
   </DialogTrigger>
-  <DialogBackdrop />
-  <DialogPositioner>
-    <DialogContent>
-      <DialogHeader>
-        <DialogTitle>Notifications</DialogTitle>
-        <DialogCloseIcon />
-        <DialogDescription>You are all caught up. Good job!</DialogDescription>
-      </DialogHeader>
-    </DialogContent>
-  </DialogPositioner>
+  <DialogPanel>
+    <DialogHeader>
+      <DialogTitle>Notifications</DialogTitle>
+      <DialogCloseIcon />
+      <DialogDescription>You are all caught up. Good job!</DialogDescription>
+    </DialogHeader>
+  </DialogPanel>
 </Dialog>

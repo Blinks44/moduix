@@ -12,7 +12,9 @@ import {
   DatePickerRootProvider,
   DatePickerContext,
   DatePickerLabel,
+  DatePickerCalendar,
   DatePickerField,
+  DatePickerPanel,
   DatePickerClearTrigger,
   DatePickerRangeField,
   DatePickerPositioner,
@@ -459,4 +461,35 @@ test('reads week numbers from the root and offsets the day table by months', asy
   expect(
     document.querySelector('[data-slot="date-picker-table-cell-trigger"][data-value="2026-07-15"]'),
   ).not.toBeNull();
+});
+
+test('renders DatePickerCalendar automatically inside DatePickerPanel and supports custom children', async () => {
+  render(
+    <DatePicker defaultOpen defaultValue={[new CalendarDate(2026, 6, 22)]} portalled={false}>
+      <DatePickerLabel>Release</DatePickerLabel>
+      <DatePickerField />
+      <DatePickerPanel />
+    </DatePicker>,
+  );
+
+  await expect
+    .element(page.locator('[data-slot="date-picker-table-cell-trigger"][data-value="2026-06-22"]'))
+    .toBeVisible();
+  await page
+    .locator('[data-slot="date-picker-table-cell-trigger"][data-value="2026-06-15"]')
+    .click();
+  await expect
+    .element(page.getByRole('textbox', { name: 'Release', exact: true }))
+    .toHaveValue('06/15/2026');
+
+  render(
+    <DatePicker defaultOpen defaultValue={[new CalendarDate(2026, 6, 22)]} portalled={false}>
+      <DatePickerPanel>
+        <div data-testid="custom-panel-body">Custom calendar</div>
+        <DatePickerCalendar />
+      </DatePickerPanel>
+    </DatePicker>,
+  );
+
+  await expect.element(page.getByTestId('custom-panel-body')).toBeVisible();
 });

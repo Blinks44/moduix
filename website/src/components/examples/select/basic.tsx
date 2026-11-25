@@ -1,29 +1,20 @@
 import {
   Select,
-  SelectLabel,
+  SelectDropdown,
   SelectField,
-  SelectPositioner,
-  SelectContent,
+  SelectHiddenSelect,
   SelectItemGroup,
   SelectItemGroupLabel,
-  SelectHiddenSelect,
+  SelectLabel,
   SelectOption,
   createListCollection,
 } from '@moduix/react/select';
+
 const fruits = createListCollection({
   items: [
-    {
-      label: 'Apple',
-      value: 'apple',
-    },
-    {
-      label: 'Banana',
-      value: 'banana',
-    },
-    {
-      label: 'Blueberry',
-      value: 'blueberry',
-    },
+    { label: 'Apple', value: 'apple' },
+    { label: 'Banana', value: 'banana' },
+    { label: 'Blueberry', value: 'blueberry' },
   ],
 });
 
@@ -32,18 +23,16 @@ export default function SelectDemo() {
     <Select collection={fruits}>
       <SelectLabel>Choose fruit</SelectLabel>
       <SelectField placeholder="Select an option" clearLabel="Clear selection" />
-      <SelectPositioner>
-        <SelectContent>
-          <SelectItemGroup>
-            <SelectItemGroupLabel>Fruits</SelectItemGroupLabel>
-            {fruits.items.map((item) => (
-              <SelectOption key={item.value} item={item}>
-                {item.label}
-              </SelectOption>
-            ))}
-          </SelectItemGroup>
-        </SelectContent>
-      </SelectPositioner>
+      <SelectDropdown>
+        <SelectItemGroup>
+          <SelectItemGroupLabel>Fruits</SelectItemGroupLabel>
+          {fruits.items.map((item) => (
+            <SelectOption key={item.value} item={item}>
+              {item.label}
+            </SelectOption>
+          ))}
+        </SelectItemGroup>
+      </SelectDropdown>
       <SelectHiddenSelect />
     </Select>
   );

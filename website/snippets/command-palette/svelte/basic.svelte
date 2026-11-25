@@ -18,9 +18,9 @@
     CommandPalettePanel,
     CommandPaletteSearch,
     CommandPaletteTrigger,
-    useListCollection,
-    useFilter,
+    useFilteredCollection,
   } from '@moduix/svelte/command-palette';
+
   const commandItems = [
     {
       id: 'new-project',
@@ -69,31 +69,23 @@
       icon: '↗',
     },
   ];
-  const filterOptions = useFilter({ sensitivity: 'base' });
-  const { collection, filter } = useListCollection({
+
+  const { collection, filter } = useFilteredCollection({
     initialItems: commandItems,
     itemToString: (item) => `${item.label} ${item.description} ${item.section}`,
     itemToValue: (item) => item.id,
-    filter: (itemText, filterText) => filterOptions().contains(itemText, filterText),
     groupBy: (item) => item.section,
   });
-
-  const handleOpenChange = (details: { open: boolean }) => {
-    if (!details.open) filter('');
-  };
 </script>
 
-<CommandPalette aria-label="Command palette" onOpenChange={handleOpenChange}>
+<CommandPalette aria-label="Command palette">
   <CommandPaletteTrigger>
     {#snippet asChild(props)}
       <Button {...props()}>Open palette</Button>
     {/snippet}
   </CommandPaletteTrigger>
   <CommandPalettePanel>
-    <CommandPaletteCombobox
-      {collection}
-      onInputValueChange={(details) => filter(details.inputValue)}
-    >
+    <CommandPaletteCombobox collection={collection()} {filter}>
       <CommandPaletteSearch placeholder="Search commands, pages, and settings..." />
       <CommandPaletteList>
         <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>

@@ -19,7 +19,7 @@ presence defaults, `data-slot` hooks, styling, and default arrow-tip sugar. The 
       </button>
     )}
   />
-  <TooltipBody>Save changes</TooltipBody>
+  <TooltipPanel>Save changes</TooltipPanel>
 </Tooltip>
 ```
 
@@ -31,11 +31,11 @@ unmounted-by-default primitive settings.
 ## API surface
 
 The adapter exports `Tooltip`, `useTooltip`, and `useTooltipContext`, together with
-`TooltipRootProvider`, `TooltipContext`, `TooltipTrigger`, `TooltipDisabledTrigger`, `TooltipBody`,
+`TooltipRootProvider`, `TooltipContext`, `TooltipTrigger`, `TooltipDisabledTrigger`, `TooltipPanel`,
 `TooltipPositioner`, `TooltipContent`, `TooltipArrow`, and `TooltipArrowTip`, plus
 `TooltipRootProps`, `TooltipRootProviderProps`, and the Ark part prop, detail, and hook types.
 
-`TooltipBody` renders `TooltipPositioner` plus `TooltipContent` and forwards props/ref to the
+`TooltipPanel` renders `TooltipPositioner` plus `TooltipContent` and forwards props/ref to the
 visible content. Use explicit `Positioner` and `Content` for advanced composition.
 
 `TooltipArrow` renders `TooltipArrowTip` by default when it has no children.

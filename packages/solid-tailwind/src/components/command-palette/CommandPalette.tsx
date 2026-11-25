@@ -218,7 +218,9 @@ function CommandPaletteHeader(props: HTMLArkProps<'div'>) {
   );
 }
 
-type CommandPaletteComboboxProps<T extends CollectionItem> = ComboboxRootProps<T>;
+type CommandPaletteComboboxProps<T extends CollectionItem> = ComboboxRootProps<T> & {
+  filter?: (inputValue: string) => void;
+};
 
 function CommandPaletteCombobox<T extends CollectionItem>(props: CommandPaletteComboboxProps<T>) {
   const [local, others] = splitProps(props, [
@@ -229,9 +231,15 @@ function CommandPaletteCombobox<T extends CollectionItem>(props: CommandPaletteC
     'selectionBehavior',
     'closeOnSelect',
     'disableLayer',
+    'filter',
+    'onInputValueChange',
     'onSelect',
   ]);
   const dialog = useDialogContext();
+  const handleInputValueChange: ComboboxRootProps<T>['onInputValueChange'] = (details) => {
+    local.filter?.(details.inputValue);
+    local.onInputValueChange?.(details);
+  };
   const handleSelect: ComboboxRootProps<T>['onSelect'] = (details) => {
     local.onSelect?.(details);
 
@@ -239,6 +247,20 @@ function CommandPaletteCombobox<T extends CollectionItem>(props: CommandPaletteC
       dialog().setOpen(false);
     }
   };
+
+  let wasOpen = dialog().open;
+  createEffect(() => {
+    const isOpen = dialog().open;
+    if (wasOpen && !isOpen) {
+      local.filter?.('');
+    }
+    wasOpen = isOpen;
+  });
+  onCleanup(() => {
+    if (wasOpen) {
+      local.filter?.('');
+    }
+  });
 
   return (
     <ComboboxPrimitive.Root
@@ -248,6 +270,7 @@ function CommandPaletteCombobox<T extends CollectionItem>(props: CommandPaletteC
       selectionBehavior={local.selectionBehavior ?? 'preserve'}
       closeOnSelect={local.closeOnSelect ?? true}
       disableLayer={local.disableLayer ?? true}
+      onInputValueChange={handleInputValueChange}
       onSelect={handleSelect}
       {...others}
       data-slot="command-palette-combobox"
@@ -595,8 +618,17 @@ export {
   CommandPaletteTrigger,
 };
 
-export type { CommandPaletteRootProps, CommandPaletteRootProviderProps };
+export type {
+  CommandPaletteComboboxProps,
+  CommandPaletteRootProps,
+  CommandPaletteRootProviderProps,
+};
 
+export { useFilteredCollection } from '@/lib/moduix/filteredCollection';
+export type {
+  UseFilteredCollectionProps,
+  UseFilteredCollectionReturn,
+} from '@/lib/moduix/filteredCollection';
 export { createListCollection, useListCollection } from '@ark-ui/solid/collection';
 export type {
   CollectionItem,

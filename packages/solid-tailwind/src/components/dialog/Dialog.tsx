@@ -178,6 +178,17 @@ function DialogContent(props: DialogContentProps) {
   );
 }
 
+function DialogPanel(props: DialogContentProps) {
+  return (
+    <>
+      <DialogBackdrop />
+      <DialogPositioner>
+        <DialogContent {...props} />
+      </DialogPositioner>
+    </>
+  );
+}
+
 function DialogTitle(props: ComponentProps<typeof DialogPrimitive.Title>) {
   const [local, others] = splitProps(props, ['class']);
 
@@ -266,6 +277,7 @@ export {
   DialogDescription,
   DialogFooter,
   DialogHeader,
+  DialogPanel,
   DialogPositioner,
   DialogRootProvider,
   DialogTitle,

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Button } from '@moduix/vue/button';
-import { Tooltip, TooltipBody, TooltipTrigger } from '@moduix/vue/tooltip';
+import { Tooltip, TooltipPanel, TooltipTrigger } from '@moduix/vue/tooltip';
 import { ref } from 'vue';
 
 const open = ref(false);
@@ -10,7 +10,7 @@ const open = ref(false);
   <div>
     <Tooltip v-model:open="open">
       <TooltipTrigger>Controlled tooltip</TooltipTrigger>
-      <TooltipBody>Open: {{ open }}</TooltipBody>
+      <TooltipPanel>Open: {{ open }}</TooltipPanel>
     </Tooltip>
     <div data-preview-meta>
       <output>Open: {{ open }}</output>

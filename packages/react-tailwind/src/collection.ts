@@ -25,3 +25,8 @@ export type {
   UseListSelectionProps,
   UseListSelectionReturn,
 } from '@ark-ui/react/collection';
+export {
+  useFilteredCollection,
+  type UseFilteredCollectionProps,
+  type UseFilteredCollectionReturn,
+} from '@/lib/moduix/filteredCollection';

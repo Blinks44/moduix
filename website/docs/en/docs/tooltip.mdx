@@ -17,8 +17,8 @@ import AnatomyScene from '@/components/examples/tooltip/anatomy';
 
 <Usage />
 
-Use `TooltipTrigger` for the element that opens the tooltip and `TooltipBody` for its content.
-`TooltipBody` combines `TooltipPositioner` and `TooltipContent`. Give the trigger an accessible
+Use `TooltipTrigger` for the element that opens the tooltip and `TooltipPanel` for its content.
+`TooltipPanel` combines `TooltipPositioner` and `TooltipContent`. Give the trigger an accessible
 name of its own. Tooltip content is supplemental and does not replace visible text or an
 `aria-label`.
 
@@ -35,7 +35,7 @@ Use `Tooltip` for short, non-essential information that appears on hover or focu
 ### With arrow
 
 Add `TooltipArrow` as the first child of the tooltip content when it needs a visual pointer. With
-`TooltipBody`, place it directly inside `TooltipBody`; the wrapper supplies the default
+`TooltipPanel`, place it directly inside `TooltipPanel`; the wrapper supplies the default
 `TooltipArrowTip`.
 
 <Example name="tooltip/with-arrow" />
@@ -95,7 +95,7 @@ rendered tooltip tree. See [Share state outside the tree](/docs/composition-patt
 
 ### Build from parts
 
-The same tooltip as Basic, without `TooltipBody`: `TooltipPositioner` and `TooltipContent` are
+The same tooltip as Basic, without `TooltipPanel`: `TooltipPositioner` and `TooltipContent` are
 explicit. Start here when a design styles the positioner and the bubble separately or adds
 `TooltipArrow`.
 
@@ -103,7 +103,7 @@ explicit. Start here when a design styles the positioner and the bubble separate
 
 ## Composition
 
-Use `TooltipBody` for the standard `Trigger` plus content composition. It combines
+Use `TooltipPanel` for the standard `Trigger` plus content composition. It combines
 `TooltipPositioner` and `TooltipContent`; use those parts explicitly when they need independent
 styling or structure. The root manages state, so use `defaultOpen` for an uncontrolled tooltip or
 `open` with `onOpenChange(details)` when another part of the application controls it. Use
@@ -137,7 +137,7 @@ Hover or focus a part to find it in the preview.
     ["TooltipContent", "tooltip-content", "Visible tooltip surface.", 2],
     ["TooltipArrow", "tooltip-arrow", "Optional positioned arrow wrapper that renders `TooltipArrowTip` by default.", 3],
     ["TooltipArrowTip", "tooltip-arrow-tip", "Arrow tip element.", 4],
-    ["TooltipBody", "", "Convenience wrapper that renders `TooltipPositioner` and `TooltipContent` together.", 1],
+    ["TooltipPanel", "", "Convenience wrapper that renders `TooltipPositioner` and `TooltipContent` together.", 1],
     ["TooltipRootProvider", null, "Renders a tooltip from a `useTooltip()` state object created outside the tree.", 0],
     ["TooltipContext", null, "Exposes current tooltip state through a render prop, a Vue scoped slot, or a Svelte `render` snippet for custom descendants.", 0],
   ]}
@@ -169,7 +169,7 @@ variables: a class on the part overrides the layered component styles. Data attr
 | `TooltipArrow` | `tooltip-arrow` |
 | `TooltipArrowTip` | `tooltip-arrow-tip` |
 
-- `TooltipBody` does not create a DOM node. When using the explicit composition, style
+- `TooltipPanel` does not create a DOM node. When using the explicit composition, style
   `TooltipPositioner` and `TooltipContent` separately.
 - `TooltipTrigger` controls trigger chrome, hover and open feedback, and focus styling.
 - `TooltipDisabledTrigger` controls the disabled-control wrapper and its direct disabled child.

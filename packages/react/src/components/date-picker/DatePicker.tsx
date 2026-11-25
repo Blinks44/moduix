@@ -65,6 +65,11 @@ type DatePickerMonthTableProps = DatePickerTableSugarProps & {
   format?: 'short' | 'long';
 };
 type DatePickerYearTableProps = DatePickerTableSugarProps;
+type DatePickerCalendarProps = {
+  monthFormat?: 'short' | 'long';
+  showHeader?: boolean;
+};
+type DatePickerPanelProps = ComponentProps<typeof DatePickerPrimitive.Content>;
 
 const DatePicker = forwardRef<ComponentRef<typeof DatePickerPrimitive.Root>, DatePickerRootProps>(
   function DatePicker(
@@ -683,10 +688,40 @@ const DatePickerValueText = forwardRef<
   );
 });
 
+function DatePickerCalendar({ monthFormat, showHeader = true }: DatePickerCalendarProps) {
+  return (
+    <>
+      <DatePickerView view="day">
+        <DatePickerDayTable showHeader={showHeader} />
+      </DatePickerView>
+      <DatePickerView view="month">
+        <DatePickerMonthTable format={monthFormat} showHeader={showHeader} />
+      </DatePickerView>
+      <DatePickerView view="year">
+        <DatePickerYearTable showHeader={showHeader} />
+      </DatePickerView>
+    </>
+  );
+}
+
+const DatePickerPanel = forwardRef<
+  ComponentRef<typeof DatePickerPrimitive.Content>,
+  DatePickerPanelProps
+>(function DatePickerPanel({ asChild, children, ...props }, ref) {
+  return (
+    <DatePickerPositioner>
+      <DatePickerContent ref={ref} asChild={asChild} {...props}>
+        {asChild ? children : (children ?? <DatePickerCalendar />)}
+      </DatePickerContent>
+    </DatePickerPositioner>
+  );
+});
+
 const DatePickerContext = DatePickerPrimitive.Context;
 
 export {
   DatePicker,
+  DatePickerCalendar,
   DatePickerClearTrigger,
   DatePickerContext,
   DatePickerContent,
@@ -698,6 +733,7 @@ export {
   DatePickerMonthSelect,
   DatePickerMonthTable,
   DatePickerNextTrigger,
+  DatePickerPanel,
   DatePickerPositioner,
   DatePickerPresetTrigger,
   DatePickerPrevTrigger,
@@ -724,9 +760,11 @@ export {
   useDatePickerContext,
 };
 export type {
+  DatePickerCalendarProps,
   DatePickerDayTableProps,
   DatePickerFieldProps,
   DatePickerMonthTableProps,
+  DatePickerPanelProps,
   DatePickerRangeFieldProps,
   DatePickerRootProps,
   DatePickerRootProviderProps,

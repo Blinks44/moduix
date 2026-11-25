@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-  import { Tooltip, TooltipBody, TooltipTrigger } from '@/components/ui/tooltip';
+  import { Tooltip, TooltipPanel, TooltipTrigger } from '@/components/ui/tooltip';
   import styles from './expandable-avatar-group.module.css';
 
   const members = [
@@ -67,9 +67,9 @@
           </button>
         {/snippet}
       </TooltipTrigger>
-      <TooltipBody class={styles.tooltip}>
+      <TooltipPanel class={styles.tooltip}>
         <strong>{member.name}</strong><span>{member.role}</span>
-      </TooltipBody>
+      </TooltipPanel>
     </Tooltip>
   {/each}
 </div>

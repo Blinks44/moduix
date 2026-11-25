@@ -1,21 +1,45 @@
 'use client';
 
 import { Switch as SwitchPrimitive, useSwitch, useSwitchContext } from '@ark-ui/react/switch';
-import type { ComponentProps, ComponentRef } from 'react';
+import type { ComponentProps, ComponentRef, ReactNode } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
 type SwitchSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-type SwitchRootProps = ComponentProps<typeof SwitchPrimitive.Root> & { size?: SwitchSize };
+type SwitchRootProps = ComponentProps<typeof SwitchPrimitive.Root> & {
+  hiddenInput?: boolean;
+  hiddenInputProps?: ComponentProps<typeof SwitchPrimitive.HiddenInput>;
+  label?: ReactNode;
+  size?: SwitchSize;
+};
 type SwitchRootProviderProps = ComponentProps<typeof SwitchPrimitive.RootProvider> & {
   size?: SwitchSize;
 };
 
 const Switch = forwardRef<ComponentRef<typeof SwitchPrimitive.Root>, SwitchRootProps>(
-  function Switch({ className, size = 'md', ...props }, ref) {
+  function Switch(
+    { asChild, children, className, hiddenInput, hiddenInputProps, label, size = 'md', ...props },
+    ref,
+  ) {
+    const content = asChild ? (
+      children
+    ) : children === undefined ? (
+      <>
+        <SwitchControl />
+        {label != null ? <SwitchLabel>{label}</SwitchLabel> : null}
+        {hiddenInput !== false ? <SwitchHiddenInput {...hiddenInputProps} /> : null}
+      </>
+    ) : (
+      <>
+        {children}
+        {hiddenInput ? <SwitchHiddenInput {...hiddenInputProps} /> : null}
+      </>
+    );
+
     return (
       <SwitchPrimitive.Root
         ref={ref}
+        asChild={asChild}
         className={cn(
           'group/switch inline-flex w-fit cursor-pointer items-center gap-2 align-middle text-foreground data-disabled:cursor-default data-disabled:opacity-disabled data-readonly:cursor-default',
           className,
@@ -23,7 +47,9 @@ const Switch = forwardRef<ComponentRef<typeof SwitchPrimitive.Root>, SwitchRootP
         {...props}
         data-size={size}
         data-slot="switch-root"
-      />
+      >
+        {content}
+      </SwitchPrimitive.Root>
     );
   },
 );

@@ -2,7 +2,8 @@ import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import { clsx } from 'clsx';
 import type { JSX } from 'solid-js';
-import { splitProps } from 'solid-js';
+import { Show, splitProps } from 'solid-js';
+import { Spinner } from '../spinner';
 import styles from './Button.module.css';
 
 type ButtonVariant =
@@ -18,6 +19,8 @@ type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'icon-sm' | 'icon-md' | 'ic
 
 type ButtonRootProps = HTMLArkProps<'button'> & {
   loading?: boolean;
+  loadingIndicator?: JSX.Element | false;
+  loadingText?: JSX.Element;
   variant?: ButtonVariant;
   size?: ButtonSize;
   'data-scope'?: string;
@@ -35,9 +38,12 @@ const ArkButton = ark.button as (
 function Button(props: ButtonRootProps) {
   const [local, others] = splitProps(props, [
     'asChild',
+    'children',
     'class',
     'disabled',
     'loading',
+    'loadingIndicator',
+    'loadingText',
     'onClickCapture',
     'size',
     'type',
@@ -53,6 +59,8 @@ function Button(props: ButtonRootProps) {
     local.loading ||
     local['aria-disabled'] === true ||
     local['aria-disabled'] === 'true';
+  const isIconSize = () =>
+    local.size === 'icon-sm' || local.size === 'icon-md' || local.size === 'icon-lg';
   const handleClickCapture = (event: MouseEvent) => {
     if (isDisabled()) {
       event.preventDefault();
@@ -79,7 +87,14 @@ function Button(props: ButtonRootProps) {
       data-disabled={isDisabled() ? '' : undefined}
       data-loading={local.loading ? '' : undefined}
       class={clsx(styles.root, local.class)}
-    />
+    >
+      <Show when={local.loading && !local.asChild} fallback={local.children}>
+        <Show when={local.loadingIndicator !== false && local.loadingIndicator !== null}>
+          {local.loadingIndicator ?? <Spinner decorative size="sm" />}
+        </Show>
+        {local.loadingText !== undefined ? local.loadingText : isIconSize() ? null : local.children}
+      </Show>
+    </ArkButton>
   );
 }
 

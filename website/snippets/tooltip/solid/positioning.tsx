@@ -1,5 +1,5 @@
 import { Button } from '@moduix/solid/button';
-import { Tooltip, TooltipBody, TooltipTrigger } from '@moduix/solid/tooltip';
+import { Tooltip, TooltipPanel, TooltipTrigger } from '@moduix/solid/tooltip';
 import { For, createSignal } from 'solid-js';
 import styles from '@/components/examples/tooltip/component-positioning.module.css';
 
@@ -27,7 +27,7 @@ export default function PositioningTooltipDemo() {
             </Button>
           )}
         />
-        <TooltipBody>Placement: {placement()}</TooltipBody>
+        <TooltipPanel>Placement: {placement()}</TooltipPanel>
       </Tooltip>
       <div data-preview-meta class={styles.meta}>
         <output>Placement: {placement()}</output>

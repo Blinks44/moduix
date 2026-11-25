@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Button } from '@moduix/svelte/button';
-  import { Tooltip, TooltipBody, TooltipTrigger } from '@moduix/svelte/tooltip';
+  import { Tooltip, TooltipPanel, TooltipTrigger } from '@moduix/svelte/tooltip';
 
   let open = $state(false);
 </script>
@@ -8,7 +8,7 @@
 <div>
   <Tooltip bind:open>
     <TooltipTrigger>Controlled tooltip</TooltipTrigger>
-    <TooltipBody>Open: {open}</TooltipBody>
+    <TooltipPanel>Open: {open}</TooltipPanel>
   </Tooltip>
   <div data-preview-meta>
     <output>Open: {open}</output>

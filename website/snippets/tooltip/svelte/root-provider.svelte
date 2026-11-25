@@ -1,7 +1,7 @@
 <script lang="ts">
   import {
     useTooltip,
-    TooltipBody,
+    TooltipPanel,
     TooltipRootProvider,
     TooltipTrigger,
   } from '@moduix/svelte/tooltip';
@@ -13,7 +13,7 @@
 
 <TooltipRootProvider value={tooltip}>
   <TooltipTrigger>RootProvider tooltip</TooltipTrigger>
-  <TooltipBody>State is owned outside the tree.</TooltipBody>
+  <TooltipPanel>State is owned outside the tree.</TooltipPanel>
 </TooltipRootProvider>
 <div data-preview-meta>
   <output>Open: {tooltip().open}</output>

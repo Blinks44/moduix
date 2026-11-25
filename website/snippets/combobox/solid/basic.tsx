@@ -1,17 +1,12 @@
 import {
   Combobox,
-  ComboboxClearTrigger,
-  ComboboxContent,
-  ComboboxControl,
+  ComboboxDropdown,
   ComboboxEmpty,
-  ComboboxInput,
+  ComboboxField,
   ComboboxLabel,
   ComboboxList,
   ComboboxOption,
-  ComboboxPositioner,
-  ComboboxTrigger,
-  useListCollection,
-  useFilter,
+  useFilteredCollection,
 } from '@moduix/solid/combobox';
 import { For } from 'solid-js';
 
@@ -22,33 +17,26 @@ const fruits = [
 ];
 
 export default function ComboboxDemo() {
-  const { contains } = useFilter({ sensitivity: 'base' })();
-  const { collection, filter } = useListCollection({
+  const { collection, filter } = useFilteredCollection({
     initialItems: fruits,
-    filter: contains,
   });
 
   return (
-    <Combobox
-      collection={collection()}
-      onInputValueChange={(details) => filter(details.inputValue)}
-    >
+    <Combobox collection={collection()} filter={filter}>
       <ComboboxLabel>Choose fruit</ComboboxLabel>
-      <ComboboxControl>
-        <ComboboxInput placeholder="e.g. Mango" />
-        <ComboboxClearTrigger aria-label="Clear selection" />
-        <ComboboxTrigger aria-label="Open options" />
-      </ComboboxControl>
-      <ComboboxPositioner>
-        <ComboboxContent>
-          <ComboboxEmpty>No fruits found.</ComboboxEmpty>
-          <ComboboxList>
-            <For each={collection().items}>
-              {(item) => <ComboboxOption item={item}>{item.label}</ComboboxOption>}
-            </For>
-          </ComboboxList>
-        </ComboboxContent>
-      </ComboboxPositioner>
+      <ComboboxField
+        placeholder="e.g. Mango"
+        clearLabel="Clear selection"
+        triggerLabel="Open options"
+      />
+      <ComboboxDropdown>
+        <ComboboxEmpty>No fruits found.</ComboboxEmpty>
+        <ComboboxList>
+          <For each={collection().items}>
+            {(item) => <ComboboxOption item={item}>{item.label}</ComboboxOption>}
+          </For>
+        </ComboboxList>
+      </ComboboxDropdown>
     </Combobox>
   );
 }

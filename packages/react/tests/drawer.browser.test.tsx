@@ -8,6 +8,7 @@ import {
   DrawerCloseIcon,
   DrawerCloseTrigger,
   DrawerContent,
+  DrawerPanel,
   DrawerPositioner,
   DrawerRootProvider,
   DrawerTitle,
@@ -225,4 +226,27 @@ test('marks an island drawer and closes it through its accessible close icon', a
 
   await expect.element(page.getByRole('dialog')).toHaveCount(0);
   await expect.element(trigger).toBeFocused();
+});
+
+test('DrawerPanel composes backdrop, positioner, and content while forwarding variant', async () => {
+  render(
+    <Drawer>
+      <DrawerTrigger asChild>
+        <Button>Open panel drawer</Button>
+      </DrawerTrigger>
+      <DrawerPanel variant="island">
+        <DrawerTitle>Quick drawer</DrawerTitle>
+        <DrawerCloseIcon />
+      </DrawerPanel>
+    </Drawer>,
+  );
+
+  await page.getByRole('button', { name: 'Open panel drawer' }).click();
+  await expect.element(page.getByRole('dialog')).toBeVisible();
+  await expect.element(page.getByRole('dialog')).toHaveAttribute('data-variant', 'island');
+  expect(document.querySelector('[data-slot="drawer-backdrop"]')).not.toBeNull();
+  expect(document.querySelector('[data-slot="drawer-positioner"]')).not.toBeNull();
+
+  await page.getByRole('button', { name: 'Close drawer' }).click();
+  await expect.element(page.getByRole('dialog')).toHaveCount(0);
 });

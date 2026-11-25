@@ -1,5 +1,6 @@
 import { useDatePicker, useDatePickerContext } from '@ark-ui/vue/date-picker';
 import DatePicker from './DatePicker.vue';
+import DatePickerCalendar from './DatePickerCalendar.vue';
 import DatePickerClearTrigger from './DatePickerClearTrigger.vue';
 import DatePickerContent from './DatePickerContent.vue';
 import DatePickerContext from './DatePickerContext.vue';
@@ -11,6 +12,7 @@ import DatePickerLabel from './DatePickerLabel.vue';
 import DatePickerMonthSelect from './DatePickerMonthSelect.vue';
 import DatePickerMonthTable from './DatePickerMonthTable.vue';
 import DatePickerNextTrigger from './DatePickerNextTrigger.vue';
+import DatePickerPanel from './DatePickerPanel.vue';
 import DatePickerPositioner from './DatePickerPositioner.vue';
 import DatePickerPresetTrigger from './DatePickerPresetTrigger.vue';
 import DatePickerPrevTrigger from './DatePickerPrevTrigger.vue';
@@ -36,6 +38,7 @@ import DatePickerYearTable from './DatePickerYearTable.vue';
 
 export {
   DatePicker,
+  DatePickerCalendar,
   DatePickerClearTrigger,
   DatePickerContext,
   DatePickerContent,
@@ -47,6 +50,7 @@ export {
   DatePickerMonthSelect,
   DatePickerMonthTable,
   DatePickerNextTrigger,
+  DatePickerPanel,
   DatePickerPositioner,
   DatePickerPresetTrigger,
   DatePickerPrevTrigger,
@@ -118,8 +122,10 @@ export type {
 
 export type { Props as DatePickerRootProps } from './DatePicker.vue';
 export type { Props as DatePickerRootProviderProps } from './DatePickerRootProvider.vue';
+export type { Props as DatePickerCalendarProps } from './DatePickerCalendar.vue';
 export type { Props as DatePickerDayTableProps } from './DatePickerDayTable.vue';
 export type { Props as DatePickerMonthTableProps } from './DatePickerMonthTable.vue';
+export type { Props as DatePickerPanelProps } from './DatePickerPanel.vue';
 export type { Props as DatePickerYearTableProps } from './DatePickerYearTable.vue';
 export type { Props as DatePickerFieldProps } from './DatePickerField.vue';
 export type { Props as DatePickerRangeFieldProps } from './DatePickerRangeField.vue';

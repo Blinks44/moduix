@@ -125,13 +125,16 @@ function TooltipContent(props: ComponentProps<typeof TooltipPrimitive.Content>) 
   );
 }
 
-function TooltipBody(props: ComponentProps<typeof TooltipPrimitive.Content>) {
+function TooltipPanel(props: ComponentProps<typeof TooltipPrimitive.Content>) {
   return (
     <TooltipPositioner>
       <TooltipContent {...props} />
     </TooltipPositioner>
   );
 }
+
+/** @deprecated Use `TooltipPanel` instead. */
+const TooltipBody = TooltipPanel;
 
 function TooltipArrow(props: ComponentProps<typeof TooltipPrimitive.Arrow>) {
   const [local, others] = splitProps(props, ['children', 'class']);
@@ -173,6 +176,7 @@ export {
   TooltipContext,
   TooltipContent,
   TooltipDisabledTrigger,
+  TooltipPanel,
   TooltipPositioner,
   TooltipRootProvider,
   TooltipTrigger,

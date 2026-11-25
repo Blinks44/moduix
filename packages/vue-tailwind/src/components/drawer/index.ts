@@ -18,6 +18,7 @@ import DrawerGrabberIndicator from './DrawerGrabberIndicator.vue';
 import DrawerHeader from './DrawerHeader.vue';
 import DrawerIndent from './DrawerIndent.vue';
 import DrawerIndentBackground from './DrawerIndentBackground.vue';
+import DrawerPanel from './DrawerPanel.vue';
 import DrawerPositioner from './DrawerPositioner.vue';
 import DrawerRootProvider from './DrawerRootProvider.vue';
 import DrawerSwipeArea from './DrawerSwipeArea.vue';
@@ -37,6 +38,7 @@ export {
   DrawerGrabber,
   DrawerGrabberIndicator,
   DrawerHeader,
+  DrawerPanel,
   DrawerIndent,
   DrawerIndentBackground,
   DrawerPositioner,
