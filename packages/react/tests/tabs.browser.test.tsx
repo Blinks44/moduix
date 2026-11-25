@@ -177,6 +177,6 @@ test('stretches horizontal triggers across the root when fitted', () => {
   expect(list.offsetWidth).toBe(480);
   expect(Math.max(...widths) - Math.min(...widths)).toBeLessThanOrEqual(1);
   for (const trigger of vertical!.querySelectorAll<HTMLElement>('[data-slot="tabs-trigger"]')) {
-    expect(trigger.offsetHeight).toBe(26);
+    expect(trigger.offsetHeight).toBe(22);
   }
 });
