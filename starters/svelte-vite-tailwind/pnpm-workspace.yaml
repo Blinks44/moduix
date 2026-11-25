@@ -1,0 +1,5 @@
+packages:
+  - '.'
+
+minimumReleaseAgeExclude:
+  - '@moduix/svelte-tailwind@3.4.0'

@@ -46,14 +46,14 @@ covers every shipped framework, both styling tracks, and package or registry ins
 
 ### Start a new app
 
-Use a standalone Vite starter with TypeScript and CSS Modules:
+Use a standalone Vite starter with TypeScript and either CSS Modules or Tailwind CSS v4:
 
-| Framework | Starter                             | Online playground                                                                                  |
-| --------- | ----------------------------------- | -------------------------------------------------------------------------------------------------- |
-| React     | [react-vite](starters/react-vite)   | [Open in StackBlitz](https://stackblitz.com/github/Blinks44/moduix/tree/main/starters/react-vite)  |
-| Solid     | [solid-vite](starters/solid-vite)   | [Open in StackBlitz](https://stackblitz.com/github/Blinks44/moduix/tree/main/starters/solid-vite)  |
-| Vue       | [vue-vite](starters/vue-vite)       | [Open in StackBlitz](https://stackblitz.com/github/Blinks44/moduix/tree/main/starters/vue-vite)    |
-| Svelte    | [svelte-vite](starters/svelte-vite) | [Open in StackBlitz](https://stackblitz.com/github/Blinks44/moduix/tree/main/starters/svelte-vite) |
+| Framework | CSS Modules                                                                                                                      | Tailwind CSS v4                                                                                                                                             |
+| --------- | -------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| React     | [react-vite](starters/react-vite) · [StackBlitz](https://stackblitz.com/github/Blinks44/moduix/tree/main/starters/react-vite)    | [react-vite-tailwind](starters/react-vite-tailwind) · [StackBlitz](https://stackblitz.com/github/Blinks44/moduix/tree/main/starters/react-vite-tailwind)    |
+| Solid     | [solid-vite](starters/solid-vite) · [StackBlitz](https://stackblitz.com/github/Blinks44/moduix/tree/main/starters/solid-vite)    | [solid-vite-tailwind](starters/solid-vite-tailwind) · [StackBlitz](https://stackblitz.com/github/Blinks44/moduix/tree/main/starters/solid-vite-tailwind)    |
+| Vue       | [vue-vite](starters/vue-vite) · [StackBlitz](https://stackblitz.com/github/Blinks44/moduix/tree/main/starters/vue-vite)          | [vue-vite-tailwind](starters/vue-vite-tailwind) · [StackBlitz](https://stackblitz.com/github/Blinks44/moduix/tree/main/starters/vue-vite-tailwind)          |
+| Svelte    | [svelte-vite](starters/svelte-vite) · [StackBlitz](https://stackblitz.com/github/Blinks44/moduix/tree/main/starters/svelte-vite) | [svelte-vite-tailwind](starters/svelte-vite-tailwind) · [StackBlitz](https://stackblitz.com/github/Blinks44/moduix/tree/main/starters/svelte-vite-tailwind) |
 
 ```bash
 pnpm dlx giget@latest gh:Blinks44/moduix/starters/react-vite my-app
@@ -62,7 +62,8 @@ pnpm install
 pnpm dev
 ```
 
-Replace `react-vite` with `solid-vite`, `vue-vite`, or `svelte-vite` for another framework.
+Replace `react-vite` with `solid-vite`, `vue-vite`, or `svelte-vite`, or append `-tailwind` for a
+Tailwind CSS v4 starter (for example `react-vite-tailwind`).
 
 ### Use the published package
 
@@ -97,28 +98,24 @@ named parts.
 
 ### Own the source with the registry
 
-Use the registry when a component should live in your repository and evolve with your product. Add
-the moduix namespaces to `components.json` (the [Quick start](https://moduix.dev/docs/quick-start)
-has the full file for each styling track):
+Use the registry when a component should live in your repository and evolve with your product.
+Initialize your framework and styling track in one step (writes `components.json`, installs base
+dependencies, and copies foundation styles):
 
-```json
-{
-  "registries": {
-    "@moduix-react": "https://moduix.dev/r/react/{name}.json",
-    "@moduix-react-tailwind": "https://moduix.dev/r/react-tailwind/{name}.json"
-  }
-}
+```bash
+pnpm dlx shadcn@latest init https://moduix.dev/r/react/init.json
 ```
 
-Then add only the components you need:
+Replace `react` with `solid`, `vue`, `svelte`, or the matching `-tailwind` track (for example
+`react-tailwind`). Then add only the components you need:
 
 ```bash
 pnpm dlx shadcn@latest add @moduix-react/button @moduix-react/dialog
 ```
 
-The generated source includes the component, its CSS Module, and any required supporting files.
-The registry preserves the same component contracts and design tokens as the published package. Your
-`components.json` aliases determine the destination paths.
+The generated source includes the component, its CSS Module (or Tailwind utility classes), and any
+required supporting files. The registry preserves the same component contracts and design tokens as
+the published package, and your `components.json` aliases determine the destination paths.
 
 The registry also installs [blocks](https://moduix.dev/blocks), including sign-in forms, a sidebar
 dashboard, settings, pricing, AI chat, and a data table. CSS Modules blocks include their source, a
@@ -150,9 +147,13 @@ detect the project's framework, styling track, and install method before editing
 pnpm dlx skills add https://github.com/Blinks44/moduix --skill moduix
 ```
 
-Machine-readable documentation is also available at [`llms.txt`](https://moduix.dev/llms.txt) and
-[`llms-full.txt`](https://moduix.dev/llms-full.txt). See [AI tools](https://moduix.dev/docs/ai) for
-details.
+Machine-readable documentation is available at [`llms.txt`](https://moduix.dev/llms.txt),
+[`llms-full.txt`](https://moduix.dev/llms-full.txt), and per-framework bundles
+([`llms-react.txt`](https://moduix.dev/llms-react.txt),
+[`llms-solid.txt`](https://moduix.dev/llms-solid.txt),
+[`llms-vue.txt`](https://moduix.dev/llms-vue.txt),
+[`llms-svelte.txt`](https://moduix.dev/llms-svelte.txt)). See
+[AI tools](https://moduix.dev/docs/ai) for details.
 
 ## Versioning
 
@@ -160,7 +161,8 @@ moduix follows semantic versioning. The 3.x API is stable: breaking changes ship
 versions, each with a migration guide, and deprecated APIs stay available until the next major. See
 [Versioning and stability](https://moduix.dev/docs/updating#versioning-and-stability).
 
-Comparing options? See [moduix vs shadcn/ui, Park UI, and Chakra UI](https://moduix.dev/docs/comparison).
+Comparing options? See
+[moduix vs shadcn/ui, Mantine, Park UI, and Chakra UI](https://moduix.dev/docs/comparison).
 
 ## Contributing
 

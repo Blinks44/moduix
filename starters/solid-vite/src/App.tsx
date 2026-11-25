@@ -1,7 +1,7 @@
 import { Button } from '@moduix/solid/button';
 import { Field, FieldLabel } from '@moduix/solid/field';
 import { Input } from '@moduix/solid/input';
-import { ToastToaster, createToaster } from '@moduix/solid/toast';
+import { ToastToaster, toast } from '@moduix/solid/toast';
 import { createSignal, For, Show } from 'solid-js';
 import AppShell, { type Page } from './components/AppShell';
 import ProjectDialog from './components/ProjectDialog';
@@ -14,9 +14,6 @@ import {
   type Project,
   type ProjectDraft,
 } from './data';
-import { portalRef } from './portal';
-
-const toaster = createToaster({ placement: 'bottom-end' });
 
 export default function App() {
   const [projects, setProjects] = createSignal(initialProjects);
@@ -32,7 +29,7 @@ export default function App() {
         : [...current, project],
     );
     setEditing(undefined);
-    toaster.success({ title: previous ? 'Project updated' : 'Project created' });
+    toast.success(previous ? 'Project updated' : 'Project created');
   };
   const handleDelete = () => {
     const project = editing();
@@ -40,7 +37,7 @@ export default function App() {
     const index = projects().findIndex((item) => item.id === project.id);
     setProjects((current) => current.filter((item) => item.id !== project.id));
     setEditing(undefined);
-    toaster.create({
+    toast.create({
       title: 'Project deleted',
       description: project.name,
       duration: 8000,
@@ -107,7 +104,7 @@ export default function App() {
             const name = String(new FormData(event.currentTarget).get('workspace')).trim();
             if (name) {
               setWorkspace(name);
-              toaster.success({ title: 'Workspace updated' });
+              toast.success('Workspace updated');
             }
           }}
         >
@@ -125,7 +122,7 @@ export default function App() {
         onSave={handleSave}
         onDelete={handleDelete}
       />
-      <ToastToaster toaster={toaster} portalRef={portalRef} />
+      <ToastToaster />
     </AppShell>
   );
 }

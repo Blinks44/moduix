@@ -1,0 +1,22 @@
+@import '@moduix/vue-tailwind/style.css';
+@import 'tailwindcss';
+
+@source '../node_modules/@moduix/vue-tailwind/dist/components';
+
+:root {
+  --moduix-font-sans: 'Noto Sans Variable', sans-serif;
+  font-family: var(--moduix-font-sans);
+}
+
+@layer base {
+  body {
+    background: var(--moduix-card);
+    color: var(--moduix-foreground);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+}
+
+#app-root {
+  isolation: isolate;
+}

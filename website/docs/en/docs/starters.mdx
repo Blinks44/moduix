@@ -1,17 +1,22 @@
 ---
 title: Starters
-description: Ready-to-run Vite apps with a small Projects dashboard built from moduix components. Open one in the browser or copy it into a new folder.
+description: Ready-to-run Vite apps with CSS Modules or Tailwind CSS v4 and a small Projects dashboard built from moduix components.
 ---
 
 import { Steps } from '@rspress/core/theme';
-import { StarterCards, StarterContents, StarterInstall } from '@/components/docs/starters';
+import {
+  StarterCards,
+  StarterContents,
+  StarterCopy,
+  StarterInstall,
+} from '@/components/docs/starters';
 import { Card, Cards } from '@/components/mdx/Components';
 
 import styles from '@/components/docs/starters.module.css';
 
 # Starters
 
-<p className={styles.intro}>Each starter installs published npm packages, uses the Calm theme, follows the system color scheme and keeps sample data in src/data.ts.</p>
+<p className={styles.intro}>Each starter installs published npm packages, ships in CSS Modules and Tailwind CSS v4 variants, follows the system color scheme automatically, and keeps sample data in src/data.ts.</p>
 
 ## Pick a starter
 
@@ -25,30 +30,9 @@ Prefer your own editor? giget copies one starter folder without cloning the mono
 
 ### Copy a starter
 
-Pick a framework. The command creates `my-app` with the same files you see in StackBlitz.
+Pick a framework and styling track above. The command creates `my-app` with the same files you see in StackBlitz.
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<PackageManagerTabs command="giget@latest gh:Blinks44/moduix/starters/react-vite my-app" dlx />
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<PackageManagerTabs command="giget@latest gh:Blinks44/moduix/starters/solid-vite my-app" dlx />
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<PackageManagerTabs command="giget@latest gh:Blinks44/moduix/starters/vue-vite my-app" dlx />
-
-  </Tab>
-  <Tab label="Svelte" value="svelte">
-
-<PackageManagerTabs command="giget@latest gh:Blinks44/moduix/starters/svelte-vite my-app" dlx />
-
-  </Tab>
-</Tabs>
+<StarterCopy />
 
 ### Install and run
 
@@ -64,13 +48,9 @@ Replace the sample rows in `src/data.ts` with your API, then remove the pages yo
 
 ## What’s inside
 
-One small app per framework. Every file is plain source you can edit or delete.
+One small app per framework and styling track. Every file is plain source you can edit or delete.
 
 <StarterContents />
-
-:::info Using Tailwind?
-Starters ship with CSS Modules. Choose the matching `-tailwind` package and follow [Framework setup](/docs/installation/vite) to configure Tailwind CSS v4 and its stylesheet.
-:::
 
 ## Next steps
 

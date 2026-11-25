@@ -86,15 +86,17 @@ The optional presets are `dense`, `soft`, and `contrast`. See
 
 ## Own the source
 
-Configure `components.json` and aliases with the
-[registry setup](https://moduix.dev/docs/quick-start#install-with-the-shadcn-cli), then add a component:
+Initialize the registry in one step (writes `components.json`, installs base dependencies, and
+copies the foundation stylesheet), then add a component:
 
 ```bash
+pnpm dlx shadcn@latest init https://moduix.dev/r/svelte-tailwind/init.json
 pnpm dlx shadcn@latest add @moduix-svelte-tailwind/accordion
 ```
 
-The CLI copies native Svelte source, styles, and dependencies into your project. Follow Quick Start
-to connect the generated foundation stylesheet. The same namespace also installs
+The CLI copies native Svelte source, styles, and dependencies into your project. See
+[Quick start](https://moduix.dev/docs/quick-start#install-with-the-shadcn-cli) to connect the
+generated foundation stylesheet. The same namespace also installs
 [blocks](https://moduix.dev/blocks), for example `@moduix-svelte-tailwind/login-simple`.
 
 ## Compatibility

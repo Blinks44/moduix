@@ -173,8 +173,8 @@ importers:
         specifier: ^5.3.0
         version: 5.3.0
       '@moduix/solid':
-        specifier: ^3.3.4
-        version: 3.3.4(@ark-ui/solid@5.40.0(solid-js@1.9.20))(solid-js@1.9.20)
+        specifier: ^3.4.0
+        version: 3.4.0(@ark-ui/solid@5.40.0(solid-js@1.9.20))(@unpic/core@1.0.3)(solid-js@1.9.20)(unpic@4.2.2)
       solid-js:
         specifier: ^1.9.20
         version: 1.9.20
@@ -320,14 +320,20 @@ packages:
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
 
-  '@moduix/solid@3.3.4':
-    resolution: {integrity: sha512-yiNLI91TcAENLOj8SiaWoktxWAZHl556GPiiVhlLZ6mAdJpyxc/MoflQ0etJOJqT+PyW+wjIPhANBTLHKQ+noQ==}
+  '@moduix/solid@3.4.0':
+    resolution: {integrity: sha512-qiqkA5Fl/ldNsfEuBHa0T/QcPajICQctttajpHPTCGRsuRGBJb4vFj0XgGxgFQcrTAcjXFa9MEPS3fgsWOcgfA==}
     peerDependencies:
       '@ark-ui/solid': ^5.40.0
       '@tanstack/charts': ^1.1.0
+      '@unpic/core': ^1.0.3
       solid-js: ^1.9.0
+      unpic: ^4.2.2
     peerDependenciesMeta:
       '@tanstack/charts':
+        optional: true
+      '@unpic/core':
+        optional: true
+      unpic:
         optional: true
 
   '@napi-rs/wasm-runtime@1.2.6':
@@ -885,11 +891,6 @@ packages:
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
 
-  lucide-solid@1.77.0:
-    resolution: {integrity: sha512-VHbTICLAwYdSbhlLJp1mEfOS1gjWL8MEXyGbqgh4oFd/si6RTBCM4B8B8D3T5ag2fDUJtUr2xEVJq4zdFSt0og==}
-    peerDependencies:
-      solid-js: ^1.4.7
-
   merge-anything@5.1.7:
     resolution: {integrity: sha512-eRtbOb1N5iyH0tkQDAoQ4Ipsp/5qSR79Dzrz8hEPxRX10RWWR/iQXdoKmBSRCThY1Fh5EhISDtpSc93fpxUniQ==}
     engines: {node: '>=12.13'}
@@ -1290,13 +1291,13 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.6.0
 
-  '@moduix/solid@3.3.4(@ark-ui/solid@5.40.0(solid-js@1.9.20))(solid-js@1.9.20)':
+  '@moduix/solid@3.4.0(@ark-ui/solid@5.40.0(solid-js@1.9.20))(@unpic/core@1.0.3)(solid-js@1.9.20)(unpic@4.2.2)':
     dependencies:
       '@ark-ui/solid': 5.40.0(solid-js@1.9.20)
-      '@unpic/core': 1.0.3
       clsx: 2.1.1
-      lucide-solid: 1.77.0(solid-js@1.9.20)
       solid-js: 1.9.20
+    optionalDependencies:
+      '@unpic/core': 1.0.3
       unpic: 4.2.2
 
   '@napi-rs/wasm-runtime@1.2.6(@emnapi/core@2.0.0-beta.2)(@emnapi/runtime@2.0.0-beta.2)':
@@ -1399,6 +1400,7 @@ snapshots:
   '@unpic/core@1.0.3':
     dependencies:
       unpic: 4.2.2
+    optional: true
 
   '@zag-js/accordion@1.47.0':
     dependencies:
@@ -2095,10 +2097,6 @@ snapshots:
     dependencies:
       yallist: 3.1.1
 
-  lucide-solid@1.77.0(solid-js@1.9.20):
-    dependencies:
-      solid-js: 1.9.20
-
   merge-anything@5.1.7:
     dependencies:
       is-what: 4.1.16
@@ -2187,7 +2185,8 @@ snapshots:
 
   typescript@6.0.3: {}
 
-  unpic@4.2.2: {}
+  unpic@4.2.2:
+    optional: true
 
   update-browserslist-db@1.3.4(browserslist@4.29.5):
     dependencies:

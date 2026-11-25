@@ -12,7 +12,7 @@
   "dependencies": {
     "@ark-ui/react": "^5.40.0",
     "@fontsource-variable/noto-sans": "^5.3.0",
-    "@moduix/react": "^3.3.2",
+    "@moduix/react": "^3.4.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"
   },

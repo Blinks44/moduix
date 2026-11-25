@@ -93,7 +93,15 @@ export default function ProjectTable(props: {
                     <span class="project-description">{project.description}</span>
                   </TableCell>
                   <TableCell>
-                    <Badge class="status-badge" data-status={project.status}>
+                    <Badge
+                      variant={
+                        project.status === 'Active'
+                          ? 'success'
+                          : project.status === 'Paused'
+                            ? 'warning'
+                            : 'secondary'
+                      }
+                    >
                       {project.status}
                     </Badge>
                   </TableCell>

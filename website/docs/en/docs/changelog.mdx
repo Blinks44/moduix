@@ -16,6 +16,73 @@ import { VueReleaseHero } from '@/components/changelog/vue-release-hero';
 
 # Changelog
 
+<ChangelogNewsItem version="v3.4" dateTime="2026-11-26">
+
+## Ergonomic APIs, host-safe Tailwind v4, and one-step registry init
+
+This release focuses on day-to-day developer experience across all eight packages and the
+documentation site.
+
+### Packaging and zero-runtime icons
+
+- **Explicit subpath `exports`.** Every package now enumerates its 90+ component, utility, and
+  stylesheet entry points explicitly so IDE auto-imports resolve cleanly without wildcard guesses.
+- **Smaller dependency footprint.** Built-in UI icons now ship as inline SVGs, dropping all
+  `lucide-*` runtime dependencies. `unpic` packages moved to optional peer dependencies so only
+  projects using `Image` need them.
+- **Clean CSS Modules `style.css`.** CSS Modules packages ship pure design tokens without Tailwind
+  `@theme inline` blocks.
+
+### Visual polish and automatic dark mode
+
+- **Automatic dark mode.** `:where(:root)` sets `color-scheme: light dark`, with built-in `.dark`
+  and `.light` class support alongside `data-moduix-color-scheme`. Shadows use `light-dark()` pairs
+  so elevation adapts cleanly.
+- **Semantic status tokens and polish.** Added `--moduix-success`, `--moduix-warning`,
+  `--moduix-info`, and matching `*-foreground` tokens; added `success`, `warning`, and `info`
+  variants to `Badge`; unified focus-ring dimensions; switched scales to `rem`; and refined
+  `Button` hover contrast, `Tabs` line panels, `Tooltip`, and `SplitButton`.
+
+### Host-safe Tailwind CSS v4
+
+- `@moduix/*-tailwind` no longer overrides Tailwind's default spacing, typography, or border-width
+  scales on the host application.
+- All Tailwind registry [blocks](/blocks) now ship pure Tailwind v4 markup with zero
+  `.module.css` files, and component/block pages preview the live Tailwind track directly.
+
+### Ergonomic component APIs
+
+- **Collection and Ark re-exports.** Added `@moduix/<framework>/collection` and re-exported
+  component-scoped helpers (`createListCollection`, `useListCollection`, `useFilter`, `parseDate`,
+  `useHighlight`) and Ark change-detail types directly from each component subpath.
+- **Less boilerplate.** Added `DialogPanel`, `DrawerPanel`, and `TooltipPanel` composite overlays;
+  built-in spinner rendering for `<Button loading>`; a default `toast()` helper for
+  `<ToastToaster />`; shorthand `label` with built-in `HiddenInput` for `Checkbox` and `Switch`;
+  and `ModuixProvider` / `LabelsProvider` for localizing built-in accessibility labels.
+- **Responsive `Sidebar`.** Added configurable resize bounds (`minSize`, `maxSize`,
+  `collapsedSize`, `collapsible`) and an opt-in `mobileBreakpoint` drawer fallback.
+
+### One-step registry setup and docs tools
+
+- Initialize any framework and styling track with one command:
+
+<PackageManagerTabs command="shadcn@latest init https://moduix.dev/r/react/init.json" dlx />
+
+- Added the interactive [Theme Builder](/docs/theme-builder), an [Accessibility](/docs/accessibility)
+  guide, per-framework `llms-{react,solid,vue,svelte}.txt` bundles, and a `Manual` source tab on
+  every component page.
+</ChangelogNewsItem>
+
+<ChangelogNewsItem version="v3.3" dateTime="2026-11-11">
+
+## Expanded chart palette and visual refinements
+
+- **Chart palette.** Added `chartColors` and `--moduix-chart-6` through `--moduix-chart-8` tokens
+  for multi-series [Chart](/docs/chart) layouts.
+- **Toast and Badge polish.** Status toasts (`success`, `warning`, `error`) tint close and action
+  button hovers with their status color, and `Badge` no longer clips inside auto-layout table cells.
+</ChangelogNewsItem>
+
 <ChangelogNewsItem version="v3.2" dateTime="2026-11-11">
 
 ## Svelte joins React, Solid, and Vue

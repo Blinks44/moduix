@@ -2,4 +2,4 @@ packages:
   - '.'
 
 minimumReleaseAgeExclude:
-  - '@moduix/solid@3.2.0'
+  - '@moduix/solid@3.4.0'

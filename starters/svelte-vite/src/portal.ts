@@ -1,1 +1,0 @@
-export const portalRef = () => document.getElementById('app-root');

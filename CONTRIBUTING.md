@@ -27,7 +27,7 @@ pnpm exec playwright install --only-shell chromium
 Playwright is a root devDependency with an exact version in the pnpm catalog. Browser tests use
 Chromium headless shell from Playwright's shared user cache. Run the browser installation command
 again after updating Playwright; projects using the same browser revision reuse that download.
-For headed tests, omit `--only-shell`. Linux CI also passes `--with-deps`.
+For headed tests, omit `--only-shell`.
 
 ## Everyday commands
 
@@ -47,8 +47,8 @@ For headed tests, omit `--only-shell`. Linux CI also passes `--with-deps`.
 | `pnpm run check:a11y [component…]`         | Run axe on built playground stories                                  |
 
 `compare:stories` and `check:a11y` read the built storybooks, so run
-`pnpm --filter './playgrounds/*' run build:storybook` first. CI compares stories on pushes to
-`main`; `check:a11y` runs only by hand.
+`pnpm --filter './playgrounds/*' run build:storybook` first. Both scripts run on demand locally;
+CI runs Storybook smoke builds across every shipped playground.
 
 Behavior tests for a framework live in its CSS Modules package (`packages/<framework>/tests`), and
 the Tailwind package runs the same files. Style-specific tests live in `tests/styles` of each package.
@@ -75,8 +75,8 @@ builds cannot hide publishing problems. CI runs this check in a separate job.
    story, package `exports` entry, registry item, and component-local docs.
 4. If any registry source file changed, run `pnpm run build:registry` to validate it. The output in
    `website/docs/public/r` is gitignored and rebuilt by the docs build.
-5. Documentation changes must keep the en, fr, and ru locales page-complete; do not add a page to
-   localized navigation before its translation exists.
+5. Documentation changes target `website/docs/en` (the active locale); `fr` and `ru` remain frozen
+   and excluded from the production build.
 
 ## Releases
 

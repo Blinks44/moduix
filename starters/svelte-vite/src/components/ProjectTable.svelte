@@ -76,10 +76,17 @@
             ><button class="project-name" onclick={() => onEdit(project)}>{project.name}</button
             ><span class="project-description">{project.description}</span></TableCell
           >
-          <TableCell
-            ><Badge class="status-badge" data-status={project.status}>{project.status}</Badge
-            ></TableCell
-          >
+          <TableCell>
+            <Badge
+              variant={project.status === 'Active'
+                ? 'success'
+                : project.status === 'Paused'
+                  ? 'warning'
+                  : 'secondary'}
+            >
+              {project.status}
+            </Badge>
+          </TableCell>
           <TableCell
             ><span class="owner"
               ><span class="avatar">{initials(project.owner)}</span>{project.owner}</span

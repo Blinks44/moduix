@@ -3,13 +3,13 @@
     "text": "navDocs",
     "link": "/docs/",
     "position": "left",
-    "activeMatch": "^/docs/(?:(?:index|ai|animations|async-list|changelog|client-only|collections|comparison|composition-patterns|dark-mode|download-trigger|environment|focus-trap|format-byte|format-number|format-relative-time|format-time|formisch|forms|frame|hotkeys|installation|list-collection|list-selection|locale|migrate-from-shadcn|presence|quick-start|starters|react-hook-form|rtl|styling|superforms|tanstack-form|theme-builder|themes|tokens|tree-collection|updating|utilities|vee-validate)(?:/|$)|$)"
+    "activeMatch": "^/docs/(?:(?:index|accessibility|ai|animations|async-list|changelog|client-only|collections|comparison|composition-patterns|dark-mode|download-trigger|environment|focus-trap|format-byte|format-number|format-relative-time|format-time|formisch|forms|frame|hotkeys|installation|list-collection|list-selection|locale|migrate-from-shadcn|presence|quick-start|starters|react-hook-form|rtl|styling|superforms|tanstack-form|theme-builder|themes|tokens|tree-collection|updating|utilities|vee-validate)(?:/|$)|$)"
   },
   {
     "text": "navComponents",
     "link": "/docs/components",
     "position": "left",
-    "activeMatch": "^/docs/(?!(?:index|ai|animations|async-list|changelog|client-only|collections|comparison|composition-patterns|dark-mode|download-trigger|environment|focus-trap|format-byte|format-number|format-relative-time|format-time|formisch|forms|frame|hotkeys|installation|list-collection|list-selection|locale|migrate-from-shadcn|presence|quick-start|starters|react-hook-form|rtl|styling|superforms|tanstack-form|theme-builder|themes|tokens|tree-collection|updating|utilities|vee-validate)(?:/|$)|$)"
+    "activeMatch": "^/docs/(?!(?:index|accessibility|ai|animations|async-list|changelog|client-only|collections|comparison|composition-patterns|dark-mode|download-trigger|environment|focus-trap|format-byte|format-number|format-relative-time|format-time|formisch|forms|frame|hotkeys|installation|list-collection|list-selection|locale|migrate-from-shadcn|presence|quick-start|starters|react-hook-form|rtl|styling|superforms|tanstack-form|theme-builder|themes|tokens|tree-collection|updating|utilities|vee-validate)(?:/|$)|$)"
   },
   {
     "text": "navBlocks",

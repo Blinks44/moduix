@@ -1,14 +1,6 @@
 import { Button } from '@moduix/react/button';
-import {
-  Drawer,
-  DrawerBackdrop,
-  DrawerCloseIcon,
-  DrawerContent,
-  DrawerPositioner,
-  DrawerTitle,
-} from '@moduix/react/drawer';
+import { Drawer, DrawerCloseIcon, DrawerPanel, DrawerTitle } from '@moduix/react/drawer';
 import { useState, type ReactNode } from 'react';
-import { portalRef } from '../portal';
 
 export type Page = 'Projects' | 'Team' | 'Reports' | 'Settings';
 
@@ -120,23 +112,19 @@ export default function AppShell({
         open={menuOpen}
         onOpenChange={(details) => setMenuOpen(details.open)}
         swipeDirection="start"
-        portalRef={portalRef}
       >
-        <DrawerBackdrop />
-        <DrawerPositioner>
-          <DrawerContent className="mobile-sidebar">
-            <DrawerTitle className="sr-only">Workspace navigation</DrawerTitle>
-            <DrawerCloseIcon />
-            <Navigation
-              page={page}
-              workspace={workspace}
-              onNavigate={(next) => {
-                onNavigate(next);
-                setMenuOpen(false);
-              }}
-            />
-          </DrawerContent>
-        </DrawerPositioner>
+        <DrawerPanel className="mobile-sidebar">
+          <DrawerTitle className="sr-only">Workspace navigation</DrawerTitle>
+          <DrawerCloseIcon />
+          <Navigation
+            page={page}
+            workspace={workspace}
+            onNavigate={(next) => {
+              onNavigate(next);
+              setMenuOpen(false);
+            }}
+          />
+        </DrawerPanel>
       </Drawer>
     </div>
   );

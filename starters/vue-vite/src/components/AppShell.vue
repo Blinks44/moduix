@@ -1,16 +1,8 @@
 <script setup lang="ts">
 import { Button } from '@moduix/vue/button';
-import {
-  Drawer,
-  DrawerBackdrop,
-  DrawerCloseIcon,
-  DrawerContent,
-  DrawerPositioner,
-  DrawerTitle,
-} from '@moduix/vue/drawer';
+import { Drawer, DrawerCloseIcon, DrawerPanel, DrawerTitle } from '@moduix/vue/drawer';
 import { ref } from 'vue';
 import type { Page } from '../data';
-import { portalRef } from '../portal';
 import AppNavigation from './AppNavigation.vue';
 defineProps<{ page: Page; workspace: string }>();
 const emit = defineEmits<{ navigate: [page: Page] }>();
@@ -53,21 +45,19 @@ const toggleTheme = () => {
       </header>
       <main><slot /></main>
     </div>
-    <Drawer
-      :open="menuOpen"
-      swipe-direction="start"
-      :portal-ref="portalRef"
-      @open-change="menuOpen = $event.open"
-      ><DrawerBackdrop /><DrawerPositioner
-        ><DrawerContent class="mobile-sidebar"
-          ><DrawerTitle class="sr-only">Workspace navigation</DrawerTitle
-          ><DrawerCloseIcon /><AppNavigation
-            :page="page"
-            :workspace="workspace"
-            @navigate="
-              emit('navigate', $event);
-              menuOpen = false;
-            " /></DrawerContent></DrawerPositioner
-    ></Drawer>
+    <Drawer :open="menuOpen" swipe-direction="start" @open-change="menuOpen = $event.open">
+      <DrawerPanel class="mobile-sidebar">
+        <DrawerTitle class="sr-only">Workspace navigation</DrawerTitle>
+        <DrawerCloseIcon />
+        <AppNavigation
+          :page="page"
+          :workspace="workspace"
+          @navigate="
+            emit('navigate', $event);
+            menuOpen = false;
+          "
+        />
+      </DrawerPanel>
+    </Drawer>
   </div>
 </template>

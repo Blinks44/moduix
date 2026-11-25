@@ -1,16 +1,8 @@
 <script lang="ts">
   import { Button } from '@moduix/svelte/button';
-  import {
-    Drawer,
-    DrawerBackdrop,
-    DrawerCloseIcon,
-    DrawerContent,
-    DrawerPositioner,
-    DrawerTitle,
-  } from '@moduix/svelte/drawer';
+  import { Drawer, DrawerCloseIcon, DrawerPanel, DrawerTitle } from '@moduix/svelte/drawer';
   import type { Snippet } from 'svelte';
   import type { Page } from '../data';
-  import { portalRef } from '../portal';
   import AppNavigation from './AppNavigation.svelte';
 
   let {
@@ -57,19 +49,18 @@
     </header>
     <main>{@render children()}</main>
   </div>
-  <Drawer bind:open={menuOpen} swipeDirection="start" {portalRef}
-    ><DrawerBackdrop /><DrawerPositioner
-      ><DrawerContent class="mobile-sidebar"
-        ><DrawerTitle class="sr-only">Workspace navigation</DrawerTitle><DrawerCloseIcon
-        /><AppNavigation
-          {page}
-          {workspace}
-          onNavigate={(next) => {
-            onNavigate(next);
-            menuOpen = false;
-          }}
-        /></DrawerContent
-      ></DrawerPositioner
-    ></Drawer
-  >
+  <Drawer bind:open={menuOpen} swipeDirection="start">
+    <DrawerPanel class="mobile-sidebar">
+      <DrawerTitle class="sr-only">Workspace navigation</DrawerTitle>
+      <DrawerCloseIcon />
+      <AppNavigation
+        {page}
+        {workspace}
+        onNavigate={(next) => {
+          onNavigate(next);
+          menuOpen = false;
+        }}
+      />
+    </DrawerPanel>
+  </Drawer>
 </div>

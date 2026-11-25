@@ -1,0 +1,103 @@
+---
+title: Accessibility
+description: WAI-ARIA primitives, keyboard navigation, focus contrast, label localization, axe-core checks, and known limitations in moduix.
+---
+
+# Accessibility
+
+moduix delegates interactive state, keyboard navigation, focus management, and ARIA attributes to
+[Ark UI](https://ark-ui.com/) and [Zag.js](https://zagjs.com/) state machines across React, Solid,
+Vue, and Svelte. The styling layer adds visible focus indicators, accessible control contrast, and
+reduced-motion support.
+
+## Primitives and WAI-ARIA contracts
+
+Components follow the WAI-ARIA Authoring Practices for each widget pattern:
+
+- **Keyboard navigation.** Roving tabindex in menus, tabs, toolbars, radio groups, and segment
+  groups; arrow-key traversal in trees, calendars, and listboxes; typeahead search in select and
+  menu lists; `Escape` dismissal for overlays.
+- **Focus management.** Modal dialogs and drawers trap focus while open, mark background content
+  inert, and return focus to the trigger on close.
+- **Form semantics.** `Field` wires `aria-describedby`, `aria-invalid`, and `aria-required` between
+  labels, helper text, error messages, and inputs. Custom controls such as `Checkbox`, `Switch`,
+  `RadioGroup`, `Select`, and `Slider` synchronize hidden native form elements so browser validation
+  and form submission work without extra glue.
+- **Live regions.** `ToastToaster` announces notifications in a live region and keeps its portal
+  marked with `data-live-announcer` so opening a modal dialog does not hide active toasts from
+  assistive technology.
+
+Because moduix preserves Ark UI's flat part structure and prop contracts, you can attach `aria-*`
+attributes, `id`, or `asChild` directly to the underlying interactive element whenever an
+application needs custom semantics.
+
+## Contrast, focus rings, and motion
+
+The foundation token system enforces baseline visual accessibility across light mode, dark mode,
+and all presets:
+
+- **Control boundaries.** Form controls, listboxes, and slider thumbs use `--moduix-input` for
+  borders with at least 3:1 non-text contrast against `--moduix-background`, `--moduix-card`, and
+  `--moduix-popover`.
+- **Visible focus indicators.** Keyboard focus (`:focus-visible`) applies a consistent ring from
+  `--moduix-ring` and `--moduix-focus-ring-halo-width`. Invalid fields keep a destructive border and
+  add a destructive focus halo when focused.
+- **High-clarity preset.** The optional [`contrast` preset](/docs/themes) strengthens borders, focus
+  rings, and surface separation for dense or technical interfaces.
+- **Reduced motion.** Foundation animations respect `@media (prefers-reduced-motion: reduce)` and
+  disable or shorten non-essential transitions. `Chart` also honors reduced motion and supports
+  `motion={false}` for explicit opt-out.
+
+## Localizing accessible names
+
+Icon-only controls and landmarks such as dialog close buttons, search clear buttons, `Spinner`,
+`TableEmpty`, and `Breadcrumbs` fall back to English accessible names by default.
+
+Wrap your application with `ModuixProvider` (or `LabelsProvider`) from `@moduix/<framework>/locale`
+to translate those default labels across every component in one place, and set `lang` and `dir` on
+the document root for non-English or RTL applications. Explicit `aria-label` or `aria-labelledby`
+props on a component always take precedence over provider defaults.
+
+See [Locale](/docs/locale#translate-default-labels) for the full provider setup and
+[Right-to-left (RTL)](/docs/rtl) for directional layout and portal behavior.
+
+## How we verify accessibility
+
+Accessibility is checked at two layers in the repository:
+
+1. **Browser behavior tests.** Every shipped framework runs Playwright-backed browser tests for
+   keyboard interactions, focus restoration on `Escape`, controlled/uncontrolled ARIA state, modal
+   behavior, and live-region toast announcements.
+2. **Automated `axe-core` checks.** The repository includes an `@axe-core/playwright` audit script
+   (`scripts/check-a11y.mjs`) that renders stories across all eight Storybook playgrounds with
+   `reducedMotion: 'reduce'` and checks WCAG rules against `#storybook-root`. Inactive controls with
+   `data-disabled` are excluded from `color-contrast` checks in line with WCAG 1.4.3.
+
+## Known limitations and application responsibilities
+
+Automated checks and accessible primitives cover widget mechanics, not an entire application. Keep
+these boundaries in mind:
+
+- **Manual `axe-core` gate.** The playground `axe-core` audit currently runs on demand rather than
+  blocking every pull request because a small set of upstream Zag.js and Ark UI composite widgets
+  still produce known upstream warnings. We track and re-test these as Ark UI updates ship.
+- **Icon-only buttons.** When you render a `<Button>` containing only an icon, always pass an
+  explicit `aria-label` (or visually hidden label text).
+- **Standalone inputs.** Pair `Input`, `Textarea`, `NativeSelect`, and custom pickers with a
+  `FieldLabel` or an explicit `aria-label` / `aria-labelledby`.
+- **Custom color overrides.** Overriding `--moduix-primary`, `--moduix-muted-foreground`, or status
+  tokens in custom themes can lower contrast; verify foreground and background pairs in both light
+  and dark modes.
+- **Document structure.** Page landmarks (`<main>`, `<nav>`, `<header>`), skip links, and heading
+  order remain the responsibility of your application layout.
+
+If you find an accessibility issue in a moduix component, please open an issue on
+[GitHub](https://github.com/Blinks44/moduix/issues) with the component name, framework, assistive
+technology or browser, and reproduction steps.
+
+## Related
+
+- [Locale](/docs/locale)
+- [Right-to-left (RTL)](/docs/rtl)
+- [Themes](/docs/themes)
+- [Forms](/docs/forms)

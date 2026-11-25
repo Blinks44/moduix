@@ -173,8 +173,8 @@ importers:
         specifier: ^5.3.0
         version: 5.3.0
       '@moduix/vue':
-        specifier: ^3.3.3
-        version: 3.3.3(@ark-ui/vue@5.40.0(vue@3.5.46(typescript@6.0.3)))(vue@3.5.46(typescript@6.0.3))
+        specifier: ^3.4.0
+        version: 3.4.0(@ark-ui/vue@5.40.0(vue@3.5.46(typescript@6.0.3)))(@unpic/core@1.0.3)(unpic@4.2.2)(vue@3.5.46(typescript@6.0.3))
       vue:
         specifier: ^3.5.46
         version: 3.5.46(typescript@6.0.3)
@@ -246,19 +246,20 @@ packages:
   '@jridgewell/sourcemap-codec@1.6.0':
     resolution: {integrity: sha512-T7jf+5zgsZHwNJ4lvQ7/aezbyk0nNX+zJVWpmHA7VYsEx7a7qr5Rg5IbtJFqkgze5Y2sruq1RUY8Q837Od7iFw==}
 
-  '@lucide/vue@1.77.0':
-    resolution: {integrity: sha512-B+okr/d8qC2imLzNPJ5tW8Nf7uKC19DgiOafxU0bOMfLnkd5Tkss4GW640+s5FierTJjgl99LpuO40u+yni0qQ==}
-    peerDependencies:
-      vue: '>=3.0.1'
-
-  '@moduix/vue@3.3.3':
-    resolution: {integrity: sha512-73Di5YSmlmN7cdClmSqT7gsVAeiQ6bEebneOO7TEYheVx+jNJgWiv6qudEeBt5TsQuB4HY8JOabZJ8Zxti2V/A==}
+  '@moduix/vue@3.4.0':
+    resolution: {integrity: sha512-fR6hiTjkob2xxvdhRaVMxw8JKlMMGRsZw1EkBXqr0Gn3SVMURYlZM/sVAn2nuqyPCGpUmoldu8TQoWdG11p/CA==}
     peerDependencies:
       '@ark-ui/vue': ^5.40.0
       '@tanstack/charts': ^1.1.0
+      '@unpic/core': ^1.0.3
+      unpic: ^4.2.2
       vue: ^3.5.0
     peerDependenciesMeta:
       '@tanstack/charts':
+        optional: true
+      '@unpic/core':
+        optional: true
+      unpic:
         optional: true
 
   '@napi-rs/wasm-runtime@1.2.6':
@@ -1047,18 +1048,14 @@ snapshots:
 
   '@jridgewell/sourcemap-codec@1.6.0': {}
 
-  '@lucide/vue@1.77.0(vue@3.5.46(typescript@6.0.3))':
-    dependencies:
-      vue: 3.5.46(typescript@6.0.3)
-
-  '@moduix/vue@3.3.3(@ark-ui/vue@5.40.0(vue@3.5.46(typescript@6.0.3)))(vue@3.5.46(typescript@6.0.3))':
+  '@moduix/vue@3.4.0(@ark-ui/vue@5.40.0(vue@3.5.46(typescript@6.0.3)))(@unpic/core@1.0.3)(unpic@4.2.2)(vue@3.5.46(typescript@6.0.3))':
     dependencies:
       '@ark-ui/vue': 5.40.0(vue@3.5.46(typescript@6.0.3))
-      '@lucide/vue': 1.77.0(vue@3.5.46(typescript@6.0.3))
-      '@unpic/core': 1.0.3
       clsx: 2.1.1
-      unpic: 4.2.2
       vue: 3.5.46(typescript@6.0.3)
+    optionalDependencies:
+      '@unpic/core': 1.0.3
+      unpic: 4.2.2
 
   '@napi-rs/wasm-runtime@1.2.6(@emnapi/core@2.0.0-beta.2)(@emnapi/runtime@2.0.0-beta.2)':
     dependencies:
@@ -1135,6 +1132,7 @@ snapshots:
   '@unpic/core@1.0.3':
     dependencies:
       unpic: 4.2.2
+    optional: true
 
   '@vitejs/plugin-vue@6.0.11(vite@8.3.8)(vue@3.5.46(typescript@6.0.3))':
     dependencies:
@@ -1944,7 +1942,8 @@ snapshots:
 
   typescript@6.0.3: {}
 
-  unpic@4.2.2: {}
+  unpic@4.2.2:
+    optional: true
 
   uqr@0.1.3: {}
 

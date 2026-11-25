@@ -1,40 +1,43 @@
 ---
-title: moduix vs shadcn/ui, Park UI, and Chakra UI
-description: Compare moduix with shadcn/ui, Park UI, and Chakra UI by framework support, primitives, styling, and installation, and see when each one is the better choice.
+title: moduix vs shadcn/ui, Mantine, Park UI, and Chakra UI
+description: Compare moduix with shadcn/ui, Mantine, Park UI, and Chakra UI by framework support, primitives, styling, and installation.
 ---
 
-# moduix vs shadcn/ui, Park UI, and Chakra UI
+# moduix vs shadcn/ui, Mantine, Park UI, and Chakra UI
 
-All four libraries give you styled, accessible components. They differ in which frameworks they
+All five libraries give you styled, accessible components. They differ in which frameworks they
 support, which primitives handle behavior, how styles are written, and how the code reaches your
-application. This page was checked in October 2026; see each project's documentation for its current
-state.
+application. This page was checked in November 2026; see each project's documentation for its
+current state.
 
 ## At a glance
 
-| | moduix | [shadcn/ui](https://ui.shadcn.com/) | [Park UI](https://park-ui.com/) | [Chakra UI](https://chakra-ui.com/) |
-| --- | --- | --- | --- | --- |
-| Frameworks | React, Solid, Vue, Svelte | React; community ports for other frameworks | React, Solid | React |
-| Behavior | Ark UI | Radix UI or Base UI | Ark UI | Zag.js, the state machines behind Ark UI |
-| Styling | CSS Modules or Tailwind CSS v4 | Tailwind CSS | Panda CSS | Emotion at runtime |
-| Installation | npm package or shadcn CLI registry | shadcn CLI | Copy source into your project | npm package |
-| Styling runtime | None | None | None | Emotion |
+| | moduix | [shadcn/ui](https://ui.shadcn.com/) | [Mantine](https://mantine.dev/) | [Park UI](https://park-ui.com/) | [Chakra UI](https://chakra-ui.com/) |
+| --- | --- | --- | --- | --- | --- |
+| Frameworks | React, Solid, Vue, Svelte | React; community ports for other frameworks | React | React, Solid | React |
+| Behavior | Ark UI (Zag.js) | Radix UI or Base UI | Custom React primitives and hooks | Ark UI (Zag.js) | Zag.js |
+| Styling | CSS Modules or Tailwind CSS v4 | Tailwind CSS | CSS Modules and PostCSS preset | Panda CSS | Emotion at runtime |
+| Installation | npm package or shadcn CLI registry | shadcn CLI | npm packages | Copy source into your project | npm package |
+| Styling runtime | None | None | None | None | Emotion |
 
 ## Choose moduix when
 
-- **Several applications use different frameworks.** React, Solid, Vue, and Svelte get the same
-  component names, parts, tokens, and styles, so one design system covers all of them.
-- **You want shadcn-style copied source without being tied to one styling system.** The same
-  components ship with plain CSS Modules or Tailwind CSS v4, from one token system.
-- **You want to choose the install method per project.** Install from npm to receive updates, or copy the source
-  with the shadcn CLI when you need to edit it.
-- **You need Ark UI's larger catalog with styles included.** Date picker, color picker, combobox, tree
-  view, tags input, and other complex components are ready to use.
+- **Several applications use different frameworks.** React (18 and 19), Solid, Vue, and Svelte get
+  the same flat component names, parts, tokens, and styles, so one design system covers all of them.
+- **You want CSS Modules or Tailwind CSS v4 without locking into one styling system.** Both tracks
+  share one token system and ship independently, with zero CSS-in-JS runtime.
+- **You want to choose the install method per project.** Install from npm to receive updates, or
+  copy source with `shadcn@latest init` and `shadcn@latest add` when you want local control.
+- **You need Ark UI's catalog with styles included.** Date picker, color picker, combobox, tree
+  view, tags input, command palette, and other complex widgets share Zag.js state machines.
 
 ## Choose something else when
 
 - **You use React and Tailwind CSS and want the largest ecosystem.** shadcn/ui has far more themes,
   community registries, tutorials, and examples.
+- **You use React with CSS Modules and want an all-in-one suite out of the box.** Mantine ships a
+  mature React-only catalog with built-in rich-text editor, calendars, notifications, charts, and a
+  large hooks library.
 - **Your project already uses Panda CSS.** Park UI is built for it.
 - **You prefer style props and a runtime theme object in React.** Chakra UI is designed around that
   model.

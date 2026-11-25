@@ -1,15 +1,7 @@
 import { Button } from '@moduix/solid/button';
-import {
-  Drawer,
-  DrawerBackdrop,
-  DrawerCloseIcon,
-  DrawerContent,
-  DrawerPositioner,
-  DrawerTitle,
-} from '@moduix/solid/drawer';
+import { Drawer, DrawerCloseIcon, DrawerPanel, DrawerTitle } from '@moduix/solid/drawer';
 import { createSignal, For } from 'solid-js';
 import type { JSX } from 'solid-js';
-import { portalRef } from '../portal';
 
 export type Page = 'Projects' | 'Team' | 'Reports' | 'Settings';
 
@@ -108,23 +100,19 @@ export default function AppShell(props: {
         open={menuOpen()}
         onOpenChange={(details) => setMenuOpen(details.open)}
         swipeDirection="start"
-        portalRef={portalRef}
       >
-        <DrawerBackdrop />
-        <DrawerPositioner>
-          <DrawerContent class="mobile-sidebar">
-            <DrawerTitle class="sr-only">Workspace navigation</DrawerTitle>
-            <DrawerCloseIcon />
-            <Navigation
-              page={props.page}
-              workspace={props.workspace}
-              onNavigate={(next) => {
-                props.onNavigate(next);
-                setMenuOpen(false);
-              }}
-            />
-          </DrawerContent>
-        </DrawerPositioner>
+        <DrawerPanel class="mobile-sidebar">
+          <DrawerTitle class="sr-only">Workspace navigation</DrawerTitle>
+          <DrawerCloseIcon />
+          <Navigation
+            page={props.page}
+            workspace={props.workspace}
+            onNavigate={(next) => {
+              props.onNavigate(next);
+              setMenuOpen(false);
+            }}
+          />
+        </DrawerPanel>
       </Drawer>
     </div>
   );

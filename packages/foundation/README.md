@@ -4,18 +4,20 @@ Internal source-only CSS foundation shared by the published moduix framework pac
 
 Each adapter builds these files into its own package. Components, CSS Modules, framework primitives, and JSX/SFC icon implementations stay in their respective adapter packages.
 
-`src/styles/style.css` exposes the foundation through Tailwind v4 theme namespaces:
+`src/styles/style.css` imports `tokens.css` only and is used by the CSS Modules packages without
+any Tailwind directives. `src/styles/tailwind.css` imports `tokens.css` plus `tailwind-theme.css`
+to expose the foundation through Tailwind v4 `@theme inline` namespaces:
 
-- semantic colors, including chart and sidebar colors;
-- the sans and mono families, font weights, and text sizes with their line heights;
-- the numeric spacing scale and `size-control-{xs,sm,md,lg,xl}`;
-- radii, shadows, easing curves, and shared animations.
+- semantic colors, including status, chart, and sidebar colors;
+- the sans and mono font families, `text-2xs`, and `size-control-{xs,sm,md,lg,xl}`;
+- radii, shadows, opacity, focus outline widths/offsets, durations, easing curves, and shared
+  animations.
 
-Standard spacing utilities such as `gap-3` and `p-3` resolve through the moduix spacing tokens, so
-runtime presets remain effective. Foundation categories without a
-Tailwind theme namespace, such as border widths, opacity, durations, scale factors, and z-index
-roles, remain CSS variables and can be used through Tailwind's custom-property syntax when a
-component needs them.
+Host Tailwind numeric spacing (`gap-*`, `p-*`) and standard typography (`text-xs`..`text-3xl`,
+`font-*`) scales are intentionally left untouched so moduix never overrides a host application's
+Tailwind defaults. Foundation categories without a Tailwind theme namespace, such as border widths,
+scale factors, and z-index roles, remain CSS variables and can be referenced with Tailwind's
+custom-property syntax when needed.
 
 ## CSS scopes
 
@@ -25,8 +27,10 @@ directly, so color overrides work on any element. Derived spacing and radius ste
 only at each theme or color-scheme boundary: for scoped spacing or radius overrides, put
 `data-moduix-theme` on the same element as the overrides.
 
-Palettes use native `light-dark()` pairs. `data-moduix-color-scheme="light"` or `"dark"` sets the
-inherited `color-scheme`, including nested opposite-scheme islands; the default is explicitly light.
+Palettes use native `light-dark()` pairs. `:where(:root)` sets `color-scheme: light dark`, so the
+default follows the user's system color scheme automatically. `.light` /
+`data-moduix-color-scheme="light"` and `.dark` / `data-moduix-color-scheme="dark"` force an explicit
+scheme on the root or nested opposite-scheme islands.
 Native support requires Chrome/Edge 123+, Firefox 120+, and Safari/iOS 17.5+. Applications targeting
 older browsers need a compatible CSS build strategy; raw foundation CSS has no legacy fallback.
 

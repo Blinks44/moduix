@@ -2,7 +2,7 @@
   import { Button } from '@moduix/svelte/button';
   import { Field, FieldLabel } from '@moduix/svelte/field';
   import { Input } from '@moduix/svelte/input';
-  import { ToastToaster, createToaster } from '@moduix/svelte/toast';
+  import { ToastToaster, toast } from '@moduix/svelte/toast';
   import AppShell from './components/AppShell.svelte';
   import ProjectDialog from './components/ProjectDialog.svelte';
   import ProjectTable from './components/ProjectTable.svelte';
@@ -15,9 +15,7 @@
     type Project,
     type ProjectDraft,
   } from './data';
-  import { portalRef } from './portal';
 
-  const toaster = createToaster({ placement: 'bottom-end' });
   let projects = $state(initialProjects);
   let page = $state<Page>('Projects');
   let workspace = $state('Acme Projects');
@@ -29,7 +27,7 @@
       ? projects.map((item) => (item.id === previous.id ? project : item))
       : [...projects, project];
     editing = undefined;
-    toaster.success({ title: previous ? 'Project updated' : 'Project created' });
+    toast.success(previous ? 'Project updated' : 'Project created');
   };
   const handleDelete = () => {
     const project = editing;
@@ -37,7 +35,7 @@
     const index = projects.findIndex((item) => item.id === project.id);
     projects = projects.filter((item) => item.id !== project.id);
     editing = undefined;
-    toaster.create({
+    toast.create({
       title: 'Project deleted',
       description: project.name,
       duration: 8000,
@@ -54,7 +52,7 @@
     const name = String(new FormData(event.currentTarget).get('workspace')).trim();
     if (name) {
       workspace = name;
-      toaster.success({ title: 'Workspace updated' });
+      toast.success('Workspace updated');
     }
   };
 </script>
@@ -114,5 +112,5 @@
     onSave={handleSave}
     onDelete={handleDelete}
   />
-  <ToastToaster {toaster} {portalRef} />
+  <ToastToaster />
 </AppShell>

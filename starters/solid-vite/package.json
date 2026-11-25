@@ -12,7 +12,7 @@
   "dependencies": {
     "@ark-ui/solid": "^5.40.0",
     "@fontsource-variable/noto-sans": "^5.3.0",
-    "@moduix/solid": "^3.3.4",
+    "@moduix/solid": "^3.4.0",
     "solid-js": "^1.9.20"
   },
   "devDependencies": {

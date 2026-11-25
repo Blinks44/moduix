@@ -72,18 +72,25 @@ framework.
 
 ## Use registry components
 
-1. Run `shadcn@latest info --json` with the project's package runner. Confirm the matching registry
-   namespace, aliases, installed items, and resolved file paths.
-2. Run `shadcn@latest search <namespace> --query "<product need>"` and
+1. For a new registry setup, initialize with one command using the project's package runner:
+   `shadcn@latest init https://moduix.dev/r/<track>/init.json` (where `<track>` is `react`, `solid`,
+   `vue`, `svelte`, or the matching `-tailwind` variant). This writes `components.json` with the
+   right aliases and namespace, installs base dependencies, and copies the foundation stylesheet
+   (`core` bundles both `style.css` and optional `reset.css` for CSS Modules; `core-tailwind` copies
+   `style.css` for Tailwind CSS v4).
+2. On an existing setup, run `shadcn@latest info --json` with the project's package runner to
+   confirm the matching registry namespace, aliases, installed items, and resolved file paths.
+3. Run `shadcn@latest search <namespace> --query "<product need>"` and
    `shadcn@latest view <namespace>/<item>` before adding an item. Prefer the configured shadcn MCP
    server for discovery when available, but do not configure an AI client unless asked.
-3. Run `shadcn@latest add <namespace>/<item> --dry-run`, inspect the result, then add it normally.
+4. Run `shadcn@latest add <namespace>/<item> --dry-run`, inspect the result, then add it normally.
    The registry installs the component's declared files, utilities, and dependencies; do not
    recreate them manually.
-4. Keep the generated foundation stylesheet imported once. For CSS Modules, import
-   `@/lib/moduix/styles/style.css`; the registry reset is a separate optional item. For Tailwind,
-   import the generated foundation before `tailwindcss`. Copied Tailwind components need no package
-   `@source` directive because their source is inside the application.
+5. Keep the generated foundation stylesheet imported once. For CSS Modules, import
+   `@/lib/moduix/styles/style.css` (preceded by `@/lib/moduix/styles/reset.css` if the app does not
+   already provide a reset). For Tailwind, import the generated foundation before `tailwindcss`.
+   Copied Tailwind components need no package `@source` directive because their source is inside the
+   application.
 
 ```css
 @import './lib/moduix/styles/style.css';
@@ -98,6 +105,18 @@ files and preserve local changes. Never use `--overwrite` without explicit user 
 - Use flat component names: the family name is the root and every part carries the family prefix,
   as in `Accordion`, `AccordionItem`, `AccordionItemTrigger`, and `useAccordion`. Do not write
   Ark's `Accordion.Root` / `Accordion.Item` syntax; moduix does not export namespace objects.
+- Prefer shipped ergonomic helpers over boilerplate when they match the task:
+  - Import collection helpers (`createListCollection`, `createTreeCollection`, `useListCollection`,
+    `useAsyncList`) from `@moduix/<track>/collection` (or from `select`/`combobox`/`listbox`
+    directly for list collections) rather than pulling separate Ark utility imports.
+  - Wrap the app in `ModuixProvider` (or `LabelsProvider`) from `@moduix/<track>/locale` (or
+    `@/components/ui/locale` after adding `<namespace>/locale`) to configure locale and translate
+    built-in accessibility labels.
+  - Use `DialogPanel`, `DrawerPanel`, and `TooltipPanel` for standard overlay composition when you
+    do not need custom `Backdrop`/`Positioner` overrides.
+  - Use `<Button loading>` for inline loading spinners, `toast()` / `toast.success()` with
+    `<ToastToaster />` when a shared default toaster is sufficient, and shorthand `Checkbox` /
+    `Switch` (which include their own `HiddenInput`).
 - Preserve the documented Ark-shaped part tree, callback detail objects, context hooks, form
   behavior, and accessibility contract.
 - Use native framework patterns. Do not transliterate one adapter's composition into another

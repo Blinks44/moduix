@@ -20,7 +20,7 @@ Search and filter the table, create or edit projects in a Dialog, and undo delet
 The sidebar also opens Team, Reports, and Settings; on mobile it becomes a Drawer.
 Sample data lives in `src/data.ts`. Edits stay in memory and reset when the page reloads.
 Connect your API in `src/App.svelte` to persist changes.
-Overlays render inside `#app-root` through the native portal reference in `src/portal.ts`.
+`#app-root` uses `isolation: isolate` so portalled overlays always stack above the app.
 
 ## Build
 

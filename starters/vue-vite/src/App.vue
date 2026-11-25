@@ -2,7 +2,7 @@
 import { Button } from '@moduix/vue/button';
 import { Field, FieldLabel } from '@moduix/vue/field';
 import { Input } from '@moduix/vue/input';
-import { ToastToaster, createToaster } from '@moduix/vue/toast';
+import { ToastToaster, toast } from '@moduix/vue/toast';
 import { ref } from 'vue';
 import AppShell from './components/AppShell.vue';
 import ProjectDialog from './components/ProjectDialog.vue';
@@ -16,9 +16,7 @@ import {
   type Project,
   type ProjectDraft,
 } from './data';
-import { portalRef } from './portal';
 
-const toaster = createToaster({ placement: 'bottom-end' });
 const projects = ref(initialProjects);
 const page = ref<Page>('Projects');
 const workspace = ref('Acme Projects');
@@ -30,7 +28,7 @@ const handleSave = (draft: ProjectDraft) => {
     ? projects.value.map((item) => (item.id === previous.id ? project : item))
     : [...projects.value, project];
   editing.value = undefined;
-  toaster.success({ title: previous ? 'Project updated' : 'Project created' });
+  toast.success(previous ? 'Project updated' : 'Project created');
 };
 const handleDelete = () => {
   const project = editing.value;
@@ -38,7 +36,7 @@ const handleDelete = () => {
   const index = projects.value.findIndex((item) => item.id === project.id);
   projects.value = projects.value.filter((item) => item.id !== project.id);
   editing.value = undefined;
-  toaster.create({
+  toast.create({
     title: 'Project deleted',
     description: project.name,
     duration: 8000,
@@ -58,7 +56,7 @@ const handleSettings = (event: Event) => {
   const name = String(new FormData(event.currentTarget as HTMLFormElement).get('workspace')).trim();
   if (name) {
     workspace.value = name;
-    toaster.success({ title: 'Workspace updated' });
+    toast.success('Workspace updated');
   }
 };
 </script>
@@ -106,6 +104,6 @@ const handleSettings = (event: Event) => {
       @save="handleSave"
       @delete="handleDelete"
     />
-    <ToastToaster :toaster="toaster" :portal-ref="portalRef" />
+    <ToastToaster />
   </AppShell>
 </template>

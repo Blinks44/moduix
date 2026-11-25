@@ -209,14 +209,6 @@
     white-space: nowrap;
     pointer-events: none;
   }
-
-  &:lang(fr)::after {
-    content: 'Copié';
-  }
-
-  &:lang(ru)::after {
-    content: 'Скопировано';
-  }
 }
 
 /* PackageManagerTabs colors the command inline: the tool as Function, the arguments as String.

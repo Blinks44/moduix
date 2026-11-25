@@ -1,4 +1,5 @@
 packages:
   - '.'
+
 minimumReleaseAgeExclude:
-  - '@moduix/svelte@3.2.2'
+  - '@moduix/svelte@3.4.0'

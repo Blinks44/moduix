@@ -513,6 +513,10 @@
   },
   {
     "type": "file",
+    "name": "accessibility"
+  },
+  {
+    "type": "file",
     "name": "animations"
   },
   {

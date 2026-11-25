@@ -1,0 +1,5 @@
+packages:
+  - '.'
+
+minimumReleaseAgeExclude:
+  - '@moduix/vue-tailwind@3.4.0'
