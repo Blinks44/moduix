@@ -60,7 +60,6 @@
       "type": "registry:item",
       "title": "moduix icons",
       "description": "Internal icons used by moduix Svelte Tailwind components.",
-      "dependencies": ["@lucide/svelte@^1.77.0"],
       "files": [
         {
           "path": "src/internal/icons/ui/index.ts",
@@ -113,13 +112,63 @@
           "type": "registry:lib"
         },
         {
+          "path": "src/internal/icons/ui/EllipsisIcon.svelte",
+          "target": "@lib/moduix/icons/ui/EllipsisIcon.svelte",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/internal/icons/ui/EyeClosedIcon.svelte",
+          "target": "@lib/moduix/icons/ui/EyeClosedIcon.svelte",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/internal/icons/ui/EyeIcon.svelte",
+          "target": "@lib/moduix/icons/ui/EyeIcon.svelte",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/internal/icons/ui/FileIcon.svelte",
+          "target": "@lib/moduix/icons/ui/FileIcon.svelte",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/internal/icons/ui/FlipHorizontalIcon.svelte",
+          "target": "@lib/moduix/icons/ui/FlipHorizontalIcon.svelte",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/internal/icons/ui/FolderIcon.svelte",
+          "target": "@lib/moduix/icons/ui/FolderIcon.svelte",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/internal/icons/ui/FolderOpenIcon.svelte",
+          "target": "@lib/moduix/icons/ui/FolderOpenIcon.svelte",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/internal/icons/ui/GripIcon.svelte",
+          "target": "@lib/moduix/icons/ui/GripIcon.svelte",
+          "type": "registry:lib"
+        },
+        {
           "path": "src/internal/icons/ui/IndeterminateIcon.svelte",
           "target": "@lib/moduix/icons/ui/IndeterminateIcon.svelte",
           "type": "registry:lib"
         },
         {
+          "path": "src/internal/icons/ui/MaximizeIcon.svelte",
+          "target": "@lib/moduix/icons/ui/MaximizeIcon.svelte",
+          "type": "registry:lib"
+        },
+        {
           "path": "src/internal/icons/ui/MinusIcon.svelte",
           "target": "@lib/moduix/icons/ui/MinusIcon.svelte",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/internal/icons/ui/PauseIcon.svelte",
+          "target": "@lib/moduix/icons/ui/PauseIcon.svelte",
           "type": "registry:lib"
         },
         {
@@ -133,8 +182,23 @@
           "type": "registry:lib"
         },
         {
+          "path": "src/internal/icons/ui/PlayIcon.svelte",
+          "target": "@lib/moduix/icons/ui/PlayIcon.svelte",
+          "type": "registry:lib"
+        },
+        {
           "path": "src/internal/icons/ui/PlusIcon.svelte",
           "target": "@lib/moduix/icons/ui/PlusIcon.svelte",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/internal/icons/ui/RatingStarIcon.svelte",
+          "target": "@lib/moduix/icons/ui/RatingStarIcon.svelte",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/internal/icons/ui/RestartIcon.svelte",
+          "target": "@lib/moduix/icons/ui/RestartIcon.svelte",
           "type": "registry:lib"
         },
         {
@@ -143,8 +207,43 @@
           "type": "registry:lib"
         },
         {
+          "path": "src/internal/icons/ui/RotateCcwIcon.svelte",
+          "target": "@lib/moduix/icons/ui/RotateCcwIcon.svelte",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/internal/icons/ui/RotateCwIcon.svelte",
+          "target": "@lib/moduix/icons/ui/RotateCwIcon.svelte",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/internal/icons/ui/SearchIcon.svelte",
+          "target": "@lib/moduix/icons/ui/SearchIcon.svelte",
+          "type": "registry:lib"
+        },
+        {
           "path": "src/internal/icons/ui/SeparatorMarkIcon.svelte",
           "target": "@lib/moduix/icons/ui/SeparatorMarkIcon.svelte",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/internal/icons/ui/TrashIcon.svelte",
+          "target": "@lib/moduix/icons/ui/TrashIcon.svelte",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/internal/icons/ui/UploadIcon.svelte",
+          "target": "@lib/moduix/icons/ui/UploadIcon.svelte",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/internal/icons/ui/ZoomInIcon.svelte",
+          "target": "@lib/moduix/icons/ui/ZoomInIcon.svelte",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/internal/icons/ui/ZoomOutIcon.svelte",
+          "target": "@lib/moduix/icons/ui/ZoomOutIcon.svelte",
           "type": "registry:lib"
         }
       ]

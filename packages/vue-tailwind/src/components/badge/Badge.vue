@@ -9,14 +9,23 @@ import { cn } from '@/lib/moduix/cn';
 defineOptions({ inheritAttrs: false });
 
 export type BadgeSize = 'sm' | 'md' | 'lg';
-export type BadgeVariant = 'default' | 'secondary' | 'destructive' | 'outline' | 'ghost' | 'link';
+export type BadgeVariant =
+  | 'default'
+  | 'secondary'
+  | 'destructive'
+  | 'success'
+  | 'warning'
+  | 'info'
+  | 'outline'
+  | 'ghost'
+  | 'link';
 
 const badgeVariants = cva(
   "inline-flex min-h-5 w-fit min-w-0 items-center justify-center gap-1.5 overflow-hidden rounded-full border px-2.5 align-middle font-medium text-xs tabular-nums whitespace-nowrap no-underline select-none transition-[color,background-color,border-color,opacity] duration-normal ease-in-out focus-visible:outline-focus focus-visible:outline-offset-focus focus-visible:outline-ring [&>svg]:pointer-events-none [&>svg:not([class*='size-'])]:size-3 [&>svg]:shrink-0 [a&]:cursor-pointer",
   {
     variants: {
       size: {
-        sm: 'min-h-4 px-2 text-[0.625rem] leading-3.5',
+        sm: 'min-h-4 px-2 text-2xs',
         md: '',
         lg: 'min-h-6 px-3 text-sm',
       },
@@ -26,6 +35,9 @@ const badgeVariants = cva(
           'border-transparent bg-secondary text-secondary-foreground [a&]:hover:opacity-hover',
         destructive:
           'border-transparent bg-destructive text-destructive-foreground [a&]:hover:opacity-hover',
+        success: 'border-transparent bg-success text-success-foreground [a&]:hover:opacity-hover',
+        warning: 'border-transparent bg-warning text-warning-foreground [a&]:hover:opacity-hover',
+        info: 'border-transparent bg-info text-info-foreground [a&]:hover:opacity-hover',
         outline:
           'border-border bg-transparent text-foreground [a&]:hover:border-primary [a&]:hover:text-primary',
         ghost: 'border-transparent bg-transparent text-foreground [a&]:hover:text-primary',

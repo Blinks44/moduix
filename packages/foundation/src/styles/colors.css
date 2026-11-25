@@ -15,8 +15,12 @@
   --moduix-accent-foreground: light-dark(oklch(0.235 0.016 285), oklch(0.968 0.003 285));
   --moduix-destructive: light-dark(oklch(0.565 0.235 22), oklch(0.69 0.185 18));
   --moduix-destructive-foreground: light-dark(oklch(0.982 0.003 285), oklch(0.2 0.011 285));
-  --moduix-success: oklch(0.627 0.194 149.214);
-  --moduix-warning: oklch(0.795 0.184 86.047);
+  --moduix-success: light-dark(oklch(0.55 0.16 149), oklch(0.72 0.17 149));
+  --moduix-success-foreground: light-dark(oklch(0.985 0.003 149), oklch(0.18 0.02 149));
+  --moduix-warning: light-dark(oklch(0.7 0.16 78), oklch(0.8 0.15 80));
+  --moduix-warning-foreground: light-dark(oklch(0.2 0.03 78), oklch(0.18 0.02 80));
+  --moduix-info: light-dark(oklch(0.54 0.16 250), oklch(0.72 0.14 245));
+  --moduix-info-foreground: light-dark(oklch(0.985 0.003 250), oklch(0.18 0.02 250));
   --moduix-border: light-dark(oklch(0.905 0.008 285), oklch(1 0.004 285 / 13%));
   --moduix-input: light-dark(oklch(0.64 0.008 285), oklch(1 0.004 285 / 36%));
   --moduix-ring: light-dark(oklch(0.62 0.035 285), oklch(0.585 0.038 285));
@@ -37,10 +41,14 @@
   --moduix-sidebar-ring: light-dark(oklch(0.62 0.035 285), oklch(0.585 0.038 285));
 }
 
-:where(:root, [data-moduix-color-scheme='light']) {
+:where(:root) {
+  color-scheme: light dark;
+}
+
+:where(.light, [data-moduix-color-scheme='light']) {
   color-scheme: light;
 }
 
-:where([data-moduix-color-scheme='dark']) {
+:where(.dark, [data-moduix-color-scheme='dark']) {
   color-scheme: dark;
 }

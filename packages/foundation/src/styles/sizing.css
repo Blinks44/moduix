@@ -3,9 +3,9 @@
  * Keeps elements in the same row at a consistent height.
  */
 :root {
-  --moduix-size-xs: 24px;
-  --moduix-size-sm: 32px;
-  --moduix-size-md: 36px;
-  --moduix-size-lg: 40px;
-  --moduix-size-xl: 48px;
+  --moduix-size-xs: 1.5rem;
+  --moduix-size-sm: 2rem;
+  --moduix-size-md: 2.25rem;
+  --moduix-size-lg: 2.5rem;
+  --moduix-size-xl: 3rem;
 }

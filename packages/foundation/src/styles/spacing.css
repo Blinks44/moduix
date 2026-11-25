@@ -1,18 +1,18 @@
 :root {
   /* Primitives */
-  --moduix-spacing-0: 0px;
-  --moduix-spacing-1: 4px;
-  --moduix-spacing-2: 8px;
-  --moduix-spacing-3: 12px;
-  --moduix-spacing-4: 16px;
-  --moduix-spacing-5: 20px;
-  --moduix-spacing-6: 24px;
-  --moduix-spacing-8: 32px;
-  --moduix-spacing-10: 40px;
+  --moduix-spacing-0: 0rem;
+  --moduix-spacing-1: 0.25rem;
+  --moduix-spacing-2: 0.5rem;
+  --moduix-spacing-3: 0.75rem;
+  --moduix-spacing-4: 1rem;
+  --moduix-spacing-5: 1.25rem;
+  --moduix-spacing-6: 1.5rem;
+  --moduix-spacing-8: 2rem;
+  --moduix-spacing-10: 2.5rem;
 }
 
 :root,
-:where([data-moduix-theme], [data-moduix-color-scheme]) {
+:where([data-moduix-theme], [data-moduix-color-scheme], [style*='--moduix-spacing-']) {
   --moduix-spacing-0-5: calc((var(--moduix-spacing-0) + var(--moduix-spacing-1)) / 2);
   --moduix-spacing-1-5: calc((var(--moduix-spacing-1) + var(--moduix-spacing-2)) / 2);
   --moduix-spacing-2-5: calc((var(--moduix-spacing-2) + var(--moduix-spacing-3)) / 2);

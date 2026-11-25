@@ -2,7 +2,16 @@
   import type { HTMLProps, PolymorphicProps, RefAttribute } from '@ark-ui/svelte';
 
   export type BadgeSize = 'sm' | 'md' | 'lg';
-  export type BadgeVariant = 'default' | 'secondary' | 'destructive' | 'outline' | 'ghost' | 'link';
+  export type BadgeVariant =
+    | 'default'
+    | 'secondary'
+    | 'destructive'
+    | 'success'
+    | 'warning'
+    | 'info'
+    | 'outline'
+    | 'ghost'
+    | 'link';
 
   export interface BadgeRootProps
     extends HTMLProps<'span'>, PolymorphicProps<'span'>, RefAttribute {
@@ -21,7 +30,7 @@
     {
       variants: {
         size: {
-          sm: 'min-h-4 px-2 text-[0.625rem] leading-3.5',
+          sm: 'min-h-4 px-2 text-2xs',
           md: '',
           lg: 'min-h-6 px-3 text-sm',
         },
@@ -31,6 +40,9 @@
             'border-transparent bg-secondary text-secondary-foreground [a&]:hover:opacity-hover',
           destructive:
             'border-transparent bg-destructive text-destructive-foreground [a&]:hover:opacity-hover',
+          success: 'border-transparent bg-success text-success-foreground [a&]:hover:opacity-hover',
+          warning: 'border-transparent bg-warning text-warning-foreground [a&]:hover:opacity-hover',
+          info: 'border-transparent bg-info text-info-foreground [a&]:hover:opacity-hover',
           outline:
             'border-border bg-transparent text-foreground [a&]:hover:border-primary [a&]:hover:text-primary',
           ghost: 'border-transparent bg-transparent text-foreground [a&]:hover:text-primary',

@@ -1,14 +1,14 @@
 # moduix + React + Vite
 
 A standalone TypeScript app using the published `@moduix/react` package with CSS Modules.
-Requires Node.js 22.12+ and pnpm 12.14.0.
+Requires Node.js 22.12+ and pnpm (or any Node package manager).
 
 ## Create an app
 
 ```bash
 pnpm dlx giget@latest gh:Blinks44/moduix/starters/react-vite my-app
 cd my-app
-pnpm install --frozen-lockfile
+pnpm install
 pnpm dev
 ```
 

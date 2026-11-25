@@ -173,13 +173,13 @@ Use this page for system-wide decisions and the relevant component page for loca
 
 The default scale is compact without feeling cramped:
 
-| Token              | Default | Intended role                                                          |
-| ------------------ | ------- | ---------------------------------------------------------------------- |
-| `--moduix-size-xs` | `24px`  | Small icon controls and compact actions.                               |
-| `--moduix-size-sm` | `32px`  | Popup rows and secondary compact controls.                             |
-| `--moduix-size-md` | `36px`  | Default inputs, buttons, triggers, pagination, and composite controls. |
-| `--moduix-size-lg` | `40px`  | Deliberately roomy controls.                                           |
-| `--moduix-size-xl` | `48px`  | Prominent controls and touch-oriented layouts.                         |
+| Token              | Default    | Intended role                                                          |
+| ------------------ | ---------- | ---------------------------------------------------------------------- |
+| `--moduix-size-xs` | `1.5rem`   | Small icon controls and compact actions.                               |
+| `--moduix-size-sm` | `2rem`     | Popup rows and secondary compact controls.                             |
+| `--moduix-size-md` | `2.25rem`  | Default inputs, buttons, triggers, pagination, and composite controls. |
+| `--moduix-size-lg` | `2.5rem`   | Deliberately roomy controls.                                           |
+| `--moduix-size-xl` | `3rem`     | Prominent controls and touch-oriented layouts.                         |
 
 Most primary controls resolve through `--moduix-size-md`. Items inside menus, selects, comboboxes,
 command palettes, and similar popups resolve through `--moduix-size-sm`. This keeps a trigger and
@@ -187,13 +187,13 @@ its popup visually related while giving the popup a slightly denser information 
 
 ```css
 :root {
-  --moduix-size-md: 36px;
-  --moduix-size-sm: 32px;
+  --moduix-size-md: 2.25rem;
+  --moduix-size-sm: 2rem;
 }
 
 [data-moduix-theme='compact'] {
-  --moduix-size-md: 34px;
-  --moduix-popup-item-min-height: 30px;
+  --moduix-size-md: 2.125rem;
+  --moduix-popup-item-min-height: 1.875rem;
 }
 ```
 
@@ -242,9 +242,10 @@ intermediate component padding, icon geometry, and focus offsets follow automati
 
 Set project-wide tokens in `:root`. Colors and primitives also work on any element, such as a class
 on one section of the page. Derived steps such as `--moduix-spacing-1-5` and `--moduix-radius-md` are
-recalculated only on `:root` and on elements with `data-moduix-theme` or `data-moduix-color-scheme`.
-When you change spacing or `--moduix-radius` for one part of the page, put the overrides on an element
-with `data-moduix-theme`; on a plain class, half steps and radii keep their old values.
+recalculated on `:root`, on elements with `data-moduix-theme` or `data-moduix-color-scheme`, and on
+elements with inline `--moduix-radius` or `--moduix-spacing-*` overrides. When scoping spacing or
+radius overrides through a CSS class, also add `data-moduix-theme` to that container so derived steps
+recalculate for its subtree.
 
 Values are inherited only by components rendered inside that element. Default portalled overlays
 need the value on the document root, `body`, or a portal container in the same scope.

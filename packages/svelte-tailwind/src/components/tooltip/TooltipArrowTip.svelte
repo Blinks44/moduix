@@ -8,6 +8,6 @@
 <TooltipArrowTip
   {...props}
   bind:ref
-  class={cn('border-t border-l border-border', className)}
+  class={cn('border-t border-l border-transparent', className)}
   data-slot="tooltip-arrow-tip"
 />

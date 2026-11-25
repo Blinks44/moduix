@@ -2,7 +2,16 @@
   import type { HTMLProps, PolymorphicProps, RefAttribute } from '@ark-ui/svelte';
 
   export type BadgeSize = 'sm' | 'md' | 'lg';
-  export type BadgeVariant = 'default' | 'secondary' | 'destructive' | 'outline' | 'ghost' | 'link';
+  export type BadgeVariant =
+    | 'default'
+    | 'secondary'
+    | 'destructive'
+    | 'success'
+    | 'warning'
+    | 'info'
+    | 'outline'
+    | 'ghost'
+    | 'link';
 
   export interface BadgeRootProps
     extends HTMLProps<'span'>, PolymorphicProps<'span'>, RefAttribute {

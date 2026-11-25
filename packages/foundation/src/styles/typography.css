@@ -14,20 +14,22 @@
   --moduix-weight-bold: 700;
 
   /* Font-size */
-  --moduix-text-xs: 12px;
-  --moduix-text-sm: 14px;
-  --moduix-text-md: 16px;
-  --moduix-text-lg: 18px;
-  --moduix-text-xl: 20px;
-  --moduix-text-2xl: 24px;
-  --moduix-text-3xl: 30px;
+  --moduix-text-2xs: 0.6875rem;
+  --moduix-text-xs: 0.75rem;
+  --moduix-text-sm: 0.875rem;
+  --moduix-text-md: 1rem;
+  --moduix-text-lg: 1.125rem;
+  --moduix-text-xl: 1.25rem;
+  --moduix-text-2xl: 1.5rem;
+  --moduix-text-3xl: 1.875rem;
 
   /* Line-height */
-  --moduix-line-height-text-xs: 16px;
-  --moduix-line-height-text-sm: 20px;
-  --moduix-line-height-text-md: 24px;
-  --moduix-line-height-text-lg: 28px;
-  --moduix-line-height-text-xl: 28px;
-  --moduix-line-height-text-2xl: 32px;
-  --moduix-line-height-text-3xl: 36px;
+  --moduix-line-height-text-2xs: 0.9375rem;
+  --moduix-line-height-text-xs: 1rem;
+  --moduix-line-height-text-sm: 1.25rem;
+  --moduix-line-height-text-md: 1.5rem;
+  --moduix-line-height-text-lg: 1.75rem;
+  --moduix-line-height-text-xl: 1.75rem;
+  --moduix-line-height-text-2xl: 2rem;
+  --moduix-line-height-text-3xl: 2.25rem;
 }

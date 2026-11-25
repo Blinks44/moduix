@@ -1,14 +1,14 @@
 # moduix + Solid + Vite
 
 A standalone TypeScript app using the published `@moduix/solid` package with CSS Modules.
-Requires Node.js 22.12+ and pnpm 12.14.0.
+Requires Node.js 22.12+ and pnpm (or any Node package manager).
 
 ## Create an app
 
 ```bash
 pnpm dlx giget@latest gh:Blinks44/moduix/starters/solid-vite my-app
 cd my-app
-pnpm install --frozen-lockfile
+pnpm install
 pnpm dev
 ```
 
@@ -19,7 +19,7 @@ imported once in `src/main.tsx`. The app follows your system's light or dark the
 Search and filter the table, create or edit projects in a Dialog, and undo deletion from a Toast.
 The sidebar also opens Team, Reports, and Settings; on mobile it becomes a Drawer.
 Sample data lives in `src/data.ts`. Edits stay in memory and reset when the page reloads.
-Connect your API in `src/App.tsx` (or `src/App.vue` for Vue) to persist changes.
+Connect your API in `src/App.tsx` to persist changes.
 Overlays render inside `#app-root` through the native portal reference in `src/portal.ts`.
 
 ## Build

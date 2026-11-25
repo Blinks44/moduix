@@ -27,16 +27,15 @@ type ButtonRootProps = HTMLArkProps<'button'> & {
 };
 
 const buttonVariants = cva(
-  "inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border text-sm font-medium no-underline appearance-none transition-[background-color,border-color,color,opacity,transform,translate] duration-fast ease-in-out select-none whitespace-nowrap focus-visible:outline-focus focus-visible:outline-offset-focus-inset focus-visible:outline-ring data-disabled:pointer-events-none data-disabled:opacity-disabled motion-safe:[&[data-slot='button-root']:not([data-variant='link']):not([aria-haspopup]):active]:translate-y-px [&>svg:not([class*='size-'])]:size-4 [&>svg]:shrink-0",
+  "inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border text-sm font-medium no-underline appearance-none transition-[background-color,border-color,color,opacity,transform,translate] duration-fast ease-in-out select-none whitespace-nowrap focus-visible:outline-focus focus-visible:outline-offset-focus focus-visible:outline-ring data-disabled:pointer-events-none data-disabled:opacity-disabled motion-safe:[&[data-slot='button-root']:not([data-variant='link']):not([aria-haspopup]):active]:translate-y-px [&>svg:not([class*='size-'])]:size-4 [&>svg]:shrink-0",
   {
     variants: {
       variant: {
-        default:
-          'border-primary bg-primary text-primary-foreground hover:bg-[color-mix(in_srgb,var(--color-primary)_88%,black)]',
+        default: 'border-transparent bg-primary text-primary-foreground hover:bg-primary/88',
         outline: 'border-border bg-background text-foreground hover:bg-accent',
-        secondary: 'border-secondary bg-secondary text-secondary-foreground hover:bg-accent',
+        secondary: 'border-transparent bg-secondary text-secondary-foreground hover:bg-accent',
         destructive:
-          'border-destructive bg-destructive text-destructive-foreground hover:bg-[color-mix(in_srgb,var(--color-destructive)_88%,black)]',
+          'border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/88',
         'destructive-outline':
           'border-destructive bg-background text-destructive hover:bg-destructive hover:text-destructive-foreground',
         ghost: 'border-transparent bg-transparent text-foreground hover:bg-accent',

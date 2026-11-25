@@ -410,8 +410,7 @@
     "tsc:check": "tsc --noEmit"
   },
   "dependencies": {
-    "clsx": "catalog:",
-    "lucide-react": "catalog:"
+    "clsx": "catalog:"
   },
   "devDependencies": {
     "@ark-ui/react": "catalog:",

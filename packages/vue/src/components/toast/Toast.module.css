@@ -27,7 +27,7 @@
       scale var(--moduix-duration-slow),
       opacity var(--moduix-duration-slow),
       height var(--moduix-duration-slow);
-    transition-timing-function: cubic-bezier(0.21, 1.02, 0.73, 1);
+    transition-timing-function: var(--moduix-ease-toast-in);
 
     /* Room for the absolutely positioned close trigger. */
     &:has([data-slot='toast-close-trigger']) {
@@ -39,7 +39,14 @@
         translate var(--moduix-duration-slow),
         scale var(--moduix-duration-slow),
         opacity var(--moduix-duration-normal);
-      transition-timing-function: cubic-bezier(0.06, 0.71, 0.55, 1);
+      transition-timing-function: var(--moduix-ease-toast-out);
+    }
+
+    &[data-type='info'] {
+      --_toast-bg: color-mix(in oklab, var(--moduix-info) 10%, var(--moduix-background));
+      --_toast-border-color: color-mix(in oklab, var(--moduix-info) 34%, transparent);
+      --_toast-hover: color-mix(in oklab, var(--moduix-info) 16%, transparent);
+      --_toast-color: var(--moduix-foreground);
     }
 
     &[data-type='success'] {
@@ -117,8 +124,8 @@
     }
 
     &:focus-visible {
-      outline: var(--moduix-focus-ring-inset-width) solid var(--moduix-ring);
-      outline-offset: 0;
+      outline: var(--moduix-focus-ring-width) solid var(--moduix-ring);
+      outline-offset: var(--moduix-focus-ring-offset);
     }
   }
 

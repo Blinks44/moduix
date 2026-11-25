@@ -6,6 +6,8 @@
   --font-weight-medium: var(--moduix-weight-medium);
   --font-weight-semibold: var(--moduix-weight-semibold);
   --font-weight-bold: var(--moduix-weight-bold);
+  --text-2xs: var(--moduix-text-2xs);
+  --text-2xs--line-height: var(--moduix-line-height-text-2xs);
   --text-xs: var(--moduix-text-xs);
   --text-xs--line-height: var(--moduix-line-height-text-xs);
   --text-sm: var(--moduix-text-sm);
@@ -68,6 +70,8 @@
   --ease-out: var(--moduix-ease-out);
   --ease-in-out: var(--moduix-ease-in-out);
   --ease-spring: var(--moduix-ease-spring);
+  --ease-toast-in: var(--moduix-ease-toast-in);
+  --ease-toast-out: var(--moduix-ease-toast-out);
   --color-background: var(--moduix-background);
   --color-foreground: var(--moduix-foreground);
   --color-card: var(--moduix-card);
@@ -85,7 +89,11 @@
   --color-destructive: var(--moduix-destructive);
   --color-destructive-foreground: var(--moduix-destructive-foreground);
   --color-success: var(--moduix-success);
+  --color-success-foreground: var(--moduix-success-foreground);
   --color-warning: var(--moduix-warning);
+  --color-warning-foreground: var(--moduix-warning-foreground);
+  --color-info: var(--moduix-info);
+  --color-info-foreground: var(--moduix-info-foreground);
   --color-border: var(--moduix-border);
   --color-input: var(--moduix-input);
   --color-ring: var(--moduix-ring);

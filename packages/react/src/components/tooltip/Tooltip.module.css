@@ -34,8 +34,8 @@
     }
 
     &:focus-visible {
-      outline: var(--moduix-focus-ring-inset-width) solid var(--moduix-ring);
-      outline-offset: var(--moduix-focus-ring-inset-offset);
+      outline: var(--moduix-focus-ring-width) solid var(--moduix-ring);
+      outline-offset: var(--moduix-focus-ring-offset);
     }
 
     &:disabled {
@@ -63,14 +63,14 @@
     position: relative;
     max-width: min(20rem, var(--available-width));
     overflow-wrap: anywhere;
-    padding: var(--moduix-spacing-1) var(--moduix-spacing-2);
-    border: var(--moduix-border-width-sm) solid var(--moduix-border);
+    padding: var(--moduix-spacing-1) var(--moduix-spacing-2-5);
+    border: var(--moduix-border-width-sm) solid transparent;
     border-radius: var(--moduix-radius-md);
-    background-color: var(--moduix-popover);
-    color: var(--moduix-popover-foreground);
+    background-color: var(--moduix-foreground);
+    color: var(--moduix-background);
     box-shadow: var(--moduix-shadow-md);
-    font-size: var(--moduix-text-sm);
-    line-height: var(--moduix-line-height-text-sm);
+    font-size: var(--moduix-text-xs);
+    line-height: var(--moduix-line-height-text-xs);
     text-align: center;
     transform-origin: var(--transform-origin);
 
@@ -94,12 +94,12 @@
 
   .arrow {
     --arrow-size: var(--moduix-spacing-2-5);
-    --arrow-background: var(--moduix-popover);
+    --arrow-background: var(--moduix-foreground);
   }
 
   .arrowTip {
-    border-top: var(--moduix-border-width-sm) solid var(--moduix-border);
-    border-left: var(--moduix-border-width-sm) solid var(--moduix-border);
+    border-top: var(--moduix-border-width-sm) solid transparent;
+    border-left: var(--moduix-border-width-sm) solid transparent;
   }
 
   @media (prefers-reduced-motion: reduce) {

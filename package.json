@@ -9,6 +9,7 @@
     "build:registry": "pnpm run registry:validate && pnpm run registry:clean && pnpm run registry:build",
     "check:a11y": "node scripts/check-a11y.mjs",
     "check:css-modules": "node scripts/check-css-modules.mjs",
+    "sync:css-modules": "node scripts/check-css-modules.mjs --sync",
     "check:exports": "node scripts/check-exports.mjs",
     "compare:stories": "node scripts/compare-stories.mjs",
     "check:packages": "turbo run check:package -F './packages/*'",

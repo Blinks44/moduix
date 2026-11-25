@@ -175,6 +175,13 @@
     line-height: var(--moduix-line-height-text-sm);
     outline: 0;
 
+    .root[data-variant='line'] & {
+      border: 0;
+      border-radius: 0;
+      background-color: transparent;
+      padding: 0;
+    }
+
     &:focus-visible {
       outline: var(--moduix-focus-ring-inset-width) solid var(--moduix-ring);
       outline-offset: var(--moduix-focus-ring-inset-offset);

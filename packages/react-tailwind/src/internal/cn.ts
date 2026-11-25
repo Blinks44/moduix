@@ -5,9 +5,9 @@ const twMerge = extendTailwindMerge({
   extend: {
     theme: {
       spacing: ['control-xs', 'control-sm', 'control-md', 'control-lg', 'control-xl'],
-      text: ['md'],
+      text: ['2xs', 'md'],
       'font-weight': ['regular'],
-      ease: ['spring'],
+      ease: ['spring', 'toast-in', 'toast-out'],
     },
     classGroups: {
       duration: [{ duration: ['fast', 'normal', 'slow', 'slower'] }],

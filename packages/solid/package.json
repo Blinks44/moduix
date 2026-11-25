@@ -586,8 +586,7 @@
     "tsc:check": "tsc --noEmit"
   },
   "dependencies": {
-    "clsx": "catalog:",
-    "lucide-solid": "catalog:"
+    "clsx": "catalog:"
   },
   "devDependencies": {
     "@ark-ui/solid": "catalog:",

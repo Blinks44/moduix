@@ -9,7 +9,16 @@ import styles from './Badge.module.css';
 defineOptions({ inheritAttrs: false });
 
 export type BadgeSize = 'sm' | 'md' | 'lg';
-export type BadgeVariant = 'default' | 'secondary' | 'destructive' | 'outline' | 'ghost' | 'link';
+export type BadgeVariant =
+  | 'default'
+  | 'secondary'
+  | 'destructive'
+  | 'success'
+  | 'warning'
+  | 'info'
+  | 'outline'
+  | 'ghost'
+  | 'link';
 
 export interface Props extends /* @vue-ignore */ HTMLArkProps<'span'> {
   variant?: BadgeVariant;

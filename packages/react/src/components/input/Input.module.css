@@ -3,8 +3,16 @@
     --_input-height: var(--moduix-size-md);
     --_input-padding-x: var(--moduix-spacing-3);
     --_input-padding-y: var(--moduix-spacing-1);
-    --_input-font-size: var(--moduix-text-md);
-    --_input-line-height: var(--moduix-line-height-text-md);
+    --_input-font-size: var(--moduix-text-sm);
+    --_input-line-height: var(--moduix-line-height-text-sm);
+
+    @media (pointer: coarse) {
+      &:not([data-size]),
+      &[data-size='md'] {
+        --_input-font-size: var(--moduix-text-md);
+        --_input-line-height: var(--moduix-line-height-text-md);
+      }
+    }
 
     width: var(--moduix-input-width, 100%);
     min-width: 0;
@@ -30,7 +38,7 @@
 
     &::file-selector-button {
       margin-inline-end: var(--moduix-spacing-3);
-      border: var(--moduix-border-width-sm) solid var(--moduix-primary);
+      border: var(--moduix-border-width-sm) solid transparent;
       border-radius: var(--moduix-radius-md);
       padding: var(--moduix-spacing-0-5) var(--moduix-spacing-2);
       background-color: var(--moduix-primary);
@@ -39,11 +47,11 @@
       font-weight: var(--moduix-weight-medium);
       line-height: inherit;
       cursor: pointer;
-      transition: background-color var(--moduix-transition-default);
+      transition: background-color var(--moduix-transition-fast);
 
       @media (hover: hover) {
         &:hover {
-          background-color: var(--moduix-foreground);
+          background-color: color-mix(in oklab, var(--moduix-primary) 88%, transparent);
         }
       }
     }

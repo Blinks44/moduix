@@ -76,7 +76,6 @@
       "type": "registry:item",
       "title": "moduix icons",
       "description": "Internal icons used by moduix React Tailwind components.",
-      "dependencies": ["lucide-react@^1.77.0"],
       "files": [
         {
           "path": "src/internal/icons/ui/index.ts",

@@ -17,8 +17,8 @@ export default defineConfig({
       name: 'node',
       plugins: [svelte('server')],
       resolve: { alias },
-      // Node cannot load `.svelte` files from Ark and Lucide or zag's extensionless ESM imports.
-      output: { bundleDependencies: ['@ark-ui/svelte', '@lucide/svelte', '@zag-js/svelte'] },
+      // Node cannot load `.svelte` files from Ark or zag's extensionless ESM imports.
+      output: { bundleDependencies: ['@ark-ui/svelte', '@zag-js/svelte'] },
       testEnvironment: 'node',
       // SSR fixtures are shared with the CSS Modules package; `@/` resolves to this package's source.
       include: ['tests/**/*.test.ts', '../svelte/tests/*.test.ts'],

@@ -16,6 +16,17 @@
     background-color: var(--moduix-alert-bg, var(--_alert-bg));
     color: var(--moduix-alert-color, var(--_alert-color));
 
+    &[data-status='info'] {
+      --_alert-bg: color-mix(in oklab, var(--moduix-info) 10%, var(--moduix-background));
+      --_alert-border-color: color-mix(in oklab, var(--moduix-info) 34%, transparent);
+      --_alert-color: var(--moduix-foreground);
+      --_alert-indicator-color: color-mix(
+        in oklab,
+        var(--moduix-info) 70%,
+        var(--moduix-foreground)
+      );
+    }
+
     &[data-status='success'] {
       --_alert-bg: color-mix(in oklab, var(--moduix-success) 10%, var(--moduix-background));
       --_alert-border-color: color-mix(in oklab, var(--moduix-success) 34%, transparent);

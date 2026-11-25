@@ -1,5 +1,11 @@
 :root {
-  --moduix-shadow-sm: 0 2px 4px 0 #0000001a, 0 1px 2px -1px #0000001a;
-  --moduix-shadow-md: 0 4px 6px -1px #0000001a, 0 2px 4px -2px #0000001a;
-  --moduix-shadow-lg: 0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;
+  --moduix-shadow-sm:
+    0 2px 4px 0 light-dark(rgb(0 0 0 / 0.1), rgb(0 0 0 / 0.4)),
+    0 1px 2px -1px light-dark(rgb(0 0 0 / 0.1), rgb(0 0 0 / 0.35));
+  --moduix-shadow-md:
+    0 4px 6px -1px light-dark(rgb(0 0 0 / 0.1), rgb(0 0 0 / 0.45)),
+    0 2px 4px -2px light-dark(rgb(0 0 0 / 0.1), rgb(0 0 0 / 0.4));
+  --moduix-shadow-lg:
+    0 10px 15px -3px light-dark(rgb(0 0 0 / 0.1), rgb(0 0 0 / 0.55)),
+    0 4px 6px -4px light-dark(rgb(0 0 0 / 0.1), rgb(0 0 0 / 0.45));
 }

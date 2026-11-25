@@ -13,8 +13,8 @@ Ark UI has no dedicated Badge primitive. moduix uses the
 
 ## Public contract
 
-- `Badge` is the root part with `default`, `secondary`, `destructive`, `outline`, `ghost`, and
-  `link` variants and `sm`, `md` (default), and `lg` sizes. `data-variant` and `data-size` are always
+- `Badge` is the root part with `default`, `secondary`, `destructive`, `success`, `warning`,
+  `info`, `outline`, `ghost`, and `link` variants and `sm`, `md` (default), and `lg` sizes. `data-variant` and `data-size` are always
   written. The `link` variant keeps its own height and inline padding at every size.
 - `BadgeLabel` is an explicit text part for composed or truncatable labels.
 - `BadgeDot` is an optional decorative part and always renders `aria-hidden="true"`.

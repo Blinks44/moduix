@@ -24,7 +24,7 @@
   --moduix-sidebar-border: light-dark(oklch(0.72 0.025 250), oklch(0.8 0.025 250 / 0.34));
   --moduix-sidebar-ring: light-dark(oklch(0.5 0.19 255), oklch(0.74 0.13 255));
   --moduix-radius: 0.375rem;
-  --moduix-shadow-sm: 0 1px 2px rgb(15 23 42 / 0.1);
-  --moduix-shadow-md: 0 4px 10px rgb(15 23 42 / 0.14);
-  --moduix-shadow-lg: 0 16px 30px rgb(15 23 42 / 0.18);
+  --moduix-shadow-sm: 0 1px 2px light-dark(rgb(15 23 42 / 0.1), rgb(0 0 0 / 0.45));
+  --moduix-shadow-md: 0 4px 10px light-dark(rgb(15 23 42 / 0.14), rgb(0 0 0 / 0.55));
+  --moduix-shadow-lg: 0 16px 30px light-dark(rgb(15 23 42 / 0.18), rgb(0 0 0 / 0.65));
 }

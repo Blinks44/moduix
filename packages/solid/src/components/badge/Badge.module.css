@@ -39,7 +39,10 @@
         &:is(
             [data-variant='default'],
             [data-variant='secondary'],
-            [data-variant='destructive']
+            [data-variant='destructive'],
+            [data-variant='success'],
+            [data-variant='warning'],
+            [data-variant='info']
           ):hover {
           opacity: var(--moduix-opacity-hover);
         }
@@ -69,8 +72,8 @@
     &[data-size='sm'] {
       min-height: 1rem;
       padding-inline: var(--moduix-spacing-2);
-      font-size: 0.625rem;
-      line-height: 0.875rem;
+      font-size: var(--moduix-text-2xs);
+      line-height: var(--moduix-line-height-text-2xs);
     }
 
     &[data-size='lg'] {
@@ -88,6 +91,21 @@
     &[data-variant='destructive'] {
       background-color: var(--moduix-badge-bg, var(--moduix-destructive));
       color: var(--moduix-badge-color, var(--moduix-destructive-foreground));
+    }
+
+    &[data-variant='success'] {
+      background-color: var(--moduix-badge-bg, var(--moduix-success));
+      color: var(--moduix-badge-color, var(--moduix-success-foreground));
+    }
+
+    &[data-variant='warning'] {
+      background-color: var(--moduix-badge-bg, var(--moduix-warning));
+      color: var(--moduix-badge-color, var(--moduix-warning-foreground));
+    }
+
+    &[data-variant='info'] {
+      background-color: var(--moduix-badge-bg, var(--moduix-info));
+      color: var(--moduix-badge-color, var(--moduix-info-foreground));
     }
 
     &[data-variant='outline'] {

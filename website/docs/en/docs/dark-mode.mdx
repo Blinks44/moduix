@@ -10,15 +10,17 @@ import SvelteScopedSurface from '../../../snippets/dark-mode/svelte/scoped-surfa
 
 # Dark mode
 
-moduix ships light and dark semantic tokens. Load the stylesheet for your chosen framework and styling
-track, then set `data-moduix-color-scheme` on the element that should own the color scheme. No moduix
-theme provider or runtime state is required.
+moduix ships light and dark semantic tokens powered by CSS `light-dark()`. By default `:root` sets
+`color-scheme: light dark`, so components automatically follow the operating-system color scheme
+without any JavaScript or provider. To force a scheme explicitly, set `data-moduix-color-scheme` or
+toggle a `.dark` / `.light` class on `<html>` or any scoped container.
 
 ## Choose the scope
 
-| Goal | Put the attribute on |
+| Goal | Put the attribute or class on |
 | --- | --- |
-| Application-wide theme | `<html>` |
+| Follow OS preference automatically | Nothing required (`:root` defaults to `light dark`) |
+| Application-wide explicit theme | `<html>` |
 | Embedded surface without portals | The surface wrapper |
 | Embedded surface with portals | A portal container inside that surface |
 
@@ -26,17 +28,21 @@ Prefer `<html>` for normal applications. It gives regular and portalled componen
 
 ## Set the document scheme
 
-Use the native document attributes as the source of truth:
+Use either the `data-moduix-color-scheme` attribute or standard `.dark` / `.light` classes:
 
 ```html
 <html data-moduix-color-scheme="dark"></html>
+<!-- or -->
+<html class="dark"></html>
 ```
 
-Use `dark` or `light`. moduix does not read system preferences, persist a choice, or synchronize
-browser state. Your application makes those decisions.
+Use `dark` or `light` to override the operating-system preference, or remove the attribute/class to
+return to automatic system mode. moduix does not persist a choice or synchronize browser storage;
+your application controls persistence.
 
-If the application renders on the server, resolve the scheme before the first paint with the early
-theme mechanism provided by your framework. This avoids showing the light palette before hydration.
+If the application renders on the server and allows overriding the OS preference, resolve the saved
+scheme before the first paint with the early theme mechanism provided by your framework so the first
+paint matches the user's choice.
 
 ## Resolve and save a preference
 
@@ -68,15 +74,9 @@ accessible action label, such as `Switch to dark mode`.
 
 ## Use an existing theme switcher
 
-If your application already switches themes with a `dark` class, as shadcn/ui projects, next-themes
-with `attribute="class"`, and VueUse `useDark()` do, map that class to the native color scheme.
-moduix tokens follow it the same way they follow the attribute:
-
-```css
-.dark {
-  color-scheme: dark;
-}
-```
+moduix maps `.dark` and `.light` classes to `color-scheme: dark` and `color-scheme: light` out of
+the box, so projects using shadcn/ui, `next-themes` with `attribute="class"`, or VueUse `useDark()`
+work without extra CSS.
 
 Tailwind's `dark:` variant follows the operating-system preference by default. When you switch with
 `data-moduix-color-scheme`, point the variant at the attribute so your utilities and moduix

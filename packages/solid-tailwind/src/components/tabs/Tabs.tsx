@@ -96,7 +96,7 @@ function TabsContent(props: ComponentProps<typeof TabsPrimitive.Content>) {
   return (
     <TabsPrimitive.Content
       class={cn(
-        'min-w-0 flex-1 rounded-lg border border-border bg-background p-4 text-sm leading-5 outline-0 focus-visible:outline-focus-inset focus-visible:outline-offset-focus-inset focus-visible:outline-ring',
+        'min-w-0 flex-1 rounded-lg border border-border bg-background p-4 text-sm leading-5 outline-0 group-data-[variant=line]/tabs:rounded-none group-data-[variant=line]/tabs:border-0 group-data-[variant=line]/tabs:bg-transparent group-data-[variant=line]/tabs:p-0 focus-visible:outline-focus-inset focus-visible:outline-offset-focus-inset focus-visible:outline-ring',
         local.class,
       )}
       {...others}

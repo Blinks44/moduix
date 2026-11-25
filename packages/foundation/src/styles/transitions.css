@@ -10,6 +10,8 @@
   --moduix-ease-out: cubic-bezier(0, 0, 0.2, 1);
   --moduix-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
   --moduix-ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
+  --moduix-ease-toast-in: cubic-bezier(0.21, 1.02, 0.73, 1);
+  --moduix-ease-toast-out: cubic-bezier(0.06, 0.71, 0.55, 1);
 
   /* Composed (shorthand) */
   --moduix-transition-default: var(--moduix-duration-normal) var(--moduix-ease-in-out);

@@ -498,7 +498,6 @@
     "tsc:check": "svelte-check --tsconfig ./tsconfig.json --fail-on-warnings"
   },
   "dependencies": {
-    "@lucide/svelte": "catalog:",
     "clsx": "catalog:"
   },
   "devDependencies": {

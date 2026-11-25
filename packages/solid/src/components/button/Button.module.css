@@ -2,8 +2,12 @@
   .root {
     --_button-bg: var(--moduix-primary);
     --_button-color: var(--moduix-primary-foreground);
-    --_button-border-color: var(--moduix-button-bg, var(--_button-bg));
-    --_button-bg-hover: color-mix(in srgb, var(--moduix-button-bg, var(--_button-bg)) 88%, black);
+    --_button-border-color: transparent;
+    --_button-bg-hover: color-mix(
+      in oklab,
+      var(--moduix-button-bg, var(--_button-bg)) 88%,
+      transparent
+    );
     --_button-color-hover: var(--moduix-button-color, var(--_button-color));
     --_button-height: var(--moduix-size-md);
     --_button-padding-x: var(--moduix-spacing-4);
@@ -35,7 +39,7 @@
 
     &:focus-visible {
       outline: var(--moduix-focus-ring-width) solid var(--moduix-ring);
-      outline-offset: calc(var(--moduix-button-border-width, var(--moduix-border-width-sm)) * -1);
+      outline-offset: var(--moduix-focus-ring-offset);
     }
 
     @media (prefers-reduced-motion: no-preference) {

@@ -586,7 +586,6 @@
   "dependencies": {
     "class-variance-authority": "catalog:",
     "clsx": "catalog:",
-    "lucide-solid": "catalog:",
     "tailwind-merge": "catalog:"
   },
   "devDependencies": {

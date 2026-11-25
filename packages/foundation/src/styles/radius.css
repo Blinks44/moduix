@@ -4,7 +4,7 @@
 }
 
 :root,
-:where([data-moduix-theme], [data-moduix-color-scheme]) {
+:where([data-moduix-theme], [data-moduix-color-scheme], [style*='--moduix-radius']) {
   --moduix-radius-xs: calc(var(--moduix-radius) * 0.4);
   --moduix-radius-sm: calc(var(--moduix-radius) * 0.6);
   --moduix-radius-md: calc(var(--moduix-radius) * 0.8);

@@ -4,7 +4,16 @@ import { clsx } from 'clsx';
 import { splitProps } from 'solid-js';
 import styles from './Badge.module.css';
 
-type BadgeVariant = 'default' | 'secondary' | 'destructive' | 'outline' | 'ghost' | 'link';
+type BadgeVariant =
+  | 'default'
+  | 'secondary'
+  | 'destructive'
+  | 'success'
+  | 'warning'
+  | 'info'
+  | 'outline'
+  | 'ghost'
+  | 'link';
 
 type BadgeSize = 'sm' | 'md' | 'lg';
 

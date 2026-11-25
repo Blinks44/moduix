@@ -15,7 +15,7 @@ const alertVariants = cva(
   {
     variants: {
       status: {
-        info: 'border-border [--_alert-indicator-color:var(--color-muted-foreground)]',
+        info: 'border-info/34 bg-[color-mix(in_oklab,var(--color-info)_10%,var(--color-background))] text-foreground [--_alert-indicator-color:color-mix(in_oklab,var(--color-info)_70%,var(--color-foreground))]',
         success:
           'border-success/34 bg-[color-mix(in_oklab,var(--color-success)_10%,var(--color-background))] text-foreground [--_alert-indicator-color:color-mix(in_oklab,var(--color-success)_70%,var(--color-foreground))]',
         warning:

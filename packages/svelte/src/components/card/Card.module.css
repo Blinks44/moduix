@@ -26,7 +26,7 @@
 
     &:focus-visible {
       outline: var(--moduix-focus-ring-width) solid var(--moduix-ring);
-      outline-offset: var(--moduix-border-width-sm);
+      outline-offset: var(--moduix-focus-ring-offset);
     }
 
     &[data-size='sm'] {
@@ -183,7 +183,7 @@
 
     &:focus-visible::after {
       outline: var(--moduix-focus-ring-width) solid var(--moduix-ring);
-      outline-offset: var(--moduix-border-width-sm);
+      outline-offset: var(--moduix-focus-ring-offset);
     }
   }
 }

@@ -9,4 +9,4 @@
 '@moduix/vue-tailwind': minor
 ---
 
-Enumerate explicit component subpath exports for IDE auto-import, move `unpic` packages to optional peer dependencies, and ship CSS Modules `style.css` without Tailwind `@theme inline` blocks.
+Enumerate explicit component subpath exports for IDE auto-import, move `unpic` packages to optional peer dependencies, replace internal Lucide UI icons with inline SVGs to drop `lucide-*` runtime dependencies, and ship CSS Modules `style.css` without Tailwind `@theme inline` blocks.

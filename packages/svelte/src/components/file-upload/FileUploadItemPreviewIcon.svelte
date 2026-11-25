@@ -1,10 +1,10 @@
 <script lang="ts">
-  import type { LucideProps } from '@lucide/svelte';
   import { clsx } from 'clsx';
+  import type { SVGAttributes } from 'svelte/elements';
   import { FileIcon } from '@/lib/moduix/icons/ui';
   import styles from './FileUpload.module.css';
 
-  let { class: className, ...props }: LucideProps = $props();
+  let { class: className, ...props }: SVGAttributes<SVGSVGElement> = $props();
 </script>
 
 <FileIcon

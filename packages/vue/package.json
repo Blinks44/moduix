@@ -410,7 +410,6 @@
     "tsc:check": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "@lucide/vue": "catalog:",
     "clsx": "catalog:"
   },
   "devDependencies": {

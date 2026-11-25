@@ -17,7 +17,7 @@ defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
 const contentClass =
-  'min-w-0 flex-1 rounded-lg border border-border bg-background p-4 text-sm leading-5 outline-0 focus-visible:outline-focus-inset focus-visible:outline-offset-focus-inset focus-visible:outline-ring';
+  'min-w-0 flex-1 rounded-lg border border-border bg-background p-4 text-sm leading-5 outline-0 group-data-[variant=line]/tabs:rounded-none group-data-[variant=line]/tabs:border-0 group-data-[variant=line]/tabs:bg-transparent group-data-[variant=line]/tabs:p-0 focus-visible:outline-focus-inset focus-visible:outline-offset-focus-inset focus-visible:outline-ring';
 </script>
 
 <template>

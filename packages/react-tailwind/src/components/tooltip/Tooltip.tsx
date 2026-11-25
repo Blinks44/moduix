@@ -56,7 +56,7 @@ const TooltipTrigger = forwardRef<
       asChild={asChild}
       className={cn(
         !asChild &&
-          'inline-flex min-h-control-md cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3.5 py-1 text-sm text-foreground outline-0 transition-[background-color,border-color,color] duration-normal ease-in-out select-none focus-visible:outline-focus-inset focus-visible:outline-offset-focus-inset focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-disabled data-[state=open]:not-data-[value]:bg-accent data-[current]:data-[state=open]:bg-accent [@media(hover:hover)]:hover:bg-accent',
+          'inline-flex min-h-control-md cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3.5 py-1 text-sm text-foreground outline-0 transition-[background-color,border-color,color] duration-normal ease-in-out select-none hover:bg-accent focus-visible:outline-focus focus-visible:outline-offset-focus focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-disabled data-[state=open]:not-data-[value]:bg-accent data-[current]:data-[state=open]:bg-accent',
         className,
       )}
       {...props}
@@ -111,7 +111,7 @@ const TooltipContent = forwardRef<
     <TooltipPrimitive.Content
       ref={ref}
       className={cn(
-        'relative max-w-[min(20rem,var(--available-width))] origin-(--transform-origin) rounded-md border border-border bg-popover px-2 py-1 text-center text-sm wrap-anywhere text-popover-foreground shadow-md data-instant:data-[state]:animate-none data-[state=closed]:animate-moduix-popup-out data-[state=open]:animate-moduix-popup-in motion-reduce:data-[state]:animate-none',
+        'relative max-w-[min(20rem,var(--available-width))] origin-(--transform-origin) rounded-md border border-transparent bg-foreground px-2.5 py-1 text-center text-xs wrap-anywhere text-background shadow-md data-instant:data-[state]:animate-none data-[state=closed]:animate-moduix-popup-out data-[state=open]:animate-moduix-popup-in motion-reduce:data-[state]:animate-none',
         className,
       )}
       {...props}
@@ -139,7 +139,7 @@ const TooltipArrow = forwardRef<
     <TooltipPrimitive.Arrow
       ref={ref}
       className={cn(
-        '[--arrow-background:var(--color-popover)] [--arrow-size:var(--spacing-2_5)]',
+        '[--arrow-background:var(--color-foreground)] [--arrow-size:var(--spacing-2_5)]',
         className,
       )}
       {...props}
@@ -157,7 +157,7 @@ const TooltipArrowTip = forwardRef<
   return (
     <TooltipPrimitive.ArrowTip
       ref={ref}
-      className={cn('border-t border-l border-border', className)}
+      className={cn('border-t border-l border-transparent', className)}
       {...props}
       data-slot="tooltip-arrow-tip"
     />

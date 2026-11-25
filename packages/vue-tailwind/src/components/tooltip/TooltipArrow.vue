@@ -22,7 +22,10 @@ const attrs = useAttrs();
   <ArkTooltipArrow
     v-bind="attrs"
     :class="
-      cn('[--arrow-background:var(--color-popover)] [--arrow-size:var(--spacing-2_5)]', className)
+      cn(
+        '[--arrow-background:var(--color-foreground)] [--arrow-size:var(--spacing-2_5)]',
+        className,
+      )
     "
     data-slot="tooltip-arrow"
   >
