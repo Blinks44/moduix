@@ -27,7 +27,7 @@ const textareaVariants = cva(
       size: {
         xs: 'px-2 py-1 text-xs leading-4',
         sm: 'px-2 py-1.5 text-sm leading-5',
-        md: 'px-3 py-2 text-base leading-6',
+        md: 'px-3 py-2 text-sm leading-5 [@media(pointer:coarse)]:text-base [@media(pointer:coarse)]:leading-6',
         lg: 'px-4 py-2.5 text-lg leading-7',
         xl: 'px-4 py-3 text-lg leading-7',
       },

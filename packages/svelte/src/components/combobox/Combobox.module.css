@@ -65,11 +65,18 @@
     margin: 0;
     border: 0;
     border-radius: inherit;
-    padding-inline: var(--moduix-spacing-3-5);
+    padding-inline: var(--moduix-spacing-3);
     background: transparent;
     color: inherit;
     font: inherit;
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
     outline: 0;
+
+    @media (pointer: coarse) {
+      font-size: var(--moduix-text-md);
+      line-height: var(--moduix-line-height-text-md);
+    }
 
     &::placeholder {
       color: var(--moduix-muted-foreground);

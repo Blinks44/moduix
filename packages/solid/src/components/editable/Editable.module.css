@@ -49,14 +49,19 @@
     min-height: var(--moduix-editable-area-height, var(--moduix-size-md));
     border: var(--moduix-border-width-sm) solid var(--moduix-input);
     border-radius: var(--moduix-radius-md);
-    padding: var(--moduix-spacing-1) var(--moduix-spacing-3-5);
+    padding: var(--moduix-spacing-1) var(--moduix-spacing-3);
     background-color: var(--moduix-background);
-    font-size: var(--moduix-text-md);
-    line-height: var(--moduix-line-height-text-md);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
     outline: var(--moduix-focus-ring-halo-width) solid transparent;
     transition:
       border-color var(--moduix-transition-default),
       outline-color var(--moduix-transition-default);
+
+    @media (pointer: coarse) {
+      font-size: var(--moduix-text-md);
+      line-height: var(--moduix-line-height-text-md);
+    }
 
     &:is([data-focus], :has(:focus-visible)) {
       border-color: var(--moduix-ring);

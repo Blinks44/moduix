@@ -22,8 +22,8 @@
   --moduix-info: light-dark(oklch(0.54 0.16 250), oklch(0.72 0.14 245));
   --moduix-info-foreground: light-dark(oklch(0.985 0.003 250), oklch(0.18 0.02 250));
   --moduix-border: light-dark(oklch(0.905 0.008 285), oklch(1 0.004 285 / 13%));
-  --moduix-input: light-dark(oklch(0.64 0.008 285), oklch(1 0.004 285 / 36%));
-  --moduix-ring: light-dark(oklch(0.62 0.035 285), oklch(0.585 0.038 285));
+  --moduix-input: light-dark(oklch(0.84 0.008 285), oklch(1 0.004 285 / 20%));
+  --moduix-ring: light-dark(oklch(0.705 0.018 285), oklch(0.56 0.028 285));
   --moduix-overlay: light-dark(oklch(0.175 0.014 285 / 0.2), oklch(0.105 0.012 285 / 0.74));
   --moduix-chart-1: light-dark(oklch(0.65 0.18 295), oklch(0.72 0.17 295));
   --moduix-chart-2: light-dark(oklch(0.7 0.14 175), oklch(0.76 0.13 175));
@@ -38,7 +38,7 @@
   --moduix-sidebar-accent: light-dark(oklch(0.95 0.01 285), oklch(0.29 0.015 285));
   --moduix-sidebar-accent-foreground: light-dark(oklch(0.235 0.016 285), oklch(0.968 0.003 285));
   --moduix-sidebar-border: light-dark(oklch(0.905 0.008 285), oklch(1 0.004 285 / 13%));
-  --moduix-sidebar-ring: light-dark(oklch(0.62 0.035 285), oklch(0.585 0.038 285));
+  --moduix-sidebar-ring: light-dark(oklch(0.705 0.018 285), oklch(0.56 0.028 285));
 }
 
 :where(:root) {

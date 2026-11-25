@@ -166,7 +166,7 @@ moduix `useDatePicker()`; do not also render `DatePicker` for the same state ins
 Render every view between `minView` and `maxView` whenever the composition exposes a
 `DatePickerViewTrigger`; for a single-panel picker, set both bounds to that panel.
 
-The default root width is `18.75rem` (300px), and the default popup width is `20rem` (320px), while range
+The default root and popup width is `18rem` (288px), while range
 fields use `24rem` (384px) so both inputs have enough room for their values and shared action icons. Override `--moduix-date-picker-width`
 for the field and `--moduix-date-picker-content-width` for wider popup compositions such as two visible months.
 For portalled popups, set popup sizing variables on `DatePickerContent` or another element inside

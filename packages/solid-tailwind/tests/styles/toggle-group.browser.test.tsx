@@ -31,7 +31,7 @@ test('lets consumer Tailwind classes override conflicting defaults', () => {
     paddingTop: '16px',
   });
   expect(getComputedStyle(item)).toMatchObject({
-    minHeight: '40px',
+    minHeight: '36px',
     paddingTop: '0px',
     paddingRight: '0px',
     paddingBottom: '0px',

@@ -3,9 +3,17 @@
     --_number-input-height: var(--moduix-size-md);
     --_number-input-padding-x: var(--moduix-spacing-3);
     --_number-input-padding-y: var(--moduix-spacing-1);
-    --_number-input-font-size: var(--moduix-text-md);
-    --_number-input-line-height: var(--moduix-line-height-text-md);
+    --_number-input-font-size: var(--moduix-text-sm);
+    --_number-input-line-height: var(--moduix-line-height-text-sm);
     --_number-input-icon-size: var(--moduix-spacing-3-5);
+
+    @media (pointer: coarse) {
+      &:not([data-size]),
+      &[data-size='md'] {
+        --_number-input-font-size: var(--moduix-text-md);
+        --_number-input-line-height: var(--moduix-line-height-text-md);
+      }
+    }
 
     display: flex;
     flex-direction: column;

@@ -7,6 +7,6 @@
 <DatePickerView
   {...props}
   bind:ref
-  class={cn('grid gap-3', className)}
+  class={cn('grid gap-2', className)}
   data-slot="date-picker-view"
 />

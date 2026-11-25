@@ -46,10 +46,15 @@
     min-width: 0;
     padding: var(--moduix-spacing-1) var(--moduix-spacing-3);
     background-color: var(--moduix-clipboard-input-bg, var(--moduix-background));
-    font-size: var(--moduix-text-md);
-    line-height: var(--moduix-line-height-text-md);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
     outline: var(--moduix-focus-ring-inset-width) solid transparent;
     outline-offset: calc(var(--moduix-border-width-sm) * -1);
+
+    @media (pointer: coarse) {
+      font-size: var(--moduix-text-md);
+      line-height: var(--moduix-line-height-text-md);
+    }
 
     &::placeholder {
       color: var(--moduix-muted-foreground);

@@ -89,7 +89,7 @@ test('applies native utilities and keeps consumer classes last', () => {
     paddingTop: '16px',
   });
   expect(getComputedStyle(item)).toMatchObject({
-    minHeight: '40px',
+    minHeight: '36px',
     paddingTop: '0px',
     paddingRight: '0px',
     paddingBottom: '0px',

@@ -47,13 +47,18 @@
     background-color: var(--moduix-background);
     color: inherit;
     font: inherit;
-    font-size: var(--moduix-text-md);
-    line-height: var(--moduix-line-height-text-md);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
     outline: var(--moduix-focus-ring-halo-width) solid transparent;
     transition:
       border-color var(--moduix-transition-default),
       outline-color var(--moduix-transition-default),
       opacity var(--moduix-transition-default);
+
+    @media (pointer: coarse) {
+      font-size: var(--moduix-text-md);
+      line-height: var(--moduix-line-height-text-md);
+    }
 
     &::placeholder {
       color: var(--moduix-muted-foreground);

@@ -1,7 +1,7 @@
 @layer moduix.components {
   .root {
     display: inline-flex;
-    width: var(--moduix-date-picker-width, 18.75rem);
+    width: var(--moduix-date-picker-width, 18rem);
     max-width: 100%;
     flex-direction: column;
     align-items: flex-start;
@@ -53,16 +53,21 @@
     border: var(--moduix-border-width-sm) solid var(--moduix-input);
     border-radius: var(--moduix-date-picker-radius, var(--moduix-radius-md));
     padding-block: var(--moduix-spacing-1);
-    padding-inline: var(--moduix-spacing-3-5) 4.25rem;
+    padding-inline: var(--moduix-spacing-3) 4.25rem;
     background-color: var(--moduix-background);
     color: inherit;
     font: inherit;
-    font-size: var(--moduix-text-md);
-    line-height: var(--moduix-line-height-text-md);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
     outline: var(--moduix-focus-ring-halo-width) solid transparent;
     transition:
       border-color var(--moduix-transition-default),
       outline-color var(--moduix-transition-default);
+
+    @media (pointer: coarse) {
+      font-size: var(--moduix-text-md);
+      line-height: var(--moduix-line-height-text-md);
+    }
 
     &::placeholder {
       color: var(--moduix-muted-foreground);
@@ -88,7 +93,7 @@
   }
 
   .control:has(.input[data-index='1']) .input:not([data-index='1']) {
-    padding-inline-end: var(--moduix-spacing-3-5);
+    padding-inline-end: var(--moduix-spacing-3);
   }
 
   .trigger,
@@ -178,7 +183,7 @@
 
   .content {
     z-index: calc(var(--moduix-z-popup) + var(--layer-index, 0));
-    width: var(--moduix-date-picker-content-width, 20rem);
+    width: var(--moduix-date-picker-content-width, 18rem);
     max-width: min(100vw - 2rem, var(--available-width, 100%));
     max-height: min(var(--available-height, 100dvh), 100dvh - 2rem);
     overflow: auto;
@@ -217,7 +222,7 @@
 
   .view {
     display: grid;
-    gap: var(--moduix-spacing-3);
+    gap: var(--moduix-spacing-2);
   }
 
   .viewControl {
@@ -297,11 +302,6 @@
     outline: var(--moduix-focus-ring-inset-width) solid transparent;
     outline-offset: var(--moduix-focus-ring-inset-offset);
     cursor: pointer;
-    transition:
-      background-color var(--moduix-transition-default),
-      border-color var(--moduix-transition-default),
-      color var(--moduix-transition-default),
-      outline-color var(--moduix-transition-default);
 
     &:focus-visible {
       outline-color: var(--moduix-ring);
@@ -353,8 +353,8 @@
     border: var(--moduix-border-width-sm) solid var(--moduix-input);
     border-radius: var(--moduix-radius-md);
     padding-block: var(--moduix-spacing-1);
-    padding-inline: var(--moduix-spacing-3-5)
-      calc(var(--moduix-spacing-2) + var(--moduix-size-xs) + var(--moduix-spacing-3-5));
+    padding-inline: var(--moduix-spacing-3)
+      calc(var(--moduix-spacing-2) + var(--moduix-size-xs) + var(--moduix-spacing-3));
     appearance: none;
     background-color: var(--moduix-background);
     color: var(--moduix-foreground);
@@ -378,7 +378,7 @@
     }
 
     @media (forced-colors: active) {
-      padding-inline-end: var(--moduix-spacing-3-5);
+      padding-inline-end: var(--moduix-spacing-3);
       appearance: auto;
     }
   }

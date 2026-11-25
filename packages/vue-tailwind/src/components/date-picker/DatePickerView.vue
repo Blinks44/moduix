@@ -22,7 +22,7 @@ const attrs = useAttrs();
   <ArkDatePickerView
     v-bind="attrs"
     :view="props.view"
-    :class="cn('grid gap-3', props.class)"
+    :class="cn('grid gap-2', props.class)"
     data-slot="date-picker-view"
   >
     <slot />

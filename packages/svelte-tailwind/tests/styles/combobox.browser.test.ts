@@ -16,5 +16,5 @@ test('preserves semantic hosts with asChild and consumer utility classes', async
   expect([...input.parentElement!.classList]).toEqual(expect.arrayContaining(['consumer-control']));
   expect([...input.classList]).toEqual(expect.arrayContaining(['consumer-input']));
   await expect.element(page.locator('[data-slot="combobox-root"]')).toHaveCSS('width', '320px');
-  await expect.element(page.locator('[data-slot="combobox-input"]')).toHaveCSS('height', '36px');
+  await expect.element(page.locator('[data-slot="combobox-input"]')).toHaveCSS('height', '32px');
 });

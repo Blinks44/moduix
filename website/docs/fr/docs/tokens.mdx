@@ -181,11 +181,11 @@ L’échelle par défaut est compacte sans donner une impression d’étroitesse
 
 | Token | Valeur par défaut | Rôle prévu |
 | --- | --- | --- |
-| `--moduix-size-xs` | `24px` | Petits contrôles avec icônes et actions compactes. |
-| `--moduix-size-sm` | `32px` | Lignes de listes contextuelles et contrôles secondaires compacts. |
-| `--moduix-size-md` | `36px` | Champs de saisie, boutons, déclencheurs, pagination et contrôles composites par défaut. |
-| `--moduix-size-lg` | `40px` | Contrôles volontairement plus spacieux. |
-| `--moduix-size-xl` | `48px` | Contrôles proéminents et interfaces pensées pour le tactile. |
+| `--moduix-size-xs` | `1.5rem` | Petits contrôles avec icônes et actions compactes. |
+| `--moduix-size-sm` | `1.75rem` | Lignes de listes contextuelles et contrôles secondaires compacts. |
+| `--moduix-size-md` | `2rem` | Champs de saisie, boutons, déclencheurs, pagination et contrôles composites par défaut. |
+| `--moduix-size-lg` | `2.25rem` | Contrôles volontairement plus spacieux. |
+| `--moduix-size-xl` | `2.75rem` | Contrôles proéminents et interfaces pensées pour le tactile. |
 
 La plupart des contrôles principaux utilisent `--moduix-size-md`. Les éléments des menus, Select,
 Combobox, palettes de commandes et listes contextuelles similaires utilisent `--moduix-size-sm`.
@@ -194,13 +194,13 @@ peu plus compactes.
 
 ```css
 :root {
-  --moduix-size-md: 36px;
-  --moduix-size-sm: 32px;
+  --moduix-size-md: 2rem;
+  --moduix-size-sm: 1.75rem;
 }
 
 [data-moduix-theme='compact'] {
-  --moduix-size-md: 34px;
-  --moduix-popup-item-min-height: 30px;
+  --moduix-size-md: 1.75rem;
+  --moduix-popup-item-min-height: 1.625rem;
 }
 ```
 

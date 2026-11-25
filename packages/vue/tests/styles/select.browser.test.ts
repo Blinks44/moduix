@@ -116,7 +116,7 @@ test('reserves trigger room from the action size variable', async () => {
     ...document.querySelectorAll<HTMLElement>('[data-slot="select-trigger"]'),
   ];
   await expect.poll(() => getComputedStyle(withClear!).paddingInlineEnd).toBe('84px');
-  expect(getComputedStyle(withoutClear!).paddingInlineEnd).toBe('54px');
+  expect(getComputedStyle(withoutClear!).paddingInlineEnd).toBe('52px');
   const indicator = document.querySelector<HTMLElement>('[data-slot="select-indicator"]')!;
   expect(indicator.offsetWidth).toBe(32);
 });

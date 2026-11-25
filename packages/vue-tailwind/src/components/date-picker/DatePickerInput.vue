@@ -22,7 +22,7 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="
       cn(
-        `h-control-md w-full min-w-30 flex-1 rounded-md border border-input bg-background py-1 ps-3.5 pe-17 text-base leading-6 text-current outline-focus-halo outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out group-has-[input[data-index='1']]/date-picker:not-data-[index='1']:pe-3.5 placeholder:text-muted-foreground read-only:cursor-default focus:border-ring focus:outline-ring/50 disabled:cursor-default data-invalid:border-destructive data-invalid:focus:outline-destructive/20`,
+        `h-control-md w-full min-w-30 flex-1 rounded-md border border-input bg-background py-1 ps-3 pe-17 text-sm leading-5 text-current outline-focus-halo outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out group-has-[input[data-index='1']]/date-picker:not-data-[index='1']:pe-3 placeholder:text-muted-foreground read-only:cursor-default focus:border-ring focus:outline-ring/50 disabled:cursor-default data-invalid:border-destructive data-invalid:focus:outline-destructive/20 [@media(pointer:coarse)]:text-base [@media(pointer:coarse)]:leading-6`,
         props.class,
       )
     "

@@ -40,8 +40,8 @@
     padding: var(--moduix-spacing-1) var(--moduix-spacing-3);
     background-color: var(--moduix-background);
     color: var(--moduix-foreground);
-    font-size: var(--moduix-text-md);
-    line-height: var(--moduix-line-height-text-md);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
     outline: var(--moduix-focus-ring-halo-width) solid transparent;
     transition:
       border-color var(--moduix-transition-default),

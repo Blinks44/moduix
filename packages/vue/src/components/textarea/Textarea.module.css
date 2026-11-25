@@ -2,8 +2,16 @@
   .root {
     --_textarea-padding-x: var(--moduix-spacing-3);
     --_textarea-padding-y: var(--moduix-spacing-2);
-    --_textarea-font-size: var(--moduix-text-md);
-    --_textarea-line-height: var(--moduix-line-height-text-md);
+    --_textarea-font-size: var(--moduix-text-sm);
+    --_textarea-line-height: var(--moduix-line-height-text-sm);
+
+    @media (pointer: coarse) {
+      &:not([data-size]),
+      &[data-size='md'] {
+        --_textarea-font-size: var(--moduix-text-md);
+        --_textarea-line-height: var(--moduix-line-height-text-md);
+      }
+    }
 
     width: var(--moduix-textarea-width, 100%);
     margin: 0;

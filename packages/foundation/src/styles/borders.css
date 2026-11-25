@@ -7,5 +7,5 @@
   --moduix-focus-ring-inset-width: var(--moduix-border-width-md);
   --moduix-focus-ring-offset: var(--moduix-spacing-0-5);
   --moduix-focus-ring-inset-offset: calc(var(--moduix-focus-ring-inset-width) * -1);
-  --moduix-focus-ring-halo-width: 3px;
+  --moduix-focus-ring-halo-width: 2px;
 }

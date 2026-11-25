@@ -177,10 +177,10 @@ The default scale is compact without feeling cramped:
 | Token              | Default    | Intended role                                                          |
 | ------------------ | ---------- | ---------------------------------------------------------------------- |
 | `--moduix-size-xs` | `1.5rem`   | Small icon controls and compact actions.                               |
-| `--moduix-size-sm` | `2rem`     | Popup rows and secondary compact controls.                             |
-| `--moduix-size-md` | `2.25rem`  | Default inputs, buttons, triggers, pagination, and composite controls. |
-| `--moduix-size-lg` | `2.5rem`   | Deliberately roomy controls.                                           |
-| `--moduix-size-xl` | `3rem`     | Prominent controls and touch-oriented layouts.                         |
+| `--moduix-size-sm` | `1.75rem`  | Popup rows and secondary compact controls.                             |
+| `--moduix-size-md` | `2rem`     | Default inputs, buttons, triggers, pagination, and composite controls. |
+| `--moduix-size-lg` | `2.25rem`  | Deliberately roomy controls.                                           |
+| `--moduix-size-xl` | `2.75rem`  | Prominent controls and touch-oriented layouts.                         |
 
 Most primary controls resolve through `--moduix-size-md`. Items inside menus, selects, comboboxes,
 command palettes, and similar popups resolve through `--moduix-size-sm`. This keeps a trigger and
@@ -188,13 +188,13 @@ its popup visually related while giving the popup a slightly denser information 
 
 ```css
 :root {
-  --moduix-size-md: 2.25rem;
-  --moduix-size-sm: 2rem;
+  --moduix-size-md: 2rem;
+  --moduix-size-sm: 1.75rem;
 }
 
 [data-moduix-theme='compact'] {
-  --moduix-size-md: 2.125rem;
-  --moduix-popup-item-min-height: 1.875rem;
+  --moduix-size-md: 1.75rem;
+  --moduix-popup-item-min-height: 1.625rem;
 }
 ```
 

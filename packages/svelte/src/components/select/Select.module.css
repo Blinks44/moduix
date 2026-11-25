@@ -46,11 +46,13 @@
     margin: 0;
     border: var(--moduix-border-width-sm) solid var(--moduix-input);
     border-radius: var(--moduix-select-radius, var(--moduix-radius-md));
-    padding-inline: var(--moduix-spacing-3-5)
-      calc(var(--_select-action-offset) + var(--_select-action-size) + var(--moduix-spacing-3-5));
+    padding-inline: var(--moduix-spacing-3)
+      calc(var(--_select-action-offset) + var(--_select-action-size) + var(--moduix-spacing-3));
     background-color: var(--moduix-background);
     color: inherit;
     font: inherit;
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
     text-align: start;
     outline: var(--moduix-focus-ring-halo-width) solid transparent;
     cursor: pointer;

@@ -12,7 +12,7 @@ test('lets consumer Tailwind classes override conflicting defaults', () => {
     expect.arrayContaining(['border-primary', 'bg-secondary', 'p-0', 'text-xs']),
   );
   expect(getComputedStyle(toggle)).toMatchObject({
-    minHeight: '40px',
+    minHeight: '36px',
     paddingTop: '0px',
     paddingRight: '0px',
     paddingBottom: '0px',

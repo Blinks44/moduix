@@ -66,7 +66,7 @@ function ClipboardInput(props: ComponentProps<typeof ClipboardPrimitive.Input>) 
       asChild={local.asChild}
       class={cn(
         !local.asChild &&
-          'min-h-control-md w-full min-w-0 rounded-md border border-border bg-background px-3 py-1 text-base leading-6 text-foreground outline-focus-inset outline-offset-focus-inset outline-transparent transition duration-normal ease-in-out placeholder:text-muted-foreground focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-disabled',
+          'min-h-control-md w-full min-w-0 rounded-md border border-border bg-background px-3 py-1 text-sm leading-5 text-foreground outline-focus-inset outline-offset-focus-inset outline-transparent transition duration-normal ease-in-out placeholder:text-muted-foreground focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-disabled [@media(pointer:coarse)]:text-base [@media(pointer:coarse)]:leading-6',
         local.class,
       )}
       {...others}

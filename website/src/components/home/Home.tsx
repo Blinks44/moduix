@@ -230,25 +230,25 @@ const presets = [
     value: 'calm',
     title: 'Calm',
     descriptionKey: 'homeThemeCalm',
-    control: 'Control 36px · radius 10px',
+    control: 'Control 32px · radius 10px',
   },
   {
     value: 'dense',
     title: 'Dense',
     descriptionKey: 'homeThemeDense',
-    control: 'Control 34px · radius 7px',
+    control: 'Control 28px · radius 7px',
   },
   {
     value: 'soft',
     title: 'Soft',
     descriptionKey: 'homeThemeSoft',
-    control: 'Control 40px · radius 16px',
+    control: 'Control 36px · radius 16px',
   },
   {
     value: 'contrast',
     title: 'Contrast',
     descriptionKey: 'homeThemeContrast',
-    control: 'Control 36px · radius 6px',
+    control: 'Control 32px · radius 6px',
   },
 ] as const;
 

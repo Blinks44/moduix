@@ -29,6 +29,6 @@ test('merges consumer Tailwind classes after component defaults', async () => {
 
   expect([...root.classList]).toEqual(expect.arrayContaining(['rounded-none', 'bg-primary']));
   await expect.element(page.locator('[data-slot="avatar-root"]')).toHaveCSS('border-radius', '0px');
-  await expect.element(page.locator('[data-slot="avatar-root"]')).toHaveCSS('width', '48px');
-  await expect.element(page.locator('[data-slot="avatar-root"]')).toHaveCSS('height', '48px');
+  await expect.element(page.locator('[data-slot="avatar-root"]')).toHaveCSS('width', '44px');
+  await expect.element(page.locator('[data-slot="avatar-root"]')).toHaveCSS('height', '44px');
 });

@@ -4,8 +4,8 @@
  */
 :root {
   --moduix-size-xs: 1.5rem;
-  --moduix-size-sm: 2rem;
-  --moduix-size-md: 2.25rem;
-  --moduix-size-lg: 2.5rem;
-  --moduix-size-xl: 3rem;
+  --moduix-size-sm: 1.75rem;
+  --moduix-size-md: 2rem;
+  --moduix-size-lg: 2.25rem;
+  --moduix-size-xl: 2.75rem;
 }

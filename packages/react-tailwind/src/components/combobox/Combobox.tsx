@@ -151,7 +151,7 @@ const ComboboxInput = forwardRef<
       asChild={asChild}
       className={cn(
         !asChild &&
-          'm-0 h-control-md w-full min-w-0 rounded-[inherit] border-0 bg-transparent px-3.5 text-inherit outline-0 [font:inherit] group-has-[>[data-slot=combobox-clear-trigger]]/combobox-control:pe-11 group-has-[>[data-slot=combobox-trigger]]/combobox-control:pe-11 group-has-[>[data-slot=combobox-clear-trigger]]/combobox-control:group-has-[>[data-slot=combobox-trigger]]/combobox-control:pe-[4.375rem] placeholder:text-muted-foreground',
+          'm-0 h-control-md w-full min-w-0 rounded-[inherit] border-0 bg-transparent px-3 text-sm leading-5 text-inherit outline-0 group-has-[>[data-slot=combobox-clear-trigger]]/combobox-control:pe-11 group-has-[>[data-slot=combobox-trigger]]/combobox-control:pe-11 group-has-[>[data-slot=combobox-clear-trigger]]/combobox-control:group-has-[>[data-slot=combobox-trigger]]/combobox-control:pe-[4.375rem] placeholder:text-muted-foreground [@media(pointer:coarse)]:text-base [@media(pointer:coarse)]:leading-6',
         className,
       )}
       {...props}

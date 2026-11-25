@@ -71,14 +71,14 @@ type DatePickerCalendarProps = {
 type DatePickerPanelProps = ComponentProps<typeof DatePickerPrimitive.Content>;
 
 const rootClass =
-  "group/date-picker inline-flex w-75 max-w-full flex-col items-start gap-1 text-foreground has-[input[data-index='1']]:w-96 data-disabled:opacity-disabled [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100";
+  "group/date-picker inline-flex w-72 max-w-full flex-col items-start gap-1 text-foreground has-[input[data-index='1']]:w-96 data-disabled:opacity-disabled [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100";
 const actionClass =
   'inline-flex shrink-0 cursor-pointer items-center justify-center rounded-sm bg-transparent p-0 leading-none text-muted-foreground outline-focus-inset outline-offset-focus-inset outline-transparent transition-[background-color,color,outline-color] duration-normal ease-in-out focus-visible:outline-ring disabled:cursor-default [&>svg]:block [&>svg]:size-4 not-disabled:hover:bg-muted not-disabled:hover:text-foreground';
 const tableHeaderClass =
   'h-7 w-control-sm text-center text-xs leading-4 font-medium text-muted-foreground tabular-nums';
 const selectControlClass = 'relative grid min-w-0';
 const selectClass =
-  'peer/date-picker-select h-control-sm w-full min-w-0 cursor-pointer appearance-none rounded-md border border-input bg-background py-1 ps-3.5 pe-[calc(var(--moduix-spacing-2)+var(--moduix-size-xs)+var(--moduix-spacing-3-5))] text-sm leading-5 text-foreground outline-focus-halo outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out focus-visible:border-ring focus-visible:outline-ring/50 disabled:cursor-default disabled:opacity-disabled forced-colors:appearance-auto forced-colors:pe-3.5';
+  'peer/date-picker-select h-control-sm w-full min-w-0 cursor-pointer appearance-none rounded-md border border-input bg-background py-1 ps-3 pe-[calc(var(--moduix-spacing-2)+var(--moduix-size-xs)+var(--moduix-spacing-3))] text-sm leading-5 text-foreground outline-focus-halo outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out focus-visible:border-ring focus-visible:outline-ring/50 disabled:cursor-default disabled:opacity-disabled forced-colors:appearance-auto forced-colors:pe-3';
 const selectIndicatorClass =
   'pointer-events-none absolute end-2 top-1/2 inline-flex size-control-xs -translate-y-1/2 items-center justify-center text-muted-foreground peer-disabled/date-picker-select:opacity-disabled forced-colors:hidden [&>svg]:block [&>svg]:size-4';
 
@@ -220,7 +220,7 @@ const DatePickerInput = forwardRef<
     <DatePickerPrimitive.Input
       ref={ref}
       className={cn(
-        "h-control-md w-full min-w-30 flex-1 rounded-md border border-input bg-background py-1 ps-3.5 pe-17 text-base leading-6 text-current outline-focus-halo outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out group-has-[input[data-index='1']]/date-picker:not-data-[index='1']:pe-3.5 placeholder:text-muted-foreground read-only:cursor-default focus:border-ring focus:outline-ring/50 disabled:cursor-default data-invalid:border-destructive data-invalid:focus:outline-destructive/20",
+        "h-control-md w-full min-w-30 flex-1 rounded-md border border-input bg-background py-1 ps-3 pe-17 text-sm leading-5 text-current outline-focus-halo outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out group-has-[input[data-index='1']]/date-picker:not-data-[index='1']:pe-3 placeholder:text-muted-foreground read-only:cursor-default focus:border-ring focus:outline-ring/50 disabled:cursor-default data-invalid:border-destructive data-invalid:focus:outline-destructive/20 [@media(pointer:coarse)]:text-base [@media(pointer:coarse)]:leading-6",
         className,
       )}
       {...props}
@@ -313,7 +313,7 @@ const DatePickerContent = forwardRef<
     <DatePickerPrimitive.Content
       ref={ref}
       className={cn(
-        'z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] max-h-[min(var(--available-height,100dvh),calc(100dvh-2rem))] w-80 max-w-[min(calc(100vw-2rem),var(--available-width,100%))] origin-(--transform-origin) overflow-auto rounded-md border border-border bg-popover p-3 text-popover-foreground shadow-lg outline-0 data-inline:shadow-none data-[state=closed]:pointer-events-none data-[state=closed]:animate-moduix-popup-out data-[state=open]:animate-moduix-popup-in motion-reduce:data-[state]:animate-none',
+        'z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] max-h-[min(var(--available-height,100dvh),calc(100dvh-2rem))] w-72 max-w-[min(calc(100vw-2rem),var(--available-width,100%))] origin-(--transform-origin) overflow-auto rounded-md border border-border bg-popover p-3 text-popover-foreground shadow-lg outline-0 data-inline:shadow-none data-[state=closed]:pointer-events-none data-[state=closed]:animate-moduix-popup-out data-[state=open]:animate-moduix-popup-in motion-reduce:data-[state]:animate-none',
         className,
       )}
       {...props}
@@ -329,7 +329,7 @@ const DatePickerView = forwardRef<
   return (
     <DatePickerPrimitive.View
       ref={ref}
-      className={cn('grid gap-3', className)}
+      className={cn('grid gap-2', className)}
       {...props}
       data-slot="date-picker-view"
     />
@@ -531,7 +531,7 @@ const DatePickerTableCellTrigger = forwardRef<
     <DatePickerPrimitive.TableCellTrigger
       ref={ref}
       className={cn(
-        'inline-flex h-control-sm w-full min-w-control-sm cursor-pointer items-center justify-center rounded-sm border border-transparent bg-transparent p-0 text-sm leading-5 outline-focus-inset outline-offset-focus-inset outline-transparent transition-[background-color,border-color,color,outline-color] duration-normal ease-in-out not-data-disabled:not-data-selected:hover:bg-accent not-data-disabled:not-data-selected:hover:text-accent-foreground focus-visible:outline-ring data-disabled:cursor-default data-disabled:opacity-disabled data-in-hover-range:bg-muted data-in-hover-range:text-foreground data-in-range:bg-muted data-in-range:text-foreground data-outside-range:not-data-disabled:text-muted-foreground data-selected:bg-primary data-selected:text-primary-foreground data-today:border-ring',
+        'inline-flex h-control-sm w-full min-w-control-sm cursor-pointer items-center justify-center rounded-sm border border-transparent bg-transparent p-0 text-sm leading-5 outline-focus-inset outline-offset-focus-inset outline-transparent not-data-disabled:not-data-selected:hover:bg-accent not-data-disabled:not-data-selected:hover:text-accent-foreground focus-visible:outline-ring data-disabled:cursor-default data-disabled:opacity-disabled data-in-hover-range:bg-muted data-in-hover-range:text-foreground data-in-range:bg-muted data-in-range:text-foreground data-outside-range:not-data-disabled:text-muted-foreground data-selected:bg-primary data-selected:text-primary-foreground data-today:border-ring',
         className,
       )}
       {...props}

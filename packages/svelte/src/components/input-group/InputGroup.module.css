@@ -4,9 +4,17 @@
   .input,
   .textarea {
     --_input-group-height: var(--moduix-size-md);
-    --_input-group-padding-x: var(--moduix-spacing-3-5);
-    --_input-group-font-size: var(--moduix-text-md);
-    --_input-group-line-height: var(--moduix-line-height-text-md);
+    --_input-group-padding-x: var(--moduix-spacing-3);
+    --_input-group-font-size: var(--moduix-text-sm);
+    --_input-group-line-height: var(--moduix-line-height-text-sm);
+
+    @media (pointer: coarse) {
+      &:not([data-size]),
+      &[data-size='md'] {
+        --_input-group-font-size: var(--moduix-text-md);
+        --_input-group-line-height: var(--moduix-line-height-text-md);
+      }
+    }
 
     &[data-size='xs'] {
       --_input-group-height: var(--moduix-size-xs);

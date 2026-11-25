@@ -22,7 +22,7 @@ test('lets consumer Tailwind classes override conflicting defaults', async () =>
   await expect.element(page.locator('[data-slot="qr-code-root"]')).toHaveCSS('width', '192px');
   await expect.element(page.locator('[data-slot="qr-code-root"]')).toHaveCSS('gap', '16px');
   await expect.element(page.locator('[data-slot="qr-code-frame"]')).toHaveCSS('width', '96px');
-  await expect.element(page.locator('[data-slot="qr-code-overlay"]')).toHaveCSS('width', '48px');
+  await expect.element(page.locator('[data-slot="qr-code-overlay"]')).toHaveCSS('width', '44px');
   await expect.element(page.locator('[data-slot="qr-code-overlay"]')).toHaveCSS('padding', '8px');
   await expect
     .element(page.locator('[data-slot="qr-code-download-trigger"]'))

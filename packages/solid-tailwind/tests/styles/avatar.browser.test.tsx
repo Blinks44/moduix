@@ -13,6 +13,6 @@ test('lets consumer Tailwind classes override conflicting defaults', async () =>
   const root = screen.getByTestId('avatar');
   expect([...root.classList]).toEqual(expect.arrayContaining(['bg-primary']));
   expect([...root.classList]).toEqual(expect.arrayContaining(['size-control-xl']));
-  await expect.element(page.getByTestId('avatar')).toHaveCSS('width', '48px');
-  await expect.element(page.getByTestId('avatar')).toHaveCSS('height', '48px');
+  await expect.element(page.getByTestId('avatar')).toHaveCSS('width', '44px');
+  await expect.element(page.getByTestId('avatar')).toHaveCSS('height', '44px');
 });
