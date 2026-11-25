@@ -10,11 +10,16 @@
   border: 1px solid var(--rp-c-divider);
   border-radius: 12px;
   background: var(--rp-c-bg);
+
+  &[data-active] {
+    border-color: var(--rp-c-text-0);
+    box-shadow: 0 0 0 1px var(--rp-c-text-0);
+  }
 }
 
 .header {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 8px;
   padding: 12px 16px;
 
@@ -41,6 +46,34 @@
     font-size: 12px;
     line-height: 16px;
   }
+}
+
+.applyButton,
+.activeBadge {
+  height: 24px;
+  border-radius: 999px;
+  padding: 0 10px;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.applyButton {
+  border: 1px solid var(--moduix-doc-border-strong);
+  background: var(--rp-c-bg);
+  color: var(--rp-c-text-1);
+
+  &:hover {
+    background: var(--rp-c-bg-soft);
+    color: var(--rp-c-text-0);
+  }
+}
+
+.activeBadge {
+  border: 1px solid var(--rp-c-text-0);
+  background: var(--rp-c-text-0);
+  color: var(--rp-c-bg);
 }
 
 .stage {

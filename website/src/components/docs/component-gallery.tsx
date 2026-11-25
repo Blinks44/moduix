@@ -1,7 +1,7 @@
 import { useI18n, useLang, usePages } from '@rspress/core/runtime';
 import { Link } from '@rspress/core/theme';
 import { ArrowRight, Search } from 'lucide-react';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from './component-gallery.module.css';
 
 const categories = [
@@ -160,6 +160,25 @@ export function ComponentCatalog() {
   const [active, setActive] = useState<ComponentCategory | 'all'>('all');
   const [query, setQuery] = useState('');
   const filterRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const param = new URLSearchParams(window.location.search).get('category');
+    if (param && categories.some((item) => item.id === param)) {
+      setActive(param as ComponentCategory);
+    }
+  }, []);
+
+  const selectCategory = (next: ComponentCategory | 'all') => {
+    setActive(next);
+    const url = new URL(window.location.href);
+    if (next === 'all') {
+      url.searchParams.delete('category');
+    } else {
+      url.searchParams.set('category', next);
+    }
+    window.history.replaceState(null, '', url.pathname + url.search + url.hash);
+  };
+
   const components = pages
     .filter(
       (page) =>
@@ -189,7 +208,7 @@ export function ComponentCatalog() {
     (section) => (active === 'all' || section.id === active) && section.matches.length > 0,
   );
   const clear = () => {
-    setActive('all');
+    selectCategory('all');
     setQuery('');
     filterRef.current?.focus();
   };
@@ -218,7 +237,7 @@ export function ComponentCatalog() {
                 type="button"
                 className={styles.chip}
                 aria-pressed={active === section.id}
-                onClick={() => setActive(section.id)}
+                onClick={() => selectCategory(section.id)}
               >
                 {section.label}
                 <span className={styles.count}>{section.items.length}</span>
@@ -255,7 +274,7 @@ export function ComponentCatalog() {
                 <button
                   type="button"
                   className={styles.showAll}
-                  onClick={() => setActive(section.id)}
+                  onClick={() => selectCategory(section.id)}
                 >
                   {t('catalogShowAll').replace('{count}', String(section.items.length))}
                 </button>

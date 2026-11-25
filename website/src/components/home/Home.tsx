@@ -22,6 +22,7 @@ import {
   SliderValueText,
 } from '@moduix/react/slider';
 import { Switch, SwitchControl, SwitchHiddenInput, SwitchLabel } from '@moduix/react/switch';
+import { ToastToaster, toast } from '@moduix/react/toast';
 import { useI18n, useLang } from '@rspress/core/runtime';
 import { CodeBlockRuntime, Link } from '@rspress/core/theme';
 import { ArrowRight, Check, Code, Copy } from 'lucide-react';
@@ -30,7 +31,6 @@ import { getLocalizedPath } from '@/utils/localized-path';
 import reactPackage from '../../../../packages/react/package.json';
 import { getComponentCategories } from '../docs/component-gallery';
 import { usePreset } from '../docs/nav-menus';
-import { ScaledPreview } from '../docs/scaled-preview';
 import {
   ColorPickerTile,
   ComboboxTile,
@@ -45,12 +45,20 @@ import styles from './Home.module.css';
 
 type T = ReturnType<typeof useI18n<typeof import('i18n')>>;
 type Framework = 'react' | 'solid' | 'vue' | 'svelte';
+type PackageManager = 'pnpm' | 'npm' | 'yarn' | 'bun';
 
 const frameworks = [
   { value: 'react', label: 'React' },
   { value: 'solid', label: 'Solid' },
   { value: 'vue', label: 'Vue' },
   { value: 'svelte', label: 'Svelte' },
+] as const;
+
+const packageManagers = [
+  { value: 'pnpm', label: 'pnpm', add: 'pnpm add', dlx: 'pnpm dlx' },
+  { value: 'npm', label: 'npm', add: 'npm install', dlx: 'npx' },
+  { value: 'yarn', label: 'yarn', add: 'yarn add', dlx: 'yarn dlx' },
+  { value: 'bun', label: 'bun', add: 'bun add', dlx: 'bunx' },
 ] as const;
 
 const arkMajor = reactPackage.peerDependencies['@ark-ui/react'].match(/\d+/)?.[0];
@@ -60,34 +68,37 @@ const switchCode: Record<Framework, { file: string; lang: string; code: string }
   react: {
     file: 'Notifications.tsx',
     lang: 'tsx',
-    code: `import { Switch, SwitchControl, SwitchLabel } from '@moduix/react/switch';
+    code: `import { Switch, SwitchControl, SwitchHiddenInput, SwitchLabel } from '@moduix/react/switch';
 
-<Switch defaultChecked>
+<Switch checked={product} onCheckedChange={({ checked }) => setProduct(checked)}>
   <SwitchLabel>Product updates</SwitchLabel>
   <SwitchControl />
+  <SwitchHiddenInput />
 </Switch>`,
   },
   solid: {
     file: 'Notifications.tsx',
     lang: 'tsx',
-    code: `import { Switch, SwitchControl, SwitchLabel } from '@moduix/solid/switch';
+    code: `import { Switch, SwitchControl, SwitchHiddenInput, SwitchLabel } from '@moduix/solid/switch';
 
-<Switch defaultChecked>
+<Switch checked={product()} onCheckedChange={({ checked }) => setProduct(checked)}>
   <SwitchLabel>Product updates</SwitchLabel>
   <SwitchControl />
+  <SwitchHiddenInput />
 </Switch>`,
   },
   vue: {
     file: 'Notifications.vue',
     lang: 'vue',
     code: `<script setup>
-import { Switch, SwitchControl, SwitchLabel } from '@moduix/vue/switch';
+import { Switch, SwitchControl, SwitchHiddenInput, SwitchLabel } from '@moduix/vue/switch';
 </script>
 
 <template>
-  <Switch default-checked>
+  <Switch v-model:checked="product">
     <SwitchLabel>Product updates</SwitchLabel>
     <SwitchControl />
+    <SwitchHiddenInput />
   </Switch>
 </template>`,
   },
@@ -95,12 +106,13 @@ import { Switch, SwitchControl, SwitchLabel } from '@moduix/vue/switch';
     file: 'Notifications.svelte',
     lang: 'svelte',
     code: `<script>
-  import { Switch, SwitchControl, SwitchLabel } from '@moduix/svelte/switch';
+  import { Switch, SwitchControl, SwitchHiddenInput, SwitchLabel } from '@moduix/svelte/switch';
 </script>
 
-<Switch defaultChecked>
+<Switch bind:checked={product}>
   <SwitchLabel>Product updates</SwitchLabel>
   <SwitchControl />
+  <SwitchHiddenInput />
 </Switch>`,
   },
 };
@@ -167,56 +179,48 @@ const featured = [
     title: 'Color Picker',
     href: '/docs/color-picker',
     category: 'categoryForms',
-    width: 158,
     preview: <ColorPickerTile />,
   },
   {
     title: 'Date Picker',
     href: '/docs/date-picker',
     category: 'categoryForms',
-    width: 178,
     preview: <DatePickerTile />,
   },
   {
     title: 'Tour',
     href: '/docs/tour',
     category: 'categoryOverlays',
-    width: 230,
     preview: <TourTile />,
   },
   {
     title: 'Signature Pad',
     href: '/docs/signature-pad',
     category: 'categoryForms',
-    width: 220,
     preview: <SignaturePadTile />,
   },
   {
     title: 'Combobox',
     href: '/docs/combobox',
     category: 'categoryForms',
-    width: 170,
     preview: <ComboboxTile />,
   },
   {
     title: 'File Upload',
     href: '/docs/file-upload',
     category: 'categoryForms',
-    width: 210,
     preview: <FileUploadTile />,
   },
   {
     title: 'Toast',
     href: '/docs/toast',
     category: 'categoryFeedback',
-    width: 210,
     preview: <ToastTile />,
   },
   {
     title: 'Tags Input',
     href: '/docs/tags-input',
     category: 'categoryForms',
-    width: 210,
     preview: <TagsInputTile />,
   },
 ] as const;
@@ -271,20 +275,72 @@ function Eyebrow({ index, children }: { index: string; children: string }) {
   );
 }
 
-function CopyCommand({ command }: { command: string }) {
+function CopyCommand({
+  framework,
+  pm,
+  onPmChange,
+}: {
+  framework: Framework;
+  pm: PackageManager;
+  onPmChange: (value: PackageManager) => void;
+}) {
   const t = useI18n<typeof import('i18n')>();
   const [copied, setCopied] = useState(false);
+  const currentPm = packageManagers.find((item) => item.value === pm) ?? packageManagers[0];
+  const command = `${currentPm.add} @moduix/${framework} @ark-ui/${framework}`;
+
   return (
-    <div className={styles.command}>
+    <div className={styles.commandWrap}>
+      <div className={styles.pmTabs} role="group" aria-label="Package manager">
+        {packageManagers.map((item) => (
+          <button
+            key={item.value}
+            type="button"
+            aria-pressed={pm === item.value}
+            onClick={() => onPmChange(item.value)}
+          >
+            {item.label}
+          </button>
+        ))}
+      </div>
+      <div className={styles.command}>
+        <code>
+          <span aria-hidden="true">$ </span>
+          {command}
+        </code>
+        <button
+          type="button"
+          aria-label={t(copied ? 'exampleCopied' : 'exampleCopy')}
+          onClick={async () => {
+            await navigator.clipboard.writeText(command);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 1500);
+          }}
+        >
+          {copied ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function CopyCell({ prefix, target }: { prefix: string; target: string }) {
+  const t = useI18n<typeof import('i18n')>();
+  const [copied, setCopied] = useState(false);
+  const full = `${prefix} ${target}`;
+
+  return (
+    <div className={styles.installCell}>
       <code>
-        <span aria-hidden="true">$ </span>
-        {command}
+        <span>{prefix}</span>
+        {target}
       </code>
       <button
         type="button"
+        className={styles.installCopy}
         aria-label={t(copied ? 'exampleCopied' : 'exampleCopy')}
         onClick={async () => {
-          await navigator.clipboard.writeText(command);
+          await navigator.clipboard.writeText(full);
           setCopied(true);
           setTimeout(() => setCopied(false), 1500);
         }}
@@ -301,8 +357,34 @@ function FrameworkDot({ framework }: { framework: Framework }) {
 
 const formatHour = (hour: number) => `${String(hour % 24).padStart(2, '0')}:00`;
 
+const defaultNotifications = {
+  homeDemoProduct: true,
+  homeDemoSecurity: true,
+  homeDemoDigest: false,
+  quietHours: [22, 31] as number[],
+};
+
 function NotificationsDemo({ t }: { t: T }) {
-  const [quietHours, setQuietHours] = useState([22, 31]);
+  const [saved, setSaved] = useState(defaultNotifications);
+  const [prefs, setPrefs] = useState(defaultNotifications);
+
+  const toggleKeys = ['homeDemoProduct', 'homeDemoSecurity', 'homeDemoDigest'] as const;
+  const enabledCount = toggleKeys.filter((key) => prefs[key]).length;
+
+  const handleCancel = () => {
+    setPrefs(saved);
+    toast('Changes discarded', {
+      description: 'Restored your saved notification preferences.',
+    });
+  };
+
+  const handleSave = () => {
+    setSaved(prefs);
+    const range = prefs.quietHours.map(formatHour).join(' – ');
+    toast.success('Preferences saved', {
+      description: `${enabledCount} of ${toggleKeys.length} alerts enabled · quiet hours ${range}.`,
+    });
+  };
 
   return (
     <div className={styles.notifications}>
@@ -310,14 +392,13 @@ function NotificationsDemo({ t }: { t: T }) {
         <p className={styles.notificationsTitle}>{t('homeDemoTitle')}</p>
         <p className={styles.notificationsText}>{t('homeDemoText')}</p>
       </div>
-      {(
-        [
-          ['homeDemoProduct', true],
-          ['homeDemoSecurity', true],
-          ['homeDemoDigest', false],
-        ] as const
-      ).map(([key, checked]) => (
-        <Switch key={key} defaultChecked={checked} className={styles.switch}>
+      {toggleKeys.map((key) => (
+        <Switch
+          key={key}
+          checked={prefs[key]}
+          onCheckedChange={(details) => setPrefs((prev) => ({ ...prev, [key]: details.checked }))}
+          className={styles.switch}
+        >
           <SwitchLabel>{t(key)}</SwitchLabel>
           <SwitchControl />
           <SwitchHiddenInput />
@@ -325,15 +406,15 @@ function NotificationsDemo({ t }: { t: T }) {
       ))}
       <Slider
         className={styles.quietHours}
-        value={quietHours}
-        onValueChange={(details) => setQuietHours(details.value)}
+        value={prefs.quietHours}
+        onValueChange={(details) => setPrefs((prev) => ({ ...prev, quietHours: details.value }))}
         min={18}
         max={34}
         getAriaValueText={({ value }) => formatHour(value)}
       >
         <div className={styles.sliderHeader}>
           <SliderLabel>{t('homeDemoQuiet')}</SliderLabel>
-          <SliderValueText>{quietHours.map(formatHour).join(' – ')}</SliderValueText>
+          <SliderValueText>{prefs.quietHours.map(formatHour).join(' – ')}</SliderValueText>
         </div>
         <SliderControl>
           <SliderTrack>
@@ -343,18 +424,33 @@ function NotificationsDemo({ t }: { t: T }) {
         </SliderControl>
       </Slider>
       <div className={styles.notificationsActions}>
-        <Button variant="outline" size="sm">
+        <Button variant="outline" size="sm" onClick={handleCancel}>
           {t('homeDemoCancel')}
         </Button>
-        <Button size="sm">{t('homeDemoSave')}</Button>
+        <Button size="sm" onClick={handleSave}>
+          {t('homeDemoSave')}
+        </Button>
       </div>
     </div>
   );
 }
 
-function Hero({ t, count }: { t: T; count: number }) {
+function Hero({
+  t,
+  count,
+  framework,
+  onFrameworkChange,
+  pm,
+  onPmChange,
+}: {
+  t: T;
+  count: number;
+  framework: Framework;
+  onFrameworkChange: (value: Framework) => void;
+  pm: PackageManager;
+  onPmChange: (value: PackageManager) => void;
+}) {
   const lang = useLang();
-  const [framework, setFramework] = useState<Framework>('react');
   // Phones have no room for the overlapping code card, so the demo toolbar switches to the code.
   const [showCode, setShowCode] = useState(false);
   const sample = switchCode[framework];
@@ -380,14 +476,21 @@ function Hero({ t, count }: { t: T; count: number }) {
             </Link>
           </Button>
         </div>
-        <CopyCommand command="pnpm add @moduix/react @ark-ui/react" />
+        <CopyCommand framework={framework} pm={pm} onPmChange={onPmChange} />
         <div className={styles.works}>
           <p>{t('homeWorksWith')}</p>
           <ul>
             {frameworks.map((item) => (
-              <li key={item.value} className={styles.frameworkChip}>
-                <FrameworkDot framework={item.value} />
-                {item.label}
+              <li key={item.value}>
+                <button
+                  type="button"
+                  className={styles.frameworkChip}
+                  aria-pressed={framework === item.value}
+                  onClick={() => onFrameworkChange(item.value)}
+                >
+                  <FrameworkDot framework={item.value} />
+                  {item.label}
+                </button>
               </li>
             ))}
           </ul>
@@ -404,7 +507,7 @@ function Hero({ t, count }: { t: T; count: number }) {
                   key={item.value}
                   type="button"
                   aria-pressed={framework === item.value}
-                  onClick={() => setFramework(item.value)}
+                  onClick={() => onFrameworkChange(item.value)}
                 >
                   <FrameworkDot framework={item.value} />
                   {item.label}
@@ -438,10 +541,15 @@ function Hero({ t, count }: { t: T; count: number }) {
   );
 }
 
-function OneApi({ t }: { t: T }) {
-  // On phones the framework cards collapse into one card with framework tabs.
-  const [active, setActive] = useState<Framework>('react');
-
+function OneApi({
+  t,
+  framework,
+  onFrameworkChange,
+}: {
+  t: T;
+  framework: Framework;
+  onFrameworkChange: (value: Framework) => void;
+}) {
   return (
     <section className={styles.section}>
       <Eyebrow index="01">{t('homeApiEyebrow')}</Eyebrow>
@@ -453,8 +561,8 @@ function OneApi({ t }: { t: T }) {
             <button
               key={item.value}
               type="button"
-              aria-pressed={active === item.value}
-              onClick={() => setActive(item.value)}
+              aria-pressed={framework === item.value}
+              onClick={() => onFrameworkChange(item.value)}
             >
               <FrameworkDot framework={item.value} />
               {item.label}
@@ -465,7 +573,7 @@ function OneApi({ t }: { t: T }) {
           <figure
             key={item.value}
             className={styles.apiCard}
-            data-active={active === item.value ? '' : undefined}
+            data-active={framework === item.value ? '' : undefined}
           >
             <figcaption>
               <FrameworkDot framework={item.value} />
@@ -483,67 +591,88 @@ function OneApi({ t }: { t: T }) {
   );
 }
 
-function Install({ t }: { t: T }) {
+function Install({
+  t,
+  framework,
+  onFrameworkChange,
+  pm,
+}: {
+  t: T;
+  framework: Framework;
+  onFrameworkChange: (value: Framework) => void;
+  pm: PackageManager;
+}) {
+  const currentPm = packageManagers.find((item) => item.value === pm) ?? packageManagers[0];
   const rows = [
     {
       name: 'CSS Modules',
       noteKey: 'homeInstallCssNote',
-      pkg: '@moduix/react',
-      registry: '@moduix-react/button',
+      pkg: `@moduix/${framework} @ark-ui/${framework}`,
+      registry: `@moduix-${framework}/button`,
     },
     {
       name: 'Tailwind CSS',
       noteKey: 'homeInstallTailwindNote',
-      pkg: '@moduix/react-tailwind',
-      registry: '@moduix-react-tailwind/button',
+      pkg: `@moduix/${framework}-tailwind @ark-ui/${framework}`,
+      registry: `@moduix-${framework}-tailwind/button`,
     },
   ] as const;
 
   return (
-    <section className={`${styles.section} ${styles.install} ${styles.desktopOnly}`}>
+    <section className={`${styles.section} ${styles.install}`}>
       <div>
         <Eyebrow index="02">{t('homeInstallEyebrow')}</Eyebrow>
         <h2 className={styles.title}>{t('homeInstallTitle')}</h2>
         <p className={styles.lead}>{t('homeInstallText')}</p>
+        <div className={styles.installFrameworks} role="group" aria-label={t('exampleFramework')}>
+          {frameworks.map((item) => (
+            <button
+              key={item.value}
+              type="button"
+              className={styles.frameworkChip}
+              aria-pressed={framework === item.value}
+              onClick={() => onFrameworkChange(item.value)}
+            >
+              <FrameworkDot framework={item.value} />
+              {item.label}
+            </button>
+          ))}
+        </div>
       </div>
       <div>
-        <table className={styles.installTable}>
-          <thead>
-            <tr>
-              <td />
-              <th scope="col">
-                {t('homeInstallPackage')}
-                <span>{t('homeInstallPackageNote')}</span>
-              </th>
-              <th scope="col">
-                {t('homeInstallRegistry')}
-                <span>{t('homeInstallRegistryNote')}</span>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((row) => (
-              <tr key={row.name}>
-                <th scope="row">
-                  {row.name}
-                  <span>{t(row.noteKey)}</span>
+        <div className={styles.installTableWrap}>
+          <table className={styles.installTable}>
+            <thead>
+              <tr>
+                <td />
+                <th scope="col">
+                  {t('homeInstallPackage')}
+                  <span>{t('homeInstallPackageNote')}</span>
                 </th>
-                <td>
-                  <code>
-                    <span>pnpm add</span>
-                    {row.pkg}
-                  </code>
-                </td>
-                <td>
-                  <code>
-                    <span>pnpm dlx shadcn add</span>
-                    {row.registry}
-                  </code>
-                </td>
+                <th scope="col">
+                  {t('homeInstallRegistry')}
+                  <span>{t('homeInstallRegistryNote')}</span>
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {rows.map((row) => (
+                <tr key={row.name}>
+                  <th scope="row">
+                    {row.name}
+                    <span>{t(row.noteKey)}</span>
+                  </th>
+                  <td>
+                    <CopyCell prefix={currentPm.add} target={row.pkg} />
+                  </td>
+                  <td>
+                    <CopyCell prefix={`${currentPm.dlx} shadcn@latest add`} target={row.registry} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
         <p className={styles.installNote}>{t('homeInstallArk')}</p>
       </div>
     </section>
@@ -588,7 +717,10 @@ function Components({
           </li>
           {categories.map((category) => (
             <li key={category.id}>
-              <Link className={styles.chip} href={getLocalizedPath('/docs/components', lang)}>
+              <Link
+                className={styles.chip}
+                href={`${getLocalizedPath('/docs/components', lang)}?category=${category.id}`}
+              >
                 {t(category.labelKey)}
                 <span>{category.count}</span>
               </Link>
@@ -603,13 +735,16 @@ function Components({
       <ul className={styles.tiles} onScroll={handleTilesScroll}>
         {featured.map((item) => (
           <li key={item.href}>
-            <Link className={styles.tile} href={getLocalizedPath(item.href, lang)}>
-              <ScaledPreview className={styles.tilePreview} width={item.width}>
-                {item.preview}
-              </ScaledPreview>
-              <strong>{item.title}</strong>
-              <span>{t(item.category)}</span>
-            </Link>
+            <div className={styles.tile}>
+              <div className={styles.tilePreview}>{item.preview}</div>
+              <Link className={styles.tileFooter} href={getLocalizedPath(item.href, lang)}>
+                <div>
+                  <strong>{item.title}</strong>
+                  <span>{t(item.category)}</span>
+                </div>
+                <ArrowRight aria-hidden="true" />
+              </Link>
+            </div>
           </li>
         ))}
       </ul>
@@ -630,53 +765,62 @@ function Components({
 }
 
 function Themes({ t }: { t: T }) {
-  const [{ value: preset }] = usePreset();
+  const [{ value: preset }, setPreset] = usePreset();
+  const themeTag = preset === 'calm' ? '<html>' : `<html data-moduix-theme="${preset}">`;
 
   return (
-    <section className={`${styles.section} ${styles.desktopOnly}`}>
+    <section className={styles.section}>
       <Eyebrow index="04">{t('homeThemesEyebrow')}</Eyebrow>
       <h2 className={styles.title}>{t('homeThemesTitle')}</h2>
       <p className={styles.lead}>{t('homeThemesText')}</p>
-      <code className={styles.themeCode}>{'<html data-moduix-theme="soft">'}</code>
+      <code className={styles.themeCode}>{themeTag}</code>
       <div className={styles.themeGrid}>
-        {presets.map((item) => (
-          <div
-            key={item.value}
-            className={styles.themeCard}
-            data-active={preset === item.value ? '' : undefined}
-            data-moduix-theme={item.value}
-          >
-            <div className={styles.themeHeader}>
-              <div>
-                <strong>{item.title}</strong>
-                <span>{t(item.descriptionKey)}</span>
+        {presets.map((item) => {
+          const isActive = preset === item.value;
+          return (
+            <div
+              key={item.value}
+              className={styles.themeCard}
+              data-active={isActive ? '' : undefined}
+              data-moduix-theme={item.value}
+            >
+              <div className={styles.themeHeader}>
+                <div>
+                  <strong>{item.title}</strong>
+                  <span>{t(item.descriptionKey)}</span>
+                </div>
+                <button
+                  type="button"
+                  className={isActive ? styles.themeActive : styles.themeApply}
+                  aria-pressed={isActive}
+                  onClick={() => setPreset(item.value)}
+                >
+                  {isActive ? t('homeThemeActive') : 'Apply'}
+                </button>
               </div>
-              {preset === item.value ? (
-                <span className={styles.themeActive}>{t('homeThemeActive')}</span>
-              ) : null}
+              <Field>
+                <FieldLabel>Email</FieldLabel>
+                <Input defaultValue="ada@moduix.dev" aria-label={`${item.title} email`} />
+              </Field>
+              <Checkbox defaultChecked>
+                <CheckboxControl />
+                <CheckboxLabel>{t('homeThemeRemember')}</CheckboxLabel>
+                <CheckboxHiddenInput />
+              </Checkbox>
+              <SegmentGroup defaultValue="monthly" aria-label={`${item.title} billing`}>
+                <SegmentGroupIndicator />
+                <SegmentGroupItems
+                  items={[
+                    { value: 'monthly', label: t('homeThemeMonthly') },
+                    { value: 'yearly', label: t('homeThemeYearly') },
+                  ]}
+                />
+              </SegmentGroup>
+              <Button onClick={() => setPreset(item.value)}>{t('homeThemeContinue')}</Button>
+              <p className={styles.themeMeta}>{item.control}</p>
             </div>
-            <Field>
-              <FieldLabel>Email</FieldLabel>
-              <Input defaultValue="ada@moduix.dev" aria-label={`${item.title} email`} />
-            </Field>
-            <Checkbox defaultChecked>
-              <CheckboxControl />
-              <CheckboxLabel>{t('homeThemeRemember')}</CheckboxLabel>
-              <CheckboxHiddenInput />
-            </Checkbox>
-            <SegmentGroup defaultValue="monthly" aria-label={`${item.title} billing`}>
-              <SegmentGroupIndicator />
-              <SegmentGroupItems
-                items={[
-                  { value: 'monthly', label: t('homeThemeMonthly') },
-                  { value: 'yearly', label: t('homeThemeYearly') },
-                ]}
-              />
-            </SegmentGroup>
-            <Button>{t('homeThemeContinue')}</Button>
-            <p className={styles.themeMeta}>{item.control}</p>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </section>
   );
@@ -806,14 +950,24 @@ function Footer({ t }: { t: T }) {
 
 export function Home() {
   const t = useI18n<typeof import('i18n')>();
+  const [framework, setFramework] = useState<Framework>('react');
+  const [pm, setPm] = useState<PackageManager>('pnpm');
   const categories = getComponentCategories();
   const count = categories.reduce((total, category) => total + category.count, 0);
 
   return (
     <div className={styles.home}>
-      <Hero t={t} count={count} />
-      <OneApi t={t} />
-      <Install t={t} />
+      <ToastToaster />
+      <Hero
+        t={t}
+        count={count}
+        framework={framework}
+        onFrameworkChange={setFramework}
+        pm={pm}
+        onPmChange={setPm}
+      />
+      <OneApi t={t} framework={framework} onFrameworkChange={setFramework} />
+      <Install t={t} framework={framework} onFrameworkChange={setFramework} pm={pm} />
       <Components t={t} count={count} categories={categories} />
       <Themes t={t} />
       <Start t={t} />

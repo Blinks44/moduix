@@ -105,9 +105,13 @@ export default defineConfig({
       checkDeadLinks: {
         excludes: ['/llms.txt', '/llms-full.txt'],
       },
-      // The anchor check skips headings nested in JSX, such as `<Steps>` sections.
+      // The anchor check skips headings and ids rendered inside JSX components such as QuickStartFlow.
       checkAnchors: {
-        excludes: ['/docs/quick-start#add-styles'],
+        excludes: [
+          '/docs/quick-start#add-styles',
+          '/docs/quick-start#install-as-a-package',
+          '/docs/quick-start#install-with-the-shadcn-cli',
+        ],
       },
     },
   },

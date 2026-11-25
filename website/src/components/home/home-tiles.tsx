@@ -1,180 +1,233 @@
+import { Badge } from '@moduix/react/badge';
+import { Button } from '@moduix/react/button';
 import {
-  Check,
-  ChevronDown,
-  ChevronLeft,
-  ChevronRight,
-  CircleCheck,
-  RotateCcw,
-  Upload,
-  X,
-} from 'lucide-react';
+  ColorPicker,
+  ColorPickerArea,
+  ColorPickerChannelInput,
+  ColorPickerContent,
+  ColorPickerControl,
+  ColorPickerHiddenInput,
+  ColorPickerPositioner,
+  ColorPickerSliders,
+  ColorPickerSwatchGroup,
+  ColorPickerSwatchTrigger,
+  ColorPickerTrigger,
+  parseColor,
+} from '@moduix/react/color-picker';
+import {
+  Combobox,
+  ComboboxDropdown,
+  ComboboxEmpty,
+  ComboboxField,
+  ComboboxList,
+  ComboboxOption,
+  useFilteredCollection,
+} from '@moduix/react/combobox';
+import { DatePicker, DatePickerField, DatePickerPanel, parseDate } from '@moduix/react/date-picker';
+import {
+  FileUpload,
+  FileUploadDropzone,
+  FileUploadHiddenInput,
+  FileUploadItemGroup,
+  FileUploadItems,
+  FileUploadTrigger,
+} from '@moduix/react/file-upload';
+import { SignaturePad, SignaturePadCanvas } from '@moduix/react/signature-pad';
+import {
+  TagsInput,
+  TagsInputClearTrigger,
+  TagsInputControl,
+  TagsInputHiddenInput,
+  TagsInputInput,
+  TagsInputItems,
+} from '@moduix/react/tags-input';
+import { toast } from '@moduix/react/toast';
+import { Bell, CheckCircle2, Upload } from 'lucide-react';
+import { useState } from 'react';
 import styles from './home-tiles.module.css';
 
-// Home · Components tiles from Moduix.sketch. Compact illustrations at their real size: scaled-down
-// examples are unreadable, and open popups cannot render inside the tile.
-function ComboboxTile() {
-  const people = [
-    ['Grace Hopper', '#f59e0b', true],
-    ['Graham Bell', '#10b981', false],
-    ['Ingrid Daubechies', '#8b5cf6', false],
-  ] as const;
-  return (
-    <div className={styles.combobox}>
-      <span className={styles.label}>Assign to</span>
-      <span className={styles.input}>
-        gra
-        <ChevronDown aria-hidden="true" />
-      </span>
-      <ul className={styles.list}>
-        {people.map(([name, color, selected]) => (
-          <li key={name} data-selected={selected ? '' : undefined}>
-            <span className={styles.avatar} style={{ background: color }} />
-            {name}
-            {selected ? <Check aria-hidden="true" /> : null}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-function TourTile() {
-  return (
-    <div className={styles.tour}>
-      <span className={styles.tourTarget}>Invite</span>
-      <span className={styles.tourLine} />
-      <span className={styles.tourLine} />
-      <div className={styles.tourStep}>
-        <span className={styles.tourProgress}>Step 2 of 4</span>
-        <strong>Invite your team</strong>
-        <span className={styles.tourActions}>
-          <span>Skip</span>
-          <span className={styles.tourNext}>Next</span>
-        </span>
-      </div>
-    </div>
-  );
-}
-
-function ToastTile() {
-  return (
-    <div className={styles.toastStack}>
-      <span className={styles.toastBehind} />
-      <div className={styles.toast}>
-        <CircleCheck aria-hidden="true" />
-        <span>
-          <strong>Changes saved</strong>
-          Your profile is up to date.
-        </span>
-        <X aria-hidden="true" />
-      </div>
-    </div>
-  );
-}
+const swatches = ['#3d63f5', '#10b981', '#f59e0b', '#8b5cf6'];
 
 function ColorPickerTile() {
   return (
-    <div className={styles.colorPicker}>
-      <span className={styles.colorArea}>
-        <span className={styles.colorThumb} />
-      </span>
-      <span className={styles.hue}>
-        <span className={styles.hueThumb} />
-      </span>
-      <span className={styles.colorRow}>
-        <span className={styles.swatch} />
-        <span className={styles.field}>#3D63F5</span>
-      </span>
+    <div className={styles.tileInner}>
+      <ColorPicker defaultValue={parseColor('#3d63f5')}>
+        <ColorPickerControl>
+          <ColorPickerChannelInput channel="hex" aria-label="Hex color" />
+          <ColorPickerTrigger aria-label="Open color picker" />
+        </ColorPickerControl>
+        <ColorPickerSwatchGroup className={styles.swatchRow}>
+          {swatches.map((color) => (
+            <ColorPickerSwatchTrigger key={color} value={color} />
+          ))}
+        </ColorPickerSwatchGroup>
+        <ColorPickerPositioner>
+          <ColorPickerContent>
+            <ColorPickerArea />
+            <ColorPickerSliders />
+          </ColorPickerContent>
+        </ColorPickerPositioner>
+        <ColorPickerHiddenInput />
+      </ColorPicker>
     </div>
   );
 }
 
 function DatePickerTile() {
-  const weeks = [
-    [1, 2, 3, 4, 5, 6, 7],
-    [8, 9, 10, 11, 12, 13, 14],
-    [15, 16, 17, 18, 19, 20, 21],
-    [22, 23, 24, 25, 26, 27, 28],
-  ];
-  const state = (day: number) =>
-    day === 14 || day === 18 ? 'selected' : day > 14 && day < 18 ? 'range' : undefined;
   return (
-    <div className={styles.calendar}>
-      <span className={styles.calendarHeader}>
-        October 2026
-        <span>
-          <ChevronLeft aria-hidden="true" />
-          <ChevronRight aria-hidden="true" />
-        </span>
-      </span>
-      <span className={styles.calendarGrid}>
-        {['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((day, index) => (
-          <span key={index} className={styles.weekday}>
-            {day}
-          </span>
-        ))}
-        {weeks.flat().map((day) => (
-          <span key={day} data-state={state(day)}>
-            {day}
-          </span>
-        ))}
-      </span>
+    <div className={styles.tileInner}>
+      <DatePicker defaultValue={[parseDate('2026-10-14')]} name="home-release-date">
+        <DatePickerField placeholder="Select date" />
+        <DatePickerPanel />
+      </DatePicker>
     </div>
   );
 }
 
+const tourSteps = [
+  { title: 'Invite your team', body: 'Share workspaces with role-based permissions.' },
+  { title: 'Pick a preset', body: 'Switch Calm, Dense, Soft, or Contrast in one attribute.' },
+  { title: 'Copy or install', body: 'Use npm packages or the shadcn CLI with the same API.' },
+] as const;
+
+function TourTile() {
+  const [step, setStep] = useState(0);
+  const current = tourSteps[step];
+  const isLast = step === tourSteps.length - 1;
+
+  return (
+    <div className={styles.tourCard}>
+      <div className={styles.tourHeader}>
+        <Badge variant="secondary">
+          Step {step + 1} of {tourSteps.length}
+        </Badge>
+      </div>
+      <strong className={styles.tourTitle}>{current.title}</strong>
+      <p className={styles.tourBody}>{current.body}</p>
+      <div className={styles.tourActions}>
+        <Button
+          size="xs"
+          variant="ghost"
+          onClick={() => setStep((value) => (value > 0 ? value - 1 : tourSteps.length - 1))}
+        >
+          Back
+        </Button>
+        <Button size="xs" onClick={() => setStep((value) => (isLast ? 0 : value + 1))}>
+          {isLast ? 'Restart' : 'Next'}
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+const signatureTranslations = {
+  control: 'Signature drawing area',
+  clearTrigger: 'Clear signature',
+};
+
 function SignaturePadTile() {
   return (
-    <div className={styles.signature}>
-      <svg viewBox="0 0 160 60" aria-hidden="true">
-        <path d="M6 44c8-10 12-34 20-34s6 40 14 40 10-46 18-46 6 44 14 44 8-26 16-26 6 22 14 22 10-14 18-16 12 0 20-6" />
-      </svg>
-      <span className={styles.signatureLine} />
-      <span className={styles.signatureClear}>
-        <RotateCcw aria-hidden="true" />
-      </span>
+    <div className={styles.signatureWrap}>
+      <SignaturePad translations={signatureTranslations}>
+        <SignaturePadCanvas className={styles.signatureCanvas} />
+      </SignaturePad>
+    </div>
+  );
+}
+
+const people = [
+  { label: 'Grace Hopper', value: 'grace' },
+  { label: 'Ada Lovelace', value: 'ada' },
+  { label: 'Alan Turing', value: 'alan' },
+  { label: 'Margaret Hamilton', value: 'margaret' },
+];
+
+function ComboboxTile() {
+  const { collection, filter } = useFilteredCollection({ initialItems: people });
+
+  return (
+    <div className={styles.tileInner}>
+      <Combobox collection={collection} filter={filter} defaultValue={['grace']}>
+        <ComboboxField
+          placeholder="Assign to…"
+          clearLabel="Clear assignee"
+          triggerLabel="Open people"
+        />
+        <ComboboxDropdown>
+          <ComboboxEmpty>No matches</ComboboxEmpty>
+          <ComboboxList>
+            {collection.items.map((item) => (
+              <ComboboxOption key={item.value} item={item}>
+                {item.label}
+              </ComboboxOption>
+            ))}
+          </ComboboxList>
+        </ComboboxDropdown>
+      </Combobox>
     </div>
   );
 }
 
 function FileUploadTile() {
   return (
-    <div className={styles.upload}>
-      <span className={styles.dropzone}>
-        <Upload aria-hidden="true" />
-        <span>
-          Drop files or <em>browse</em>
+    <div className={styles.tileInner}>
+      <FileUpload maxFiles={2} className={styles.upload}>
+        <FileUploadHiddenInput />
+        <FileUploadDropzone className={styles.dropzone}>
+          <Upload className={styles.uploadIcon} aria-hidden="true" />
+          <span className={styles.uploadText}>Drop files or</span>
+          <FileUploadTrigger asChild>
+            <Button size="xs" variant="outline">
+              Browse
+            </Button>
+          </FileUploadTrigger>
+        </FileUploadDropzone>
+        <FileUploadItemGroup>
+          <FileUploadItems />
+        </FileUploadItemGroup>
+      </FileUpload>
+    </div>
+  );
+}
+
+function ToastTile() {
+  return (
+    <div className={styles.toastTile}>
+      <div className={styles.toastPreview}>
+        <CheckCircle2 className={styles.toastIcon} aria-hidden="true" />
+        <span className={styles.toastCopy}>
+          <strong>Changes saved</strong>
+          <small>Your profile is up to date.</small>
         </span>
-        <small>PNG, PDF up to 10 MB</small>
-      </span>
-      <span className={styles.file}>
-        <span className={styles.fileBadge}>PDF</span>
-        <span className={styles.fileInfo}>
-          <strong>q3-report.pdf</strong>
-          <small>2.4 MB · 68%</small>
-          <span className={styles.progress}>
-            <span />
-          </span>
-        </span>
-      </span>
+      </div>
+      <div className={styles.toastTriggers}>
+        <Button
+          size="xs"
+          onClick={() =>
+            toast.success('Changes saved', {
+              description: 'Your profile is up to date.',
+            })
+          }
+        >
+          <Bell aria-hidden="true" />
+          Trigger toast
+        </Button>
+      </div>
     </div>
   );
 }
 
 function TagsInputTile() {
   return (
-    <div className={styles.tags}>
-      <span className={styles.label}>Topics</span>
-      <span className={styles.tagsBox}>
-        {['design', 'a11y', 'react', 'vue'].map((tag) => (
-          <span key={tag} className={styles.tag}>
-            {tag}
-            <X aria-hidden="true" />
-          </span>
-        ))}
-        <span className={styles.tagsPlaceholder}>Add topic…</span>
-      </span>
-      <small>Press Enter to add, Backspace to remove</small>
+    <div className={styles.tileInner}>
+      <TagsInput defaultValue={['React', 'Vue']} name="home-tags">
+        <TagsInputControl>
+          <TagsInputItems />
+          <TagsInputInput placeholder="Add tag…" aria-label="Add tag" />
+          <TagsInputClearTrigger aria-label="Clear tags" />
+        </TagsInputControl>
+        <TagsInputHiddenInput />
+      </TagsInput>
     </div>
   );
 }

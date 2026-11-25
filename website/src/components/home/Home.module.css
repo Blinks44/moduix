@@ -143,12 +143,53 @@
   }
 }
 
+.commandWrap {
+  display: inline-flex;
+  max-width: 100%;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.pmTabs {
+  display: inline-flex;
+  width: fit-content;
+  gap: 2px;
+  border-radius: 8px;
+  padding: 2px;
+  background: var(--rp-c-bg-mute);
+
+  button {
+    height: 24px;
+    border: 0;
+    border-radius: 6px;
+    padding: 0 9px;
+    background: transparent;
+    color: var(--rp-c-text-3);
+    font-family: var(--rp-font-family-mono);
+    font-size: 12px;
+    cursor: pointer;
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease;
+
+    &:hover {
+      color: var(--rp-c-text-1);
+    }
+
+    &[aria-pressed='true'] {
+      background: var(--rp-c-bg);
+      box-shadow: 0 1px 2px rgb(9 9 11 / 8%);
+      color: var(--rp-c-text-0);
+    }
+  }
+}
+
 .command {
   display: inline-flex;
   height: 40px;
   align-items: center;
   gap: 16px;
-  margin-top: 24px;
   border: 1px solid var(--rp-c-divider);
   border-radius: 10px;
   padding: 0 6px 0 14px;
@@ -157,7 +198,9 @@
   font-size: 13px;
 
   code {
+    overflow-x: auto;
     color: var(--rp-c-text-1);
+    scrollbar-width: none;
   }
 
   code span {
@@ -168,6 +211,7 @@
     display: grid;
     width: 28px;
     height: 28px;
+    flex: none;
     place-items: center;
     border: 0;
     border-radius: 6px;
@@ -187,7 +231,7 @@
 }
 
 .works {
-  margin-top: 40px;
+  margin-top: 32px;
 
   p {
     margin: 0 0 10px;
@@ -218,8 +262,24 @@
   padding: 0 12px;
   background: var(--rp-c-bg);
   color: var(--rp-c-text-1);
+  font-family: inherit;
   font-size: 13px;
   font-weight: 500;
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease,
+    color 0.15s ease;
+
+  &:hover {
+    border-color: var(--moduix-doc-border-strong);
+  }
+
+  &[aria-pressed='true'] {
+    border-color: var(--rp-c-text-0);
+    background: var(--rp-c-text-0);
+    color: var(--rp-c-bg);
+  }
 }
 
 .works .worksNote {
@@ -438,23 +498,36 @@
   gap: 40px;
 }
 
+.installFrameworks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.installTableWrap {
+  overflow-x: auto;
+  border: 1px solid var(--rp-c-divider);
+  border-radius: 12px;
+  background: var(--rp-c-bg);
+}
+
 .installTable {
   display: table;
   width: 100%;
-  overflow: hidden;
+  min-width: 540px;
   margin: 0;
-  border: 1px solid var(--rp-c-divider);
+  border: 0;
   border-collapse: separate;
-  border-radius: 12px;
   border-spacing: 0;
-  background: var(--rp-c-bg);
+  background: transparent;
   font-size: 13px;
 
   th,
   td {
     border: 0;
     border-top: 1px solid var(--rp-c-divider);
-    padding: 20px;
+    padding: 18px 20px;
     background: transparent;
     text-align: left;
     vertical-align: top;
@@ -483,20 +556,57 @@
     font-weight: 400;
     white-space: pre-line;
   }
+}
+
+.installCell {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  border: 1px solid var(--rp-c-divider);
+  border-radius: 8px;
+  padding: 8px 8px 8px 12px;
+  background: var(--rp-c-bg-soft);
 
   code {
     display: grid;
+    min-width: 0;
+    flex: 1;
     gap: 2px;
-    border: 1px solid var(--rp-c-divider);
-    border-radius: 8px;
-    padding: 10px 12px;
-    background: var(--rp-c-bg-soft);
+    border: 0;
+    padding: 2px 0;
+    background: transparent;
     color: var(--rp-c-text-0);
     font-size: 12px;
+    line-height: 1.45;
+    word-break: break-word;
   }
 
   code span {
     color: var(--rp-c-text-3);
+  }
+}
+
+.installCopy {
+  display: grid;
+  width: 26px;
+  height: 26px;
+  flex: none;
+  place-items: center;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--rp-c-text-3);
+  cursor: pointer;
+
+  &:hover {
+    background: var(--rp-c-bg-mute);
+    color: var(--rp-c-text-0);
+  }
+
+  svg {
+    width: 14px;
+    height: 14px;
   }
 }
 
@@ -588,25 +698,14 @@
 }
 
 .tile {
-  display: grid;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
   border: 1px solid var(--rp-c-divider);
   border-radius: 14px;
-  padding: 6px 6px 14px;
+  padding: 6px 6px 10px;
   background: var(--rp-c-bg);
-  text-decoration: none;
-
-  > strong {
-    margin: 14px 10px 0;
-    color: var(--rp-c-text-0);
-    font-size: 14px;
-    font-weight: 500;
-  }
-
-  > span {
-    margin: 0 10px;
-    color: var(--rp-c-text-3);
-    font-size: 12px;
-  }
+  transition: border-color 0.15s ease;
 
   &:hover {
     border-color: var(--moduix-doc-border-strong);
@@ -614,9 +713,63 @@
 }
 
 .tilePreview {
-  height: 176px;
+  display: flex;
+  min-height: 188px;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
   border-radius: 10px;
+  padding: 14px;
   background: var(--rp-c-bg-soft);
+}
+
+.tileFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 8px;
+  border-radius: 8px;
+  padding: 6px 10px;
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+
+  > div {
+    display: grid;
+    gap: 1px;
+  }
+
+  strong {
+    color: var(--rp-c-text-0);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 19px;
+  }
+
+  span {
+    color: var(--rp-c-text-3);
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  svg {
+    width: 15px;
+    height: 15px;
+    flex: none;
+    color: var(--rp-c-text-3);
+    transition:
+      transform 0.15s ease,
+      color 0.15s ease;
+  }
+
+  &:hover {
+    background: var(--rp-c-bg-soft);
+
+    svg {
+      color: var(--rp-c-text-0);
+      transform: translateX(2px);
+    }
+  }
 }
 
 /* 04 · Themes */
@@ -647,6 +800,11 @@
   border-radius: 14px;
   padding: 20px;
   background: var(--rp-c-bg);
+  transition: border-color 0.15s ease;
+
+  &:hover {
+    border-color: var(--moduix-doc-border-strong);
+  }
 
   &[data-active] {
     border: 2px solid var(--rp-c-text-0);
@@ -658,6 +816,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  gap: 8px;
 
   strong {
     display: block;
@@ -672,12 +831,37 @@
   }
 }
 
-.themeActive {
+.themeActive,
+.themeApply {
+  flex: none;
+  border: 1px solid transparent;
   border-radius: 10px;
-  padding: 2px 8px;
+  padding: 3px 9px;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 16px;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.themeActive {
   background: var(--rp-c-text-0);
-  color: var(--rp-c-bg) !important;
-  font-size: 11px !important;
+  color: var(--rp-c-bg);
+}
+
+.themeApply {
+  border-color: var(--rp-c-divider);
+  background: var(--rp-c-bg-soft);
+  color: var(--rp-c-text-2);
+
+  &:hover {
+    border-color: var(--moduix-doc-border-strong);
+    color: var(--rp-c-text-0);
+  }
 }
 
 .themeMeta {
@@ -908,8 +1092,6 @@
 
   /* Home · Mobile frame: stacked hero actions, a Code toggle instead of the code card, one API
      card with framework tabs, a tile carousel, four setups and a one-line footer. */
-  .desktopOnly,
-  .works,
   .heroCode,
   .startActions .startGhost,
   .startEyebrow + h2 + p,
