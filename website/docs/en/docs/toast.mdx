@@ -199,3 +199,16 @@ Options of `createToaster()`. Each `toaster.create()` call also takes `title`, `
 | `hotkey` | `string[]` | `['altKey', 'KeyT']` | Keys that move focus to the toast region. |
 | `removeDelay` | `number` | `200` | Delay before a dismissed toast is removed, for its exit animation. |
 | `pauseOnPageIdle` | `boolean` | `true` | Pauses timers while the page is hidden. |
+
+### `ToastToaster`
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `toaster` | `CreateToasterReturn` | `defaultToaster` | Toaster store to render. Omit to use the built-in store paired with `toast()`. |
+| `portalled` | `boolean` | `true` | Renders the toast region in a portal at the end of `body`. |
+| `portalRef` | `RefObject<HTMLElement \| null>` | — | Custom portal container element when `portalled` is `true`. |
+| `children` | `(toast: ToastOptions) => ReactNode` | Default toast renderer | Custom render function for each toast item. |
+
+### `toast()` shorthand
+
+Call `toast(title, options?)`, `toast.success(...)`, `toast.error(...)`, `toast.warning(...)`, `toast.info(...)`, `toast.loading(...)`, `toast.promise(promise, options)`, or `toast.dismiss(id?)` against the default `<ToastToaster />`.

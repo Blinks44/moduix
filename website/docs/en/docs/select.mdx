@@ -225,6 +225,8 @@ instead of adding its own styling hook.
 
 ## API reference
 
+<FrameworkApiHint prop="value" />
+
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
 | `collection` | `ListCollection<T>` | — | Items from `createListCollection()`. |
@@ -258,3 +260,21 @@ instead of adding its own styling hook.
 | `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | — | Called when the pointer is pressed outside the popup. |
 | `onFocusOutside` | `(event: FocusOutsideEvent) => void` | — | Called when focus moves outside the popup. |
 | `onInteractOutside` | `(event: InteractOutsideEvent) => void` | — | Called on any interaction outside the popup. |
+
+### `SelectField`
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `placeholder` | `string` | — | Placeholder rendered inside `SelectValueText` when no option is selected. |
+| `clearable` | `boolean` | `false` | Renders a `SelectClearTrigger` inside the control when a value is selected. |
+| `clearLabel` | `string` | — | Accessible label for the clear button (implies `clearable`). |
+| `indicator` | `ReactNode` / slot | Chevron | Custom indicator icon replacing the default chevron. |
+| `clearTriggerProps` | `SelectClearTriggerProps` | — | Extra props forwarded to `SelectClearTrigger`. |
+
+### `SelectOption`
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `item` | `CollectionItem` | — | Collection item passed to the underlying `SelectItem`. |
+| `indicator` | `ReactNode \| false` | Check | Custom indicator icon, or `false` to omit `SelectItemIndicator`. |
+| `children` | `ReactNode` / slot | — | Option label rendered inside `SelectItemText`. |

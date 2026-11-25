@@ -1,3 +1,11 @@
+import {
+  Alert,
+  AlertContent,
+  AlertDescription,
+  AlertIndicator,
+  AlertTitle,
+} from '@moduix/react/alert';
+import { Badge } from '@moduix/react/badge';
 import { Button } from '@moduix/react/button';
 import {
   Checkbox,
@@ -7,19 +15,24 @@ import {
 } from '@moduix/react/checkbox';
 import {
   Dialog,
-  DialogBackdrop,
   DialogBody,
   DialogCloseIcon,
-  DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
-  DialogPositioner,
+  DialogPanel,
   DialogTitle,
 } from '@moduix/react/dialog';
 import { Field, FieldHelperText, FieldLabel } from '@moduix/react/field';
 import { Input } from '@moduix/react/input';
 import { NativeSelect } from '@moduix/react/native-select';
+import {
+  ProgressLinear,
+  ProgressLinearLabel,
+  ProgressLinearRange,
+  ProgressLinearTrack,
+  ProgressLinearValueText,
+} from '@moduix/react/progress-linear';
 import {
   SegmentGroup,
   SegmentGroupIndicator,
@@ -35,11 +48,21 @@ import {
   SliderValueText,
 } from '@moduix/react/slider';
 import { Switch, SwitchControl, SwitchHiddenInput, SwitchLabel } from '@moduix/react/switch';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumnHeader,
+  TableHeader,
+  TableRow,
+  TableScrollArea,
+} from '@moduix/react/table';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@moduix/react/tabs';
 import { Textarea } from '@moduix/react/textarea';
 import { useI18n } from '@rspress/core/runtime';
 import { CodeBlockRuntime } from '@rspress/core/theme';
-import { Upload } from 'lucide-react';
-import { type CSSProperties, useId, useLayoutEffect, useRef, useState } from 'react';
+import { Check, Link2, RotateCcw, Upload } from 'lucide-react';
+import { type CSSProperties, useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 import contrastCss from '../../../../packages/foundation/src/presets/contrast.css?raw';
 import denseCss from '../../../../packages/foundation/src/presets/dense.css?raw';
 import softCss from '../../../../packages/foundation/src/presets/soft.css?raw';
@@ -49,10 +72,11 @@ import spacingCss from '../../../../packages/foundation/src/styles/spacing.css?r
 import { ColorControl, RangeControl, toHex } from '../mdx/customize';
 import styles from './theme-builder.module.css';
 
-// Theme builder page: controls layer token overrides on a preset, the preview renders them and the
-// page prints them as one `[data-moduix-theme='brand']` block.
+// Theme builder page: controls layer token overrides on a preset, the preview renders them,
+// users can apply the theme site-wide or share it via URL, and export CSS or Tailwind @theme.
 type Tokens = Record<string, string>;
 type Density = 'compact' | 'default' | 'comfortable';
+type ExportFormat = 'css' | 'tailwind';
 
 const declarations = (css: string): Tokens =>
   Object.fromEntries(
@@ -66,6 +90,36 @@ const presets = {
   contrast: { title: 'Contrast', hue: 250, density: 'default', tokens: declarations(contrastCss) },
 } satisfies Record<string, { title: string; hue: number; density: Density; tokens: Tokens }>;
 type Preset = keyof typeof presets;
+
+const fontOptions = [
+  { value: 'default', label: 'Default (System / Theme)', stack: '' },
+  {
+    value: 'inter',
+    label: 'Inter',
+    stack: "'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif",
+  },
+  {
+    value: 'geist',
+    label: 'Geist Sans',
+    stack: "'Geist', ui-sans-serif, system-ui, -apple-system, sans-serif",
+  },
+  {
+    value: 'jakarta',
+    label: 'Plus Jakarta Sans',
+    stack: "'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif",
+  },
+  {
+    value: 'ibm',
+    label: 'IBM Plex Sans',
+    stack: "'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif",
+  },
+  {
+    value: 'mono',
+    label: 'Monospace UI',
+    stack: "ui-monospace, 'SFMono-Regular', Menlo, Monaco, Consolas, monospace",
+  },
+] as const;
+type FontChoice = (typeof fontOptions)[number]['value'];
 
 const calmColors = declarations(colorsCss);
 
@@ -114,17 +168,36 @@ function hexToOklch(hex: string) {
   };
 }
 
-// The picked color is the light value; dark mode gets a lighter, calmer version of the same hue.
-function primaryTokens(hex: string): Tokens {
+function colorPair(hex: string, tokenName: string, withForeground = true): Tokens {
   const { l, c, h } = hexToOklch(hex);
-  const dark = { l: Math.min(Math.max(l + 0.25, 0.72), 0.85), c: c * 0.85 };
-  const color = (lightness: number, chroma: number) =>
-    `oklch(${lightness.toFixed(3)} ${chroma.toFixed(3)} ${h.toFixed(1)})`;
+  const dark = { l: Math.min(Math.max(l + 0.22, 0.7), 0.84), c: c * 0.85 };
+  const color = (lightness: number, chroma: number, hueOffset = 0) =>
+    `oklch(${lightness.toFixed(3)} ${chroma.toFixed(3)} ${((h + hueOffset + 360) % 360).toFixed(1)})`;
   const foreground = (lightness: number) =>
     lightness > 0.65 ? color(0.2, 0.03) : color(0.985, 0.01);
+  const result: Tokens = {
+    [tokenName]: `light-dark(${color(l, c)}, ${color(dark.l, dark.c)})`,
+  };
+  if (withForeground) {
+    result[`${tokenName}-foreground`] = `light-dark(${foreground(l)}, ${foreground(dark.l)})`;
+  }
+  return result;
+}
+
+function chartTokens(hex: string): Tokens {
+  const { l, c, h } = hexToOklch(hex);
+  const make = (offset: number, lightnessShift = 0) => {
+    const lightL = Math.min(Math.max(l + lightnessShift, 0.42), 0.74);
+    const darkL = Math.min(Math.max(lightL + 0.14, 0.64), 0.84);
+    const hue = ((h + offset + 360) % 360).toFixed(1);
+    return `light-dark(oklch(${lightL.toFixed(3)} ${c.toFixed(3)} ${hue}), oklch(${darkL.toFixed(3)} ${(c * 0.9).toFixed(3)} ${hue}))`;
+  };
   return {
-    '--moduix-primary': `light-dark(${color(l, c)}, ${color(dark.l, dark.c)})`,
-    '--moduix-primary-foreground': `light-dark(${foreground(l)}, ${foreground(dark.l)})`,
+    '--moduix-chart-1': make(0, 0),
+    '--moduix-chart-2': make(36, 0.04),
+    '--moduix-chart-3': make(-38, -0.02),
+    '--moduix-chart-4': make(78, 0.06),
+    '--moduix-chart-5': make(135, 0.02),
   };
 }
 
@@ -155,6 +228,43 @@ function parseShadcn(css: string): Tokens {
   return tokens;
 }
 
+function formatTailwindTheme(tokens: Tokens) {
+  const themeLines: string[] = [];
+  for (const [name, value] of Object.entries(tokens)) {
+    if (name === '--moduix-radius') {
+      themeLines.push(`  --radius-md: ${value};`);
+      themeLines.push(`  --radius-lg: calc(${value} + 2px);`);
+    } else if (name === '--moduix-font-sans') {
+      themeLines.push(`  --font-sans: ${value};`);
+    } else if (
+      name.startsWith('--moduix-') &&
+      !name.startsWith('--moduix-spacing-') &&
+      !name.startsWith('--moduix-size-')
+    ) {
+      const short = name.slice('--moduix-'.length);
+      themeLines.push(`  --color-${short}: var(${name});`);
+    }
+  }
+  const overrides =
+    Object.entries(tokens)
+      .map(([name, value]) => `  ${name}: ${value};`)
+      .join('\n') || '  /* No changes from Calm yet */';
+
+  return [
+    '/* styles.css · Tailwind CSS v4 */',
+    "@import '@moduix/react-tailwind/style.css';",
+    "@import 'tailwindcss';",
+    '',
+    '[data-moduix-theme="brand"] {',
+    overrides,
+    '}',
+    '',
+    '@theme inline {',
+    ...(themeLines.length ? themeLines : ['  /* Customize controls above to map brand tokens */']),
+    '}',
+  ].join('\n');
+}
+
 function ImportDialog({ onImport }: { onImport: (tokens: Tokens) => void }) {
   const t = useI18n<typeof import('i18n')>();
   const [open, setOpen] = useState(false);
@@ -168,52 +278,82 @@ function ImportDialog({ onImport }: { onImport: (tokens: Tokens) => void }) {
         <Upload aria-hidden="true" />
         {t('themeBuilderImport')}
       </Button>
-      <DialogBackdrop />
-      <DialogPositioner>
-        <DialogContent className={styles.dialog}>
-          <DialogHeader>
-            <DialogTitle>{t('themeBuilderImportTitle')}</DialogTitle>
-            <DialogCloseIcon />
-            <DialogDescription>{t('themeBuilderImportText')}</DialogDescription>
-          </DialogHeader>
-          <DialogBody>
-            <Field>
-              <FieldLabel>{t('themeBuilderImportLabel')}</FieldLabel>
-              <Textarea
-                className={styles.source}
-                value={source}
-                onChange={(event) => setSource(event.target.value)}
-                placeholder={':root {\n  --primary: oklch(0.51 0.09 185);\n}'}
-                rows={10}
-              />
-              <FieldHelperText>
-                {t('themeBuilderImportFound').replace('{count}', String(count))}
-              </FieldHelperText>
-            </Field>
-          </DialogBody>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setOpen(false)}>
-              {t('homeDemoCancel')}
-            </Button>
-            <Button
-              disabled={!count}
-              onClick={() => {
-                onImport(parsed);
-                setOpen(false);
-              }}
-            >
-              {t('themeBuilderImportAction')}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </DialogPositioner>
+      <DialogPanel className={styles.dialog}>
+        <DialogHeader>
+          <DialogTitle>{t('themeBuilderImportTitle')}</DialogTitle>
+          <DialogCloseIcon />
+          <DialogDescription>{t('themeBuilderImportText')}</DialogDescription>
+        </DialogHeader>
+        <DialogBody>
+          <Field>
+            <FieldLabel>{t('themeBuilderImportLabel')}</FieldLabel>
+            <Textarea
+              className={styles.source}
+              value={source}
+              onChange={(event) => setSource(event.target.value)}
+              placeholder={':root {\n  --primary: oklch(0.51 0.09 185);\n}'}
+              rows={10}
+            />
+            <FieldHelperText>
+              {t('themeBuilderImportFound').replace('{count}', String(count))}
+            </FieldHelperText>
+          </Field>
+        </DialogBody>
+        <DialogFooter>
+          <Button variant="outline" onClick={() => setOpen(false)}>
+            {t('homeDemoCancel')}
+          </Button>
+          <Button
+            disabled={!count}
+            onClick={() => {
+              onImport(parsed);
+              setOpen(false);
+            }}
+          >
+            {t('themeBuilderImportAction')}
+          </Button>
+        </DialogFooter>
+      </DialogPanel>
     </Dialog>
   );
 }
 
-function Preview() {
+const sampleOrders = [
+  {
+    id: 'INV-204',
+    customer: 'A. Lovelace',
+    status: 'Paid',
+    variant: 'success' as const,
+    total: '$420',
+  },
+  {
+    id: 'INV-205',
+    customer: 'G. Hopper',
+    status: 'Pending',
+    variant: 'warning' as const,
+    total: '$190',
+  },
+  {
+    id: 'INV-206',
+    customer: 'K. Thompson',
+    status: 'Failed',
+    variant: 'destructive' as const,
+    total: '$85',
+  },
+];
+
+const chartSeries = [
+  { label: 'Mon', pct: 58, color: 'var(--moduix-chart-1, var(--moduix-primary))' },
+  { label: 'Tue', pct: 82, color: 'var(--moduix-chart-2, var(--moduix-primary))' },
+  { label: 'Wed', pct: 66, color: 'var(--moduix-chart-3, var(--moduix-primary))' },
+  { label: 'Thu', pct: 94, color: 'var(--moduix-chart-4, var(--moduix-primary))' },
+  { label: 'Fri', pct: 74, color: 'var(--moduix-chart-5, var(--moduix-primary))' },
+];
+
+function Preview({ mode, base, tokens }: { mode: 'light' | 'dark'; base: Preset; tokens: Tokens }) {
   const t = useI18n<typeof import('i18n')>();
   const [quietHours, setQuietHours] = useState([22, 31]);
+  const [dialogOpen, setDialogOpen] = useState(false);
   const hour = (value: number) => `${String(value % 24).padStart(2, '0')}:00`;
 
   return (
@@ -262,6 +402,7 @@ function Preview() {
           <Button size="sm">{t('homeDemoSave')}</Button>
         </div>
       </div>
+
       <div className={styles.card}>
         <div>
           <p className={styles.title}>{t('themeBuilderSignIn')}</p>
@@ -287,23 +428,189 @@ function Preview() {
         </SegmentGroup>
         <Button>{t('homeThemeContinue')}</Button>
       </div>
+
+      <div className={styles.card}>
+        <div className={styles.cardHeader}>
+          <div>
+            <p className={styles.title}>Status &amp; Metrics</p>
+            <p className={styles.text}>Semantic alerts, badges, tabs, and chart tokens.</p>
+          </div>
+        </div>
+        <div className={styles.badgeRow}>
+          <Badge>Primary</Badge>
+          <Badge variant="secondary">Secondary</Badge>
+          <Badge variant="success">Healthy</Badge>
+          <Badge variant="destructive">Error</Badge>
+        </div>
+        <Alert status="info">
+          <AlertIndicator />
+          <AlertContent>
+            <AlertTitle>Deployment ready</AlertTitle>
+            <AlertDescription>All 8 packages passed validation.</AlertDescription>
+          </AlertContent>
+        </Alert>
+        <Tabs defaultValue="chart">
+          <TabsList>
+            <TabsTrigger value="chart">Usage</TabsTrigger>
+            <TabsTrigger value="quota">Quota</TabsTrigger>
+          </TabsList>
+          <TabsContent value="chart">
+            <div className={styles.chartBars} aria-label="Weekly activity chart">
+              {chartSeries.map((bar) => (
+                <div key={bar.label} className={styles.chartBar}>
+                  <div
+                    className={styles.chartFill}
+                    style={{ height: `${bar.pct}%`, background: bar.color }}
+                  />
+                  <span>{bar.label}</span>
+                </div>
+              ))}
+            </div>
+          </TabsContent>
+          <TabsContent value="quota">
+            <ProgressLinear value={72}>
+              <div className={styles.sliderHeader}>
+                <ProgressLinearLabel>API requests</ProgressLinearLabel>
+                <ProgressLinearValueText />
+              </div>
+              <ProgressLinearTrack>
+                <ProgressLinearRange />
+              </ProgressLinearTrack>
+            </ProgressLinear>
+          </TabsContent>
+        </Tabs>
+      </div>
+
+      <div className={styles.card}>
+        <div className={styles.cardHeader}>
+          <div>
+            <p className={styles.title}>Recent Invoices</p>
+            <p className={styles.text}>Table typography, status badges, and modal preview.</p>
+          </div>
+          <Button size="xs" variant="outline" onClick={() => setDialogOpen(true)}>
+            Open dialog
+          </Button>
+        </div>
+        <TableScrollArea>
+          <Table size="sm" interactive>
+            <TableHeader>
+              <TableRow>
+                <TableColumnHeader>Invoice</TableColumnHeader>
+                <TableColumnHeader>Status</TableColumnHeader>
+                <TableColumnHeader numeric>Total</TableColumnHeader>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {sampleOrders.map((order) => (
+                <TableRow key={order.id}>
+                  <TableCell>{order.id}</TableCell>
+                  <TableCell>
+                    <Badge variant={order.variant}>{order.status}</Badge>
+                  </TableCell>
+                  <TableCell numeric>{order.total}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableScrollArea>
+        <Dialog open={dialogOpen} onOpenChange={(details) => setDialogOpen(details.open)}>
+          <DialogPanel
+            size="sm"
+            data-moduix-theme={base === 'calm' ? undefined : base}
+            data-moduix-color-scheme={mode}
+            style={tokens as CSSProperties}
+          >
+            <DialogHeader>
+              <DialogTitle>Confirm export</DialogTitle>
+              <DialogCloseIcon />
+              <DialogDescription>
+                Preview how portalled modals inherit your active theme tokens.
+              </DialogDescription>
+            </DialogHeader>
+            <DialogFooter>
+              <Button variant="outline" size="sm" onClick={() => setDialogOpen(false)}>
+                Close
+              </Button>
+              <Button size="sm" onClick={() => setDialogOpen(false)}>
+                Confirm
+              </Button>
+            </DialogFooter>
+          </DialogPanel>
+        </Dialog>
+      </div>
     </>
   );
+}
+
+type ShareState = {
+  b?: Preset;
+  p?: string;
+  h?: number;
+  r?: number;
+  d?: Density;
+  f?: FontChoice;
+  x?: string;
+  s?: string;
+  c?: string;
+};
+
+function encodeShareState(state: ShareState) {
+  const json = JSON.stringify(state);
+  return btoa(json).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+function decodeShareState(raw: string): ShareState | null {
+  try {
+    const padded = raw.replace(/-/g, '+').replace(/_/g, '/');
+    const json = atob(padded);
+    return JSON.parse(json) as ShareState;
+  } catch {
+    return null;
+  }
 }
 
 function ThemeBuilder() {
   const t = useI18n<typeof import('i18n')>();
   const modeId = useId();
+  const exportId = useId();
   const previewRef = useRef<HTMLDivElement>(null);
+  const appliedKeysRef = useRef<string[]>([]);
+
   const [base, setBase] = useState<Preset>('calm');
   const [primary, setPrimary] = useState<string | null>(null);
+  const [destructive, setDestructive] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+  const [chartAccent, setChartAccent] = useState<string | null>(null);
   const [hue, setHue] = useState<number | null>(null);
   const [radius, setRadius] = useState<number | null>(null);
   const [density, setDensity] = useState<Density | null>(null);
+  const [font, setFont] = useState<FontChoice>('default');
   const [imported, setImported] = useState<Tokens>({});
   const [mode, setMode] = useState<'light' | 'dark'>('light');
+  const [applyToSite, setApplyToSite] = useState(false);
+  const [exportFormat, setExportFormat] = useState<ExportFormat>('css');
   const [basePrimary, setBasePrimary] = useState('#000000');
   const [copied, setCopied] = useState(false);
+  const [shared, setShared] = useState(false);
+
+  // Restore shared theme from `?theme=...` on mount.
+  useEffect(() => {
+    const param = new URLSearchParams(window.location.search).get('theme');
+    if (!param) return;
+    const state = decodeShareState(param);
+    if (!state) return;
+    if (state.b && state.b in presets) setBase(state.b);
+    if (state.p) setPrimary(state.p);
+    if (typeof state.h === 'number') setHue(state.h);
+    if (typeof state.r === 'number') setRadius(state.r);
+    if (state.d && ['compact', 'default', 'comfortable'].includes(state.d)) setDensity(state.d);
+    if (state.f && fontOptions.some((item) => item.value === state.f)) setFont(state.f);
+    if (state.x) setDestructive(state.x);
+    if (state.s) setSuccess(state.s);
+    if (state.c) setChartAccent(state.c);
+  }, []);
+
+  const selectedFont = fontOptions.find((item) => item.value === font);
 
   // Untouched controls show the values of the preset and the imported theme.
   const tokens: Tokens = {
@@ -312,13 +619,41 @@ function ThemeBuilder() {
     ...imported,
     ...(density === null ? {} : densityTokens(density)),
     ...(radius === null ? {} : { '--moduix-radius': `${radius / 16}rem` }),
-    ...(primary === null ? {} : primaryTokens(primary)),
+    ...(selectedFont?.stack ? { '--moduix-font-sans': selectedFont.stack } : {}),
+    ...(primary === null ? {} : colorPair(primary, '--moduix-primary', true)),
+    ...(destructive === null ? {} : colorPair(destructive, '--moduix-destructive', true)),
+    ...(success === null ? {} : colorPair(success, '--moduix-success', true)),
+    ...(chartAccent === null ? {} : chartTokens(chartAccent)),
   };
+
+  // Optional live site-wide application of custom tokens onto <html>.
+  useEffect(() => {
+    const root = document.documentElement;
+    for (const key of appliedKeysRef.current) {
+      root.style.removeProperty(key);
+    }
+    appliedKeysRef.current = [];
+    if (!applyToSite) return;
+    const keys = Object.keys(tokens);
+    for (const [key, value] of Object.entries(tokens)) {
+      root.style.setProperty(key, value);
+    }
+    appliedKeysRef.current = keys;
+    return () => {
+      for (const key of appliedKeysRef.current) {
+        root.style.removeProperty(key);
+      }
+      appliedKeysRef.current = [];
+    };
+  }, [applyToSite, tokens]);
+
   const css = `/* brand.css · after the foundation styles */\n[data-moduix-theme='brand'] {\n${
     Object.entries(tokens)
       .map(([name, value]) => `  ${name}: ${value};`)
       .join('\n') || '  /* No changes from Calm yet */'
   }\n}`;
+
+  const outputCode = exportFormat === 'tailwind' ? formatTailwindTheme(tokens) : css;
 
   // The light primary of the current tokens, read from the preview.
   useLayoutEffect(() => {
@@ -329,6 +664,47 @@ function ThemeBuilder() {
   useLayoutEffect(() => {
     setMode(document.documentElement.classList.contains('dark') ? 'dark' : 'light');
   }, []);
+
+  const handleReset = () => {
+    setBase('calm');
+    setPrimary(null);
+    setDestructive(null);
+    setSuccess(null);
+    setChartAccent(null);
+    setHue(null);
+    setRadius(null);
+    setDensity(null);
+    setFont('default');
+    setImported({});
+    setApplyToSite(false);
+    const url = new URL(window.location.href);
+    url.searchParams.delete('theme');
+    window.history.replaceState(null, '', url.pathname + url.search + url.hash);
+  };
+
+  const handleShare = async () => {
+    const payload: ShareState = {
+      ...(base !== 'calm' ? { b: base } : {}),
+      ...(primary ? { p: primary } : {}),
+      ...(hue !== null ? { h: hue } : {}),
+      ...(radius !== null ? { r: radius } : {}),
+      ...(density ? { d: density } : {}),
+      ...(font !== 'default' ? { f: font } : {}),
+      ...(destructive ? { x: destructive } : {}),
+      ...(success ? { s: success } : {}),
+      ...(chartAccent ? { c: chartAccent } : {}),
+    };
+    const url = new URL(window.location.href);
+    if (Object.keys(payload).length > 0) {
+      url.searchParams.set('theme', encodeShareState(payload));
+    } else {
+      url.searchParams.delete('theme');
+    }
+    window.history.replaceState(null, '', url.pathname + url.search + url.hash);
+    await navigator.clipboard.writeText(url.toString());
+    setShared(true);
+    setTimeout(() => setShared(false), 1800);
+  };
 
   if (import.meta.env.SSG_MD) return null;
 
@@ -350,12 +726,14 @@ function ThemeBuilder() {
               ))}
             </NativeSelect>
           </Field>
+
           <ColorControl
             label={t('themeBuilderPrimary')}
             name="--moduix-primary"
             value={primary ?? basePrimary}
             onChange={(value) => setPrimary(value.slice(0, 7))}
           />
+
           <RangeControl
             label={t('themeBuilderHue')}
             name="Neutral hue"
@@ -366,6 +744,7 @@ function ThemeBuilder() {
             value={hue ?? presets[base].hue}
             onChange={setHue}
           />
+
           <RangeControl
             label={t('themeBuilderRadius')}
             name="--moduix-radius"
@@ -376,6 +755,7 @@ function ThemeBuilder() {
             value={radius ?? remToPx(tokens['--moduix-radius'])}
             onChange={setRadius}
           />
+
           <Field>
             <FieldLabel>{t('themeBuilderDensity')}</FieldLabel>
             <NativeSelect
@@ -390,6 +770,47 @@ function ThemeBuilder() {
               ))}
             </NativeSelect>
           </Field>
+
+          <Field>
+            <FieldLabel>Font family</FieldLabel>
+            <NativeSelect
+              controlProps={{ className: styles.select }}
+              value={font}
+              onChange={(event) => setFont(event.target.value as FontChoice)}
+            >
+              {fontOptions.map((item) => (
+                <option key={item.value} value={item.value}>
+                  {item.label}
+                </option>
+              ))}
+            </NativeSelect>
+          </Field>
+
+          <hr className={styles.controlDivider} />
+
+          <ColorControl
+            label="Success"
+            name="--moduix-success"
+            value={success ?? '#16a34a'}
+            onChange={(value) => setSuccess(value.slice(0, 7))}
+          />
+
+          <ColorControl
+            label="Destructive"
+            name="--moduix-destructive"
+            value={destructive ?? '#dc2626'}
+            onChange={(value) => setDestructive(value.slice(0, 7))}
+          />
+
+          <ColorControl
+            label="Chart accent"
+            name="--moduix-chart-1"
+            value={chartAccent ?? primary ?? '#3d63f5'}
+            onChange={(value) => setChartAccent(value.slice(0, 7))}
+          />
+
+          <hr className={styles.controlDivider} />
+
           <div className={styles.group}>
             <span id={modeId} className={styles.label}>
               {t('themeBuilderPreview')}
@@ -412,6 +833,28 @@ function ThemeBuilder() {
               />
             </SegmentGroup>
           </div>
+
+          <Switch
+            checked={applyToSite}
+            onCheckedChange={(details) => setApplyToSite(details.checked)}
+            className={styles.switch}
+          >
+            <SwitchLabel>Apply to site</SwitchLabel>
+            <SwitchControl />
+            <SwitchHiddenInput />
+          </Switch>
+
+          <div className={styles.controlRow}>
+            <Button variant="outline" size="sm" onClick={handleShare}>
+              {shared ? <Check aria-hidden="true" /> : <Link2 aria-hidden="true" />}
+              {shared ? 'Link copied' : 'Share URL'}
+            </Button>
+            <Button variant="outline" size="sm" onClick={handleReset}>
+              <RotateCcw aria-hidden="true" />
+              Reset
+            </Button>
+          </div>
+
           <ImportDialog
             onImport={(next) => {
               setImported(next);
@@ -422,6 +865,7 @@ function ThemeBuilder() {
             }}
           />
         </div>
+
         <div
           ref={previewRef}
           className={`rp-not-doc ${styles.preview}`}
@@ -437,23 +881,42 @@ function ThemeBuilder() {
             style={{ color: 'var(--moduix-primary)' }}
             hidden
           />
-          <Preview />
+          <Preview mode={mode} base={base} tokens={tokens} />
         </div>
       </div>
+
       <div className={styles.cssHeader}>
-        <h2>{t('themeBuilderCssTitle')}</h2>
-        <Button
-          onClick={async () => {
-            await navigator.clipboard.writeText(css);
-            setCopied(true);
-            setTimeout(() => setCopied(false), 1500);
-          }}
-        >
-          {t(copied ? 'themeBuilderCopied' : 'themeBuilderCopy')}
-        </Button>
+        <h2 id={exportId}>{t('themeBuilderCssTitle')}</h2>
+        <div className={styles.exportControls}>
+          <SegmentGroup
+            aria-labelledby={exportId}
+            size="sm"
+            value={exportFormat}
+            onValueChange={(details) =>
+              details.value && setExportFormat(details.value as ExportFormat)
+            }
+          >
+            <SegmentGroupIndicator />
+            <SegmentGroupItems
+              items={[
+                { value: 'css', label: 'CSS Variables' },
+                { value: 'tailwind', label: 'Tailwind @theme' },
+              ]}
+            />
+          </SegmentGroup>
+          <Button
+            size="sm"
+            onClick={async () => {
+              await navigator.clipboard.writeText(outputCode);
+              setCopied(true);
+              setTimeout(() => setCopied(false), 1500);
+            }}
+          >
+            {copied ? t('exampleCopied') : t('themeBuilderCopy')}
+          </Button>
+        </div>
       </div>
-      <p>{t('themeBuilderCssText')}</p>
-      <CodeBlockRuntime lang="css" code={css} />
+      <CodeBlockRuntime lang="css" code={outputCode} />
     </div>
   );
 }

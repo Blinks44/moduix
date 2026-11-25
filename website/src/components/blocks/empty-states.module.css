@@ -1,0 +1,38 @@
+.root {
+  display: grid;
+  width: min(100%, 42rem);
+  gap: 1.25rem;
+}
+
+.panel {
+  padding-top: 1rem;
+}
+
+.cardBody {
+  display: grid;
+  min-height: 17rem;
+  place-items: center;
+}
+
+.icon {
+  display: grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  place-items: center;
+  border: 1px solid var(--moduix-border);
+  border-radius: 0.75rem;
+  background: var(--moduix-muted);
+  color: var(--moduix-muted-foreground);
+
+  svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+}
+
+.status {
+  margin: 0;
+  color: var(--moduix-muted-foreground);
+  font-size: 0.8125rem;
+  text-align: center;
+}

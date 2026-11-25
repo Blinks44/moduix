@@ -1,0 +1,40 @@
+---
+title: Workspace settings
+description: Account and workspace settings with profile form, notification switches, and a danger zone confirmation dialog.
+block: settings-page
+pageType: doc-wide
+outline: false
+---
+
+import { SettingsPage } from '@/components/blocks/settings-page';
+import settingsPageSolid from '../../../snippets/blocks/solid/settings-page.tsx?raw';
+import settingsPageVue from '../../../snippets/blocks/vue/settings-page.vue?raw';
+import settingsPageSvelte from '../../../snippets/blocks/svelte/settings-page.svelte?raw';
+import settingsPageReact from '../../../src/components/blocks/settings-page.tsx?raw';
+import settingsPageCss from '../../../src/components/blocks/settings-page.module.css?raw';
+export const settingsPageLive = { solid: () => import('../../../snippets/blocks/solid/settings-page.tsx'), vue: () => import('../../../snippets/blocks/vue/settings-page.vue'), svelte: () => import('../../../snippets/blocks/svelte/settings-page.svelte') };
+import settingsPageReactTailwind from '../../../src/components/blocks-tailwind/settings-page.tsx?raw';
+import settingsPageSolidTailwind from '../../../snippets/blocks-tailwind/solid/settings-page.tsx?raw';
+import settingsPageVueTailwind from '../../../snippets/blocks-tailwind/vue/settings-page.vue?raw';
+import settingsPageSvelteTailwind from '../../../snippets/blocks-tailwind/svelte/settings-page.svelte?raw';
+export const settingsPageLiveTailwind = { react: () => import('@/components/blocks-tailwind/settings-page').then((module) => ({ default: module.SettingsPage })), solid: () => import('../../../snippets/blocks-tailwind/solid/settings-page.tsx'), vue: () => import('../../../snippets/blocks-tailwind/vue/settings-page.vue'), svelte: () => import('../../../snippets/blocks-tailwind/svelte/settings-page.svelte') };
+
+# Workspace settings
+
+<ExamplePanel
+  clientOnly
+  sources={{ react: settingsPageReact, solid: settingsPageSolid, vue: settingsPageVue, svelte: settingsPageSvelte }}
+  tailwindSources={{ react: settingsPageReactTailwind, solid: settingsPageSolidTailwind, vue: settingsPageVueTailwind, svelte: settingsPageSvelteTailwind }}
+  files={[{ name: 'settings-page.module.css', code: settingsPageCss }]}
+>
+  <FrameworkPreview live={settingsPageLive} liveTailwind={settingsPageLiveTailwind}>
+    <SettingsPage />
+  </FrameworkPreview>
+</ExamplePanel>
+
+A multi-section settings screen built with `Tabs`, `Card`, `Field`, `Input`, `Switch`, and `DialogPanel`.
+Use it for workspace preferences, user profiles, and destructive account actions that require explicit confirmation.
+
+## Install
+
+<BlockInstall name="settings-page" />

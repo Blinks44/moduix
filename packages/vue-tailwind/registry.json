@@ -5796,6 +5796,54 @@
       "description": "Image card with a pointer-driven tilt effect and reduced-motion support.",
       "registryDependencies": ["https://moduix.dev/r/blocks/vue-tailwind-parallax-card.json"],
       "files": []
+    },
+    {
+      "name": "app-shell",
+      "type": "registry:block",
+      "title": "App shell",
+      "description": "Application shell with workspace navigation, a header, and a mobile drawer.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/vue-tailwind-app-shell.json"],
+      "files": []
+    },
+    {
+      "name": "analytics-overview",
+      "type": "registry:block",
+      "title": "Analytics overview",
+      "description": "KPI cards with sparklines above a weekly revenue chart built with TanStack Charts.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/vue-tailwind-analytics-overview.json"],
+      "files": []
+    },
+    {
+      "name": "settings-page",
+      "type": "registry:block",
+      "title": "Workspace settings",
+      "description": "Account and workspace settings with profile form, notification switches, and a danger zone confirmation dialog.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/vue-tailwind-settings-page.json"],
+      "files": []
+    },
+    {
+      "name": "pricing-plans",
+      "type": "registry:block",
+      "title": "Pricing plans",
+      "description": "Three-tier SaaS pricing table with a monthly/yearly billing toggle, highlighted plan, and interactive selection.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/vue-tailwind-pricing-plans.json"],
+      "files": []
+    },
+    {
+      "name": "empty-states",
+      "type": "registry:block",
+      "title": "Empty states",
+      "description": "Reusable empty state templates for zero search results, cleared inboxes, and restricted permissions.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/vue-tailwind-empty-states.json"],
+      "files": []
+    },
+    {
+      "name": "ai-chat",
+      "type": "registry:block",
+      "title": "AI assistant chat",
+      "description": "Conversational AI interface with message log, prompt suggestions, avatars, and a composer ready for streaming responses.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/vue-tailwind-ai-chat.json"],
+      "files": []
     }
   ]
 }

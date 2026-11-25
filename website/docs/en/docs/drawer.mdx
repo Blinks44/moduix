@@ -238,7 +238,9 @@ Hover or focus a variable to see it in the preview.
 
 ## API reference
 
-Props of `Drawer`. `size` (`'sm' | 'md' | 'lg' | 'xl'`, default `'md'`) and `variant` (`'island'`) go on `DrawerContent`.
+<FrameworkApiHint prop="open" />
+
+Props of `Drawer`. `size` and `variant` go on `DrawerContent` (or `DrawerPanel`).
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -269,3 +271,12 @@ Props of `Drawer`. `size` (`'sm' | 'md' | 'lg' | 'xl'`, default `'md'`) and `var
 | `swipeVelocityThreshold` | `number` | `700` | Swipe speed that closes the drawer, in pixels per second. |
 | `preventDragOnScroll` | `boolean` | `true` | Scrolls inner content instead of dragging the drawer. |
 | `stack` | `DrawerStack` | — | Shared store that styles stacked drawers together. |
+
+### `DrawerPanel` & `DrawerContent`
+
+`DrawerPanel` renders `DrawerBackdrop`, `DrawerPositioner`, and `DrawerContent` in one wrapper and forwards all props below to `DrawerContent`.
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `size` | `'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Drawer width (side sheets) or height (top/bottom sheets). |
+| `variant` | `'island'` | — | Insets the drawer from viewport edges with rounded corners (`--moduix-drawer-island-inset`). |

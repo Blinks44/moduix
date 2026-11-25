@@ -16,6 +16,14 @@
   },
   { "type": "file", "name": "app-shell", "label": "App shell" },
   { "type": "file", "name": "projects-dashboard", "label": "Projects dashboard" },
+  { "type": "file", "name": "settings-page", "label": "Workspace settings" },
+  {
+    "type": "section-header",
+    "label": "SaaS"
+  },
+  { "type": "file", "name": "pricing-plans", "label": "Pricing plans" },
+  { "type": "file", "name": "empty-states", "label": "Empty states" },
+  { "type": "file", "name": "ai-chat", "label": "AI assistant chat" },
   {
     "type": "section-header",
     "label": "Access"

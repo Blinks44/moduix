@@ -64,6 +64,7 @@ import {
   StyleTrackCards,
 } from '@/components/mdx/Components';
 import { ExamplePanel, FrameworkCode } from '@/components/mdx/example-panel';
+import { FrameworkApiHint } from '@/components/mdx/framework-api-hint';
 import { FrameworkPreview } from '@/components/mdx/live-preview';
 import { UsageCode } from '@/components/mdx/usage';
 import { Tag } from './components/Tag';
@@ -305,6 +306,7 @@ const mdxComponents = {
   ExampleCode,
   ExampleFrame,
   ExamplePanel,
+  FrameworkApiHint,
   FrameworkCode,
   FrameworkPreview,
   PreviewFrame,

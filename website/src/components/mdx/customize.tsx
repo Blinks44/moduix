@@ -202,6 +202,8 @@ function CustomizePanel({
             );
           }
           const [min, max, step, unit] = control;
+          const parsed = parseFloat(overrides[name] ?? defaults[name] ?? String(min));
+          const safeValue = Number.isFinite(parsed) ? Math.min(max, Math.max(min, parsed)) : min;
           return (
             <RangeControl
               key={name}
@@ -211,7 +213,7 @@ function CustomizePanel({
               max={max}
               step={step}
               unit={unit}
-              value={parseFloat(overrides[name] ?? defaults[name] ?? String(min))}
+              value={safeValue}
               onChange={(value) => set(name, `${value}${unit}`)}
             />
           );

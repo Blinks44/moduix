@@ -1,7 +1,7 @@
-/* Theme builder page from "Docs · Guide · Theme builder" in Moduix.sketch. */
+/* Theme builder page: controls column, rich multi-component preview, and CSS / Tailwind export. */
 .layout {
   display: grid;
-  grid-template-columns: 280px minmax(0, 1fr);
+  grid-template-columns: 300px minmax(0, 1fr);
   gap: 24px;
   align-items: start;
   margin-block: 32px 48px;
@@ -18,6 +18,18 @@
   > * {
     min-width: 0;
   }
+}
+
+.controlDivider {
+  border: 0;
+  border-top: 1px solid var(--rp-c-divider);
+  margin: 2px 0;
+}
+
+.controlRow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
 }
 
 /* Selects fill the control column. */
@@ -54,34 +66,40 @@
 
 .cssHeader {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 12px 16px;
+  margin-bottom: 12px;
 
   h2 {
     margin: 0;
   }
 }
 
-/* The preview paints with moduix tokens so every control shows up in it. */
-.preview {
+.exportControls {
   display: flex;
-  min-height: 100%;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
+  gap: 10px;
+}
+
+/* The preview paints with moduix tokens so every control shows up in it. */
+.preview {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
   gap: 16px;
   border: 1px solid var(--rp-c-divider);
   border-radius: 12px;
-  padding: 24px;
+  padding: 20px;
   background: var(--moduix-background);
   color: var(--moduix-foreground);
-  font-family: var(--rp-font-family-base);
+  font-family: var(--moduix-font-sans, var(--rp-font-family-base));
 }
 
 .card {
   display: grid;
-  width: min(100%, 300px);
   gap: var(--moduix-spacing-4);
   border: 1px solid var(--moduix-border);
   border-radius: var(--moduix-radius-lg);
@@ -89,6 +107,17 @@
   background: var(--moduix-card);
   color: var(--moduix-card-foreground);
   box-shadow: var(--moduix-shadow-sm);
+}
+
+.cardWide {
+  grid-column: 1 / -1;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
 }
 
 .title {
@@ -125,6 +154,41 @@
   gap: 8px;
 }
 
+.badgeRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chartBars {
+  display: grid;
+  height: 92px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  align-items: end;
+  gap: 10px;
+  padding-top: 8px;
+}
+
+.chartBar {
+  display: grid;
+  height: 100%;
+  grid-template-rows: 1fr auto;
+  align-items: end;
+  gap: 6px;
+  text-align: center;
+
+  span {
+    color: var(--moduix-muted-foreground);
+    font-size: 11px;
+  }
+}
+
+.chartFill {
+  width: 100%;
+  border-radius: var(--moduix-radius-sm, 4px) var(--moduix-radius-sm, 4px) 2px 2px;
+  transition: height 0.2s ease;
+}
+
 .dialog {
   --moduix-dialog-width: 560px;
 }
@@ -132,6 +196,12 @@
 .source {
   font-family: var(--rp-font-family-mono);
   font-size: 12px;
+}
+
+@media (width <= 1120px) {
+  .preview {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 @media (width <= 960px) {

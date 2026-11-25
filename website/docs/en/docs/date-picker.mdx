@@ -284,6 +284,8 @@ Ark state attributes include `data-state`, `data-disabled`, `data-readonly`, `da
 
 ## API reference
 
+<FrameworkApiHint prop="value" />
+
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
 | `value` | `DateValue[]` | — | Selected dates for controlled use. |
@@ -329,3 +331,21 @@ Ark state attributes include `data-state`, `data-disabled`, `data-readonly`, `da
 | `minView` | `DateView` | `'day'` | Most detailed view the user can reach. |
 | `maxView` | `DateView` | `'year'` | Broadest view the user can reach. |
 | `defaultOpen` | `boolean` | — | Initial open state when it is not controlled. |
+
+### `DatePickerField` & `DatePickerRangeField`
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `placeholder` | `string` | — | Input placeholder (`DatePickerField`). |
+| `startPlaceholder` / `endPlaceholder` | `string` | — | Placeholders for the start and end inputs (`DatePickerRangeField`). |
+| `clearLabel` | `string` | — | Accessible label for the clear button (shows the clear button when provided). |
+| `triggerLabel` | `string` | — | Accessible label for the calendar trigger button. |
+| `inputProps` / `startInputProps` / `endInputProps` | `DatePickerInputProps` | — | Extra props forwarded to the underlying input part(s). |
+
+### `DatePickerDayTable`, `DatePickerMonthTable`, `DatePickerYearTable`
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `showHeader` | `boolean` | `true` | Renders `DatePickerViewControl` (previous, view switch, next) above the grid. |
+| `offset` | `number` | `0` | Month offset for multi-month day tables (`DatePickerDayTable` only). |
+| `format` | `'short' \| 'long'` | `'short'` | Month label format (`DatePickerMonthTable` only). |

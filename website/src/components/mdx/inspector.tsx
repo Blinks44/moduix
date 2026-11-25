@@ -8,6 +8,7 @@ import {
   useState,
 } from 'react';
 import { type CssControls, CustomizePanel, type Overrides } from './customize';
+import { resolveDefaultControls } from './default-css-controls';
 import styles from './inspector.module.css';
 import { type CssPropertyInput, normalizeCssProperties, renderInlineCode } from './reference';
 
@@ -471,15 +472,18 @@ function CssVariablesInspector({
           {children}
         </Scene>
       ) : null}
-      {children && controls ? (
-        <CustomizePanel
-          controls={controls}
-          fallbacks={Object.fromEntries(rows.map((row) => [row.name, row.defaultValue]))}
-          prefix={prefix}
-          overrides={overrides}
-          onChange={setOverrides}
-        />
-      ) : null}
+      {(() => {
+        const effectiveControls = controls ?? resolveDefaultControls(rows);
+        return children && effectiveControls ? (
+          <CustomizePanel
+            controls={effectiveControls}
+            fallbacks={Object.fromEntries(rows.map((row) => [row.name, row.defaultValue]))}
+            prefix={prefix}
+            overrides={overrides}
+            onChange={setOverrides}
+          />
+        ) : null;
+      })()}
       <table className={styles.table} data-variables="">
         <thead>
           <tr>

@@ -3,6 +3,7 @@ import { Link } from '@rspress/core/theme';
 import { ArrowRight, Search } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import styles from './component-gallery.module.css';
+import { ComponentThumbnail } from './component-thumbnails';
 
 const categories = [
   {
@@ -135,6 +136,74 @@ const categoryLabelKeys = {
   overlays: 'categoryOverlays',
 } as const satisfies Record<ComponentCategory, string>;
 
+// Search synonyms so common UI vocabulary finds the right moduix component.
+const searchSynonyms: Record<string, string[]> = {
+  dialog: ['modal', 'popup', 'confirm', 'alertdialog', 'overlay'],
+  drawer: ['sheet', 'slideover', 'off-canvas', 'panel', 'sidebar'],
+  'date-picker': ['calendar', 'datepicker', 'schedule', 'date range'],
+  'date-input': ['calendar', 'date', 'masked'],
+  select: ['dropdown', 'picker', 'options', 'choice'],
+  'native-select': ['dropdown', 'html select'],
+  menu: ['dropdown', 'context menu', 'actions', 'popover'],
+  combobox: ['autocomplete', 'typeahead', 'search select', 'dropdown'],
+  'command-palette': ['cmdk', 'spotlight', 'quick search', 'launcher', 'kbd'],
+  toast: ['notification', 'snackbar', 'banner', 'message', 'sonner'],
+  alert: ['notification', 'banner', 'callout', 'warning', 'error'],
+  tag: ['chip', 'pill', 'label', 'token'],
+  badge: ['chip', 'pill', 'status', 'counter'],
+  'tags-input': ['chips', 'multi-input', 'keywords', 'tokens'],
+  spinner: ['loader', 'loading', 'busy', 'indicator'],
+  skeleton: ['loader', 'placeholder', 'shimmer', 'loading'],
+  switch: ['toggle', 'boolean', 'on off'],
+  toggle: ['pressed', 'button toggle'],
+  'pin-input': ['otp', 'verification code', 'passcode', '2fa'],
+  'file-upload': ['dropzone', 'attachment', 'upload', 'drag and drop'],
+  separator: ['divider', 'hr', 'line', 'rule'],
+  clipboard: ['copy', 'copy button'],
+  kbd: ['hotkey', 'shortcut', 'keycap', 'keyboard'],
+  steps: ['stepper', 'wizard', 'onboarding', 'multi-step'],
+  breadcrumbs: ['path', 'trail', 'navigation'],
+  tooltip: ['hint', 'hover', 'title'],
+  popover: ['popup', 'floating', 'flyout'],
+  'hover-card': ['preview card', 'popup', 'profile card'],
+  'rating-group': ['stars', 'review', 'score'],
+  'segment-group': ['segmented control', 'tabs', 'pill switch'],
+  accordion: ['collapse', 'faq', 'disclosure', 'expandable'],
+  collapsible: ['collapse', 'disclosure', 'expand'],
+  'progress-linear': ['progress bar', 'loading bar'],
+  'progress-circular': ['donut', 'ring', 'radial progress'],
+  carousel: ['slider', 'gallery', 'slideshow'],
+  lightbox: ['gallery', 'image viewer', 'zoom', 'modal'],
+  splitter: ['resizable', 'panes', 'split view'],
+  'simple-grid': ['grid', 'columns', 'layout'],
+  stack: ['flex', 'vstack', 'hstack', 'row', 'column'],
+  'table-of-contents': ['toc', 'outline', 'anchors'],
+  'navigation-menu': ['navbar', 'megamenu', 'header nav'],
+  'json-tree-view': ['inspector', 'json', 'debug'],
+  'tree-view': ['file tree', 'hierarchy', 'folder'],
+  empty: ['empty state', 'no results', 'placeholder'],
+  'floating-panel': ['window', 'draggable', 'pip'],
+  tour: ['onboarding', 'walkthrough', 'spotlight', 'guide'],
+  'signature-pad': ['draw', 'sign', 'canvas'],
+  'color-picker': ['swatch', 'palette', 'hex', 'oklch'],
+};
+
+function matchesQuery(
+  component: { slug: string; title: string; description: string },
+  needle: string,
+) {
+  if (!needle) return true;
+  if (
+    component.title.toLowerCase().includes(needle) ||
+    component.slug.includes(needle) ||
+    component.description.toLowerCase().includes(needle)
+  ) {
+    return true;
+  }
+  const synonyms = searchSynonyms[component.slug];
+  return synonyms ? synonyms.some((term) => term.includes(needle)) : false;
+}
+
 // Category ids, label keys, and counts for the home page chips.
 export function getComponentCategories() {
   return categories.map((category) => ({
@@ -148,10 +217,6 @@ export function getComponentCategoryLabelKey(slug: string) {
   const category = categories.find((item) => (item.slugs as readonly string[]).includes(slug));
   return category ? categoryLabelKeys[category.id] : undefined;
 }
-
-// Docs · Components index in Moduix.sketch: category chips with counts, a name filter, and one
-// section per category. "All" previews each category and links to the rest with "Show all N".
-const previewSize = 6;
 
 export function ComponentCatalog() {
   const t = useI18n<typeof import('i18n')>();
@@ -201,7 +266,7 @@ export function ComponentCatalog() {
       id: category.id,
       label: t(categoryLabelKeys[category.id]),
       items,
-      matches: items.filter((component) => component.title.toLowerCase().includes(needle)),
+      matches: items.filter((component) => matchesQuery(component, needle)),
     };
   });
   const visible = sections.filter(
@@ -251,49 +316,41 @@ export function ComponentCatalog() {
             ref={filterRef}
             type="search"
             value={query}
-            placeholder={t('catalogFilter')}
+            placeholder="Filter components, e.g. modal, calendar…"
             aria-label={t('catalogFilter')}
             onChange={(event) => setQuery(event.target.value)}
           />
         </label>
       </div>
 
-      {visible.map((section) => {
-        const limited = active === 'all' && !needle;
-        const items = limited ? section.matches.slice(0, previewSize) : section.matches;
-        return (
-          <section
-            key={section.id}
-            className={styles.section}
-            aria-labelledby={`catalog-${section.id}`}
-          >
-            <header className={styles.sectionHeader}>
-              <h2 id={`catalog-${section.id}`}>{section.label}</h2>
-              <span className={styles.count}>{section.items.length}</span>
-              {limited && section.items.length > previewSize ? (
-                <button
-                  type="button"
-                  className={styles.showAll}
-                  onClick={() => selectCategory(section.id)}
-                >
-                  {t('catalogShowAll').replace('{count}', String(section.items.length))}
-                </button>
-              ) : null}
-            </header>
-            <ul className={styles.grid}>
-              {items.map((item) => (
-                <li key={item.slug}>
-                  <Link className={styles.card} href={item.url}>
+      {visible.map((section) => (
+        <section
+          key={section.id}
+          className={styles.section}
+          aria-labelledby={`catalog-${section.id}`}
+        >
+          <header className={styles.sectionHeader}>
+            <h2 id={`catalog-${section.id}`}>{section.label}</h2>
+            <span className={styles.count}>{section.matches.length}</span>
+          </header>
+          <ul className={styles.grid}>
+            {section.matches.map((item) => (
+              <li key={item.slug}>
+                <Link className={styles.card} href={item.url}>
+                  <div className={styles.thumb}>
+                    <ComponentThumbnail slug={item.slug} category={section.id} />
+                  </div>
+                  <div className={styles.cardBody}>
                     <span className={styles.cardTitle}>{item.title}</span>
                     <span className={styles.cardDescription}>{item.description}</span>
-                    <ArrowRight aria-hidden="true" />
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </section>
-        );
-      })}
+                  </div>
+                  <ArrowRight className={styles.cardArrow} aria-hidden="true" />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
 
       {visible.length === 0 ? (
         <div className={styles.empty}>

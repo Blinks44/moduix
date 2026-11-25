@@ -1,7 +1,18 @@
-import { useI18n } from '@rspress/core/runtime';
+import { useI18n, usePage } from '@rspress/core/runtime';
 import { CodeBlockRuntime, useStorageValue } from '@rspress/core/theme';
 import sdk from '@stackblitz/sdk';
-import { ArrowUpRight, Check, ChevronDown, Copy, RotateCw } from 'lucide-react';
+import {
+  ArrowUpRight,
+  Check,
+  ChevronDown,
+  Copy,
+  Maximize2,
+  Minimize2,
+  Monitor,
+  RotateCw,
+  Smartphone,
+  Tablet,
+} from 'lucide-react';
 import { useEffect, useState, type ComponentProps, type ReactNode } from 'react';
 import styles from './example-panel.module.css';
 import { createExampleProject, type ExampleProject } from './example-project';
@@ -124,6 +135,57 @@ function PanelSelect({
   );
 }
 
+const viewports = [
+  { value: 'desktop', label: 'Desktop preview', Icon: Monitor },
+  { value: 'tablet', label: 'Tablet preview (768px)', Icon: Tablet },
+  { value: 'mobile', label: 'Mobile preview (390px)', Icon: Smartphone },
+] as const;
+
+type Viewport = (typeof viewports)[number]['value'];
+
+const optionalBlockDeps: Record<string, string> = {
+  'lucide-react': '^1.77.0',
+  'lucide-solid': '^1.77.0',
+  '@lucide/vue': '^1.77.0',
+  '@lucide/svelte': '^1.77.0',
+  '@tanstack/charts': '^0.1.0',
+  '@tanstack/react-table': '^9.3.1',
+  '@tanstack/solid-table': '^9.3.1',
+  '@tanstack/vue-table': '^9.3.1',
+  '@tanstack/svelte-table': '^9.3.1',
+};
+
+function buildBlockProject(
+  rawCode: string,
+  framework: Framework,
+  extraFiles: { name: string; code: string }[],
+  blockSlug: string,
+): ExampleProject {
+  const ext = framework === 'vue' ? 'vue' : framework === 'svelte' ? 'svelte' : 'tsx';
+  const entry = `src/${blockSlug}.${ext}`;
+  let entryCode = toDisplayCode(rawCode).replaceAll(
+    /(['"])@\/components\/ui\/([^'"]+)\1/g,
+    (_, quote: string, subpath: string) => `${quote}@moduix/${framework}/${subpath}${quote}`,
+  );
+  if ((framework === 'react' || framework === 'solid') && !/\bexport\s+default\b/.test(entryCode)) {
+    const match = entryCode.match(/export\s+function\s+(\w+)/);
+    if (match) {
+      entryCode = `${entryCode.trimEnd()}\n\nexport default ${match[1]};\n`;
+    }
+  }
+  const files: Record<string, string> = { [entry]: entryCode };
+  for (const file of extraFiles) {
+    files[`src/${file.name}`] = file.code;
+  }
+  const dependencies: Record<string, string> = {};
+  for (const [pkg, version] of Object.entries(optionalBlockDeps)) {
+    if (entryCode.includes(`'${pkg}`) || entryCode.includes(`"${pkg}`)) {
+      dependencies[pkg] = version;
+    }
+  }
+  return { entry, files, dependencies };
+}
+
 function ExamplePanel({
   children,
   sources,
@@ -143,28 +205,48 @@ function ExamplePanel({
   tailwindProjects?: Record<Framework, ExampleProject>;
 } & Omit<ComponentProps<typeof ExampleFrame>, 'children' | 'variant'>) {
   const t = useI18n<typeof import('i18n')>();
+  const { page } = usePage();
+  const blockSlug = typeof page?.frontmatter?.block === 'string' ? page.frontmatter.block : '';
+  const isBlock = Boolean(blockSlug);
   const { framework, styling, importStyle, selectFramework, selectStyling, selectImportStyle } =
     useExampleSelection();
   const [tab, setTab] = useState<'preview' | 'code'>('preview');
   const [run, setRun] = useState(0);
   const [copied, setCopied] = useState(false);
+  const [viewport, setViewport] = useState<Viewport>('desktop');
+  const [fullscreen, setFullscreen] = useState(false);
   const isTailwind = styling.value === 'tailwind';
+  const rawSource =
+    isTailwind && tailwindSources ? tailwindSources[framework.value] : sources[framework.value];
   const code =
     isTailwind && tailwindSources
-      ? applyImportStyle(
-          toDisplayCode(tailwindSources[framework.value]),
-          framework.value,
-          importStyle.value,
-        )
-      : toStyling(sources[framework.value], framework.value, styling.value, importStyle.value);
+      ? applyImportStyle(toDisplayCode(rawSource), framework.value, importStyle.value)
+      : toStyling(rawSource, framework.value, styling.value, importStyle.value);
   const visibleFiles = isTailwind
     ? (tailwindFiles ??
       files.filter((file) => !file.name.endsWith('.module.css') || code.includes(file.name)))
     : files;
-  const project =
+  const explicitProject =
     isTailwind && tailwindProjects
       ? tailwindProjects[framework.value]
       : projects?.[framework.value];
+  const project =
+    explicitProject ??
+    (isBlock ? buildBlockProject(rawSource, framework.value, visibleFiles, blockSlug) : undefined);
+
+  useEffect(() => {
+    if (!fullscreen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setFullscreen(false);
+    };
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', onKeyDown);
+    };
+  }, [fullscreen]);
 
   if (import.meta.env.SSG_MD) {
     return (
@@ -185,7 +267,7 @@ function ExamplePanel({
   };
 
   return (
-    <div className={`rp-not-doc ${styles.panel}`}>
+    <div className={`rp-not-doc ${styles.panel}`} data-fullscreen={fullscreen ? 'true' : undefined}>
       <div className={styles.toolbar}>
         <div className={styles.tabs} role="tablist">
           {(['preview', 'code'] as const).map((value) => (
@@ -202,6 +284,23 @@ function ExamplePanel({
           ))}
         </div>
         <div className={styles.controls}>
+          {isBlock && tab === 'preview' ? (
+            <div className={styles.viewportGroup} role="group" aria-label="Preview viewport">
+              {viewports.map(({ value, label, Icon }) => (
+                <button
+                  key={value}
+                  type="button"
+                  className={styles.viewportButton}
+                  aria-label={label}
+                  aria-pressed={viewport === value}
+                  title={label}
+                  onClick={() => setViewport(value)}
+                >
+                  <Icon aria-hidden="true" />
+                </button>
+              ))}
+            </div>
+          ) : null}
           <PanelSelect
             dot={framework.value}
             label={t('exampleFramework')}
@@ -239,6 +338,18 @@ function ExamplePanel({
               <ArrowUpRight aria-hidden="true" />
             </button>
           ) : null}
+          {isBlock ? (
+            <button
+              type="button"
+              className={styles.iconButton}
+              aria-label={fullscreen ? 'Exit fullscreen' : 'Fullscreen preview'}
+              aria-pressed={fullscreen}
+              title={fullscreen ? 'Exit fullscreen (Esc)' : 'Fullscreen preview'}
+              onClick={() => setFullscreen((value) => !value)}
+            >
+              {fullscreen ? <Minimize2 aria-hidden="true" /> : <Maximize2 aria-hidden="true" />}
+            </button>
+          ) : null}
           {tab === 'preview' ? (
             <button
               type="button"
@@ -263,10 +374,18 @@ function ExamplePanel({
         </div>
       </div>
       {tab === 'preview' ? (
-        <div className={styles.stage}>
-          <ExampleFrame key={run} variant="component" {...frameProps}>
-            {children}
-          </ExampleFrame>
+        <div className={styles.stage} data-viewport={isBlock ? viewport : undefined}>
+          {isBlock ? (
+            <div className={styles.viewportFrame} data-viewport={viewport}>
+              <ExampleFrame key={run} variant="component" {...frameProps}>
+                {children}
+              </ExampleFrame>
+            </div>
+          ) : (
+            <ExampleFrame key={run} variant="component" {...frameProps}>
+              {children}
+            </ExampleFrame>
+          )}
         </div>
       ) : (
         <div className={styles.code}>

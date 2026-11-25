@@ -199,7 +199,7 @@ Use the part that renders the element you want to style:
 
 ## API reference
 
-Props of `Table`. `numeric` goes on `TableColumnHeader` and `TableCell`; `side` (`'top' | 'bottom'`) on `TableCaption`.
+Props of `Table`.
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -208,3 +208,18 @@ Props of `Table`. `numeric` goes on `TableColumnHeader` and `TableCell`; `side` 
 | `interactive` | `boolean` | `false` | Highlights rows on hover. |
 | `stickyHeader` | `boolean` | `false` | Keeps the header visible while the body scrolls. |
 | `showColumnBorder` | `boolean` | `false` | Draws borders between columns. |
+
+### `TableEmpty`
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `colSpan` | `number` | — | Required column count spanned by the empty-state cell. |
+| `children` | `ReactNode` / slot | — | Empty state copy or custom element centered inside the row. |
+
+### `TableColumnHeader`, `TableCell`, & `TableCaption`
+
+| Part | Prop | Type | Default | Description |
+| --- | --- | --- | --- | --- |
+| `TableColumnHeader`, `TableCell` | `numeric` | `boolean` | `false` | Right-aligns values with tabular numerals (`data-numeric`). |
+| `TableColumnHeader`, `TableCell` | `sticky` | `'start' \| 'end'` | — | Pins the column to the start or end edge inside `TableScrollArea`. |
+| `TableCaption` | `side` | `'top' \| 'bottom'` | `'bottom'` | Places the caption above or below the table (`data-side`). |

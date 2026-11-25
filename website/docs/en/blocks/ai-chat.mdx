@@ -1,0 +1,40 @@
+---
+title: AI assistant chat
+description: Conversational AI interface with message log, prompt suggestions, avatars, and a composer ready for streaming responses.
+block: ai-chat
+pageType: doc-wide
+outline: false
+---
+
+import { AiChat } from '@/components/blocks/ai-chat';
+import aiChatSolid from '../../../snippets/blocks/solid/ai-chat.tsx?raw';
+import aiChatVue from '../../../snippets/blocks/vue/ai-chat.vue?raw';
+import aiChatSvelte from '../../../snippets/blocks/svelte/ai-chat.svelte?raw';
+import aiChatReact from '../../../src/components/blocks/ai-chat.tsx?raw';
+import aiChatCss from '../../../src/components/blocks/ai-chat.module.css?raw';
+export const aiChatLive = { solid: () => import('../../../snippets/blocks/solid/ai-chat.tsx'), vue: () => import('../../../snippets/blocks/vue/ai-chat.vue'), svelte: () => import('../../../snippets/blocks/svelte/ai-chat.svelte') };
+import aiChatReactTailwind from '../../../src/components/blocks-tailwind/ai-chat.tsx?raw';
+import aiChatSolidTailwind from '../../../snippets/blocks-tailwind/solid/ai-chat.tsx?raw';
+import aiChatVueTailwind from '../../../snippets/blocks-tailwind/vue/ai-chat.vue?raw';
+import aiChatSvelteTailwind from '../../../snippets/blocks-tailwind/svelte/ai-chat.svelte?raw';
+export const aiChatLiveTailwind = { react: () => import('@/components/blocks-tailwind/ai-chat').then((module) => ({ default: module.AiChat })), solid: () => import('../../../snippets/blocks-tailwind/solid/ai-chat.tsx'), vue: () => import('../../../snippets/blocks-tailwind/vue/ai-chat.vue'), svelte: () => import('../../../snippets/blocks-tailwind/svelte/ai-chat.svelte') };
+
+# AI assistant chat
+
+<ExamplePanel
+  clientOnly
+  sources={{ react: aiChatReact, solid: aiChatSolid, vue: aiChatVue, svelte: aiChatSvelte }}
+  tailwindSources={{ react: aiChatReactTailwind, solid: aiChatSolidTailwind, vue: aiChatVueTailwind, svelte: aiChatSvelteTailwind }}
+  files={[{ name: 'ai-chat.module.css', code: aiChatCss }]}
+>
+  <FrameworkPreview live={aiChatLive} liveTailwind={aiChatLiveTailwind}>
+    <AiChat />
+  </FrameworkPreview>
+</ExamplePanel>
+
+A conversational workspace built with `Card`, `Avatar`, `Badge`, `Textarea`, and `Button`. Replace
+the local reply stub in `sendMessage` with a streaming fetch or SDK call.
+
+## Install
+
+<BlockInstall name="ai-chat" />

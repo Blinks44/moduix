@@ -218,7 +218,9 @@ Hover or focus a variable to see it in the preview. Move the controls to try val
 
 ## API reference
 
-Props of `Dialog`. `size` (`'sm' | 'md' | 'lg' | 'xl' | 'full'`, default `'md'`), `placement` (`'center' | 'top' | 'bottom'`, default `'center'`), and `scrollBehavior` (`'outside' | 'inside'`, default `'outside'`) go on `DialogContent`.
+<FrameworkApiHint prop="open" />
+
+Props of `Dialog`. `size`, `placement`, and `scrollBehavior` go on `DialogContent` (or `DialogPanel`).
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -241,3 +243,13 @@ Props of `Dialog`. `size` (`'sm' | 'md' | 'lg' | 'xl' | 'full'`, default `'md'`)
 | `triggerValue` | `string \| null` | — | Active trigger for controlled use when several triggers share one popup. |
 | `defaultTriggerValue` | `string \| null` | — | Initially active trigger. |
 | `onTriggerValueChange` | `(details: TriggerValueChangeDetails) => void` | — | Called when another trigger becomes active. |
+
+### `DialogPanel` & `DialogContent`
+
+`DialogPanel` renders `DialogBackdrop`, `DialogPositioner`, and `DialogContent` in one wrapper and forwards all props below to `DialogContent`.
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `size` | `'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'md'` | Width preset of the dialog panel. |
+| `placement` | `'center' \| 'top' \| 'bottom'` | `'center'` | Vertical alignment inside the viewport. |
+| `scrollBehavior` | `'outside' \| 'inside'` | `'outside'` | Scrolls the page overlay (`outside`) or constrains `DialogBody` (`inside`). |

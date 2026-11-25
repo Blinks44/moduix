@@ -1,0 +1,89 @@
+.root {
+  display: flex;
+  width: min(100%, 44rem);
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+    color: var(--moduix-primary);
+  }
+}
+
+.messages {
+  display: grid;
+  max-height: 22rem;
+  gap: 1rem;
+  overflow-y: auto;
+  padding-block: 0.25rem;
+}
+
+.message {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.userMessage {
+  flex-direction: row-reverse;
+}
+
+.bubble {
+  max-width: 82%;
+  border: 1px solid var(--moduix-border);
+  border-radius: 0.75rem;
+  padding: 0.625rem 0.875rem;
+  background: var(--moduix-muted);
+  color: var(--moduix-foreground);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.userBubble {
+  border-color: var(--moduix-primary);
+  background: var(--moduix-primary);
+  color: var(--moduix-primary-foreground);
+}
+
+.suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.footer {
+  display: block;
+}
+
+.composer {
+  display: grid;
+  width: 100%;
+  gap: 0.625rem;
+}
+
+.composerActions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.hint {
+  color: var(--moduix-muted-foreground);
+  font-size: 0.75rem;
+}

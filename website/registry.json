@@ -2670,6 +2670,758 @@
           "target": "@components/blocks/parallax-card/parallax-card.module.css"
         }
       ]
+    },
+    {
+      "name": "react-tailwind-settings-page",
+      "type": "registry:block",
+      "title": "Workspace settings",
+      "description": "Account and workspace settings with profile form, notification switches, and a danger zone confirmation dialog.",
+      "registryDependencies": [
+        "https://moduix.dev/r/react-tailwind/badge.json",
+        "https://moduix.dev/r/react-tailwind/button.json",
+        "https://moduix.dev/r/react-tailwind/card.json",
+        "https://moduix.dev/r/react-tailwind/dialog.json",
+        "https://moduix.dev/r/react-tailwind/field.json",
+        "https://moduix.dev/r/react-tailwind/input.json",
+        "https://moduix.dev/r/react-tailwind/switch.json",
+        "https://moduix.dev/r/react-tailwind/tabs.json"
+      ],
+      "files": [
+        {
+          "path": "src/components/blocks-tailwind/settings-page.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/settings-page/settings-page.tsx"
+        }
+      ]
+    },
+    {
+      "name": "react-tailwind-pricing-plans",
+      "type": "registry:block",
+      "title": "Pricing plans",
+      "description": "Three-tier SaaS pricing table with a monthly/yearly billing toggle, highlighted plan, and interactive selection.",
+      "dependencies": ["lucide-react@^1.77.0"],
+      "registryDependencies": [
+        "https://moduix.dev/r/react-tailwind/badge.json",
+        "https://moduix.dev/r/react-tailwind/button.json",
+        "https://moduix.dev/r/react-tailwind/card.json",
+        "https://moduix.dev/r/react-tailwind/segment-group.json"
+      ],
+      "files": [
+        {
+          "path": "src/components/blocks-tailwind/pricing-plans.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/pricing-plans/pricing-plans.tsx"
+        }
+      ]
+    },
+    {
+      "name": "react-tailwind-empty-states",
+      "type": "registry:block",
+      "title": "Empty states",
+      "description": "Reusable empty state templates for zero search results, cleared inboxes, and restricted permissions.",
+      "dependencies": ["lucide-react@^1.77.0"],
+      "registryDependencies": [
+        "https://moduix.dev/r/react-tailwind/button.json",
+        "https://moduix.dev/r/react-tailwind/card.json",
+        "https://moduix.dev/r/react-tailwind/empty.json",
+        "https://moduix.dev/r/react-tailwind/tabs.json"
+      ],
+      "files": [
+        {
+          "path": "src/components/blocks-tailwind/empty-states.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/empty-states/empty-states.tsx"
+        }
+      ]
+    },
+    {
+      "name": "react-tailwind-ai-chat",
+      "type": "registry:block",
+      "title": "AI assistant chat",
+      "description": "Conversational AI interface with message log, prompt suggestions, avatars, and a composer ready for streaming responses.",
+      "dependencies": ["lucide-react@^1.77.0"],
+      "registryDependencies": [
+        "https://moduix.dev/r/react-tailwind/avatar.json",
+        "https://moduix.dev/r/react-tailwind/badge.json",
+        "https://moduix.dev/r/react-tailwind/button.json",
+        "https://moduix.dev/r/react-tailwind/card.json",
+        "https://moduix.dev/r/react-tailwind/textarea.json"
+      ],
+      "files": [
+        {
+          "path": "src/components/blocks-tailwind/ai-chat.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/ai-chat/ai-chat.tsx"
+        }
+      ]
+    },
+    {
+      "name": "react-settings-page",
+      "type": "registry:block",
+      "title": "Workspace settings",
+      "description": "Account and workspace settings with profile form, notification switches, and a danger zone confirmation dialog.",
+      "registryDependencies": [
+        "https://moduix.dev/r/react/badge.json",
+        "https://moduix.dev/r/react/button.json",
+        "https://moduix.dev/r/react/card.json",
+        "https://moduix.dev/r/react/dialog.json",
+        "https://moduix.dev/r/react/field.json",
+        "https://moduix.dev/r/react/input.json",
+        "https://moduix.dev/r/react/switch.json",
+        "https://moduix.dev/r/react/tabs.json"
+      ],
+      "files": [
+        {
+          "path": "src/components/blocks/settings-page.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/settings-page/settings-page.tsx"
+        },
+        {
+          "path": "src/components/blocks/settings-page.module.css",
+          "type": "registry:style",
+          "target": "@components/blocks/settings-page/settings-page.module.css"
+        }
+      ]
+    },
+    {
+      "name": "react-pricing-plans",
+      "type": "registry:block",
+      "title": "Pricing plans",
+      "description": "Three-tier SaaS pricing table with a monthly/yearly billing toggle, highlighted plan, and interactive selection.",
+      "dependencies": ["lucide-react@^1.77.0"],
+      "registryDependencies": [
+        "https://moduix.dev/r/react/badge.json",
+        "https://moduix.dev/r/react/button.json",
+        "https://moduix.dev/r/react/card.json",
+        "https://moduix.dev/r/react/segment-group.json"
+      ],
+      "files": [
+        {
+          "path": "src/components/blocks/pricing-plans.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/pricing-plans/pricing-plans.tsx"
+        },
+        {
+          "path": "src/components/blocks/pricing-plans.module.css",
+          "type": "registry:style",
+          "target": "@components/blocks/pricing-plans/pricing-plans.module.css"
+        }
+      ]
+    },
+    {
+      "name": "react-empty-states",
+      "type": "registry:block",
+      "title": "Empty states",
+      "description": "Reusable empty state templates for zero search results, cleared inboxes, and restricted permissions.",
+      "dependencies": ["lucide-react@^1.77.0"],
+      "registryDependencies": [
+        "https://moduix.dev/r/react/button.json",
+        "https://moduix.dev/r/react/card.json",
+        "https://moduix.dev/r/react/empty.json",
+        "https://moduix.dev/r/react/tabs.json"
+      ],
+      "files": [
+        {
+          "path": "src/components/blocks/empty-states.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/empty-states/empty-states.tsx"
+        },
+        {
+          "path": "src/components/blocks/empty-states.module.css",
+          "type": "registry:style",
+          "target": "@components/blocks/empty-states/empty-states.module.css"
+        }
+      ]
+    },
+    {
+      "name": "react-ai-chat",
+      "type": "registry:block",
+      "title": "AI assistant chat",
+      "description": "Conversational AI interface with message log, prompt suggestions, avatars, and a composer ready for streaming responses.",
+      "dependencies": ["lucide-react@^1.77.0"],
+      "registryDependencies": [
+        "https://moduix.dev/r/react/avatar.json",
+        "https://moduix.dev/r/react/badge.json",
+        "https://moduix.dev/r/react/button.json",
+        "https://moduix.dev/r/react/card.json",
+        "https://moduix.dev/r/react/textarea.json"
+      ],
+      "files": [
+        {
+          "path": "src/components/blocks/ai-chat.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/ai-chat/ai-chat.tsx"
+        },
+        {
+          "path": "src/components/blocks/ai-chat.module.css",
+          "type": "registry:style",
+          "target": "@components/blocks/ai-chat/ai-chat.module.css"
+        }
+      ]
+    },
+    {
+      "name": "solid-tailwind-settings-page",
+      "type": "registry:block",
+      "title": "Workspace settings",
+      "description": "Account and workspace settings with profile form, notification switches, and a danger zone confirmation dialog.",
+      "registryDependencies": [
+        "https://moduix.dev/r/solid-tailwind/badge.json",
+        "https://moduix.dev/r/solid-tailwind/button.json",
+        "https://moduix.dev/r/solid-tailwind/card.json",
+        "https://moduix.dev/r/solid-tailwind/dialog.json",
+        "https://moduix.dev/r/solid-tailwind/field.json",
+        "https://moduix.dev/r/solid-tailwind/input.json",
+        "https://moduix.dev/r/solid-tailwind/switch.json",
+        "https://moduix.dev/r/solid-tailwind/tabs.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks-tailwind/solid/settings-page.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/settings-page/settings-page.tsx"
+        }
+      ]
+    },
+    {
+      "name": "solid-tailwind-pricing-plans",
+      "type": "registry:block",
+      "title": "Pricing plans",
+      "description": "Three-tier SaaS pricing table with a monthly/yearly billing toggle, highlighted plan, and interactive selection.",
+      "dependencies": ["lucide-solid@^1.77.0"],
+      "registryDependencies": [
+        "https://moduix.dev/r/solid-tailwind/badge.json",
+        "https://moduix.dev/r/solid-tailwind/button.json",
+        "https://moduix.dev/r/solid-tailwind/card.json",
+        "https://moduix.dev/r/solid-tailwind/segment-group.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks-tailwind/solid/pricing-plans.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/pricing-plans/pricing-plans.tsx"
+        }
+      ]
+    },
+    {
+      "name": "solid-tailwind-empty-states",
+      "type": "registry:block",
+      "title": "Empty states",
+      "description": "Reusable empty state templates for zero search results, cleared inboxes, and restricted permissions.",
+      "dependencies": ["lucide-solid@^1.77.0"],
+      "registryDependencies": [
+        "https://moduix.dev/r/solid-tailwind/button.json",
+        "https://moduix.dev/r/solid-tailwind/card.json",
+        "https://moduix.dev/r/solid-tailwind/empty.json",
+        "https://moduix.dev/r/solid-tailwind/tabs.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks-tailwind/solid/empty-states.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/empty-states/empty-states.tsx"
+        }
+      ]
+    },
+    {
+      "name": "solid-tailwind-ai-chat",
+      "type": "registry:block",
+      "title": "AI assistant chat",
+      "description": "Conversational AI interface with message log, prompt suggestions, avatars, and a composer ready for streaming responses.",
+      "dependencies": ["lucide-solid@^1.77.0"],
+      "registryDependencies": [
+        "https://moduix.dev/r/solid-tailwind/avatar.json",
+        "https://moduix.dev/r/solid-tailwind/badge.json",
+        "https://moduix.dev/r/solid-tailwind/button.json",
+        "https://moduix.dev/r/solid-tailwind/card.json",
+        "https://moduix.dev/r/solid-tailwind/textarea.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks-tailwind/solid/ai-chat.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/ai-chat/ai-chat.tsx"
+        }
+      ]
+    },
+    {
+      "name": "solid-settings-page",
+      "type": "registry:block",
+      "title": "Workspace settings",
+      "description": "Account and workspace settings with profile form, notification switches, and a danger zone confirmation dialog.",
+      "registryDependencies": [
+        "https://moduix.dev/r/solid/badge.json",
+        "https://moduix.dev/r/solid/button.json",
+        "https://moduix.dev/r/solid/card.json",
+        "https://moduix.dev/r/solid/dialog.json",
+        "https://moduix.dev/r/solid/field.json",
+        "https://moduix.dev/r/solid/input.json",
+        "https://moduix.dev/r/solid/switch.json",
+        "https://moduix.dev/r/solid/tabs.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/solid/settings-page.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/settings-page/settings-page.tsx"
+        },
+        {
+          "path": "src/components/blocks/settings-page.module.css",
+          "type": "registry:style",
+          "target": "@components/blocks/settings-page/settings-page.module.css"
+        }
+      ]
+    },
+    {
+      "name": "solid-pricing-plans",
+      "type": "registry:block",
+      "title": "Pricing plans",
+      "description": "Three-tier SaaS pricing table with a monthly/yearly billing toggle, highlighted plan, and interactive selection.",
+      "dependencies": ["lucide-solid@^1.77.0"],
+      "registryDependencies": [
+        "https://moduix.dev/r/solid/badge.json",
+        "https://moduix.dev/r/solid/button.json",
+        "https://moduix.dev/r/solid/card.json",
+        "https://moduix.dev/r/solid/segment-group.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/solid/pricing-plans.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/pricing-plans/pricing-plans.tsx"
+        },
+        {
+          "path": "src/components/blocks/pricing-plans.module.css",
+          "type": "registry:style",
+          "target": "@components/blocks/pricing-plans/pricing-plans.module.css"
+        }
+      ]
+    },
+    {
+      "name": "solid-empty-states",
+      "type": "registry:block",
+      "title": "Empty states",
+      "description": "Reusable empty state templates for zero search results, cleared inboxes, and restricted permissions.",
+      "dependencies": ["lucide-solid@^1.77.0"],
+      "registryDependencies": [
+        "https://moduix.dev/r/solid/button.json",
+        "https://moduix.dev/r/solid/card.json",
+        "https://moduix.dev/r/solid/empty.json",
+        "https://moduix.dev/r/solid/tabs.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/solid/empty-states.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/empty-states/empty-states.tsx"
+        },
+        {
+          "path": "src/components/blocks/empty-states.module.css",
+          "type": "registry:style",
+          "target": "@components/blocks/empty-states/empty-states.module.css"
+        }
+      ]
+    },
+    {
+      "name": "solid-ai-chat",
+      "type": "registry:block",
+      "title": "AI assistant chat",
+      "description": "Conversational AI interface with message log, prompt suggestions, avatars, and a composer ready for streaming responses.",
+      "dependencies": ["lucide-solid@^1.77.0"],
+      "registryDependencies": [
+        "https://moduix.dev/r/solid/avatar.json",
+        "https://moduix.dev/r/solid/badge.json",
+        "https://moduix.dev/r/solid/button.json",
+        "https://moduix.dev/r/solid/card.json",
+        "https://moduix.dev/r/solid/textarea.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/solid/ai-chat.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/ai-chat/ai-chat.tsx"
+        },
+        {
+          "path": "src/components/blocks/ai-chat.module.css",
+          "type": "registry:style",
+          "target": "@components/blocks/ai-chat/ai-chat.module.css"
+        }
+      ]
+    },
+    {
+      "name": "vue-tailwind-settings-page",
+      "type": "registry:block",
+      "title": "Workspace settings",
+      "description": "Account and workspace settings with profile form, notification switches, and a danger zone confirmation dialog.",
+      "registryDependencies": [
+        "https://moduix.dev/r/vue-tailwind/badge.json",
+        "https://moduix.dev/r/vue-tailwind/button.json",
+        "https://moduix.dev/r/vue-tailwind/card.json",
+        "https://moduix.dev/r/vue-tailwind/dialog.json",
+        "https://moduix.dev/r/vue-tailwind/field.json",
+        "https://moduix.dev/r/vue-tailwind/input.json",
+        "https://moduix.dev/r/vue-tailwind/switch.json",
+        "https://moduix.dev/r/vue-tailwind/tabs.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks-tailwind/vue/settings-page.vue",
+          "type": "registry:component",
+          "target": "@components/blocks/settings-page/settings-page.vue"
+        }
+      ]
+    },
+    {
+      "name": "vue-tailwind-pricing-plans",
+      "type": "registry:block",
+      "title": "Pricing plans",
+      "description": "Three-tier SaaS pricing table with a monthly/yearly billing toggle, highlighted plan, and interactive selection.",
+      "dependencies": ["@lucide/vue@^1.77.0"],
+      "registryDependencies": [
+        "https://moduix.dev/r/vue-tailwind/badge.json",
+        "https://moduix.dev/r/vue-tailwind/button.json",
+        "https://moduix.dev/r/vue-tailwind/card.json",
+        "https://moduix.dev/r/vue-tailwind/segment-group.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks-tailwind/vue/pricing-plans.vue",
+          "type": "registry:component",
+          "target": "@components/blocks/pricing-plans/pricing-plans.vue"
+        }
+      ]
+    },
+    {
+      "name": "vue-tailwind-empty-states",
+      "type": "registry:block",
+      "title": "Empty states",
+      "description": "Reusable empty state templates for zero search results, cleared inboxes, and restricted permissions.",
+      "dependencies": ["@lucide/vue@^1.77.0"],
+      "registryDependencies": [
+        "https://moduix.dev/r/vue-tailwind/button.json",
+        "https://moduix.dev/r/vue-tailwind/card.json",
+        "https://moduix.dev/r/vue-tailwind/empty.json",
+        "https://moduix.dev/r/vue-tailwind/tabs.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks-tailwind/vue/empty-states.vue",
+          "type": "registry:component",
+          "target": "@components/blocks/empty-states/empty-states.vue"
+        }
+      ]
+    },
+    {
+      "name": "vue-tailwind-ai-chat",
+      "type": "registry:block",
+      "title": "AI assistant chat",
+      "description": "Conversational AI interface with message log, prompt suggestions, avatars, and a composer ready for streaming responses.",
+      "dependencies": ["@lucide/vue@^1.77.0"],
+      "registryDependencies": [
+        "https://moduix.dev/r/vue-tailwind/avatar.json",
+        "https://moduix.dev/r/vue-tailwind/badge.json",
+        "https://moduix.dev/r/vue-tailwind/button.json",
+        "https://moduix.dev/r/vue-tailwind/card.json",
+        "https://moduix.dev/r/vue-tailwind/textarea.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks-tailwind/vue/ai-chat.vue",
+          "type": "registry:component",
+          "target": "@components/blocks/ai-chat/ai-chat.vue"
+        }
+      ]
+    },
+    {
+      "name": "vue-settings-page",
+      "type": "registry:block",
+      "title": "Workspace settings",
+      "description": "Account and workspace settings with profile form, notification switches, and a danger zone confirmation dialog.",
+      "registryDependencies": [
+        "https://moduix.dev/r/vue/badge.json",
+        "https://moduix.dev/r/vue/button.json",
+        "https://moduix.dev/r/vue/card.json",
+        "https://moduix.dev/r/vue/dialog.json",
+        "https://moduix.dev/r/vue/field.json",
+        "https://moduix.dev/r/vue/input.json",
+        "https://moduix.dev/r/vue/switch.json",
+        "https://moduix.dev/r/vue/tabs.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/vue/settings-page.vue",
+          "type": "registry:component",
+          "target": "@components/blocks/settings-page/settings-page.vue"
+        },
+        {
+          "path": "src/components/blocks/settings-page.module.css",
+          "type": "registry:style",
+          "target": "@components/blocks/settings-page/settings-page.module.css"
+        }
+      ]
+    },
+    {
+      "name": "vue-pricing-plans",
+      "type": "registry:block",
+      "title": "Pricing plans",
+      "description": "Three-tier SaaS pricing table with a monthly/yearly billing toggle, highlighted plan, and interactive selection.",
+      "dependencies": ["@lucide/vue@^1.77.0"],
+      "registryDependencies": [
+        "https://moduix.dev/r/vue/badge.json",
+        "https://moduix.dev/r/vue/button.json",
+        "https://moduix.dev/r/vue/card.json",
+        "https://moduix.dev/r/vue/segment-group.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/vue/pricing-plans.vue",
+          "type": "registry:component",
+          "target": "@components/blocks/pricing-plans/pricing-plans.vue"
+        },
+        {
+          "path": "src/components/blocks/pricing-plans.module.css",
+          "type": "registry:style",
+          "target": "@components/blocks/pricing-plans/pricing-plans.module.css"
+        }
+      ]
+    },
+    {
+      "name": "vue-empty-states",
+      "type": "registry:block",
+      "title": "Empty states",
+      "description": "Reusable empty state templates for zero search results, cleared inboxes, and restricted permissions.",
+      "dependencies": ["@lucide/vue@^1.77.0"],
+      "registryDependencies": [
+        "https://moduix.dev/r/vue/button.json",
+        "https://moduix.dev/r/vue/card.json",
+        "https://moduix.dev/r/vue/empty.json",
+        "https://moduix.dev/r/vue/tabs.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/vue/empty-states.vue",
+          "type": "registry:component",
+          "target": "@components/blocks/empty-states/empty-states.vue"
+        },
+        {
+          "path": "src/components/blocks/empty-states.module.css",
+          "type": "registry:style",
+          "target": "@components/blocks/empty-states/empty-states.module.css"
+        }
+      ]
+    },
+    {
+      "name": "vue-ai-chat",
+      "type": "registry:block",
+      "title": "AI assistant chat",
+      "description": "Conversational AI interface with message log, prompt suggestions, avatars, and a composer ready for streaming responses.",
+      "dependencies": ["@lucide/vue@^1.77.0"],
+      "registryDependencies": [
+        "https://moduix.dev/r/vue/avatar.json",
+        "https://moduix.dev/r/vue/badge.json",
+        "https://moduix.dev/r/vue/button.json",
+        "https://moduix.dev/r/vue/card.json",
+        "https://moduix.dev/r/vue/textarea.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/vue/ai-chat.vue",
+          "type": "registry:component",
+          "target": "@components/blocks/ai-chat/ai-chat.vue"
+        },
+        {
+          "path": "src/components/blocks/ai-chat.module.css",
+          "type": "registry:style",
+          "target": "@components/blocks/ai-chat/ai-chat.module.css"
+        }
+      ]
+    },
+    {
+      "name": "svelte-tailwind-settings-page",
+      "type": "registry:block",
+      "title": "Workspace settings",
+      "description": "Account and workspace settings with profile form, notification switches, and a danger zone confirmation dialog.",
+      "registryDependencies": [
+        "https://moduix.dev/r/svelte-tailwind/badge.json",
+        "https://moduix.dev/r/svelte-tailwind/button.json",
+        "https://moduix.dev/r/svelte-tailwind/card.json",
+        "https://moduix.dev/r/svelte-tailwind/dialog.json",
+        "https://moduix.dev/r/svelte-tailwind/field.json",
+        "https://moduix.dev/r/svelte-tailwind/input.json",
+        "https://moduix.dev/r/svelte-tailwind/switch.json",
+        "https://moduix.dev/r/svelte-tailwind/tabs.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks-tailwind/svelte/settings-page.svelte",
+          "type": "registry:component",
+          "target": "@components/blocks/settings-page/settings-page.svelte"
+        }
+      ]
+    },
+    {
+      "name": "svelte-tailwind-pricing-plans",
+      "type": "registry:block",
+      "title": "Pricing plans",
+      "description": "Three-tier SaaS pricing table with a monthly/yearly billing toggle, highlighted plan, and interactive selection.",
+      "dependencies": ["@lucide/svelte@^1.77.0"],
+      "registryDependencies": [
+        "https://moduix.dev/r/svelte-tailwind/badge.json",
+        "https://moduix.dev/r/svelte-tailwind/button.json",
+        "https://moduix.dev/r/svelte-tailwind/card.json",
+        "https://moduix.dev/r/svelte-tailwind/segment-group.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks-tailwind/svelte/pricing-plans.svelte",
+          "type": "registry:component",
+          "target": "@components/blocks/pricing-plans/pricing-plans.svelte"
+        }
+      ]
+    },
+    {
+      "name": "svelte-tailwind-empty-states",
+      "type": "registry:block",
+      "title": "Empty states",
+      "description": "Reusable empty state templates for zero search results, cleared inboxes, and restricted permissions.",
+      "dependencies": ["@lucide/svelte@^1.77.0"],
+      "registryDependencies": [
+        "https://moduix.dev/r/svelte-tailwind/button.json",
+        "https://moduix.dev/r/svelte-tailwind/card.json",
+        "https://moduix.dev/r/svelte-tailwind/empty.json",
+        "https://moduix.dev/r/svelte-tailwind/tabs.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks-tailwind/svelte/empty-states.svelte",
+          "type": "registry:component",
+          "target": "@components/blocks/empty-states/empty-states.svelte"
+        }
+      ]
+    },
+    {
+      "name": "svelte-tailwind-ai-chat",
+      "type": "registry:block",
+      "title": "AI assistant chat",
+      "description": "Conversational AI interface with message log, prompt suggestions, avatars, and a composer ready for streaming responses.",
+      "dependencies": ["@lucide/svelte@^1.77.0"],
+      "registryDependencies": [
+        "https://moduix.dev/r/svelte-tailwind/avatar.json",
+        "https://moduix.dev/r/svelte-tailwind/badge.json",
+        "https://moduix.dev/r/svelte-tailwind/button.json",
+        "https://moduix.dev/r/svelte-tailwind/card.json",
+        "https://moduix.dev/r/svelte-tailwind/textarea.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks-tailwind/svelte/ai-chat.svelte",
+          "type": "registry:component",
+          "target": "@components/blocks/ai-chat/ai-chat.svelte"
+        }
+      ]
+    },
+    {
+      "name": "svelte-settings-page",
+      "type": "registry:block",
+      "title": "Workspace settings",
+      "description": "Account and workspace settings with profile form, notification switches, and a danger zone confirmation dialog.",
+      "registryDependencies": [
+        "https://moduix.dev/r/svelte/badge.json",
+        "https://moduix.dev/r/svelte/button.json",
+        "https://moduix.dev/r/svelte/card.json",
+        "https://moduix.dev/r/svelte/dialog.json",
+        "https://moduix.dev/r/svelte/field.json",
+        "https://moduix.dev/r/svelte/input.json",
+        "https://moduix.dev/r/svelte/switch.json",
+        "https://moduix.dev/r/svelte/tabs.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/svelte/settings-page.svelte",
+          "type": "registry:component",
+          "target": "@components/blocks/settings-page/settings-page.svelte"
+        },
+        {
+          "path": "src/components/blocks/settings-page.module.css",
+          "type": "registry:style",
+          "target": "@components/blocks/settings-page/settings-page.module.css"
+        }
+      ]
+    },
+    {
+      "name": "svelte-pricing-plans",
+      "type": "registry:block",
+      "title": "Pricing plans",
+      "description": "Three-tier SaaS pricing table with a monthly/yearly billing toggle, highlighted plan, and interactive selection.",
+      "dependencies": ["@lucide/svelte@^1.77.0"],
+      "registryDependencies": [
+        "https://moduix.dev/r/svelte/badge.json",
+        "https://moduix.dev/r/svelte/button.json",
+        "https://moduix.dev/r/svelte/card.json",
+        "https://moduix.dev/r/svelte/segment-group.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/svelte/pricing-plans.svelte",
+          "type": "registry:component",
+          "target": "@components/blocks/pricing-plans/pricing-plans.svelte"
+        },
+        {
+          "path": "src/components/blocks/pricing-plans.module.css",
+          "type": "registry:style",
+          "target": "@components/blocks/pricing-plans/pricing-plans.module.css"
+        }
+      ]
+    },
+    {
+      "name": "svelte-empty-states",
+      "type": "registry:block",
+      "title": "Empty states",
+      "description": "Reusable empty state templates for zero search results, cleared inboxes, and restricted permissions.",
+      "dependencies": ["@lucide/svelte@^1.77.0"],
+      "registryDependencies": [
+        "https://moduix.dev/r/svelte/button.json",
+        "https://moduix.dev/r/svelte/card.json",
+        "https://moduix.dev/r/svelte/empty.json",
+        "https://moduix.dev/r/svelte/tabs.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/svelte/empty-states.svelte",
+          "type": "registry:component",
+          "target": "@components/blocks/empty-states/empty-states.svelte"
+        },
+        {
+          "path": "src/components/blocks/empty-states.module.css",
+          "type": "registry:style",
+          "target": "@components/blocks/empty-states/empty-states.module.css"
+        }
+      ]
+    },
+    {
+      "name": "svelte-ai-chat",
+      "type": "registry:block",
+      "title": "AI assistant chat",
+      "description": "Conversational AI interface with message log, prompt suggestions, avatars, and a composer ready for streaming responses.",
+      "dependencies": ["@lucide/svelte@^1.77.0"],
+      "registryDependencies": [
+        "https://moduix.dev/r/svelte/avatar.json",
+        "https://moduix.dev/r/svelte/badge.json",
+        "https://moduix.dev/r/svelte/button.json",
+        "https://moduix.dev/r/svelte/card.json",
+        "https://moduix.dev/r/svelte/textarea.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/svelte/ai-chat.svelte",
+          "type": "registry:component",
+          "target": "@components/blocks/ai-chat/ai-chat.svelte"
+        },
+        {
+          "path": "src/components/blocks/ai-chat.module.css",
+          "type": "registry:style",
+          "target": "@components/blocks/ai-chat/ai-chat.module.css"
+        }
+      ]
     }
   ]
 }

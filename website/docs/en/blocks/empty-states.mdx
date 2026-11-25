@@ -1,0 +1,40 @@
+---
+title: Empty states
+description: Reusable empty state templates for zero search results, cleared inboxes, and restricted permissions.
+block: empty-states
+pageType: doc-wide
+outline: false
+---
+
+import { EmptyStates } from '@/components/blocks/empty-states';
+import emptyStatesSolid from '../../../snippets/blocks/solid/empty-states.tsx?raw';
+import emptyStatesVue from '../../../snippets/blocks/vue/empty-states.vue?raw';
+import emptyStatesSvelte from '../../../snippets/blocks/svelte/empty-states.svelte?raw';
+import emptyStatesReact from '../../../src/components/blocks/empty-states.tsx?raw';
+import emptyStatesCss from '../../../src/components/blocks/empty-states.module.css?raw';
+export const emptyStatesLive = { solid: () => import('../../../snippets/blocks/solid/empty-states.tsx'), vue: () => import('../../../snippets/blocks/vue/empty-states.vue'), svelte: () => import('../../../snippets/blocks/svelte/empty-states.svelte') };
+import emptyStatesReactTailwind from '../../../src/components/blocks-tailwind/empty-states.tsx?raw';
+import emptyStatesSolidTailwind from '../../../snippets/blocks-tailwind/solid/empty-states.tsx?raw';
+import emptyStatesVueTailwind from '../../../snippets/blocks-tailwind/vue/empty-states.vue?raw';
+import emptyStatesSvelteTailwind from '../../../snippets/blocks-tailwind/svelte/empty-states.svelte?raw';
+export const emptyStatesLiveTailwind = { react: () => import('@/components/blocks-tailwind/empty-states').then((module) => ({ default: module.EmptyStates })), solid: () => import('../../../snippets/blocks-tailwind/solid/empty-states.tsx'), vue: () => import('../../../snippets/blocks-tailwind/vue/empty-states.vue'), svelte: () => import('../../../snippets/blocks-tailwind/svelte/empty-states.svelte') };
+
+# Empty states
+
+<ExamplePanel
+  clientOnly
+  sources={{ react: emptyStatesReact, solid: emptyStatesSolid, vue: emptyStatesVue, svelte: emptyStatesSvelte }}
+  tailwindSources={{ react: emptyStatesReactTailwind, solid: emptyStatesSolidTailwind, vue: emptyStatesVueTailwind, svelte: emptyStatesSvelteTailwind }}
+  files={[{ name: 'empty-states.module.css', code: emptyStatesCss }]}
+>
+  <FrameworkPreview live={emptyStatesLive} liveTailwind={emptyStatesLiveTailwind}>
+    <EmptyStates />
+  </FrameworkPreview>
+</ExamplePanel>
+
+Three common empty states built with `Empty`, `Card`, `Tabs`, and `Button`: filtered search with no
+matches, a cleared inbox, and a permissions boundary. Copy the variant you need directly into your view.
+
+## Install
+
+<BlockInstall name="empty-states" />

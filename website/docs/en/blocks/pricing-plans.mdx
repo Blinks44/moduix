@@ -1,0 +1,40 @@
+---
+title: Pricing plans
+description: Three-tier SaaS pricing table with a monthly/yearly billing toggle, highlighted plan, and interactive selection.
+block: pricing-plans
+pageType: doc-wide
+outline: false
+---
+
+import { PricingPlans } from '@/components/blocks/pricing-plans';
+import pricingPlansSolid from '../../../snippets/blocks/solid/pricing-plans.tsx?raw';
+import pricingPlansVue from '../../../snippets/blocks/vue/pricing-plans.vue?raw';
+import pricingPlansSvelte from '../../../snippets/blocks/svelte/pricing-plans.svelte?raw';
+import pricingPlansReact from '../../../src/components/blocks/pricing-plans.tsx?raw';
+import pricingPlansCss from '../../../src/components/blocks/pricing-plans.module.css?raw';
+export const pricingPlansLive = { solid: () => import('../../../snippets/blocks/solid/pricing-plans.tsx'), vue: () => import('../../../snippets/blocks/vue/pricing-plans.vue'), svelte: () => import('../../../snippets/blocks/svelte/pricing-plans.svelte') };
+import pricingPlansReactTailwind from '../../../src/components/blocks-tailwind/pricing-plans.tsx?raw';
+import pricingPlansSolidTailwind from '../../../snippets/blocks-tailwind/solid/pricing-plans.tsx?raw';
+import pricingPlansVueTailwind from '../../../snippets/blocks-tailwind/vue/pricing-plans.vue?raw';
+import pricingPlansSvelteTailwind from '../../../snippets/blocks-tailwind/svelte/pricing-plans.svelte?raw';
+export const pricingPlansLiveTailwind = { react: () => import('@/components/blocks-tailwind/pricing-plans').then((module) => ({ default: module.PricingPlans })), solid: () => import('../../../snippets/blocks-tailwind/solid/pricing-plans.tsx'), vue: () => import('../../../snippets/blocks-tailwind/vue/pricing-plans.vue'), svelte: () => import('../../../snippets/blocks-tailwind/svelte/pricing-plans.svelte') };
+
+# Pricing plans
+
+<ExamplePanel
+  clientOnly
+  sources={{ react: pricingPlansReact, solid: pricingPlansSolid, vue: pricingPlansVue, svelte: pricingPlansSvelte }}
+  tailwindSources={{ react: pricingPlansReactTailwind, solid: pricingPlansSolidTailwind, vue: pricingPlansVueTailwind, svelte: pricingPlansSvelteTailwind }}
+  files={[{ name: 'pricing-plans.module.css', code: pricingPlansCss }]}
+>
+  <FrameworkPreview live={pricingPlansLive} liveTailwind={pricingPlansLiveTailwind}>
+    <PricingPlans />
+  </FrameworkPreview>
+</ExamplePanel>
+
+A SaaS pricing layout combining `SegmentGroup`, `Card`, `Badge`, and `Button`. Connect the plan buttons
+to your checkout or billing portal route and keep prices formatted with your store currency.
+
+## Install
+
+<BlockInstall name="pricing-plans" />
