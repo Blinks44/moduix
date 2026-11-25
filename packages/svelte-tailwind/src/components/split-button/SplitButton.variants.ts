@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority';
 
 export const splitButtonTriggerVariants = cva(
-  "relative ms-[calc(var(--moduix-button-border-width,var(--moduix-border-width-sm))*-1)] rounded-s-none before:pointer-events-none before:absolute before:inset-y-1.5 before:start-0 before:w-px before:bg-current before:opacity-[0.16] before:content-[''] data-[variant=destructive-outline]:before:hidden data-[variant=outline]:before:hidden",
+  "relative rounded-s-none before:pointer-events-none before:absolute before:-inset-y-px before:-start-px before:w-px before:bg-current before:opacity-[0.16] before:content-[''] data-[variant=destructive-outline]:-ms-px data-[variant=destructive-outline]:before:hidden data-[variant=ghost]:before:inset-y-1.5 data-[variant=outline]:-ms-px data-[variant=outline]:before:hidden",
   {
     variants: {
       size: {

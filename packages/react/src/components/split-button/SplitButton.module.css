@@ -4,24 +4,24 @@
     align-items: stretch;
   }
 
-  .action {
+  /* Wins over Button root and size styles regardless of stylesheet order. */
+  .root .action {
     border-start-end-radius: 0;
     border-end-end-radius: 0;
   }
 
-  .trigger {
+  .root .trigger {
     position: relative;
-    margin-inline-start: calc(
-      var(--moduix-button-border-width, var(--moduix-border-width-sm)) * -1
-    );
     border-start-start-radius: 0;
     border-end-start-radius: 0;
 
     &::before {
       content: '';
       position: absolute;
-      inset-block: var(--moduix-spacing-1-5);
-      inset-inline-start: 0;
+      inset-block: calc(var(--moduix-button-border-width, var(--moduix-border-width-sm)) * -1);
+      inset-inline-start: calc(
+        var(--moduix-button-border-width, var(--moduix-border-width-sm)) * -1
+      );
       width: var(--moduix-border-width-sm);
       background-color: var(
         --moduix-split-button-separator-color,
@@ -30,9 +30,19 @@
       pointer-events: none;
     }
 
-    &[data-variant='outline']::before,
-    &[data-variant='destructive-outline']::before {
-      display: none;
+    &[data-variant='ghost']::before {
+      inset-block: var(--moduix-spacing-1-5);
+    }
+
+    &[data-variant='outline'],
+    &[data-variant='destructive-outline'] {
+      margin-inline-start: calc(
+        var(--moduix-button-border-width, var(--moduix-border-width-sm)) * -1
+      );
+
+      &::before {
+        display: none;
+      }
     }
 
     &[data-size='xs'] {
