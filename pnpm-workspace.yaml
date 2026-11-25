@@ -27,7 +27,7 @@ catalog:
   '@rsbuild/core': '^2.3.2'
   '@rsbuild/plugin-babel': '^2.1.0'
   '@rsbuild/plugin-react': '^2.1.1'
-  '@rsbuild/plugin-solid': '^1.2.2'
+  '@rsbuild/plugin-solid': '^2.1.0'
   '@rsbuild/plugin-svelte': '^2.0.1'
   '@rsbuild/plugin-tailwindcss': '^2.0.3'
   '@rsbuild/plugin-vue': '^2.0.1'
