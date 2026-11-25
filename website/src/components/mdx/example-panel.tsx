@@ -253,7 +253,7 @@ function ExamplePanel({
       <>
         {frameworks.map(
           (item) =>
-            `\n**${item.label}**\n\n\`\`\`${item.lang}\n${toDisplayCode(sources[item.value])}\n\`\`\`\n`,
+            `\n<!-- moduix-fw:${item.value} -->\n**${item.label}**\n\n\`\`\`${item.lang}\n${toDisplayCode(sources[item.value])}\n\`\`\`\n<!-- /moduix-fw -->\n`,
         )}
         {files.map((file) => `\n\`\`\`css title="${file.name}"\n${file.code}\n\`\`\`\n`)}
       </>
@@ -408,7 +408,7 @@ function FrameworkCode({ sources, name }: { sources: Record<Framework, string>; 
       <>
         {frameworks.map(
           (item) =>
-            `\n\`\`\`${item.lang} title="${name}.${item.lang}"\n${toDisplayCode(sources[item.value])}\n\`\`\`\n`,
+            `\n<!-- moduix-fw:${item.value} -->\n\`\`\`${item.lang} title="${name}.${item.lang}"\n${toDisplayCode(sources[item.value])}\n\`\`\`\n<!-- /moduix-fw -->\n`,
         )}
       </>
     );

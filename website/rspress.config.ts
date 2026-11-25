@@ -9,6 +9,7 @@ import { globSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { pluginLastUpdatedDate } from './plugins/last-updated-date';
+import { pluginLlmsPerFramework } from './plugins/llms-per-framework';
 import { moduixShikiTheme } from './theme/shiki-theme';
 
 const siteOrigin = 'https://moduix.dev';
@@ -103,7 +104,14 @@ export default defineConfig({
     },
     link: {
       checkDeadLinks: {
-        excludes: ['/llms.txt', '/llms-full.txt'],
+        excludes: [
+          '/llms.txt',
+          '/llms-full.txt',
+          '/llms-react.txt',
+          '/llms-solid.txt',
+          '/llms-vue.txt',
+          '/llms-svelte.txt',
+        ],
       },
       // The anchor check skips headings and ids rendered inside JSX components such as QuickStartFlow.
       checkAnchors: {
@@ -203,7 +211,7 @@ export default defineConfig({
       },
     },
   },
-  plugins: [pluginPreview(), pluginLastUpdatedDate()],
+  plugins: [pluginPreview(), pluginLastUpdatedDate(), pluginLlmsPerFramework()],
   themeConfig: {
     locales,
     llmsUI: false,

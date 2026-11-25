@@ -22,6 +22,27 @@ function BlockInstall({ name }: { name: string }) {
   );
   const [before, after] = t('blockInstallNote').split('{components}');
 
+  if (import.meta.env.SSG_MD) {
+    const listFormat = new Intl.ListFormat('en', { type: 'conjunction' });
+    return (
+      <>
+        {(['react', 'solid', 'vue', 'svelte'] as const).map((fw) => {
+          const fwDeps = __MODUIX_BLOCK_DEPS__[`${fw}-${name}`] ?? [];
+          const fwComponents =
+            fwDeps.length > 0 ? listFormat.format(fwDeps.map(toComponentName)) : '';
+          const note = fwComponents ? `\nInstalls ${fwComponents} alongside the block.` : '';
+          return (
+            `\n<!-- moduix-fw:${fw} -->\n` +
+            `\`\`\`sh\npnpm dlx shadcn@latest add @moduix-${fw}/${name}\n\`\`\`\n` +
+            `${note}\n` +
+            `For Tailwind CSS, use \`@moduix-${fw}-tailwind/${name}\`.\n` +
+            `<!-- /moduix-fw -->\n`
+          );
+        })}
+      </>
+    );
+  }
+
   return (
     <>
       <PackageManagerTabs command={`shadcn@latest add @moduix-${namespace}/${name}`} dlx />

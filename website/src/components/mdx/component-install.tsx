@@ -285,6 +285,26 @@ function ComponentInstall() {
     <Link href={quickStartPath}>{t('installQuickStartLabel')}</Link>,
   );
 
+  if (import.meta.env.SSG_MD) {
+    const exportName = toExportName(component);
+    return (
+      <>
+        {(['react', 'solid', 'vue', 'svelte'] as const).map((fw) => {
+          const fwPeers = [`@ark-ui/${fw}`, ...(extraInstallPeers[component]?.(fw) ?? [])];
+          return (
+            `\n<!-- moduix-fw:${fw} -->\n` +
+            `\`\`\`sh\npnpm add @moduix/${fw} ${fwPeers.join(' ')}\n\`\`\`\n\n` +
+            `\`\`\`ts\nimport { ${exportName} } from '@moduix/${fw}/${component}';\n\`\`\`\n\n` +
+            `Or copy the source with the shadcn CLI:\n\n` +
+            `\`\`\`sh\npnpm dlx shadcn@latest add @moduix-${fw}/${component}\n\`\`\`\n\n` +
+            `For Tailwind CSS, use \`@moduix/${fw}-tailwind/${component}\` or \`@moduix-${fw}-tailwind/${component}\`.\n` +
+            `<!-- /moduix-fw -->\n`
+          );
+        })}
+      </>
+    );
+  }
+
   return (
     <Tabs
       className={styles.tabs}

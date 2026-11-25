@@ -4,6 +4,9 @@
 /docs/*.md
   X-Robots-Tag: noindex
 
+/blocks/*.md
+  X-Robots-Tag: noindex
+
 /fr/index.md
   X-Robots-Tag: noindex
 
@@ -17,6 +20,18 @@
   X-Robots-Tag: noindex
 
 /llms.txt
+  X-Robots-Tag: noindex
+
+/llms-react.txt
+  X-Robots-Tag: noindex
+
+/llms-solid.txt
+  X-Robots-Tag: noindex
+
+/llms-vue.txt
+  X-Robots-Tag: noindex
+
+/llms-svelte.txt
   X-Robots-Tag: noindex
 
 /llms-full.txt
