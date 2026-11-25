@@ -204,26 +204,33 @@
   }
 }
 
-.fileListDetails {
+.fileListAccordion {
   border: 1px solid var(--rp-c-divider);
   border-radius: 10px;
-  padding: 8px 12px;
   background: var(--rp-c-bg-soft);
-  font-size: 13px;
+  overflow: hidden;
+}
 
-  summary {
-    color: var(--rp-c-text-2);
-    font-weight: 500;
-    cursor: pointer;
-    user-select: none;
-  }
+.fileListItem {
+  border-bottom: 0;
+}
+
+.fileListTrigger {
+  padding: 8px 12px;
+  color: var(--rp-c-text-2);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.fileListBody {
+  padding: 0 12px 10px;
 }
 
 .fileList {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 4px 12px;
-  margin: 8px 0 0;
+  margin: 0;
   padding: 0;
   list-style: none;
 }

@@ -1,3 +1,11 @@
+import {
+  Accordion,
+  AccordionItem,
+  AccordionItemBody,
+  AccordionItemContent,
+  AccordionItemIndicator,
+  AccordionItemTrigger,
+} from '@moduix/react/accordion';
 import { useFrontmatter, useI18n, withBase } from '@rspress/core/runtime';
 import { CodeBlockRuntime, Link, PackageManagerTabs, Tab, Tabs } from '@rspress/core/theme';
 import { ChevronDown } from 'lucide-react';
@@ -54,7 +62,7 @@ const extraInstallPeers: Partial<Record<string, (framework: string) => string[]>
 };
 
 const defaultImportNames: Partial<Record<string, string>> = {
-  toast: 'createToaster, ToastToaster',
+  toast: 'toast, ToastToaster',
 };
 
 function toExportName(slug: string) {
@@ -225,28 +233,35 @@ function ManualInstallPanel({
           </div>
 
           {files.length > 5 ? (
-            <details className={styles.fileListDetails}>
-              <summary>
-                {t('installManualFileList').replace('{count}', String(files.length))}
-              </summary>
-              <ul className={styles.fileList}>
-                {files.map((file, index) => {
-                  const target = formatTargetPath(file);
-                  return (
-                    <li key={target}>
-                      <button
-                        type="button"
-                        className={styles.fileListButton}
-                        data-active={index === safeIndex ? '' : undefined}
-                        onClick={() => setSelectedIndex(index)}
-                      >
-                        <code>{target}</code>
-                      </button>
-                    </li>
-                  );
-                })}
-              </ul>
-            </details>
+            <Accordion collapsible className={styles.fileListAccordion}>
+              <AccordionItem value="files" className={styles.fileListItem}>
+                <AccordionItemTrigger className={styles.fileListTrigger}>
+                  <span>{t('installManualFileList').replace('{count}', String(files.length))}</span>
+                  <AccordionItemIndicator />
+                </AccordionItemTrigger>
+                <AccordionItemContent>
+                  <AccordionItemBody className={styles.fileListBody}>
+                    <ul className={styles.fileList}>
+                      {files.map((file, index) => {
+                        const target = formatTargetPath(file);
+                        return (
+                          <li key={target}>
+                            <button
+                              type="button"
+                              className={styles.fileListButton}
+                              data-active={index === safeIndex ? '' : undefined}
+                              onClick={() => setSelectedIndex(index)}
+                            >
+                              <code>{target}</code>
+                            </button>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </AccordionItemBody>
+                </AccordionItemContent>
+              </AccordionItem>
+            </Accordion>
           ) : null}
 
           <div className={styles.manualCode}>
