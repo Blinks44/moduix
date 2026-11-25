@@ -2,6 +2,10 @@ import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { exampleProject } from './example-project.js';
+import {
+  transformProjectToTailwind,
+  transformSourceToTailwind,
+} from './tailwind-example-transform.js';
 
 // Expands `<Example name="button/basic" />` in MDX into an `ExamplePanel` with the live React
 // preview, lazy Solid, Vue, and Svelte previews, and the raw React, Solid, Vue, Svelte, and CSS sources, and `<Usage />` into the raw sources of the
@@ -36,9 +40,10 @@ export default function exampleLoader(source) {
   if (!source.includes('<Example ') && !source.includes('<Usage ')) return source;
 
   const relative = (file) => path.relative(path.dirname(this.resourcePath), file);
+  const addDependency = (file) => this.addDependency(file);
   const imports = new Set();
 
-  // Imports the raw framework sources of an example and returns the identifier they share.
+  // Imports the raw framework sources of an example and builds their Tailwind counterparts.
   const addSources = (name) => {
     const dir = path.dirname(name);
     const base = path.basename(name);
@@ -56,19 +61,63 @@ export default function exampleLoader(source) {
     imports.add(`import ${identifier}Solid from '${relative(solidFile)}?raw';`);
     imports.add(`import ${identifier}Vue from '${relative(vueFile)}?raw';`);
     imports.add(`import ${identifier}Svelte from '${relative(svelteFile)}?raw';`);
-    return { identifier, reactFile, solidFile, vueFile, svelteFile, dir, base };
+
+    const frameworkFiles = {
+      react: reactFile,
+      solid: solidFile,
+      vue: vueFile,
+      svelte: svelteFile,
+    };
+    const tailwindSources = {};
+    const tailwindResidualFiles = new Map();
+    for (const [fw, file] of Object.entries(frameworkFiles)) {
+      const transformed = transformSourceToTailwind(
+        readFileSync(file, 'utf8'),
+        file,
+        fw,
+        addDependency,
+      );
+      tailwindSources[fw] = transformed.code;
+      for (const rf of transformed.residualFiles) {
+        if (!tailwindResidualFiles.has(rf.name)) {
+          tailwindResidualFiles.set(rf.name, { name: rf.name, code: rf.code });
+        }
+      }
+    }
+
+    return {
+      identifier,
+      reactFile,
+      solidFile,
+      vueFile,
+      svelteFile,
+      dir,
+      base,
+      tailwindSources,
+      tailwindFiles: [...tailwindResidualFiles.values()],
+    };
   };
   const sources = (identifier) =>
     `{{ react: ${identifier}React, solid: ${identifier}Solid, vue: ${identifier}Vue, svelte: ${identifier}Svelte }}`;
 
   const page = path.basename(this.resourcePath, '.mdx');
   const content = source
-    .replace(
-      usagePattern,
-      () => `<UsageCode sources=${sources(addSources(`${page}/basic`).identifier)} />`,
-    )
+    .replace(usagePattern, () => {
+      const { identifier, tailwindSources } = addSources(`${page}/basic`);
+      return `<UsageCode sources=${sources(identifier)} tailwindSources={${JSON.stringify(tailwindSources)}} />`;
+    })
     .replace(examplePattern, (_, name, attributes) => {
-      const { identifier, reactFile, solidFile, vueFile, svelteFile, dir, base } = addSources(name);
+      const {
+        identifier,
+        reactFile,
+        solidFile,
+        vueFile,
+        svelteFile,
+        dir,
+        base,
+        tailwindSources,
+        tailwindFiles,
+      } = addSources(name);
       imports.add(`import ${identifier} from '@/components/examples/${dir}/${base}.tsx';`);
       // Module-level objects keep the loaders stable across renders of the panel.
       imports.add(
@@ -82,12 +131,17 @@ export default function exampleLoader(source) {
         return `{ name: '${path.basename(file)}', code: ${identifier}Css${index} }`;
       });
 
-      const addDependency = (file) => this.addDependency(file);
       const projects = {
         react: exampleProject(reactFile, addDependency),
         solid: exampleProject(solidFile, addDependency),
         vue: exampleProject(previewFile(vueFile), addDependency),
         svelte: exampleProject(previewFile(svelteFile), addDependency),
+      };
+      const tailwindProjects = {
+        react: transformProjectToTailwind(projects.react, 'react', addDependency),
+        solid: transformProjectToTailwind(projects.solid, 'solid', addDependency),
+        vue: transformProjectToTailwind(projects.vue, 'vue', addDependency),
+        svelte: transformProjectToTailwind(projects.svelte, 'svelte', addDependency),
       };
       // Every framework shows the same docs-only meta blocks as the React example.
       const metaBlocks = ({ files }) =>
@@ -103,7 +157,7 @@ export default function exampleLoader(source) {
           );
         }
       }
-      return `<ExamplePanel${attributes} projects={${JSON.stringify(projects)}} sources=${sources(identifier)} files={[${files.join(', ')}]}>
+      return `<ExamplePanel${attributes} projects={${JSON.stringify(projects)}} tailwindProjects={${JSON.stringify(tailwindProjects)}} sources=${sources(identifier)} tailwindSources={${JSON.stringify(tailwindSources)}} files={[${files.join(', ')}]} tailwindFiles={${JSON.stringify(tailwindFiles)}}>
   <FrameworkPreview live={${identifier}Live} liveTailwind={${identifier}LiveTailwind}>
     <${identifier} />
   </FrameworkPreview>

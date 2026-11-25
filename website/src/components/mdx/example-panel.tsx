@@ -52,7 +52,9 @@ function useExampleSelection() {
 }
 
 function toDisplayCode(code: string) {
-  return code.replaceAll(/@\/registry\/[\w-]+\/ui\//g, '@/components/ui/');
+  return code
+    .replaceAll(/@\/registry\/[\w-]+\/ui\//g, '@/components/ui/')
+    .replaceAll(/@\/components\/examples\/(?:[^/'"]+\/)*([^/'"]+\.module\.css)/g, './$1');
 }
 
 function toStyling(code: string, framework: Framework, styling: string) {
@@ -96,6 +98,7 @@ function ExamplePanel({
   files = [],
   tailwindFiles,
   projects,
+  tailwindProjects,
   ...frameProps
 }: {
   children: ReactNode;
@@ -104,6 +107,7 @@ function ExamplePanel({
   files?: { name: string; code: string }[];
   tailwindFiles?: { name: string; code: string }[];
   projects?: Record<Framework, ExampleProject>;
+  tailwindProjects?: Record<Framework, ExampleProject>;
 } & Omit<ComponentProps<typeof ExampleFrame>, 'children' | 'variant'>) {
   const t = useI18n<typeof import('i18n')>();
   const { framework, styling, selectFramework, selectStyling } = useExampleSelection();
@@ -116,9 +120,13 @@ function ExamplePanel({
       ? toDisplayCode(tailwindSources[framework.value])
       : toStyling(sources[framework.value], framework.value, styling.value);
   const visibleFiles = isTailwind
-    ? (tailwindFiles ?? files.filter((file) => !file.name.endsWith('.module.css')))
+    ? (tailwindFiles ??
+      files.filter((file) => !file.name.endsWith('.module.css') || code.includes(file.name)))
     : files;
-  const project = projects?.[framework.value];
+  const project =
+    isTailwind && tailwindProjects
+      ? tailwindProjects[framework.value]
+      : projects?.[framework.value];
 
   if (import.meta.env.SSG_MD) {
     return (
@@ -250,4 +258,4 @@ function FrameworkCode({ sources, name }: { sources: Record<Framework, string>; 
   );
 }
 
-export { ExamplePanel, FrameworkCode, toStyling, useExampleSelection };
+export { ExamplePanel, FrameworkCode, toDisplayCode, toStyling, useExampleSelection };
