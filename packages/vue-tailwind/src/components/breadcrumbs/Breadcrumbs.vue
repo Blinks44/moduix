@@ -3,7 +3,7 @@ import { ark } from '@ark-ui/vue/factory';
 import type { HTMLArkProps } from '@ark-ui/vue/factory';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 
 defineOptions({ inheritAttrs: false });
@@ -16,11 +16,12 @@ const { class: className } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
+const labels = useA11yLabels();
 </script>
 
 <template>
   <ark.nav
-    :aria-label="a11yLabels.breadcrumb"
+    :aria-label="labels.breadcrumb"
     v-bind="attrs"
     data-slot="breadcrumbs-root"
     :class="cn('max-w-full text-sm text-muted-foreground', className)"

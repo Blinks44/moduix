@@ -4,7 +4,7 @@ import type { DrawerCloseTriggerProps } from '@ark-ui/vue/drawer';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import CloseButton from '../close-button/CloseButton.vue';
 import styles from './Drawer.module.css';
 
@@ -18,12 +18,13 @@ export interface Props extends /* @vue-ignore */ Omit<DrawerCloseTriggerProps, '
 const { ariaLabel, class: className } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 const attrs = useAttrs();
+const labels = useA11yLabels();
 </script>
 
 <template>
   <ArkDrawerCloseTrigger v-bind="attrs" as-child>
     <CloseButton
-      :aria-label="ariaLabel ?? a11yLabels.closeDrawer"
+      :aria-label="ariaLabel ?? labels.closeDrawer"
       :class="clsx(styles.closeIcon, className)"
       data-slot="drawer-close-icon"
     >

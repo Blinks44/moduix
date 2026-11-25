@@ -7,14 +7,10 @@ import {
   type ToastOptions,
 } from '@ark-ui/solid/toast';
 import type { Accessor, ComponentProps } from 'solid-js';
-import { children as resolveChildren, splitProps } from 'solid-js';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { children as resolveChildren, Show, splitProps } from 'solid-js';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
-import {
-  OverlayPortal,
-  OverlayPortalProvider,
-  type OverlayPortalProps,
-} from '@/lib/moduix/overlayPortal';
+import { OverlayPortal, type OverlayPortalProps } from '@/lib/moduix/overlayPortal';
 import { CloseButton } from '../close-button';
 import { Spinner } from '../spinner';
 
@@ -139,20 +135,18 @@ function ToastToaster(props: ToasterProps) {
   ]);
 
   return (
-    <OverlayPortalProvider portalled={local.portalled} portalRef={local.portalRef}>
-      <OverlayPortal>
-        <ToasterPrimitive
-          class={cn(
-            '[@media(max-width:40rem)]:w-[calc(100vw-env(safe-area-inset-left,0px)-env(safe-area-inset-right,0px)-var(--viewport-offset-left)-var(--viewport-offset-right))]',
-            local.class,
-          )}
-          toaster={local.toaster ?? defaultToaster}
-          {...others}
-          data-slot="toast-toaster"
-          children={local.children ?? ((toast) => <DefaultToast toast={toast} />)}
-        />
-      </OverlayPortal>
-    </OverlayPortalProvider>
+    <OverlayPortal portalled={local.portalled} portalRef={local.portalRef}>
+      <ToasterPrimitive
+        class={cn(
+          '[@media(max-width:40rem)]:w-[calc(100vw-env(safe-area-inset-left,0px)-env(safe-area-inset-right,0px)-var(--viewport-offset-left)-var(--viewport-offset-right))]',
+          local.class,
+        )}
+        toaster={local.toaster ?? defaultToaster}
+        {...others}
+        data-slot="toast-toaster"
+        children={local.children ?? ((toast) => <DefaultToast toast={toast} />)}
+      />
+    </OverlayPortal>
   );
 }
 
@@ -254,11 +248,32 @@ function ToastActionTrigger(props: ComponentProps<typeof ToastPrimitive.ActionTr
 }
 
 function ToastCloseTrigger(props: ComponentProps<typeof ToastPrimitive.CloseTrigger>) {
+  const labels = useA11yLabels();
   const [local, others] = splitProps(props, ['aria-label', 'asChild', 'children', 'class']);
-  const ariaLabel = () => local['aria-label'] ?? a11yLabels.closeToast;
+  const ariaLabel = () => local['aria-label'] ?? labels().closeToast;
 
-  if (local.asChild) {
-    return (
+  return (
+    <Show
+      when={local.asChild}
+      fallback={
+        <ToastPrimitive.CloseTrigger
+          asChild={(triggerProps) => (
+            <CloseButton
+              {...triggerProps()}
+              data-slot="toast-close-trigger"
+              aria-label={ariaLabel()}
+              class={cn(
+                'absolute end-2 top-2 not-data-disabled:hover:bg-[color:var(--_toast-hover,var(--color-muted))]',
+                local.class,
+              )}
+            >
+              {local.children}
+            </CloseButton>
+          )}
+          {...others}
+        />
+      }
+    >
       <ToastPrimitive.CloseTrigger
         asChild={local.asChild}
         aria-label={ariaLabel()}
@@ -268,26 +283,7 @@ function ToastCloseTrigger(props: ComponentProps<typeof ToastPrimitive.CloseTrig
       >
         {local.children}
       </ToastPrimitive.CloseTrigger>
-    );
-  }
-
-  return (
-    <ToastPrimitive.CloseTrigger
-      asChild={(triggerProps) => (
-        <CloseButton
-          {...triggerProps()}
-          data-slot="toast-close-trigger"
-          aria-label={ariaLabel()}
-          class={cn(
-            'absolute end-2 top-2 not-data-disabled:hover:bg-[color:var(--_toast-hover,var(--color-muted))]',
-            local.class,
-          )}
-        >
-          {local.children}
-        </CloseButton>
-      )}
-      {...others}
-    />
+    </Show>
   );
 }
 

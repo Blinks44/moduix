@@ -8,19 +8,39 @@
     SplitterRootProps,
     'defaultSize' | 'orientation' | 'panels' | 'size'
   > {
+    collapsedSize?: number | string;
+    collapsible?: boolean;
+    defaultMobileOpen?: boolean;
     defaultSize?: SidebarSizes;
+    maxSize?: number | string;
+    minSize?: number | string;
+    mobileBreakpoint?: number | string;
+    mobileOpen?: boolean;
+    onMobileOpenChange?: (open: boolean) => void;
     panelId?: string;
     side?: SidebarSide;
     size?: SidebarSizes;
   }
 
-  const getPanels = (side: SidebarSide, panelId: string): SplitterPanelData[] => {
-    const sidebar = {
+  const formatBreakpoint = (breakpoint: number | string): string =>
+    typeof breakpoint === 'number' ? `${breakpoint}px` : breakpoint;
+
+  const getPanels = (
+    side: SidebarSide,
+    panelId: string,
+    options: {
+      collapsedSize: number | string;
+      collapsible: boolean;
+      maxSize: number | string;
+      minSize: number | string;
+    },
+  ): SplitterPanelData[] => {
+    const sidebar: SplitterPanelData = {
       id: panelId,
-      minSize: '3rem',
-      maxSize: '18rem',
-      collapsible: true,
-      collapsedSize: '3rem',
+      minSize: options.minSize,
+      maxSize: options.maxSize,
+      collapsible: options.collapsible,
+      ...(options.collapsible ? { collapsedSize: options.collapsedSize } : {}),
     };
     const content = { id: 'content' };
     return side === 'left' ? [sidebar, content] : [content, sidebar];
@@ -42,7 +62,15 @@
 
   let {
     class: className,
+    collapsedSize = '3rem',
+    collapsible = true,
+    defaultMobileOpen = false,
     defaultSize,
+    maxSize = '18rem',
+    minSize = '3rem',
+    mobileBreakpoint,
+    mobileOpen = $bindable(),
+    onMobileOpenChange,
     panelId = 'sidebar',
     ref = $bindable(null),
     side = 'left',
@@ -51,9 +79,48 @@
     ...props
   }: SidebarRootProps = $props();
 
-  provideSidebarContext({ panelId: () => panelId, side: () => side });
+  let isMobile = $state(false);
+  let uncontrolledMobileOpen = $state<boolean | undefined>(undefined);
+  const openMobile = $derived(mobileOpen ?? uncontrolledMobileOpen ?? defaultMobileOpen);
 
-  const panels = $derived(getPanels(side, panelId));
+  const setOpenMobile = (open: boolean) => {
+    if (mobileOpen === undefined) {
+      uncontrolledMobileOpen = open;
+    } else {
+      mobileOpen = open;
+    }
+    onMobileOpenChange?.(open);
+  };
+
+  $effect(() => {
+    if (
+      mobileBreakpoint == null ||
+      typeof window === 'undefined' ||
+      typeof window.matchMedia !== 'function'
+    ) {
+      isMobile = false;
+      return;
+    }
+    const query = window.matchMedia(`(max-width: ${formatBreakpoint(mobileBreakpoint)})`);
+    const sync = () => {
+      isMobile = query.matches;
+    };
+    sync();
+    query.addEventListener('change', sync);
+    return () => query.removeEventListener('change', sync);
+  });
+
+  provideSidebarContext({
+    isMobile: () => isMobile,
+    openMobile: () => openMobile,
+    panelId: () => panelId,
+    setOpenMobile,
+    side: () => side,
+  });
+
+  const panels = $derived(
+    getPanels(side, panelId, { collapsedSize, collapsible, maxSize, minSize }),
+  );
   const rootStyle = $derived(
     [
       'width: var(--moduix-sidebar-width, 100%)',
@@ -74,6 +141,7 @@
   orientation="horizontal"
   class={clsx(splitterStyles.root, styles.root, className)}
   style={rootStyle}
+  data-mobile={isMobile ? '' : undefined}
   data-side={side}
   data-slot="sidebar-root"
 />

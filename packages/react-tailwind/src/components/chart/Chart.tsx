@@ -10,14 +10,19 @@ import type { ComponentRef, CSSProperties } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
-const defaultChartRenderer = createMotionRenderer({
-  transition: {
-    type: 'spring',
-    stiffness: 260,
-    damping: 30,
-    mass: 0.8,
-  },
-});
+let defaultChartRenderer: ReturnType<typeof createMotionRenderer> | undefined;
+
+function getDefaultChartRenderer() {
+  defaultChartRenderer ??= createMotionRenderer({
+    transition: {
+      type: 'spring',
+      stiffness: 260,
+      damping: 30,
+      mass: 0.8,
+    },
+  });
+  return defaultChartRenderer;
+}
 
 const Chart = forwardRef<ComponentRef<typeof ark.figure>, HTMLArkProps<'figure'>>(function Chart(
   { className, ...props },
@@ -113,7 +118,7 @@ const ChartPlot = function ChartPlot<
   return (
     <ChartPrimitive
       {...props}
-      renderer={renderer ?? (motion ? defaultChartRenderer : svgChartRenderer)}
+      renderer={renderer ?? (motion ? getDefaultChartRenderer() : svgChartRenderer)}
       renderTooltipBody={(context) => {
         const defaultBody = renderDefaultTooltipBody(context.content);
         return (

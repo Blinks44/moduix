@@ -28,14 +28,21 @@ import {
 import { Portal } from 'solid-js/web';
 import styles from './Chart.module.css';
 
-const defaultChartRenderer = createMotionRenderer<unknown, ChartValue, ChartValue>({
-  transition: {
-    type: 'spring',
-    stiffness: 260,
-    damping: 30,
-    mass: 0.8,
-  },
-});
+let defaultChartRenderer:
+  | ReturnType<typeof createMotionRenderer<unknown, ChartValue, ChartValue>>
+  | undefined;
+
+function getDefaultChartRenderer() {
+  defaultChartRenderer ??= createMotionRenderer<unknown, ChartValue, ChartValue>({
+    transition: {
+      type: 'spring',
+      stiffness: 260,
+      damping: 30,
+      mass: 0.8,
+    },
+  });
+  return defaultChartRenderer;
+}
 
 type ChartTooltipContent = ChartTooltipBodyContext['content'];
 type ChartTooltipObjectContent = Exclude<ChartTooltipContent, string>;
@@ -169,7 +176,7 @@ function ChartPlot<
   const resolvedRenderer = createMemo(
     () =>
       (props.renderer ??
-        (props.motion === false ? svgChartRenderer : defaultChartRenderer)) as ChartRenderer<
+        (props.motion === false ? svgChartRenderer : getDefaultChartRenderer())) as ChartRenderer<
         TDatum,
         TXValue,
         TYValue

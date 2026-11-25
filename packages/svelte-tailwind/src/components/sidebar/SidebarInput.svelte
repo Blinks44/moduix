@@ -17,6 +17,7 @@
 </script>
 
 <Input
+  data-slot="sidebar-input"
   {...props}
   bind:ref
   bind:value

@@ -9,7 +9,7 @@
 <script lang="ts">
   import { Ark } from '@ark-ui/svelte/factory';
   import { clsx } from 'clsx';
-  import { a11yLabels } from '@/lib/moduix/a11yLabels';
+  import { useA11yLabels } from '@/lib/moduix/a11yLabels';
   import styles from './Table.module.css';
   import TableRow from './TableRow.svelte';
 
@@ -20,6 +20,8 @@
     ref = $bindable(null),
     ...props
   }: TableEmptyProps = $props();
+
+  const labels = useA11yLabels();
 </script>
 
 <TableRow data-empty>
@@ -36,7 +38,7 @@
     {#if children}
       {@render children()}
     {:else}
-      {a11yLabels.noResults}
+      {labels().noResults}
     {/if}
   </Ark>
 </TableRow>

@@ -4780,9 +4780,10 @@
       "description": "moduix Vue Tailwind Sidebar component.",
       "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
-        "@moduix-vue-tailwind/foundation",
-        "@moduix-vue-tailwind/cn",
         "@moduix-vue-tailwind/a11y-labels",
+        "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/drawer",
+        "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/icons",
         "@moduix-vue-tailwind/input",
         "@moduix-vue-tailwind/separator",

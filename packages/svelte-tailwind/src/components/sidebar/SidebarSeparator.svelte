@@ -11,4 +11,9 @@
   let { class: className, ref = $bindable(null), ...props }: SidebarSeparatorProps = $props();
 </script>
 
-<Separator {...props} bind:ref class={cn('border-sidebar-border', className)} />
+<Separator
+  data-slot="sidebar-separator"
+  {...props}
+  bind:ref
+  class={cn('border-sidebar-border', className)}
+/>

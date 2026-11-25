@@ -1,8 +1,10 @@
+'use client';
+
 import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import { forwardRef, type ComponentRef } from 'react';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import { CloseButton } from '../close-button';
 import styles from './Tag.module.css';
 
@@ -81,6 +83,7 @@ const TagEndElement = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>(function
 
 const TagCloseTrigger = forwardRef<ComponentRef<typeof CloseButton>, HTMLArkProps<'button'>>(
   function TagCloseTrigger({ className, 'aria-label': ariaLabel, ...props }, ref) {
+    const labels = useA11yLabels();
     return (
       <CloseButton
         ref={ref}
@@ -88,9 +91,7 @@ const TagCloseTrigger = forwardRef<ComponentRef<typeof CloseButton>, HTMLArkProp
         data-scope="tag"
         data-part="close-trigger"
         data-slot="tag-close-trigger"
-        aria-label={
-          ariaLabel ?? (props['aria-labelledby'] == null ? a11yLabels.closeTag : undefined)
-        }
+        aria-label={ariaLabel ?? (props['aria-labelledby'] == null ? labels.closeTag : undefined)}
         className={clsx(styles.closeTrigger, className)}
       />
     );

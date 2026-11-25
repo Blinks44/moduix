@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { a11yLabels } from '@/lib/moduix/a11yLabels';
+  import { useA11yLabels } from '@/lib/moduix/a11yLabels';
   import { cn } from '@/lib/moduix/cn';
   import CloseButton, { type CloseButtonProps } from '../close-button/CloseButton.svelte';
 
@@ -11,12 +11,14 @@
     'aria-labelledby': ariaLabelledBy,
     ...props
   }: CloseButtonProps = $props();
+
+  const labels = useA11yLabels();
 </script>
 
 <CloseButton
   {...props}
   bind:ref
-  aria-label={ariaLabel ?? (ariaLabelledBy == null ? a11yLabels.closeTag : undefined)}
+  aria-label={ariaLabel ?? (ariaLabelledBy == null ? labels().closeTag : undefined)}
   aria-labelledby={ariaLabelledBy}
   data-scope="tag"
   data-part="close-trigger"

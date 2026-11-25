@@ -11,7 +11,7 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import type { OverlayPortalProps } from '@/lib/moduix/overlayPortal';
 import { CloseButton } from '../close-button';
 import { Spinner } from '../spinner';
@@ -236,9 +236,11 @@ const ToastCloseTrigger = forwardRef<
   ComponentRef<typeof ToastPrimitive.CloseTrigger>,
   ComponentProps<typeof ToastPrimitive.CloseTrigger>
 >(function ToastCloseTrigger(
-  { asChild, className, children, 'aria-label': ariaLabel = a11yLabels.closeToast, ...props },
+  { asChild, className, children, 'aria-label': ariaLabelProp, ...props },
   ref,
 ) {
+  const labels = useA11yLabels();
+  const ariaLabel = ariaLabelProp === undefined ? labels.closeToast : ariaLabelProp;
   if (asChild) {
     return (
       <ToastPrimitive.CloseTrigger

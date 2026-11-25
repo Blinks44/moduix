@@ -1849,6 +1849,7 @@
       "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-react/a11y-labels",
+        "@moduix-react/drawer",
         "@moduix-react/icons",
         "@moduix-react/input",
         "@moduix-react/separator",

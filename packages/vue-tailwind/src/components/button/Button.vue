@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ark } from '@ark-ui/vue/factory';
 import type { HTMLArkProps } from '@ark-ui/vue/factory';
+import { useForwardExpose } from '@ark-ui/vue/utils';
 import { cva } from 'class-variance-authority';
 import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
@@ -98,6 +99,7 @@ const emit = defineEmits<{
 }>();
 
 const attrs = useAttrs();
+const { forwardRef } = useForwardExpose();
 const isDisabled = computed(
   () => disabled || loading || ariaDisabled === true || ariaDisabled === 'true',
 );
@@ -116,6 +118,7 @@ const handleClickCapture = (event: MouseEvent) => {
 
 <template>
   <ark.button
+    :ref="forwardRef"
     v-bind="attrs"
     :as-child="asChild"
     :type="asChild ? type : (type ?? 'button')"

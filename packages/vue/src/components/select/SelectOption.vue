@@ -1,6 +1,7 @@
 <script lang="ts">
 import type { CollectionItem } from '@ark-ui/vue/collection';
 import type { SelectItemProps } from '@ark-ui/vue/select';
+import { defineComponent } from 'vue';
 import type { HTMLAttributes, VNodeChild } from 'vue';
 
 export interface Props<T extends CollectionItem>
@@ -9,10 +10,14 @@ export interface Props<T extends CollectionItem>
   indicator?: VNodeChild | false;
   item: T;
 }
+
+const VNodeOutlet = defineComponent((props: { value: VNodeChild }) => () => props.value, {
+  props: ['value'],
+});
 </script>
 
 <script setup lang="ts" generic="T extends CollectionItem">
-import { defineComponent, useAttrs } from 'vue';
+import { useAttrs } from 'vue';
 import SelectItem from './SelectItem.vue';
 import SelectItemIndicator from './SelectItemIndicator.vue';
 import SelectItemText from './SelectItemText.vue';
@@ -21,10 +26,6 @@ defineOptions({ inheritAttrs: false });
 
 const { class: className, indicator = undefined, item } = defineProps<Props<T>>();
 defineSlots<{ default?: () => unknown }>();
-
-const VNodeOutlet = defineComponent((props: { value: VNodeChild }) => () => props.value, {
-  props: ['value'],
-});
 
 const attrs = useAttrs();
 </script>

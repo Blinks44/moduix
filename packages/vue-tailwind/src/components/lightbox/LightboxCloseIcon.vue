@@ -3,7 +3,7 @@ import { DialogCloseTrigger as ArkDialogCloseTrigger } from '@ark-ui/vue/dialog'
 import type { DialogCloseTriggerProps } from '@ark-ui/vue/dialog';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import CloseButton from '../close-button/CloseButton.vue';
 
@@ -19,12 +19,13 @@ const { ariaLabel, ariaLabelledby, class: className } = defineProps<Props>();
 const slots = defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
+const labels = useA11yLabels();
 </script>
 
 <template>
   <ArkDialogCloseTrigger v-bind="attrs" as-child>
     <CloseButton
-      :aria-label="ariaLabel ?? a11yLabels.closeImage"
+      :aria-label="ariaLabel ?? labels.closeImage"
       :aria-labelledby="ariaLabelledby"
       :class="
         cn(

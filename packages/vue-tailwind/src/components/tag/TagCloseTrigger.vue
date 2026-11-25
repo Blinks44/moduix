@@ -2,7 +2,7 @@
 import type { HTMLArkProps } from '@ark-ui/vue/factory';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import CloseButton from '../close-button/CloseButton.vue';
 
@@ -19,13 +19,14 @@ const { ariaLabel, ariaLabelledby, asChild = false, class: className } = defineP
 const slots = defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
+const labels = useA11yLabels();
 </script>
 
 <template>
   <CloseButton
     v-bind="attrs"
     :as-child="asChild"
-    :aria-label="ariaLabel ?? (ariaLabelledby == null ? a11yLabels.closeTag : undefined)"
+    :aria-label="ariaLabel ?? (ariaLabelledby == null ? labels.closeTag : undefined)"
     :aria-labelledby="ariaLabelledby"
     data-scope="tag"
     data-part="close-trigger"

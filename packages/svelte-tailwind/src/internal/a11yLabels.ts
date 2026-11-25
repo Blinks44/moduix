@@ -1,5 +1,7 @@
-// Default accessible labels for interactive fallbacks. Consumers override via aria-label/children.
-export const a11yLabels = {
+import { getContext, hasContext, setContext } from 'svelte';
+
+// Default accessible labels for interactive fallbacks. Consumers override via LabelsProvider/ModuixProvider or aria-label/children.
+export const defaultA11yLabels = {
   breadcrumb: 'Breadcrumb',
   clipboardCopied: 'Copied',
   clipboardCopy: 'Copy',
@@ -23,3 +25,26 @@ export const a11yLabels = {
   searchCommands: 'Search commands',
   toggleSidebar: 'Toggle sidebar',
 } as const;
+
+export type A11yLabels = {
+  [K in keyof typeof defaultA11yLabels]: string;
+};
+
+export const a11yLabels = defaultA11yLabels;
+
+const A11yLabelsKey = Symbol('moduix-a11y-labels');
+const getDefaultLabels = (): A11yLabels => defaultA11yLabels;
+
+export function useA11yLabels(): () => A11yLabels {
+  return hasContext(A11yLabelsKey) ? getContext<() => A11yLabels>(A11yLabelsKey) : getDefaultLabels;
+}
+
+export function setA11yLabels(labels: () => Partial<A11yLabels> | undefined): () => A11yLabels {
+  const parent = useA11yLabels();
+  const merged = (): A11yLabels => {
+    const overrides = labels();
+    return overrides ? { ...parent(), ...overrides } : parent();
+  };
+  setContext(A11yLabelsKey, merged);
+  return merged;
+}

@@ -1,4 +1,5 @@
 // Internal test barrel. The package intentionally exposes component subpaths only.
+export * from './locale';
 
 export * from './components/simple-grid';
 export * from './components/text';

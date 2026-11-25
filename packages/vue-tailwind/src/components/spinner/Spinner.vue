@@ -4,7 +4,7 @@ import type { HTMLArkProps } from '@ark-ui/vue/factory';
 import { cva } from 'class-variance-authority';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 
 defineOptions({ inheritAttrs: false });
@@ -48,6 +48,7 @@ const {
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
+const labels = useA11yLabels();
 </script>
 
 <template>
@@ -60,7 +61,7 @@ const attrs = useAttrs();
     :data-size="size"
     :role="decorative ? undefined : 'status'"
     :aria-hidden="decorative || undefined"
-    :aria-label="ariaLabel ?? (decorative || ariaLabelledby ? undefined : a11yLabels.loading)"
+    :aria-label="ariaLabel ?? (decorative || ariaLabelledby ? undefined : labels.loading)"
     :aria-labelledby="ariaLabelledby"
     :class="cn(spinnerVariants({ size }), className)"
   >

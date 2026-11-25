@@ -3,7 +3,7 @@ import { ark } from '@ark-ui/vue/factory';
 import type { HTMLArkProps } from '@ark-ui/vue/factory';
 import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import { ChevronLeftIcon } from '@/lib/moduix/icons/ui';
 import { useSidebar } from './context';
@@ -22,9 +22,14 @@ const slots = defineSlots<{ default?: () => unknown }>();
 const emit = defineEmits<{ click: [event: MouseEvent] }>();
 
 const attrs = useAttrs();
-const { collapsed, side, state, toggleSidebar } = useSidebar();
+const { collapsed, isMobile, openMobile, side, state, toggleSidebar } = useSidebar();
+const expanded = computed(() => (isMobile.value ? openMobile.value : !collapsed.value));
+const triggerState = computed(() =>
+  isMobile.value ? (openMobile.value ? 'expanded' : 'collapsed') : state.value,
+);
+const labels = useA11yLabels();
 const ariaLabel = computed(() =>
-  typeof attrs['aria-label'] === 'string' ? attrs['aria-label'] : a11yLabels.toggleSidebar,
+  typeof attrs['aria-label'] === 'string' ? attrs['aria-label'] : labels.value.toggleSidebar,
 );
 
 const handleClick = (event: MouseEvent) => {
@@ -44,11 +49,11 @@ const triggerClass = [
     v-bind="attrs"
     :type="props.type"
     :aria-label="ariaLabel"
-    :aria-expanded="!collapsed"
+    :aria-expanded="expanded"
     :class="cn(triggerClass, props.class)"
     @click="handleClick"
     :data-side="side"
-    :data-state="state"
+    :data-state="triggerState"
     data-scope="sidebar"
     data-part="trigger"
     data-slot="sidebar-trigger"

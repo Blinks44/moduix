@@ -15,3 +15,17 @@ export type {
   UseFilterReturn,
   UseLocaleContext,
 } from '@ark-ui/svelte/locale';
+export {
+  defaultA11yLabels,
+  setA11yLabels,
+  useA11yLabels,
+  type A11yLabels,
+} from './internal/a11yLabels';
+export {
+  default as LabelsProvider,
+  type LabelsProviderProps,
+} from './internal/LabelsProvider.svelte';
+export {
+  default as ModuixProvider,
+  type ModuixProviderProps,
+} from './internal/ModuixProvider.svelte';

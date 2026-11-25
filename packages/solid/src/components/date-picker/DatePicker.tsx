@@ -237,8 +237,34 @@ function DatePickerClearTrigger(props: ComponentProps<typeof DatePickerPrimitive
   ]);
   const triggerClass = () => clsx(styles.clearTrigger, local.class);
 
-  if (local.asChild) {
-    return (
+  return (
+    <Show
+      when={local.asChild}
+      fallback={
+        <DatePickerPrimitive.ClearTrigger
+          asChild={(triggerProps) => {
+            const resolvedProps = triggerProps();
+
+            return (
+              <CloseButton
+                {...resolvedProps}
+                {...(local['aria-label'] === undefined
+                  ? {}
+                  : { 'aria-label': local['aria-label'] })}
+                {...(local['aria-labelledby'] === undefined
+                  ? {}
+                  : { 'aria-labelledby': local['aria-labelledby'] })}
+              >
+                {local.children}
+              </CloseButton>
+            );
+          }}
+          class={triggerClass()}
+          {...others}
+          data-slot="date-picker-clear-trigger"
+        />
+      }
+    >
       <DatePickerPrimitive.ClearTrigger
         asChild={local.asChild}
         aria-label={local['aria-label']}
@@ -249,30 +275,7 @@ function DatePickerClearTrigger(props: ComponentProps<typeof DatePickerPrimitive
       >
         {local.children}
       </DatePickerPrimitive.ClearTrigger>
-    );
-  }
-
-  return (
-    <DatePickerPrimitive.ClearTrigger
-      asChild={(triggerProps) => {
-        const resolvedProps = triggerProps();
-
-        return (
-          <CloseButton
-            {...resolvedProps}
-            {...(local['aria-label'] === undefined ? {} : { 'aria-label': local['aria-label'] })}
-            {...(local['aria-labelledby'] === undefined
-              ? {}
-              : { 'aria-labelledby': local['aria-labelledby'] })}
-          >
-            {local.children}
-          </CloseButton>
-        );
-      }}
-      class={triggerClass()}
-      {...others}
-      data-slot="date-picker-clear-trigger"
-    />
+    </Show>
   );
 }
 
@@ -692,24 +695,22 @@ function DatePickerCalendar(props: DatePickerCalendarProps) {
 
 function DatePickerPanel(props: DatePickerPanelProps) {
   const [local, others] = splitProps(props, ['asChild', 'children']);
-
-  if (local.asChild) {
-    return (
-      <DatePickerPositioner>
-        <DatePickerContent asChild={local.asChild} {...others}>
-          {local.children}
-        </DatePickerContent>
-      </DatePickerPositioner>
-    );
-  }
-
   const resolvedChildren = children(() => local.children);
 
   return (
     <DatePickerPositioner>
-      <DatePickerContent {...others}>
-        {resolvedChildren() ?? <DatePickerCalendar />}
-      </DatePickerContent>
+      <Show
+        when={local.asChild}
+        fallback={
+          <DatePickerContent {...others}>
+            {resolvedChildren() ?? <DatePickerCalendar />}
+          </DatePickerContent>
+        }
+      >
+        <DatePickerContent asChild={local.asChild} {...others}>
+          {local.children}
+        </DatePickerContent>
+      </Show>
     </DatePickerPositioner>
   );
 }

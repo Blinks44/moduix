@@ -1,6 +1,6 @@
 <script lang="ts">
   import { DialogCloseTrigger, type DialogCloseTriggerProps } from '@ark-ui/svelte/dialog';
-  import { a11yLabels } from '@/lib/moduix/a11yLabels';
+  import { useA11yLabels } from '@/lib/moduix/a11yLabels';
   import { cn } from '@/lib/moduix/cn';
   import CloseButton from '../close-button/CloseButton.svelte';
 
@@ -11,13 +11,15 @@
     'aria-label': ariaLabel,
     ...props
   }: Omit<DialogCloseTriggerProps, 'asChild'> = $props();
+
+  const labels = useA11yLabels();
 </script>
 
 <DialogCloseTrigger {...props} bind:ref>
   {#snippet asChild(triggerProps)}
     <CloseButton
       {...triggerProps()}
-      aria-label={ariaLabel ?? a11yLabels.closeDialog}
+      aria-label={ariaLabel ?? labels().closeDialog}
       class={cn(
         'absolute end-4 top-4 z-2 rounded-md not-data-disabled:hover:bg-accent not-data-disabled:hover:text-popover-foreground',
         className,

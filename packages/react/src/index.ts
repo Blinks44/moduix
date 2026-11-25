@@ -1,5 +1,5 @@
 // Internal test barrel. @moduix/react intentionally has no public root export; consumers use subpaths.
-export { LocaleProvider, useLocaleContext } from '@ark-ui/react/locale';
+export * from './locale';
 
 export * from './components/aspect-ratio';
 export * from './components/accordion';

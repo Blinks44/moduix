@@ -4,12 +4,18 @@ import { computed, inject, provide, ref, type InjectionKey, type Ref } from 'vue
 export type SidebarSide = 'left' | 'right';
 
 export interface SidebarConfig {
+  isMobile: Ref<boolean>;
+  openMobile: Ref<boolean>;
   panelId: Ref<string>;
+  setOpenMobile: (open: boolean) => void;
   side: Ref<SidebarSide>;
 }
 
 const defaultSidebarConfig: SidebarConfig = {
+  isMobile: ref(false),
+  openMobile: ref(false),
   panelId: ref('sidebar'),
+  setOpenMobile: () => {},
   side: ref<SidebarSide>('left'),
 };
 
@@ -30,11 +36,19 @@ export function useSidebar() {
 
   return {
     collapsed,
+    isMobile: config.isMobile,
+    openMobile: config.openMobile,
+    setOpenMobile: config.setOpenMobile,
     side: config.side,
     state: computed(() => (collapsed.value ? 'collapsed' : 'expanded')),
     toggleSidebar: () => {
-      if (collapsed.value) splitter.value.expandPanel(config.panelId.value);
-      else splitter.value.collapsePanel(config.panelId.value);
+      if (config.isMobile.value) {
+        config.setOpenMobile(!config.openMobile.value);
+      } else if (collapsed.value) {
+        splitter.value.expandPanel(config.panelId.value);
+      } else {
+        splitter.value.collapsePanel(config.panelId.value);
+      }
     },
   };
 }

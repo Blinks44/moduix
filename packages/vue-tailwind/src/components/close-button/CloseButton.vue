@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { ark } from '@ark-ui/vue/factory';
 import type { HTMLArkProps } from '@ark-ui/vue/factory';
+import { useForwardExpose } from '@ark-ui/vue/utils';
 import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
 
@@ -46,6 +47,7 @@ const emit = defineEmits<{
 }>();
 
 const attrs = useAttrs();
+const { forwardRef } = useForwardExpose();
 const isDisabled = computed(
   () => disabled || ariaDisabled === true || ariaDisabled === 'true' || dataDisabled !== undefined,
 );
@@ -59,10 +61,12 @@ const handleClickCapture = (event: MouseEvent) => {
   }
   emit('clickCapture', event);
 };
+const labels = useA11yLabels();
 </script>
 
 <template>
   <ark.button
+    :ref="forwardRef"
     @click.capture="handleClickCapture"
     @click="emit('click', $event)"
     v-bind="attrs"
@@ -70,7 +74,7 @@ const handleClickCapture = (event: MouseEvent) => {
     :type="asChild ? type : (type ?? 'button')"
     :disabled="asChild ? undefined : disabled"
     :aria-disabled="asChild && disabled ? true : ariaDisabled"
-    :aria-label="ariaLabel ?? (ariaLabelledby == null ? a11yLabels.close : undefined)"
+    :aria-label="ariaLabel ?? (ariaLabelledby == null ? labels.close : undefined)"
     :aria-labelledby="ariaLabelledby"
     :data-scope="dataScope"
     :data-part="dataPart"

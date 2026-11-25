@@ -6,7 +6,7 @@ import {
 import type { ComboboxClearTriggerProps } from '@ark-ui/vue/combobox';
 import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
 
@@ -32,15 +32,14 @@ const handleClick = (event: MouseEvent) => {
     combobox.value.setInputValue('');
   }
 };
+const labels = useA11yLabels();
 </script>
 
 <template>
   <ArkComboboxClearTrigger
     v-bind="attrs"
     :as-child="asChild"
-    :aria-label="
-      ariaLabel ?? (!asChild && ariaLabelledby == null ? a11yLabels.clearSearch : undefined)
-    "
+    :aria-label="ariaLabel ?? (!asChild && ariaLabelledby == null ? labels.clearSearch : undefined)"
     :aria-labelledby="ariaLabelledby"
     :class="
       cn(

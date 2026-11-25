@@ -14,7 +14,7 @@ import { isHotKey } from '@ark-ui/react/hotkeys';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, ForwardedRef } from 'react';
 import { forwardRef, useEffect, useRef } from 'react';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import { CheckIcon, CloseIcon, SearchIcon } from '@/lib/moduix/icons/ui';
 import {
   OverlayPortal,
@@ -323,12 +323,13 @@ const CommandPaletteSearch = forwardRef<
   { 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledBy, ...props },
   ref,
 ) {
+  const labels = useA11yLabels();
   return (
     <CommandPaletteControl>
       <SearchIcon data-slot="command-palette-search-icon" className={styles.searchIcon} />
       <CommandPaletteInput
         ref={ref}
-        aria-label={ariaLabel ?? (ariaLabelledBy == null ? a11yLabels.searchCommands : undefined)}
+        aria-label={ariaLabel ?? (ariaLabelledBy == null ? labels.searchCommands : undefined)}
         aria-labelledby={ariaLabelledBy}
         {...props}
       />
@@ -352,6 +353,7 @@ const CommandPaletteClearTrigger = forwardRef<
   },
   ref,
 ) {
+  const labels = useA11yLabels();
   const combobox = useComboboxContext();
 
   return (
@@ -359,7 +361,7 @@ const CommandPaletteClearTrigger = forwardRef<
       ref={ref}
       asChild={asChild}
       aria-label={
-        ariaLabel ?? (!asChild && ariaLabelledBy == null ? a11yLabels.clearSearch : undefined)
+        ariaLabel ?? (!asChild && ariaLabelledBy == null ? labels.clearSearch : undefined)
       }
       aria-labelledby={ariaLabelledBy}
       className={clsx(closeButtonStyles.root, styles.clearTrigger, className)}

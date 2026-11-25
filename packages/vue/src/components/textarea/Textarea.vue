@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { FieldTextarea as ArkFieldTextarea } from '@ark-ui/vue/field';
 import type { FieldTextareaProps } from '@ark-ui/vue/field';
+import { useForwardExpose } from '@ark-ui/vue/utils';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
@@ -24,10 +25,12 @@ defineEmits</* @vue-ignore */ Emits>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
+const { forwardRef } = useForwardExpose();
 </script>
 
 <template>
   <ArkFieldTextarea
+    :ref="forwardRef"
     v-bind="attrs"
     :class="clsx(styles.root, props.class)"
     data-scope="field"

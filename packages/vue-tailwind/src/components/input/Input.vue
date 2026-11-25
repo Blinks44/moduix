@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { FieldInput as ArkFieldInput } from '@ark-ui/vue/field';
 import type { FieldInputProps } from '@ark-ui/vue/field';
+import { useForwardExpose } from '@ark-ui/vue/utils';
 import { cva } from 'class-variance-authority';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
@@ -50,10 +51,12 @@ defineEmits</* @vue-ignore */ Emits>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
+const { forwardRef } = useForwardExpose();
 </script>
 
 <template>
   <ArkFieldInput
+    :ref="forwardRef"
     v-bind="attrs"
     :class="
       cn(inputVariants({ size: props.size }), props.htmlSize !== undefined && 'w-auto', props.class)
@@ -61,7 +64,7 @@ const attrs = useAttrs();
     :size="props.htmlSize"
     data-scope="field"
     data-part="input"
-    data-slot="input-root"
+    :data-slot="attrs['data-slot'] ?? 'input-root'"
     :data-size="props.size ?? 'md'"
   >
     <slot />

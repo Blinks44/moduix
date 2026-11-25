@@ -49,7 +49,7 @@
   bind:triggerValue
   {closeDelay}
   {openDelay}
-  disabled={!sidebar.collapsed}
+  disabled={sidebar.isMobile || !sidebar.collapsed}
   {positioning}
 >
   <TooltipTrigger>

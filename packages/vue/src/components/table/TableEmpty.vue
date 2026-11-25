@@ -4,7 +4,7 @@ import type { HTMLArkProps } from '@ark-ui/vue/factory';
 import { clsx } from 'clsx';
 import { computed, ref, useAttrs } from 'vue';
 import type { ComponentPublicInstance, HTMLAttributes } from 'vue';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import styles from './Table.module.css';
 import TableRow from './TableRow.vue';
 
@@ -23,6 +23,7 @@ const cellRef = ref<ComponentPublicInstance | null>(null);
 const cellElement = computed(() => cellRef.value?.$el ?? null);
 
 defineExpose({ $el: cellElement });
+const labels = useA11yLabels();
 </script>
 
 <template>
@@ -37,7 +38,7 @@ defineExpose({ $el: cellElement });
       data-slot="table-empty"
     >
       <slot v-if="slots.default" />
-      <template v-else>{{ a11yLabels.noResults }}</template>
+      <template v-else>{{ labels.noResults }}</template>
     </ark.td>
   </TableRow>
 </template>

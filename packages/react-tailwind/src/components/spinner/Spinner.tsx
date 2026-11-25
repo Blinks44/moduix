@@ -1,8 +1,10 @@
+'use client';
+
 import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { cva } from 'class-variance-authority';
 import { forwardRef } from 'react';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 
 type SpinnerSize = 'inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
@@ -40,6 +42,7 @@ const Spinner = forwardRef<HTMLSpanElement, SpinnerRootProps>(function Spinner(
   },
   ref,
 ) {
+  const labels = useA11yLabels();
   return (
     <ark.span
       ref={ref}
@@ -52,7 +55,7 @@ const Spinner = forwardRef<HTMLSpanElement, SpinnerRootProps>(function Spinner(
       role={decorative ? undefined : 'status'}
       aria-hidden={decorative || undefined}
       aria-label={
-        ariaLabel ?? (decorative || props['aria-labelledby'] ? undefined : a11yLabels.loading)
+        ariaLabel ?? (decorative || props['aria-labelledby'] ? undefined : labels.loading)
       }
       className={cn(spinnerVariants({ size }), className)}
     >

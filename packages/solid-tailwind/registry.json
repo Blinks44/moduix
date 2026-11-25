@@ -1413,15 +1413,16 @@
       "description": "moduix Solid Tailwind Sidebar component.",
       "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
-        "@moduix-solid-tailwind/foundation",
-        "@moduix-solid-tailwind/cn",
         "@moduix-solid-tailwind/a11y-labels",
+        "@moduix-solid-tailwind/cn",
+        "@moduix-solid-tailwind/drawer",
+        "@moduix-solid-tailwind/event-handlers",
+        "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/icons",
         "@moduix-solid-tailwind/input",
         "@moduix-solid-tailwind/separator",
         "@moduix-solid-tailwind/splitter",
-        "@moduix-solid-tailwind/tooltip",
-        "@moduix-solid-tailwind/event-handlers"
+        "@moduix-solid-tailwind/tooltip"
       ],
       "files": [
         {

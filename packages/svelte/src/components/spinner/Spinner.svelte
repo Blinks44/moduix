@@ -13,7 +13,7 @@
 <script lang="ts">
   import { Ark } from '@ark-ui/svelte/factory';
   import { clsx } from 'clsx';
-  import { a11yLabels } from '@/lib/moduix/a11yLabels';
+  import { useA11yLabels } from '@/lib/moduix/a11yLabels';
   import styles from './Spinner.module.css';
   let {
     asChild,
@@ -26,6 +26,8 @@
     'aria-labelledby': ariaLabelledby,
     ...props
   }: SpinnerRootProps = $props();
+
+  const labels = useA11yLabels();
 </script>
 
 <Ark
@@ -39,7 +41,7 @@
   data-size={size}
   role={decorative ? undefined : 'status'}
   aria-hidden={decorative || undefined}
-  aria-label={ariaLabel ?? (decorative || ariaLabelledby ? undefined : a11yLabels.loading)}
+  aria-label={ariaLabel ?? (decorative || ariaLabelledby ? undefined : labels().loading)}
   aria-labelledby={ariaLabelledby}
   class={clsx(styles.root, className)}
 >

@@ -11,7 +11,7 @@ import {
 import { clsx } from 'clsx';
 import { For, children, splitProps } from 'solid-js';
 import type { ComponentProps } from 'solid-js';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -170,6 +170,7 @@ function TourCloseTrigger(props: ComponentProps<typeof TourPrimitive.CloseTrigge
 }
 
 function TourCloseIcon(props: TourCloseIconProps) {
+  const labels = useA11yLabels();
   const [local, others] = splitProps(props, ['aria-label', 'children', 'class']);
 
   return (
@@ -178,7 +179,7 @@ function TourCloseIcon(props: TourCloseIconProps) {
         <CloseButton
           {...triggerProps()}
           data-slot="tour-close-icon"
-          aria-label={local['aria-label'] ?? a11yLabels.closeTour}
+          aria-label={local['aria-label'] ?? labels().closeTour}
           class={clsx(styles.closeIcon, local.class)}
         >
           {local.children}

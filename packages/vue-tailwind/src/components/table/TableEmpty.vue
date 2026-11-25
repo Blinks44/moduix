@@ -3,7 +3,7 @@ import { ark } from '@ark-ui/vue/factory';
 import type { HTMLArkProps } from '@ark-ui/vue/factory';
 import { computed, ref, useAttrs } from 'vue';
 import type { ComponentPublicInstance, HTMLAttributes } from 'vue';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import TableRow from './TableRow.vue';
 
@@ -25,6 +25,7 @@ defineExpose({ $el: cellElement });
 
 const cellClass =
   'relative z-0 border-border px-4 py-3 group-data-[size=lg]/table:px-5 group-data-[size=lg]/table:py-4 group-data-[size=sm]/table:px-3 group-data-[size=sm]/table:py-2 data-sticky:sticky data-sticky:z-2 data-sticky:bg-card data-sticky:bg-[image:linear-gradient(var(--_table-row-bg),var(--_table-row-bg))] data-[sticky=end]:end-0 data-[sticky=start]:start-0 group-data-[show-column-border]/table:not-last:border-e';
+const labels = useA11yLabels();
 </script>
 
 <template>
@@ -45,7 +46,7 @@ const cellClass =
       data-slot="table-empty"
     >
       <slot v-if="slots.default" />
-      <template v-else>{{ a11yLabels.noResults }}</template>
+      <template v-else>{{ labels.noResults }}</template>
     </ark.td>
   </TableRow>
 </template>

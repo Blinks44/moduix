@@ -4,12 +4,18 @@ import { getContext, setContext } from 'svelte';
 export type SidebarSide = 'left' | 'right';
 
 export interface SidebarConfig {
+  isMobile: () => boolean;
+  openMobile: () => boolean;
   panelId: () => string;
+  setOpenMobile: (open: boolean) => void;
   side: () => SidebarSide;
 }
 
 const defaultSidebarConfig: SidebarConfig = {
+  isMobile: () => false,
+  openMobile: () => false,
   panelId: () => 'sidebar',
+  setOpenMobile: () => {},
   side: () => 'left',
 };
 
@@ -29,6 +35,15 @@ export const useSidebar = () => {
     get collapsed() {
       return splitter().isPanelCollapsed(config.panelId());
     },
+    get isMobile() {
+      return config.isMobile();
+    },
+    get openMobile() {
+      return config.openMobile();
+    },
+    setOpenMobile: (open: boolean) => {
+      config.setOpenMobile(open);
+    },
     get side() {
       return config.side();
     },
@@ -36,8 +51,13 @@ export const useSidebar = () => {
       return this.collapsed ? 'collapsed' : 'expanded';
     },
     toggleSidebar: () => {
-      if (splitter().isPanelCollapsed(config.panelId())) splitter().expandPanel(config.panelId());
-      else splitter().collapsePanel(config.panelId());
+      if (config.isMobile()) {
+        config.setOpenMobile(!config.openMobile());
+      } else if (splitter().isPanelCollapsed(config.panelId())) {
+        splitter().expandPanel(config.panelId());
+      } else {
+        splitter().collapsePanel(config.panelId());
+      }
     },
   };
 };

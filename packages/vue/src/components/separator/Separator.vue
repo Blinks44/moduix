@@ -41,7 +41,7 @@ const resolvedRole = computed(() => role ?? 'separator');
     :aria-orientation="resolvedRole === 'separator' ? orientation : undefined"
     data-scope="separator"
     data-part="root"
-    data-slot="separator-root"
+    :data-slot="attrs['data-slot'] ?? 'separator-root'"
     :data-orientation="orientation"
     :data-size="size"
     :data-variant="variant"

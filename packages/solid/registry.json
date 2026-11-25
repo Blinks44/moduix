@@ -1872,12 +1872,13 @@
       "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-solid/a11y-labels",
+        "@moduix-solid/drawer",
+        "@moduix-solid/event-handlers",
         "@moduix-solid/icons",
         "@moduix-solid/input",
         "@moduix-solid/separator",
         "@moduix-solid/splitter",
-        "@moduix-solid/tooltip",
-        "@moduix-solid/event-handlers"
+        "@moduix-solid/tooltip"
       ],
       "files": [
         {

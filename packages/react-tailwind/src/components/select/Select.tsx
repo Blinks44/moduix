@@ -13,7 +13,7 @@ import {
 } from '@ark-ui/react/select';
 import type { ComponentProps, ComponentRef, ForwardedRef, ReactNode } from 'react';
 import { forwardRef } from 'react';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import { CheckIcon, ChevronUpDownIcon } from '@/lib/moduix/icons/ui';
 import {
@@ -179,6 +179,7 @@ const SelectClearTrigger = forwardRef<
   },
   ref,
 ) {
+  const labels = useA11yLabels();
   return (
     <SelectPrimitive.ClearTrigger
       ref={ref}
@@ -196,7 +197,7 @@ const SelectClearTrigger = forwardRef<
         children
       ) : (
         <CloseButton
-          aria-label={ariaLabel ?? (ariaLabelledBy == null ? a11yLabels.clearSelection : undefined)}
+          aria-label={ariaLabel ?? (ariaLabelledBy == null ? labels.clearSelection : undefined)}
           aria-labelledby={ariaLabelledBy}
         >
           {children}

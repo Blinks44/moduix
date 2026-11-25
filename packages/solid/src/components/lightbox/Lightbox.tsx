@@ -4,7 +4,7 @@ import { ark } from '@ark-ui/solid/factory';
 import { clsx } from 'clsx';
 import type { ComponentProps, JSX } from 'solid-js';
 import { createEffect, onCleanup, splitProps } from 'solid-js';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import { callEventHandler } from '@/lib/moduix/callEventHandler';
 import {
   OverlayPortal,
@@ -192,6 +192,7 @@ function LightboxCloseTrigger(props: ComponentProps<typeof DialogPrimitive.Close
 type LightboxCloseIconProps = Omit<ComponentProps<typeof DialogPrimitive.CloseTrigger>, 'asChild'>;
 
 function LightboxCloseIcon(props: LightboxCloseIconProps) {
+  const labels = useA11yLabels();
   const [local, others] = splitProps(props, ['aria-label', 'aria-labelledby', 'children', 'class']);
 
   return (
@@ -200,7 +201,7 @@ function LightboxCloseIcon(props: LightboxCloseIconProps) {
         <CloseButton
           {...triggerProps()}
           data-slot="lightbox-close-icon"
-          aria-label={local['aria-label'] ?? a11yLabels.closeImage}
+          aria-label={local['aria-label'] ?? labels().closeImage}
           aria-labelledby={local['aria-labelledby']}
           class={clsx(styles.closeIcon, local.class)}
         >

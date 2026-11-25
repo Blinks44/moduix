@@ -4,7 +4,7 @@ import type { ToastCloseTriggerProps } from '@ark-ui/vue/toast';
 import { clsx } from 'clsx';
 import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import CloseButton from '../close-button/CloseButton.vue';
 import styles from './Toast.module.css';
 
@@ -21,8 +21,9 @@ const { asChild = false, ariaLabel, ariaLabelledby, class: className } = defineP
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
+const labels = useA11yLabels();
 const resolvedAriaLabel = computed(() =>
-  ariaLabel === undefined && ariaLabelledby == null ? a11yLabels.closeToast : ariaLabel,
+  ariaLabel === undefined && ariaLabelledby == null ? labels.value.closeToast : ariaLabel,
 );
 </script>
 

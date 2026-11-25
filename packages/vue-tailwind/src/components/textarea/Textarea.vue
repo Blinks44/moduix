@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { FieldTextarea as ArkFieldTextarea } from '@ark-ui/vue/field';
 import type { FieldTextareaProps } from '@ark-ui/vue/field';
+import { useForwardExpose } from '@ark-ui/vue/utils';
 import { cva } from 'class-variance-authority';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
@@ -42,10 +43,12 @@ defineEmits</* @vue-ignore */ Emits>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
+const { forwardRef } = useForwardExpose();
 </script>
 
 <template>
   <ArkFieldTextarea
+    :ref="forwardRef"
     v-bind="attrs"
     :class="cn(textareaVariants({ size: props.size }), props.class)"
     data-scope="field"

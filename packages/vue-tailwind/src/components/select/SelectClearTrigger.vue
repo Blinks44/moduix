@@ -3,7 +3,7 @@ import { SelectClearTrigger as ArkSelectClearTrigger } from '@ark-ui/vue/select'
 import type { SelectClearTriggerProps } from '@ark-ui/vue/select';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import CloseButton from '../close-button/CloseButton.vue';
 
@@ -22,6 +22,7 @@ defineSlots<{ default?: () => unknown }>();
 const attrs = useAttrs();
 const clearClass =
   'absolute inset-y-0 end-[calc(var(--_select-action-offset)+var(--_select-action-size)+0.125rem)] my-auto size-(--_select-action-size)';
+const labels = useA11yLabels();
 </script>
 
 <template>
@@ -44,7 +45,7 @@ const clearClass =
     data-slot="select-clear-trigger"
   >
     <CloseButton
-      :aria-label="ariaLabel ?? (ariaLabelledby == null ? a11yLabels.clearSelection : undefined)"
+      :aria-label="ariaLabel ?? (ariaLabelledby == null ? labels.clearSelection : undefined)"
       :aria-labelledby="ariaLabelledby"
     >
       <slot />

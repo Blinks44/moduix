@@ -2,7 +2,7 @@ import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import { clsx } from 'clsx';
 import { children, splitProps } from 'solid-js';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import styles from './Table.module.css';
 
 type TableSize = 'sm' | 'md' | 'lg';
@@ -193,6 +193,7 @@ function TableCell(props: TableCellProps) {
 }
 
 function TableEmpty(props: TableEmptyProps) {
+  const labels = useA11yLabels();
   const [local, others] = splitProps(props, ['children', 'class']);
   const resolvedChildren = children(() => local.children);
 
@@ -205,7 +206,7 @@ function TableEmpty(props: TableEmptyProps) {
         data-slot="table-empty"
         class={clsx(styles.cell, styles.empty, local.class)}
       >
-        {resolvedChildren() ?? a11yLabels.noResults}
+        {resolvedChildren() ?? labels().noResults}
       </ark.td>
     </TableRow>
   );

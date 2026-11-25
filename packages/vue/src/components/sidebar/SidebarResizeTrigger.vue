@@ -4,7 +4,7 @@ import type { SplitterResizeTriggerProps } from '@ark-ui/vue/splitter';
 import { clsx } from 'clsx';
 import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import splitterStyles from '../splitter/Splitter.module.css';
 import SplitterResizeTriggerIndicator from '../splitter/SplitterResizeTriggerIndicator.vue';
 import { useSidebarConfig } from './context';
@@ -21,12 +21,13 @@ const { asChild = false, class: className } = defineProps<Props>();
 const slots = defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
-const { panelId, side } = useSidebarConfig();
+const { isMobile, panelId, side } = useSidebarConfig();
 const resizeTriggerId = computed<`${string}:${string}`>(() =>
   side.value === 'left' ? `${panelId.value}:content` : `content:${panelId.value}`,
 );
+const labels = useA11yLabels();
 const ariaLabel = computed(() =>
-  typeof attrs['aria-label'] === 'string' ? attrs['aria-label'] : a11yLabels.resizeSidebar,
+  typeof attrs['aria-label'] === 'string' ? attrs['aria-label'] : labels.value.resizeSidebar,
 );
 </script>
 
@@ -35,6 +36,7 @@ const ariaLabel = computed(() =>
     :type="asChild ? undefined : 'button'"
     v-bind="attrs"
     :as-child="asChild"
+    :hidden="isMobile || Boolean(attrs.hidden)"
     :id="resizeTriggerId"
     :aria-label="ariaLabel"
     :class="clsx(splitterStyles.resizeTrigger, styles.resizeTrigger, className)"

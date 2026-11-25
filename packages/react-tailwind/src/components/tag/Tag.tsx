@@ -1,8 +1,10 @@
+'use client';
+
 import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { cva } from 'class-variance-authority';
 import { forwardRef, type ComponentRef } from 'react';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import { CloseButton } from '../close-button';
 
@@ -111,6 +113,7 @@ const TagEndElement = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>(function
 
 const TagCloseTrigger = forwardRef<ComponentRef<typeof CloseButton>, HTMLArkProps<'button'>>(
   function TagCloseTrigger({ className, 'aria-label': ariaLabel, ...props }, ref) {
+    const labels = useA11yLabels();
     return (
       <CloseButton
         ref={ref}
@@ -118,9 +121,7 @@ const TagCloseTrigger = forwardRef<ComponentRef<typeof CloseButton>, HTMLArkProp
         data-scope="tag"
         data-part="close-trigger"
         data-slot="tag-close-trigger"
-        aria-label={
-          ariaLabel ?? (props['aria-labelledby'] == null ? a11yLabels.closeTag : undefined)
-        }
+        aria-label={ariaLabel ?? (props['aria-labelledby'] == null ? labels.closeTag : undefined)}
         className={cn(
           "size-4 rounded-full text-inherit not-data-disabled:hover:bg-current/12 not-data-disabled:hover:text-inherit focus-visible:outline-focus-inset focus-visible:outline-offset-0 [&>svg:not([class*='size-'])]:size-3",
           className,

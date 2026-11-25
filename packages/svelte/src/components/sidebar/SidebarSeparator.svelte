@@ -12,4 +12,9 @@
   let { class: className, ref = $bindable(null), ...props }: SidebarSeparatorProps = $props();
 </script>
 
-<Separator {...props} bind:ref class={clsx(styles.separator, className)} />
+<Separator
+  data-slot="sidebar-separator"
+  {...props}
+  bind:ref
+  class={clsx(styles.separator, className)}
+/>

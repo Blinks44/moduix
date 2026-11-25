@@ -9,8 +9,8 @@ import {
 } from '@ark-ui/solid/combobox';
 import { ark, type HTMLArkProps } from '@ark-ui/solid/factory';
 import type { ComponentProps, JSX } from 'solid-js';
-import { children, splitProps } from 'solid-js';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { children, Show, splitProps } from 'solid-js';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import { CheckIcon, ChevronUpDownIcon } from '@/lib/moduix/icons/ui';
 import {
@@ -150,6 +150,7 @@ function ComboboxInput(props: ComponentProps<typeof ComboboxPrimitive.Input>) {
 }
 
 function ComboboxClearTrigger(props: ComponentProps<typeof ComboboxPrimitive.ClearTrigger>) {
+  const labels = useA11yLabels();
   const [local, others] = splitProps(props, [
     'aria-label',
     'aria-labelledby',
@@ -163,8 +164,33 @@ function ComboboxClearTrigger(props: ComponentProps<typeof ComboboxPrimitive.Cle
       local.class,
     );
 
-  if (local.asChild) {
-    return (
+  return (
+    <Show
+      when={local.asChild}
+      fallback={
+        <ComboboxPrimitive.ClearTrigger
+          asChild={(triggerProps) => {
+            const resolvedProps = triggerProps();
+
+            return (
+              <CloseButton
+                {...resolvedProps}
+                aria-label={
+                  local['aria-label'] ??
+                  (local['aria-labelledby'] == null ? labels().clearSelection : undefined)
+                }
+                aria-labelledby={local['aria-labelledby']}
+              >
+                {local.children}
+              </CloseButton>
+            );
+          }}
+          class={triggerClass()}
+          {...others}
+          data-slot="combobox-clear-trigger"
+        />
+      }
+    >
       <ComboboxPrimitive.ClearTrigger
         asChild={local.asChild}
         aria-label={local['aria-label']}
@@ -175,31 +201,7 @@ function ComboboxClearTrigger(props: ComponentProps<typeof ComboboxPrimitive.Cle
       >
         {local.children}
       </ComboboxPrimitive.ClearTrigger>
-    );
-  }
-
-  return (
-    <ComboboxPrimitive.ClearTrigger
-      asChild={(triggerProps) => {
-        const resolvedProps = triggerProps();
-
-        return (
-          <CloseButton
-            {...resolvedProps}
-            aria-label={
-              local['aria-label'] ??
-              (local['aria-labelledby'] == null ? a11yLabels.clearSelection : undefined)
-            }
-            aria-labelledby={local['aria-labelledby']}
-          >
-            {local.children}
-          </CloseButton>
-        );
-      }}
-      class={triggerClass()}
-      {...others}
-      data-slot="combobox-clear-trigger"
-    />
+    </Show>
   );
 }
 

@@ -42,11 +42,11 @@ const Input = forwardRef<HTMLInputElement, InputRootProps>(function Input(
 ) {
   return (
     <FieldPrimitive.Input
+      data-slot="input-root"
       {...props}
       ref={ref}
       data-scope="field"
       data-part="input"
-      data-slot="input-root"
       data-size={size}
       className={cn(inputVariants({ size }), htmlSize !== undefined && 'w-auto', className)}
       size={htmlSize}

@@ -7,7 +7,7 @@
 <script lang="ts">
   import { ToastCloseTrigger } from '@ark-ui/svelte/toast';
   import { clsx } from 'clsx';
-  import { a11yLabels } from '@/lib/moduix/a11yLabels';
+  import { useA11yLabels } from '@/lib/moduix/a11yLabels';
   import CloseButton from '../close-button/CloseButton.svelte';
   import styles from './Toast.module.css';
 
@@ -21,8 +21,9 @@
     ...props
   }: ToastCloseTriggerProps = $props();
 
+  const labels = useA11yLabels();
   const resolvedAriaLabel = $derived(
-    ariaLabel === undefined && ariaLabelledby == null ? a11yLabels.closeToast : ariaLabel,
+    ariaLabel === undefined && ariaLabelledby == null ? labels().closeToast : ariaLabel,
   );
 </script>
 

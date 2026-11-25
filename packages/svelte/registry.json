@@ -5537,9 +5537,10 @@
       "description": "moduix Svelte Sidebar component.",
       "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": [
+        "@moduix-svelte/a11y-labels",
+        "@moduix-svelte/drawer",
         "@moduix-svelte/foundation",
         "@moduix-svelte/icons",
-        "@moduix-svelte/a11y-labels",
         "@moduix-svelte/input",
         "@moduix-svelte/separator",
         "@moduix-svelte/splitter",

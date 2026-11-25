@@ -4,7 +4,7 @@ import type { PopoverCloseTriggerProps } from '@ark-ui/vue/popover';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import CloseButton from '../close-button/CloseButton.vue';
 import styles from './Popover.module.css';
 
@@ -19,12 +19,13 @@ const { ariaLabel, class: className } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
+const labels = useA11yLabels();
 </script>
 
 <template>
   <ArkPopoverCloseTrigger v-bind="attrs" as-child>
     <CloseButton
-      :aria-label="ariaLabel ?? a11yLabels.closePopover"
+      :aria-label="ariaLabel ?? labels.closePopover"
       :class="clsx(styles.closeIcon, className)"
       data-slot="popover-close-icon"
     >

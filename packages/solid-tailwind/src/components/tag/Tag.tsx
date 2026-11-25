@@ -2,7 +2,7 @@ import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import { cva } from 'class-variance-authority';
 import { splitProps } from 'solid-js';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import { CloseButton } from '../close-button';
 
@@ -102,6 +102,7 @@ function TagEndElement(props: HTMLArkProps<'span'>) {
 }
 
 function TagCloseTrigger(props: HTMLArkProps<'button'>) {
+  const labels = useA11yLabels();
   const [local, others] = splitProps(props, ['aria-label', 'class']);
 
   return (
@@ -111,7 +112,7 @@ function TagCloseTrigger(props: HTMLArkProps<'button'>) {
       data-part="close-trigger"
       data-slot="tag-close-trigger"
       aria-label={
-        local['aria-label'] ?? (others['aria-labelledby'] == null ? a11yLabels.closeTag : undefined)
+        local['aria-label'] ?? (others['aria-labelledby'] == null ? labels().closeTag : undefined)
       }
       class={cn(
         "size-4 rounded-full text-inherit not-data-disabled:hover:bg-current/12 not-data-disabled:hover:text-inherit focus-visible:outline-focus-inset focus-visible:outline-offset-0 [&>svg:not([class*='size-'])]:size-3",

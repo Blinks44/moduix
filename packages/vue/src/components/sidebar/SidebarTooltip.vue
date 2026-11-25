@@ -26,7 +26,7 @@ defineEmits<Emits>();
 defineSlots<{ default?: () => unknown; content?: () => unknown }>();
 
 const attrs = useAttrs();
-const { collapsed, side } = useSidebar();
+const { collapsed, isMobile, side } = useSidebar();
 
 const positioning = computed<TooltipRootProps['positioning']>(() => ({
   placement: side.value === 'left' ? 'right' : 'left',
@@ -40,7 +40,7 @@ const positioning = computed<TooltipRootProps['positioning']>(() => ({
     v-bind="attrs"
     :close-delay="closeDelay"
     :open-delay="openDelay"
-    :disabled="!collapsed"
+    :disabled="isMobile || !collapsed"
     :positioning="positioning"
   >
     <TooltipTrigger as-child>

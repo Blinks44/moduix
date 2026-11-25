@@ -10,7 +10,7 @@ import { ark } from '@ark-ui/solid/factory';
 import { isHotKey } from '@ark-ui/solid/hotkeys';
 import type { ComponentProps } from 'solid-js';
 import { children, createEffect, onCleanup, Show, splitProps } from 'solid-js';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import { callEventHandler } from '@/lib/moduix/callEventHandler';
 import { cn } from '@/lib/moduix/cn';
 import { CheckIcon, CloseIcon, SearchIcon } from '@/lib/moduix/icons/ui';
@@ -311,6 +311,7 @@ function CommandPaletteInput(props: ComponentProps<typeof ComboboxPrimitive.Inpu
 }
 
 function CommandPaletteSearch(props: ComponentProps<typeof ComboboxPrimitive.Input>) {
+  const labels = useA11yLabels();
   const [local, others] = splitProps(props, ['aria-label', 'aria-labelledby']);
 
   return (
@@ -322,7 +323,7 @@ function CommandPaletteSearch(props: ComponentProps<typeof ComboboxPrimitive.Inp
       <CommandPaletteInput
         aria-label={
           local['aria-label'] ??
-          (local['aria-labelledby'] == null ? a11yLabels.searchCommands : undefined)
+          (local['aria-labelledby'] == null ? labels().searchCommands : undefined)
         }
         aria-labelledby={local['aria-labelledby']}
         {...others}
@@ -333,6 +334,7 @@ function CommandPaletteSearch(props: ComponentProps<typeof ComboboxPrimitive.Inp
 }
 
 function CommandPaletteClearTrigger(props: ComponentProps<typeof ComboboxPrimitive.ClearTrigger>) {
+  const labels = useA11yLabels();
   const [local, others] = splitProps(props, [
     'asChild',
     'class',
@@ -350,7 +352,7 @@ function CommandPaletteClearTrigger(props: ComponentProps<typeof ComboboxPrimiti
       asChild={local.asChild}
       aria-label={
         local['aria-label'] ??
-        (!local.asChild && local['aria-labelledby'] == null ? a11yLabels.clearSearch : undefined)
+        (!local.asChild && local['aria-labelledby'] == null ? labels().clearSearch : undefined)
       }
       aria-labelledby={local['aria-labelledby']}
       class={cn(

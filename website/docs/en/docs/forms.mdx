@@ -34,6 +34,16 @@ one.
     description="Use explicit controlled fields and typed reactive state in React, Solid, Vue, or Svelte."
     href="/docs/tanstack-form"
   />
+  <Card
+    title="VeeValidate"
+    description="Use composable Vue field bindings and schema validation with useForm and defineField."
+    href="/docs/vee-validate"
+  />
+  <Card
+    title="Superforms"
+    description="Use SvelteKit schema-backed client and server validation with progressive enhancement."
+    href="/docs/superforms"
+  />
 </Cards>
 
 ## Framework support
@@ -41,15 +51,18 @@ one.
 Choose a library that ships a native adapter for your framework. The documentation currently covers
 the moduix adapters that are available today:
 
-| Approach        | React | Solid | Vue | Svelte | Best fit                                      |
-| --------------- | ----- | ----- | ----- | ----- | --------------------------------------------- |
-| Native form     | Yes   | Yes   | Yes | Yes | Small forms and browser-managed validation.  |
-| Formisch        | Yes   | Yes   | Yes | Yes | Valibot schemas and compact reactive state.  |
-| React Hook Form | Yes   | No    | No | No | React forms with an uncontrolled-first API.  |
-| TanStack Form   | Yes   | Yes   | Yes | Yes | Explicit controlled state and typed workflows. |
+| Approach        | React | Solid | Vue | Svelte | Best fit                                             |
+| --------------- | ----- | ----- | --- | ------ | ---------------------------------------------------- |
+| Native form     | Yes   | Yes   | Yes | Yes    | Small forms and browser-managed validation.          |
+| Formisch        | Yes   | Yes   | Yes | Yes    | Valibot schemas and compact reactive state.          |
+| React Hook Form | Yes   | No    | No  | No     | React forms with an uncontrolled-first API.          |
+| TanStack Form   | Yes   | Yes   | Yes | Yes    | Explicit controlled state and typed workflows.       |
+| VeeValidate     | No    | No    | Yes | No     | Vue apps using `defineField` and schema validation.  |
+| Superforms      | No    | No    | No  | Yes    | SvelteKit apps with server actions and enhancement.  |
 
-React Hook Form is intentionally documented only for React. Solid, Vue, and Svelte applications should use a native
-form, Formisch, or TanStack Form instead of adapting a React hook through a compatibility layer.
+Framework-specific libraries such as React Hook Form, VeeValidate, and Superforms are documented
+only for their native framework instead of wrapping them in compatibility layers. For shared
+cross-framework patterns, use a native form, Formisch, or TanStack Form.
 
 ## Core rules
 

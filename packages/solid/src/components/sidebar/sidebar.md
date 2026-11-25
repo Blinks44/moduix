@@ -20,9 +20,11 @@ Sidebar and omitted from the public root props. `side="left" | "right"` selects 
 resize-trigger id order, side attributes, and trigger icon direction. `panelId` renames the sidebar
 panel while the inset remains `content`.
 
-Defaults match the React component: expanded size `16rem`, min/collapsed size `3rem`, max size
-`18rem`, horizontal layout, `aria-label="Resize sidebar"` on `SidebarResizeTrigger`, and
-`aria-label="Toggle sidebar"` plus `type="button"` on `SidebarTrigger`.
+Defaults match the React component: expanded size `16rem`, `minSize` and `collapsedSize` `'3rem'`,
+`maxSize` `'18rem'`, `collapsible` `true`, horizontal layout, `aria-label="Resize sidebar"` on
+`SidebarResizeTrigger`, and `aria-label="Toggle sidebar"` plus `type="button"` on `SidebarTrigger`.
+Setting `mobileBreakpoint` enables the opt-in responsive `Drawer` fallback controlled by
+`mobileOpen`, `defaultMobileOpen`, and `onMobileOpenChange`.
 
 Exported parts:
 
@@ -33,10 +35,10 @@ Exported parts:
 - `SidebarNavigationSubList`, `SidebarNavigationSubItem`, `SidebarNavigationSubButton`, `SidebarTooltip`
 - `useSidebar`
 
-`useSidebar()` returns native Solid accessors: `collapsed()`, `side()`, and `state()`, plus
-`toggleSidebar()`. The hook and layout parts require the Splitter context created by `Sidebar`.
-Text that must disappear in the collapsed rail belongs in `SidebarLabel`; Sidebar does not infer
-text children from arbitrary markup.
+`useSidebar()` returns native Solid accessors: `collapsed()`, `isMobile()`, `openMobile()`,
+`side()`, and `state()`, plus `setOpenMobile()` and `toggleSidebar()`. The hook and layout parts
+require the Splitter context created by `Sidebar`. Text that must disappear in the collapsed rail
+belongs in `SidebarLabel`; Sidebar does not infer text children from arbitrary markup.
 
 ## Composition
 

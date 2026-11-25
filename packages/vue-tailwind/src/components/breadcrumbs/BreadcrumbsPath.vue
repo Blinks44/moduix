@@ -1,14 +1,7 @@
-<script setup lang="ts">
+<script lang="ts">
 import type { HTMLArkProps } from '@ark-ui/vue/factory';
-import { defineComponent, useAttrs } from 'vue';
+import { defineComponent } from 'vue';
 import type { HTMLAttributes, VNodeChild } from 'vue';
-import BreadcrumbsItem from './BreadcrumbsItem.vue';
-import BreadcrumbsLink from './BreadcrumbsLink.vue';
-import BreadcrumbsList from './BreadcrumbsList.vue';
-import BreadcrumbsPage from './BreadcrumbsPage.vue';
-import BreadcrumbsSeparator from './BreadcrumbsSeparator.vue';
-
-defineOptions({ inheritAttrs: false });
 
 export type BreadcrumbsPathLink = {
   href: string;
@@ -22,11 +15,22 @@ export interface Props extends /* @vue-ignore */ Omit<HTMLArkProps<'ol'>, 'asChi
   class?: HTMLAttributes['class'];
 }
 
-const { class: className, links, page, separator = undefined } = defineProps<Props>();
-
 const VNodeOutlet = defineComponent((props: { value: VNodeChild }) => () => props.value, {
   props: ['value'],
 });
+</script>
+
+<script setup lang="ts">
+import { useAttrs } from 'vue';
+import BreadcrumbsItem from './BreadcrumbsItem.vue';
+import BreadcrumbsLink from './BreadcrumbsLink.vue';
+import BreadcrumbsList from './BreadcrumbsList.vue';
+import BreadcrumbsPage from './BreadcrumbsPage.vue';
+import BreadcrumbsSeparator from './BreadcrumbsSeparator.vue';
+
+defineOptions({ inheritAttrs: false });
+
+const { class: className, links, page, separator = undefined } = defineProps<Props>();
 
 const attrs = useAttrs();
 </script>

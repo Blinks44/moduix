@@ -17,4 +17,10 @@
   }: SidebarInputProps = $props();
 </script>
 
-<Input {...props} bind:ref bind:value class={clsx(styles.input, className)} />
+<Input
+  data-slot="sidebar-input"
+  {...props}
+  bind:ref
+  bind:value
+  class={clsx(styles.input, className)}
+/>

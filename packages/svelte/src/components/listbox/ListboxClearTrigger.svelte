@@ -7,7 +7,7 @@
 
 <script lang="ts">
   import { clsx } from 'clsx';
-  import { a11yLabels } from '@/lib/moduix/a11yLabels';
+  import { useA11yLabels } from '@/lib/moduix/a11yLabels';
   import CloseButton from '../close-button/CloseButton.svelte';
   import styles from './Listbox.module.css';
 
@@ -17,12 +17,14 @@
     'aria-label': ariaLabel,
     ...props
   }: ListboxClearTriggerProps = $props();
+
+  const labels = useA11yLabels();
 </script>
 
 <CloseButton
   {...props}
   bind:ref
-  aria-label={ariaLabel ?? a11yLabels.clearSearch}
+  aria-label={ariaLabel ?? labels().clearSearch}
   class={clsx(styles.clearTrigger, className)}
   data-slot="listbox-clear-trigger"
 />

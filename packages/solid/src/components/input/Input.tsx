@@ -16,10 +16,10 @@ function Input(props: InputRootProps) {
 
   return (
     <FieldPrimitive.Input
+      data-slot="input-root"
       {...others}
       data-scope="field"
       data-part="input"
-      data-slot="input-root"
       data-size={local.size ?? 'md'}
       class={clsx(styles.root, local.class)}
       size={local.htmlSize}

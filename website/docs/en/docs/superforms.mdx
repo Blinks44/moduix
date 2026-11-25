@@ -1,0 +1,162 @@
+---
+title: Superforms
+description: Connect Svelte moduix controls to SvelteKit Superforms with superForm, schema validation, reset, and server errors.
+---
+
+# Superforms
+
+[Superforms](https://superforms.rocks/) is a SvelteKit-native form library for schema-backed
+client and server validation with progressive enhancement. This guide connects it to moduix Svelte
+components.
+
+## Framework support
+
+<PackageManagerTabs command="install sveltekit-superforms" />
+
+Use this integration with `@moduix/svelte` or `@moduix/svelte-tailwind`. For cross-framework form
+state, see [Formisch](/docs/formisch) or [TanStack Form](/docs/tanstack-form).
+
+## Connect controls
+
+Bind native inputs directly to `$form` fields, and connect compound Ark UI controls to `$form`
+through their public value and change props. Spread `$constraints[name]` onto native inputs when
+you want HTML constraint attributes derived from your schema.
+
+| moduix control                      | Superforms mapping                                                       |
+| ----------------------------------- | ------------------------------------------------------------------------ |
+| `Input`, `Textarea`, `NativeSelect` | Use `bind:value={$form.name}` and `{...$constraints.name}`.              |
+| `Select`, `Combobox`                | Pass `value={$form.name ? [$form.name] : []}` and update `$form.name` in `onValueChange`. |
+| `Checkbox`, `Switch`                | Pass `checked={$form.name}` and update `$form.name` in `onCheckedChange`. |
+| Other controlled compound controls  | Read `$form[name]` and update it from the control's change callback.     |
+
+Keep each moduix native form part (`SelectHiddenSelect`, `CheckboxHiddenInput`, `SwitchHiddenInput`)
+rendered once so progressive enhancement and native `FormData` submission continue to work when
+JavaScript has not hydrated yet.
+
+## Validation and reset
+
+Pass `Boolean($errors[name]?.length)` to `Field invalid` and render `$errors[name]?.[0]` inside
+`FieldErrorText`. Spread `aria-invalid={$errors[name] ? 'true' : undefined}` when you also want
+the control itself marked outside `Field` context.
+
+Add `novalidate` on `<form use:enhance>` when Superforms renders the visible errors, and call
+`reset()` from `superForm()` to restore `$form` and the controlled moduix inputs together.
+
+## Complete form
+
+This example pairs a SvelteKit `superForm` store with `Field`, `Input`, `Select`, `Checkbox`,
+`Switch`, and `Button`.
+
+```svelte
+<script lang="ts">
+  import { superForm } from 'sveltekit-superforms';
+  import { Button } from '@moduix/svelte/button';
+  import { Checkbox } from '@moduix/svelte/checkbox';
+  import { Field, FieldErrorText, FieldLabel } from '@moduix/svelte/field';
+  import { Input } from '@moduix/svelte/input';
+  import {
+    Select,
+    SelectDropdown,
+    SelectField,
+    SelectHiddenSelect,
+    SelectOption,
+    createListCollection,
+  } from '@moduix/svelte/select';
+  import { Switch } from '@moduix/svelte/switch';
+  import type { PageData } from './$types';
+
+  let { data }: { data: PageData } = $props();
+
+  const roles = createListCollection({
+    items: [
+      { label: 'Editor', value: 'editor' },
+      { label: 'Admin', value: 'admin' },
+      { label: 'Viewer', value: 'viewer' },
+    ],
+  });
+
+  const { form, errors, constraints, enhance, delayed, message, reset } = superForm(data.form, {
+    scrollToError: 'auto',
+    autoFocusOnError: 'detect',
+  });
+</script>
+
+<form method="POST" use:enhance novalidate>
+  {#if $message}
+    <p role="alert">{$message}</p>
+  {/if}
+
+  <Field invalid={Boolean($errors.email?.length)} required>
+    <FieldLabel>Work email</FieldLabel>
+    <Input
+      name="email"
+      type="email"
+      autocomplete="email"
+      bind:value={$form.email}
+      {...$constraints.email}
+    />
+    <FieldErrorText>{$errors.email?.[0]}</FieldErrorText>
+  </Field>
+
+  <Field invalid={Boolean($errors.role?.length)} required>
+    <FieldLabel>Role</FieldLabel>
+    <Select
+      name="role"
+      collection={roles}
+      value={$form.role ? [$form.role] : []}
+      onValueChange={(details) => ($form.role = details.value[0] ?? '')}
+    >
+      <SelectField placeholder="Select a role" />
+      <SelectDropdown>
+        {#each roles.items as item (item.value)}
+          <SelectOption {item}>{item.label}</SelectOption>
+        {/each}
+      </SelectDropdown>
+      <SelectHiddenSelect />
+    </Select>
+    <FieldErrorText>{$errors.role?.[0]}</FieldErrorText>
+  </Field>
+
+  <Switch
+    name="notifications"
+    label="Send weekly digest"
+    checked={$form.notifications}
+    onCheckedChange={(details) => ($form.notifications = details.checked === true)}
+  />
+
+  <Field invalid={Boolean($errors.terms?.length)}>
+    <Checkbox
+      name="terms"
+      label="I accept the workspace terms"
+      checked={$form.terms}
+      onCheckedChange={(details) => ($form.terms = details.checked === true)}
+    />
+    <FieldErrorText>{$errors.terms?.[0]}</FieldErrorText>
+  </Field>
+
+  <div>
+    <Button type="submit" loading={$delayed} loadingText="Sending invite">
+      Send invite
+    </Button>
+    <Button type="button" variant="outline" onclick={() => reset()}>Reset</Button>
+  </div>
+</form>
+```
+
+## Repeated fields and server errors
+
+For array fields in Superforms, render each row with a stable key and bind to `$form.items[index]`.
+Wrap repeated sections in `Fieldset` to keep a shared legend and group-level error text.
+
+Return field-level errors from your SvelteKit action via `setError(form, 'email', '...')` so they
+automatically populate `$errors.email` and `FieldErrorText`. Use `message(form, ...)` for
+form-level banners rendered in a `role="alert"` element.
+
+## Focus and behavior
+
+- Enable `autoFocusOnError: 'detect'` in `superForm()` so focus moves automatically to the first
+  control marked with `aria-invalid="true"`.
+- Use `$delayed` (or `$submitting`) with `<Button loading={$delayed}>` to avoid flicker on fast
+  requests while blocking duplicate submissions.
+- Keep `use:enhance` on `<form>` and keep native `name` attributes on every control so server
+  actions work both with and without client-side JavaScript.

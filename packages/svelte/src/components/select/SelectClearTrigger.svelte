@@ -1,7 +1,7 @@
 <script lang="ts">
   import { SelectClearTrigger, type SelectClearTriggerProps } from '@ark-ui/svelte/select';
   import { clsx } from 'clsx';
-  import { a11yLabels } from '@/lib/moduix/a11yLabels';
+  import { useA11yLabels } from '@/lib/moduix/a11yLabels';
   import CloseButton from '../close-button/CloseButton.svelte';
   import styles from './Select.module.css';
 
@@ -14,6 +14,8 @@
     'aria-labelledby': ariaLabelledBy,
     ...props
   }: SelectClearTriggerProps = $props();
+
+  const labels = useA11yLabels();
 </script>
 
 {#if asChild}
@@ -36,7 +38,7 @@
     {#snippet asChild(triggerProps)}
       <CloseButton
         {...triggerProps()}
-        aria-label={ariaLabel ?? (ariaLabelledBy == null ? a11yLabels.clearSelection : undefined)}
+        aria-label={ariaLabel ?? (ariaLabelledBy == null ? labels().clearSelection : undefined)}
         aria-labelledby={ariaLabelledBy}
         {children}
       />

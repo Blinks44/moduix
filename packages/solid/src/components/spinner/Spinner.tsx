@@ -2,7 +2,7 @@ import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import { clsx } from 'clsx';
 import { splitProps } from 'solid-js';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import styles from './Spinner.module.css';
 
 type SpinnerSize = 'inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
@@ -13,6 +13,7 @@ type SpinnerRootProps = HTMLArkProps<'span'> & {
 };
 
 function Spinner(props: SpinnerRootProps) {
+  const labels = useA11yLabels();
   const [local, others] = splitProps(props, [
     'asChild',
     'children',
@@ -34,7 +35,7 @@ function Spinner(props: SpinnerRootProps) {
       aria-hidden={local.decorative || undefined}
       aria-label={
         local['aria-label'] ??
-        (local.decorative || others['aria-labelledby'] ? undefined : a11yLabels.loading)
+        (local.decorative || others['aria-labelledby'] ? undefined : labels().loading)
       }
       class={clsx(styles.root, local.class)}
     >

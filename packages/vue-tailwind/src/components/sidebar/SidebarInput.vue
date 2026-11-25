@@ -21,6 +21,7 @@ const attrs = useAttrs();
 
 <template>
   <Input
+    data-slot="sidebar-input"
     v-bind="attrs"
     :class="cn('w-full group-data-[state=collapsed]/sidebar-panel:hidden', props.class)"
     ><slot

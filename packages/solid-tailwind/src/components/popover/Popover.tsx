@@ -3,7 +3,7 @@ import { ark } from '@ark-ui/solid/factory';
 import { Popover as PopoverPrimitive, usePopover, usePopoverContext } from '@ark-ui/solid/popover';
 import type { ComponentProps } from 'solid-js';
 import { children, splitProps } from 'solid-js';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import {
   OverlayPortal,
@@ -184,6 +184,7 @@ function PopoverCloseTrigger(props: ComponentProps<typeof PopoverPrimitive.Close
 }
 
 function PopoverCloseIcon(props: PopoverCloseIconProps) {
+  const labels = useA11yLabels();
   const [local, others] = splitProps(props, ['aria-label', 'children', 'class']);
 
   return (
@@ -192,7 +193,7 @@ function PopoverCloseIcon(props: PopoverCloseIconProps) {
         <CloseButton
           {...triggerProps()}
           data-slot="popover-close-icon"
-          aria-label={local['aria-label'] ?? a11yLabels.closePopover}
+          aria-label={local['aria-label'] ?? labels().closePopover}
           class={cn(
             'absolute end-3 top-3 not-data-disabled:hover:bg-accent not-data-disabled:hover:text-popover-foreground',
             local.class,

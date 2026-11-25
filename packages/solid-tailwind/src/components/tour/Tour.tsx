@@ -10,7 +10,7 @@ import {
 } from '@ark-ui/solid/tour';
 import type { ComponentProps } from 'solid-js';
 import { For, children, splitProps } from 'solid-js';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import {
   OverlayPortal,
@@ -194,6 +194,7 @@ function TourCloseTrigger(props: ComponentProps<typeof TourPrimitive.CloseTrigge
 }
 
 function TourCloseIcon(props: TourCloseIconProps) {
+  const labels = useA11yLabels();
   const [local, others] = splitProps(props, ['aria-label', 'children', 'class']);
 
   return (
@@ -202,7 +203,7 @@ function TourCloseIcon(props: TourCloseIconProps) {
         <CloseButton
           {...triggerProps()}
           data-slot="tour-close-icon"
-          aria-label={local['aria-label'] ?? a11yLabels.closeTour}
+          aria-label={local['aria-label'] ?? labels().closeTour}
           class={cn(
             'absolute end-4 top-4 rounded-md not-data-disabled:hover:bg-accent not-data-disabled:hover:text-popover-foreground',
             local.class,

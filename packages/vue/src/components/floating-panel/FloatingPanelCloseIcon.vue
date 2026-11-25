@@ -4,7 +4,7 @@ import type { FloatingPanelCloseTriggerProps } from '@ark-ui/vue/floating-panel'
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import CloseButton from '../close-button/CloseButton.vue';
 import styles from './FloatingPanel.module.css';
 
@@ -19,12 +19,13 @@ const { ariaLabel, class: className } = defineProps<Props>();
 const slots = defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
+const labels = useA11yLabels();
 </script>
 
 <template>
   <ArkFloatingPanelCloseTrigger v-bind="attrs" as-child>
     <CloseButton
-      :aria-label="ariaLabel ?? a11yLabels.closePanel"
+      :aria-label="ariaLabel ?? labels.closePanel"
       :class="clsx(styles.controlButton, className)"
       data-slot="floating-panel-close-icon"
     >

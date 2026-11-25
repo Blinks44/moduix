@@ -15,14 +15,14 @@ const { class: className } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
-const { collapsed } = useSidebar();
+const { collapsed, isMobile } = useSidebar();
 </script>
 
 <template>
   <ark.div
     v-bind="attrs"
     :class="className"
-    :hidden="!collapsed"
+    :hidden="isMobile || !collapsed"
     data-scope="sidebar"
     data-part="collapsed-content"
     data-slot="sidebar-collapsed-content"

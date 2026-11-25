@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
 import CloseButton from '../close-button/CloseButton.vue';
@@ -29,6 +29,7 @@ defineSlots<{ default?: () => unknown }>();
 const attrs = useAttrs();
 const groupSize = useInputGroupSize();
 const buttonSize = computed(() => size ?? groupSize.value);
+const labels = useA11yLabels();
 </script>
 
 <template>
@@ -37,7 +38,7 @@ const buttonSize = computed(() => size ?? groupSize.value);
     :class="cn(inputGroupClearTriggerClass, className)"
     :data-size="buttonSize"
     :type="type"
-    :aria-label="ariaLabel ?? (ariaLabelledby == null ? a11yLabels.clearInput : undefined)"
+    :aria-label="ariaLabel ?? (ariaLabelledby == null ? labels.clearInput : undefined)"
     :aria-labelledby="ariaLabelledby"
     data-scope="input-group"
     data-part="clear-trigger"

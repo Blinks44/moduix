@@ -6,7 +6,7 @@
 
 <script lang="ts">
   import { TourCloseTrigger } from '@ark-ui/svelte/tour';
-  import { a11yLabels } from '@/lib/moduix/a11yLabels';
+  import { useA11yLabels } from '@/lib/moduix/a11yLabels';
   import { cn } from '@/lib/moduix/cn';
   import CloseButton from '../close-button/CloseButton.svelte';
 
@@ -17,13 +17,15 @@
     'aria-label': ariaLabel,
     ...props
   }: TourCloseIconProps = $props();
+
+  const labels = useA11yLabels();
 </script>
 
 <TourCloseTrigger {...props} bind:ref>
   {#snippet asChild(triggerProps)}
     <CloseButton
       {...triggerProps()}
-      aria-label={ariaLabel ?? a11yLabels.closeTour}
+      aria-label={ariaLabel ?? labels().closeTour}
       class={cn(
         'absolute end-4 top-4 rounded-md not-data-disabled:hover:bg-accent not-data-disabled:hover:text-popover-foreground',
         className,

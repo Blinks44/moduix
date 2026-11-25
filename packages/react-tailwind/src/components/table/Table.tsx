@@ -1,9 +1,11 @@
+'use client';
+
 import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { cva } from 'class-variance-authority';
 import type { ComponentRef } from 'react';
 import { forwardRef } from 'react';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 
 type TableSize = 'sm' | 'md' | 'lg';
@@ -238,9 +240,11 @@ const TableCell = forwardRef<ComponentRef<typeof ark.td>, TableCellProps>(functi
 });
 
 const TableEmpty = forwardRef<ComponentRef<typeof ark.td>, TableEmptyProps>(function TableEmpty(
-  { children = a11yLabels.noResults, className, ...props },
+  { children: childrenProp, className, ...props },
   ref,
 ) {
+  const labels = useA11yLabels();
+  const children = childrenProp === undefined ? labels.noResults : childrenProp;
   return (
     <TableRow data-empty>
       <ark.td

@@ -4,14 +4,19 @@ import { motion as createMotionRenderer } from '@tanstack/charts/motion';
 import type { ChartTooltipBodySlotContext as ChartTooltipBodyRenderContext } from '@tanstack/charts/vue';
 import type { HTMLAttributes, StyleValue, VNodeChild } from 'vue';
 
-const defaultChartRenderer = createMotionRenderer({
-  transition: {
-    type: 'spring',
-    stiffness: 260,
-    damping: 30,
-    mass: 0.8,
-  },
-});
+let defaultChartRenderer: ReturnType<typeof createMotionRenderer> | undefined;
+
+function getDefaultChartRenderer() {
+  defaultChartRenderer ??= createMotionRenderer({
+    transition: {
+      type: 'spring',
+      stiffness: 260,
+      damping: 30,
+      mass: 0.8,
+    },
+  });
+  return defaultChartRenderer;
+}
 
 export type { ChartTooltipBodyRenderContext };
 
@@ -118,7 +123,8 @@ const resolvedAspectRatio = computed(
 
 const resolvedRenderer = computed(
   () =>
-    (renderer ?? (motion === false ? svgChartRenderer : defaultChartRenderer)) as ChartRenderer<
+    (renderer ??
+      (motion === false ? svgChartRenderer : getDefaultChartRenderer())) as ChartRenderer<
       TDatum,
       TXValue,
       TYValue

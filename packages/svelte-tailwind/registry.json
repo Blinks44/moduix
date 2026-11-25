@@ -5439,9 +5439,10 @@
       "description": "moduix Svelte Tailwind Sidebar component.",
       "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
-        "@moduix-svelte-tailwind/foundation",
-        "@moduix-svelte-tailwind/cn",
         "@moduix-svelte-tailwind/a11y-labels",
+        "@moduix-svelte-tailwind/cn",
+        "@moduix-svelte-tailwind/drawer",
+        "@moduix-svelte-tailwind/foundation",
         "@moduix-svelte-tailwind/icons",
         "@moduix-svelte-tailwind/input",
         "@moduix-svelte-tailwind/separator",

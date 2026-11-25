@@ -1,8 +1,10 @@
+'use client';
+
 import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import { Fragment, forwardRef, type ComponentRef, type ReactNode } from 'react';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import { ChevronRightIcon, EllipsisIcon } from '@/lib/moduix/icons/ui';
 import styles from './Breadcrumbs.module.css';
 
@@ -17,10 +19,9 @@ type BreadcrumbsPathProps = Omit<HTMLArkProps<'ol'>, 'asChild' | 'children'> & {
 };
 
 const Breadcrumbs = forwardRef<ComponentRef<typeof ark.nav>, HTMLArkProps<'nav'>>(
-  function Breadcrumbs(
-    { className, 'aria-label': ariaLabel = a11yLabels.breadcrumb, ...props },
-    ref,
-  ) {
+  function Breadcrumbs({ className, 'aria-label': ariaLabelProp, ...props }, ref) {
+    const labels = useA11yLabels();
+    const ariaLabel = ariaLabelProp === undefined ? labels.breadcrumb : ariaLabelProp;
     return (
       <ark.nav
         ref={ref}

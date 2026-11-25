@@ -50,6 +50,7 @@
 </script>
 
 <FieldInput
+  data-slot="input-root"
   {...props}
   bind:ref
   bind:value
@@ -57,6 +58,5 @@
   class={cn(inputVariants({ size }), htmlSize !== undefined && 'w-auto', className)}
   data-scope="field"
   data-part="input"
-  data-slot="input-root"
   data-size={size}
 />

@@ -4,7 +4,7 @@ import type { DialogCloseTriggerProps } from '@ark-ui/vue/dialog';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import CloseButton from '../close-button/CloseButton.vue';
 import styles from './Dialog.module.css';
 
@@ -18,12 +18,13 @@ interface Props extends /* @vue-ignore */ Omit<DialogCloseTriggerProps, 'asChild
 const { ariaLabel, class: className } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 const attrs = useAttrs();
+const labels = useA11yLabels();
 </script>
 
 <template>
   <ArkDialogCloseTrigger v-bind="attrs" as-child>
     <CloseButton
-      :aria-label="ariaLabel ?? a11yLabels.closeDialog"
+      :aria-label="ariaLabel ?? labels.closeDialog"
       :class="clsx(styles.closeIcon, className)"
       data-slot="dialog-close-icon"
     >

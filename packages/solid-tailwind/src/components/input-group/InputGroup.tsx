@@ -3,7 +3,7 @@ import { ark } from '@ark-ui/solid/factory';
 import { cva } from 'class-variance-authority';
 import type { ComponentProps } from 'solid-js';
 import { createContext, splitProps, useContext } from 'solid-js';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
 import { Button } from '../button';
@@ -199,6 +199,7 @@ function InputGroupButton(props: ComponentProps<typeof Button>) {
 function InputGroupClearTrigger(
   props: ComponentProps<typeof CloseButton> & { size?: InputGroupSize },
 ) {
+  const labels = useA11yLabels();
   const [local, others] = splitProps(props, [
     'class',
     'children',
@@ -219,8 +220,7 @@ function InputGroupClearTrigger(
       class={cn(inputGroupClearTriggerClass, local.class)}
       type={local.type ?? 'button'}
       aria-label={
-        local['aria-label'] ??
-        (local['aria-labelledby'] == null ? a11yLabels.clearInput : undefined)
+        local['aria-label'] ?? (local['aria-labelledby'] == null ? labels().clearInput : undefined)
       }
       aria-labelledby={local['aria-labelledby']}
     >

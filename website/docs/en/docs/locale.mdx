@@ -13,7 +13,7 @@ that context.
 
 ## Import
 
-Import the utility from the matching moduix package, which re-exports the Ark UI locale provider:
+Import the providers and hooks from the matching moduix package:
 
 <Tabs
   groupId="framework"
@@ -28,28 +28,52 @@ Import the utility from the matching moduix package, which re-exports the Ark UI
   <Tab value="react">
 
 ```tsx
-import { LocaleProvider, useLocaleContext } from '@moduix/react/locale';
+import {
+  LabelsProvider,
+  LocaleProvider,
+  ModuixProvider,
+  useA11yLabels,
+  useLocaleContext,
+} from '@moduix/react/locale';
 ```
 
   </Tab>
   <Tab value="solid">
 
 ```tsx
-import { LocaleProvider, useLocaleContext } from '@moduix/solid/locale';
+import {
+  LabelsProvider,
+  LocaleProvider,
+  ModuixProvider,
+  useA11yLabels,
+  useLocaleContext,
+} from '@moduix/solid/locale';
 ```
 
   </Tab>
   <Tab value="vue">
 
 ```ts
-import { LocaleProvider, useLocaleContext } from '@moduix/vue/locale';
+import {
+  LabelsProvider,
+  LocaleProvider,
+  ModuixProvider,
+  useA11yLabels,
+  useLocaleContext,
+} from '@moduix/vue/locale';
 ```
 
   </Tab>
   <Tab value="svelte">
 
 ```ts
-import { LocaleProvider, useLocaleContext } from '@moduix/svelte/locale';
+import {
+  LabelsProvider,
+  LocaleProvider,
+  ModuixProvider,
+  useA11yLabels,
+  useLocaleContext,
+} from '@moduix/svelte/locale';
 ```
 
   </Tab>
@@ -122,23 +146,120 @@ directional icons.
 ## Translate default labels
 
 `LocaleProvider` does not translate text. Icon-only controls and a few landmarks, such as close buttons, clear buttons,
-`Spinner`, and `Breadcrumbs`, fall back to English accessible names like `Close` or `Clear search`. In a non-English
-interface, replace them in one of two ways.
+`Spinner`, `TableEmpty`, and `Breadcrumbs`, fall back to English accessible names like `Close` or `Clear search`.
 
-Pass `aria-label` or `aria-labelledby` where the component is used. A provided name always replaces the default:
+Wrap your application with `ModuixProvider` to set both `locale` and partial accessible label overrides in one place, or use `LabelsProvider` when you only want to override labels:
+
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
+    { label: 'Svelte', value: 'svelte' },
+  ]}
+  className="docs-tabs"
+>
+  <Tab value="react">
 
 ```tsx
-<DialogCloseIcon aria-label="Закрыть" />
-<CommandPaletteSearch aria-label="Поиск команд" />
+import { ModuixProvider } from '@moduix/react/locale';
+
+export function App() {
+  return (
+    <ModuixProvider
+      locale="de-DE"
+      labels={{
+        close: 'Schließen',
+        closeDialog: 'Dialog schließen',
+        clearSearch: 'Suche leeren',
+        loading: 'Wird geladen',
+        noResults: 'Keine Ergebnisse.',
+      }}
+    >
+      {/* app */}
+    </ModuixProvider>
+  );
+}
 ```
 
-With source installed by shadcn, the defaults live in `@/lib/moduix/a11yLabels.ts`. Translate the values in that file
-to change every default at once:
+  </Tab>
+  <Tab value="solid">
 
-```ts
-export const a11yLabels = {
-  closeDialog: 'Закрыть',
-  clearSearch: 'Очистить поиск',
-  // ...
-} as const;
+```tsx
+import { ModuixProvider } from '@moduix/solid/locale';
+
+export function App() {
+  return (
+    <ModuixProvider
+      locale="de-DE"
+      labels={{
+        close: 'Schließen',
+        closeDialog: 'Dialog schließen',
+        clearSearch: 'Suche leeren',
+        loading: 'Wird geladen',
+        noResults: 'Keine Ergebnisse.',
+      }}
+    >
+      {/* app */}
+    </ModuixProvider>
+  );
+}
 ```
+
+  </Tab>
+  <Tab value="vue">
+
+```vue
+<script setup lang="ts">
+import { ModuixProvider } from '@moduix/vue/locale';
+
+const labels = {
+  close: 'Schließen',
+  closeDialog: 'Dialog schließen',
+  clearSearch: 'Suche leeren',
+  loading: 'Wird geladen',
+  noResults: 'Keine Ergebnisse.',
+};
+</script>
+
+<template>
+  <ModuixProvider locale="de-DE" :labels="labels">
+    <!-- app -->
+  </ModuixProvider>
+</template>
+```
+
+  </Tab>
+  <Tab value="svelte">
+
+```svelte
+<script lang="ts">
+  import { ModuixProvider } from '@moduix/svelte/locale';
+
+  const labels = {
+    close: 'Schließen',
+    closeDialog: 'Dialog schließen',
+    clearSearch: 'Suche leeren',
+    loading: 'Wird geladen',
+    noResults: 'Keine Ergebnisse.',
+  };
+</script>
+
+<ModuixProvider locale="de-DE" {labels}>
+  <!-- app -->
+</ModuixProvider>
+```
+
+  </Tab>
+</Tabs>
+
+Nested `LabelsProvider` or `ModuixProvider` instances merge their `labels` over the nearest parent provider, while explicit per-component `aria-label` or `aria-labelledby` props always take precedence:
+
+```tsx
+<DialogCloseIcon aria-label="Dismiss modal" />
+<CommandPaletteSearch aria-label="Find a command" />
+```
+
+Custom components can read the active label map via `useA11yLabels()` (React returns `A11yLabels`, Solid returns `Accessor<A11yLabels>`, Vue returns `ComputedRef<A11yLabels>`, and Svelte returns `() => A11yLabels`).
+

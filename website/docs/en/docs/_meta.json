@@ -500,6 +500,14 @@
       {
         "label": "TanStack Form",
         "link": "/docs/tanstack-form"
+      },
+      {
+        "label": "VeeValidate",
+        "link": "/docs/vee-validate"
+      },
+      {
+        "label": "Superforms",
+        "link": "/docs/superforms"
       }
     ]
   },

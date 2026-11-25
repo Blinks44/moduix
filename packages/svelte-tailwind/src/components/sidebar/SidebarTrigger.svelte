@@ -7,7 +7,7 @@
 
 <script lang="ts">
   import { Ark } from '@ark-ui/svelte/factory';
-  import { a11yLabels } from '@/lib/moduix/a11yLabels';
+  import { useA11yLabels } from '@/lib/moduix/a11yLabels';
   import { cn } from '@/lib/moduix/cn';
   import { ChevronLeftIcon } from '@/lib/moduix/icons/ui';
   import { useSidebar } from './context';
@@ -34,6 +34,8 @@
     'focus-visible:outline-focus focus-visible:outline-offset-focus focus-visible:outline-sidebar-ring disabled:pointer-events-none disabled:opacity-disabled aria-disabled:pointer-events-none aria-disabled:opacity-disabled',
     "[&>svg:not([class*='size-'])]:size-4 [&>svg]:transition-transform [&>svg]:duration-normal [&>svg]:ease-in-out data-[side=left]:data-[state=collapsed]:[&>svg]:rotate-180 data-[side=right]:data-[state=expanded]:[&>svg]:rotate-180",
   ];
+
+  const labels = useA11yLabels();
 </script>
 
 <Ark
@@ -41,12 +43,12 @@
   {...props}
   bind:ref
   {type}
-  aria-label={typeof ariaLabel === 'string' ? ariaLabel : a11yLabels.toggleSidebar}
-  aria-expanded={!sidebar.collapsed}
+  aria-label={typeof ariaLabel === 'string' ? ariaLabel : labels().toggleSidebar}
+  aria-expanded={sidebar.isMobile ? sidebar.openMobile : !sidebar.collapsed}
   class={cn(triggerClass, className)}
   onclick={handleClick}
   data-side={sidebar.side}
-  data-state={sidebar.state}
+  data-state={sidebar.isMobile ? (sidebar.openMobile ? 'expanded' : 'collapsed') : sidebar.state}
   data-scope="sidebar"
   data-part="trigger"
   data-slot="sidebar-trigger"

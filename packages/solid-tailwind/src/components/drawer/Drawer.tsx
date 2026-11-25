@@ -8,7 +8,7 @@ import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import type { ComponentProps } from 'solid-js';
 import { splitProps } from 'solid-js';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import {
   OverlayPortal,
@@ -202,6 +202,7 @@ function DrawerCloseTrigger(props: ComponentProps<typeof DrawerPrimitive.CloseTr
 }
 
 function DrawerCloseIcon(props: DrawerCloseIconProps) {
+  const labels = useA11yLabels();
   const [local, others] = splitProps(props, ['aria-label', 'children', 'class']);
 
   return (
@@ -210,7 +211,7 @@ function DrawerCloseIcon(props: DrawerCloseIconProps) {
         <CloseButton
           {...triggerProps()}
           data-slot="drawer-close-icon"
-          aria-label={local['aria-label'] ?? a11yLabels.closeDrawer}
+          aria-label={local['aria-label'] ?? labels().closeDrawer}
           class={cn(
             'rounded-md not-data-disabled:hover:bg-accent not-data-disabled:hover:text-popover-foreground',
             local.class,

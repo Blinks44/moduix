@@ -25,6 +25,7 @@
 </script>
 
 <FieldInput
+  data-slot="input-root"
   {...props}
   bind:ref
   bind:value
@@ -32,6 +33,5 @@
   class={clsx(styles.root, className)}
   data-scope="field"
   data-part="input"
-  data-slot="input-root"
   data-size={size}
 />

@@ -1,0 +1,189 @@
+---
+title: VeeValidate
+description: Connect Vue moduix controls to VeeValidate with useForm, defineField, schema validation, reset, and server errors.
+---
+
+# VeeValidate
+
+[VeeValidate](https://vee-validate.logaretm.com/v4/) is a Vue-native form validation library with
+composable field bindings and schema validation via Zod, Valibot, or Yup. This guide connects it to
+moduix Vue components.
+
+## Framework support
+
+<PackageManagerTabs command="install vee-validate" />
+
+Use this integration with `@moduix/vue` or `@moduix/vue-tailwind`. For cross-framework form state,
+see [Formisch](/docs/formisch) or [TanStack Form](/docs/tanstack-form).
+
+## Connect controls
+
+Use `defineField` from `useForm()` for reactive two-way bindings, and map compound Ark UI controls
+to their public prop and emit contracts.
+
+| moduix control                      | VeeValidate mapping                                                       |
+| ----------------------------------- | ------------------------------------------------------------------------- |
+| `Input`, `Textarea`, `NativeSelect` | Bind `v-model="value"` and `v-bind="attrs"` from `defineField(name)`.     |
+| `Select`, `Combobox`                | Map scalar values to `:model-value="value ? [value] : []"` and `@value-change`. |
+| `Checkbox`, `Switch`                | Bind `:checked="value"` and `@checked-change="({ checked }) => (value = checked === true)"`. |
+| Other controlled compound controls  | Read the ref from `defineField` and update it from the control's change event. |
+
+Provide an initial value for every controlled field in `initialValues`. Keep each moduix native
+form part (`HiddenSelect`, `HiddenInput`) in the markup once and do not render a duplicate hidden
+input for the same field.
+
+## Validation and reset
+
+Pass a validation schema (such as `@vee-validate/zod` or `@vee-validate/valibot`) or field rules to
+`useForm()`. Pass `Boolean(errors[name])` to `Field :invalid` and render `errors[name]` inside
+`FieldErrorText`.
+
+Add `novalidate` to `<form>` when VeeValidate renders the visible errors. Call `resetForm()` to
+restore controlled moduix controls and validation state together.
+
+## Complete form
+
+This example combines `Input`, `Select`, `Checkbox`, `Switch`, and `Button` with `useForm()` and
+`defineField()`.
+
+```vue
+<script setup lang="ts">
+import { useForm } from 'vee-validate';
+import { Button } from '@moduix/vue/button';
+import { Checkbox } from '@moduix/vue/checkbox';
+import { Field, FieldErrorText, FieldLabel } from '@moduix/vue/field';
+import { Input } from '@moduix/vue/input';
+import {
+  Select,
+  SelectDropdown,
+  SelectField,
+  SelectHiddenSelect,
+  SelectOption,
+  createListCollection,
+} from '@moduix/vue/select';
+import { Switch } from '@moduix/vue/switch';
+
+interface InviteFormValues {
+  email: string;
+  role: string;
+  notifications: boolean;
+  terms: boolean;
+}
+
+const roles = createListCollection({
+  items: [
+    { label: 'Editor', value: 'editor' },
+    { label: 'Admin', value: 'admin' },
+    { label: 'Viewer', value: 'viewer' },
+  ],
+});
+
+const { defineField, errors, handleSubmit, isSubmitting, resetForm, setFieldError } =
+  useForm<InviteFormValues>({
+    initialValues: {
+      email: '',
+      role: 'editor',
+      notifications: true,
+      terms: false,
+    },
+    validationSchema: {
+      email(value: string) {
+        if (!value.trim()) return 'Email is required.';
+        if (!value.includes('@')) return 'Enter a valid email address.';
+        return true;
+      },
+      role(value: string) {
+        return value ? true : 'Choose a workspace role.';
+      },
+      terms(value: boolean) {
+        return value ? true : 'Accept the workspace terms to continue.';
+      },
+    },
+  });
+
+const [email, emailAttrs] = defineField('email');
+const [role] = defineField('role');
+const [notifications] = defineField('notifications');
+const [terms] = defineField('terms');
+
+const onSubmit = handleSubmit(async (values) => {
+  if (values.email === 'taken@example.com') {
+    setFieldError('email', 'This email is already invited.');
+    return;
+  }
+
+  // Submit values to your API here.
+});
+</script>
+
+<template>
+  <form novalidate @submit.prevent="onSubmit">
+    <Field :invalid="Boolean(errors.email)" required>
+      <FieldLabel>Work email</FieldLabel>
+      <Input v-model="email" v-bind="emailAttrs" type="email" name="email" autocomplete="email" />
+      <FieldErrorText>{{ errors.email }}</FieldErrorText>
+    </Field>
+
+    <Field :invalid="Boolean(errors.role)" required>
+      <FieldLabel>Role</FieldLabel>
+      <Select
+        name="role"
+        :collection="roles"
+        :model-value="role ? [role] : []"
+        @value-change="({ value }) => (role = value[0] ?? '')"
+      >
+        <SelectField placeholder="Select a role" />
+        <SelectDropdown>
+          <SelectOption v-for="item in roles.items" :key="item.value" :item="item">
+            {{ item.label }}
+          </SelectOption>
+        </SelectDropdown>
+        <SelectHiddenSelect />
+      </Select>
+      <FieldErrorText>{{ errors.role }}</FieldErrorText>
+    </Field>
+
+    <Switch
+      name="notifications"
+      label="Send weekly digest"
+      :checked="notifications"
+      @checked-change="({ checked }) => (notifications = checked === true)"
+    />
+
+    <Field :invalid="Boolean(errors.terms)">
+      <Checkbox
+        name="terms"
+        label="I accept the workspace terms"
+        :checked="terms"
+        @checked-change="({ checked }) => (terms = checked === true)"
+      />
+      <FieldErrorText>{{ errors.terms }}</FieldErrorText>
+    </Field>
+
+    <div>
+      <Button type="submit" :loading="isSubmitting" loading-text="Sending invite">
+        Send invite
+      </Button>
+      <Button type="button" variant="outline" @click="resetForm()">Reset</Button>
+    </div>
+  </form>
+</template>
+```
+
+## Repeated fields and server errors
+
+Use `useFieldArray` for dynamic lists. Key rows with the stable `field.key` returned by
+`useFieldArray`, and wrap the group in `Fieldset` for a shared legend and error message.
+
+Use `setFieldError(name, message)` or `setErrors(fieldErrors)` to map server validation responses
+back to individual `FieldErrorText` parts. Render non-field request failures in a form-level
+`role="alert"` container and keep the user's entered values intact.
+
+## Focus and behavior
+
+- Use `handleSubmit(onValid, onInvalid)` and focus the first `[aria-invalid="true"]` control in
+  `onInvalid` so keyboard users land directly on the failing field.
+- Pass `validateOnModelUpdate: false` to `defineField` if you prefer blur-and-submit validation
+  instead of validating on every keystroke.
+- Use `isSubmitting` with `<Button :loading="isSubmitting">` to prevent duplicate submissions while
+  keeping the button accessible.

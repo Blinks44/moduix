@@ -5,7 +5,7 @@
     type ComboboxClearTriggerProps,
   } from '@ark-ui/svelte/combobox';
   import { clsx } from 'clsx';
-  import { a11yLabels } from '@/lib/moduix/a11yLabels';
+  import { useA11yLabels } from '@/lib/moduix/a11yLabels';
   import { CloseIcon } from '@/lib/moduix/icons/ui';
   import closeButtonStyles from '../close-button/CloseButton.module.css';
   import styles from './CommandPalette.module.css';
@@ -32,14 +32,15 @@
       combobox().setInputValue('');
     }
   };
+
+  const labels = useA11yLabels();
 </script>
 
 <ComboboxClearTrigger
   {...props}
   bind:ref
   {asChild}
-  aria-label={ariaLabel ??
-    (!asChild && ariaLabelledby == null ? a11yLabels.clearSearch : undefined)}
+  aria-label={ariaLabel ?? (!asChild && ariaLabelledby == null ? labels().clearSearch : undefined)}
   aria-labelledby={ariaLabelledby}
   class={clsx(closeButtonStyles.root, styles.clearTrigger, className)}
   hidden={combobox().inputValue === ''}

@@ -19,5 +19,10 @@ const attrs = useAttrs();
 </script>
 
 <template>
-  <Separator v-bind="attrs" :class="clsx(styles.separator, props.class)"><slot /></Separator>
+  <Separator
+    data-slot="sidebar-separator"
+    v-bind="attrs"
+    :class="clsx(styles.separator, props.class)"
+    ><slot
+  /></Separator>
 </template>

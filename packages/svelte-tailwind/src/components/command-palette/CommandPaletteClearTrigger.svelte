@@ -4,7 +4,7 @@
     useComboboxContext,
     type ComboboxClearTriggerProps,
   } from '@ark-ui/svelte/combobox';
-  import { a11yLabels } from '@/lib/moduix/a11yLabels';
+  import { useA11yLabels } from '@/lib/moduix/a11yLabels';
   import { cn } from '@/lib/moduix/cn';
   import { CloseIcon } from '@/lib/moduix/icons/ui';
 
@@ -30,14 +30,15 @@
       combobox().setInputValue('');
     }
   };
+
+  const labels = useA11yLabels();
 </script>
 
 <ComboboxClearTrigger
   {...props}
   bind:ref
   {asChild}
-  aria-label={ariaLabel ??
-    (!asChild && ariaLabelledby == null ? a11yLabels.clearSearch : undefined)}
+  aria-label={ariaLabel ?? (!asChild && ariaLabelledby == null ? labels().clearSearch : undefined)}
   aria-labelledby={ariaLabelledby}
   class={cn(
     `m-0 inline-flex size-control-xs shrink-0 cursor-pointer appearance-none items-center justify-center rounded-sm border-0 bg-transparent p-0 text-muted-foreground transition-[background-color,color,opacity] duration-normal ease-in-out select-none not-data-disabled:hover:bg-muted not-data-disabled:hover:text-foreground focus-visible:outline-focus focus-visible:outline-offset-focus focus-visible:outline-ring data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-disabled [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4`,

@@ -8,7 +8,7 @@
 <script lang="ts">
   import { Ark } from '@ark-ui/svelte/factory';
   import { clsx } from 'clsx';
-  import { a11yLabels } from '@/lib/moduix/a11yLabels';
+  import { useA11yLabels } from '@/lib/moduix/a11yLabels';
   import { ChevronLeftIcon } from '@/lib/moduix/icons/ui';
   import { useSidebar } from './context';
   import styles from './Sidebar.module.css';
@@ -29,6 +29,8 @@
     onclick?.(event);
     if (!event.defaultPrevented) sidebar.toggleSidebar();
   };
+
+  const labels = useA11yLabels();
 </script>
 
 <Ark
@@ -36,12 +38,12 @@
   {...props}
   bind:ref
   {type}
-  aria-label={typeof ariaLabel === 'string' ? ariaLabel : a11yLabels.toggleSidebar}
-  aria-expanded={!sidebar.collapsed}
+  aria-label={typeof ariaLabel === 'string' ? ariaLabel : labels().toggleSidebar}
+  aria-expanded={sidebar.isMobile ? sidebar.openMobile : !sidebar.collapsed}
   class={clsx(styles.trigger, className)}
   onclick={handleClick}
   data-side={sidebar.side}
-  data-state={sidebar.state}
+  data-state={sidebar.isMobile ? (sidebar.openMobile ? 'expanded' : 'collapsed') : sidebar.state}
   data-scope="sidebar"
   data-part="trigger"
   data-slot="sidebar-trigger"

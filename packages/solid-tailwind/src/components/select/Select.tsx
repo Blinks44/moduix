@@ -8,8 +8,8 @@ import {
   useSelectItemContext,
 } from '@ark-ui/solid/select';
 import type { ComponentProps, JSX } from 'solid-js';
-import { children, splitProps } from 'solid-js';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { children, Show, splitProps } from 'solid-js';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import { CheckIcon, ChevronUpDownIcon } from '@/lib/moduix/icons/ui';
 import {
@@ -151,6 +151,7 @@ const clearTriggerClassName =
   'absolute inset-y-0 end-[calc(var(--_select-action-offset)+var(--_select-action-size)+0.125rem)] my-auto size-(--_select-action-size)';
 
 function SelectClearTrigger(props: ComponentProps<typeof SelectPrimitive.ClearTrigger>) {
+  const labels = useA11yLabels();
   const [local, others] = splitProps(props, [
     'aria-label',
     'aria-labelledby',
@@ -159,8 +160,33 @@ function SelectClearTrigger(props: ComponentProps<typeof SelectPrimitive.ClearTr
     'class',
   ]);
 
-  if (local.asChild) {
-    return (
+  return (
+    <Show
+      when={local.asChild}
+      fallback={
+        <SelectPrimitive.ClearTrigger
+          asChild={(triggerProps) => {
+            const resolvedProps = triggerProps();
+
+            return (
+              <CloseButton
+                {...resolvedProps}
+                aria-label={
+                  local['aria-label'] ??
+                  (local['aria-labelledby'] == null ? labels().clearSelection : undefined)
+                }
+                aria-labelledby={local['aria-labelledby']}
+              >
+                {local.children}
+              </CloseButton>
+            );
+          }}
+          class={cn(clearTriggerClassName, local.class)}
+          {...others}
+          data-slot="select-clear-trigger"
+        />
+      }
+    >
       <SelectPrimitive.ClearTrigger
         asChild={local.asChild}
         aria-label={local['aria-label']}
@@ -171,31 +197,7 @@ function SelectClearTrigger(props: ComponentProps<typeof SelectPrimitive.ClearTr
       >
         {local.children}
       </SelectPrimitive.ClearTrigger>
-    );
-  }
-
-  return (
-    <SelectPrimitive.ClearTrigger
-      asChild={(triggerProps) => {
-        const resolvedProps = triggerProps();
-
-        return (
-          <CloseButton
-            {...resolvedProps}
-            aria-label={
-              local['aria-label'] ??
-              (local['aria-labelledby'] == null ? a11yLabels.clearSelection : undefined)
-            }
-            aria-labelledby={local['aria-labelledby']}
-          >
-            {local.children}
-          </CloseButton>
-        );
-      }}
-      class={cn(clearTriggerClassName, local.class)}
-      {...others}
-      data-slot="select-clear-trigger"
-    />
+    </Show>
   );
 }
 

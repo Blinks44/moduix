@@ -1,7 +1,7 @@
 <script lang="ts">
   import { ComboboxClearTrigger, type ComboboxClearTriggerProps } from '@ark-ui/svelte/combobox';
   import { clsx } from 'clsx';
-  import { a11yLabels } from '@/lib/moduix/a11yLabels';
+  import { useA11yLabels } from '@/lib/moduix/a11yLabels';
   import CloseButton from '../close-button/CloseButton.svelte';
   import styles from './Combobox.module.css';
 
@@ -14,6 +14,8 @@
     'aria-labelledby': ariaLabelledBy,
     ...props
   }: ComboboxClearTriggerProps = $props();
+
+  const labels = useA11yLabels();
 </script>
 
 {#if asChild}
@@ -36,7 +38,7 @@
     {#snippet asChild(triggerProps)}
       <CloseButton
         {...triggerProps()}
-        aria-label={ariaLabel ?? (ariaLabelledBy == null ? a11yLabels.clearSelection : undefined)}
+        aria-label={ariaLabel ?? (ariaLabelledBy == null ? labels().clearSelection : undefined)}
         aria-labelledby={ariaLabelledBy}
         {children}
       />

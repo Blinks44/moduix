@@ -10,7 +10,7 @@ import { ark, type HTMLArkProps } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -198,10 +198,9 @@ const DrawerCloseTrigger = forwardRef<
 const DrawerCloseIcon = forwardRef<
   ComponentRef<typeof CloseButton>,
   Omit<ComponentProps<typeof DrawerPrimitive.CloseTrigger>, 'asChild'>
->(function DrawerCloseIcon(
-  { className, children, 'aria-label': ariaLabel = a11yLabels.closeDrawer, ...props },
-  ref,
-) {
+>(function DrawerCloseIcon({ className, children, 'aria-label': ariaLabelProp, ...props }, ref) {
+  const labels = useA11yLabels();
+  const ariaLabel = ariaLabelProp === undefined ? labels.closeDrawer : ariaLabelProp;
   return (
     <DrawerPrimitive.CloseTrigger asChild {...props}>
       <CloseButton

@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { ComboboxInputProps } from '@ark-ui/svelte/combobox';
-  import { a11yLabels } from '@/lib/moduix/a11yLabels';
+  import { useA11yLabels } from '@/lib/moduix/a11yLabels';
   import { SearchIcon } from '@/lib/moduix/icons/ui';
   import styles from './CommandPalette.module.css';
   import CommandPaletteClearTrigger from './CommandPaletteClearTrigger.svelte';
@@ -13,6 +13,8 @@
     'aria-labelledby': ariaLabelledby,
     ...props
   }: ComboboxInputProps = $props();
+
+  const labels = useA11yLabels();
 </script>
 
 <CommandPaletteControl>
@@ -20,7 +22,7 @@
   <CommandPaletteInput
     {...props}
     bind:ref
-    aria-label={ariaLabel ?? (ariaLabelledby == null ? a11yLabels.searchCommands : undefined)}
+    aria-label={ariaLabel ?? (ariaLabelledby == null ? labels().searchCommands : undefined)}
     aria-labelledby={ariaLabelledby}
   />
   <CommandPaletteClearTrigger />

@@ -21,5 +21,7 @@ const attrs = useAttrs();
 </script>
 
 <template>
-  <Input v-bind="attrs" :class="clsx(styles.input, props.class)"><slot /></Input>
+  <Input data-slot="sidebar-input" v-bind="attrs" :class="clsx(styles.input, props.class)"
+    ><slot
+  /></Input>
 </template>

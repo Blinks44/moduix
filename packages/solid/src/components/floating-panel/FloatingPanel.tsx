@@ -11,7 +11,7 @@ import { clsx } from 'clsx';
 import type { ComponentProps } from 'solid-js';
 import { For, children, splitProps } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import { GripIcon, MaximizeIcon, MinusIcon, RestoreIcon } from '@/lib/moduix/icons/ui';
 import {
   OverlayPortal,
@@ -196,6 +196,7 @@ function FloatingPanelCloseTrigger(
 }
 
 function FloatingPanelCloseIcon(props: FloatingPanelCloseIconProps) {
+  const labels = useA11yLabels();
   const [local, others] = splitProps(props, ['aria-label', 'aria-labelledby', 'children', 'class']);
 
   return (
@@ -204,7 +205,7 @@ function FloatingPanelCloseIcon(props: FloatingPanelCloseIconProps) {
         <CloseButton
           {...triggerProps()}
           data-slot="floating-panel-close-icon"
-          aria-label={local['aria-label'] ?? a11yLabels.closePanel}
+          aria-label={local['aria-label'] ?? labels().closePanel}
           aria-labelledby={local['aria-labelledby']}
           class={clsx(styles.controlButton, local.class)}
         >

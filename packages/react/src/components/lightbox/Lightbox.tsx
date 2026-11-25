@@ -5,7 +5,7 @@ import { ark, type HTMLArkProps } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, RefObject } from 'react';
 import { forwardRef, useEffect } from 'react';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -186,10 +186,9 @@ const LightboxCloseTrigger = forwardRef<
 const LightboxCloseIcon = forwardRef<
   ComponentRef<typeof CloseButton>,
   Omit<ComponentProps<typeof DialogPrimitive.CloseTrigger>, 'asChild'>
->(function LightboxCloseIcon(
-  { className, children, 'aria-label': ariaLabel = a11yLabels.closeImage, ...props },
-  ref,
-) {
+>(function LightboxCloseIcon({ className, children, 'aria-label': ariaLabelProp, ...props }, ref) {
+  const labels = useA11yLabels();
+  const ariaLabel = ariaLabelProp === undefined ? labels.closeImage : ariaLabelProp;
   return (
     <DialogPrimitive.CloseTrigger asChild {...props}>
       <CloseButton

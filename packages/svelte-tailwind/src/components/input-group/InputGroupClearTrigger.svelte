@@ -8,7 +8,7 @@
 </script>
 
 <script lang="ts">
-  import { a11yLabels } from '@/lib/moduix/a11yLabels';
+  import { useA11yLabels } from '@/lib/moduix/a11yLabels';
   import { cn } from '@/lib/moduix/cn';
   import { CloseIcon } from '@/lib/moduix/icons/ui';
   import CloseButton from '../close-button/CloseButton.svelte';
@@ -28,6 +28,8 @@
 
   const groupSize = useInputGroupSize();
   const buttonSize = $derived(size ?? groupSize());
+
+  const labels = useA11yLabels();
 </script>
 
 <CloseButton
@@ -36,7 +38,7 @@
   class={cn(inputGroupClearTriggerClass, className)}
   data-size={buttonSize}
   {type}
-  aria-label={ariaLabel ?? (ariaLabelledby == null ? a11yLabels.clearInput : undefined)}
+  aria-label={ariaLabel ?? (ariaLabelledby == null ? labels().clearInput : undefined)}
   aria-labelledby={ariaLabelledby}
   data-scope="input-group"
   data-part="clear-trigger"

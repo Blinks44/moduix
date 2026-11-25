@@ -2,7 +2,7 @@ import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import { clsx } from 'clsx';
 import { splitProps } from 'solid-js';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import { CloseButton } from '../close-button';
 import styles from './Tag.module.css';
 
@@ -72,6 +72,7 @@ function TagEndElement(props: HTMLArkProps<'span'>) {
 }
 
 function TagCloseTrigger(props: HTMLArkProps<'button'>) {
+  const labels = useA11yLabels();
   const [local, others] = splitProps(props, ['aria-label', 'class']);
 
   return (
@@ -81,7 +82,7 @@ function TagCloseTrigger(props: HTMLArkProps<'button'>) {
       data-part="close-trigger"
       data-slot="tag-close-trigger"
       aria-label={
-        local['aria-label'] ?? (others['aria-labelledby'] == null ? a11yLabels.closeTag : undefined)
+        local['aria-label'] ?? (others['aria-labelledby'] == null ? labels().closeTag : undefined)
       }
       class={clsx(styles.closeTrigger, local.class)}
     />

@@ -4,7 +4,7 @@ import { Popover as PopoverPrimitive, usePopover, usePopoverContext } from '@ark
 import { clsx } from 'clsx';
 import type { ComponentProps } from 'solid-js';
 import { children, splitProps } from 'solid-js';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -168,6 +168,7 @@ function PopoverCloseTrigger(props: ComponentProps<typeof PopoverPrimitive.Close
 }
 
 function PopoverCloseIcon(props: PopoverCloseIconProps) {
+  const labels = useA11yLabels();
   const [local, others] = splitProps(props, ['aria-label', 'children', 'class']);
 
   return (
@@ -176,7 +177,7 @@ function PopoverCloseIcon(props: PopoverCloseIconProps) {
         <CloseButton
           {...triggerProps()}
           data-slot="popover-close-icon"
-          aria-label={local['aria-label'] ?? a11yLabels.closePopover}
+          aria-label={local['aria-label'] ?? labels().closePopover}
           class={clsx(styles.closeIcon, local.class)}
         >
           {local.children}

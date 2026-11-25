@@ -3,7 +3,7 @@ import { ark } from '@ark-ui/solid/factory';
 import { clsx } from 'clsx';
 import type { JSX } from 'solid-js';
 import { children as resolveChildren, splitProps } from 'solid-js';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
 import styles from './CloseButton.module.css';
 
@@ -22,6 +22,7 @@ const ArkButton = ark.button as (
 ) => JSX.Element;
 
 function CloseButton(props: CloseButtonProps) {
+  const labels = useA11yLabels();
   const [local, others] = splitProps(props, [
     'asChild',
     'aria-disabled',
@@ -68,7 +69,7 @@ function CloseButton(props: CloseButtonProps) {
       class={clsx(styles.root, local.class)}
       aria-disabled={local.asChild && local.disabled ? true : local['aria-disabled']}
       aria-label={
-        local['aria-label'] ?? (local['aria-labelledby'] == null ? a11yLabels.close : undefined)
+        local['aria-label'] ?? (local['aria-labelledby'] == null ? labels().close : undefined)
       }
       aria-labelledby={local['aria-labelledby']}
       oncapture:click={handleClickCapture}

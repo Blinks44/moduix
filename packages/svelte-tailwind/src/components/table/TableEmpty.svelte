@@ -11,7 +11,7 @@
 
 <script lang="ts">
   import { Ark } from '@ark-ui/svelte/factory';
-  import { a11yLabels } from '@/lib/moduix/a11yLabels';
+  import { useA11yLabels } from '@/lib/moduix/a11yLabels';
   import { cn } from '@/lib/moduix/cn';
   import TableRow from './TableRow.svelte';
 
@@ -22,6 +22,8 @@
     ref = $bindable(null),
     ...props
   }: TableEmptyProps = $props();
+
+  const labels = useA11yLabels();
 </script>
 
 <TableRow data-empty>
@@ -42,7 +44,7 @@
     {#if children}
       {@render children()}
     {:else}
-      {a11yLabels.noResults}
+      {labels().noResults}
     {/if}
   </Ark>
 </TableRow>

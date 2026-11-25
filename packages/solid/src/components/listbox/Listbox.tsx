@@ -11,7 +11,7 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps } from 'solid-js';
 import { children, splitProps } from 'solid-js';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import { CheckIcon, SearchIcon } from '@/lib/moduix/icons/ui';
 import { CloseButton } from '../close-button';
 import styles from './Listbox.module.css';
@@ -76,12 +76,13 @@ function ListboxFilter(props: ComponentProps<'div'>) {
 }
 
 function ListboxClearTrigger(props: HTMLArkProps<'button'>) {
+  const labels = useA11yLabels();
   const [local, others] = splitProps(props, ['aria-label', 'class']);
 
   return (
     <CloseButton
       class={clsx(styles.clearTrigger, local.class)}
-      aria-label={local['aria-label'] ?? a11yLabels.clearSearch}
+      aria-label={local['aria-label'] ?? labels().clearSearch}
       {...others}
       data-slot="listbox-clear-trigger"
     />

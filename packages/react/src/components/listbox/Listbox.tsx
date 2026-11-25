@@ -15,7 +15,7 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, ForwardedRef } from 'react';
 import { forwardRef } from 'react';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import { CheckIcon, SearchIcon } from '@/lib/moduix/icons/ui';
 import { CloseButton } from '../close-button';
 import styles from './Listbox.module.css';
@@ -89,10 +89,9 @@ const ListboxFilter = forwardRef<HTMLDivElement, ComponentProps<'div'>>(function
 });
 
 const ListboxClearTrigger = forwardRef<ComponentRef<typeof ark.button>, HTMLArkProps<'button'>>(
-  function ListboxClearTrigger(
-    { 'aria-label': ariaLabel = a11yLabels.clearSearch, className, ...props },
-    ref,
-  ) {
+  function ListboxClearTrigger({ 'aria-label': ariaLabelProp, className, ...props }, ref) {
+    const labels = useA11yLabels();
+    const ariaLabel = ariaLabelProp === undefined ? labels.clearSearch : ariaLabelProp;
     return (
       <CloseButton
         ref={ref}

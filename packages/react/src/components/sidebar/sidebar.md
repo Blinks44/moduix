@@ -12,8 +12,13 @@ tokens, and the icon-rail behavior. Chakra UI v3 has no Sidebar.
 ## Contract
 
 - `Sidebar` is a horizontal Ark Splitter root with two panels; `orientation` and `panels` are not
-  public. The sidebar panel starts at `16rem`, resizes down to a `3rem` collapsed icon rail, and
-  stops at `18rem`. The inset (`id="content"`) has no minimum so narrow containers can still collapse.
+  public. The sidebar panel starts at `16rem`, resizes down to `minSize` (`'3rem'`), collapses to
+  `collapsedSize` (`'3rem'`), and stops at `maxSize` (`'18rem'`). Set `collapsible={false}` to
+  disable rail collapsing. The inset (`id="content"`) has no minimum so narrow containers can still
+  collapse.
+- `mobileBreakpoint?: number | string` enables an opt-in responsive `Drawer` fallback when the
+  viewport matches `(max-width: <breakpoint>)` (numbers are treated as `px`). Control the drawer
+  with `mobileOpen`, `defaultMobileOpen`, and `onMobileOpenChange`.
 - `side="left" | "right"` sets panel order, the resize trigger id, the floating trigger position,
   and its icon direction. Render the parts in visual order: `Panel → ResizeTrigger → Trigger → Inset`
   for left, `Inset → Trigger → ResizeTrigger → Panel` for right.
@@ -23,13 +28,14 @@ tokens, and the icon-rail behavior. Chakra UI v3 has no Sidebar.
 - `SidebarPanel`, `SidebarInset`, `SidebarResizeTrigger`, `SidebarTrigger`, `SidebarTooltip`,
   `SidebarExpandedContent`, `SidebarCollapsedContent`, and `useSidebar()` need the Splitter context
   created by `Sidebar`. The other parts are plain styled wrappers.
-- `useSidebar()` returns `collapsed`, `side`, `state` (`'expanded' | 'collapsed'`), and
-  `toggleSidebar()`, which reads the Ark state when called.
+- `useSidebar()` returns `collapsed`, `isMobile`, `openMobile`, `setOpenMobile`, `side`, `state`
+  (`'expanded' | 'collapsed'`), and `toggleSidebar()`, which toggles the mobile drawer when
+  `isMobile` is active or reads the Ark splitter state on desktop.
 - `SidebarTrigger` is a zero-width flex item on the resize line, `type="button"`,
   `aria-label="Toggle sidebar"`, `aria-expanded`. A consumer `onClick` runs first and can cancel the
   toggle with `event.preventDefault()`. Default child: `ChevronLeftIcon`.
 - `SidebarResizeTrigger` defaults to `aria-label="Resize sidebar"` and renders
-  `SplitterResizeTriggerIndicator` unless it gets children or `asChild`.
+  `SplitterResizeTriggerIndicator` unless it gets children or `asChild`. Hidden when `isMobile`.
 - `SidebarNavigationButton` (`button`, `active`, `size="sm" | "md" | "lg"`) and
   `SidebarNavigationSubButton` (`a`, `active`) set `data-active` and default `aria-current="page"`
   when active. Both support `asChild`.
@@ -39,8 +45,9 @@ tokens, and the icon-rail behavior. Chakra UI v3 has no Sidebar.
   the content away from the sidebar (`openDelay` 200, `closeDelay` 0, `gutter` 8).
 - `SidebarExpandedContent` / `SidebarCollapsedContent` set `hidden` from the panel state. They do not
   own Menu or Collapsible state.
-- `SidebarInput` and `SidebarSeparator` keep the `input-root` / `separator-root` slots of their
-  primitives; they add full width and collapsed hiding, and the sidebar border color.
+- `SidebarInput` and `SidebarSeparator` emit `data-slot="sidebar-input"` and
+  `data-slot="sidebar-separator"` while preserving their underlying `Input` / `Separator`
+  primitives, full-width and collapsed hiding, and sidebar border color.
 - Types: `SidebarRootProps`, `SidebarSide`, `SidebarNavigationButtonSize`.
 
 ## Anatomy
@@ -64,8 +71,9 @@ Sidebar
 └─ SidebarInset
 ```
 
-Every part except `SidebarTooltip`, `SidebarInput`, and `SidebarSeparator` has a
-`data-slot="sidebar-*"` hook. `SidebarPanel` exposes `data-state`, side-aware parts expose `data-side`.
+Every rendered part except `SidebarTooltip` has a `data-slot="sidebar-*"` hook. `SidebarPanel`
+exposes `data-state` (and `data-mobile` inside the mobile drawer), and side-aware parts expose
+`data-side`.
 
 ## Composition
 

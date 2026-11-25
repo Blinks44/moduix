@@ -4,7 +4,7 @@ import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
 import styles from './CloseButton.module.css';
 
@@ -35,6 +35,7 @@ const CloseButton = forwardRef<HTMLButtonElement, CloseButtonProps>(function Clo
   ref,
 ) {
   // A parent Ark part that composes CloseButton through asChild passes its own data-disabled.
+  const labels = useA11yLabels();
   const isDisabled =
     disabled || ariaDisabled === true || ariaDisabled === 'true' || dataDisabled !== undefined;
 
@@ -46,7 +47,7 @@ const CloseButton = forwardRef<HTMLButtonElement, CloseButtonProps>(function Clo
       type={asChild ? type : (type ?? 'button')}
       disabled={asChild ? undefined : disabled}
       aria-disabled={asChild && disabled ? true : ariaDisabled}
-      aria-label={ariaLabel ?? (ariaLabelledBy == null ? a11yLabels.close : undefined)}
+      aria-label={ariaLabel ?? (ariaLabelledBy == null ? labels.close : undefined)}
       aria-labelledby={ariaLabelledBy}
       onClickCapture={(event) => {
         // Stopping capture also skips every bubble onClick, including the composed child.

@@ -30,6 +30,22 @@
     renderTooltipBody?: Snippet<[ChartTooltipBodyRenderContext<TDatum, TXValue, TYValue>]>;
   }
 
+  import { motion as createMotionRenderer } from '@tanstack/charts/motion';
+
+  let defaultChartRenderer: ReturnType<typeof createMotionRenderer> | undefined;
+
+  function getDefaultChartRenderer() {
+    defaultChartRenderer ??= createMotionRenderer({
+      transition: {
+        type: 'spring',
+        stiffness: 260,
+        damping: 30,
+        mass: 0.8,
+      },
+    });
+    return defaultChartRenderer;
+  }
+
   export type { ChartTooltipBodyContext };
 </script>
 
@@ -40,19 +56,9 @@
   import type { ChartTooltipBodyTarget, ChartTooltipContent } from '@tanstack/charts';
   import { resolveChartAdapterLayout } from '@tanstack/charts/adapter';
   import { createChartRendererAdapter } from '@tanstack/charts/adapter/renderer';
-  import { motion as createMotionRenderer } from '@tanstack/charts/motion';
   import { svgChartRenderer } from '@tanstack/charts/svg/renderer';
   import { onMount, untrack } from 'svelte';
   import { cn } from '@/lib/moduix/cn';
-
-  const defaultChartRenderer = createMotionRenderer({
-    transition: {
-      type: 'spring',
-      stiffness: 260,
-      damping: 30,
-      mass: 0.8,
-    },
-  });
 
   const plotClass =
     'min-w-0 text-muted-foreground [--ts-chart-tooltip-background:--theme(--color-popover)] [--ts-chart-tooltip-border-radius:--theme(--radius-md)] [--ts-chart-tooltip-border:1px_solid_--theme(--color-border)] [--ts-chart-tooltip-color:--theme(--color-popover-foreground)] [--ts-chart-tooltip-font:--theme(--font-weight-medium)_--theme(--text-xs)/--theme(--text-xs--line-height)_--theme(--font-sans)] [--ts-chart-tooltip-padding:--spacing(3)] [--ts-chart-tooltip-shadow:--theme(--shadow-lg)] [&_.ts-chart]:rounded-md [&_.ts-chart]:outline-none [&_.ts-chart:focus-visible]:outline-focus [&_.ts-chart:focus-visible]:outline-offset-focus [&_.ts-chart:focus-visible]:outline-ring';
@@ -73,7 +79,8 @@
     resolveChartAdapterLayout({ aspectRatio: hostProps.aspectRatio }).aspectRatio,
   );
   const resolvedRenderer = $derived(
-    (renderer ?? (motion === false ? svgChartRenderer : defaultChartRenderer)) as ChartRenderer<
+    (renderer ??
+      (motion === false ? svgChartRenderer : getDefaultChartRenderer())) as ChartRenderer<
       TDatum,
       TXValue,
       TYValue

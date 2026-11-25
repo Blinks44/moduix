@@ -60,13 +60,13 @@ const Separator = forwardRef<HTMLSpanElement, SeparatorRootProps>(function Separ
 
   return (
     <ark.span
+      data-slot="separator-root"
       {...props}
       ref={ref}
       role={resolvedRole}
       aria-orientation={resolvedRole === 'separator' ? orientation : undefined}
       data-scope="separator"
       data-part="root"
-      data-slot="separator-root"
       data-orientation={orientation}
       data-size={size}
       data-variant={variant}

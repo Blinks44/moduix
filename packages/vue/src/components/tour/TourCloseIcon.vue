@@ -4,7 +4,7 @@ import type { TourCloseTriggerProps } from '@ark-ui/vue/tour';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import CloseButton from '../close-button/CloseButton.vue';
 import styles from './Tour.module.css';
 
@@ -19,12 +19,13 @@ const { class: className, ariaLabel } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
+const labels = useA11yLabels();
 </script>
 
 <template>
   <ArkTourCloseTrigger v-bind="attrs" as-child>
     <CloseButton
-      :aria-label="ariaLabel ?? a11yLabels.closeTour"
+      :aria-label="ariaLabel ?? labels.closeTour"
       :class="clsx(styles.closeIcon, className)"
       data-slot="tour-close-icon"
     >

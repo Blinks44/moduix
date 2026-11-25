@@ -63,6 +63,7 @@
 
 <Ark
   as="span"
+  data-slot="separator-root"
   {...props}
   bind:ref
   class={cn(separatorVariants({ orientation, size, variant }), className)}
@@ -70,7 +71,6 @@
   aria-orientation={resolvedRole === 'separator' ? orientation : undefined}
   data-scope="separator"
   data-part="root"
-  data-slot="separator-root"
   data-orientation={orientation}
   data-size={size}
   data-variant={variant}

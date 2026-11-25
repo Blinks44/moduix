@@ -11,7 +11,7 @@
 <script lang="ts">
   import { MenuTrigger } from '@ark-ui/svelte/menu';
   import { clsx } from 'clsx';
-  import { a11yLabels } from '@/lib/moduix/a11yLabels';
+  import { useA11yLabels } from '@/lib/moduix/a11yLabels';
   import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
   import Button from '../button/Button.svelte';
   import { useSplitButtonContext } from './context';
@@ -27,9 +27,11 @@
   }: SplitButtonTriggerProps = $props();
 
   const context = useSplitButtonContext('SplitButtonTrigger');
+
+  const labels = useA11yLabels();
 </script>
 
-<MenuTrigger aria-label={children ? undefined : a11yLabels.moreActions} {...props} bind:ref>
+<MenuTrigger aria-label={children ? undefined : labels().moreActions} {...props} bind:ref>
   {#snippet asChild(triggerProps)}
     <Button
       {...triggerProps({ class: clsx(styles.trigger, className) })}

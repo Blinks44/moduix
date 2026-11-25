@@ -196,6 +196,8 @@ Hover or focus a variable to see it in the preview.
 | `SidebarNavigationSubList` | `sidebar-navigation-sub-list` |
 | `SidebarNavigationSubItem` | `sidebar-navigation-sub-item` |
 | `SidebarNavigationSubButton` | `sidebar-navigation-sub-button` |
+| `SidebarInput` | `sidebar-input` |
+| `SidebarSeparator` | `sidebar-separator` |
 
 Sidebar shell parts also expose `data-scope="sidebar"` and `data-part`. `SidebarInput` and
 `SidebarSeparator` retain the scopes of their underlying primitives, while Ark-backed layout parts
@@ -213,14 +215,23 @@ retain Splitter state attributes such as `data-focus`, `data-dragging`, `data-di
 
 ## API reference
 
-`Sidebar` also takes the `Splitter` props except `orientation` and `panels`; the sidebar panel is 3rem to 18rem and collapses to 3rem.
+`Sidebar` also takes the `Splitter` props except `orientation` and `panels`. By default, the sidebar panel resizes between `3rem` and `18rem` and collapses to `3rem`. Pass `mobileBreakpoint` (for example `768` or `'48rem'`) to switch `SidebarPanel` into a slide-over `Drawer` on narrow viewports.
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
 | `side` | `'left' \| 'right'` | `'left'` | Side of the sidebar panel: `left` or `right`. |
 | `panelId` | `string` | `'sidebar'` | Id of the sidebar panel in the Splitter. |
+| `minSize` | `number \| string` | `'3rem'` | Minimum size of the sidebar panel. |
+| `maxSize` | `number \| string` | `'18rem'` | Maximum size of the sidebar panel. |
+| `collapsedSize` | `number \| string` | `'3rem'` | Panel size when collapsed. |
+| `collapsible` | `boolean` | `true` | Whether the sidebar panel can collapse. |
 | `defaultSize` | `PanelSize[]` | `['16rem']` | Initial panel sizes. |
 | `size` | `PanelSize[]` | — | Panel sizes for controlled use. |
+| `mobileBreakpoint` | `number \| string` | — | Viewport `max-width` at which `SidebarPanel` renders inside a mobile `Drawer`. |
+| `mobileOpen` | `boolean` | — | Controlled open state of the mobile drawer. |
+| `defaultMobileOpen` | `boolean` | `false` | Initial open state of the mobile drawer when uncontrolled. |
+| `onMobileOpenChange` | `(open: boolean) => void` | — | Called when the mobile drawer opens or closes (`update:mobileOpen` in Vue, `bind:mobileOpen` in Svelte). |
 | `onResize` | `(details: ResizeDetails) => void` | — | Called while the panels resize. |
 | `onCollapse` | `(details: ExpandCollapseDetails) => void` | — | Called when the sidebar collapses. |
 | `onExpand` | `(details: ExpandCollapseDetails) => void` | — | Called when the sidebar expands. |
+

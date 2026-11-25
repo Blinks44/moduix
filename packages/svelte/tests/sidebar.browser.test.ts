@@ -13,6 +13,7 @@ import NativeHarness from './sidebar/NativeHarness.svelte';
 import NavigationHarness from './sidebar/NavigationHarness.svelte';
 import RightHarness from './sidebar/RightHarness.svelte';
 import SelectHarness from './sidebar/SelectHarness.svelte';
+import Stage5CHarness from './sidebar/Stage5CHarness.svelte';
 import TooltipHarness from './sidebar/TooltipHarness.svelte';
 
 test('keeps the default panel, inset, and resize ids aligned', async () => {
@@ -139,8 +140,8 @@ test('composes the explicit group, input, separator, and footer anatomy', async 
   await expect
     .element(page.getByRole('button', { name: 'Overview' }))
     .toHaveAttribute('data-slot', 'sidebar-navigation-button');
-  expect(component.getRefs().inputRef?.getAttribute('data-slot')).toBe('input-root');
-  expect(component.getRefs().separatorRef?.getAttribute('data-slot')).toBe('separator-root');
+  expect(component.getRefs().inputRef?.getAttribute('data-slot')).toBe('sidebar-input');
+  expect(component.getRefs().separatorRef?.getAttribute('data-slot')).toBe('sidebar-separator');
 });
 
 test('preserves Svelte refs, fallthrough attrs, and asChild hosts', async () => {
@@ -250,4 +251,25 @@ test('emits collapse on the first controlled transition in direct Ark', async ()
   await page.getByRole('button', { name: 'Native collapse' }).click();
   expect(component.getSize()).toEqual([6, 94]);
   expect(events).toEqual(['sidebar']);
+});
+
+test('supports configurable panel size bounds', async () => {
+  render(Stage5CHarness, { props: { mode: 'sizes' } });
+
+  await expect.element(page.getByTestId('constraints')).toContainText('5rem:4rem');
+});
+
+test('switches to a mobile Drawer below mobileBreakpoint', async () => {
+  render(Stage5CHarness, { props: { mode: 'mobile' } });
+
+  const trigger = page.getByRole('button', { name: 'Toggle sidebar' });
+  await expect.element(trigger).toHaveAttribute('aria-expanded', 'false');
+  await expect.element(page.getByTestId('mobile-resize')).toHaveAttribute('hidden');
+
+  await trigger.click();
+  await expect.element(page.getByRole('button', { name: 'Mobile nav link' })).toBeVisible();
+  expect(
+    document.querySelector('[data-slot="sidebar-trigger"]')?.getAttribute('aria-expanded'),
+  ).toBe('true');
+  expect(document.querySelector('[data-slot="sidebar-panel"][data-mobile]')).not.toBeNull();
 });

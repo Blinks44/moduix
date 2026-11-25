@@ -1,4 +1,4 @@
-export { LocaleProvider, useLocaleContext } from '@ark-ui/solid/locale';
+export * from './locale.js';
 
 export * from './components/accordion/index.js';
 export * from './components/alert/index.js';

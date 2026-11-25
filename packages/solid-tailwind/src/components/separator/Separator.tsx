@@ -60,12 +60,12 @@ function Separator(props: SeparatorRootProps) {
 
   return (
     <ark.span
+      data-slot="separator-root"
       {...others}
       role={role()}
       aria-orientation={role() === 'separator' ? orientation() : undefined}
       data-scope="separator"
       data-part="root"
-      data-slot="separator-root"
       data-orientation={orientation()}
       data-size={size()}
       data-variant={variant()}

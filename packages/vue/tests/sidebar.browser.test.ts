@@ -385,8 +385,8 @@ test('composes the explicit group, input, separator, and footer anatomy', async 
   await expect
     .element(page.getByRole('button', { name: 'Overview' }))
     .toHaveAttribute('data-slot', 'sidebar-navigation-button');
-  expect(inputRef.value?.$el?.getAttribute('data-slot')).toBe('input-root');
-  expect(separatorRef.value?.$el?.getAttribute('data-slot')).toBe('separator-root');
+  expect(inputRef.value?.$el?.getAttribute('data-slot')).toBe('sidebar-input');
+  expect(separatorRef.value?.$el?.getAttribute('data-slot')).toBe('sidebar-separator');
 });
 
 test('preserves Vue refs, fallthrough attrs, and asChild hosts', async () => {
@@ -641,4 +641,62 @@ test('hydrates without id drift and preserves refs, styles, and toggling', async
     app.unmount();
     host.remove();
   }
+});
+
+test('supports configurable panel size bounds', async () => {
+  const CustomConstraints = defineComponent({
+    setup() {
+      const splitter = useSplitterContext();
+      const panel = computed(() => splitter.value.getPanelById('sidebar'));
+      return { panel };
+    },
+    template:
+      '<output data-testid="custom-constraints">{{ panel.minSize }}:{{ panel.maxSize }}:{{ panel.collapsedSize }}:{{ panel.collapsible }}</output>',
+  });
+
+  render(
+    defineComponent({
+      components: { ...components, CustomConstraints },
+      template: `
+        <Sidebar min-size="5rem" max-size="24rem" collapsed-size="4rem">
+          <SidebarPanel><CustomConstraints /></SidebarPanel>
+          <SidebarResizeTrigger />
+          <SidebarInset />
+        </Sidebar>
+      `,
+    }),
+  );
+
+  await expect
+    .element(page.getByTestId('custom-constraints'))
+    .toContainText('5rem:24rem:4rem:true');
+});
+
+test('switches to a mobile Drawer below mobileBreakpoint', async () => {
+  render(
+    defineComponent({
+      components,
+      template: `
+        <Sidebar :mobile-breakpoint="9999">
+          <SidebarPanel>
+            <button type="button">Mobile nav link</button>
+          </SidebarPanel>
+          <SidebarResizeTrigger data-testid="mobile-resize" />
+          <SidebarTrigger />
+          <SidebarInset>Main content</SidebarInset>
+        </Sidebar>
+      `,
+    }),
+  );
+
+  const trigger = page.getByRole('button', { name: 'Toggle sidebar' });
+  await expect.element(trigger).toHaveAttribute('aria-expanded', 'false');
+  await expect.element(page.getByTestId('mobile-resize')).toHaveAttribute('hidden');
+
+  await trigger.click();
+  await expect.element(page.getByRole('button', { name: 'Mobile nav link' })).toBeVisible();
+  expect(
+    document.querySelector('[data-slot="sidebar-trigger"]')?.getAttribute('aria-expanded'),
+  ).toBe('true');
+  expect(document.querySelector('[data-slot="sidebar-panel"][data-mobile]')).not.toBeNull();
 });

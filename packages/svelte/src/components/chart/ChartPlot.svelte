@@ -30,6 +30,22 @@
     renderTooltipBody?: Snippet<[ChartTooltipBodyRenderContext<TDatum, TXValue, TYValue>]>;
   }
 
+  import { motion as createMotionRenderer } from '@tanstack/charts/motion';
+
+  let defaultChartRenderer: ReturnType<typeof createMotionRenderer> | undefined;
+
+  function getDefaultChartRenderer() {
+    defaultChartRenderer ??= createMotionRenderer({
+      transition: {
+        type: 'spring',
+        stiffness: 260,
+        damping: 30,
+        mass: 0.8,
+      },
+    });
+    return defaultChartRenderer;
+  }
+
   export type { ChartTooltipBodyContext };
 </script>
 
@@ -40,20 +56,11 @@
   import type { ChartTooltipBodyTarget, ChartTooltipContent } from '@tanstack/charts';
   import { resolveChartAdapterLayout } from '@tanstack/charts/adapter';
   import { createChartRendererAdapter } from '@tanstack/charts/adapter/renderer';
-  import { motion as createMotionRenderer } from '@tanstack/charts/motion';
   import { svgChartRenderer } from '@tanstack/charts/svg/renderer';
   import { clsx } from 'clsx';
   import { onMount, untrack } from 'svelte';
   import styles from './Chart.module.css';
 
-  const defaultChartRenderer = createMotionRenderer({
-    transition: {
-      type: 'spring',
-      stiffness: 260,
-      damping: 30,
-      mass: 0.8,
-    },
-  });
   let {
     class: className,
     idPrefix,
@@ -71,7 +78,8 @@
     resolveChartAdapterLayout({ aspectRatio: hostProps.aspectRatio }).aspectRatio,
   );
   const resolvedRenderer = $derived(
-    (renderer ?? (motion === false ? svgChartRenderer : defaultChartRenderer)) as ChartRenderer<
+    (renderer ??
+      (motion === false ? svgChartRenderer : getDefaultChartRenderer())) as ChartRenderer<
       TDatum,
       TXValue,
       TYValue

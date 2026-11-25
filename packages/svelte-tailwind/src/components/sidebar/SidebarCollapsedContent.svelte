@@ -18,7 +18,7 @@
   as="div"
   {...props}
   bind:ref
-  hidden={!sidebar.collapsed}
+  hidden={sidebar.isMobile || !sidebar.collapsed}
   data-scope="sidebar"
   data-part="collapsed-content"
   data-slot="sidebar-collapsed-content"

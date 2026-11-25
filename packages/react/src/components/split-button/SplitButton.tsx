@@ -10,7 +10,7 @@ import {
   type ComponentRef,
   type ReactNode,
 } from 'react';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 import { OverlayPortal } from '@/lib/moduix/overlayPortal';
 import { Button } from '../button';
@@ -118,6 +118,7 @@ const SplitButtonTrigger = forwardRef<
   { children, className, size, variant, 'aria-label': ariaLabel, ...props },
   ref,
 ) {
+  const labels = useA11yLabels();
   const context = useSplitButtonContext('SplitButtonTrigger');
   const isIconOnly = children == null;
 
@@ -125,7 +126,7 @@ const SplitButtonTrigger = forwardRef<
     <MenuPrimitive.Trigger
       ref={ref}
       asChild
-      aria-label={isIconOnly ? (ariaLabel ?? a11yLabels.moreActions) : ariaLabel}
+      aria-label={isIconOnly ? (ariaLabel ?? labels.moreActions) : ariaLabel}
       className={clsx(styles.trigger, className)}
       {...props}
       data-slot="split-button-trigger"

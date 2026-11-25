@@ -12,7 +12,7 @@ import {
 } from '@ark-ui/react/tour';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import {
   OverlayPortal,
@@ -210,10 +210,9 @@ const TourCloseTrigger = forwardRef<
 });
 
 const TourCloseIcon = forwardRef<ComponentRef<typeof CloseButton>, TourCloseIconProps>(
-  function TourCloseIcon(
-    { className, children, 'aria-label': ariaLabel = a11yLabels.closeTour, ...props },
-    ref,
-  ) {
+  function TourCloseIcon({ className, children, 'aria-label': ariaLabelProp, ...props }, ref) {
+    const labels = useA11yLabels();
+    const ariaLabel = ariaLabelProp === undefined ? labels.closeTour : ariaLabelProp;
     return (
       <TourPrimitive.CloseTrigger asChild {...props}>
         <CloseButton

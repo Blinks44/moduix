@@ -11,14 +11,19 @@ import type { CSSProperties } from 'react';
 import { forwardRef } from 'react';
 import styles from './Chart.module.css';
 
-const defaultChartRenderer = createMotionRenderer({
-  transition: {
-    type: 'spring',
-    stiffness: 260,
-    damping: 30,
-    mass: 0.8,
-  },
-});
+let defaultChartRenderer: ReturnType<typeof createMotionRenderer> | undefined;
+
+function getDefaultChartRenderer() {
+  defaultChartRenderer ??= createMotionRenderer({
+    transition: {
+      type: 'spring',
+      stiffness: 260,
+      damping: 30,
+      mass: 0.8,
+    },
+  });
+  return defaultChartRenderer;
+}
 
 const Chart = forwardRef<HTMLElement, HTMLArkProps<'figure'>>(function Chart(
   { className, ...props },
@@ -105,7 +110,7 @@ const ChartPlot = function ChartPlot<
   return (
     <ChartPrimitive
       {...props}
-      renderer={renderer ?? (motion ? defaultChartRenderer : svgChartRenderer)}
+      renderer={renderer ?? (motion ? getDefaultChartRenderer() : svgChartRenderer)}
       renderTooltipBody={(context) => {
         const defaultBody = renderDefaultTooltipBody(context.content);
         return (

@@ -4,10 +4,19 @@ import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { Splitter as SplitterPrimitive } from '@ark-ui/react/splitter';
 import type { ComponentProps, ComponentRef } from 'react';
-import { createContext, forwardRef, useContext } from 'react';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import {
+  createContext,
+  forwardRef,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+  useSyncExternalStore,
+} from 'react';
+import { useA11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import { ChevronLeftIcon } from '@/lib/moduix/icons/ui';
+import { Drawer, DrawerPanel } from '../drawer';
 import { Input } from '../input';
 import { Separator } from '../separator';
 import {
@@ -23,6 +32,14 @@ import { Tooltip, TooltipContent, TooltipPositioner, TooltipTrigger } from '../t
 type SidebarSide = 'left' | 'right';
 type SidebarNavigationButtonSize = 'sm' | 'md' | 'lg';
 type SidebarRootProps = Omit<ComponentProps<typeof Splitter>, 'orientation' | 'panels'> & {
+  collapsedSize?: number | string;
+  collapsible?: boolean;
+  defaultMobileOpen?: boolean;
+  maxSize?: number | string;
+  minSize?: number | string;
+  mobileBreakpoint?: number | string;
+  mobileOpen?: boolean;
+  onMobileOpenChange?: (open: boolean) => void;
   panelId?: string;
   side?: SidebarSide;
 };
@@ -36,18 +53,42 @@ const navigationButtonSizes = {
   lg: 'min-h-control-lg',
 } satisfies Record<SidebarNavigationButtonSize, string>;
 
-const SidebarConfigContext = createContext<{ panelId: string; side: SidebarSide }>({
+interface SidebarConfigContextValue {
+  isMobile: boolean;
+  openMobile: boolean;
+  panelId: string;
+  setOpenMobile: (open: boolean) => void;
+  side: SidebarSide;
+}
+
+const SidebarConfigContext = createContext<SidebarConfigContextValue>({
+  isMobile: false,
+  openMobile: false,
   panelId: 'sidebar',
+  setOpenMobile: () => {},
   side: 'left',
 });
 
-function getPanels(side: SidebarSide, panelId: string): SplitterPanelData[] {
-  const sidebar = {
+function formatBreakpoint(breakpoint: number | string): string {
+  return typeof breakpoint === 'number' ? `${breakpoint}px` : breakpoint;
+}
+
+function getPanels(
+  side: SidebarSide,
+  panelId: string,
+  options: {
+    collapsedSize: number | string;
+    collapsible: boolean;
+    maxSize: number | string;
+    minSize: number | string;
+  },
+): SplitterPanelData[] {
+  const sidebar: SplitterPanelData = {
     id: panelId,
-    minSize: '3rem',
-    maxSize: '18rem',
-    collapsible: true,
-    collapsedSize: '3rem',
+    minSize: options.minSize,
+    maxSize: options.maxSize,
+    collapsible: options.collapsible,
+    ...(options.collapsible ? { collapsedSize: options.collapsedSize } : {}),
   };
   const content = { id: 'content' };
   return side === 'left' ? [sidebar, content] : [content, sidebar];
@@ -61,17 +102,90 @@ function getDefaultSize(side: SidebarSide): SidebarSizes {
 
 const Sidebar = forwardRef<ComponentRef<typeof SplitterPrimitive.Root>, SidebarRootProps>(
   function Sidebar(
-    { className, defaultSize, panelId = 'sidebar', side = 'left', style, ...props },
+    {
+      className,
+      collapsedSize = '3rem',
+      collapsible = true,
+      defaultMobileOpen = false,
+      defaultSize,
+      maxSize = '18rem',
+      minSize = '3rem',
+      mobileBreakpoint,
+      mobileOpen,
+      onMobileOpenChange,
+      panelId = 'sidebar',
+      side = 'left',
+      style,
+      ...props
+    },
     ref,
   ) {
+    const mediaQuery =
+      mobileBreakpoint == null ? undefined : `(max-width: ${formatBreakpoint(mobileBreakpoint)})`;
+    const subscribeMediaQuery = useCallback(
+      (onStoreChange: () => void) => {
+        if (
+          mediaQuery == null ||
+          typeof window === 'undefined' ||
+          typeof window.matchMedia !== 'function'
+        ) {
+          return () => {};
+        }
+        const query = window.matchMedia(mediaQuery);
+        query.addEventListener('change', onStoreChange);
+        return () => query.removeEventListener('change', onStoreChange);
+      },
+      [mediaQuery],
+    );
+    const getMediaQuerySnapshot = useCallback(() => {
+      if (
+        mediaQuery == null ||
+        typeof window === 'undefined' ||
+        typeof window.matchMedia !== 'function'
+      ) {
+        return false;
+      }
+      return window.matchMedia(mediaQuery).matches;
+    }, [mediaQuery]);
+    const isMobile = useSyncExternalStore(subscribeMediaQuery, getMediaQuerySnapshot, () => false);
+    const [uncontrolledMobileOpen, setUncontrolledMobileOpen] = useState(defaultMobileOpen);
+    const openMobile = mobileOpen ?? uncontrolledMobileOpen;
+
+    const setOpenMobile = useCallback(
+      (open: boolean) => {
+        if (mobileOpen === undefined) {
+          setUncontrolledMobileOpen(open);
+        }
+        onMobileOpenChange?.(open);
+      },
+      [mobileOpen, onMobileOpenChange],
+    );
+
+    const configValue = useMemo<SidebarConfigContextValue>(
+      () => ({
+        isMobile,
+        openMobile,
+        panelId,
+        setOpenMobile,
+        side,
+      }),
+      [isMobile, openMobile, panelId, setOpenMobile, side],
+    );
+
+    const panels = useMemo(
+      () => getPanels(side, panelId, { collapsedSize, collapsible, maxSize, minSize }),
+      [side, panelId, collapsedSize, collapsible, maxSize, minSize],
+    );
+
     return (
-      <SidebarConfigContext.Provider value={{ panelId, side }}>
+      <SidebarConfigContext.Provider value={configValue}>
         <SplitterPrimitive.Root
           {...props}
           ref={ref}
-          panels={getPanels(side, panelId)}
+          panels={panels}
           defaultSize={defaultSize ?? getDefaultSize(side)}
           orientation="horizontal"
+          data-mobile={isMobile ? '' : undefined}
           data-side={side}
           data-slot="sidebar-root"
           className={cn(
@@ -86,25 +200,64 @@ const Sidebar = forwardRef<ComponentRef<typeof SplitterPrimitive.Root>, SidebarR
 );
 
 function useSidebar() {
-  const { panelId, side } = useContext(SidebarConfigContext);
+  const { isMobile, openMobile, panelId, setOpenMobile, side } = useContext(SidebarConfigContext);
   const splitter = useSplitterContext();
   const collapsed = splitter.isPanelCollapsed(panelId);
 
   return {
     collapsed,
+    isMobile,
+    openMobile,
+    setOpenMobile,
     side,
     state: collapsed ? 'collapsed' : 'expanded',
     toggleSidebar: () => {
-      if (splitter.isPanelCollapsed(panelId)) splitter.expandPanel(panelId);
-      else splitter.collapsePanel(panelId);
+      if (isMobile) {
+        setOpenMobile(!openMobile);
+      } else if (splitter.isPanelCollapsed(panelId)) {
+        splitter.expandPanel(panelId);
+      } else {
+        splitter.collapsePanel(panelId);
+      }
     },
   };
 }
 
 const SidebarPanel = forwardRef<ComponentRef<typeof SplitterPrimitive.Panel>, SidebarPanelProps>(
-  function SidebarPanel({ className, ...props }, ref) {
-    const { panelId } = useContext(SidebarConfigContext);
+  function SidebarPanel({ children, className, style, ...props }, ref) {
+    const { isMobile, openMobile, panelId, setOpenMobile } = useContext(SidebarConfigContext);
     const { side, state } = useSidebar();
+
+    if (isMobile) {
+      return (
+        <>
+          <SplitterPrimitive.Panel id={panelId} hidden style={{ display: 'none' }} />
+          <Drawer
+            open={openMobile}
+            onOpenChange={({ open }) => setOpenMobile(open)}
+            swipeDirection={side === 'right' ? 'end' : 'start'}
+          >
+            <DrawerPanel size="sm" className="p-0">
+              <ark.div
+                {...props}
+                ref={ref}
+                data-mobile=""
+                data-side={side}
+                data-slot="sidebar-panel"
+                data-state="expanded"
+                className={cn(
+                  'group/sidebar-panel @container/sidebar-panel relative flex size-full min-w-0 flex-col overflow-hidden bg-sidebar text-sidebar-foreground',
+                  className,
+                )}
+                style={style}
+              >
+                {children}
+              </ark.div>
+            </DrawerPanel>
+          </Drawer>
+        </>
+      );
+    }
 
     return (
       <SplitterPrimitive.Panel
@@ -118,7 +271,10 @@ const SidebarPanel = forwardRef<ComponentRef<typeof SplitterPrimitive.Panel>, Si
           'group/sidebar-panel @container/sidebar-panel relative flex min-w-0 flex-col overflow-hidden bg-sidebar text-sidebar-foreground data-dragging:select-none',
           className,
         )}
-      />
+        style={style}
+      >
+        {children}
+      </SplitterPrimitive.Panel>
     );
   },
 );
@@ -147,10 +303,12 @@ const SidebarResizeTrigger = forwardRef<
   ComponentRef<typeof SplitterPrimitive.ResizeTrigger>,
   SidebarResizeTriggerProps
 >(function SidebarResizeTrigger(
-  { asChild, children, className, 'aria-label': ariaLabel = a11yLabels.resizeSidebar, ...props },
+  { asChild, children, className, hidden, 'aria-label': ariaLabelProp, ...props },
   ref,
 ) {
-  const { panelId, side } = useContext(SidebarConfigContext);
+  const labels = useA11yLabels();
+  const ariaLabel = ariaLabelProp === undefined ? labels.resizeSidebar : ariaLabelProp;
+  const { isMobile, panelId, side } = useContext(SidebarConfigContext);
 
   return (
     <SplitterPrimitive.ResizeTrigger
@@ -158,6 +316,7 @@ const SidebarResizeTrigger = forwardRef<
       {...props}
       ref={ref}
       asChild={asChild}
+      hidden={isMobile || hidden}
       id={side === 'left' ? `${panelId}:content` : `content:${panelId}`}
       aria-label={ariaLabel}
       data-side={side}
@@ -175,24 +334,21 @@ const SidebarResizeTrigger = forwardRef<
 
 const SidebarTrigger = forwardRef<HTMLButtonElement, HTMLArkProps<'button'>>(
   function SidebarTrigger(
-    {
-      className,
-      children,
-      onClick,
-      type = 'button',
-      'aria-label': ariaLabel = a11yLabels.toggleSidebar,
-      ...props
-    },
+    { className, children, onClick, type = 'button', 'aria-label': ariaLabelProp, ...props },
     ref,
   ) {
-    const { collapsed, side, state, toggleSidebar } = useSidebar();
+    const labels = useA11yLabels();
+    const ariaLabel = ariaLabelProp === undefined ? labels.toggleSidebar : ariaLabelProp;
+    const { collapsed, isMobile, openMobile, side, state, toggleSidebar } = useSidebar();
+    const expanded = isMobile ? openMobile : !collapsed;
+    const triggerState = isMobile ? (openMobile ? 'expanded' : 'collapsed') : state;
 
     return (
       <ark.button
         ref={ref}
         type={type}
         aria-label={ariaLabel}
-        aria-expanded={!collapsed}
+        aria-expanded={expanded}
         className={cn(
           'relative z-4 -mx-3.5 inline-flex size-7 flex-none translate-y-10 cursor-pointer items-center justify-center rounded-full border border-sidebar-border bg-background p-0 text-muted-foreground shadow-sm outline-0 transition-colors duration-normal ease-in-out hover:bg-sidebar-accent hover:text-sidebar-accent-foreground',
           'focus-visible:outline-focus focus-visible:outline-offset-focus focus-visible:outline-sidebar-ring disabled:pointer-events-none disabled:opacity-disabled aria-disabled:pointer-events-none aria-disabled:opacity-disabled',
@@ -207,7 +363,7 @@ const SidebarTrigger = forwardRef<HTMLButtonElement, HTMLArkProps<'button'>>(
         data-scope="sidebar"
         data-part="trigger"
         data-side={side}
-        data-state={state}
+        data-state={triggerState}
         data-slot="sidebar-trigger"
       >
         {children ?? <ChevronLeftIcon />}
@@ -275,7 +431,7 @@ const SidebarContent = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function 
 
 const SidebarExpandedContent = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
   function SidebarExpandedContent(props, ref) {
-    const { collapsed } = useSidebar();
+    const { collapsed, isMobile } = useSidebar();
 
     return (
       <ark.div
@@ -284,7 +440,7 @@ const SidebarExpandedContent = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
         data-scope="sidebar"
         data-part="expanded-content"
         data-slot="sidebar-expanded-content"
-        hidden={collapsed}
+        hidden={!isMobile && collapsed}
       />
     );
   },
@@ -292,7 +448,7 @@ const SidebarExpandedContent = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
 
 const SidebarCollapsedContent = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
   function SidebarCollapsedContent(props, ref) {
-    const { collapsed } = useSidebar();
+    const { collapsed, isMobile } = useSidebar();
 
     return (
       <ark.div
@@ -301,7 +457,7 @@ const SidebarCollapsedContent = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
         data-scope="sidebar"
         data-part="collapsed-content"
         data-slot="sidebar-collapsed-content"
-        hidden={!collapsed}
+        hidden={isMobile || !collapsed}
       />
     );
   },
@@ -549,35 +705,36 @@ const SidebarNavigationSubButton = forwardRef<
   );
 });
 
-const SidebarTooltip = function SidebarTooltip({
-  children,
-  content,
-  openDelay = 200,
-  closeDelay = 0,
-  positioning,
-  ...props
-}: Omit<ComponentProps<typeof Tooltip>, 'children' | 'disabled' | 'positioning'> & {
-  children: ComponentProps<typeof TooltipTrigger>['children'];
-  content: ComponentProps<typeof TooltipContent>['children'];
-  positioning?: ComponentProps<typeof Tooltip>['positioning'];
-}) {
-  const { collapsed, side } = useSidebar();
+const SidebarTooltip = forwardRef<
+  ComponentRef<typeof TooltipTrigger>,
+  Omit<ComponentProps<typeof Tooltip>, 'children' | 'disabled' | 'positioning'> & {
+    children: ComponentProps<typeof TooltipTrigger>['children'];
+    content: ComponentProps<typeof TooltipContent>['children'];
+    positioning?: ComponentProps<typeof Tooltip>['positioning'];
+  }
+>(function SidebarTooltip(
+  { children, content, openDelay = 200, closeDelay = 0, positioning, ...props },
+  ref,
+) {
+  const { collapsed, isMobile, side } = useSidebar();
 
   return (
     <Tooltip
       {...props}
       openDelay={openDelay}
       closeDelay={closeDelay}
-      disabled={!collapsed}
+      disabled={isMobile || !collapsed}
       positioning={{ placement: side === 'left' ? 'right' : 'left', gutter: 8, ...positioning }}
     >
-      <TooltipTrigger asChild>{children}</TooltipTrigger>
+      <TooltipTrigger ref={ref} asChild>
+        {children}
+      </TooltipTrigger>
       <TooltipPositioner>
         <TooltipContent>{content}</TooltipContent>
       </TooltipPositioner>
     </Tooltip>
   );
-};
+});
 
 const SidebarInput = forwardRef<ComponentRef<typeof Input>, ComponentProps<typeof Input>>(
   function SidebarInput({ className, ...props }, ref) {
@@ -585,6 +742,7 @@ const SidebarInput = forwardRef<ComponentRef<typeof Input>, ComponentProps<typeo
       <Input
         ref={ref}
         className={cn('w-full group-data-[state=collapsed]/sidebar-panel:hidden', className)}
+        data-slot="sidebar-input"
         {...props}
       />
     );
@@ -595,7 +753,14 @@ const SidebarSeparator = forwardRef<
   ComponentRef<typeof Separator>,
   ComponentProps<typeof Separator>
 >(function SidebarSeparator({ className, ...props }, ref) {
-  return <Separator ref={ref} className={cn('border-sidebar-border', className)} {...props} />;
+  return (
+    <Separator
+      ref={ref}
+      className={cn('border-sidebar-border', className)}
+      data-slot="sidebar-separator"
+      {...props}
+    />
+  );
 });
 
 export {
