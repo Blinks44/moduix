@@ -4,7 +4,7 @@
     type PasswordInputIndicatorProps,
   } from '@ark-ui/svelte/password-input';
   import { clsx } from 'clsx';
-  import { EyeClosedIcon, EyeIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import styles from './PasswordInput.module.css';
 
   let {
@@ -17,11 +17,11 @@
 </script>
 
 {#snippet visible()}
-  <EyeIcon />
+  <UiIcon icon="eye" />
 {/snippet}
 
 {#snippet hidden()}
-  <EyeClosedIcon />
+  <UiIcon icon="eye-closed" />
 {/snippet}
 
 <PasswordInputIndicator

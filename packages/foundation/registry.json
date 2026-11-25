@@ -7,77 +7,17 @@
       "name": "core",
       "type": "registry:item",
       "title": "moduix core",
-      "description": "Runtime styles and utilities required by moduix registry components.",
-      "docs": "Required: import the installed style.css once in your app entry. The optional reset is a separate registry item and must be imported before style.css.",
+      "description": "Runtime styles, design tokens, and optional reset required by moduix CSS Modules registry components.",
+      "docs": "Import reset.css (optional if your app already has a CSS reset) followed by style.css once in your app entry.",
       "files": [
         {
-          "path": "src/styles/animations.css",
-          "target": "@lib/moduix/styles/animations.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "src/styles/borders.css",
-          "target": "@lib/moduix/styles/borders.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "src/styles/colors.css",
-          "target": "@lib/moduix/styles/colors.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "src/styles/opacity.css",
-          "target": "@lib/moduix/styles/opacity.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "src/styles/radius.css",
-          "target": "@lib/moduix/styles/radius.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "src/styles/shadows.css",
-          "target": "@lib/moduix/styles/shadows.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "src/styles/sizing.css",
-          "target": "@lib/moduix/styles/sizing.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "src/styles/spacing.css",
-          "target": "@lib/moduix/styles/spacing.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "src/styles/style.css",
+          "path": "dist/registry/style.css",
           "target": "@lib/moduix/styles/style.css",
           "type": "registry:file"
         },
         {
-          "path": "src/styles/tokens.css",
-          "target": "@lib/moduix/styles/tokens.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "src/styles/transforms.css",
-          "target": "@lib/moduix/styles/transforms.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "src/styles/transitions.css",
-          "target": "@lib/moduix/styles/transitions.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "src/styles/typography.css",
-          "target": "@lib/moduix/styles/typography.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "src/styles/z-index.css",
-          "target": "@lib/moduix/styles/z-index.css",
+          "path": "src/styles/reset.css",
+          "target": "@lib/moduix/styles/reset.css",
           "type": "registry:file"
         }
       ]
@@ -86,82 +26,12 @@
       "name": "core-tailwind",
       "type": "registry:item",
       "title": "moduix Tailwind core",
-      "description": "Runtime styles and Tailwind v4 @theme mappings required by moduix Tailwind registry components.",
+      "description": "Runtime tokens and Tailwind v4 @theme mappings required by moduix Tailwind registry components.",
       "docs": "Required: import the installed style.css before Tailwind in your application stylesheet. Tailwind Preflight provides the reset layer.",
       "files": [
         {
-          "path": "src/styles/animations.css",
-          "target": "@lib/moduix/styles/animations.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "src/styles/borders.css",
-          "target": "@lib/moduix/styles/borders.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "src/styles/colors.css",
-          "target": "@lib/moduix/styles/colors.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "src/styles/opacity.css",
-          "target": "@lib/moduix/styles/opacity.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "src/styles/radius.css",
-          "target": "@lib/moduix/styles/radius.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "src/styles/shadows.css",
-          "target": "@lib/moduix/styles/shadows.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "src/styles/sizing.css",
-          "target": "@lib/moduix/styles/sizing.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "src/styles/spacing.css",
-          "target": "@lib/moduix/styles/spacing.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "src/styles/tailwind.css",
+          "path": "dist/registry/tailwind.css",
           "target": "@lib/moduix/styles/style.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "src/styles/tailwind-theme.css",
-          "target": "@lib/moduix/styles/tailwind-theme.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "src/styles/tokens.css",
-          "target": "@lib/moduix/styles/tokens.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "src/styles/transforms.css",
-          "target": "@lib/moduix/styles/transforms.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "src/styles/transitions.css",
-          "target": "@lib/moduix/styles/transitions.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "src/styles/typography.css",
-          "target": "@lib/moduix/styles/typography.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "src/styles/z-index.css",
-          "target": "@lib/moduix/styles/z-index.css",
           "type": "registry:file"
         }
       ]

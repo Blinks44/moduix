@@ -1,7 +1,7 @@
 <script lang="ts">
   import { ComboboxItemIndicator, type ComboboxItemIndicatorProps } from '@ark-ui/svelte/combobox';
   import { clsx } from 'clsx';
-  import { CheckIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import styles from './Combobox.module.css';
 
   let {
@@ -21,6 +21,6 @@
   {#if children}
     {@render children()}
   {:else}
-    <CheckIcon />
+    <UiIcon icon="check" />
   {/if}
 </ComboboxItemIndicator>

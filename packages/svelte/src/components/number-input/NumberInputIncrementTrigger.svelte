@@ -4,7 +4,7 @@
     type NumberInputIncrementTriggerProps,
   } from '@ark-ui/svelte/number-input';
   import { clsx } from 'clsx';
-  import { PlusIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import styles from './NumberInput.module.css';
 
   let {
@@ -24,6 +24,6 @@
   {#if children}
     {@render children()}
   {:else}
-    <PlusIcon />
+    <UiIcon icon="plus" />
   {/if}
 </NumberInputIncrementTrigger>

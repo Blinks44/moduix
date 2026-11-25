@@ -19,8 +19,13 @@ const stylings = [
   { value: 'css-modules', label: 'CSS Modules' },
   { value: 'tailwind', label: 'Tailwind CSS' },
 ] as const;
+const importStyles = [
+  { value: 'package', label: 'npm' },
+  { value: 'registry', label: 'shadcn CLI' },
+] as const;
 
 type Framework = (typeof frameworks)[number]['value'];
+type ImportStyle = (typeof importStyles)[number]['value'];
 
 function useStoredIndex(groupId: string, length: number) {
   const [stored, setStored] = useStorageValue(`rspress.tabs.${groupId}`, '0');
@@ -32,6 +37,7 @@ function useStoredIndex(groupId: string, length: number) {
 function useExampleSelection() {
   const [frameworkIndex, setFramework] = useStoredIndex('framework', frameworks.length);
   const [stylingIndex, setStyling] = useStoredIndex('styling', stylings.length);
+  const [importStyleIndex, setImportStyle] = useStoredIndex('importStyle', importStyles.length);
 
   // Shared links can open the examples on a framework, e.g. `?framework=solid`.
   useEffect(() => {
@@ -44,10 +50,13 @@ function useExampleSelection() {
   return {
     framework: frameworks[frameworkIndex],
     styling: stylings[stylingIndex],
+    importStyle: importStyles[importStyleIndex],
     selectFramework: (value: string) =>
       setFramework(String(frameworks.findIndex((item) => item.value === value))),
     selectStyling: (value: string) =>
       setStyling(String(stylings.findIndex((item) => item.value === value))),
+    selectImportStyle: (value: string) =>
+      setImportStyle(String(importStyles.findIndex((item) => item.value === value))),
   };
 }
 
@@ -57,11 +66,35 @@ function toDisplayCode(code: string) {
     .replaceAll(/@\/components\/examples\/(?:[^/'"]+\/)*([^/'"]+\.module\.css)/g, './$1');
 }
 
-function toStyling(code: string, framework: Framework, styling: string) {
+function applyImportStyle(code: string, framework: Framework, importStyle: ImportStyle) {
+  if (importStyle !== 'registry') return code;
+
+  return code.replaceAll(
+    new RegExp(`(['"])@moduix/${framework}(?:-tailwind)?/([^'"]+)\\1`, 'g'),
+    (_, quote: string, subpath: string) => {
+      if (subpath === 'style.css' || subpath === 'reset.css') {
+        return `${quote}@/lib/moduix/styles/${subpath}${quote}`;
+      }
+      if (subpath === 'locale') {
+        return `${quote}@/lib/moduix/locale${quote}`;
+      }
+      return `${quote}@/components/ui/${subpath}${quote}`;
+    },
+  );
+}
+
+function toStyling(
+  code: string,
+  framework: Framework,
+  styling: string,
+  importStyle: ImportStyle = 'package',
+) {
   const normalized = toDisplayCode(code);
-  return styling === 'tailwind'
-    ? normalized.replaceAll(`'@moduix/${framework}/`, `'@moduix/${framework}-tailwind/`)
-    : normalized;
+  const styled =
+    styling === 'tailwind'
+      ? normalized.replaceAll(`'@moduix/${framework}/`, `'@moduix/${framework}-tailwind/`)
+      : normalized;
+  return applyImportStyle(styled, framework, importStyle);
 }
 
 function PanelSelect({
@@ -110,15 +143,20 @@ function ExamplePanel({
   tailwindProjects?: Record<Framework, ExampleProject>;
 } & Omit<ComponentProps<typeof ExampleFrame>, 'children' | 'variant'>) {
   const t = useI18n<typeof import('i18n')>();
-  const { framework, styling, selectFramework, selectStyling } = useExampleSelection();
+  const { framework, styling, importStyle, selectFramework, selectStyling, selectImportStyle } =
+    useExampleSelection();
   const [tab, setTab] = useState<'preview' | 'code'>('preview');
   const [run, setRun] = useState(0);
   const [copied, setCopied] = useState(false);
   const isTailwind = styling.value === 'tailwind';
   const code =
     isTailwind && tailwindSources
-      ? toDisplayCode(tailwindSources[framework.value])
-      : toStyling(sources[framework.value], framework.value, styling.value);
+      ? applyImportStyle(
+          toDisplayCode(tailwindSources[framework.value]),
+          framework.value,
+          importStyle.value,
+        )
+      : toStyling(sources[framework.value], framework.value, styling.value, importStyle.value);
   const visibleFiles = isTailwind
     ? (tailwindFiles ??
       files.filter((file) => !file.name.endsWith('.module.css') || code.includes(file.name)))
@@ -177,6 +215,14 @@ function ExamplePanel({
             value={styling.value}
             onChange={selectStyling}
           />
+          {tab === 'code' ? (
+            <PanelSelect
+              label={t('exampleImports')}
+              options={importStyles}
+              value={importStyle.value}
+              onChange={selectImportStyle}
+            />
+          ) : null}
           {project ? (
             <button
               type="button"
@@ -236,7 +282,7 @@ function ExamplePanel({
 
 // A source file shown for the framework chosen in the example panels, titled with its file name.
 function FrameworkCode({ sources, name }: { sources: Record<Framework, string>; name: string }) {
-  const { framework } = useExampleSelection();
+  const { framework, importStyle } = useExampleSelection();
 
   if (import.meta.env.SSG_MD) {
     return (
@@ -253,9 +299,20 @@ function FrameworkCode({ sources, name }: { sources: Record<Framework, string>; 
     <CodeBlockRuntime
       lang={framework.lang}
       title={`${name}.${framework.lang}`}
-      code={toDisplayCode(sources[framework.value])}
+      code={applyImportStyle(
+        toDisplayCode(sources[framework.value]),
+        framework.value,
+        importStyle.value,
+      )}
     />
   );
 }
 
-export { ExamplePanel, FrameworkCode, toDisplayCode, toStyling, useExampleSelection };
+export {
+  applyImportStyle,
+  ExamplePanel,
+  FrameworkCode,
+  toDisplayCode,
+  toStyling,
+  useExampleSelection,
+};

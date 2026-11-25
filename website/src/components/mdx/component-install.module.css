@@ -1,5 +1,5 @@
 /* Content · Install & Usage of the Button page in Moduix.sketch. */
-/* Package / shadcn CLI: underlined tabs on the page background, not a code box. */
+/* Package / shadcn CLI / Manual: underlined tabs on the page background, not a code box. */
 .tabs {
   margin-block: 0.75rem 1.5rem;
   border: 0;
@@ -62,4 +62,203 @@
   color: var(--rp-c-text-2);
   font-size: 13px;
   line-height: 18px;
+}
+
+.status {
+  margin: 0;
+  color: var(--rp-c-text-2);
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.manual {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.manualSection {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  > :global(.rp-tabs) {
+    margin: 0;
+  }
+}
+
+.manualLabel {
+  margin: 0;
+  color: var(--rp-c-text-1);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
+}
+
+.depRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.depLabel {
+  color: var(--rp-c-text-2);
+}
+
+.depList {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.depChip {
+  border: 1px solid var(--rp-c-divider);
+  border-radius: 6px;
+  padding: 1px 6px;
+  background: var(--rp-c-bg-soft);
+  color: var(--rp-c-text-1);
+  font-size: 12px;
+}
+
+.filesHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.filePills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.filePill {
+  height: 28px;
+  border: 1px solid var(--rp-c-divider);
+  border-radius: 7px;
+  padding: 0 10px;
+  background: var(--rp-c-bg);
+  color: var(--rp-c-text-2);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--rp-c-bg-soft);
+    color: var(--rp-c-text-1);
+  }
+
+  &[aria-selected='true'] {
+    border-color: var(--moduix-doc-border-strong);
+    background: var(--rp-c-bg-soft);
+    color: var(--rp-c-text-0);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--rp-c-brand);
+    outline-offset: 2px;
+  }
+}
+
+.fileSelect {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+
+  select {
+    height: 30px;
+    appearance: none;
+    border: 1px solid var(--moduix-doc-border-strong);
+    border-radius: 8px;
+    padding: 0 32px 0 10px;
+    background: var(--rp-c-bg);
+    color: var(--rp-c-text-1);
+    font: inherit;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+
+    &:hover {
+      background: var(--rp-c-bg-mute);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--rp-c-brand);
+      outline-offset: 2px;
+    }
+  }
+
+  > svg {
+    position: absolute;
+    inset-inline-end: 8px;
+    width: 14px;
+    height: 14px;
+    color: var(--rp-c-text-3);
+    pointer-events: none;
+  }
+}
+
+.fileListDetails {
+  border: 1px solid var(--rp-c-divider);
+  border-radius: 10px;
+  padding: 8px 12px;
+  background: var(--rp-c-bg-soft);
+  font-size: 13px;
+
+  summary {
+    color: var(--rp-c-text-2);
+    font-weight: 500;
+    cursor: pointer;
+    user-select: none;
+  }
+}
+
+.fileList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 4px 12px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fileListButton {
+  width: 100%;
+  border: 0;
+  border-radius: 6px;
+  padding: 4px 6px;
+  background: transparent;
+  color: var(--rp-c-text-2);
+  font: inherit;
+  font-size: 12px;
+  text-align: start;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--rp-c-bg-mute);
+    color: var(--rp-c-text-0);
+  }
+
+  &[data-active] {
+    background: var(--rp-c-bg);
+    color: var(--rp-c-text-0);
+    font-weight: 500;
+  }
+}
+
+.manualCode {
+  :global(.rp-codeblock) {
+    margin: 0;
+  }
+
+  :global(pre) {
+    max-height: 440px;
+    overflow: auto;
+  }
 }

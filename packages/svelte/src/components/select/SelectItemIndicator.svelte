@@ -1,7 +1,7 @@
 <script lang="ts">
   import { SelectItemIndicator, type SelectItemIndicatorProps } from '@ark-ui/svelte/select';
   import { clsx } from 'clsx';
-  import { CheckIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import styles from './Select.module.css';
 
   let {
@@ -21,6 +21,6 @@
   {#if children}
     {@render children()}
   {:else}
-    <CheckIcon />
+    <UiIcon icon="check" />
   {/if}
 </SelectItemIndicator>

@@ -10,7 +10,7 @@
 <script lang="ts">
   import { useA11yLabels } from '@/lib/moduix/a11yLabels';
   import { cn } from '@/lib/moduix/cn';
-  import { CloseIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import CloseButton from '../close-button/CloseButton.svelte';
   import { useInputGroupSize } from './context';
   import { inputGroupClearTriggerClass } from './variants';
@@ -44,5 +44,5 @@
   data-part="clear-trigger"
   data-slot="input-group-clear-trigger"
 >
-  {#if children}{@render children()}{:else}<CloseIcon class="size-4 shrink-0" />{/if}
+  {#if children}{@render children()}{:else}<UiIcon icon="close" class="size-4 shrink-0" />{/if}
 </CloseButton>

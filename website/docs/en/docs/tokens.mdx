@@ -110,9 +110,10 @@ import '@moduix/svelte/style.css';
   </Tab>
 </Tabs>
 
-For source installed with shadcn, import `@/lib/moduix/styles/style.css` once. The optional reset is
-also framework-specific on npm (`@moduix/react/reset.css` or `@moduix/solid/reset.css`) and uses the
-matching `@moduix-react/reset` or `@moduix-solid/reset` registry item for copied source.
+For source installed with shadcn, import `@/lib/moduix/styles/style.css` once. On npm, the optional
+reset is framework-specific (`@moduix/react/reset.css`, `@moduix/solid/reset.css`, `@moduix/vue/reset.css`,
+or `@moduix/svelte/reset.css`); in CSS Modules registries, `reset.css` is installed alongside
+`style.css` by the foundation item.
 
 Tailwind uses Preflight, so do not combine a Tailwind package with the optional moduix reset. Resolve
 `@source` relative to your stylesheet; the complete setup is in [Quick start](/docs/quick-start#add-styles).

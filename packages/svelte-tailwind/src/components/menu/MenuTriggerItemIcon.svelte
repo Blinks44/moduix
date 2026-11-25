@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { HTMLAttributes } from 'svelte/elements';
   import { cn } from '@/lib/moduix/cn';
-  import { ChevronRightIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
 
   let { children, class: className, ...props }: HTMLAttributes<HTMLSpanElement> = $props();
 </script>
@@ -14,6 +14,6 @@
   {#if children}
     {@render children()}
   {:else}
-    <ChevronRightIcon />
+    <UiIcon icon="chevron-right" />
   {/if}
 </span>

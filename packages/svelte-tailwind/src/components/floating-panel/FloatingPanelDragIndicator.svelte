@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { HTMLAttributes } from 'svelte/elements';
   import { cn } from '@/lib/moduix/cn';
-  import { GripIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
 
   let { children, class: className, ...props }: HTMLAttributes<HTMLSpanElement> = $props();
 </script>
@@ -15,6 +15,6 @@
   {#if children}
     {@render children()}
   {:else}
-    <GripIcon />
+    <UiIcon icon="grip" />
   {/if}
 </span>

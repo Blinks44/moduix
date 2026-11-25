@@ -19,6 +19,10 @@
           "lib": "@/lib",
           "hooks": "@/hooks",
           "utils": "@/lib/utils"
+        },
+        "registries": {
+          "@moduix-solid": "https://moduix.dev/r/solid/{name}.json",
+          "@moduix-blocks": "https://moduix.dev/r/blocks/{name}.json"
         }
       },
       "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
@@ -29,7 +33,7 @@
       "type": "registry:item",
       "title": "moduix core",
       "description": "Runtime styles and utilities required by moduix registry components.",
-      "docs": "Required: import the installed style.css once in your app entry. The optional reset is a separate registry item and must be imported before style.css.",
+      "docs": "Import reset.css (optional if your app already has a CSS reset) followed by style.css once in your app entry.",
       "registryDependencies": ["https://moduix.dev/r/foundation/core.json"]
     },
     {
@@ -131,7 +135,8 @@
       "title": "moduix Solid core",
       "description": "Shared runtime dependencies installed by every moduix registry component.",
       "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
-      "registryDependencies": ["https://moduix.dev/r/foundation/core.json"]
+      "registryDependencies": ["https://moduix.dev/r/foundation/core.json"],
+      "docs": "Import reset.css (optional if your app already has a CSS reset) followed by style.css once in your app entry."
     },
     {
       "name": "theme-contrast",

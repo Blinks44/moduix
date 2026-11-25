@@ -1,7 +1,7 @@
 <script lang="ts">
   import { CarouselPrevTrigger, type CarouselPrevTriggerProps } from '@ark-ui/svelte/carousel';
   import { clsx } from 'clsx';
-  import { ChevronLeftIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import styles from './Carousel.module.css';
 
   let {
@@ -23,6 +23,6 @@
   {#if children}
     {@render children()}
   {:else if !asChild}
-    <ChevronLeftIcon class={styles.icon} />
+    <UiIcon icon="chevron-left" class={styles.icon} />
   {/if}
 </CarouselPrevTrigger>

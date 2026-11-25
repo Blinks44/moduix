@@ -139,11 +139,7 @@ The CLI places component source in `src/components/ui/accordion` and shared file
 <Tabs groupId="styling">
   <Tab label="CSS Modules" value="css-modules">
 
-If the application needs the moduix reset, add it separately:
-
-<PackageManagerTabs command="shadcn@latest add @moduix-svelte/reset" dlx />
-
-Load the generated styles instead of the package styles:
+Load the generated styles (`style.css` and `reset.css` are both installed with the foundation) instead of the package styles:
 
 ```svelte title="src/routes/+layout.svelte"
 <script lang="ts">

@@ -4,7 +4,7 @@
     type AccordionItemIndicatorProps,
   } from '@ark-ui/svelte/accordion';
   import { cn } from '@/lib/moduix/cn';
-  import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
 
   let {
     class: className,
@@ -26,6 +26,6 @@
   {#if children}
     {@render children()}
   {:else}
-    <ChevronDownIcon />
+    <UiIcon icon="chevron-down" />
   {/if}
 </AccordionItemIndicator>

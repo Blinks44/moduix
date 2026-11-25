@@ -12,7 +12,7 @@
   import { MenuTrigger } from '@ark-ui/svelte/menu';
   import { useA11yLabels } from '@/lib/moduix/a11yLabels';
   import { cn } from '@/lib/moduix/cn';
-  import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import Button from '../button/Button.svelte';
   import { useSplitButtonContext } from './context';
   import { splitButtonTriggerVariants } from './SplitButton.variants';
@@ -41,7 +41,7 @@
       variant={variant ?? context.variant()}
       data-slot="split-button-trigger"
     >
-      {#if children}{@render children()}{:else}<ChevronDownIcon />{/if}
+      {#if children}{@render children()}{:else}<UiIcon icon="chevron-down" />{/if}
     </Button>
   {/snippet}
 </MenuTrigger>

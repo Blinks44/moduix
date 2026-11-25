@@ -13,7 +13,7 @@
 <script lang="ts">
   import { TreeViewNodeCheckboxIndicator } from '@ark-ui/svelte/tree-view';
   import { cn } from '@/lib/moduix/cn';
-  import { CheckIcon, IndeterminateIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
 
   let {
     children: childrenSnippet,
@@ -36,14 +36,14 @@
       {#if indeterminateSnippet}
         {@render indeterminateSnippet()}
       {:else}
-        <IndeterminateIcon />
+        <UiIcon icon="indeterminate" />
       {/if}
     {/snippet}
     {#snippet children()}
       {#if childrenSnippet}
         {@render childrenSnippet()}
       {:else}
-        <CheckIcon />
+        <UiIcon icon="check" />
       {/if}
     {/snippet}
   </TreeViewNodeCheckboxIndicator>

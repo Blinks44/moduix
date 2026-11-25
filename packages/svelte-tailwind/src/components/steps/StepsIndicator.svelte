@@ -5,7 +5,7 @@
     type StepsIndicatorProps,
   } from '@ark-ui/svelte/steps';
   import { cn } from '@/lib/moduix/cn';
-  import { CheckIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
 
   let {
     children,
@@ -29,7 +29,7 @@
   {#if children}
     {@render children()}
   {:else if item().completed}
-    <CheckIcon />
+    <UiIcon icon="check" />
   {:else}
     {item().index + 1}
   {/if}

@@ -5,7 +5,7 @@
     type SignaturePadClearTriggerProps,
   } from '@ark-ui/svelte/signature-pad';
   import { cn } from '@/lib/moduix/cn';
-  import { RotateCcwIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import CloseButton from '../close-button/CloseButton.svelte';
   import { getSignaturePadReadOnly } from './context';
 
@@ -32,7 +32,7 @@
     {#if children}
       {@render children()}
     {:else}
-      <RotateCcwIcon aria-hidden="true" />
+      <UiIcon icon="rotate-ccw" aria-hidden="true" />
     {/if}
   </CloseButton>
 {/snippet}

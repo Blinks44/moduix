@@ -4,7 +4,7 @@
     type PaginationNextTriggerProps,
   } from '@ark-ui/svelte/pagination';
   import { cn } from '@/lib/moduix/cn';
-  import { ChevronRightIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
 
   let {
     asChild,
@@ -32,6 +32,6 @@
   {#if children}
     {@render children()}
   {:else if !asChild}
-    <ChevronRightIcon />
+    <UiIcon icon="chevron-right" />
   {/if}
 </PaginationNextTrigger>

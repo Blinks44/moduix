@@ -176,13 +176,48 @@
     "ru": "Пакет",
     "fr": "Paquet"
   },
+  "installManual": {
+    "en": "Manual",
+    "ru": "Вручную",
+    "fr": "Manuel"
+  },
+  "installManualDependencies": {
+    "en": "Install dependencies",
+    "ru": "Установите зависимости",
+    "fr": "Installer les dépendances"
+  },
+  "installManualRegistryDependencies": {
+    "en": "Also requires registry items:",
+    "ru": "Также требуются элементы registry:",
+    "fr": "Nécessite également les éléments du registre :"
+  },
+  "installManualFiles": {
+    "en": "Files",
+    "ru": "Файлы",
+    "fr": "Fichiers"
+  },
+  "installManualFileList": {
+    "en": "Show all {count} files",
+    "ru": "Показать все файлы ({count})",
+    "fr": "Afficher les {count} fichiers"
+  },
+  "installManualLoading": {
+    "en": "Loading component source…",
+    "ru": "Загрузка исходного кода…",
+    "fr": "Chargement du code source…"
+  },
+  "installManualError": {
+    "en": "Could not load registry source for this component.",
+    "ru": "Не удалось загрузить исходный код из registry.",
+    "fr": "Impossible de charger le code source du registre pour ce composant."
+  },
   "installSubpathNote": {
     "en": "Import components from subpaths such as {subpath}.",
     "ru": "Импортируйте компоненты из подпутей, например {subpath}.",
     "fr": "Importez les composants depuis des sous-chemins, par exemple {subpath}."
   },
   "installRegistryNote": {
-    "en": "Requires the moduix registry in components.json. The CLI copies the component source and its styles into your project.",
+    "en": "Copies the component source and its styles into your project. Run shadcn init once to configure components.json.",
     "ru": "CLI копирует исходники компонента и его стили в ваш проект.",
     "fr": "La CLI copie le code source du composant et ses styles dans votre projet."
   },
@@ -235,6 +270,11 @@
     "en": "Styling",
     "ru": "Стили",
     "fr": "Styles"
+  },
+  "exampleImports": {
+    "en": "Import style",
+    "ru": "Стиль импортов",
+    "fr": "Style d’imports"
   },
   "exampleReload": {
     "en": "Reload preview",

@@ -6,7 +6,7 @@
 
 <script lang="ts">
   import { cn } from '@/lib/moduix/cn';
-  import { SeparatorMarkIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
 
   let { children, class: className, ...props }: PinInputSeparatorProps = $props();
 </script>
@@ -20,6 +20,6 @@
   {#if children}
     {@render children()}
   {:else}
-    <SeparatorMarkIcon />
+    <UiIcon icon="separator-mark" />
   {/if}
 </span>

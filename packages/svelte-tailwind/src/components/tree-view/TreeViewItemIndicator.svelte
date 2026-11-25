@@ -1,7 +1,7 @@
 <script lang="ts">
   import { TreeViewItemIndicator, type TreeViewItemIndicatorProps } from '@ark-ui/svelte/tree-view';
   import { cn } from '@/lib/moduix/cn';
-  import { CheckIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
 
   let {
     children,
@@ -20,6 +20,6 @@
   {#if children}
     {@render children()}
   {:else}
-    <CheckIcon />
+    <UiIcon icon="check" />
   {/if}
 </TreeViewItemIndicator>

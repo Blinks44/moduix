@@ -2,7 +2,7 @@
   import type { HTMLProps, PolymorphicProps, RefAttribute } from '@ark-ui/svelte';
   import { Ark } from '@ark-ui/svelte/factory';
   import { cn } from '@/lib/moduix/cn';
-  import { ChevronRightIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
 
   type Props = HTMLProps<'li'> & PolymorphicProps<'li'> & RefAttribute;
 
@@ -21,6 +21,6 @@
   {#if children}
     {@render children()}
   {:else if !asChild}
-    <ChevronRightIcon class="size-[1em] flex-none [&:dir(rtl)]:rotate-180" />
+    <UiIcon icon="chevron-right" class="size-[1em] flex-none [&:dir(rtl)]:rotate-180" />
   {/if}
 </Ark>

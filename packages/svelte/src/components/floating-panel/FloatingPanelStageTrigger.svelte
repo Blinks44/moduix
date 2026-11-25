@@ -4,6 +4,7 @@
     type FloatingPanelStageTriggerProps,
   } from '@ark-ui/svelte/floating-panel';
   import { clsx } from 'clsx';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import { stageIcons } from './floating-panel.types';
   import styles from './FloatingPanel.module.css';
 
@@ -16,7 +17,7 @@
     ...props
   }: FloatingPanelStageTriggerProps = $props();
 
-  const StageIcon = $derived(stageIcons[stage]);
+  const stageIcon = $derived(stageIcons[stage]);
 </script>
 
 <FloatingPanelStageTrigger
@@ -30,6 +31,6 @@
   {#if children}
     {@render children()}
   {:else if !asChild}
-    <StageIcon />
+    <UiIcon icon={stageIcon} />
   {/if}
 </FloatingPanelStageTrigger>

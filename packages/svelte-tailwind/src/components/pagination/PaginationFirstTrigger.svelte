@@ -4,7 +4,7 @@
     type PaginationFirstTriggerProps,
   } from '@ark-ui/svelte/pagination';
   import { cn } from '@/lib/moduix/cn';
-  import { ChevronLeftIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
 
   let {
     asChild,
@@ -33,8 +33,8 @@
     {@render children()}
   {:else if !asChild}
     <span class="inline-flex [&_svg+svg]:-ms-2" aria-hidden="true">
-      <ChevronLeftIcon />
-      <ChevronLeftIcon />
+      <UiIcon icon="chevron-left" />
+      <UiIcon icon="chevron-left" />
     </span>
   {/if}
 </PaginationFirstTrigger>

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { MenuIndicator, type MenuIndicatorProps } from '@ark-ui/svelte/menu';
   import { clsx } from 'clsx';
-  import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import styles from './Menu.module.css';
 
   let {
@@ -21,6 +21,6 @@
   {#if children}
     {@render children()}
   {:else}
-    <ChevronDownIcon />
+    <UiIcon icon="chevron-down" />
   {/if}
 </MenuIndicator>

@@ -4,7 +4,7 @@
     type DatePickerViewTriggerProps,
   } from '@ark-ui/svelte/date-picker';
   import { cn } from '@/lib/moduix/cn';
-  import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import { actionClass } from './DatePicker.variants';
   import DatePickerRangeText from './DatePickerRangeText.svelte';
 
@@ -34,6 +34,6 @@
     {@render children()}
   {:else if !asChild}
     <DatePickerRangeText />
-    <ChevronDownIcon />
+    <UiIcon icon="chevron-down" />
   {/if}
 </DatePickerViewTrigger>

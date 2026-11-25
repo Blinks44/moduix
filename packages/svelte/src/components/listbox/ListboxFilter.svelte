@@ -8,7 +8,7 @@
 
 <script lang="ts">
   import { clsx } from 'clsx';
-  import { SearchIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import styles from './Listbox.module.css';
 
   let {
@@ -20,6 +20,6 @@
 </script>
 
 <div {...props} bind:this={ref} class={clsx(styles.filter, className)} data-slot="listbox-filter">
-  <SearchIcon data-slot="listbox-filter-icon" class={styles.filterIcon} />
+  <UiIcon icon="search" data-slot="listbox-filter-icon" class={styles.filterIcon} />
   {@render children?.()}
 </div>

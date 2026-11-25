@@ -9,7 +9,7 @@
   import { Ark } from '@ark-ui/svelte/factory';
   import { clsx } from 'clsx';
   import { useA11yLabels } from '@/lib/moduix/a11yLabels';
-  import { ChevronLeftIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import { useSidebar } from './context';
   import styles from './Sidebar.module.css';
 
@@ -51,6 +51,6 @@
   {#if children}
     {@render children()}
   {:else}
-    <ChevronLeftIcon />
+    <UiIcon icon="chevron-left" />
   {/if}
 </Ark>

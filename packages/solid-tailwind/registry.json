@@ -19,6 +19,10 @@
           "lib": "@/lib",
           "hooks": "@/hooks",
           "utils": "@/lib/utils"
+        },
+        "registries": {
+          "@moduix-solid-tailwind": "https://moduix.dev/r/solid-tailwind/{name}.json",
+          "@moduix-blocks": "https://moduix.dev/r/blocks/{name}.json"
         }
       },
       "dependencies": [

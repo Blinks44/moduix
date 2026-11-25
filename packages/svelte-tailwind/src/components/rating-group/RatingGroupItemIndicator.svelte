@@ -7,7 +7,7 @@
 <script lang="ts">
   import { useRatingGroupItemContext } from '@ark-ui/svelte/rating-group';
   import { cn } from '@/lib/moduix/cn';
-  import { RatingStarIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
 
   let { children, class: className, ...props }: RatingGroupItemIndicatorProps = $props();
   const item = useRatingGroupItemContext();
@@ -26,11 +26,13 @@
   {#if children}
     {@render children()}
   {:else}
-    <RatingStarIcon
+    <UiIcon
+      icon="rating-star"
       class="absolute inset-0 fill-transparent stroke-current text-muted-foreground"
       data-slot="rating-group-item-indicator-bg"
     />
-    <RatingStarIcon
+    <UiIcon
+      icon="rating-star"
       class={cn(
         'absolute inset-0 fill-current stroke-current [clip-path:inset(0)]',
         item().half && '[clip-path:inset(0_50%_0_0)] rtl:[clip-path:inset(0_0_0_50%)]',

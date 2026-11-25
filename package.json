@@ -32,10 +32,11 @@
     "lint:check": "oxlint",
     "lint:fix": "oxlint --fix",
     "prepare": "husky",
-    "registry:build": "for p in packages/*; do [ -f \"$p/registry.json\" ] || continue; grep -q '\"private\": true' \"$p/package.json\" && continue; (cd \"$p\" && shadcn build registry.json --output \"../../website/docs/public/r/${p#packages/}\") || exit 1; done && (cd website && shadcn build registry.json --output docs/public/r/blocks)",
+    "registry:prepare": "node scripts/bundle-foundation-registry.mjs",
+    "registry:build": "pnpm run registry:prepare && for p in packages/*; do [ -f \"$p/registry.json\" ] || continue; grep -q '\"private\": true' \"$p/package.json\" && continue; (cd \"$p\" && shadcn build registry.json --output \"../../website/docs/public/r/${p#packages/}\") || exit 1; done && (cd website && shadcn build registry.json --output docs/public/r/blocks)",
     "registry:clean": "rm -rf website/docs/public/r",
     "size": "size-limit",
-    "registry:validate": "for p in packages/*; do [ -f \"$p/registry.json\" ] || continue; (cd \"$p\" && shadcn registry validate registry.json) || exit 1; done && (cd website && shadcn registry validate registry.json)",
+    "registry:validate": "pnpm run registry:prepare && for p in packages/*; do [ -f \"$p/registry.json\" ] || continue; (cd \"$p\" && shadcn registry validate registry.json) || exit 1; done && (cd website && shadcn registry validate registry.json)",
     "test": "turbo run test",
     "tsc:check": "turbo run tsc:check",
     "check:starters": "node scripts/check-starters.mjs"

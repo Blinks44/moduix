@@ -6,7 +6,7 @@
 
 <script lang="ts">
   import { clsx } from 'clsx';
-  import { SeparatorMarkIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import styles from './PinInput.module.css';
 
   let { children, class: className, ...props }: PinInputSeparatorProps = $props();
@@ -21,6 +21,6 @@
   {#if children}
     {@render children()}
   {:else}
-    <SeparatorMarkIcon />
+    <UiIcon icon="separator-mark" />
   {/if}
 </span>

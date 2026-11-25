@@ -4,7 +4,7 @@
     type PaginationPrevTriggerProps,
   } from '@ark-ui/svelte/pagination';
   import { clsx } from 'clsx';
-  import { ChevronLeftIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import styles from './Pagination.module.css';
 
   let {
@@ -26,6 +26,6 @@
   {#if children}
     {@render children()}
   {:else if !asChild}
-    <ChevronLeftIcon />
+    <UiIcon icon="chevron-left" />
   {/if}
 </PaginationPrevTrigger>

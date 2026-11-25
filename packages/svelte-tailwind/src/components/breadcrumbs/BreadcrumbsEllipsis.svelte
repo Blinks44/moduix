@@ -2,7 +2,7 @@
   import type { HTMLProps, PolymorphicProps, RefAttribute } from '@ark-ui/svelte';
   import { Ark } from '@ark-ui/svelte/factory';
   import { cn } from '@/lib/moduix/cn';
-  import { EllipsisIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
 
   type Props = HTMLProps<'span'> & PolymorphicProps<'span'> & RefAttribute;
 
@@ -24,6 +24,6 @@
   {#if children}
     {@render children()}
   {:else if !asChild}
-    <EllipsisIcon class="size-[1em] flex-none" />
+    <UiIcon icon="ellipsis" class="size-[1em] flex-none" />
   {/if}
 </Ark>

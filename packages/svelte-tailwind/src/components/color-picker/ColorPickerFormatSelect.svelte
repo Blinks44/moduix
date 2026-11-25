@@ -4,7 +4,7 @@
     type ColorPickerFormatSelectProps,
   } from '@ark-ui/svelte/color-picker';
   import { cn } from '@/lib/moduix/cn';
-  import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
 
   let {
     class: className,
@@ -27,6 +27,6 @@
     aria-hidden="true"
     class="pointer-events-none absolute end-3 top-1/2 inline-flex size-4 -translate-y-1/2 rounded-sm text-muted-foreground transition-[background-color,color] duration-normal ease-in-out peer-not-disabled/format-select:peer-hover/format-select:bg-muted peer-not-disabled/format-select:peer-hover/format-select:text-foreground forced-colors:hidden [&>svg]:size-full"
   >
-    <ChevronDownIcon />
+    <UiIcon icon="chevron-down" />
   </span>
 </span>

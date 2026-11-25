@@ -4,7 +4,7 @@
     type FileUploadItemDeleteTriggerProps,
   } from '@ark-ui/svelte/file-upload';
   import { clsx } from 'clsx';
-  import { TrashIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import styles from './FileUpload.module.css';
 
   let {
@@ -24,6 +24,6 @@
   {#if children}
     {@render children()}
   {:else}
-    <TrashIcon />
+    <UiIcon icon="trash" />
   {/if}
 </FileUploadItemDeleteTrigger>

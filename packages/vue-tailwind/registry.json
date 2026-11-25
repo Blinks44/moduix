@@ -142,6 +142,10 @@
           "lib": "@/lib",
           "hooks": "@/hooks",
           "utils": "@/lib/utils"
+        },
+        "registries": {
+          "@moduix-vue-tailwind": "https://moduix.dev/r/vue-tailwind/{name}.json",
+          "@moduix-blocks": "https://moduix.dev/r/blocks/{name}.json"
         }
       },
       "dependencies": [

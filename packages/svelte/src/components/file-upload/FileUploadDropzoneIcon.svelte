@@ -2,7 +2,7 @@
   import type { HTMLProps, PolymorphicProps, RefAttribute } from '@ark-ui/svelte';
   import { Ark } from '@ark-ui/svelte/factory';
   import { clsx } from 'clsx';
-  import { UploadIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import styles from './FileUpload.module.css';
 
   type Props = HTMLProps<'span'> & PolymorphicProps<'span'> & RefAttribute;
@@ -21,6 +21,6 @@
   {#if children}
     {@render children()}
   {:else}
-    <UploadIcon />
+    <UiIcon icon="upload" />
   {/if}
 </Ark>

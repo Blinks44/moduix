@@ -2,7 +2,7 @@
   import type { HTMLProps, PolymorphicProps, RefAttribute } from '@ark-ui/svelte';
   import { Ark } from '@ark-ui/svelte/factory';
   import { clsx } from 'clsx';
-  import { ChevronRightIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import styles from './Breadcrumbs.module.css';
 
   type Props = HTMLProps<'li'> & PolymorphicProps<'li'> & RefAttribute;
@@ -22,6 +22,6 @@
   {#if children}
     {@render children()}
   {:else if !asChild}
-    <ChevronRightIcon class={styles.separatorIcon} />
+    <UiIcon icon="chevron-right" class={styles.separatorIcon} />
   {/if}
 </Ark>

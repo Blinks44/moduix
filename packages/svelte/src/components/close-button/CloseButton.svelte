@@ -14,7 +14,7 @@
   import { Ark } from '@ark-ui/svelte/factory';
   import { clsx } from 'clsx';
   import { useA11yLabels } from '@/lib/moduix/a11yLabels';
-  import { CloseIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import styles from './CloseButton.module.css';
 
   let {
@@ -73,6 +73,6 @@
   {#if children}
     {@render children()}
   {:else}
-    <CloseIcon />
+    <UiIcon icon="close" />
   {/if}
 </Ark>

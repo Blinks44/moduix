@@ -4,7 +4,7 @@
     type TagsInputItemDeleteTriggerProps,
   } from '@ark-ui/svelte/tags-input';
   import { cn } from '@/lib/moduix/cn';
-  import { CloseIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
 
   let {
     children,
@@ -26,6 +26,6 @@
   {#if children}
     {@render children()}
   {:else}
-    <CloseIcon />
+    <UiIcon icon="close" />
   {/if}
 </TagsInputItemDeleteTrigger>

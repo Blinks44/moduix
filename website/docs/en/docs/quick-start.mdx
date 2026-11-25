@@ -274,9 +274,69 @@ Copy component source, styles and utilities into your repository. Registries are
 
 <Steps>
 
-### Configure shadcn
+### Initialize the registry
 
-Create `components.json` in the project root for your styling track.
+Run `shadcn init` with the moduix base URL for your framework and styling track. This writes `components.json` with the right aliases and registry namespace, installs base dependencies, and copies the foundation stylesheet (plus `reset.css` for CSS Modules).
+
+<Tabs groupId="styling">
+  <Tab label="CSS Modules" value="css-modules">
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<PackageManagerTabs command="shadcn@latest init https://moduix.dev/r/react/init.json" dlx />
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<PackageManagerTabs command="shadcn@latest init https://moduix.dev/r/solid/init.json" dlx />
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<PackageManagerTabs command="shadcn@latest init https://moduix.dev/r/vue/init.json" dlx />
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+<PackageManagerTabs command="shadcn@latest init https://moduix.dev/r/svelte/init.json" dlx />
+
+  </Tab>
+</Tabs>
+
+  </Tab>
+  <Tab label="Tailwind CSS" value="tailwind">
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<PackageManagerTabs command="shadcn@latest init https://moduix.dev/r/react-tailwind/init.json" dlx />
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<PackageManagerTabs command="shadcn@latest init https://moduix.dev/r/solid-tailwind/init.json" dlx />
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<PackageManagerTabs command="shadcn@latest init https://moduix.dev/r/vue-tailwind/init.json" dlx />
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+<PackageManagerTabs command="shadcn@latest init https://moduix.dev/r/svelte-tailwind/init.json" dlx />
+
+  </Tab>
+</Tabs>
+
+  </Tab>
+</Tabs>
+
+Map the `@/*` alias to your source directory in TypeScript and the bundler; the CLI writes to `@/components/ui` and `@/lib/moduix`. Set `"rsc": true` in `components.json` only in a React Server Components app.
+
+<details>
+<summary>Already have a <code>components.json</code>? Configure registries manually</summary>
 
 <Tabs groupId="styling">
   <Tab label="CSS Modules" value="css-modules">
@@ -291,7 +351,7 @@ Create `components.json` in the project root for your styling track.
   </Tab>
 </Tabs>
 
-Map the `@/*` alias to your source directory in TypeScript and the bundler; the CLI writes to `@/components/ui` and `@/lib/moduix`. Set `rsc` to `true` only in a React Server Components app.
+</details>
 
 ### Add a component
 
@@ -357,30 +417,7 @@ Use the namespace that matches your framework and styling track, and do not mix 
 <Tabs groupId="styling">
   <Tab label="CSS Modules" value="css-modules">
 
-Import the generated foundation. Add the moduix reset as its own item unless your app already has one.
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-<PackageManagerTabs command="shadcn@latest add @moduix-react/reset" dlx />
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-<PackageManagerTabs command="shadcn@latest add @moduix-solid/reset" dlx />
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-<PackageManagerTabs command="shadcn@latest add @moduix-vue/reset" dlx />
-
-  </Tab>
-  <Tab label="Svelte" value="svelte">
-
-<PackageManagerTabs command="shadcn@latest add @moduix-svelte/reset" dlx />
-
-  </Tab>
-</Tabs>
+`shadcn init` writes `style.css` and `reset.css` into `@/lib/moduix/styles/`. Import both once in your entry point (skip `reset.css` if your app already has an equivalent reset):
 
 ```tsx title="main.tsx"
 import '@/lib/moduix/styles/reset.css';
@@ -390,7 +427,7 @@ import '@/lib/moduix/styles/style.css';
   </Tab>
   <Tab label="Tailwind CSS" value="tailwind">
 
-Load the generated foundation before Tailwind. Tailwind Preflight supplies the reset.
+`shadcn init` writes a single `style.css` into `@/lib/moduix/styles/`. Load it before Tailwind; Tailwind Preflight supplies the reset.
 
 ```css title="styles.css"
 @import './lib/moduix/styles/style.css';

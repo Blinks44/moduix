@@ -6,7 +6,7 @@
   } from '@ark-ui/svelte/combobox';
   import { useA11yLabels } from '@/lib/moduix/a11yLabels';
   import { cn } from '@/lib/moduix/cn';
-  import { CloseIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
 
   let {
     asChild,
@@ -48,5 +48,5 @@
   onclickcapture={handleClickCapture}
   data-slot="command-palette-clear-trigger"
 >
-  {#if children}{@render children()}{:else if !asChild}<CloseIcon />{/if}
+  {#if children}{@render children()}{:else if !asChild}<UiIcon icon="close" />{/if}
 </ComboboxClearTrigger>

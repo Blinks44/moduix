@@ -10,7 +10,7 @@
 <script lang="ts">
   import { FieldSelect } from '@ark-ui/svelte/field';
   import { clsx } from 'clsx';
-  import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import styles from './NativeSelect.module.css';
 
   let {
@@ -46,6 +46,6 @@
     data-slot="native-select-indicator"
     class={styles.indicator}
   >
-    <ChevronDownIcon />
+    <UiIcon icon="chevron-down" />
   </span>
 </span>

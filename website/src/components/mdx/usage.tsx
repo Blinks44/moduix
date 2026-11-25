@@ -1,9 +1,9 @@
 import { CodeBlockRuntime } from '@rspress/core/theme';
-import { toDisplayCode, toStyling, useExampleSelection } from './example-panel';
+import { applyImportStyle, toDisplayCode, toStyling, useExampleSelection } from './example-panel';
 import styles from './usage.module.css';
 
 // Usage section of a component page: `<Usage />` in MDX passes the page's Basic example sources,
-// shown for the selected framework and styling.
+// shown for the selected framework, styling, and import style.
 function UsageCode({
   sources,
   tailwindSources,
@@ -11,14 +11,18 @@ function UsageCode({
   sources: Record<'react' | 'solid' | 'vue' | 'svelte', string>;
   tailwindSources?: Record<'react' | 'solid' | 'vue' | 'svelte', string>;
 }) {
-  const { framework, styling } = useExampleSelection();
+  const { framework, styling, importStyle } = useExampleSelection();
 
   if (import.meta.env.SSG_MD) return null;
 
   const code =
     styling.value === 'tailwind' && tailwindSources
-      ? toDisplayCode(tailwindSources[framework.value])
-      : toStyling(sources[framework.value], framework.value, styling.value);
+      ? applyImportStyle(
+          toDisplayCode(tailwindSources[framework.value]),
+          framework.value,
+          importStyle.value,
+        )
+      : toStyling(sources[framework.value], framework.value, styling.value, importStyle.value);
 
   return (
     <div className={styles.code}>

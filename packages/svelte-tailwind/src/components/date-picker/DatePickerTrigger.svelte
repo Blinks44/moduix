@@ -1,7 +1,7 @@
 <script lang="ts">
   import { DatePickerTrigger, type DatePickerTriggerProps } from '@ark-ui/svelte/date-picker';
   import { cn } from '@/lib/moduix/cn';
-  import { CalendarIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import { actionClass } from './DatePicker.variants';
   let {
     asChild,
@@ -25,6 +25,6 @@
   {#if children}
     {@render children()}
   {:else if !asChild}
-    <CalendarIcon />
+    <UiIcon icon="calendar" />
   {/if}
 </DatePickerTrigger>

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { ClipboardIndicator, type ClipboardIndicatorProps } from '@ark-ui/svelte/clipboard';
   import { cn } from '@/lib/moduix/cn';
-  import { CheckIcon, CopyIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
 
   let {
     children,
@@ -13,11 +13,11 @@
 </script>
 
 {#snippet copiedIcon()}
-  <CheckIcon />
+  <UiIcon icon="check" />
 {/snippet}
 
 {#snippet copyIcon()}
-  <CopyIcon />
+  <UiIcon icon="copy" />
 {/snippet}
 
 <ClipboardIndicator

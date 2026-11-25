@@ -4,7 +4,7 @@
     type ColorPickerFormatSelectProps,
   } from '@ark-ui/svelte/color-picker';
   import { clsx } from 'clsx';
-  import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import styles from './ColorPicker.module.css';
 
   let {
@@ -22,6 +22,6 @@
     data-slot="color-picker-format-select"
   />
   <span aria-hidden="true" class={styles.formatSelectIndicator}>
-    <ChevronDownIcon />
+    <UiIcon icon="chevron-down" />
   </span>
 </span>

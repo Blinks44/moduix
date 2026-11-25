@@ -19,6 +19,10 @@
           "lib": "@/lib",
           "hooks": "@/hooks",
           "utils": "@/lib/utils"
+        },
+        "registries": {
+          "@moduix-react-tailwind": "https://moduix.dev/r/react-tailwind/{name}.json",
+          "@moduix-blocks": "https://moduix.dev/r/blocks/{name}.json"
         }
       },
       "dependencies": [

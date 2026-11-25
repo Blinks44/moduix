@@ -4,7 +4,7 @@
     type DatePickerMonthSelectProps,
   } from '@ark-ui/svelte/date-picker';
   import { clsx } from 'clsx';
-  import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import styles from './DatePicker.module.css';
   let { class: className, ref = $bindable(null), ...props }: DatePickerMonthSelectProps = $props();
 </script>
@@ -21,6 +21,6 @@
     class={styles.selectIndicator}
     data-slot="date-picker-month-select-indicator"
   >
-    <ChevronDownIcon />
+    <UiIcon icon="chevron-down" />
   </span>
 </span>

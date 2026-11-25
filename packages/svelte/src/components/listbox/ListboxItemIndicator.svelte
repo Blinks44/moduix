@@ -1,7 +1,7 @@
 <script lang="ts">
   import { ListboxItemIndicator, type ListboxItemIndicatorProps } from '@ark-ui/svelte/listbox';
   import { clsx } from 'clsx';
-  import { CheckIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import styles from './Listbox.module.css';
 
   let {
@@ -21,6 +21,6 @@
   {#if children}
     {@render children()}
   {:else}
-    <CheckIcon />
+    <UiIcon icon="check" />
   {/if}
 </ListboxItemIndicator>

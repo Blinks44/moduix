@@ -1,7 +1,7 @@
 <script lang="ts">
   import { CollapsibleIndicator, type CollapsibleIndicatorProps } from '@ark-ui/svelte/collapsible';
   import { cn } from '@/lib/moduix/cn';
-  import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
 
   let {
     children,
@@ -23,6 +23,6 @@
   {#if children}
     {@render children()}
   {:else}
-    <ChevronDownIcon />
+    <UiIcon icon="chevron-down" />
   {/if}
 </CollapsibleIndicator>

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { CheckboxIndicator, type CheckboxIndicatorProps } from '@ark-ui/svelte/checkbox';
   import { cn } from '@/lib/moduix/cn';
-  import { CheckIcon, IndeterminateIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
 
   let {
     children,
@@ -25,8 +25,8 @@
   {#if children}
     {@render children()}
   {:else if indeterminate}
-    <IndeterminateIcon />
+    <UiIcon icon="indeterminate" />
   {:else}
-    <CheckIcon />
+    <UiIcon icon="check" />
   {/if}
 </CheckboxIndicator>

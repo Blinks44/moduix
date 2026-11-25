@@ -4,7 +4,7 @@
     type ColorPickerEyeDropperTriggerProps,
   } from '@ark-ui/svelte/color-picker';
   import { cn } from '@/lib/moduix/cn';
-  import { PipetteIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   let {
     children,
     class: className,
@@ -25,6 +25,6 @@
   {#if children}
     {@render children()}
   {:else}
-    <PipetteIcon />
+    <UiIcon icon="pipette" />
   {/if}
 </ColorPickerEyeDropperTrigger>

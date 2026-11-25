@@ -1,7 +1,7 @@
 <script lang="ts">
   import { ComboboxTrigger, type ComboboxTriggerProps } from '@ark-ui/svelte/combobox';
   import { cn } from '@/lib/moduix/cn';
-  import { ChevronUpDownIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
 
   let {
     children,
@@ -23,6 +23,6 @@
   {#if children}
     {@render children()}
   {:else}
-    <ChevronUpDownIcon />
+    <UiIcon icon="chevron-up-down" />
   {/if}
 </ComboboxTrigger>

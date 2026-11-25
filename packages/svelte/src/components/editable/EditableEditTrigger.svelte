@@ -1,7 +1,7 @@
 <script lang="ts">
   import { EditableEditTrigger, type EditableEditTriggerProps } from '@ark-ui/svelte/editable';
   import { clsx } from 'clsx';
-  import { PencilIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import styles from './Editable.module.css';
 
   let {
@@ -23,6 +23,6 @@
   {#if children}
     {@render children()}
   {:else}
-    <PencilIcon />
+    <UiIcon icon="pencil" />
   {/if}
 </EditableEditTrigger>

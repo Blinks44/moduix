@@ -1,7 +1,7 @@
 <script lang="ts">
   import { CarouselNextTrigger, type CarouselNextTriggerProps } from '@ark-ui/svelte/carousel';
   import { clsx } from 'clsx';
-  import { ChevronRightIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import styles from './Carousel.module.css';
 
   let {
@@ -23,6 +23,6 @@
   {#if children}
     {@render children()}
   {:else if !asChild}
-    <ChevronRightIcon class={styles.icon} />
+    <UiIcon icon="chevron-right" class={styles.icon} />
   {/if}
 </CarouselNextTrigger>

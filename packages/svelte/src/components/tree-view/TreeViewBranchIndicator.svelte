@@ -4,7 +4,7 @@
     type TreeViewBranchIndicatorProps,
   } from '@ark-ui/svelte/tree-view';
   import { clsx } from 'clsx';
-  import { ChevronRightIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import styles from './TreeView.module.css';
 
   let {
@@ -24,6 +24,6 @@
   {#if children}
     {@render children()}
   {:else}
-    <ChevronRightIcon />
+    <UiIcon icon="chevron-right" />
   {/if}
 </TreeViewBranchIndicator>

@@ -4,7 +4,7 @@
     type DatePickerPrevTriggerProps,
   } from '@ark-ui/svelte/date-picker';
   import { cn } from '@/lib/moduix/cn';
-  import { ChevronLeftIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import { actionClass } from './DatePicker.variants';
   let {
     asChild,
@@ -25,6 +25,6 @@
   {#if children}
     {@render children()}
   {:else if !asChild}
-    <ChevronLeftIcon />
+    <UiIcon icon="chevron-left" />
   {/if}
 </DatePickerPrevTrigger>
