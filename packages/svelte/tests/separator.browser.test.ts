@@ -31,7 +31,7 @@ test('keeps ARIA metadata and stable data hooks aligned with public props', asyn
   expect(separator.dataset).toMatchObject({
     scope: 'separator',
     part: 'root',
-    slot: 'separator-root',
+    slot: 'custom',
     orientation: 'horizontal',
     size: 'lg',
     variant: 'dotted',

@@ -22,7 +22,7 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="
       cn(
-        'group/select-control relative flex w-full min-w-0 items-center [--_select-action-offset:0.5rem] [--_select-action-size:var(--moduix-size-xs)] data-disabled:opacity-disabled',
+        'group/select-control relative flex w-full min-w-0 items-center [--select-action-offset:0.5rem] [--select-action-size:var(--moduix-size-xs)] data-disabled:opacity-disabled',
         className,
       )
     "

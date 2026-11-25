@@ -15,7 +15,7 @@
   {...props}
   bind:ref
   class={cn(
-    'pointer-events-none absolute end-(--_select-action-offset) top-1/2 inline-flex size-(--_select-action-size) -translate-y-1/2 items-center justify-center rounded-sm text-muted-foreground transition-[background-color,color] duration-normal ease-in-out peer-enabled/select-trigger:peer-hover/select-trigger:bg-muted peer-enabled/select-trigger:peer-hover/select-trigger:text-foreground [&>svg]:size-4',
+    'pointer-events-none absolute end-(--select-action-offset) top-1/2 inline-flex size-(--select-action-size) -translate-y-1/2 items-center justify-center rounded-sm text-muted-foreground transition-[background-color,color] duration-normal ease-in-out peer-enabled/select-trigger:peer-hover/select-trigger:bg-muted peer-enabled/select-trigger:peer-hover/select-trigger:text-foreground [&>svg]:size-4',
     className,
   )}
   data-slot="select-indicator"

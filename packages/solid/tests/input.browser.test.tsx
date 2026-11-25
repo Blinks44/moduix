@@ -28,7 +28,7 @@ test('preserves native field state and component-owned styling hooks', async () 
     part: 'input',
     scope: 'field',
     size: 'md',
-    slot: 'input-root',
+    slot: 'consumer-slot',
   });
   await expect.element(textbox).toHaveAttribute('size', '8');
 });

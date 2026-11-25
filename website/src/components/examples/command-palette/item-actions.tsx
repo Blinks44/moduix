@@ -21,7 +21,7 @@ import {
   useFilter,
 } from '@moduix/react/command-palette';
 import { useState } from 'react';
-import { commandPaletteItems } from '@/components/examples/command-palette/command-palette-items';
+import { commandPaletteItems } from './command-palette-items';
 
 export default function CommandPaletteActionsDemo() {
   const [lastAction, setLastAction] = useState('No command executed yet.');

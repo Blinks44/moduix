@@ -20,7 +20,7 @@ import {
   useListCollection,
   useFilter,
 } from '@moduix/react/command-palette';
-import { commandPaletteItems } from '@/components/examples/command-palette/command-palette-items';
+import { commandPaletteItems } from './command-palette-items';
 import styles from '@/components/examples/command-palette/command-palette-enable-the-global-shortcut.module.css';
 
 export default function CommandPaletteShortcutDemo() {

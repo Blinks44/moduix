@@ -21,7 +21,7 @@ defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
 const clearClass =
-  'absolute inset-y-0 end-[calc(var(--_select-action-offset)+var(--_select-action-size)+0.125rem)] my-auto size-(--_select-action-size)';
+  'absolute inset-y-0 end-[calc(var(--select-action-offset)+var(--select-action-size)+0.125rem)] my-auto size-(--select-action-size)';
 const labels = useA11yLabels();
 </script>
 
