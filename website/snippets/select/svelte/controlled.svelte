@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { createListCollection } from '@ark-ui/svelte/collection';
   import {
     Select,
     SelectClearTrigger,
@@ -11,8 +10,8 @@
     SelectPositioner,
     SelectTrigger,
     SelectValueText,
+    createListCollection,
   } from '@moduix/svelte/select';
-
   const themes = createListCollection({
     items: [
       { label: 'System', value: 'system' },

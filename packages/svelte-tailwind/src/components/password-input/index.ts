@@ -32,3 +32,5 @@ export type {
 } from '@ark-ui/svelte/password-input';
 export type { PasswordInputSize, PasswordInputRootProps } from './PasswordInput.svelte';
 export type { PasswordInputRootProviderProps } from './PasswordInputRootProvider.svelte';
+
+export type { PasswordInputContextProps } from '@ark-ui/svelte/password-input';

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { parseDate } from '@ark-ui/vue/date-picker';
 import {
   DatePicker,
   DatePickerClearTrigger,
@@ -13,6 +12,7 @@ import {
   DatePickerTrigger,
   DatePickerView,
   DatePickerYearTable,
+  parseDate,
 } from '@moduix/vue/date-picker';
 import styles from '@/components/examples/date-picker/date-picker-multiple.module.css';
 </script>

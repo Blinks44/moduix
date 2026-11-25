@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { createListCollection } from '@ark-ui/svelte/collection';
   import {
     BarChart3,
     Bell,
@@ -30,6 +29,7 @@
     SelectPositioner,
     SelectTrigger,
     SelectValueText,
+    createListCollection,
   } from '@moduix/svelte/select';
   import {
     Sidebar,

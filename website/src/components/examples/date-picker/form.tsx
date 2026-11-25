@@ -1,4 +1,3 @@
-import { parseDate } from '@ark-ui/react/date-picker';
 import { Button } from '@moduix/react/button';
 import {
   DatePicker,
@@ -8,6 +7,7 @@ import {
   DatePickerContent,
   DatePickerView,
   DatePickerDayTable,
+  parseDate,
 } from '@moduix/react/date-picker';
 import type { FormEvent } from 'react';
 import { useState } from 'react';

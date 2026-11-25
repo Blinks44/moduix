@@ -1,4 +1,3 @@
-import { parseDate } from '@ark-ui/react/date-picker';
 import {
   DatePicker,
   DatePickerLabel,
@@ -9,8 +8,8 @@ import {
   DatePickerDayTable,
   DatePickerMonthTable,
   DatePickerYearTable,
+  parseDate,
 } from '@moduix/react/date-picker';
-
 export default function LocaleDatePickerDemo() {
   return (
     <DatePicker locale="de-DE" startOfWeek={1} defaultValue={[parseDate('2026-06-22')]}>

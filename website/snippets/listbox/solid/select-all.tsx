@@ -1,4 +1,3 @@
-import { createListCollection } from '@ark-ui/solid/collection';
 import { Button } from '@moduix/solid/button';
 import {
   Listbox,
@@ -8,6 +7,7 @@ import {
   ListboxItemText,
   ListboxLabel,
   useListboxContext,
+  createListCollection,
 } from '@moduix/solid/listbox';
 import { For } from 'solid-js';
 

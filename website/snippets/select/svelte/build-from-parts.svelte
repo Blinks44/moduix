@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { createListCollection } from '@ark-ui/svelte/collection';
   import CheckIcon from '@lucide/svelte/icons/check';
   import ChevronsUpDownIcon from '@lucide/svelte/icons/chevrons-up-down';
   import XIcon from '@lucide/svelte/icons/x';
@@ -20,8 +19,8 @@
     SelectPositioner,
     SelectTrigger,
     SelectValueText,
+    createListCollection,
   } from '@moduix/svelte/select';
-
   const fruits = createListCollection({
     items: [
       { label: 'Apple', value: 'apple' },

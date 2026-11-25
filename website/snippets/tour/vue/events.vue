@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { TourStepDetails } from '@ark-ui/vue/tour';
 import { Button } from '@moduix/vue/button';
 import { Stack } from '@moduix/vue/stack';
 import {
@@ -14,6 +13,7 @@ import {
   TourPositioner,
   TourTitle,
   useTour,
+  type TourStepDetails,
 } from '@moduix/vue/tour';
 import { ref } from 'vue';
 

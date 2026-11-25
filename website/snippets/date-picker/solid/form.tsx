@@ -1,4 +1,3 @@
-import { parseDate } from '@ark-ui/solid/date-picker';
 import { Button } from '@moduix/solid/button';
 import {
   DatePicker,
@@ -8,6 +7,7 @@ import {
   DatePickerContent,
   DatePickerView,
   DatePickerDayTable,
+  parseDate,
 } from '@moduix/solid/date-picker';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/date-picker/date-picker-form.module.css';

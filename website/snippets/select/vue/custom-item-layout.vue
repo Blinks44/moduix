@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { createListCollection } from '@ark-ui/vue/collection';
 import { Info } from '@lucide/vue';
 import {
   Select,
@@ -10,8 +9,8 @@ import {
   SelectItemText,
   SelectLabel,
   SelectPositioner,
+  createListCollection,
 } from '@moduix/vue/select';
-
 const fruits = createListCollection({
   items: [
     { label: 'Apple', value: 'apple' },

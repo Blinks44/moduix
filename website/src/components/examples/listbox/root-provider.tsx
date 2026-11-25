@@ -1,4 +1,3 @@
-import { createListCollection } from '@ark-ui/react/collection';
 import { Button } from '@moduix/react/button';
 import {
   ListboxContent,
@@ -8,6 +7,7 @@ import {
   ListboxLabel,
   ListboxRootProvider,
   useListbox,
+  createListCollection,
 } from '@moduix/react/listbox';
 import { Stack } from '@moduix/react/stack';
 

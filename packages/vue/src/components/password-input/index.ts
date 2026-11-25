@@ -48,3 +48,5 @@ export type {
   Props as PasswordInputRootProps,
 } from './PasswordInput.vue';
 export type { Props as PasswordInputRootProviderProps } from './PasswordInputRootProvider.vue';
+
+export type { PasswordInputContextProps } from '@ark-ui/vue/password-input';

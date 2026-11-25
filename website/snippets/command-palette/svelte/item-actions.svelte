@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { useListCollection } from '@ark-ui/svelte/collection';
-  import { useFilter } from '@ark-ui/svelte/locale';
   import { Button } from '@moduix/svelte/button';
   import {
     CommandPalette,
@@ -20,8 +18,9 @@
     CommandPalettePanel,
     CommandPaletteSearch,
     CommandPaletteTrigger,
+    useListCollection,
+    useFilter,
   } from '@moduix/svelte/command-palette';
-
   let lastAction = $state('No command executed yet.');
   const commandPaletteItems = [
     {

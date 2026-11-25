@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useListCollection } from '@ark-ui/vue/collection';
-import { useFilter } from '@ark-ui/vue/locale';
 import { Check as CheckIcon, ChevronsUpDown as ChevronsUpDownIcon, X as XIcon } from '@lucide/vue';
 import { CloseButton } from '@moduix/vue/close-button';
 import {
@@ -17,8 +15,9 @@ import {
   ComboboxItemText,
   ComboboxPositioner,
   ComboboxTrigger,
+  useListCollection,
+  useFilter,
 } from '@moduix/vue/combobox';
-
 const fruits = [
   { label: 'Apple', value: 'apple' },
   { label: 'Banana', value: 'banana' },

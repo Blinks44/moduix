@@ -59,3 +59,5 @@ export type {
 export type { DrawerRootProps } from './Drawer.svelte';
 export type { DrawerRootProviderProps } from './DrawerRootProvider.svelte';
 export type { DrawerContentProps, DrawerSize, DrawerVariant } from './DrawerContent.svelte';
+
+export type { DrawerGrabberIndicatorProps, DrawerGrabberProps } from '@ark-ui/svelte/drawer';

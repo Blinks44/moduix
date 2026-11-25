@@ -1,4 +1,3 @@
-import { createListCollection } from '@ark-ui/react/collection';
 import {
   useCombobox,
   ComboboxClearTrigger,
@@ -11,8 +10,8 @@ import {
   ComboboxPositioner,
   ComboboxRootProvider,
   ComboboxTrigger,
+  createListCollection,
 } from '@moduix/react/combobox';
-
 const jobTitles = [
   { label: 'Designer', value: 'designer' },
   { label: 'Developer', value: 'developer' },

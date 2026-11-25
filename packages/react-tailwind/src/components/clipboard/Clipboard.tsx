@@ -152,3 +152,20 @@ export {
   useClipboard,
   useClipboardContext,
 };
+
+export type {
+  ClipboardContextProps,
+  ClipboardControlProps,
+  ClipboardCopyStatusDetails,
+  ClipboardIndicatorProps,
+  ClipboardInputProps,
+  ClipboardLabelProps,
+  ClipboardRootProps,
+  ClipboardRootProviderProps,
+  ClipboardTriggerProps,
+  ClipboardValueChangeDetails,
+  ClipboardValueTextProps,
+  UseClipboardContext,
+  UseClipboardProps,
+  UseClipboardReturn,
+} from '@ark-ui/react/clipboard';

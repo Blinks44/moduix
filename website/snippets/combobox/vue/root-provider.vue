@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { createListCollection } from '@ark-ui/vue/collection';
 import {
   useCombobox,
   ComboboxClearTrigger,
@@ -12,8 +11,8 @@ import {
   ComboboxPositioner,
   ComboboxRootProvider,
   ComboboxTrigger,
+  createListCollection,
 } from '@moduix/vue/combobox';
-
 const jobTitles = [
   { label: 'Designer', value: 'designer' },
   { label: 'Developer', value: 'developer' },

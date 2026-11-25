@@ -1,4 +1,3 @@
-import { type DatePickerValueChangeDetails } from '@ark-ui/react/date-picker';
 import { CalendarDateTime, DateFormatter } from '@internationalized/date';
 import {
   DateInput,
@@ -16,6 +15,7 @@ import {
   DatePickerDayTable,
   DatePickerMonthTable,
   DatePickerYearTable,
+  type DatePickerValueChangeDetails,
 } from '@moduix/react/date-picker';
 import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';

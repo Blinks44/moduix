@@ -1,5 +1,3 @@
-import { useListCollection } from '@ark-ui/react/collection';
-import { useFilter } from '@ark-ui/react/locale';
 import {
   useCombobox,
   ComboboxContent,
@@ -8,6 +6,8 @@ import {
   ComboboxOption,
   ComboboxPositioner,
   ComboboxRootProvider,
+  useListCollection,
+  useFilter,
 } from '@moduix/react/combobox';
 import {
   TagsInputClearTrigger,

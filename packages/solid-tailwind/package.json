@@ -561,6 +561,12 @@
       "import": "./dist/components/typeset/index.js",
       "default": "./dist/components/typeset/index.js"
     },
+    "./collection": {
+      "types": "./dist/collection.d.ts",
+      "solid": "./dist/collection.jsx",
+      "import": "./dist/collection.js",
+      "default": "./dist/collection.js"
+    },
     "./locale": {
       "types": "./dist/locale.d.ts",
       "solid": "./dist/locale.jsx",

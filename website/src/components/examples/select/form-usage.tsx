@@ -1,4 +1,3 @@
-import { createListCollection } from '@ark-ui/react/collection';
 import { Button } from '@moduix/react/button';
 import {
   Select,
@@ -12,6 +11,7 @@ import {
   SelectContent,
   SelectHiddenSelect,
   SelectOption,
+  createListCollection,
 } from '@moduix/react/select';
 import type { FormEvent } from 'react';
 import { useState } from 'react';

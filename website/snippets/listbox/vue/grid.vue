@@ -1,13 +1,12 @@
 <script setup lang="ts">
-import { createGridCollection } from '@ark-ui/vue/collection';
 import {
   Listbox,
   ListboxContent,
   ListboxItem,
   ListboxItemText,
   ListboxLabel,
+  createGridCollection,
 } from '@moduix/vue/listbox';
-
 const colors = createGridCollection({
   items: [
     { label: 'Red', value: 'red' },

@@ -1,4 +1,3 @@
-import { useListCollection } from '@ark-ui/react/collection';
 import {
   Combobox,
   ComboboxContent,
@@ -9,8 +8,8 @@ import {
   ComboboxOption,
   ComboboxPositioner,
   ComboboxTrigger,
+  useListCollection,
 } from '@moduix/react/combobox';
-
 const domains = ['gmail.com', 'outlook.com', 'proton.me'];
 
 export default function DynamicComboboxDemo() {

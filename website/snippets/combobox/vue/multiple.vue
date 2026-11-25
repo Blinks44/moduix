@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useListCollection } from '@ark-ui/vue/collection';
-import { useFilter } from '@ark-ui/vue/locale';
 import {
   Combobox,
   ComboboxContent,
@@ -12,6 +10,8 @@ import {
   ComboboxOption,
   ComboboxPositioner,
   ComboboxTrigger,
+  useListCollection,
+  useFilter,
 } from '@moduix/vue/combobox';
 import { computed, ref } from 'vue';
 import styles from '@/components/examples/combobox/component-multiple.module.css';

@@ -33,3 +33,5 @@ export type {
   UseQrCodeProps,
   UseQrCodeReturn,
 } from '@ark-ui/vue/qr-code';
+
+export type { QrCodeGenerateResult } from '@ark-ui/vue/qr-code';

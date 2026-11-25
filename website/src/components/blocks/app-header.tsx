@@ -1,7 +1,5 @@
 'use client';
 
-import { useListCollection } from '@ark-ui/react/collection';
-import { useFilter } from '@ark-ui/react/locale';
 import {
   ChevronDown,
   CircleHelp,
@@ -30,6 +28,8 @@ import {
   CommandPalettePanel,
   CommandPaletteSearch,
   CommandPaletteTrigger,
+  useListCollection,
+  useFilter,
 } from '@/registry/react/ui/command-palette';
 import {
   Menu,

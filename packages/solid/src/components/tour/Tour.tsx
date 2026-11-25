@@ -283,3 +283,24 @@ export type {
   WaitForEventOptions,
   WaitOptions,
 } from '@ark-ui/solid/tour';
+
+export type {
+  TourElementIds,
+  TourFocusOutsideEvent,
+  TourInteractOutsideEvent,
+  TourIntlTranslations,
+  TourPoint,
+  TourPointerDownOutsideEvent,
+  TourProgressTextDetails,
+  TourScrollToTargetDetails,
+  TourStepAction,
+  TourStepActionFn,
+  TourStepActionMap,
+  TourStepActionType,
+  TourStepBaseDetails,
+  TourStepEffectCleanup,
+  TourStepPlacement,
+  TourStepStatus,
+  TourStepType,
+  TourStepsChangeDetails,
+} from '@ark-ui/solid/tour';

@@ -59,3 +59,14 @@ export type { ComboboxRootProps } from './Combobox.svelte';
 export type { ComboboxOptionProps } from './ComboboxOption.svelte';
 export type { ComboboxRootProviderProps } from './ComboboxRootProvider.svelte';
 export type { ComboboxStatusProps } from './ComboboxStatus.svelte';
+
+export { createListCollection, useListCollection } from '@ark-ui/svelte/collection';
+export type {
+  CollectionItem,
+  CollectionOptions,
+  ListCollection,
+  UseListCollectionProps,
+  UseListCollectionReturn,
+} from '@ark-ui/svelte/collection';
+export { useFilter } from '@ark-ui/svelte/locale';
+export type { UseFilterProps, UseFilterReturn } from '@ark-ui/svelte/locale';

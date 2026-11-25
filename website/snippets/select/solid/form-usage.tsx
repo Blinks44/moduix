@@ -1,4 +1,3 @@
-import { createListCollection } from '@ark-ui/solid/collection';
 import { Button } from '@moduix/solid/button';
 import {
   Select,
@@ -12,6 +11,7 @@ import {
   SelectContent,
   SelectHiddenSelect,
   SelectOption,
+  createListCollection,
 } from '@moduix/solid/select';
 import { createSignal, For } from 'solid-js';
 import styles from '@/components/examples/select/select-form-usage.module.css';

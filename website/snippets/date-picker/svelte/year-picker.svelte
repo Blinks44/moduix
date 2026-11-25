@@ -1,5 +1,4 @@
 <script lang="ts">
-  import type { DateValue } from '@ark-ui/svelte/date-picker';
   import { CalendarDate } from '@internationalized/date';
   import {
     DatePicker,
@@ -9,8 +8,8 @@
     DatePickerPositioner,
     DatePickerView,
     DatePickerYearTable,
+    type DateValue,
   } from '@moduix/svelte/date-picker';
-
   const format = (date: DateValue) => String(date.year);
 </script>
 

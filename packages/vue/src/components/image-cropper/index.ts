@@ -51,3 +51,5 @@ export type {
   UseImageCropperReturn,
 } from '@ark-ui/vue/image-cropper';
 export type { Props as ImageCropperCropAreaProps } from './ImageCropperCropArea.vue';
+
+export type { ImageCropperRect } from '@ark-ui/vue/image-cropper';

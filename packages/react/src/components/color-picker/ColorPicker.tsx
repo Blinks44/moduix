@@ -571,3 +571,5 @@ export type {
   UseColorPickerProps,
   UseColorPickerReturn,
 } from '@ark-ui/react/color-picker';
+
+export type { ColorPickerHiddenInputProps } from '@ark-ui/react/color-picker';

@@ -239,3 +239,18 @@ export type {
   UseListboxProps,
   UseListboxReturn,
 } from '@ark-ui/solid/listbox';
+
+export {
+  createGridCollection,
+  createListCollection,
+  useListCollection,
+} from '@ark-ui/solid/collection';
+export type {
+  CollectionOptions,
+  GridCollection,
+  GridCollectionOptions,
+  UseListCollectionProps,
+  UseListCollectionReturn,
+} from '@ark-ui/solid/collection';
+export { useFilter } from '@ark-ui/solid/locale';
+export type { UseFilterProps, UseFilterReturn } from '@ark-ui/solid/locale';

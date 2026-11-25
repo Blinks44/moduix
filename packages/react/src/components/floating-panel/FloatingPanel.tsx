@@ -362,3 +362,5 @@ export type {
   UseFloatingPanelProps,
   UseFloatingPanelReturn,
 } from '@ark-ui/react/floating-panel';
+
+export type { FloatingPanelElementIds } from '@ark-ui/react/floating-panel';

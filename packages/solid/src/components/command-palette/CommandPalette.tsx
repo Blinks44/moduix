@@ -550,3 +550,22 @@ export {
 };
 
 export type { CommandPaletteRootProps, CommandPaletteRootProviderProps };
+
+export { createListCollection, useListCollection } from '@ark-ui/solid/collection';
+export type {
+  CollectionItem,
+  CollectionOptions,
+  ListCollection,
+  UseListCollectionProps,
+  UseListCollectionReturn,
+} from '@ark-ui/solid/collection';
+export { useFilter } from '@ark-ui/solid/locale';
+export type { UseFilterProps, UseFilterReturn } from '@ark-ui/solid/locale';
+export type {
+  ComboboxHighlightChangeDetails,
+  ComboboxInputValueChangeDetails,
+  ComboboxOpenChangeDetails,
+  ComboboxSelectionDetails,
+  ComboboxValueChangeDetails,
+} from '@ark-ui/solid/combobox';
+export type { DialogOpenChangeDetails } from '@ark-ui/solid/dialog';

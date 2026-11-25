@@ -301,3 +301,18 @@ export type {
   UseListboxProps,
   UseListboxReturn,
 } from '@ark-ui/react/listbox';
+
+export {
+  createGridCollection,
+  createListCollection,
+  useListCollection,
+} from '@ark-ui/react/collection';
+export type {
+  CollectionOptions,
+  GridCollection,
+  GridCollectionOptions,
+  UseListCollectionProps,
+  UseListCollectionReturn,
+} from '@ark-ui/react/collection';
+export { useFilter } from '@ark-ui/react/locale';
+export type { UseFilterProps, UseFilterReturn } from '@ark-ui/react/locale';

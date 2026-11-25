@@ -1,4 +1,3 @@
-import { createListCollection } from '@ark-ui/react/collection';
 import { Input } from '@moduix/react/input';
 import {
   Select,
@@ -7,6 +6,7 @@ import {
   SelectPositioner,
   SelectContent,
   SelectOption,
+  createListCollection,
 } from '@moduix/react/select';
 import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';

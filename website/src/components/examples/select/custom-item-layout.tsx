@@ -1,4 +1,3 @@
-import { createListCollection } from '@ark-ui/react/collection';
 import {
   Select,
   SelectLabel,
@@ -8,6 +7,7 @@ import {
   SelectItem,
   SelectItemText,
   SelectItemIndicator,
+  createListCollection,
 } from '@moduix/react/select';
 import { Apple as AppleIcon, Banana as BananaIcon, Cherry as CherryIcon } from 'lucide-react';
 

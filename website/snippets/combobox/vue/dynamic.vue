@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useListCollection } from '@ark-ui/vue/collection';
-import type { ComboboxInputValueChangeDetails } from '@ark-ui/vue/combobox';
 import {
   Combobox,
   ComboboxContent,
@@ -11,8 +9,9 @@ import {
   ComboboxOption,
   ComboboxPositioner,
   ComboboxTrigger,
+  useListCollection,
+  type ComboboxInputValueChangeDetails,
 } from '@moduix/vue/combobox';
-
 const domains = ['gmail.com', 'outlook.com', 'proton.me'];
 const { collection, set } = useListCollection<string>({ initialItems: [] });
 

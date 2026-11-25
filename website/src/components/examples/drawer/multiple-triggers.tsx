@@ -1,4 +1,3 @@
-import { type DrawerTriggerValueChangeDetails } from '@ark-ui/react/drawer';
 import { Button } from '@moduix/react/button';
 import { Card, CardBody } from '@moduix/react/card';
 import {
@@ -12,6 +11,7 @@ import {
   DrawerPositioner,
   DrawerTitle,
   DrawerTrigger,
+  type DrawerTriggerValueChangeDetails,
 } from '@moduix/react/drawer';
 import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';

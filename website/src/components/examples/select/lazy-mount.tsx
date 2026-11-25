@@ -1,4 +1,3 @@
-import { createListCollection } from '@ark-ui/react/collection';
 import {
   Select,
   SelectLabel,
@@ -10,8 +9,8 @@ import {
   SelectPositioner,
   SelectContent,
   SelectOption,
+  createListCollection,
 } from '@moduix/react/select';
-
 const fruits = createListCollection({
   items: [
     {

@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { parseDate } from '@ark-ui/svelte/date-picker';
   import CalendarIcon from '@lucide/svelte/icons/calendar';
   import ChevronDownIcon from '@lucide/svelte/icons/chevron-down';
   import ChevronLeftIcon from '@lucide/svelte/icons/chevron-left';
@@ -29,6 +28,7 @@
     DatePickerView,
     DatePickerViewControl,
     DatePickerViewTrigger,
+    parseDate,
   } from '@moduix/svelte/date-picker';
 </script>
 

@@ -1,10 +1,4 @@
 <script lang="ts">
-  import { useListCollection } from '@ark-ui/svelte/collection';
-  import type {
-    ComboboxInputValueChangeDetails,
-    ComboboxOpenChangeDetails,
-  } from '@ark-ui/svelte/combobox';
-  import { useFilter } from '@ark-ui/svelte/locale';
   import {
     Combobox,
     ComboboxClearTrigger,
@@ -18,8 +12,11 @@
     ComboboxList,
     ComboboxPositioner,
     ComboboxTrigger,
+    useListCollection,
+    type ComboboxInputValueChangeDetails,
+    type ComboboxOpenChangeDetails,
+    useFilter,
   } from '@moduix/svelte/combobox';
-
   type IssueLabel = { label: string; value: string; created?: boolean };
   const createOptionValue = '__create-option__';
   const issueLabels: IssueLabel[] = [

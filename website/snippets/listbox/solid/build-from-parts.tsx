@@ -1,4 +1,3 @@
-import { createListCollection } from '@ark-ui/solid/collection';
 import {
   Listbox,
   ListboxContent,
@@ -6,6 +5,7 @@ import {
   ListboxItemIndicator,
   ListboxItemText,
   ListboxLabel,
+  createListCollection,
 } from '@moduix/solid/listbox';
 import { Check as CheckIcon } from 'lucide-solid';
 import { For } from 'solid-js';

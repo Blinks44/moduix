@@ -1,4 +1,3 @@
-import { useListCollection } from '@ark-ui/react/collection';
 import {
   Listbox,
   ListboxContent,
@@ -8,8 +7,8 @@ import {
   ListboxItemIndicator,
   ListboxItemText,
   ListboxLabel,
+  useListCollection,
 } from '@moduix/react/listbox';
-
 const frameworks = [
   {
     label: 'React',

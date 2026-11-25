@@ -1,4 +1,3 @@
-import { createListCollection } from '@ark-ui/react/collection';
 import {
   Pagination,
   PaginationContext,
@@ -16,6 +15,7 @@ import {
   SelectPositioner,
   SelectContent,
   SelectOption,
+  createListCollection,
 } from '@moduix/react/select';
 import styles from '@/components/examples/pagination/pagination-page-size-control.module.css';
 

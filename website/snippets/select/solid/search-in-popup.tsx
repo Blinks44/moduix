@@ -1,4 +1,3 @@
-import { createListCollection } from '@ark-ui/solid/collection';
 import { InputGroup, InputGroupAddon, InputGroupInput } from '@moduix/solid/input-group';
 import {
   Select,
@@ -7,6 +6,7 @@ import {
   SelectPositioner,
   SelectContent,
   SelectOption,
+  createListCollection,
 } from '@moduix/solid/select';
 import { Search as SearchIcon } from 'lucide-solid';
 import { createEffect, createMemo, createSignal, For, Show } from 'solid-js';

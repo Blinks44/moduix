@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { createListCollection } from '@ark-ui/vue/collection';
 import { Button } from '@moduix/vue/button';
 import { LocaleProvider } from '@moduix/vue/locale';
 import {
@@ -10,6 +9,7 @@ import {
   SelectContent,
   SelectItemGroup,
   SelectOption,
+  createListCollection,
 } from '@moduix/vue/select';
 const cities = createListCollection({
   items: [

@@ -6,7 +6,7 @@
   "scripts": {
     "build": "rspress build",
     "deploy": "wrangler deploy",
-    "dev": "rspress dev --host",
+    "dev": "rspress dev --host --port 3100",
     "preview": "rspress preview",
     "tsc:check": "tsc -p tsconfig.json && tsc -p snippets/tsconfig.json && vue-tsc -p snippets/tsconfig.json && svelte-check --tsconfig snippets/tsconfig.svelte.json --fail-on-warnings"
   },

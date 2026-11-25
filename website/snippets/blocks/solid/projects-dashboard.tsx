@@ -1,4 +1,3 @@
-import { createListCollection } from '@ark-ui/solid/collection';
 import { ChevronsUpDown, FileText, FolderOpen, Gauge, Plus, Settings, Users } from 'lucide-solid';
 import { For, createSignal } from 'solid-js';
 import { Badge } from '@/registry/solid/ui/badge';
@@ -44,6 +43,7 @@ import {
   SelectLabel,
   SelectOption,
   SelectPositioner,
+  createListCollection,
 } from '@/registry/solid/ui/select';
 import {
   Sidebar,

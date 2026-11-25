@@ -1,5 +1,4 @@
 <script lang="ts">
-  import type { DateValue } from '@ark-ui/svelte/date-picker';
   import { CalendarDate } from '@internationalized/date';
   import {
     DatePicker,
@@ -9,8 +8,8 @@
     DatePickerMonthTable,
     DatePickerPositioner,
     DatePickerView,
+    type DateValue,
   } from '@moduix/svelte/date-picker';
-
   const format = (date: DateValue) => `${String(date.month).padStart(2, '0')}/${date.year}`;
   const parse = (value: string) => {
     const match = value.match(/^(\d{1,2})\/(\d{4})$/);

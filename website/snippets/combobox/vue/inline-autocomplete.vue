@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useListCollection } from '@ark-ui/vue/collection';
-import { useFilter } from '@ark-ui/vue/locale';
 import {
   Combobox,
   ComboboxClearTrigger,
@@ -13,8 +11,9 @@ import {
   ComboboxOption,
   ComboboxPositioner,
   ComboboxTrigger,
+  useListCollection,
+  useFilter,
 } from '@moduix/vue/combobox';
-
 const seaCreatures = [
   { label: 'Whale', value: 'whale' },
   { label: 'Dolphin', value: 'dolphin' },

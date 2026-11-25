@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { createListCollection } from '@ark-ui/vue/collection';
 import {
   Listbox,
   ListboxContent,
@@ -8,8 +7,8 @@ import {
   ListboxItemText,
   ListboxLabel,
   ListboxValueText,
+  createListCollection,
 } from '@moduix/vue/listbox';
-
 const days = createListCollection({
   items: [
     { label: 'Monday', value: 'mon' },

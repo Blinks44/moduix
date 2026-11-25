@@ -1,4 +1,3 @@
-import { createListCollection } from '@ark-ui/react/collection';
 import { Field, FieldLabel } from '@moduix/react/field';
 import { Fieldset, FieldsetHelperText, FieldsetLegend } from '@moduix/react/fieldset';
 import { Input } from '@moduix/react/input';
@@ -13,6 +12,7 @@ import {
   SelectContent,
   SelectHiddenSelect,
   SelectOption,
+  createListCollection,
 } from '@moduix/react/select';
 import styles from '@/components/examples/fieldset/fieldset-input-with-select.module.css';
 

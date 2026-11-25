@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { useListCollection } from '@ark-ui/svelte/collection';
-  import { useFilter } from '@ark-ui/svelte/locale';
   import ChevronDown from '@lucide/svelte/icons/chevron-down';
   import CircleHelp from '@lucide/svelte/icons/circle-help';
   import FolderKanban from '@lucide/svelte/icons/folder-kanban';
@@ -27,6 +25,8 @@
     CommandPalettePanel,
     CommandPaletteSearch,
     CommandPaletteTrigger,
+    useListCollection,
+    useFilter,
   } from '@/components/ui/command-palette';
   import {
     Menu,

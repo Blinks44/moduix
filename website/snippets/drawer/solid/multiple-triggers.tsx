@@ -1,4 +1,3 @@
-import { type DrawerTriggerValueChangeDetails } from '@ark-ui/solid/drawer';
 import { Button } from '@moduix/solid/button';
 import { Card, CardBody } from '@moduix/solid/card';
 import {
@@ -12,6 +11,7 @@ import {
   DrawerPositioner,
   DrawerTitle,
   DrawerTrigger,
+  type DrawerTriggerValueChangeDetails,
 } from '@moduix/solid/drawer';
 import { Stack } from '@moduix/solid/stack';
 import { For, Show, createSignal } from 'solid-js';

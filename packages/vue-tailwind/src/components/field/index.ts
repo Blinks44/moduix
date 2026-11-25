@@ -19,3 +19,5 @@ export type {
   UseFieldProps,
   UseFieldReturn,
 } from '@ark-ui/vue/field';
+
+export type { FieldItemProps } from '@ark-ui/vue/field';

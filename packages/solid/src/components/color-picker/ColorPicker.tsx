@@ -543,3 +543,5 @@ export type {
   UseColorPickerProps,
   UseColorPickerReturn,
 } from '@ark-ui/solid/color-picker';
+
+export type { ColorPickerHiddenInputProps } from '@ark-ui/solid/color-picker';

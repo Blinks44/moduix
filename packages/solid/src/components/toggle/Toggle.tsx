@@ -46,3 +46,5 @@ export type {
   UseToggleReturn,
 } from '@ark-ui/solid/toggle';
 export type { ToggleRootProps, ToggleSize, ToggleVariant };
+
+export { useToggle } from '@ark-ui/solid/toggle';

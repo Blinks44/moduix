@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useListCollection } from '@ark-ui/vue/collection';
-import { useFilter } from '@ark-ui/vue/locale';
 import {
   Combobox,
   ComboboxContent,
@@ -14,6 +12,8 @@ import {
   ComboboxList,
   ComboboxPositioner,
   ComboboxTrigger,
+  useListCollection,
+  useFilter,
 } from '@moduix/vue/combobox';
 import { useVirtualizer } from '@tanstack/vue-virtual';
 import { computed, ref } from 'vue';

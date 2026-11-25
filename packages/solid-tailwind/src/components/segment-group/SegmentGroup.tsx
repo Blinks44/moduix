@@ -150,3 +150,18 @@ export type {
   SegmentGroupRootProviderProps,
   SegmentGroupSize,
 };
+
+export type {
+  SegmentGroupContextProps,
+  SegmentGroupIndicatorProps,
+  SegmentGroupItemContextProps,
+  SegmentGroupItemHiddenInputProps,
+  SegmentGroupItemProps,
+  SegmentGroupItemTextProps,
+  SegmentGroupLabelProps,
+  SegmentGroupValueChangeDetails,
+  UseSegmentGroupContext,
+  UseSegmentGroupItemContext,
+  UseSegmentGroupProps,
+  UseSegmentGroupReturn,
+} from '@ark-ui/solid/segment-group';

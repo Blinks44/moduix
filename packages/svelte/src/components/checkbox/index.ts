@@ -29,3 +29,5 @@ export type {
 } from '@ark-ui/svelte/checkbox';
 export type { CheckboxSize, CheckboxRootProps } from './Checkbox.svelte';
 export type { CheckboxRootProviderProps } from './CheckboxRootProvider.svelte';
+
+export type { CheckboxCheckedChangeDetails, CheckboxCheckedState } from '@ark-ui/svelte/checkbox';

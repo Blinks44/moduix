@@ -1,4 +1,3 @@
-import { createListCollection } from '@ark-ui/solid/collection';
 import {
   Select,
   SelectLabel,
@@ -6,6 +5,7 @@ import {
   SelectPositioner,
   SelectContent,
   SelectOption,
+  createListCollection,
 } from '@moduix/solid/select';
 import { createMemo, createSignal, For } from 'solid-js';
 

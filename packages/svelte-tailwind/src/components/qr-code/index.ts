@@ -20,3 +20,5 @@ export type {
   UseQrCodeProps,
   UseQrCodeReturn,
 } from '@ark-ui/svelte/qr-code';
+
+export type { QrCodeGenerateResult } from '@ark-ui/svelte/qr-code';

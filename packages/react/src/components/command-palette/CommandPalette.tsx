@@ -574,3 +574,22 @@ export {
 };
 
 export type { CommandPaletteRootProps, CommandPaletteRootProviderProps };
+
+export { createListCollection, useListCollection } from '@ark-ui/react/collection';
+export type {
+  CollectionItem,
+  CollectionOptions,
+  ListCollection,
+  UseListCollectionProps,
+  UseListCollectionReturn,
+} from '@ark-ui/react/collection';
+export { useFilter } from '@ark-ui/react/locale';
+export type { UseFilterProps, UseFilterReturn } from '@ark-ui/react/locale';
+export type {
+  ComboboxHighlightChangeDetails,
+  ComboboxInputValueChangeDetails,
+  ComboboxOpenChangeDetails,
+  ComboboxSelectionDetails,
+  ComboboxValueChangeDetails,
+} from '@ark-ui/react/combobox';
+export type { DialogOpenChangeDetails } from '@ark-ui/react/dialog';

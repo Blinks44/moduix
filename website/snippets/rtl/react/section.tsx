@@ -1,4 +1,3 @@
-import { createListCollection } from '@ark-ui/react/collection';
 import { Button } from '@moduix/react/button';
 import { LocaleProvider } from '@moduix/react/locale';
 import {
@@ -9,8 +8,8 @@ import {
   SelectContent,
   SelectItemGroup,
   SelectOption,
+  createListCollection,
 } from '@moduix/react/select';
-
 const cities = createListCollection({
   items: [
     { label: 'القاهرة', value: 'cairo' },

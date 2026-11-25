@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { createListCollection } from '@ark-ui/vue/collection';
 import {
   Listbox,
   ListboxContent,
@@ -7,6 +6,7 @@ import {
   ListboxItemIndicator,
   ListboxItemText,
   ListboxLabel,
+  createListCollection,
 } from '@moduix/vue/listbox';
 import styles from '@/components/examples/listbox/listbox-horizontal.module.css';
 

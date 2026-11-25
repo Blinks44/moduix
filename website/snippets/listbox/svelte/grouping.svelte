@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { createListCollection } from '@ark-ui/svelte/collection';
   import {
     Listbox,
     ListboxContent,
@@ -9,8 +8,8 @@
     ListboxItemIndicator,
     ListboxItemText,
     ListboxLabel,
+    createListCollection,
   } from '@moduix/svelte/listbox';
-
   const regions = createListCollection({
     items: [
       { label: 'New York', value: 'nyc', region: 'North America' },

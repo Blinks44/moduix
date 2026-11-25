@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { parseDate } from '@ark-ui/vue/date-picker';
 import {
   DatePicker,
   DatePickerContent,
@@ -10,8 +9,8 @@ import {
   DatePickerPositioner,
   DatePickerView,
   DatePickerYearTable,
+  parseDate,
 } from '@moduix/vue/date-picker';
-
 const min = parseDate('2026-06-22');
 const max = parseDate('2026-06-30');
 const isDateUnavailable = (value: { day: number }) => value.day === 25;

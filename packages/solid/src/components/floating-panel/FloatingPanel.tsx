@@ -341,3 +341,5 @@ export type {
   UseFloatingPanelProps,
   UseFloatingPanelReturn,
 } from '@ark-ui/solid/floating-panel';
+
+export type { FloatingPanelElementIds } from '@ark-ui/solid/floating-panel';

@@ -38,3 +38,5 @@ export type {
   UseSignaturePadProps,
   UseSignaturePadReturn,
 } from '@ark-ui/svelte/signature-pad';
+
+export type { UseSignaturePadContext } from '@ark-ui/svelte/signature-pad';

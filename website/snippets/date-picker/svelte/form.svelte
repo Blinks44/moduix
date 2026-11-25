@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { parseDate } from '@ark-ui/svelte/date-picker';
   import { Button } from '@moduix/svelte/button';
   import {
     DatePicker,
@@ -9,6 +8,7 @@
     DatePickerLabel,
     DatePickerPositioner,
     DatePickerView,
+    parseDate,
   } from '@moduix/svelte/date-picker';
   import styles from '@/components/examples/date-picker/date-picker-form.module.css';
 

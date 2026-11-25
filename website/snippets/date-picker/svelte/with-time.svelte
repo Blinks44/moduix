@@ -1,5 +1,4 @@
 <script lang="ts">
-  import type { DateValue } from '@ark-ui/svelte/date-picker';
   import { CalendarDateTime, DateFormatter } from '@internationalized/date';
   import {
     DateInput,
@@ -17,6 +16,7 @@
     DatePickerPositioner,
     DatePickerView,
     DatePickerYearTable,
+    type DateValue,
   } from '@moduix/svelte/date-picker';
   import { Stack } from '@moduix/svelte/stack';
 

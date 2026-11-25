@@ -1,6 +1,5 @@
 'use client';
 
-import { createListCollection } from '@ark-ui/react/collection';
 import {
   ChevronsUpDown,
   FileText,
@@ -56,6 +55,7 @@ import {
   SelectLabel,
   SelectOption,
   SelectPositioner,
+  createListCollection,
 } from '@/registry/react/ui/select';
 import {
   Sidebar,

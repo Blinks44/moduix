@@ -1,5 +1,3 @@
-import { useListCollection } from '@ark-ui/react/collection';
-import { useFilter } from '@ark-ui/react/locale';
 import { Button } from '@moduix/react/button';
 import {
   CommandPalette,
@@ -19,6 +17,8 @@ import {
   CommandPalettePanel,
   CommandPaletteSearch,
   CommandPaletteTrigger,
+  useListCollection,
+  useFilter,
 } from '@moduix/react/command-palette';
 import { useState } from 'react';
 import { commandPaletteItems } from '@/components/examples/command-palette/command-palette-items';

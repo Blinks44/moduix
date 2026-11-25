@@ -100,3 +100,21 @@ export {
   useSplitter,
   useSplitterContext,
 };
+
+export { getSplitterLayout } from '@ark-ui/react/splitter';
+export type {
+  SplitterContextProps,
+  SplitterExpandCollapseDetails,
+  SplitterPanelProps,
+  SplitterRegistryProps,
+  SplitterRegistryReturn,
+  SplitterResizeDetails,
+  SplitterResizeEndDetails,
+  SplitterResizeTriggerIndicatorProps,
+  SplitterResizeTriggerProps,
+  SplitterRootProps,
+  SplitterRootProviderProps,
+  UseSplitterContext,
+  UseSplitterProps,
+  UseSplitterReturn,
+} from '@ark-ui/react/splitter';

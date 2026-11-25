@@ -61,3 +61,12 @@ const SwapIndicator = forwardRef<
 });
 
 export { Swap, SwapIndicator, SwapRootProvider, useSwap, useSwapContext, type SwapAnimation };
+
+export type { SwapProps as SwapRootProps };
+export type { SwapRootProviderProps };
+export type {
+  SwapIndicatorProps,
+  UseSwapContext,
+  UseSwapProps,
+  UseSwapReturn,
+} from '@ark-ui/react/swap';

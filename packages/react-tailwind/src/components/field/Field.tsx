@@ -137,3 +137,5 @@ export type {
   UseFieldProps,
   UseFieldReturn,
 } from '@ark-ui/react/field';
+
+export type { FieldItemProps };

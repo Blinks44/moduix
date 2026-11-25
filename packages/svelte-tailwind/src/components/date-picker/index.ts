@@ -83,3 +83,6 @@ export type {
   UseDatePickerReturn,
 } from '@ark-ui/svelte/date-picker';
 export type { PortalRef } from '@/lib/moduix/overlayPortal';
+
+export { parseDate } from '@ark-ui/svelte/date-picker';
+export type { DatePickerRangeTextProps } from '@ark-ui/svelte/date-picker';

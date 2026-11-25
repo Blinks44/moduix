@@ -1,5 +1,3 @@
-import { useListCollection } from '@ark-ui/react/collection';
-import { useFilter } from '@ark-ui/react/locale';
 import { CloseButton } from '@moduix/react/close-button';
 import {
   Combobox,
@@ -15,6 +13,8 @@ import {
   ComboboxItemText,
   ComboboxPositioner,
   ComboboxTrigger,
+  useListCollection,
+  useFilter,
 } from '@moduix/react/combobox';
 import { Check as CheckIcon, ChevronsUpDown as ChevronsUpDownIcon, X as XIcon } from 'lucide-react';
 

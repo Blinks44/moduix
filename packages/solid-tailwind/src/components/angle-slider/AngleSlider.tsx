@@ -192,3 +192,16 @@ export type {
   UseAngleSliderProps,
   UseAngleSliderReturn,
 } from '@ark-ui/solid/angle-slider';
+
+export type {
+  AngleSliderContextProps,
+  AngleSliderControlProps,
+  AngleSliderHiddenInputProps,
+  AngleSliderLabelProps,
+  AngleSliderMarkerGroupProps,
+  AngleSliderMarkerProps,
+  AngleSliderRootProviderProps,
+  AngleSliderThumbProps,
+  AngleSliderValueTextProps,
+  UseAngleSliderContext,
+} from '@ark-ui/solid/angle-slider';

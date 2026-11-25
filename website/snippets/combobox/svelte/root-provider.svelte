@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { createListCollection } from '@ark-ui/svelte/collection';
   import {
     ComboboxClearTrigger,
     ComboboxContent,
@@ -12,8 +11,8 @@
     ComboboxRootProvider,
     ComboboxTrigger,
     useCombobox,
+    createListCollection,
   } from '@moduix/svelte/combobox';
-
   const jobTitles = [
     { label: 'Designer', value: 'designer' },
     { label: 'Developer', value: 'developer' },

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useListCollection } from '@ark-ui/vue/collection';
 import {
   Listbox,
   ListboxContent,
@@ -9,8 +8,8 @@ import {
   ListboxItemIndicator,
   ListboxItemText,
   ListboxLabel,
+  useListCollection,
 } from '@moduix/vue/listbox';
-
 const frameworks = [
   { label: 'React', value: 'react' },
   { label: 'Vue', value: 'vue' },

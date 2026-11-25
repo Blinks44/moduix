@@ -16,3 +16,5 @@ export type {
 } from '@ark-ui/vue/toggle';
 
 export type { Props as ToggleRootProps, ToggleSize, ToggleVariant } from './Toggle.vue';
+
+export { useToggle } from '@ark-ui/vue/toggle';

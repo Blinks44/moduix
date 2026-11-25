@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useListCollection } from '@ark-ui/vue/collection';
-import { useFilter } from '@ark-ui/vue/locale';
 import {
   useCombobox,
   ComboboxContent,
@@ -9,6 +7,8 @@ import {
   ComboboxOption,
   ComboboxPositioner,
   ComboboxRootProvider,
+  useListCollection,
+  useFilter,
 } from '@moduix/vue/combobox';
 import {
   TagsInputClearTrigger,

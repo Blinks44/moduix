@@ -51,3 +51,5 @@ export type {
 } from '@ark-ui/svelte/floating-panel';
 export type { FloatingPanelRootProps } from './FloatingPanel.svelte';
 export type { FloatingPanelRootProviderProps } from './FloatingPanelRootProvider.svelte';
+
+export type { FloatingPanelElementIds } from '@ark-ui/svelte/floating-panel';

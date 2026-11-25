@@ -1,4 +1,3 @@
-import type { TourStepDetails } from '@ark-ui/react/tour';
 import { Button } from '@moduix/react/button';
 import { CloseButton } from '@moduix/react/close-button';
 import { Stack } from '@moduix/react/stack';
@@ -16,6 +15,7 @@ import {
   TourActions,
   TourActionTrigger,
   useTour,
+  type TourStepDetails,
 } from '@moduix/react/tour';
 import { X as XIcon } from 'lucide-react';
 import { useState } from 'react';

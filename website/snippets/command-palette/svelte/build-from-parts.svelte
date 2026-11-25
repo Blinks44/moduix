@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { useListCollection } from '@ark-ui/svelte/collection';
-  import { useFilter } from '@ark-ui/svelte/locale';
   import SearchIcon from '@lucide/svelte/icons/search';
   import XIcon from '@lucide/svelte/icons/x';
   import { Button } from '@moduix/svelte/button';
@@ -25,6 +23,8 @@
     CommandPaletteList,
     CommandPalettePositioner,
     CommandPaletteTrigger,
+    useListCollection,
+    useFilter,
   } from '@moduix/svelte/command-palette';
   import styles from '@/components/examples/command-palette/command-palette-build-from-parts.module.css';
 

@@ -30,3 +30,22 @@ export { default as CommandPaletteTrigger } from './CommandPaletteTrigger.vue';
 
 export type { Props as CommandPaletteRootProps } from './CommandPalette.vue';
 export type { Props as CommandPaletteRootProviderProps } from './CommandPaletteRootProvider.vue';
+
+export { createListCollection, useListCollection } from '@ark-ui/vue/collection';
+export type {
+  CollectionItem,
+  CollectionOptions,
+  ListCollection,
+  UseListCollectionProps,
+  UseListCollectionReturn,
+} from '@ark-ui/vue/collection';
+export { useFilter } from '@ark-ui/vue/locale';
+export type { UseFilterProps, UseFilterReturn } from '@ark-ui/vue/locale';
+export type {
+  ComboboxHighlightChangeDetails,
+  ComboboxInputValueChangeDetails,
+  ComboboxOpenChangeDetails,
+  ComboboxSelectionDetails,
+  ComboboxValueChangeDetails,
+} from '@ark-ui/vue/combobox';
+export type { DialogOpenChangeDetails } from '@ark-ui/vue/dialog';

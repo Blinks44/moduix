@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { parseDate } from '@ark-ui/vue/date-picker';
 import type { DatePickerRootProps } from '@moduix/vue/date-picker';
 import {
   DatePicker,
@@ -11,6 +10,7 @@ import {
   DatePickerPositioner,
   DatePickerView,
   DatePickerYearTable,
+  parseDate,
 } from '@moduix/vue/date-picker';
 import { Stack } from '@moduix/vue/stack';
 import { shallowRef } from 'vue';

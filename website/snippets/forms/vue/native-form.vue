@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { createListCollection, useListCollection } from '@ark-ui/vue/collection';
-import { useFilter } from '@ark-ui/vue/locale';
 import { Button } from '@moduix/vue/button';
 import {
   Card,
@@ -27,6 +25,9 @@ import {
   ComboboxOption,
   ComboboxPositioner,
   ComboboxTrigger,
+  createListCollection,
+  useListCollection,
+  useFilter,
 } from '@moduix/vue/combobox';
 import { Field, FieldLabel, FieldRequiredIndicator } from '@moduix/vue/field';
 import { Input } from '@moduix/vue/input';

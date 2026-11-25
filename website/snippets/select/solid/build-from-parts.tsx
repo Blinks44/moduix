@@ -1,4 +1,3 @@
-import { createListCollection } from '@ark-ui/solid/collection';
 import { CloseButton } from '@moduix/solid/close-button';
 import {
   Select,
@@ -16,6 +15,7 @@ import {
   SelectItemText,
   SelectItemIndicator,
   SelectHiddenSelect,
+  createListCollection,
 } from '@moduix/solid/select';
 import { Check as CheckIcon, ChevronsUpDown as ChevronsUpDownIcon, X as XIcon } from 'lucide-solid';
 import { For } from 'solid-js';

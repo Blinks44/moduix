@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { createListCollection } from '@ark-ui/svelte/collection';
   import CheckIcon from '@lucide/svelte/icons/check';
   import {
     Listbox,
@@ -8,8 +7,8 @@
     ListboxItemIndicator,
     ListboxItemText,
     ListboxLabel,
+    createListCollection,
   } from '@moduix/svelte/listbox';
-
   const countries = createListCollection({
     items: [
       { label: 'United States', value: 'us' },

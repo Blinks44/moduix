@@ -1,4 +1,3 @@
-import { createListCollection } from '@ark-ui/solid/collection';
 import {
   Pagination,
   PaginationContext,
@@ -16,6 +15,7 @@ import {
   SelectPositioner,
   SelectContent,
   SelectOption,
+  createListCollection,
 } from '@moduix/solid/select';
 import { For } from 'solid-js';
 import styles from '@/components/examples/pagination/pagination-page-size-control.module.css';

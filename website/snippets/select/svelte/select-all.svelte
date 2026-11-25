@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { createListCollection } from '@ark-ui/svelte/collection';
   import { Button } from '@moduix/svelte/button';
   import {
     SelectContent,
@@ -9,6 +8,7 @@
     SelectPositioner,
     SelectRootProvider,
     useSelect,
+    createListCollection,
   } from '@moduix/svelte/select';
   import styles from '@/components/examples/select/select-select-all.module.css';
 

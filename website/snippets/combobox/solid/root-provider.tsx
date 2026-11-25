@@ -1,4 +1,3 @@
-import { createListCollection } from '@ark-ui/solid/collection';
 import {
   useCombobox,
   ComboboxClearTrigger,
@@ -11,6 +10,7 @@ import {
   ComboboxPositioner,
   ComboboxRootProvider,
   ComboboxTrigger,
+  createListCollection,
 } from '@moduix/solid/combobox';
 import { For } from 'solid-js';
 

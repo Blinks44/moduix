@@ -1,4 +1,3 @@
-import { createListCollection } from '@ark-ui/solid/collection';
 import { Button } from '@moduix/solid/button';
 import { LocaleProvider } from '@moduix/solid/locale';
 import {
@@ -9,6 +8,7 @@ import {
   SelectContent,
   SelectItemGroup,
   SelectOption,
+  createListCollection,
 } from '@moduix/solid/select';
 import { For } from 'solid-js';
 

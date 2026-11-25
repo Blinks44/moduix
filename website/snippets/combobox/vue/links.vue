@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useListCollection } from '@ark-ui/vue/collection';
-import { useFilter } from '@ark-ui/vue/locale';
 import {
   Combobox,
   ComboboxContent,
@@ -13,8 +11,9 @@ import {
   ComboboxList,
   ComboboxPositioner,
   ComboboxTrigger,
+  useListCollection,
+  useFilter,
 } from '@moduix/vue/combobox';
-
 const developerResources = [
   { label: 'GitHub', href: 'https://github.com', value: 'github' },
   { label: 'Stack Overflow', href: 'https://stackoverflow.com', value: 'stack-overflow' },

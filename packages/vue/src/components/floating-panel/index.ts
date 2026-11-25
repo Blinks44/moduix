@@ -78,3 +78,5 @@ export type {
 
 export type { Props as FloatingPanelRootProps } from './FloatingPanel.vue';
 export type { Props as FloatingPanelRootProviderProps } from './FloatingPanelRootProvider.vue';
+
+export type { FloatingPanelElementIds } from '@ark-ui/vue/floating-panel';

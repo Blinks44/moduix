@@ -214,3 +214,16 @@ export type {
   UseAngleSliderProps,
   UseAngleSliderReturn,
 } from '@ark-ui/react/angle-slider';
+
+export type {
+  AngleSliderContextProps,
+  AngleSliderControlProps,
+  AngleSliderHiddenInputProps,
+  AngleSliderLabelProps,
+  AngleSliderMarkerGroupProps,
+  AngleSliderMarkerProps,
+  AngleSliderRootProviderProps,
+  AngleSliderThumbProps,
+  AngleSliderValueTextProps,
+  UseAngleSliderContext,
+} from '@ark-ui/react/angle-slider';

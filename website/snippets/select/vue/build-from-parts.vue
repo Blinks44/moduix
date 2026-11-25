@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { createListCollection } from '@ark-ui/vue/collection';
 import { Check as CheckIcon, ChevronsUpDown as ChevronsUpDownIcon, X as XIcon } from '@lucide/vue';
 import { CloseButton } from '@moduix/vue/close-button';
 import {
@@ -18,8 +17,8 @@ import {
   SelectPositioner,
   SelectTrigger,
   SelectValueText,
+  createListCollection,
 } from '@moduix/vue/select';
-
 const fruits = createListCollection({
   items: [
     { label: 'Apple', value: 'apple' },

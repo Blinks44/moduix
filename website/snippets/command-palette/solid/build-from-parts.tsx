@@ -1,5 +1,3 @@
-import { useListCollection } from '@ark-ui/solid/collection';
-import { useFilter } from '@ark-ui/solid/locale';
 import { Button } from '@moduix/solid/button';
 import {
   CommandPalette,
@@ -22,6 +20,8 @@ import {
   CommandPaletteList,
   CommandPalettePositioner,
   CommandPaletteTrigger,
+  useListCollection,
+  useFilter,
 } from '@moduix/solid/command-palette';
 import { Search as SearchIcon, X as XIcon } from 'lucide-solid';
 import { For } from 'solid-js';

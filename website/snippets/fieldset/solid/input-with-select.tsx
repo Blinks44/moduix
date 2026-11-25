@@ -1,4 +1,3 @@
-import { createListCollection } from '@ark-ui/solid/collection';
 import { Field, FieldLabel } from '@moduix/solid/field';
 import { Fieldset, FieldsetHelperText, FieldsetLegend } from '@moduix/solid/fieldset';
 import { Input } from '@moduix/solid/input';
@@ -13,6 +12,7 @@ import {
   SelectContent,
   SelectHiddenSelect,
   SelectOption,
+  createListCollection,
 } from '@moduix/solid/select';
 import { For } from 'solid-js';
 import styles from '@/components/examples/fieldset/fieldset-input-with-select.module.css';

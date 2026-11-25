@@ -1,5 +1,3 @@
-import { useListCollection } from '@ark-ui/solid/collection';
-import { useFilter } from '@ark-ui/solid/locale';
 import {
   useCombobox,
   ComboboxContent,
@@ -8,6 +6,8 @@ import {
   ComboboxOption,
   ComboboxPositioner,
   ComboboxRootProvider,
+  useListCollection,
+  useFilter,
 } from '@moduix/solid/combobox';
 import {
   TagsInputClearTrigger,

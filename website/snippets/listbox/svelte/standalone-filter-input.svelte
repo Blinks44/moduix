@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { useListCollection } from '@ark-ui/svelte/collection';
   import {
     Listbox,
     ListboxContent,
@@ -9,8 +8,8 @@
     ListboxItemIndicator,
     ListboxItemText,
     ListboxLabel,
+    useListCollection,
   } from '@moduix/svelte/listbox';
-
   const frameworks = [
     { label: 'React', value: 'react' },
     { label: 'Vue', value: 'vue' },

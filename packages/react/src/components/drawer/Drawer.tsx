@@ -318,3 +318,26 @@ export type {
   DrawerSize,
   DrawerVariant,
 };
+
+export type {
+  DrawerBackdropProps,
+  DrawerCloseTriggerProps,
+  DrawerContextProps,
+  DrawerDescriptionProps,
+  DrawerGrabberIndicatorProps,
+  DrawerGrabberProps,
+  DrawerIndentBackgroundProps,
+  DrawerIndentProps,
+  DrawerOpenChangeDetails,
+  DrawerPositionerProps,
+  DrawerSnapPointChangeDetails,
+  DrawerStackProps,
+  DrawerSwipeAreaProps,
+  DrawerTitleProps,
+  DrawerTriggerProps,
+  DrawerTriggerValueChangeDetails,
+  UseDrawerContext,
+  UseDrawerProps,
+  UseDrawerReturn,
+  UseDrawerStackContext,
+} from '@ark-ui/react/drawer';

@@ -66,3 +66,18 @@ export type {
   UseListboxProps,
   UseListboxReturn,
 } from '@ark-ui/vue/listbox';
+
+export {
+  createGridCollection,
+  createListCollection,
+  useListCollection,
+} from '@ark-ui/vue/collection';
+export type {
+  CollectionOptions,
+  GridCollection,
+  GridCollectionOptions,
+  UseListCollectionProps,
+  UseListCollectionReturn,
+} from '@ark-ui/vue/collection';
+export { useFilter } from '@ark-ui/vue/locale';
+export type { UseFilterProps, UseFilterReturn } from '@ark-ui/vue/locale';

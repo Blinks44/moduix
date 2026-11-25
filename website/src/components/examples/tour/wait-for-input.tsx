@@ -1,4 +1,3 @@
-import type { TourStepDetails } from '@ark-ui/react/tour';
 import { Button } from '@moduix/react/button';
 import { Input } from '@moduix/react/input';
 import { Stack } from '@moduix/react/stack';
@@ -15,6 +14,7 @@ import {
   TourControl,
   TourActionList,
   useTour,
+  type TourStepDetails,
 } from '@moduix/react/tour';
 import { useState } from 'react';
 

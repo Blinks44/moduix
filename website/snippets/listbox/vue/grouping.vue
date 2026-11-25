@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { createListCollection } from '@ark-ui/vue/collection';
 import {
   Listbox,
   ListboxContent,
@@ -9,8 +8,8 @@ import {
   ListboxItemIndicator,
   ListboxItemText,
   ListboxLabel,
+  createListCollection,
 } from '@moduix/vue/listbox';
-
 const regions = createListCollection({
   items: [
     { label: 'New York', value: 'nyc', region: 'North America' },

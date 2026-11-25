@@ -59,3 +59,20 @@ export type { SelectRootProps } from './Select.svelte';
 export type { SelectFieldProps } from './SelectField.svelte';
 export type { SelectOptionProps } from './SelectOption.svelte';
 export type { SelectRootProviderProps } from './SelectRootProvider.svelte';
+
+export { createListCollection, useListCollection } from '@ark-ui/svelte/collection';
+export type {
+  CollectionOptions,
+  ListCollection,
+  UseListCollectionProps,
+  UseListCollectionReturn,
+} from '@ark-ui/svelte/collection';
+export { useFilter } from '@ark-ui/svelte/locale';
+export type { UseFilterProps, UseFilterReturn } from '@ark-ui/svelte/locale';
+export type {
+  SelectIntlTranslations,
+  SelectPositioningOptions,
+  SelectScrollToIndexDetails,
+  SelectSelectionDetails,
+  UseSelectItemContext,
+} from '@ark-ui/svelte/select';

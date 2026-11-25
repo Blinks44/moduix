@@ -1,5 +1,3 @@
-import { useListCollection } from '@ark-ui/react/collection';
-import { useFilter } from '@ark-ui/react/locale';
 import {
   Combobox,
   ComboboxContent,
@@ -11,8 +9,9 @@ import {
   ComboboxOption,
   ComboboxPositioner,
   ComboboxTrigger,
+  useListCollection,
+  useFilter,
 } from '@moduix/react/combobox';
-
 const cities = [
   'New York',
   'Los Angeles',

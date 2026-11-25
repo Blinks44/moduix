@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { useListCollection } from '@ark-ui/svelte/collection';
-  import { useFilter } from '@ark-ui/svelte/locale';
   import CheckIcon from '@lucide/svelte/icons/check';
   import ChevronsUpDownIcon from '@lucide/svelte/icons/chevrons-up-down';
   import XIcon from '@lucide/svelte/icons/x';
@@ -19,8 +17,9 @@
     ComboboxList,
     ComboboxPositioner,
     ComboboxTrigger,
+    useListCollection,
+    useFilter,
   } from '@moduix/svelte/combobox';
-
   const fruits = [
     { label: 'Apple', value: 'apple' },
     { label: 'Banana', value: 'banana' },

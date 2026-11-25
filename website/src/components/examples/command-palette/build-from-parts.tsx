@@ -1,5 +1,3 @@
-import { useListCollection } from '@ark-ui/react/collection';
-import { useFilter } from '@ark-ui/react/locale';
 import { Button } from '@moduix/react/button';
 import {
   CommandPalette,
@@ -22,6 +20,8 @@ import {
   CommandPaletteList,
   CommandPalettePositioner,
   CommandPaletteTrigger,
+  useListCollection,
+  useFilter,
 } from '@moduix/react/command-palette';
 import {
   ArrowUpRight as ArrowUpRightIcon,

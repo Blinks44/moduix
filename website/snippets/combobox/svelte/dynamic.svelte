@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { useListCollection } from '@ark-ui/svelte/collection';
-  import type { ComboboxInputValueChangeDetails } from '@ark-ui/svelte/combobox';
   import {
     Combobox,
     ComboboxContent,
@@ -11,8 +9,9 @@
     ComboboxOption,
     ComboboxPositioner,
     ComboboxTrigger,
+    useListCollection,
+    type ComboboxInputValueChangeDetails,
   } from '@moduix/svelte/combobox';
-
   const domains = ['gmail.com', 'outlook.com', 'proton.me'];
   const { collection, set } = useListCollection<string>({ initialItems: [] });
 

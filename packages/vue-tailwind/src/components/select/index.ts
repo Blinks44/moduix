@@ -87,3 +87,20 @@ export type {
 } from '@ark-ui/vue/select';
 
 export type { PortalRef } from '@/lib/moduix/overlayPortal/context';
+
+export { createListCollection, useListCollection } from '@ark-ui/vue/collection';
+export type {
+  CollectionOptions,
+  ListCollection,
+  UseListCollectionProps,
+  UseListCollectionReturn,
+} from '@ark-ui/vue/collection';
+export { useFilter } from '@ark-ui/vue/locale';
+export type { UseFilterProps, UseFilterReturn } from '@ark-ui/vue/locale';
+export type {
+  SelectIntlTranslations,
+  SelectPositioningOptions,
+  SelectScrollToIndexDetails,
+  SelectSelectionDetails,
+  UseSelectItemContext,
+} from '@ark-ui/vue/select';

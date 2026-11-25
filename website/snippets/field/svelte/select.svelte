@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { createListCollection } from '@ark-ui/svelte/collection';
   import { Field, FieldHelperText } from '@moduix/svelte/field';
   import {
     Select,
@@ -12,6 +11,7 @@
     SelectPositioner,
     SelectTrigger,
     SelectValueText,
+    createListCollection,
   } from '@moduix/svelte/select';
   import styles from '@/components/examples/field/field-select.module.css';
 

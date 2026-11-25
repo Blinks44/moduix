@@ -1,4 +1,3 @@
-import { createListCollection } from '@ark-ui/react/collection';
 import {
   Combobox,
   ComboboxClearTrigger,
@@ -12,6 +11,7 @@ import {
   ComboboxPositioner,
   ComboboxStatus,
   ComboboxTrigger,
+  createListCollection,
 } from '@moduix/react/combobox';
 import { useEffect, useMemo, useState } from 'react';
 

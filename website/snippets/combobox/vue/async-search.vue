@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { createListCollection } from '@ark-ui/vue/collection';
-import type { ComboboxInputValueChangeDetails } from '@ark-ui/vue/combobox';
 import {
   Combobox,
   ComboboxClearTrigger,
@@ -14,6 +12,8 @@ import {
   ComboboxPositioner,
   ComboboxStatus,
   ComboboxTrigger,
+  createListCollection,
+  type ComboboxInputValueChangeDetails,
 } from '@moduix/vue/combobox';
 import { computed, onBeforeUnmount, ref, watch } from 'vue';
 

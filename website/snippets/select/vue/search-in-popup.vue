@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { createListCollection } from '@ark-ui/vue/collection';
 import { Search } from '@lucide/vue';
 import { InputGroup, InputGroupAddon, InputGroupInput } from '@moduix/vue/input-group';
 import {
@@ -9,6 +8,7 @@ import {
   SelectLabel,
   SelectOption,
   SelectPositioner,
+  createListCollection,
 } from '@moduix/vue/select';
 import { computed, nextTick, ref, watch } from 'vue';
 import type { ComponentPublicInstance } from 'vue';

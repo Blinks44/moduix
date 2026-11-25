@@ -1,5 +1,3 @@
-import { useListCollection } from '@ark-ui/solid/collection';
-import { useFilter } from '@ark-ui/solid/locale';
 import {
   Combobox,
   ComboboxContent,
@@ -11,6 +9,8 @@ import {
   ComboboxOption,
   ComboboxPositioner,
   ComboboxTrigger,
+  useListCollection,
+  useFilter,
 } from '@moduix/solid/combobox';
 import { createSignal, For, Show } from 'solid-js';
 import styles from '@/components/examples/combobox/component-multiple.module.css';

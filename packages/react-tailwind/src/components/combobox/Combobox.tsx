@@ -427,3 +427,19 @@ export type {
   UseComboboxProps,
   UseComboboxReturn,
 } from '@ark-ui/react/combobox';
+
+export { createListCollection, useListCollection } from '@ark-ui/react/collection';
+export type {
+  CollectionItem,
+  CollectionOptions,
+  ListCollection,
+  UseListCollectionProps,
+  UseListCollectionReturn,
+} from '@ark-ui/react/collection';
+export { useFilter } from '@ark-ui/react/locale';
+export type { UseFilterProps, UseFilterReturn } from '@ark-ui/react/locale';
+export type {
+  ComboboxFocusOutsideEvent,
+  ComboboxInteractOutsideEvent,
+  ComboboxPointerDownOutsideEvent,
+} from '@ark-ui/react/combobox';

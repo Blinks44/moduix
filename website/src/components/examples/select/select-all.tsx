@@ -1,4 +1,3 @@
-import { createListCollection } from '@ark-ui/react/collection';
 import { Button } from '@moduix/react/button';
 import {
   useSelect,
@@ -8,6 +7,7 @@ import {
   SelectPositioner,
   SelectContent,
   SelectOption,
+  createListCollection,
 } from '@moduix/react/select';
 import styles from '@/components/examples/select/select-select-all.module.css';
 

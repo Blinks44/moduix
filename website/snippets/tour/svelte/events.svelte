@@ -1,5 +1,4 @@
 <script lang="ts">
-  import type { TourStepDetails } from '@ark-ui/svelte/tour';
   import { Button } from '@moduix/svelte/button';
   import { Stack } from '@moduix/svelte/stack';
   import {
@@ -14,8 +13,8 @@
     TourPositioner,
     TourTitle,
     useTour,
+    type TourStepDetails,
   } from '@moduix/svelte/tour';
-
   const id = $props.id();
 
   const steps = [

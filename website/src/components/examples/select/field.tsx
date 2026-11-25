@@ -1,4 +1,3 @@
-import { createListCollection } from '@ark-ui/react/collection';
 import { Field, FieldHelperText } from '@moduix/react/field';
 import {
   Select,
@@ -12,6 +11,7 @@ import {
   SelectContent,
   SelectHiddenSelect,
   SelectOption,
+  createListCollection,
 } from '@moduix/react/select';
 import styles from '@/components/examples/select/select-field.module.css';
 

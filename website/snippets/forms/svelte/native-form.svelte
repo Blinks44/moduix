@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { createListCollection, useListCollection } from '@ark-ui/svelte/collection';
-  import { useFilter } from '@ark-ui/svelte/locale';
   import { Button } from '@moduix/svelte/button';
   import {
     Card,
@@ -27,6 +25,9 @@
     ComboboxOption,
     ComboboxPositioner,
     ComboboxTrigger,
+    createListCollection,
+    useListCollection,
+    useFilter,
   } from '@moduix/svelte/combobox';
   import { Field, FieldLabel, FieldRequiredIndicator } from '@moduix/svelte/field';
   import { Input } from '@moduix/svelte/input';

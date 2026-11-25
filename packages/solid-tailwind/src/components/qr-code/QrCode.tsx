@@ -100,3 +100,5 @@ export type {
   UseQrCodeProps,
   UseQrCodeReturn,
 } from '@ark-ui/solid/qr-code';
+
+export type { QrCodeGenerateResult } from '@ark-ui/solid/qr-code';

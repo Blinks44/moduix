@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { createListCollection } from '@ark-ui/vue/collection';
 import {
   BarChart3,
   Bell,
@@ -30,6 +29,7 @@ import {
   SelectPositioner,
   SelectTrigger,
   SelectValueText,
+  createListCollection,
 } from '@moduix/vue/select';
 import {
   Sidebar,

@@ -1,5 +1,3 @@
-import { createListCollection, useListCollection } from '@ark-ui/solid/collection';
-import { useFilter } from '@ark-ui/solid/locale';
 import { Button } from '@moduix/solid/button';
 import {
   Card,
@@ -26,6 +24,9 @@ import {
   ComboboxOption,
   ComboboxPositioner,
   ComboboxTrigger,
+  createListCollection,
+  useListCollection,
+  useFilter,
 } from '@moduix/solid/combobox';
 import { Field, FieldLabel, FieldRequiredIndicator } from '@moduix/solid/field';
 import { Input } from '@moduix/solid/input';

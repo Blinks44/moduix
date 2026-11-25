@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { useListCollection } from '@ark-ui/svelte/collection';
-  import { useFilter } from '@ark-ui/svelte/locale';
   import {
     Combobox,
     ComboboxContent,
@@ -13,8 +11,9 @@
     ComboboxList,
     ComboboxPositioner,
     ComboboxTrigger,
+    useListCollection,
+    useFilter,
   } from '@moduix/svelte/combobox';
-
   const developerResources = [
     { label: 'GitHub', href: 'https://github.com', value: 'github' },
     { label: 'Stack Overflow', href: 'https://stackoverflow.com', value: 'stack-overflow' },

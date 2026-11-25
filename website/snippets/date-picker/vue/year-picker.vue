@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { DateValue } from '@ark-ui/vue/date-picker';
 import { CalendarDate } from '@internationalized/date';
 import {
   DatePicker,
@@ -9,8 +8,8 @@ import {
   DatePickerPositioner,
   DatePickerView,
   DatePickerYearTable,
+  type DateValue,
 } from '@moduix/vue/date-picker';
-
 const format = (date: DateValue) => String(date.year);
 </script>
 

@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { createListCollection } from '@ark-ui/svelte/collection';
   import {
     SelectClearTrigger,
     SelectContent,
@@ -12,8 +11,8 @@
     SelectTrigger,
     SelectValueText,
     useSelect,
+    createListCollection,
   } from '@moduix/svelte/select';
-
   const fruits = createListCollection({
     items: [
       { label: 'Apple', value: 'apple' },

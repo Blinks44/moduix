@@ -86,3 +86,5 @@ export type {
 export type { Props as DrawerRootProps } from './Drawer.vue';
 export type { Props as DrawerRootProviderProps } from './DrawerRootProvider.vue';
 export type { Props as DrawerContentProps, DrawerSize, DrawerVariant } from './DrawerContent.vue';
+
+export type { DrawerGrabberIndicatorProps, DrawerGrabberProps } from '@ark-ui/vue/drawer';

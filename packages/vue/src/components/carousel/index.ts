@@ -48,3 +48,12 @@ export type {
   UseCarouselProps,
   UseCarouselReturn,
 } from '@ark-ui/vue/carousel';
+
+export type {
+  CarouselAutoplayIndicatorProps,
+  CarouselAutoplayTriggerProps,
+  CarouselControlProps,
+  CarouselNextTriggerProps,
+  CarouselPrevTriggerProps,
+  CarouselProgressTextProps,
+} from '@ark-ui/vue/carousel';

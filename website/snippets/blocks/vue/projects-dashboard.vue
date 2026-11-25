@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { createListCollection } from '@ark-ui/vue/collection';
 import { ChevronsUpDown, FileText, FolderOpen, Gauge, Plus, Settings, Users } from '@lucide/vue';
 import { ref } from 'vue';
 import { Badge } from '@/components/ui/badge';
@@ -45,6 +44,7 @@ import {
   SelectLabel,
   SelectOption,
   SelectPositioner,
+  createListCollection,
 } from '@/components/ui/select';
 import {
   Sidebar,

@@ -1,4 +1,3 @@
-import type { TourStepDetails } from '@ark-ui/solid/tour';
 import { Button } from '@moduix/solid/button';
 import { Stack } from '@moduix/solid/stack';
 import {
@@ -15,8 +14,8 @@ import {
   TourControl,
   TourActionList,
   useTour,
+  type TourStepDetails,
 } from '@moduix/solid/tour';
-
 const steps = [
   {
     id: 'upload',

@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { createListCollection } from '@ark-ui/svelte/collection';
   import { Input } from '@moduix/svelte/input';
   import {
     Select,
@@ -8,6 +7,7 @@
     SelectLabel,
     SelectOption,
     SelectPositioner,
+    createListCollection,
   } from '@moduix/svelte/select';
   import { Stack } from '@moduix/svelte/stack';
 

@@ -1,4 +1,3 @@
-import { useListCollection } from '@ark-ui/react/collection';
 import {
   Listbox,
   ListboxClearTrigger,
@@ -10,6 +9,7 @@ import {
   ListboxItemIndicator,
   ListboxItemText,
   ListboxLabel,
+  useListCollection,
 } from '@moduix/react/listbox';
 import { useState } from 'react';
 

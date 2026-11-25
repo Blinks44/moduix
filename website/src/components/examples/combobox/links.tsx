@@ -1,5 +1,3 @@
-import { useListCollection } from '@ark-ui/react/collection';
-import { useFilter } from '@ark-ui/react/locale';
 import {
   Combobox,
   ComboboxContent,
@@ -12,8 +10,9 @@ import {
   ComboboxList,
   ComboboxPositioner,
   ComboboxTrigger,
+  useListCollection,
+  useFilter,
 } from '@moduix/react/combobox';
-
 const developerResources = [
   { label: 'GitHub', href: 'https://github.com', value: 'github' },
   {

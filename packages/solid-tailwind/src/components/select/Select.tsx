@@ -420,3 +420,23 @@ export type {
   UseSelectProps,
   UseSelectReturn,
 } from '@ark-ui/solid/select';
+
+export { createListCollection, useListCollection } from '@ark-ui/solid/collection';
+export type {
+  CollectionItem,
+  CollectionOptions,
+  ListCollection,
+  UseListCollectionProps,
+  UseListCollectionReturn,
+} from '@ark-ui/solid/collection';
+export { useFilter } from '@ark-ui/solid/locale';
+export type { UseFilterProps, UseFilterReturn } from '@ark-ui/solid/locale';
+export type {
+  SelectFocusOutsideEvent,
+  SelectInteractOutsideEvent,
+  SelectIntlTranslations,
+  SelectPointerDownOutsideEvent,
+  SelectPositioningOptions,
+  SelectScrollToIndexDetails,
+  SelectSelectionDetails,
+} from '@ark-ui/solid/select';

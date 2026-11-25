@@ -54,3 +54,5 @@ export type {
   UseToggleReturn,
 } from '@ark-ui/react/toggle';
 export type { ToggleRootProps, ToggleSize, ToggleVariant };
+
+export { useToggle } from '@ark-ui/react/toggle';

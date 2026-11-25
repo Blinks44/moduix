@@ -26,3 +26,5 @@ export type {
   UseScrollAreaProps,
   UseScrollAreaReturn,
 } from '@ark-ui/svelte/scroll-area';
+
+export type { ScrollAreaContextProps } from '@ark-ui/svelte/scroll-area';

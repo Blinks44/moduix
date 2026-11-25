@@ -96,3 +96,23 @@ export type {
   WaitForEventOptions,
   WaitOptions,
 } from '@ark-ui/vue/tour';
+
+export type {
+  TourElementIds,
+  TourIntlTranslations,
+  TourPoint,
+  TourProgressTextDetails,
+  TourScrollToTargetDetails,
+  TourStatusChangeDetails,
+  TourStepAction,
+  TourStepActionFn,
+  TourStepActionMap,
+  TourStepActionType,
+  TourStepBaseDetails,
+  TourStepChangeDetails,
+  TourStepEffectCleanup,
+  TourStepPlacement,
+  TourStepStatus,
+  TourStepType,
+  TourStepsChangeDetails,
+} from '@ark-ui/vue/tour';

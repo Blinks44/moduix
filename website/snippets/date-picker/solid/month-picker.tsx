@@ -1,4 +1,3 @@
-import { type DateValue } from '@ark-ui/solid/date-picker';
 import { CalendarDate } from '@internationalized/date';
 import {
   DatePicker,
@@ -8,8 +7,8 @@ import {
   DatePickerContent,
   DatePickerView,
   DatePickerMonthTable,
+  type DateValue,
 } from '@moduix/solid/date-picker';
-
 const format = (date: DateValue) => `${String(date.month).padStart(2, '0')}/${date.year}`;
 const parse = (value: string) => {
   const match = value.match(/^(\d{1,2})\/(\d{4})$/);

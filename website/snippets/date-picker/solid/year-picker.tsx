@@ -1,4 +1,3 @@
-import { type DateValue } from '@ark-ui/solid/date-picker';
 import { CalendarDate } from '@internationalized/date';
 import {
   DatePicker,
@@ -8,8 +7,8 @@ import {
   DatePickerContent,
   DatePickerView,
   DatePickerYearTable,
+  type DateValue,
 } from '@moduix/solid/date-picker';
-
 const format = (date: DateValue) => String(date.year);
 
 export default function YearPickerDemo() {

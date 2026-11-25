@@ -104,3 +104,5 @@ export type {
   UseColorPickerProps,
   UseColorPickerReturn,
 } from '@ark-ui/vue/color-picker';
+
+export type { ColorPickerHiddenInputProps } from '@ark-ui/vue/color-picker';

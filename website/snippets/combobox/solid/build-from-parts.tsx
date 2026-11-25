@@ -1,5 +1,3 @@
-import { useListCollection } from '@ark-ui/solid/collection';
-import { useFilter } from '@ark-ui/solid/locale';
 import { CloseButton } from '@moduix/solid/close-button';
 import {
   Combobox,
@@ -15,6 +13,8 @@ import {
   ComboboxItemText,
   ComboboxPositioner,
   ComboboxTrigger,
+  useListCollection,
+  useFilter,
 } from '@moduix/solid/combobox';
 import { Check as CheckIcon, ChevronsUpDown as ChevronsUpDownIcon, X as XIcon } from 'lucide-solid';
 import { For } from 'solid-js';

@@ -16,3 +16,6 @@ function Highlight({ className, ...props }: ComponentPropsWithoutRef<typeof High
 }
 
 export { Highlight };
+
+export { useHighlight } from '@ark-ui/react/highlight';
+export type { HighlightChunk, HighlightProps, UseHighlightProps } from '@ark-ui/react/highlight';

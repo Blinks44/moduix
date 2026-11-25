@@ -1,4 +1,3 @@
-import { createListCollection } from '@ark-ui/react/collection';
 import { Avatar, AvatarFallback } from '@moduix/react/avatar';
 import {
   Menu,
@@ -18,6 +17,7 @@ import {
   SelectPositioner,
   SelectContent,
   SelectOption,
+  createListCollection,
 } from '@moduix/react/select';
 import {
   Sidebar,

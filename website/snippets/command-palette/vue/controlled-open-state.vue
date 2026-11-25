@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useListCollection } from '@ark-ui/vue/collection';
-import { useFilter } from '@ark-ui/vue/locale';
 import { Button } from '@moduix/vue/button';
 import {
   CommandPalette,
@@ -18,6 +16,8 @@ import {
   CommandPalettePanel,
   CommandPaletteSearch,
   CommandPaletteTrigger,
+  useListCollection,
+  useFilter,
 } from '@moduix/vue/command-palette';
 import { ref } from 'vue';
 import styles from '@/components/examples/command-palette/command-palette-controlled-open-state.module.css';

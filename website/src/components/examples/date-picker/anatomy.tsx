@@ -1,4 +1,3 @@
-import { parseDate } from '@ark-ui/react/date-picker';
 import {
   DatePicker,
   DatePickerLabel,
@@ -9,8 +8,8 @@ import {
   DatePickerDayTable,
   DatePickerMonthTable,
   DatePickerYearTable,
+  parseDate,
 } from '@moduix/react/date-picker';
-
 // Anatomy scene: the basic example kept open and inline so every part can be outlined.
 export default function DatePickerAnatomy() {
   return (

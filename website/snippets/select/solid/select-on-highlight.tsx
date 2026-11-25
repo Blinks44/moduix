@@ -1,4 +1,3 @@
-import { createListCollection } from '@ark-ui/solid/collection';
 import {
   useSelect,
   SelectRootProvider,
@@ -11,6 +10,7 @@ import {
   SelectPositioner,
   SelectContent,
   SelectOption,
+  createListCollection,
 } from '@moduix/solid/select';
 import { For } from 'solid-js';
 

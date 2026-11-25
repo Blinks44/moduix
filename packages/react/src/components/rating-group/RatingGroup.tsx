@@ -167,3 +167,18 @@ export type {
   RatingGroupRootProviderProps,
   RatingGroupSize,
 };
+
+export type {
+  RatingGroupContextProps,
+  RatingGroupControlProps,
+  RatingGroupHiddenInputProps,
+  RatingGroupHoverChangeDetails,
+  RatingGroupItemContextProps,
+  RatingGroupItemProps,
+  RatingGroupLabelProps,
+  RatingGroupValueChangeDetails,
+  UseRatingGroupContext,
+  UseRatingGroupItemContext,
+  UseRatingGroupProps,
+  UseRatingGroupReturn,
+} from '@ark-ui/react/rating-group';

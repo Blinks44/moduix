@@ -40,3 +40,5 @@ export type {
   UseStepsProps,
   UseStepsReturn,
 } from '@ark-ui/svelte/steps';
+
+export type { StepsStepChangeDetails } from '@ark-ui/svelte/steps';

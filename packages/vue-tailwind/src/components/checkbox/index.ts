@@ -46,3 +46,5 @@ export type {
 
 export type { CheckboxSize, Props as CheckboxRootProps } from './Checkbox.vue';
 export type { Props as CheckboxRootProviderProps } from './CheckboxRootProvider.vue';
+
+export type { CheckboxCheckedChangeDetails, CheckboxCheckedState } from '@ark-ui/vue/checkbox';

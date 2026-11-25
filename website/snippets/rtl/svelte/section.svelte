@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { createListCollection } from '@ark-ui/svelte/collection';
   import { Button } from '@moduix/svelte/button';
   import { LocaleProvider } from '@moduix/svelte/locale';
   import {
@@ -10,6 +9,7 @@
     SelectContent,
     SelectItemGroup,
     SelectOption,
+    createListCollection,
   } from '@moduix/svelte/select';
   const cities = createListCollection({
     items: [

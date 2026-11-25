@@ -21,3 +21,7 @@ function Highlight(props: HighlightProps) {
 }
 
 export { Highlight };
+
+export { useHighlight } from '@ark-ui/solid/highlight';
+export type { HighlightProps };
+export type { HighlightChunk, UseHighlightProps } from '@ark-ui/solid/highlight';

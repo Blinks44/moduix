@@ -1,4 +1,3 @@
-import { createListCollection } from '@ark-ui/solid/collection';
 import { Field, FieldHelperText } from '@moduix/solid/field';
 import {
   Select,
@@ -11,6 +10,7 @@ import {
   SelectContent,
   SelectHiddenSelect,
   SelectOption,
+  createListCollection,
 } from '@moduix/solid/select';
 import styles from '@/components/examples/field/field-select.module.css';
 

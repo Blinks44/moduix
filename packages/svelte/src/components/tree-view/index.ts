@@ -66,3 +66,5 @@ export type { TreeViewRootProps } from './TreeView.svelte';
 export type { TreeViewNodeProps, TreeViewNodeRenderProps } from './TreeViewNode.svelte';
 export type { TreeViewNodeCheckboxIndicatorProps } from './TreeViewNodeCheckboxIndicator.svelte';
 export type { TreeViewRootProviderProps } from './TreeViewRootProvider.svelte';
+
+export type { UseTreeViewNodePropsContext } from '@ark-ui/svelte/tree-view';

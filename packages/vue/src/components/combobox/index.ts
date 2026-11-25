@@ -77,3 +77,19 @@ export type {
   UseComboboxProps,
   UseComboboxReturn,
 } from '@ark-ui/vue/combobox';
+
+export { createListCollection, useListCollection } from '@ark-ui/vue/collection';
+export type {
+  CollectionItem,
+  CollectionOptions,
+  ListCollection,
+  UseListCollectionProps,
+  UseListCollectionReturn,
+} from '@ark-ui/vue/collection';
+export { useFilter } from '@ark-ui/vue/locale';
+export type { UseFilterProps, UseFilterReturn } from '@ark-ui/vue/locale';
+export type {
+  ComboboxFocusOutsideEvent,
+  ComboboxInteractOutsideEvent,
+  ComboboxPointerDownOutsideEvent,
+} from '@ark-ui/vue/combobox';

@@ -53,3 +53,5 @@ export type {
 } from '@ark-ui/vue/signature-pad';
 
 export type { Props as SignaturePadRootProviderProps } from './SignaturePadRootProvider.vue';
+
+export type { UseSignaturePadContext } from '@ark-ui/vue/signature-pad';

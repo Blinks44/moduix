@@ -1,4 +1,3 @@
-import { useListCollection } from '@ark-ui/solid/collection';
 import {
   Listbox,
   ListboxContent,
@@ -8,6 +7,7 @@ import {
   ListboxItemIndicator,
   ListboxItemText,
   ListboxLabel,
+  useListCollection,
 } from '@moduix/solid/listbox';
 import { For } from 'solid-js';
 

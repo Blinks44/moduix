@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { createListCollection } from '@ark-ui/svelte/collection';
   import SearchIcon from '@lucide/svelte/icons/search';
   import { InputGroup, InputGroupAddon, InputGroupInput } from '@moduix/svelte/input-group';
   import {
@@ -9,6 +8,7 @@
     SelectLabel,
     SelectOption,
     SelectPositioner,
+    createListCollection,
   } from '@moduix/svelte/select';
   import { tick } from 'svelte';
   import styles from '@/components/examples/select/select-search-in-popup.module.css';

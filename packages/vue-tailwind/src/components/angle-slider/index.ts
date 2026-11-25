@@ -38,3 +38,16 @@ export {
 };
 
 export type { AngleSliderRootProps, UseAngleSliderProps, UseAngleSliderReturn };
+
+export type {
+  AngleSliderContextProps,
+  AngleSliderControlProps,
+  AngleSliderHiddenInputProps,
+  AngleSliderLabelProps,
+  AngleSliderMarkerGroupProps,
+  AngleSliderMarkerProps,
+  AngleSliderRootProviderProps,
+  AngleSliderThumbProps,
+  AngleSliderValueTextProps,
+  UseAngleSliderContext,
+} from '@ark-ui/vue/angle-slider';

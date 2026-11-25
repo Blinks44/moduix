@@ -67,3 +67,23 @@ export type {
   WaitForEventOptions,
   WaitOptions,
 } from '@ark-ui/svelte/tour';
+
+export type {
+  TourElementIds,
+  TourIntlTranslations,
+  TourPoint,
+  TourProgressTextDetails,
+  TourScrollToTargetDetails,
+  TourStatusChangeDetails,
+  TourStepAction,
+  TourStepActionFn,
+  TourStepActionMap,
+  TourStepActionType,
+  TourStepBaseDetails,
+  TourStepChangeDetails,
+  TourStepEffectCleanup,
+  TourStepPlacement,
+  TourStepStatus,
+  TourStepType,
+  TourStepsChangeDetails,
+} from '@ark-ui/svelte/tour';

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { parseDate } from '@ark-ui/vue/date-picker';
 import { Button } from '@moduix/vue/button';
 import {
   DatePicker,
@@ -9,6 +8,7 @@ import {
   DatePickerLabel,
   DatePickerPositioner,
   DatePickerView,
+  parseDate,
 } from '@moduix/vue/date-picker';
 import { ref } from 'vue';
 import styles from '@/components/examples/date-picker/date-picker-form.module.css';

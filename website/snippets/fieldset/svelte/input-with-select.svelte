@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { createListCollection } from '@ark-ui/svelte/collection';
   import { Field, FieldLabel } from '@moduix/svelte/field';
   import { Fieldset, FieldsetHelperText, FieldsetLegend } from '@moduix/svelte/fieldset';
   import { Input } from '@moduix/svelte/input';
@@ -14,6 +13,7 @@
     SelectPositioner,
     SelectTrigger,
     SelectValueText,
+    createListCollection,
   } from '@moduix/svelte/select';
   import styles from '@/components/examples/fieldset/fieldset-input-with-select.module.css';
 

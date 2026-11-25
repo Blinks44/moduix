@@ -1,4 +1,3 @@
-import { parseDate } from '@ark-ui/react/date-picker';
 import {
   DatePicker,
   DatePickerLabel,
@@ -10,6 +9,7 @@ import {
   DatePickerNextTrigger,
   DatePickerRangeText,
   DatePickerDayTable,
+  parseDate,
 } from '@moduix/react/date-picker';
 import styles from '@/components/examples/date-picker/date-picker-multiple-months.module.css';
 

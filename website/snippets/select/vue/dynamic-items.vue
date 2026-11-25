@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { createListCollection } from '@ark-ui/vue/collection';
 import { Input } from '@moduix/vue/input';
 import {
   Select,
@@ -8,6 +7,7 @@ import {
   SelectLabel,
   SelectOption,
   SelectPositioner,
+  createListCollection,
 } from '@moduix/vue/select';
 import { Stack } from '@moduix/vue/stack';
 import { computed, ref } from 'vue';

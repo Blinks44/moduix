@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { createListCollection } from '@ark-ui/vue/collection';
 import {
   Pagination,
   PaginationContext,
@@ -17,6 +16,7 @@ import {
   SelectPositioner,
   SelectTrigger,
   SelectValueText,
+  createListCollection,
 } from '@moduix/vue/select';
 import type { SelectValueChangeDetails } from '@moduix/vue/select';
 import styles from '@/components/examples/pagination/pagination-page-size-control.module.css';

@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { createListCollection } from '@ark-ui/svelte/collection';
   import { Button } from '@moduix/svelte/button';
   import {
     ListboxContent,
@@ -9,6 +8,7 @@
     ListboxLabel,
     ListboxRootProvider,
     useListbox,
+    createListCollection,
   } from '@moduix/svelte/listbox';
   import { Stack } from '@moduix/svelte/stack';
 

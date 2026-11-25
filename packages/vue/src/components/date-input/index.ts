@@ -56,3 +56,5 @@ export type {
   UseDateInputProps,
   UseDateInputReturn,
 } from '@ark-ui/vue/date-input';
+
+export type { DateInputPlaceholderChangeDetails } from '@ark-ui/vue/date-input';

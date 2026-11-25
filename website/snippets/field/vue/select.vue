@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { createListCollection } from '@ark-ui/vue/collection';
 import { Field, FieldHelperText } from '@moduix/vue/field';
 import {
   Select,
@@ -12,6 +11,7 @@ import {
   SelectPositioner,
   SelectTrigger,
   SelectValueText,
+  createListCollection,
 } from '@moduix/vue/select';
 import styles from '@/components/examples/field/field-select.module.css';
 

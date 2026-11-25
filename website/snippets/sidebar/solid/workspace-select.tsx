@@ -1,4 +1,3 @@
-import { createListCollection } from '@ark-ui/solid/collection';
 import { Avatar, AvatarFallback } from '@moduix/solid/avatar';
 import {
   Menu,
@@ -18,6 +17,7 @@ import {
   SelectPositioner,
   SelectContent,
   SelectOption,
+  createListCollection,
 } from '@moduix/solid/select';
 import {
   Sidebar,

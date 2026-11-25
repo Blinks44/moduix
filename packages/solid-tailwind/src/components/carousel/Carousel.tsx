@@ -224,3 +224,25 @@ export {
   useCarousel,
   useCarouselContext,
 };
+
+export type {
+  CarouselAutoplayIndicatorProps,
+  CarouselAutoplayStatusDetails,
+  CarouselAutoplayTriggerProps,
+  CarouselContextProps,
+  CarouselControlProps,
+  CarouselDragStatusDetails,
+  CarouselIndicatorGroupProps,
+  CarouselIndicatorProps,
+  CarouselItemGroupProps,
+  CarouselItemProps,
+  CarouselNextTriggerProps,
+  CarouselPageChangeDetails,
+  CarouselPrevTriggerProps,
+  CarouselProgressTextProps,
+  CarouselRootProps,
+  CarouselRootProviderProps,
+  UseCarouselContext,
+  UseCarouselProps,
+  UseCarouselReturn,
+} from '@ark-ui/solid/carousel';

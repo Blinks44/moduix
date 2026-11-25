@@ -1,4 +1,3 @@
-import { parseDate } from '@ark-ui/solid/date-picker';
 import {
   DatePicker,
   DatePickerLabel,
@@ -7,6 +6,7 @@ import {
   DatePickerDayTable,
   DatePickerMonthTable,
   DatePickerYearTable,
+  parseDate,
 } from '@moduix/solid/date-picker';
 import styles from '@/components/examples/date-picker/date-picker-inline-and-week-numbers.module.css';
 

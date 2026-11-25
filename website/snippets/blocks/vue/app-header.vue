@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useListCollection } from '@ark-ui/vue/collection';
-import { useFilter } from '@ark-ui/vue/locale';
 import {
   ChevronDown,
   CircleHelp,
@@ -29,6 +27,8 @@ import {
   CommandPalettePanel,
   CommandPaletteSearch,
   CommandPaletteTrigger,
+  useListCollection,
+  useFilter,
 } from '@/components/ui/command-palette';
 import {
   Menu,

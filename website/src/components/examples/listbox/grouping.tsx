@@ -1,4 +1,3 @@
-import { createListCollection } from '@ark-ui/react/collection';
 import {
   Listbox,
   ListboxContent,
@@ -8,8 +7,8 @@ import {
   ListboxItemIndicator,
   ListboxItemText,
   ListboxLabel,
+  createListCollection,
 } from '@moduix/react/listbox';
-
 const regions = createListCollection({
   items: [
     {

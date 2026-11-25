@@ -128,3 +128,20 @@ export {
 };
 
 export type { CheckboxRootProps, CheckboxRootProviderProps, CheckboxSize };
+
+export type {
+  CheckboxCheckedChangeDetails,
+  CheckboxCheckedState,
+  CheckboxContextProps,
+  CheckboxControlProps,
+  CheckboxGroupProps,
+  CheckboxHiddenInputProps,
+  CheckboxIndicatorProps,
+  CheckboxLabelProps,
+  UseCheckboxContext,
+  UseCheckboxGroupContext,
+  UseCheckboxGroupProps,
+  UseCheckboxGroupReturn,
+  UseCheckboxProps,
+  UseCheckboxReturn,
+} from '@ark-ui/solid/checkbox';

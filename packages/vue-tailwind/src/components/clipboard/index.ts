@@ -38,3 +38,5 @@ export type {
   UseClipboardProps,
   UseClipboardReturn,
 } from '@ark-ui/vue/clipboard';
+
+export type { ClipboardValueChangeDetails } from '@ark-ui/vue/clipboard';

@@ -16,3 +16,19 @@ export { default as AngleSliderThumb } from './AngleSliderThumb.svelte';
 export { default as AngleSliderValueText } from './AngleSliderValueText.svelte';
 
 export type { AngleSliderMarksProps } from './AngleSliderMarks.svelte';
+
+export type {
+  AngleSliderContextProps,
+  AngleSliderControlProps,
+  AngleSliderHiddenInputProps,
+  AngleSliderLabelProps,
+  AngleSliderMarkerGroupProps,
+  AngleSliderMarkerProps,
+  AngleSliderRootProps,
+  AngleSliderRootProviderProps,
+  AngleSliderThumbProps,
+  AngleSliderValueTextProps,
+  UseAngleSliderContext,
+  UseAngleSliderProps,
+  UseAngleSliderReturn,
+} from '@ark-ui/svelte/angle-slider';

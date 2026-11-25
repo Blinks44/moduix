@@ -1,4 +1,3 @@
-import { parseDate } from '@ark-ui/solid/date-picker';
 import {
   DatePicker,
   DatePickerContext,
@@ -12,6 +11,7 @@ import {
   DatePickerDayTable,
   DatePickerMonthTable,
   DatePickerYearTable,
+  parseDate,
 } from '@moduix/solid/date-picker';
 import { For, Show } from 'solid-js';
 import styles from '@/components/examples/date-picker/date-picker-multiple.module.css';

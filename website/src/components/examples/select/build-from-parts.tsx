@@ -1,4 +1,3 @@
-import { createListCollection } from '@ark-ui/react/collection';
 import { CloseButton } from '@moduix/react/close-button';
 import {
   Select,
@@ -16,6 +15,7 @@ import {
   SelectItemText,
   SelectItemIndicator,
   SelectHiddenSelect,
+  createListCollection,
 } from '@moduix/react/select';
 import { Check as CheckIcon, ChevronsUpDown as ChevronsUpDownIcon, X as XIcon } from 'lucide-react';
 

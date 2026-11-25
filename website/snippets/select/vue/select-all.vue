@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { createListCollection } from '@ark-ui/vue/collection';
 import { Button } from '@moduix/vue/button';
 import {
   useSelect,
@@ -9,6 +8,7 @@ import {
   SelectPositioner,
   SelectRootProvider,
   SelectOption,
+  createListCollection,
 } from '@moduix/vue/select';
 import styles from '@/components/examples/select/select-select-all.module.css';
 

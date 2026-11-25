@@ -106,3 +106,8 @@ export type {
   UseColorPickerProps,
   UseColorPickerReturn,
 } from '@ark-ui/svelte/color-picker';
+
+export type {
+  UseColorPickerChannelPropsContext,
+  UseColorPickerSwatchPropsContext,
+} from '@ark-ui/svelte/color-picker';

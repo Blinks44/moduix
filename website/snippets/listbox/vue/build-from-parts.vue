@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { createListCollection } from '@ark-ui/vue/collection';
 import { Check as CheckIcon } from '@lucide/vue';
 import {
   Listbox,
@@ -8,8 +7,8 @@ import {
   ListboxItemIndicator,
   ListboxItemText,
   ListboxLabel,
+  createListCollection,
 } from '@moduix/vue/listbox';
-
 const countries = createListCollection({
   items: [
     { label: 'United States', value: 'us' },

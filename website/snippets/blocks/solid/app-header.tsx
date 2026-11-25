@@ -1,5 +1,3 @@
-import { useListCollection } from '@ark-ui/solid/collection';
-import { useFilter } from '@ark-ui/solid/locale';
 import {
   ChevronDown,
   CircleHelp,
@@ -29,6 +27,8 @@ import {
   CommandPalettePanel,
   CommandPaletteSearch,
   CommandPaletteTrigger,
+  useListCollection,
+  useFilter,
 } from '@/registry/solid/ui/command-palette';
 import {
   Menu,

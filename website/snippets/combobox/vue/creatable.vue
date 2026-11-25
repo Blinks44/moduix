@@ -1,10 +1,4 @@
 <script setup lang="ts">
-import { useListCollection } from '@ark-ui/vue/collection';
-import type {
-  ComboboxInputValueChangeDetails,
-  ComboboxOpenChangeDetails,
-} from '@ark-ui/vue/combobox';
-import { useFilter } from '@ark-ui/vue/locale';
 import {
   Combobox,
   ComboboxClearTrigger,
@@ -18,6 +12,10 @@ import {
   ComboboxList,
   ComboboxPositioner,
   ComboboxTrigger,
+  useListCollection,
+  type ComboboxInputValueChangeDetails,
+  type ComboboxOpenChangeDetails,
+  useFilter,
 } from '@moduix/vue/combobox';
 import { ref } from 'vue';
 

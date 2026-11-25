@@ -1,4 +1,3 @@
-import { createListCollection } from '@ark-ui/react/collection';
 import {
   Select,
   SelectLabel,
@@ -8,8 +7,8 @@ import {
   SelectItemGroup,
   SelectItemGroupLabel,
   SelectOption,
+  createListCollection,
 } from '@moduix/react/select';
-
 const produce = createListCollection({
   items: [
     {

@@ -118,3 +118,5 @@ export type {
   UseFieldProps,
   UseFieldReturn,
 } from '@ark-ui/solid/field';
+
+export type { FieldItemProps };

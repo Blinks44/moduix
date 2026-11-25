@@ -173,3 +173,21 @@ export {
   useSignaturePad,
   useSignaturePadContext,
 };
+
+export type { SignaturePadRootProviderProps };
+export type {
+  SignaturePadClearTriggerProps,
+  SignaturePadContextProps,
+  SignaturePadControlProps,
+  SignaturePadDrawDetails,
+  SignaturePadDrawEndDetails,
+  SignaturePadDrawingOptions,
+  SignaturePadGuideProps,
+  SignaturePadHiddenInputProps,
+  SignaturePadLabelProps,
+  SignaturePadRootProps,
+  SignaturePadSegmentProps,
+  UseSignaturePadContext,
+  UseSignaturePadProps,
+  UseSignaturePadReturn,
+} from '@ark-ui/solid/signature-pad';

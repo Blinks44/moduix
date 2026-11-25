@@ -1,5 +1,4 @@
 <script lang="ts">
-  import type { TourStepDetails } from '@ark-ui/svelte/tour';
   import { X as XIcon } from '@lucide/svelte';
   import { Button } from '@moduix/svelte/button';
   import { CloseButton } from '@moduix/svelte/close-button';
@@ -18,6 +17,7 @@
     TourSpotlight,
     TourTitle,
     useTour,
+    type TourStepDetails,
   } from '@moduix/svelte/tour';
   import styles from '@/components/examples/tour/tour-build-from-parts.module.css';
 

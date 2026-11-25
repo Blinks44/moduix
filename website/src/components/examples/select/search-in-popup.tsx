@@ -1,4 +1,3 @@
-import { createListCollection } from '@ark-ui/react/collection';
 import { InputGroup, InputGroupAddon, InputGroupInput } from '@moduix/react/input-group';
 import {
   Select,
@@ -7,6 +6,7 @@ import {
   SelectPositioner,
   SelectContent,
   SelectOption,
+  createListCollection,
 } from '@moduix/react/select';
 import { Search as SearchIcon } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';

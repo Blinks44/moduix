@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { createListCollection } from '@ark-ui/svelte/collection';
-  import type { ComboboxInputValueChangeDetails } from '@ark-ui/svelte/combobox';
   import {
     Combobox,
     ComboboxClearTrigger,
@@ -14,8 +12,9 @@
     ComboboxPositioner,
     ComboboxStatus,
     ComboboxTrigger,
+    createListCollection,
+    type ComboboxInputValueChangeDetails,
   } from '@moduix/svelte/combobox';
-
   const fruits = [
     { label: 'Apple', value: 'apple' },
     { label: 'Banana', value: 'banana' },

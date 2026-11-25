@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { createListCollection } from '@ark-ui/svelte/collection';
   import {
     Listbox,
     ListboxContent,
@@ -7,6 +6,7 @@
     ListboxItemIndicator,
     ListboxItemText,
     ListboxLabel,
+    createListCollection,
   } from '@moduix/svelte/listbox';
   import styles from '@/components/examples/listbox/listbox-horizontal.module.css';
 

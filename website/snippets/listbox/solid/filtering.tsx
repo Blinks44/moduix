@@ -1,4 +1,3 @@
-import { useListCollection } from '@ark-ui/solid/collection';
 import {
   Listbox,
   ListboxClearTrigger,
@@ -10,6 +9,7 @@ import {
   ListboxItemIndicator,
   ListboxItemText,
   ListboxLabel,
+  useListCollection,
 } from '@moduix/solid/listbox';
 import { createSignal, For, Show } from 'solid-js';
 

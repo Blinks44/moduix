@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { createListCollection } from '@ark-ui/vue/collection';
 import { Button } from '@moduix/vue/button';
 import {
   ListboxContent,
@@ -9,6 +8,7 @@ import {
   ListboxLabel,
   ListboxRootProvider,
   useListbox,
+  createListCollection,
 } from '@moduix/vue/listbox';
 import { Stack } from '@moduix/vue/stack';
 

@@ -1,4 +1,3 @@
-import { type DateValue } from '@ark-ui/solid/date-picker';
 import { CalendarDateTime, DateFormatter } from '@internationalized/date';
 import {
   DateInput,
@@ -16,6 +15,7 @@ import {
   DatePickerDayTable,
   DatePickerMonthTable,
   DatePickerYearTable,
+  type DateValue,
 } from '@moduix/solid/date-picker';
 import { Stack } from '@moduix/solid/stack';
 import { createSignal } from 'solid-js';

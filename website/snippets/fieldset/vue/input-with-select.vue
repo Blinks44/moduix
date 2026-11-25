@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { createListCollection } from '@ark-ui/vue/collection';
 import { Field, FieldLabel } from '@moduix/vue/field';
 import { Fieldset, FieldsetHelperText, FieldsetLegend } from '@moduix/vue/fieldset';
 import { Input } from '@moduix/vue/input';
@@ -14,6 +13,7 @@ import {
   SelectPositioner,
   SelectTrigger,
   SelectValueText,
+  createListCollection,
 } from '@moduix/vue/select';
 import styles from '@/components/examples/fieldset/fieldset-input-with-select.module.css';
 

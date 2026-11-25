@@ -1,4 +1,3 @@
-import { parseDate } from '@ark-ui/react/date-picker';
 import { CloseButton } from '@moduix/react/close-button';
 import {
   DatePicker,
@@ -23,6 +22,7 @@ import {
   DatePickerTableHeader,
   DatePickerTableCell,
   DatePickerTableCellTrigger,
+  parseDate,
 } from '@moduix/react/date-picker';
 import {
   Calendar as CalendarIcon,

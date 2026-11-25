@@ -1,4 +1,3 @@
-import { createListCollection } from '@ark-ui/solid/collection';
 import { Input } from '@moduix/solid/input';
 import {
   Select,
@@ -7,6 +6,7 @@ import {
   SelectPositioner,
   SelectContent,
   SelectOption,
+  createListCollection,
 } from '@moduix/solid/select';
 import { Stack } from '@moduix/solid/stack';
 import { createMemo, createSignal, For } from 'solid-js';

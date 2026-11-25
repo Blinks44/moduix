@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { createListCollection } from '@ark-ui/svelte/collection';
   import {
     Pagination,
     PaginationContext,
@@ -17,6 +16,7 @@
     SelectPositioner,
     SelectTrigger,
     SelectValueText,
+    createListCollection,
   } from '@moduix/svelte/select';
   import type { SelectValueChangeDetails } from '@moduix/svelte/select';
   import styles from '@/components/examples/pagination/pagination-page-size-control.module.css';

@@ -1,4 +1,3 @@
-import { createListCollection } from '@ark-ui/solid/collection';
 import {
   Select,
   SelectLabel,
@@ -8,6 +7,7 @@ import {
   SelectItem,
   SelectItemText,
   SelectItemIndicator,
+  createListCollection,
 } from '@moduix/solid/select';
 import { Apple as AppleIcon, Banana as BananaIcon, Cherry as CherryIcon } from 'lucide-solid';
 import { For } from 'solid-js';

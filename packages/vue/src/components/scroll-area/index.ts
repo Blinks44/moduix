@@ -38,3 +38,5 @@ export type {
   UseScrollAreaProps,
   UseScrollAreaReturn,
 } from '@ark-ui/vue/scroll-area';
+
+export type { ScrollAreaContextProps } from '@ark-ui/vue/scroll-area';

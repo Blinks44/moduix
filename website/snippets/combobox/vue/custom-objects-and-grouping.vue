@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useListCollection } from '@ark-ui/vue/collection';
-import { useFilter } from '@ark-ui/vue/locale';
 import {
   Combobox,
   ComboboxClearTrigger,
@@ -14,8 +12,9 @@ import {
   ComboboxOption,
   ComboboxPositioner,
   ComboboxTrigger,
+  useListCollection,
+  useFilter,
 } from '@moduix/vue/combobox';
-
 const countries = [
   { country: 'Canada', code: 'CA', continent: 'North America' },
   { country: 'United States', code: 'US', continent: 'North America' },

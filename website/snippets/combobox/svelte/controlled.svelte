@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { useListCollection } from '@ark-ui/svelte/collection';
-  import { useFilter } from '@ark-ui/svelte/locale';
   import {
     Combobox,
     ComboboxClearTrigger,
@@ -13,6 +11,8 @@
     ComboboxOption,
     ComboboxPositioner,
     ComboboxTrigger,
+    useListCollection,
+    useFilter,
   } from '@moduix/svelte/combobox';
   import { Stack } from '@moduix/svelte/stack';
 

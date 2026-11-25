@@ -443,3 +443,23 @@ export type {
   UseSelectProps,
   UseSelectReturn,
 } from '@ark-ui/react/select';
+
+export { createListCollection, useListCollection } from '@ark-ui/react/collection';
+export type {
+  CollectionItem,
+  CollectionOptions,
+  ListCollection,
+  UseListCollectionProps,
+  UseListCollectionReturn,
+} from '@ark-ui/react/collection';
+export { useFilter } from '@ark-ui/react/locale';
+export type { UseFilterProps, UseFilterReturn } from '@ark-ui/react/locale';
+export type {
+  SelectFocusOutsideEvent,
+  SelectInteractOutsideEvent,
+  SelectIntlTranslations,
+  SelectPointerDownOutsideEvent,
+  SelectPositioningOptions,
+  SelectScrollToIndexDetails,
+  SelectSelectionDetails,
+} from '@ark-ui/react/select';

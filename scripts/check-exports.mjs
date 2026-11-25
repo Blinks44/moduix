@@ -27,6 +27,7 @@ for (const name of packages) {
   const exportedComponents = Object.keys(exportsMap)
     .filter(
       (key) =>
+        key !== './collection' &&
         key !== './locale' &&
         key !== './style.css' &&
         key !== './reset.css' &&

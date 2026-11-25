@@ -1,4 +1,3 @@
-import { createListCollection } from '@ark-ui/solid/collection';
 import {
   Select,
   SelectLabel,
@@ -9,6 +8,7 @@ import {
   SelectItemGroupLabel,
   SelectHiddenSelect,
   SelectOption,
+  createListCollection,
 } from '@moduix/solid/select';
 import { For } from 'solid-js';
 

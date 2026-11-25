@@ -122,3 +122,20 @@ export {
   useScrollAreaContext,
 };
 export type { ScrollAreaRootProps, ScrollAreaRootProviderProps, ScrollAreaVariant };
+
+export type {
+  ScrollAreaContentProps,
+  ScrollAreaContextProps,
+  ScrollAreaCornerProps,
+  ScrollAreaElementIds,
+  ScrollAreaScrollToDetails,
+  ScrollAreaScrollToEdge,
+  ScrollAreaScrollToEdgeDetails,
+  ScrollAreaScrollbarProps,
+  ScrollAreaScrollbarState,
+  ScrollAreaThumbProps,
+  ScrollAreaViewportProps,
+  UseScrollAreaContext,
+  UseScrollAreaProps,
+  UseScrollAreaReturn,
+} from '@ark-ui/react/scroll-area';

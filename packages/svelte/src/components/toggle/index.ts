@@ -14,3 +14,5 @@ export type {
   UseToggleProps,
   UseToggleReturn,
 } from '@ark-ui/svelte/toggle';
+
+export { useToggle } from '@ark-ui/svelte/toggle';

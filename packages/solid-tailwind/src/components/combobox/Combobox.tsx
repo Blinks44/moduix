@@ -411,3 +411,19 @@ export type {
   UseComboboxProps,
   UseComboboxReturn,
 } from '@ark-ui/solid/combobox';
+
+export { createListCollection, useListCollection } from '@ark-ui/solid/collection';
+export type {
+  CollectionItem,
+  CollectionOptions,
+  ListCollection,
+  UseListCollectionProps,
+  UseListCollectionReturn,
+} from '@ark-ui/solid/collection';
+export { useFilter } from '@ark-ui/solid/locale';
+export type { UseFilterProps, UseFilterReturn } from '@ark-ui/solid/locale';
+export type {
+  ComboboxFocusOutsideEvent,
+  ComboboxInteractOutsideEvent,
+  ComboboxPointerDownOutsideEvent,
+} from '@ark-ui/solid/combobox';

@@ -1,4 +1,3 @@
-import { createListCollection } from '@ark-ui/react/collection';
 import {
   Listbox,
   ListboxContent,
@@ -7,8 +6,8 @@ import {
   ListboxItemText,
   ListboxLabel,
   ListboxValueText,
+  createListCollection,
 } from '@moduix/react/listbox';
-
 const days = createListCollection({
   items: [
     {

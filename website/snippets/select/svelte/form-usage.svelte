@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { createListCollection } from '@ark-ui/svelte/collection';
   import { Button } from '@moduix/svelte/button';
   import {
     Select,
@@ -13,6 +12,7 @@
     SelectPositioner,
     SelectTrigger,
     SelectValueText,
+    createListCollection,
   } from '@moduix/svelte/select';
   import styles from '@/components/examples/select/select-form-usage.module.css';
 

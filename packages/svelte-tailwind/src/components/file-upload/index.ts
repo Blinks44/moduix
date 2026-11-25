@@ -65,3 +65,5 @@ export type {
   UseFileUploadProps,
   UseFileUploadReturn,
 } from '@ark-ui/svelte/file-upload';
+
+export type { UseFileUploadItemPropsContext } from '@ark-ui/svelte/file-upload';

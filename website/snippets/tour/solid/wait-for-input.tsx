@@ -1,4 +1,3 @@
-import type { TourStepDetails } from '@ark-ui/solid/tour';
 import { Button } from '@moduix/solid/button';
 import { Input } from '@moduix/solid/input';
 import { Stack } from '@moduix/solid/stack';
@@ -15,6 +14,7 @@ import {
   TourControl,
   TourActionList,
   useTour,
+  type TourStepDetails,
 } from '@moduix/solid/tour';
 import { createSignal } from 'solid-js';
 

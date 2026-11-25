@@ -1,13 +1,12 @@
 <script lang="ts">
-  import { createGridCollection } from '@ark-ui/svelte/collection';
   import {
     Listbox,
     ListboxContent,
     ListboxItem,
     ListboxItemText,
     ListboxLabel,
+    createGridCollection,
   } from '@moduix/svelte/listbox';
-
   const colors = createGridCollection({
     items: [
       { label: 'Red', value: 'red' },

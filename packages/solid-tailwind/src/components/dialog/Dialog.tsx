@@ -281,3 +281,21 @@ export type {
   DialogScrollBehavior,
   DialogSize,
 };
+
+export type {
+  DialogBackdropProps,
+  DialogCloseTriggerProps,
+  DialogContextProps,
+  DialogDescriptionProps,
+  DialogFocusOutsideEvent,
+  DialogInteractOutsideEvent,
+  DialogOpenChangeDetails,
+  DialogPointerDownOutsideEvent,
+  DialogPositionerProps,
+  DialogTitleProps,
+  DialogTriggerProps,
+  DialogTriggerValueChangeDetails,
+  UseDialogContext,
+  UseDialogProps,
+  UseDialogReturn,
+} from '@ark-ui/solid/dialog';

@@ -8,3 +8,5 @@ export type { SwapRootProps } from './Swap.svelte';
 export type { SwapRootProviderProps } from './SwapRootProvider.svelte';
 
 export type { UseSwapContext, UseSwapProps, UseSwapReturn } from '@ark-ui/svelte/swap';
+
+export type { SwapIndicatorProps } from '@ark-ui/svelte/swap';

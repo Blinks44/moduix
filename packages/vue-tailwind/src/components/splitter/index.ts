@@ -38,3 +38,6 @@ export type {
   UseSplitterProps,
   UseSplitterReturn,
 } from '@ark-ui/vue/splitter';
+
+export { getSplitterLayout } from '@ark-ui/vue/splitter';
+export type { SplitterRegistryProps, SplitterRegistryReturn } from '@ark-ui/vue/splitter';

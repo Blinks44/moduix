@@ -154,3 +154,5 @@ export type {
   UseImageCropperProps,
   UseImageCropperReturn,
 } from '@ark-ui/solid/image-cropper';
+
+export type { ImageCropperRect } from '@ark-ui/solid/image-cropper';

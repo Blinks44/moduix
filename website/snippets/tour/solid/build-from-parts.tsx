@@ -1,4 +1,3 @@
-import type { TourStepDetails } from '@ark-ui/solid/tour';
 import { Button } from '@moduix/solid/button';
 import { CloseButton } from '@moduix/solid/close-button';
 import { Stack } from '@moduix/solid/stack';
@@ -16,6 +15,7 @@ import {
   TourActions,
   TourActionTrigger,
   useTour,
+  type TourStepDetails,
 } from '@moduix/solid/tour';
 import { X as XIcon } from 'lucide-solid';
 import { createSignal } from 'solid-js';

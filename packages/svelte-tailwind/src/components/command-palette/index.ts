@@ -31,3 +31,22 @@ export { default as CommandPaletteTrigger } from './CommandPaletteTrigger.svelte
 export type { CommandPaletteRootProps } from './CommandPalette.svelte';
 export type { CommandPaletteRootProviderProps } from './CommandPaletteRootProvider.svelte';
 export type { CommandPaletteComboboxProps } from './CommandPaletteCombobox.svelte';
+
+export { createListCollection, useListCollection } from '@ark-ui/svelte/collection';
+export type {
+  CollectionItem,
+  CollectionOptions,
+  ListCollection,
+  UseListCollectionProps,
+  UseListCollectionReturn,
+} from '@ark-ui/svelte/collection';
+export { useFilter } from '@ark-ui/svelte/locale';
+export type { UseFilterProps, UseFilterReturn } from '@ark-ui/svelte/locale';
+export type {
+  ComboboxHighlightChangeDetails,
+  ComboboxInputValueChangeDetails,
+  ComboboxOpenChangeDetails,
+  ComboboxSelectionDetails,
+  ComboboxValueChangeDetails,
+} from '@ark-ui/svelte/combobox';
+export type { DialogOpenChangeDetails } from '@ark-ui/svelte/dialog';

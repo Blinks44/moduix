@@ -97,3 +97,13 @@ export {
   useAvatarContext,
 };
 export type { AvatarGroupProps, AvatarRootProps, AvatarRootProviderProps, AvatarSize };
+
+export type {
+  AvatarContextProps,
+  AvatarFallbackProps,
+  AvatarImageProps,
+  AvatarStatusChangeDetails,
+  UseAvatarContext,
+  UseAvatarProps,
+  UseAvatarReturn,
+} from '@ark-ui/react/avatar';

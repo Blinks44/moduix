@@ -125,3 +125,6 @@ export type { Props as DatePickerFieldProps } from './DatePickerField.vue';
 export type { Props as DatePickerRangeFieldProps } from './DatePickerRangeField.vue';
 
 export type { PortalRef } from '@/lib/moduix/overlayPortal/context';
+
+export { parseDate } from '@ark-ui/vue/date-picker';
+export type { DatePickerRangeTextProps, UseDatePickerContext } from '@ark-ui/vue/date-picker';

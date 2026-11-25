@@ -147,3 +147,19 @@ export type {
   RadioGroupRootProviderProps,
   RadioGroupSize,
 };
+
+export type {
+  RadioGroupContextProps,
+  RadioGroupIndicatorProps,
+  RadioGroupItemContextProps,
+  RadioGroupItemControlProps,
+  RadioGroupItemHiddenInputProps,
+  RadioGroupItemProps,
+  RadioGroupItemTextProps,
+  RadioGroupLabelProps,
+  RadioGroupValueChangeDetails,
+  UseRadioGroupContext,
+  UseRadioGroupItemContext,
+  UseRadioGroupProps,
+  UseRadioGroupReturn,
+} from '@ark-ui/solid/radio-group';

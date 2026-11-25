@@ -47,3 +47,18 @@ export type {
 export type { ListboxRootProps } from './Listbox.svelte';
 export type { ListboxFilterProps } from './ListboxFilter.svelte';
 export type { ListboxRootProviderProps } from './ListboxRootProvider.svelte';
+
+export {
+  createGridCollection,
+  createListCollection,
+  useListCollection,
+} from '@ark-ui/svelte/collection';
+export type {
+  CollectionOptions,
+  GridCollection,
+  GridCollectionOptions,
+  UseListCollectionProps,
+  UseListCollectionReturn,
+} from '@ark-ui/svelte/collection';
+export { useFilter } from '@ark-ui/svelte/locale';
+export type { UseFilterProps, UseFilterReturn } from '@ark-ui/svelte/locale';

@@ -121,3 +121,5 @@ export type {
   UseQrCodeProps,
   UseQrCodeReturn,
 } from '@ark-ui/react/qr-code';
+
+export type { QrCodeGenerateResult } from '@ark-ui/react/qr-code';

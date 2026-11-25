@@ -387,6 +387,10 @@
       "types": "./dist/components/typeset/index.d.ts",
       "import": "./dist/components/typeset/index.js"
     },
+    "./collection": {
+      "types": "./dist/collection.d.ts",
+      "import": "./dist/collection.js"
+    },
     "./locale": {
       "types": "./dist/locale.d.ts",
       "import": "./dist/locale.js"

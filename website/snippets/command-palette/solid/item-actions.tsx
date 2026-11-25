@@ -1,5 +1,3 @@
-import { useListCollection } from '@ark-ui/solid/collection';
-import { useFilter } from '@ark-ui/solid/locale';
 import { Button } from '@moduix/solid/button';
 import {
   CommandPalette,
@@ -19,6 +17,8 @@ import {
   CommandPalettePanel,
   CommandPaletteSearch,
   CommandPaletteTrigger,
+  useListCollection,
+  useFilter,
 } from '@moduix/solid/command-palette';
 import { For, createSignal } from 'solid-js';
 

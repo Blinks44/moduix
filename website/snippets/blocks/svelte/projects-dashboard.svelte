@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { createListCollection } from '@ark-ui/svelte/collection';
   import ChevronsUpDown from '@lucide/svelte/icons/chevrons-up-down';
   import FileText from '@lucide/svelte/icons/file-text';
   import FolderOpen from '@lucide/svelte/icons/folder-open';
@@ -50,6 +49,7 @@
     SelectLabel,
     SelectOption,
     SelectPositioner,
+    createListCollection,
   } from '@/components/ui/select';
   import {
     Sidebar,

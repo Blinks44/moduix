@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { TourStepDetails } from '@ark-ui/vue/tour';
 import { X as XIcon } from '@lucide/vue';
 import { Button } from '@moduix/vue/button';
 import { CloseButton } from '@moduix/vue/close-button';
@@ -18,6 +17,7 @@ import {
   TourSpotlight,
   TourTitle,
   useTour,
+  type TourStepDetails,
 } from '@moduix/vue/tour';
 import { ref } from 'vue';
 import styles from '@/components/examples/tour/tour-build-from-parts.module.css';

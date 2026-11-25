@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { TourStepDetails } from '@ark-ui/vue/tour';
 import { Button } from '@moduix/vue/button';
 import { Stack } from '@moduix/vue/stack';
 import {
@@ -16,8 +15,8 @@ import {
   TourSpotlight,
   TourTitle,
   useTour,
+  type TourStepDetails,
 } from '@moduix/vue/tour';
-
 const steps = [
   {
     id: 'upload',

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { parseDate } from '@ark-ui/vue/date-picker';
 import {
   DatePicker,
   DatePickerContent,
@@ -8,6 +7,7 @@ import {
   DatePickerMonthTable,
   DatePickerView,
   DatePickerYearTable,
+  parseDate,
 } from '@moduix/vue/date-picker';
 import styles from '@/components/examples/date-picker/date-picker-inline-and-week-numbers.module.css';
 </script>

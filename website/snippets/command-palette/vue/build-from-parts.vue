@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useListCollection } from '@ark-ui/vue/collection';
-import { useFilter } from '@ark-ui/vue/locale';
 import { Search as SearchIcon, X as XIcon } from '@lucide/vue';
 import { Button } from '@moduix/vue/button';
 import {
@@ -24,6 +22,8 @@ import {
   CommandPaletteList,
   CommandPalettePositioner,
   CommandPaletteTrigger,
+  useListCollection,
+  useFilter,
 } from '@moduix/vue/command-palette';
 import styles from '@/components/examples/command-palette/command-palette-build-from-parts.module.css';
 

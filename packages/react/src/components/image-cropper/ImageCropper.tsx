@@ -169,3 +169,5 @@ export type {
   UseImageCropperProps,
   UseImageCropperReturn,
 } from '@ark-ui/react/image-cropper';
+
+export type { ImageCropperRect } from '@ark-ui/react/image-cropper';

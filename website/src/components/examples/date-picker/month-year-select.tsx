@@ -1,4 +1,3 @@
-import { parseDate } from '@ark-ui/react/date-picker';
 import {
   DatePicker,
   DatePickerLabel,
@@ -12,6 +11,7 @@ import {
   DatePickerDayTable,
   DatePickerMonthSelect,
   DatePickerYearSelect,
+  parseDate,
 } from '@moduix/react/date-picker';
 import styles from '@/components/examples/date-picker/date-picker-month-year-select.module.css';
 

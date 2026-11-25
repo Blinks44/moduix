@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { parseDate } from '@ark-ui/vue/date-picker';
 import {
   Calendar as CalendarIcon,
   ChevronDown as ChevronDownIcon,
@@ -31,6 +30,7 @@ import {
   DatePickerView,
   DatePickerViewControl,
   DatePickerViewTrigger,
+  parseDate,
 } from '@moduix/vue/date-picker';
 </script>
 

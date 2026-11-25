@@ -25,3 +25,6 @@ export type {
   UseSplitterProps,
   UseSplitterReturn,
 } from '@ark-ui/svelte/splitter';
+
+export { getSplitterLayout } from '@ark-ui/svelte/splitter';
+export type { SplitterRegistryProps, SplitterRegistryReturn } from '@ark-ui/svelte/splitter';

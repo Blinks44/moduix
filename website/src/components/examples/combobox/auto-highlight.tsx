@@ -1,5 +1,3 @@
-import { useListCollection } from '@ark-ui/react/collection';
-import { useFilter } from '@ark-ui/react/locale';
 import {
   Combobox,
   ComboboxClearTrigger,
@@ -12,8 +10,9 @@ import {
   ComboboxOption,
   ComboboxPositioner,
   ComboboxTrigger,
+  useListCollection,
+  useFilter,
 } from '@moduix/react/combobox';
-
 const departments = [
   { label: 'Engineering', value: 'engineering' },
   { label: 'Marketing', value: 'marketing' },

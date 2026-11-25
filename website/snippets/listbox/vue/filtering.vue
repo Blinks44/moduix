@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useListCollection } from '@ark-ui/vue/collection';
 import {
   Listbox,
   ListboxClearTrigger,
@@ -11,6 +10,7 @@ import {
   ListboxItemIndicator,
   ListboxItemText,
   ListboxLabel,
+  useListCollection,
 } from '@moduix/vue/listbox';
 import { ref } from 'vue';
 
