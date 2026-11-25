@@ -8,7 +8,7 @@
       "type": "registry:item",
       "title": "Text",
       "description": "moduix Vue Text component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -33,7 +33,7 @@
       "type": "registry:item",
       "title": "SplitButton",
       "description": "moduix Vue SplitButton component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-vue/foundation",
         "@moduix-vue/button",
@@ -90,7 +90,7 @@
       "type": "registry:item",
       "title": "SimpleGrid",
       "description": "moduix Vue SimpleGrid component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -115,7 +115,7 @@
       "type": "registry:item",
       "title": "Skeleton",
       "description": "moduix Vue Skeleton component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -153,7 +153,7 @@
           "utils": "@/lib/utils"
         }
       },
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"]
     },
     {
@@ -161,7 +161,7 @@
       "type": "registry:item",
       "title": "Clipboard",
       "description": "moduix Vue Clipboard component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/icons"],
       "files": [
         {
@@ -221,7 +221,7 @@
       "type": "registry:item",
       "title": "Timer",
       "description": "moduix Vue Timer component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -281,7 +281,7 @@
       "type": "registry:item",
       "title": "Accordion",
       "description": "moduix Vue Accordion component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/icons"],
       "files": [
         {
@@ -336,7 +336,7 @@
       "type": "registry:item",
       "title": "Swap",
       "description": "moduix Vue Swap component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -371,7 +371,7 @@
       "type": "registry:item",
       "title": "TreeView",
       "description": "moduix Vue TreeView component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/icons"],
       "files": [
         {
@@ -481,7 +481,7 @@
       "type": "registry:item",
       "title": "Toggle",
       "description": "moduix Vue Toggle component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -511,7 +511,7 @@
       "type": "registry:item",
       "title": "ToggleGroup",
       "description": "moduix Vue ToggleGroup component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/toggle"],
       "files": [
         {
@@ -551,7 +551,7 @@
       "type": "registry:item",
       "title": "Tooltip",
       "description": "moduix Vue Tooltip component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/overlay-portal"],
       "files": [
         {
@@ -616,7 +616,7 @@
       "type": "registry:item",
       "title": "Toast",
       "description": "moduix Vue Toast component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-vue/a11y-labels",
         "@moduix-vue/close-button",
@@ -672,7 +672,7 @@
       "type": "registry:item",
       "title": "Steps",
       "description": "moduix Vue Steps component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/icons"],
       "files": [
         {
@@ -752,7 +752,7 @@
       "type": "registry:item",
       "title": "Table of Contents",
       "description": "moduix Vue Table of Contents component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -827,7 +827,7 @@
       "type": "registry:item",
       "title": "SegmentGroup",
       "description": "moduix Vue SegmentGroup component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -887,7 +887,7 @@
       "type": "registry:item",
       "title": "Table",
       "description": "moduix Vue Table component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/a11y-labels", "@moduix-vue/foundation"],
       "files": [
         {
@@ -967,7 +967,7 @@
       "type": "registry:item",
       "title": "QR Code",
       "description": "moduix Vue QR Code component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -1017,7 +1017,7 @@
       "type": "registry:item",
       "title": "ProgressLinear",
       "description": "moduix Vue ProgressLinear component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -1072,7 +1072,7 @@
       "type": "registry:item",
       "title": "PinInput",
       "description": "moduix Vue PinInput component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/icons"],
       "files": [
         {
@@ -1132,7 +1132,7 @@
       "type": "registry:item",
       "title": "Pagination",
       "description": "moduix Vue Pagination component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/icons"],
       "files": [
         {
@@ -1197,7 +1197,7 @@
       "type": "registry:item",
       "title": "Listbox",
       "description": "moduix Vue Listbox component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-vue/a11y-labels",
         "@moduix-vue/close-button",
@@ -1302,7 +1302,7 @@
       "type": "registry:item",
       "title": "Marquee",
       "description": "moduix Vue Marquee component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -1352,7 +1352,7 @@
       "type": "registry:item",
       "title": "Lightbox",
       "description": "moduix Vue Lightbox component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-vue/a11y-labels",
         "@moduix-vue/close-button",
@@ -1467,7 +1467,7 @@
       "type": "registry:item",
       "title": "NavigationMenu",
       "description": "moduix Vue NavigationMenu component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -1547,7 +1547,7 @@
       "type": "registry:item",
       "title": "List",
       "description": "moduix Vue List component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -1582,7 +1582,7 @@
       "type": "registry:item",
       "title": "HoverCard",
       "description": "moduix Vue HoverCard component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/overlay-portal"],
       "files": [
         {
@@ -1647,7 +1647,7 @@
       "type": "registry:item",
       "title": "Popover",
       "description": "moduix Vue Popover component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-vue/a11y-labels",
         "@moduix-vue/close-button",
@@ -1757,7 +1757,7 @@
       "type": "registry:item",
       "title": "ImageCropper",
       "description": "moduix Vue ImageCropper component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -1817,7 +1817,7 @@
       "type": "registry:item",
       "title": "FloatingPanel",
       "description": "moduix Vue FloatingPanel component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-vue/a11y-labels",
         "@moduix-vue/close-button",
@@ -1933,7 +1933,7 @@
       "type": "registry:item",
       "title": "Editable",
       "description": "moduix Vue Editable component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/icons"],
       "files": [
         {
@@ -2008,7 +2008,7 @@
       "type": "registry:item",
       "title": "FileUpload",
       "description": "moduix Vue FileUpload component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/icons"],
       "files": [
         {
@@ -2113,7 +2113,7 @@
       "type": "registry:item",
       "title": "Heading",
       "description": "moduix Vue Heading component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -2138,7 +2138,7 @@
       "type": "registry:item",
       "title": "Highlight",
       "description": "moduix Vue Highlight component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -2163,7 +2163,7 @@
       "type": "registry:item",
       "title": "DatePicker",
       "description": "moduix Vue DatePicker component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "@internationalized/date@^3.12.4"],
       "registryDependencies": [
         "@moduix-vue/foundation",
         "@moduix-vue/icons",
@@ -2358,7 +2358,7 @@
       "type": "registry:item",
       "title": "DateInput",
       "description": "moduix Vue DateInput component.",
-      "dependencies": ["@ark-ui/vue", "@internationalized/date", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "@internationalized/date@^3.12.4", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -2418,7 +2418,7 @@
       "type": "registry:item",
       "title": "Switch",
       "description": "moduix Vue Switch component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -2463,7 +2463,7 @@
       "type": "registry:item",
       "title": "Select",
       "description": "moduix Vue Select component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-vue/foundation",
         "@moduix-vue/icons",
@@ -2589,7 +2589,7 @@
       "type": "registry:item",
       "title": "Native Select",
       "description": "moduix Vue Native Select component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/icons"],
       "files": [
         {
@@ -2614,7 +2614,7 @@
       "type": "registry:item",
       "title": "RadioGroup",
       "description": "moduix Vue RadioGroup component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -2674,7 +2674,7 @@
       "type": "registry:item",
       "title": "NumberInput",
       "description": "moduix Vue NumberInput component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/icons"],
       "files": [
         {
@@ -2744,7 +2744,7 @@
       "type": "registry:item",
       "title": "RatingGroup",
       "description": "moduix Vue RatingGroup component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/icons"],
       "files": [
         {
@@ -2799,7 +2799,7 @@
       "type": "registry:item",
       "title": "Fieldset",
       "description": "moduix Vue Fieldset component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -2844,7 +2844,7 @@
       "type": "registry:item",
       "title": "Input",
       "description": "moduix Vue Input component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -2869,7 +2869,7 @@
       "type": "registry:item",
       "title": "InputGroup",
       "description": "moduix Vue InputGroup component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-vue/icons",
         "@moduix-vue/close-button",
@@ -2937,7 +2937,7 @@
       "type": "registry:item",
       "title": "Kbd",
       "description": "moduix Vue Kbd component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -2967,7 +2967,7 @@
       "type": "registry:item",
       "title": "Textarea",
       "description": "moduix Vue Textarea component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -2992,7 +2992,7 @@
       "type": "registry:item",
       "title": "Combobox",
       "description": "moduix Vue Combobox component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-vue/foundation",
         "@moduix-vue/icons",
@@ -3118,7 +3118,7 @@
       "type": "registry:item",
       "title": "CommandPalette",
       "description": "moduix Vue CommandPalette component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-vue/foundation",
         "@moduix-vue/icons",
@@ -3296,7 +3296,7 @@
       "type": "registry:item",
       "title": "Tag",
       "description": "moduix Vue Tag component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-vue/a11y-labels",
         "@moduix-vue/close-button",
@@ -3345,7 +3345,7 @@
       "type": "registry:item",
       "title": "Tags Input",
       "description": "moduix Vue Tags Input component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-vue/foundation",
         "@moduix-vue/icons",
@@ -3429,7 +3429,7 @@
       "type": "registry:item",
       "title": "Scroll Area",
       "description": "moduix Vue Scroll Area component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -3484,7 +3484,7 @@
       "type": "registry:item",
       "title": "Container",
       "description": "moduix Vue Container component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -3509,7 +3509,7 @@
       "type": "registry:item",
       "title": "Collapsible",
       "description": "moduix Vue Collapsible component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/icons"],
       "files": [
         {
@@ -3559,7 +3559,7 @@
       "type": "registry:item",
       "title": "Dialog",
       "description": "moduix Vue Dialog component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-vue/close-button",
         "@moduix-vue/foundation",
@@ -3654,7 +3654,7 @@
       "type": "registry:item",
       "title": "Drawer",
       "description": "moduix Vue Drawer component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-vue/close-button",
         "@moduix-vue/foundation",
@@ -3774,7 +3774,7 @@
       "type": "registry:item",
       "title": "Field",
       "description": "moduix Vue Field component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -3829,7 +3829,7 @@
       "type": "registry:item",
       "title": "Checkbox",
       "description": "moduix Vue Checkbox component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/icons"],
       "files": [
         {
@@ -3884,7 +3884,7 @@
       "type": "registry:item",
       "title": "Alert",
       "description": "moduix Vue Alert component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -3934,7 +3934,7 @@
       "type": "registry:item",
       "title": "AngleSlider",
       "description": "moduix Vue AngleSlider component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -4004,7 +4004,7 @@
       "type": "registry:item",
       "title": "AspectRatio",
       "description": "moduix Vue AspectRatio component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -4029,7 +4029,7 @@
       "type": "registry:item",
       "title": "SignaturePad",
       "description": "moduix Vue SignaturePad component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-vue/foundation",
         "@moduix-vue/icons",
@@ -4103,7 +4103,7 @@
       "type": "registry:item",
       "title": "Slider",
       "description": "moduix Vue Slider component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -4183,7 +4183,7 @@
       "type": "registry:item",
       "title": "Separator",
       "description": "moduix Vue Separator component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -4208,7 +4208,7 @@
       "type": "registry:item",
       "title": "Avatar",
       "description": "moduix Vue Avatar component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -4253,7 +4253,7 @@
       "type": "registry:item",
       "title": "Badge",
       "description": "moduix Vue Badge component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -4288,7 +4288,7 @@
       "type": "registry:item",
       "title": "Breadcrumbs",
       "description": "moduix Vue Breadcrumbs component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-vue/a11y-labels",
         "@moduix-vue/foundation",
@@ -4352,7 +4352,7 @@
       "type": "registry:item",
       "title": "Button",
       "description": "moduix Vue Button component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -4377,7 +4377,7 @@
       "type": "registry:item",
       "title": "Card",
       "description": "moduix Vue Card component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -4447,7 +4447,7 @@
       "type": "registry:item",
       "title": "Carousel",
       "description": "moduix Vue Carousel component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/icons"],
       "files": [
         {
@@ -4532,7 +4532,7 @@
       "type": "registry:item",
       "title": "Image",
       "description": "moduix Vue Image component.",
-      "dependencies": ["@unpic/core", "clsx", "unpic"],
+      "dependencies": ["@unpic/core@^1.0.3", "clsx@^2.1.1", "unpic@^4.2.2"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -4562,7 +4562,7 @@
       "type": "registry:item",
       "title": "Bleed",
       "description": "moduix Vue Bleed component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -4587,7 +4587,7 @@
       "type": "registry:item",
       "title": "Menu",
       "description": "moduix Vue Menu component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-vue/foundation",
         "@moduix-vue/icons",
@@ -4731,7 +4731,7 @@
       "type": "registry:item",
       "title": "Spinner",
       "description": "moduix Vue Spinner component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/a11y-labels"],
       "files": [
         {
@@ -4756,7 +4756,7 @@
       "type": "registry:item",
       "title": "Stack",
       "description": "moduix Vue Stack component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -4781,7 +4781,7 @@
       "type": "registry:item",
       "title": "Splitter",
       "description": "moduix Vue Splitter component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -4826,7 +4826,7 @@
       "type": "registry:item",
       "title": "Sidebar",
       "description": "moduix Vue Sidebar component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-vue/foundation",
         "@moduix-vue/icons",
@@ -4984,7 +4984,7 @@
       "type": "registry:item",
       "title": "CloseButton",
       "description": "moduix Vue CloseButton component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-vue/foundation",
         "@moduix-vue/icons",
@@ -5013,7 +5013,7 @@
       "type": "registry:item",
       "title": "Chart",
       "description": "moduix Vue Chart component backed by TanStack Charts.",
-      "dependencies": ["@ark-ui/vue", "@tanstack/charts", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "@tanstack/charts@^1.5.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -5068,7 +5068,7 @@
       "type": "registry:item",
       "title": "ColorPicker",
       "description": "moduix Vue ColorPicker component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-vue/foundation",
         "@moduix-vue/icons",
@@ -5232,7 +5232,7 @@
       "type": "registry:item",
       "title": "Empty",
       "description": "Composable empty-state surface for no-results, no-data, and first-run screens.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -5282,7 +5282,7 @@
       "type": "registry:item",
       "title": "ProgressCircular",
       "description": "moduix Vue ProgressCircular component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -5368,7 +5368,7 @@
       "type": "registry:item",
       "title": "moduix icons",
       "description": "Internal icon components required only by registry components that render them.",
-      "dependencies": ["@lucide/vue"],
+      "dependencies": ["@lucide/vue@^1.77.0"],
       "files": [
         {
           "path": "src/internal/icons/ui/index.ts",
@@ -5429,7 +5429,7 @@
       "type": "registry:item",
       "title": "PasswordInput",
       "description": "moduix Vue PasswordInput component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/icons"],
       "files": [
         {
@@ -5494,7 +5494,7 @@
       "type": "registry:item",
       "title": "Tabs",
       "description": "moduix Vue Tabs component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {
@@ -5544,7 +5544,7 @@
       "type": "registry:item",
       "title": "moduix Vue core",
       "description": "Shared runtime dependencies installed by every moduix registry component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["https://moduix.dev/r/foundation/core.json"]
     },
     {
@@ -5576,7 +5576,7 @@
       "type": "registry:item",
       "title": "Tour",
       "description": "moduix Vue Tour component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-vue/a11y-labels",
         "@moduix-vue/close-button",
@@ -5681,7 +5681,7 @@
       "type": "registry:item",
       "title": "JsonTreeView",
       "description": "moduix Vue JsonTreeView component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/icons"],
       "files": [
         {
@@ -5716,7 +5716,7 @@
       "type": "registry:item",
       "title": "Typeset",
       "description": "moduix Vue Typeset component.",
-      "dependencies": ["@ark-ui/vue", "clsx"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {

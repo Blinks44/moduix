@@ -76,9 +76,9 @@ same composition of `ChartPlot`, motion, focus, tooltip, and legend works outsid
 
 ### Radar chart
 
-Compare metrics on the same 0–100 scale with `radialLine` and a closed D3 curve. Radar charts
-already existed before v1; the new feature here is `polar.states`, which dims unmatched points
-while `focusGroupAngle` groups both products by metric for the tooltip and keyboard navigation.
+Compare metrics on the same 0–100 scale with `radialLine` and a closed D3 curve. `polar.states` dims
+unmatched points while `focusGroupAngle` groups both products by metric for the tooltip and keyboard
+navigation.
 
 This example also needs `d3-shape` and its TypeScript types:
 
@@ -104,10 +104,10 @@ turns each cell's level into a theme-aware paint value.
 ### Interactive legend
 
 Use TanStack's `interactiveColorLegend` instead of a separate `ChartLegend` when readers need to
-hide series. With v1, `hover: 'series'` also applies mark states on pointer hover and keyboard
-focus. The `source: 'legend'` states highlight the series without opening a tooltip or changing
-plot focus. Keep the visible series in framework state through `controlledSignal`; TanStack handles
-the buttons, filtering, and keyboard interaction.
+hide series. `hover: 'series'` applies mark states on pointer hover and keyboard focus, and
+`source: 'legend'` states highlight the series without opening a tooltip or changing plot focus.
+Keep the visible series in framework state through `controlledSignal`; TanStack handles the buttons,
+filtering, and keyboard interaction.
 
 <Example name="chart/interactive-legend" />
 
@@ -149,7 +149,7 @@ Hover or focus a part to find it in the preview.
 
 <AnatomyInspector
   parts={[
-    ["Chart", "chart-tooltip-value", "Composed `figure` root. Accepts native props, `asChild`, and an `HTMLElement` ref (`$el` of the component ref in Vue, the `bind:ref` value in Svelte).", 0],
+    ["Chart", "chart-root", "Composed `figure` root. Accepts native props, `asChild`, and an `HTMLElement` ref (`$el` of the component ref in Vue, the `bind:ref` value in Svelte).", 0],
     ["ChartHeader", "chart-header", "`figcaption` layout for the title and description.", 1],
     ["ChartTitle", "chart-title", "Chart heading; renders `h3` by default.", 2],
     ["ChartDescription", "chart-description", "Supporting visible context.", 2],

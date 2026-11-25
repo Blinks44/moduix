@@ -17,8 +17,21 @@ function fill(template: string, slot: string, node: ReactNode) {
   );
 }
 
+const extraInstallPeers: Partial<Record<string, (framework: string) => string[]>> = {
+  chart: () => ['@tanstack/charts'],
+  image: (framework) =>
+    framework === 'react' ? ['@unpic/core', '@unpic/react', 'unpic'] : ['@unpic/core', 'unpic'],
+};
+
+const defaultImportNames: Partial<Record<string, string>> = {
+  toast: 'createToaster, ToastToaster',
+};
+
 function toExportName(slug: string) {
-  return slug.replace(/(^|-)(\w)/g, (_, __, letter: string) => letter.toUpperCase());
+  return (
+    defaultImportNames[slug] ??
+    slug.replace(/(^|-)(\w)/g, (_, __, letter: string) => letter.toUpperCase())
+  );
 }
 
 // Installation section of a component page: the package path with its subpath import, and the
@@ -31,6 +44,10 @@ function ComponentInstall() {
   const component = String(frontmatter.component);
   const packageName = `${framework.value}${styling.value === 'tailwind' ? '-tailwind' : ''}`;
   const subpath = `@moduix/${packageName}/${component}`;
+  const peers = [
+    `@ark-ui/${framework.value}`,
+    ...(extraInstallPeers[component]?.(framework.value) ?? []),
+  ];
   const quickStart = fill(
     t('installQuickStartNote'),
     'link',
@@ -41,9 +58,7 @@ function ComponentInstall() {
     <Tabs className={styles.tabs}>
       <Tab label={t('installPackage')}>
         <div className={styles.package}>
-          <PackageManagerTabs
-            command={`install @moduix/${packageName} @ark-ui/${framework.value}`}
-          />
+          <PackageManagerTabs command={`install @moduix/${packageName} ${peers.join(' ')}`} />
           <CodeBlockRuntime
             lang="tsx"
             code={`import { ${toExportName(component)} } from '${subpath}';`}

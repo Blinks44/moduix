@@ -415,21 +415,12 @@ importers:
 
   packages/react:
     dependencies:
-      '@unpic/core':
-        specifier: 'catalog:'
-        version: 1.0.3
-      '@unpic/react':
-        specifier: 'catalog:'
-        version: 1.0.2(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       clsx:
         specifier: 'catalog:'
         version: 2.1.1
       lucide-react:
         specifier: 'catalog:'
         version: 1.77.0(@types/react@19.3.0)(react@19.3.1)
-      unpic:
-        specifier: 'catalog:'
-        version: 4.2.2
     devDependencies:
       '@ark-ui/react':
         specifier: 'catalog:'
@@ -473,6 +464,12 @@ importers:
       '@types/react-dom':
         specifier: 'catalog:'
         version: 19.3.0(@types/react@19.3.0)
+      '@unpic/core':
+        specifier: 'catalog:'
+        version: 1.0.3
+      '@unpic/react':
+        specifier: 'catalog:'
+        version: 1.0.2(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       react:
         specifier: 'catalog:'
         version: 19.3.1
@@ -482,15 +479,12 @@ importers:
       typescript:
         specifier: ~7.0.2
         version: 7.0.2
+      unpic:
+        specifier: 'catalog:'
+        version: 4.2.2
 
   packages/react-tailwind:
     dependencies:
-      '@unpic/core':
-        specifier: 'catalog:'
-        version: 1.0.3
-      '@unpic/react':
-        specifier: 'catalog:'
-        version: 1.0.2(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       class-variance-authority:
         specifier: 'catalog:'
         version: 0.7.1
@@ -503,9 +497,6 @@ importers:
       tailwind-merge:
         specifier: 'catalog:'
         version: 3.7.1
-      unpic:
-        specifier: 'catalog:'
-        version: 4.2.2
     devDependencies:
       '@ark-ui/react':
         specifier: 'catalog:'
@@ -552,6 +543,12 @@ importers:
       '@types/react-dom':
         specifier: 'catalog:'
         version: 19.3.0(@types/react@19.3.0)
+      '@unpic/core':
+        specifier: 'catalog:'
+        version: 1.0.3
+      '@unpic/react':
+        specifier: 'catalog:'
+        version: 1.0.2(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       react:
         specifier: 'catalog:'
         version: 19.3.1
@@ -564,21 +561,18 @@ importers:
       typescript:
         specifier: ~7.0.2
         version: 7.0.2
+      unpic:
+        specifier: 'catalog:'
+        version: 4.2.2
 
   packages/solid:
     dependencies:
-      '@unpic/core':
-        specifier: 'catalog:'
-        version: 1.0.3
       clsx:
         specifier: 'catalog:'
         version: 2.1.1
       lucide-solid:
         specifier: 'catalog:'
         version: 1.77.0(solid-js@1.9.20)
-      unpic:
-        specifier: 'catalog:'
-        version: 4.2.2
     devDependencies:
       '@ark-ui/solid':
         specifier: 'catalog:'
@@ -616,18 +610,21 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 24.19.2
+      '@unpic/core':
+        specifier: 'catalog:'
+        version: 1.0.3
       solid-js:
         specifier: 'catalog:'
         version: 1.9.20
       typescript:
         specifier: ~7.0.2
         version: 7.0.2
+      unpic:
+        specifier: 'catalog:'
+        version: 4.2.2
 
   packages/solid-tailwind:
     dependencies:
-      '@unpic/core':
-        specifier: 'catalog:'
-        version: 1.0.3
       class-variance-authority:
         specifier: 'catalog:'
         version: 0.7.1
@@ -640,9 +637,6 @@ importers:
       tailwind-merge:
         specifier: 'catalog:'
         version: 3.7.1
-      unpic:
-        specifier: 'catalog:'
-        version: 4.2.2
     devDependencies:
       '@ark-ui/solid':
         specifier: 'catalog:'
@@ -683,6 +677,9 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 24.19.2
+      '@unpic/core':
+        specifier: 'catalog:'
+        version: 1.0.3
       solid-js:
         specifier: 'catalog:'
         version: 1.9.20
@@ -692,21 +689,18 @@ importers:
       typescript:
         specifier: ~7.0.2
         version: 7.0.2
+      unpic:
+        specifier: 'catalog:'
+        version: 4.2.2
 
   packages/svelte:
     dependencies:
       '@lucide/svelte':
         specifier: 'catalog:'
         version: 1.77.0(svelte@5.59.1)
-      '@unpic/core':
-        specifier: 'catalog:'
-        version: 1.0.3
       clsx:
         specifier: 'catalog:'
         version: 2.1.1
-      unpic:
-        specifier: 'catalog:'
-        version: 4.2.2
     devDependencies:
       '@ark-ui/svelte':
         specifier: 'catalog:'
@@ -738,6 +732,9 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 24.19.2
+      '@unpic/core':
+        specifier: 'catalog:'
+        version: 1.0.3
       svelte:
         specifier: 'catalog:'
         version: 5.59.1
@@ -747,15 +744,15 @@ importers:
       typescript:
         specifier: ~6.0.3
         version: 6.0.3
+      unpic:
+        specifier: 'catalog:'
+        version: 4.2.2
 
   packages/svelte-tailwind:
     dependencies:
       '@lucide/svelte':
         specifier: 'catalog:'
         version: 1.77.0(svelte@5.59.1)
-      '@unpic/core':
-        specifier: 'catalog:'
-        version: 1.0.3
       class-variance-authority:
         specifier: 'catalog:'
         version: 0.7.1
@@ -765,9 +762,6 @@ importers:
       tailwind-merge:
         specifier: 'catalog:'
         version: 3.7.1
-      unpic:
-        specifier: 'catalog:'
-        version: 4.2.2
     devDependencies:
       '@ark-ui/svelte':
         specifier: 'catalog:'
@@ -802,6 +796,9 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 24.19.2
+      '@unpic/core':
+        specifier: 'catalog:'
+        version: 1.0.3
       svelte:
         specifier: 'catalog:'
         version: 5.59.1
@@ -814,21 +811,18 @@ importers:
       typescript:
         specifier: ~6.0.3
         version: 6.0.3
+      unpic:
+        specifier: 'catalog:'
+        version: 4.2.2
 
   packages/vue:
     dependencies:
       '@lucide/vue':
         specifier: 'catalog:'
         version: 1.77.0(vue@3.5.46(typescript@6.0.3))
-      '@unpic/core':
-        specifier: 'catalog:'
-        version: 1.0.3
       clsx:
         specifier: 'catalog:'
         version: 2.1.1
-      unpic:
-        specifier: 'catalog:'
-        version: 4.2.2
     devDependencies:
       '@ark-ui/vue':
         specifier: 'catalog:'
@@ -863,6 +857,9 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 24.19.2
+      '@unpic/core':
+        specifier: 'catalog:'
+        version: 1.0.3
       '@vue/language-core':
         specifier: 'catalog:'
         version: 3.3.11
@@ -872,6 +869,9 @@ importers:
       typescript:
         specifier: ~6.0.3
         version: 6.0.3
+      unpic:
+        specifier: 'catalog:'
+        version: 4.2.2
       unplugin-dts:
         specifier: 'catalog:'
         version: 1.1.2(@microsoft/api-extractor@7.59.1(@types/node@24.19.2))(@vue/language-core@3.3.11)(esbuild@0.28.2)(rolldown@1.2.19)(rollup@4.63.1)(supports-color@10.2.2)(typescript@6.0.3)(vite@8.3.8(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.50.0)(yaml@2.9.1))(webpack@5.109.2(clean-css@5.3.3)(esbuild@0.28.2)(html-minifier-terser@7.2.0)(lightningcss@1.33.0)(postcss@8.5.31))
@@ -887,9 +887,6 @@ importers:
       '@lucide/vue':
         specifier: 'catalog:'
         version: 1.77.0(vue@3.5.46(typescript@6.0.3))
-      '@unpic/core':
-        specifier: 'catalog:'
-        version: 1.0.3
       class-variance-authority:
         specifier: 'catalog:'
         version: 0.7.1
@@ -899,9 +896,6 @@ importers:
       tailwind-merge:
         specifier: 'catalog:'
         version: 3.7.1
-      unpic:
-        specifier: 'catalog:'
-        version: 4.2.2
     devDependencies:
       '@ark-ui/vue':
         specifier: 'catalog:'
@@ -939,6 +933,9 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 24.19.2
+      '@unpic/core':
+        specifier: 'catalog:'
+        version: 1.0.3
       '@vue/language-core':
         specifier: 'catalog:'
         version: 3.3.11
@@ -951,6 +948,9 @@ importers:
       typescript:
         specifier: ~6.0.3
         version: 6.0.3
+      unpic:
+        specifier: 'catalog:'
+        version: 4.2.2
       unplugin-dts:
         specifier: 'catalog:'
         version: 1.1.2(@microsoft/api-extractor@7.59.1(@types/node@24.19.2))(@vue/language-core@3.3.11)(esbuild@0.28.2)(rolldown@1.2.19)(rollup@4.63.1)(supports-color@10.2.2)(typescript@6.0.3)(vite@8.3.8(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.50.0)(yaml@2.9.1))(webpack@5.109.2(clean-css@5.3.3)(esbuild@0.28.2)(html-minifier-terser@7.2.0)(lightningcss@1.33.0)(postcss@8.5.31))
@@ -987,6 +987,12 @@ importers:
       '@types/react-dom':
         specifier: 'catalog:'
         version: 19.3.0(@types/react@19.3.0)
+      '@unpic/core':
+        specifier: 'catalog:'
+        version: 1.0.3
+      '@unpic/react':
+        specifier: 'catalog:'
+        version: 1.0.2(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       d3-shape:
         specifier: 'catalog:'
         version: 3.2.1
@@ -1002,6 +1008,9 @@ importers:
       typescript:
         specifier: ~7.0.2
         version: 7.0.2
+      unpic:
+        specifier: 'catalog:'
+        version: 4.2.2
       vite:
         specifier: 'catalog:'
         version: 8.3.8(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.50.0)(yaml@2.9.1)
@@ -1035,6 +1044,12 @@ importers:
       '@types/react-dom':
         specifier: 'catalog:'
         version: 19.3.0(@types/react@19.3.0)
+      '@unpic/core':
+        specifier: 'catalog:'
+        version: 1.0.3
+      '@unpic/react':
+        specifier: 'catalog:'
+        version: 1.0.2(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       clsx:
         specifier: 'catalog:'
         version: 2.1.1
@@ -1059,6 +1074,9 @@ importers:
       typescript:
         specifier: ~7.0.2
         version: 7.0.2
+      unpic:
+        specifier: 'catalog:'
+        version: 4.2.2
       vite:
         specifier: 'catalog:'
         version: 8.3.8(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.50.0)(yaml@2.9.1)
@@ -1080,6 +1098,9 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 24.19.2
+      '@unpic/core':
+        specifier: 'catalog:'
+        version: 1.0.3
       clsx:
         specifier: 'catalog:'
         version: 2.1.1
@@ -1098,6 +1119,9 @@ importers:
       typescript:
         specifier: ~7.0.2
         version: 7.0.2
+      unpic:
+        specifier: 'catalog:'
+        version: 4.2.2
       vite:
         specifier: 'catalog:'
         version: 8.3.8(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.50.0)(yaml@2.9.1)
@@ -1125,6 +1149,9 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 24.19.2
+      '@unpic/core':
+        specifier: 'catalog:'
+        version: 1.0.3
       clsx:
         specifier: 'catalog:'
         version: 2.1.1
@@ -1149,6 +1176,9 @@ importers:
       typescript:
         specifier: ~7.0.2
         version: 7.0.2
+      unpic:
+        specifier: 'catalog:'
+        version: 4.2.2
       vite:
         specifier: 'catalog:'
         version: 8.3.8(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.50.0)(yaml@2.9.1)
@@ -1185,6 +1215,9 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 24.19.2
+      '@unpic/core':
+        specifier: 'catalog:'
+        version: 1.0.3
       d3-shape:
         specifier: 'catalog:'
         version: 3.2.1
@@ -1200,6 +1233,9 @@ importers:
       typescript:
         specifier: ~6.0.3
         version: 6.0.3
+      unpic:
+        specifier: 'catalog:'
+        version: 4.2.2
       vite:
         specifier: 'catalog:'
         version: 8.3.8(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.50.0)(yaml@2.9.1)
@@ -1236,6 +1272,9 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 24.19.2
+      '@unpic/core':
+        specifier: 'catalog:'
+        version: 1.0.3
       d3-shape:
         specifier: 'catalog:'
         version: 3.2.1
@@ -1257,6 +1296,9 @@ importers:
       typescript:
         specifier: ~6.0.3
         version: 6.0.3
+      unpic:
+        specifier: 'catalog:'
+        version: 4.2.2
       vite:
         specifier: 'catalog:'
         version: 8.3.8(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.50.0)(yaml@2.9.1)
@@ -1284,6 +1326,9 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 24.19.2
+      '@unpic/core':
+        specifier: 'catalog:'
+        version: 1.0.3
       '@vitejs/plugin-vue':
         specifier: 'catalog:'
         version: 6.0.11(vite@8.3.8(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.50.0)(yaml@2.9.1))(vue@3.5.46(typescript@6.0.3))
@@ -1296,6 +1341,9 @@ importers:
       typescript:
         specifier: ~6.0.3
         version: 6.0.3
+      unpic:
+        specifier: 'catalog:'
+        version: 4.2.2
       vite:
         specifier: 'catalog:'
         version: 8.3.8(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.50.0)(yaml@2.9.1)
@@ -1332,6 +1380,9 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 24.19.2
+      '@unpic/core':
+        specifier: 'catalog:'
+        version: 1.0.3
       '@vitejs/plugin-vue':
         specifier: 'catalog:'
         version: 6.0.11(vite@8.3.8(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.50.0)(yaml@2.9.1))(vue@3.5.46(typescript@6.0.3))
@@ -1350,6 +1401,9 @@ importers:
       typescript:
         specifier: ~6.0.3
         version: 6.0.3
+      unpic:
+        specifier: 'catalog:'
+        version: 4.2.2
       vite:
         specifier: 'catalog:'
         version: 8.3.8(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.50.0)(yaml@2.9.1)
@@ -1401,6 +1455,12 @@ importers:
       '@tanstack/react-virtual':
         specifier: ^3.14.26
         version: 3.14.26(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      '@unpic/core':
+        specifier: 'catalog:'
+        version: 1.0.3
+      '@unpic/react':
+        specifier: 'catalog:'
+        version: 1.0.2(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       clsx:
         specifier: 'catalog:'
         version: 2.1.1
@@ -1419,6 +1479,9 @@ importers:
       react-hook-form:
         specifier: ^7.92.0
         version: 7.92.0(@types/react@19.3.0)(react@19.3.1)
+      unpic:
+        specifier: 'catalog:'
+        version: 4.2.2
       valibot:
         specifier: ^1.5.0
         version: 1.5.0(typescript@6.0.3)

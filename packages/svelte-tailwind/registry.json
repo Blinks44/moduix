@@ -9,15 +9,20 @@
       "title": "moduix Svelte Tailwind core",
       "description": "Shared runtime dependencies and foundation styles for moduix Tailwind components.",
       "docs": "Import '@/lib/moduix/styles/style.css' once before Tailwind in your application stylesheet. Tailwind Preflight provides the reset layer.",
-      "dependencies": ["@ark-ui/svelte", "class-variance-authority", "clsx", "tailwind-merge"],
-      "registryDependencies": ["https://moduix.dev/r/foundation/core.json"]
+      "dependencies": [
+        "@ark-ui/svelte@^5.25.1",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
+      "registryDependencies": ["https://moduix.dev/r/foundation/core-tailwind.json"]
     },
     {
       "name": "cn",
       "type": "registry:item",
       "title": "moduix class name utility",
       "description": "Merges conditional and conflicting Tailwind class names.",
-      "dependencies": ["clsx", "tailwind-merge"],
+      "dependencies": ["clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "files": [
         {
           "path": "src/internal/cn.ts",
@@ -55,7 +60,7 @@
       "type": "registry:item",
       "title": "moduix icons",
       "description": "Internal icons used by moduix Svelte Tailwind components.",
-      "dependencies": ["@lucide/svelte"],
+      "dependencies": ["@lucide/svelte@^1.77.0"],
       "files": [
         {
           "path": "src/internal/icons/ui/index.ts",
@@ -149,7 +154,7 @@
       "type": "registry:item",
       "title": "Accordion",
       "description": "moduix Svelte Tailwind Accordion component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-svelte-tailwind/foundation",
         "@moduix-svelte-tailwind/cn",
@@ -245,7 +250,12 @@
       "type": "registry:item",
       "title": "Button",
       "description": "moduix Svelte Tailwind Button component.",
-      "dependencies": ["@ark-ui/svelte", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/svelte@^5.25.1",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -265,7 +275,7 @@
       "type": "registry:item",
       "title": "CloseButton",
       "description": "moduix Svelte Tailwind CloseButton component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-svelte-tailwind/foundation",
         "@moduix-svelte-tailwind/cn",
@@ -290,7 +300,7 @@
       "type": "registry:item",
       "title": "Dialog",
       "description": "moduix Svelte Tailwind Dialog component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-svelte-tailwind/foundation",
         "@moduix-svelte-tailwind/cn",
@@ -376,7 +386,7 @@
       "type": "registry:item",
       "title": "Select",
       "description": "moduix Svelte Tailwind Select component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-svelte-tailwind/foundation",
         "@moduix-svelte-tailwind/cn",
@@ -488,7 +498,12 @@
       "type": "registry:item",
       "title": "Alert",
       "description": "moduix Svelte Tailwind Alert component.",
-      "dependencies": ["@ark-ui/svelte", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/svelte@^5.25.1",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -533,7 +548,7 @@
       "type": "registry:item",
       "title": "AspectRatio",
       "description": "moduix Svelte Tailwind AspectRatio component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -553,7 +568,12 @@
       "type": "registry:item",
       "title": "Badge",
       "description": "moduix Svelte Tailwind Badge component.",
-      "dependencies": ["@ark-ui/svelte", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/svelte@^5.25.1",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -583,7 +603,12 @@
       "type": "registry:item",
       "title": "Bleed",
       "description": "moduix Svelte Tailwind Bleed component.",
-      "dependencies": ["@ark-ui/svelte", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/svelte@^5.25.1",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -603,7 +628,12 @@
       "type": "registry:item",
       "title": "Card",
       "description": "moduix Svelte Tailwind Card component.",
-      "dependencies": ["@ark-ui/svelte", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/svelte@^5.25.1",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -668,7 +698,12 @@
       "type": "registry:item",
       "title": "Container",
       "description": "moduix Svelte Tailwind Container component.",
-      "dependencies": ["@ark-ui/svelte", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/svelte@^5.25.1",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -688,7 +723,7 @@
       "type": "registry:item",
       "title": "Empty",
       "description": "Composable empty-state surface for no-results, no-data, and first-run screens.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -733,7 +768,12 @@
       "type": "registry:item",
       "title": "Heading",
       "description": "moduix Svelte Tailwind Heading component.",
-      "dependencies": ["@ark-ui/svelte", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/svelte@^5.25.1",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -753,7 +793,7 @@
       "type": "registry:item",
       "title": "Highlight",
       "description": "moduix Svelte Tailwind Highlight component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -773,7 +813,7 @@
       "type": "registry:item",
       "title": "Kbd",
       "description": "moduix Svelte Tailwind Kbd component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -798,7 +838,12 @@
       "type": "registry:item",
       "title": "List",
       "description": "moduix Svelte Tailwind List component.",
-      "dependencies": ["@ark-ui/svelte", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/svelte@^5.25.1",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -828,7 +873,12 @@
       "type": "registry:item",
       "title": "Separator",
       "description": "moduix Svelte Tailwind Separator component.",
-      "dependencies": ["@ark-ui/svelte", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/svelte@^5.25.1",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -848,7 +898,7 @@
       "type": "registry:item",
       "title": "SimpleGrid",
       "description": "moduix Svelte Tailwind SimpleGrid component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -868,7 +918,7 @@
       "type": "registry:item",
       "title": "Skeleton",
       "description": "moduix Svelte Tailwind Skeleton component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -888,7 +938,12 @@
       "type": "registry:item",
       "title": "Spinner",
       "description": "moduix Svelte Tailwind Spinner component.",
-      "dependencies": ["@ark-ui/svelte", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/svelte@^5.25.1",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": [
         "@moduix-svelte-tailwind/foundation",
         "@moduix-svelte-tailwind/cn",
@@ -912,7 +967,12 @@
       "type": "registry:item",
       "title": "Stack",
       "description": "moduix Svelte Tailwind Stack component.",
-      "dependencies": ["@ark-ui/svelte", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/svelte@^5.25.1",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -932,7 +992,12 @@
       "type": "registry:item",
       "title": "Text",
       "description": "moduix Svelte Tailwind Text component.",
-      "dependencies": ["@ark-ui/svelte", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/svelte@^5.25.1",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -952,7 +1017,7 @@
       "type": "registry:item",
       "title": "Typeset",
       "description": "moduix Svelte Tailwind Typeset component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -982,7 +1047,7 @@
       "type": "registry:item",
       "title": "Field",
       "description": "moduix Svelte Tailwind Field component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -1037,7 +1102,7 @@
       "type": "registry:item",
       "title": "Fieldset",
       "description": "moduix Svelte Tailwind Fieldset component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -1077,7 +1142,12 @@
       "type": "registry:item",
       "title": "Input",
       "description": "moduix Svelte Tailwind Input component.",
-      "dependencies": ["@ark-ui/svelte", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/svelte@^5.25.1",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -1097,7 +1167,7 @@
       "type": "registry:item",
       "title": "Textarea",
       "description": "moduix Svelte Tailwind Textarea component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -1117,7 +1187,7 @@
       "type": "registry:item",
       "title": "Native Select",
       "description": "moduix Svelte Tailwind Native Select component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-svelte-tailwind/foundation",
         "@moduix-svelte-tailwind/cn",
@@ -1141,7 +1211,7 @@
       "type": "registry:item",
       "title": "PasswordInput",
       "description": "moduix Svelte Tailwind PasswordInput component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-svelte-tailwind/foundation",
         "@moduix-svelte-tailwind/cn",
@@ -1200,7 +1270,7 @@
       "type": "registry:item",
       "title": "NumberInput",
       "description": "moduix Svelte Tailwind NumberInput component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-svelte-tailwind/cn",
         "@moduix-svelte-tailwind/foundation",
@@ -1269,7 +1339,7 @@
       "type": "registry:item",
       "title": "PinInput",
       "description": "moduix Svelte Tailwind PinInput component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-svelte-tailwind/foundation",
         "@moduix-svelte-tailwind/cn",
@@ -1328,7 +1398,7 @@
       "type": "registry:item",
       "title": "Checkbox",
       "description": "moduix Svelte Tailwind Checkbox component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-svelte-tailwind/foundation",
         "@moduix-svelte-tailwind/cn",
@@ -1377,7 +1447,7 @@
       "type": "registry:item",
       "title": "RadioGroup",
       "description": "moduix Svelte Tailwind RadioGroup component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -1432,7 +1502,7 @@
       "type": "registry:item",
       "title": "Switch",
       "description": "moduix Svelte Tailwind Switch component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -1472,7 +1542,7 @@
       "type": "registry:item",
       "title": "SegmentGroup",
       "description": "moduix Svelte Tailwind SegmentGroup component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -1527,7 +1597,7 @@
       "type": "registry:item",
       "title": "RatingGroup",
       "description": "moduix Svelte Tailwind RatingGroup component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-svelte-tailwind/foundation",
         "@moduix-svelte-tailwind/cn",
@@ -1581,7 +1651,7 @@
       "type": "registry:item",
       "title": "Slider",
       "description": "moduix Svelte Tailwind Slider component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -1656,7 +1726,7 @@
       "type": "registry:item",
       "title": "AngleSlider",
       "description": "moduix Svelte Tailwind AngleSlider component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -1721,7 +1791,7 @@
       "type": "registry:item",
       "title": "Editable",
       "description": "moduix Svelte Tailwind Editable component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-svelte-tailwind/foundation",
         "@moduix-svelte-tailwind/cn",
@@ -1795,7 +1865,7 @@
       "type": "registry:item",
       "title": "Popover",
       "description": "moduix Svelte Tailwind Popover component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-svelte-tailwind/foundation",
         "@moduix-svelte-tailwind/cn",
@@ -1896,7 +1966,7 @@
       "type": "registry:item",
       "title": "Tooltip",
       "description": "moduix Svelte Tailwind Tooltip component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-svelte-tailwind/foundation",
         "@moduix-svelte-tailwind/cn",
@@ -1960,7 +2030,7 @@
       "type": "registry:item",
       "title": "HoverCard",
       "description": "moduix Svelte Tailwind HoverCard component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-svelte-tailwind/foundation",
         "@moduix-svelte-tailwind/cn",
@@ -2019,7 +2089,12 @@
       "type": "registry:item",
       "title": "Menu",
       "description": "moduix Svelte Tailwind Menu component.",
-      "dependencies": ["@ark-ui/svelte", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/svelte@^5.25.1",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": [
         "@moduix-svelte-tailwind/foundation",
         "@moduix-svelte-tailwind/cn",
@@ -2154,7 +2229,7 @@
       "type": "registry:item",
       "title": "Drawer",
       "description": "moduix Svelte Tailwind Drawer component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-svelte-tailwind/foundation",
         "@moduix-svelte-tailwind/cn",
@@ -2265,7 +2340,7 @@
       "type": "registry:item",
       "title": "FloatingPanel",
       "description": "moduix Svelte Tailwind FloatingPanel component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-svelte-tailwind/close-button",
         "@moduix-svelte-tailwind/cn",
@@ -2377,7 +2452,7 @@
       "type": "registry:item",
       "title": "Lightbox",
       "description": "moduix Svelte Tailwind Lightbox component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-svelte-tailwind/foundation",
         "@moduix-svelte-tailwind/cn",
@@ -2483,7 +2558,7 @@
       "type": "registry:item",
       "title": "Tour",
       "description": "moduix Svelte Tailwind Tour component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-svelte-tailwind/foundation",
         "@moduix-svelte-tailwind/cn",
@@ -2584,7 +2659,7 @@
       "type": "registry:item",
       "title": "Combobox",
       "description": "moduix Svelte Tailwind Combobox component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-svelte-tailwind/foundation",
         "@moduix-svelte-tailwind/cn",
@@ -2696,7 +2771,12 @@
       "type": "registry:item",
       "title": "Listbox",
       "description": "moduix Svelte Tailwind Listbox component.",
-      "dependencies": ["@ark-ui/svelte", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/svelte@^5.25.1",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": [
         "@moduix-svelte-tailwind/close-button",
         "@moduix-svelte-tailwind/cn",
@@ -2792,7 +2872,7 @@
       "type": "registry:item",
       "title": "Tags Input",
       "description": "moduix Svelte Tailwind Tags Input component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-svelte-tailwind/foundation",
         "@moduix-svelte-tailwind/cn",
@@ -2872,7 +2952,12 @@
       "type": "registry:item",
       "title": "Tag",
       "description": "moduix Svelte Tailwind Tag component.",
-      "dependencies": ["@ark-ui/svelte", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/svelte@^5.25.1",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": [
         "@moduix-svelte-tailwind/close-button",
         "@moduix-svelte-tailwind/cn",
@@ -2917,7 +3002,12 @@
       "type": "registry:item",
       "title": "TreeView",
       "description": "moduix Svelte Tailwind TreeView component.",
-      "dependencies": ["@ark-ui/svelte", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/svelte@^5.25.1",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": [
         "@moduix-svelte-tailwind/foundation",
         "@moduix-svelte-tailwind/cn",
@@ -3031,7 +3121,7 @@
       "type": "registry:item",
       "title": "JsonTreeView",
       "description": "moduix Svelte Tailwind JsonTreeView component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-svelte-tailwind/foundation",
         "@moduix-svelte-tailwind/cn",
@@ -3070,7 +3160,12 @@
       "type": "registry:item",
       "title": "Table",
       "description": "moduix Svelte Tailwind Table component.",
-      "dependencies": ["@ark-ui/svelte", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/svelte@^5.25.1",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": [
         "@moduix-svelte-tailwind/foundation",
         "@moduix-svelte-tailwind/cn",
@@ -3149,7 +3244,7 @@
       "type": "registry:item",
       "title": "Pagination",
       "description": "moduix Svelte Tailwind Pagination component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-svelte-tailwind/foundation",
         "@moduix-svelte-tailwind/cn",
@@ -3213,7 +3308,7 @@
       "type": "registry:item",
       "title": "Timer",
       "description": "moduix Svelte Tailwind Timer component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -3268,7 +3363,12 @@
       "type": "registry:item",
       "title": "DateInput",
       "description": "moduix Svelte Tailwind DateInput component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/svelte@^5.25.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1",
+        "@internationalized/date@^3.12.4"
+      ],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -3323,7 +3423,7 @@
       "type": "registry:item",
       "title": "ColorPicker",
       "description": "moduix Svelte Tailwind ColorPicker component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-svelte-tailwind/foundation",
         "@moduix-svelte-tailwind/cn",
@@ -3488,7 +3588,12 @@
       "type": "registry:item",
       "title": "DatePicker",
       "description": "moduix Svelte Tailwind DatePicker component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/svelte@^5.25.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1",
+        "@internationalized/date@^3.12.4"
+      ],
       "registryDependencies": [
         "@moduix-svelte-tailwind/foundation",
         "@moduix-svelte-tailwind/cn",
@@ -3679,7 +3784,12 @@
       "type": "registry:item",
       "title": "Avatar",
       "description": "moduix Svelte Tailwind Avatar component.",
-      "dependencies": ["@ark-ui/svelte", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/svelte@^5.25.1",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -3724,7 +3834,12 @@
       "type": "registry:item",
       "title": "Image",
       "description": "moduix Svelte Tailwind Image component.",
-      "dependencies": ["@unpic/core", "clsx", "tailwind-merge", "unpic"],
+      "dependencies": [
+        "@unpic/core@^1.0.3",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1",
+        "unpic@^4.2.2"
+      ],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -3749,7 +3864,7 @@
       "type": "registry:item",
       "title": "ImageCropper",
       "description": "moduix Svelte Tailwind ImageCropper component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -3804,7 +3919,7 @@
       "type": "registry:item",
       "title": "Carousel",
       "description": "moduix Svelte Tailwind Carousel component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-svelte-tailwind/foundation",
         "@moduix-svelte-tailwind/cn",
@@ -3888,7 +4003,12 @@
       "type": "registry:item",
       "title": "Marquee",
       "description": "moduix Svelte Tailwind Marquee component.",
-      "dependencies": ["@ark-ui/svelte", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/svelte@^5.25.1",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -3933,7 +4053,7 @@
       "type": "registry:item",
       "title": "QR Code",
       "description": "moduix Svelte Tailwind QR Code component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -3978,7 +4098,7 @@
       "type": "registry:item",
       "title": "SignaturePad",
       "description": "moduix Svelte Tailwind SignaturePad component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-svelte-tailwind/foundation",
         "@moduix-svelte-tailwind/cn",
@@ -4048,7 +4168,7 @@
       "type": "registry:item",
       "title": "FileUpload",
       "description": "moduix Svelte Tailwind FileUpload component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-svelte-tailwind/foundation",
         "@moduix-svelte-tailwind/cn",
@@ -4152,7 +4272,7 @@
       "type": "registry:item",
       "title": "Clipboard",
       "description": "moduix Svelte Tailwind Clipboard component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-svelte-tailwind/foundation",
         "@moduix-svelte-tailwind/cn",
@@ -4211,7 +4331,12 @@
       "type": "registry:item",
       "title": "Chart",
       "description": "moduix Svelte Tailwind Chart component backed by TanStack Charts.",
-      "dependencies": ["@ark-ui/svelte", "@tanstack/charts", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/svelte@^5.25.1",
+        "@tanstack/charts@^1.5.0",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -4261,7 +4386,7 @@
       "type": "registry:item",
       "title": "Breadcrumbs",
       "description": "moduix Svelte Tailwind Breadcrumbs component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-svelte-tailwind/a11y-labels",
         "@moduix-svelte-tailwind/foundation",
@@ -4321,7 +4446,7 @@
       "type": "registry:item",
       "title": "Collapsible",
       "description": "moduix Svelte Tailwind Collapsible component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-svelte-tailwind/foundation",
         "@moduix-svelte-tailwind/cn",
@@ -4370,7 +4495,7 @@
       "type": "registry:item",
       "title": "Tabs",
       "description": "moduix Svelte Tailwind Tabs component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -4415,7 +4540,7 @@
       "type": "registry:item",
       "title": "Steps",
       "description": "moduix Svelte Tailwind Steps component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-svelte-tailwind/foundation",
         "@moduix-svelte-tailwind/cn",
@@ -4494,7 +4619,12 @@
       "type": "registry:item",
       "title": "Table of Contents",
       "description": "moduix Svelte Tailwind Table of Contents component.",
-      "dependencies": ["@ark-ui/svelte", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/svelte@^5.25.1",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -4569,7 +4699,7 @@
       "type": "registry:item",
       "title": "NavigationMenu",
       "description": "moduix Svelte Tailwind NavigationMenu component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -4644,7 +4774,7 @@
       "type": "registry:item",
       "title": "Scroll Area",
       "description": "moduix Svelte Tailwind Scroll Area component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -4694,7 +4824,7 @@
       "type": "registry:item",
       "title": "Splitter",
       "description": "moduix Svelte Tailwind Splitter component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -4734,7 +4864,7 @@
       "type": "registry:item",
       "title": "ProgressLinear",
       "description": "moduix Svelte Tailwind ProgressLinear component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -4784,7 +4914,7 @@
       "type": "registry:item",
       "title": "ProgressCircular",
       "description": "moduix Svelte Tailwind ProgressCircular component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -4844,7 +4974,12 @@
       "type": "registry:item",
       "title": "Toggle",
       "description": "moduix Svelte Tailwind Toggle component.",
-      "dependencies": ["@ark-ui/svelte", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/svelte@^5.25.1",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -4874,7 +5009,7 @@
       "type": "registry:item",
       "title": "Swap",
       "description": "moduix Svelte Tailwind Swap component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation", "@moduix-svelte-tailwind/cn"],
       "files": [
         {
@@ -4904,7 +5039,7 @@
       "type": "registry:item",
       "title": "CommandPalette",
       "description": "moduix Svelte Tailwind CommandPalette component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-svelte-tailwind/foundation",
         "@moduix-svelte-tailwind/icons",
@@ -5077,7 +5212,12 @@
       "type": "registry:item",
       "title": "InputGroup",
       "description": "moduix Svelte Tailwind InputGroup component.",
-      "dependencies": ["@ark-ui/svelte", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/svelte@^5.25.1",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": [
         "@moduix-svelte-tailwind/icons",
         "@moduix-svelte-tailwind/close-button",
@@ -5146,7 +5286,7 @@
       "type": "registry:item",
       "title": "Sidebar",
       "description": "moduix Svelte Tailwind Sidebar component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-svelte-tailwind/foundation",
         "@moduix-svelte-tailwind/cn",
@@ -5300,7 +5440,7 @@
       "type": "registry:item",
       "title": "SplitButton",
       "description": "moduix Svelte SplitButton component.",
-      "dependencies": ["@ark-ui/svelte", "class-variance-authority"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "class-variance-authority@^0.7.1"],
       "registryDependencies": [
         "@moduix-svelte-tailwind/foundation",
         "@moduix-svelte-tailwind/button",
@@ -5358,7 +5498,7 @@
       "type": "registry:item",
       "title": "Toast",
       "description": "moduix Svelte Tailwind Toast component.",
-      "dependencies": ["@ark-ui/svelte", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-svelte-tailwind/foundation",
         "@moduix-svelte-tailwind/cn",
@@ -5415,7 +5555,12 @@
       "type": "registry:item",
       "title": "ToggleGroup",
       "description": "moduix Svelte Tailwind ToggleGroup component.",
-      "dependencies": ["@ark-ui/svelte", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/svelte@^5.25.1",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": [
         "@moduix-svelte-tailwind/foundation",
         "@moduix-svelte-tailwind/cn",
@@ -5472,7 +5617,12 @@
           "utils": "@/lib/utils"
         }
       },
-      "dependencies": ["@ark-ui/svelte", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/svelte@^5.25.1",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-svelte-tailwind/foundation"]
     },
     {

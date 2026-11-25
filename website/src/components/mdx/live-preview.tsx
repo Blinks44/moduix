@@ -1,4 +1,4 @@
-import { useEffect, useRef, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { useExampleSelection } from './example-panel';
 
 type LiveFramework = 'solid' | 'vue' | 'svelte';
@@ -42,6 +42,7 @@ function LivePreview({
   load: LiveExamples[LiveFramework];
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading');
 
   useEffect(() => {
     const target = ref.current;
@@ -52,11 +53,23 @@ function LivePreview({
     target.addEventListener('submit', preventSubmit);
     let cancelled = false;
     let unmount: Unmount | undefined;
-    void load().then(async (module) => {
-      if (cancelled) return;
-      unmount = await mounters[framework](module.default as never, target);
-      if (cancelled) unmount();
-    });
+    setStatus('loading');
+
+    load()
+      .then(async (module) => {
+        if (cancelled) return;
+        unmount = await mounters[framework](module.default as never, target);
+        if (cancelled) {
+          unmount();
+          return;
+        }
+        setStatus('ready');
+      })
+      .catch((error: unknown) => {
+        if (cancelled) return;
+        console.error(`Failed to render ${framework} live preview:`, error);
+        setStatus('error');
+      });
 
     return () => {
       cancelled = true;
@@ -65,7 +78,28 @@ function LivePreview({
     };
   }, [framework, load]);
 
-  return <div ref={ref} data-live-preview={framework} style={{ display: 'contents' }} />;
+  return (
+    <>
+      {status === 'loading' ? (
+        <span
+          role="status"
+          aria-live="polite"
+          style={{ color: 'var(--moduix-muted-foreground)', fontSize: 'var(--moduix-text-sm)' }}
+        >
+          Loading preview…
+        </span>
+      ) : null}
+      {status === 'error' ? (
+        <span
+          role="alert"
+          style={{ color: 'var(--moduix-destructive)', fontSize: 'var(--moduix-text-sm)' }}
+        >
+          Preview failed to load. Try reloading or open the example in StackBlitz.
+        </span>
+      ) : null}
+      <div ref={ref} data-live-preview={framework} style={{ display: 'contents' }} />
+    </>
+  );
 }
 
 // Renders the React example, or the Solid, Vue, or Svelte one chosen in the example panels. `live`

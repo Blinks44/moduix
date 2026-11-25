@@ -8,7 +8,7 @@
       "type": "registry:item",
       "title": "moduix Svelte core",
       "description": "Shared runtime dependencies installed by every moduix registry component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["https://moduix.dev/r/foundation/core.json"]
     },
     {
@@ -40,7 +40,7 @@
       "type": "registry:item",
       "title": "moduix icons",
       "description": "Internal icon components required only by registry components that render them.",
-      "dependencies": ["@lucide/svelte"],
+      "dependencies": ["@lucide/svelte@^1.77.0"],
       "files": [
         {
           "path": "src/internal/icons/ui/index.ts",
@@ -134,7 +134,7 @@
       "type": "registry:item",
       "title": "Accordion",
       "description": "moduix Svelte Accordion component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation", "@moduix-svelte/icons"],
       "files": [
         {
@@ -231,7 +231,7 @@
       "type": "registry:item",
       "title": "Button",
       "description": "moduix Svelte Button component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -256,7 +256,7 @@
       "type": "registry:item",
       "title": "CloseButton",
       "description": "moduix Svelte CloseButton component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-svelte/foundation",
         "@moduix-svelte/icons",
@@ -285,7 +285,7 @@
       "type": "registry:item",
       "title": "Dialog",
       "description": "moduix Svelte Dialog component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-svelte/close-button",
         "@moduix-svelte/foundation",
@@ -375,7 +375,7 @@
       "type": "registry:item",
       "title": "Select",
       "description": "moduix Svelte Select component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-svelte/foundation",
         "@moduix-svelte/icons",
@@ -491,7 +491,7 @@
       "type": "registry:item",
       "title": "Alert",
       "description": "moduix Svelte Alert component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -541,7 +541,7 @@
       "type": "registry:item",
       "title": "AspectRatio",
       "description": "moduix Svelte AspectRatio component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -566,7 +566,7 @@
       "type": "registry:item",
       "title": "Badge",
       "description": "moduix Svelte Badge component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -601,7 +601,7 @@
       "type": "registry:item",
       "title": "Bleed",
       "description": "moduix Svelte Bleed component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -626,7 +626,7 @@
       "type": "registry:item",
       "title": "Card",
       "description": "moduix Svelte Card component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -696,7 +696,7 @@
       "type": "registry:item",
       "title": "Container",
       "description": "moduix Svelte Container component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -721,7 +721,7 @@
       "type": "registry:item",
       "title": "Empty",
       "description": "Composable empty-state surface for no-results, no-data, and first-run screens.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -771,7 +771,7 @@
       "type": "registry:item",
       "title": "Heading",
       "description": "moduix Svelte Heading component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -796,7 +796,7 @@
       "type": "registry:item",
       "title": "Highlight",
       "description": "moduix Svelte Highlight component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -821,7 +821,7 @@
       "type": "registry:item",
       "title": "Kbd",
       "description": "moduix Svelte Kbd component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -851,7 +851,7 @@
       "type": "registry:item",
       "title": "List",
       "description": "moduix Svelte List component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -886,7 +886,7 @@
       "type": "registry:item",
       "title": "Separator",
       "description": "moduix Svelte Separator component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -911,7 +911,7 @@
       "type": "registry:item",
       "title": "SimpleGrid",
       "description": "moduix Svelte SimpleGrid component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -936,7 +936,7 @@
       "type": "registry:item",
       "title": "Skeleton",
       "description": "moduix Svelte Skeleton component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -961,7 +961,7 @@
       "type": "registry:item",
       "title": "Spinner",
       "description": "moduix Svelte Spinner component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation", "@moduix-svelte/a11y-labels"],
       "files": [
         {
@@ -986,7 +986,7 @@
       "type": "registry:item",
       "title": "Stack",
       "description": "moduix Svelte Stack component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -1011,7 +1011,7 @@
       "type": "registry:item",
       "title": "Text",
       "description": "moduix Svelte Text component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -1036,7 +1036,7 @@
       "type": "registry:item",
       "title": "Typeset",
       "description": "moduix Svelte Typeset component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -1066,7 +1066,7 @@
       "type": "registry:item",
       "title": "Field",
       "description": "moduix Svelte Field component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -1121,7 +1121,7 @@
       "type": "registry:item",
       "title": "Fieldset",
       "description": "moduix Svelte Fieldset component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -1166,7 +1166,7 @@
       "type": "registry:item",
       "title": "Input",
       "description": "moduix Svelte Input component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -1191,7 +1191,7 @@
       "type": "registry:item",
       "title": "Textarea",
       "description": "moduix Svelte Textarea component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -1216,7 +1216,7 @@
       "type": "registry:item",
       "title": "Native Select",
       "description": "moduix Svelte Native Select component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation", "@moduix-svelte/icons"],
       "files": [
         {
@@ -1241,7 +1241,7 @@
       "type": "registry:item",
       "title": "PasswordInput",
       "description": "moduix Svelte PasswordInput component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation", "@moduix-svelte/icons"],
       "files": [
         {
@@ -1301,7 +1301,7 @@
       "type": "registry:item",
       "title": "NumberInput",
       "description": "moduix Svelte NumberInput component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation", "@moduix-svelte/icons"],
       "files": [
         {
@@ -1371,7 +1371,7 @@
       "type": "registry:item",
       "title": "PinInput",
       "description": "moduix Svelte PinInput component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation", "@moduix-svelte/icons"],
       "files": [
         {
@@ -1431,7 +1431,7 @@
       "type": "registry:item",
       "title": "Checkbox",
       "description": "moduix Svelte Checkbox component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation", "@moduix-svelte/icons"],
       "files": [
         {
@@ -1481,7 +1481,7 @@
       "type": "registry:item",
       "title": "RadioGroup",
       "description": "moduix Svelte RadioGroup component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -1541,7 +1541,7 @@
       "type": "registry:item",
       "title": "Switch",
       "description": "moduix Svelte Switch component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -1586,7 +1586,7 @@
       "type": "registry:item",
       "title": "SegmentGroup",
       "description": "moduix Svelte SegmentGroup component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -1646,7 +1646,7 @@
       "type": "registry:item",
       "title": "RatingGroup",
       "description": "moduix Svelte RatingGroup component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation", "@moduix-svelte/icons"],
       "files": [
         {
@@ -1701,7 +1701,7 @@
       "type": "registry:item",
       "title": "Slider",
       "description": "moduix Svelte Slider component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -1781,7 +1781,7 @@
       "type": "registry:item",
       "title": "AngleSlider",
       "description": "moduix Svelte AngleSlider component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -1851,7 +1851,7 @@
       "type": "registry:item",
       "title": "Editable",
       "description": "moduix Svelte Editable component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation", "@moduix-svelte/icons"],
       "files": [
         {
@@ -1926,7 +1926,7 @@
       "type": "registry:item",
       "title": "Popover",
       "description": "moduix Svelte Popover component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-svelte/a11y-labels",
         "@moduix-svelte/close-button",
@@ -2031,7 +2031,7 @@
       "type": "registry:item",
       "title": "Tooltip",
       "description": "moduix Svelte Tooltip component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation", "@moduix-svelte/overlay-portal"],
       "files": [
         {
@@ -2096,7 +2096,7 @@
       "type": "registry:item",
       "title": "HoverCard",
       "description": "moduix Svelte HoverCard component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation", "@moduix-svelte/overlay-portal"],
       "files": [
         {
@@ -2156,7 +2156,7 @@
       "type": "registry:item",
       "title": "Menu",
       "description": "moduix Svelte Menu component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-svelte/foundation",
         "@moduix-svelte/icons",
@@ -2290,7 +2290,7 @@
       "type": "registry:item",
       "title": "Drawer",
       "description": "moduix Svelte Drawer component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-svelte/close-button",
         "@moduix-svelte/foundation",
@@ -2405,7 +2405,7 @@
       "type": "registry:item",
       "title": "FloatingPanel",
       "description": "moduix Svelte FloatingPanel component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-svelte/a11y-labels",
         "@moduix-svelte/close-button",
@@ -2521,7 +2521,7 @@
       "type": "registry:item",
       "title": "Lightbox",
       "description": "moduix Svelte Lightbox component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-svelte/a11y-labels",
         "@moduix-svelte/close-button",
@@ -2631,7 +2631,7 @@
       "type": "registry:item",
       "title": "Tour",
       "description": "moduix Svelte Tour component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-svelte/a11y-labels",
         "@moduix-svelte/close-button",
@@ -2736,7 +2736,7 @@
       "type": "registry:item",
       "title": "Combobox",
       "description": "moduix Svelte Combobox component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-svelte/foundation",
         "@moduix-svelte/icons",
@@ -2852,7 +2852,7 @@
       "type": "registry:item",
       "title": "Listbox",
       "description": "moduix Svelte Listbox component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-svelte/a11y-labels",
         "@moduix-svelte/close-button",
@@ -2947,7 +2947,7 @@
       "type": "registry:item",
       "title": "Tags Input",
       "description": "moduix Svelte Tags Input component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-svelte/foundation",
         "@moduix-svelte/icons",
@@ -3031,7 +3031,7 @@
       "type": "registry:item",
       "title": "Tag",
       "description": "moduix Svelte Tag component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-svelte/a11y-labels",
         "@moduix-svelte/close-button",
@@ -3080,7 +3080,7 @@
       "type": "registry:item",
       "title": "TreeView",
       "description": "moduix Svelte TreeView component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation", "@moduix-svelte/icons"],
       "files": [
         {
@@ -3190,7 +3190,7 @@
       "type": "registry:item",
       "title": "JsonTreeView",
       "description": "moduix Svelte JsonTreeView component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation", "@moduix-svelte/icons"],
       "files": [
         {
@@ -3225,7 +3225,7 @@
       "type": "registry:item",
       "title": "Table",
       "description": "moduix Svelte Table component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/a11y-labels", "@moduix-svelte/foundation"],
       "files": [
         {
@@ -3305,7 +3305,7 @@
       "type": "registry:item",
       "title": "Pagination",
       "description": "moduix Svelte Pagination component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation", "@moduix-svelte/icons"],
       "files": [
         {
@@ -3370,7 +3370,7 @@
       "type": "registry:item",
       "title": "Timer",
       "description": "moduix Svelte Timer component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -3430,7 +3430,7 @@
       "type": "registry:item",
       "title": "DateInput",
       "description": "moduix Svelte DateInput component.",
-      "dependencies": ["@ark-ui/svelte", "@internationalized/date", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "@internationalized/date@^3.12.4", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -3490,7 +3490,7 @@
       "type": "registry:item",
       "title": "ColorPicker",
       "description": "moduix Svelte ColorPicker component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-svelte/foundation",
         "@moduix-svelte/icons",
@@ -3654,7 +3654,7 @@
       "type": "registry:item",
       "title": "DatePicker",
       "description": "moduix Svelte DatePicker component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1", "@internationalized/date@^3.12.4"],
       "registryDependencies": [
         "@moduix-svelte/foundation",
         "@moduix-svelte/icons",
@@ -3844,7 +3844,7 @@
       "type": "registry:item",
       "title": "Avatar",
       "description": "moduix Svelte Avatar component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -3889,7 +3889,7 @@
       "type": "registry:item",
       "title": "Image",
       "description": "moduix Svelte Image component.",
-      "dependencies": ["@unpic/core", "clsx", "unpic"],
+      "dependencies": ["@unpic/core@^1.0.3", "clsx@^2.1.1", "unpic@^4.2.2"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -3919,7 +3919,7 @@
       "type": "registry:item",
       "title": "ImageCropper",
       "description": "moduix Svelte ImageCropper component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -3979,7 +3979,7 @@
       "type": "registry:item",
       "title": "Carousel",
       "description": "moduix Svelte Carousel component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation", "@moduix-svelte/icons"],
       "files": [
         {
@@ -4064,7 +4064,7 @@
       "type": "registry:item",
       "title": "Marquee",
       "description": "moduix Svelte Marquee component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -4114,7 +4114,7 @@
       "type": "registry:item",
       "title": "QR Code",
       "description": "moduix Svelte QR Code component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -4164,7 +4164,7 @@
       "type": "registry:item",
       "title": "SignaturePad",
       "description": "moduix Svelte SignaturePad component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-svelte/foundation",
         "@moduix-svelte/icons",
@@ -4238,7 +4238,7 @@
       "type": "registry:item",
       "title": "FileUpload",
       "description": "moduix Svelte FileUpload component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation", "@moduix-svelte/icons"],
       "files": [
         {
@@ -4343,7 +4343,7 @@
       "type": "registry:item",
       "title": "Clipboard",
       "description": "moduix Svelte Clipboard component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation", "@moduix-svelte/icons"],
       "files": [
         {
@@ -4403,7 +4403,7 @@
       "type": "registry:item",
       "title": "Chart",
       "description": "moduix Svelte Chart component backed by TanStack Charts.",
-      "dependencies": ["@ark-ui/svelte", "@tanstack/charts", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "@tanstack/charts@^1.5.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -4458,7 +4458,7 @@
       "type": "registry:item",
       "title": "Breadcrumbs",
       "description": "moduix Svelte Breadcrumbs component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-svelte/a11y-labels",
         "@moduix-svelte/foundation",
@@ -4522,7 +4522,7 @@
       "type": "registry:item",
       "title": "Collapsible",
       "description": "moduix Svelte Collapsible component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation", "@moduix-svelte/icons"],
       "files": [
         {
@@ -4572,7 +4572,7 @@
       "type": "registry:item",
       "title": "Tabs",
       "description": "moduix Svelte Tabs component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -4622,7 +4622,7 @@
       "type": "registry:item",
       "title": "Steps",
       "description": "moduix Svelte Steps component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation", "@moduix-svelte/icons"],
       "files": [
         {
@@ -4702,7 +4702,7 @@
       "type": "registry:item",
       "title": "Table of Contents",
       "description": "moduix Svelte Table of Contents component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -4777,7 +4777,7 @@
       "type": "registry:item",
       "title": "NavigationMenu",
       "description": "moduix Svelte NavigationMenu component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -4857,7 +4857,7 @@
       "type": "registry:item",
       "title": "Scroll Area",
       "description": "moduix Svelte Scroll Area component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -4912,7 +4912,7 @@
       "type": "registry:item",
       "title": "Splitter",
       "description": "moduix Svelte Splitter component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -4957,7 +4957,7 @@
       "type": "registry:item",
       "title": "ProgressLinear",
       "description": "moduix Svelte ProgressLinear component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -5012,7 +5012,7 @@
       "type": "registry:item",
       "title": "ProgressCircular",
       "description": "moduix Svelte ProgressCircular component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -5077,7 +5077,7 @@
       "type": "registry:item",
       "title": "Toggle",
       "description": "moduix Svelte Toggle component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -5107,7 +5107,7 @@
       "type": "registry:item",
       "title": "Swap",
       "description": "moduix Svelte Swap component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"],
       "files": [
         {
@@ -5142,7 +5142,7 @@
       "type": "registry:item",
       "title": "CommandPalette",
       "description": "moduix Svelte CommandPalette component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-svelte/foundation",
         "@moduix-svelte/icons",
@@ -5320,7 +5320,7 @@
       "type": "registry:item",
       "title": "InputGroup",
       "description": "moduix Svelte InputGroup component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-svelte/icons",
         "@moduix-svelte/close-button",
@@ -5388,7 +5388,7 @@
       "type": "registry:item",
       "title": "Sidebar",
       "description": "moduix Svelte Sidebar component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-svelte/foundation",
         "@moduix-svelte/icons",
@@ -5546,7 +5546,7 @@
       "type": "registry:item",
       "title": "SplitButton",
       "description": "moduix Svelte SplitButton component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-svelte/foundation",
         "@moduix-svelte/button",
@@ -5603,7 +5603,7 @@
       "type": "registry:item",
       "title": "Toast",
       "description": "moduix Svelte Toast component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-svelte/a11y-labels",
         "@moduix-svelte/close-button",
@@ -5664,7 +5664,7 @@
       "type": "registry:item",
       "title": "ToggleGroup",
       "description": "moduix Svelte ToggleGroup component.",
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation", "@moduix-svelte/toggle"],
       "files": [
         {
@@ -5717,7 +5717,7 @@
           "utils": "@/lib/utils"
         }
       },
-      "dependencies": ["@ark-ui/svelte", "clsx"],
+      "dependencies": ["@ark-ui/svelte@^5.25.1", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-svelte/foundation"]
     },
     {

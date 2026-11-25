@@ -1,4 +1,4 @@
-@import '../foundation/src/styles/style.css';
+@import '../foundation/src/styles/tailwind.css';
 @import 'tailwindcss' source(none);
 
 @source './src/components';

@@ -21,7 +21,7 @@
           "utils": "@/lib/utils"
         }
       },
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"]
     },
     {
@@ -58,7 +58,7 @@
       "type": "registry:item",
       "title": "moduix icons",
       "description": "Internal icon components required only by registry components that render them.",
-      "dependencies": ["lucide-solid"],
+      "dependencies": ["lucide-solid@^1.77.0"],
       "files": [
         {
           "path": "src/internal/icons/ui/index.ts",
@@ -118,7 +118,7 @@
       "type": "registry:item",
       "title": "moduix Solid core",
       "description": "Shared runtime dependencies installed by every moduix registry component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["https://moduix.dev/r/foundation/core.json"]
     },
     {
@@ -150,7 +150,7 @@
       "type": "registry:item",
       "title": "Accordion",
       "description": "moduix Solid Accordion component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/icons"],
       "files": [
         {
@@ -175,7 +175,7 @@
       "type": "registry:item",
       "title": "AngleSlider",
       "description": "moduix Solid AngleSlider component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/event-handlers"],
       "files": [
         {
@@ -200,7 +200,7 @@
       "type": "registry:item",
       "title": "Alert",
       "description": "moduix Solid Alert component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -225,7 +225,7 @@
       "type": "registry:item",
       "title": "AspectRatio",
       "description": "moduix Solid AspectRatio component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -250,7 +250,7 @@
       "type": "registry:item",
       "title": "Avatar",
       "description": "moduix Solid Avatar component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -275,7 +275,7 @@
       "type": "registry:item",
       "title": "Badge",
       "description": "moduix Solid Badge component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -300,7 +300,7 @@
       "type": "registry:item",
       "title": "Bleed",
       "description": "moduix Solid Bleed component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -325,7 +325,7 @@
       "type": "registry:item",
       "title": "Breadcrumbs",
       "description": "moduix Solid Breadcrumbs component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-solid/a11y-labels",
         "@moduix-solid/foundation",
@@ -354,7 +354,7 @@
       "type": "registry:item",
       "title": "Button",
       "description": "moduix Solid Button component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -379,7 +379,7 @@
       "type": "registry:item",
       "title": "Card",
       "description": "moduix Solid Card component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -404,7 +404,7 @@
       "type": "registry:item",
       "title": "Chart",
       "description": "moduix Solid Chart component backed by TanStack Charts.",
-      "dependencies": ["@ark-ui/solid", "@tanstack/charts", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "@tanstack/charts@^1.5.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -429,7 +429,7 @@
       "type": "registry:item",
       "title": "Checkbox",
       "description": "moduix Solid Checkbox component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/icons"],
       "files": [
         {
@@ -454,7 +454,7 @@
       "type": "registry:item",
       "title": "CloseButton",
       "description": "moduix Solid CloseButton component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-solid/a11y-labels",
         "@moduix-solid/foundation",
@@ -484,7 +484,7 @@
       "type": "registry:item",
       "title": "Collapsible",
       "description": "moduix Solid Collapsible component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/icons"],
       "files": [
         {
@@ -509,7 +509,7 @@
       "type": "registry:item",
       "title": "Container",
       "description": "moduix Solid Container component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -534,7 +534,7 @@
       "type": "registry:item",
       "title": "Combobox",
       "description": "moduix Solid Combobox component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-solid/a11y-labels",
         "@moduix-solid/close-button",
@@ -565,7 +565,7 @@
       "type": "registry:item",
       "title": "ColorPicker",
       "description": "moduix Solid ColorPicker component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-solid/foundation",
         "@moduix-solid/icons",
@@ -594,7 +594,7 @@
       "type": "registry:item",
       "title": "Clipboard",
       "description": "moduix Solid Clipboard component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/icons"],
       "files": [
         {
@@ -619,7 +619,7 @@
       "type": "registry:item",
       "title": "DatePicker",
       "description": "moduix Solid DatePicker component.",
-      "dependencies": ["@ark-ui/solid", "@internationalized/date", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "@internationalized/date@^3.12.4", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-solid/foundation",
         "@moduix-solid/icons",
@@ -649,7 +649,7 @@
       "type": "registry:item",
       "title": "DateInput",
       "description": "moduix Solid DateInput component.",
-      "dependencies": ["@ark-ui/solid", "@internationalized/date", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "@internationalized/date@^3.12.4", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -674,7 +674,7 @@
       "type": "registry:item",
       "title": "Drawer",
       "description": "moduix Solid Drawer component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-solid/a11y-labels",
         "@moduix-solid/close-button",
@@ -704,7 +704,7 @@
       "type": "registry:item",
       "title": "Empty",
       "description": "Composable empty-state surface for no-results, no-data, and first-run screens.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -729,7 +729,7 @@
       "type": "registry:item",
       "title": "Editable",
       "description": "moduix Solid Editable component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/icons"],
       "files": [
         {
@@ -754,7 +754,7 @@
       "type": "registry:item",
       "title": "Field",
       "description": "moduix Solid Field component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -779,7 +779,7 @@
       "type": "registry:item",
       "title": "Fieldset",
       "description": "moduix Solid Fieldset component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -804,7 +804,7 @@
       "type": "registry:item",
       "title": "FileUpload",
       "description": "moduix Solid FileUpload component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/icons"],
       "files": [
         {
@@ -829,7 +829,7 @@
       "type": "registry:item",
       "title": "Heading",
       "description": "moduix Solid Heading component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -854,7 +854,7 @@
       "type": "registry:item",
       "title": "Highlight",
       "description": "moduix Solid Highlight component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -879,7 +879,7 @@
       "type": "registry:item",
       "title": "FloatingPanel",
       "description": "moduix Solid FloatingPanel component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-solid/a11y-labels",
         "@moduix-solid/close-button",
@@ -910,7 +910,7 @@
       "type": "registry:item",
       "title": "Image",
       "description": "moduix Solid Image component.",
-      "dependencies": ["@unpic/core", "clsx", "unpic"],
+      "dependencies": ["@unpic/core@^1.0.3", "clsx@^2.1.1", "unpic@^4.2.2"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -935,7 +935,7 @@
       "type": "registry:item",
       "title": "Input",
       "description": "moduix Solid Input component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -960,7 +960,7 @@
       "type": "registry:item",
       "title": "JsonTreeView",
       "description": "moduix Solid JsonTreeView component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/icons"],
       "files": [
         {
@@ -985,7 +985,7 @@
       "type": "registry:item",
       "title": "InputGroup",
       "description": "moduix Solid InputGroup component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-solid/icons",
         "@moduix-solid/close-button",
@@ -1018,7 +1018,7 @@
       "type": "registry:item",
       "title": "PasswordInput",
       "description": "moduix Solid PasswordInput component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-solid/default-values",
         "@moduix-solid/foundation",
@@ -1047,7 +1047,7 @@
       "type": "registry:item",
       "title": "Menu",
       "description": "moduix Solid Menu component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-solid/foundation",
         "@moduix-solid/icons",
@@ -1076,7 +1076,7 @@
       "type": "registry:item",
       "title": "NavigationMenu",
       "description": "moduix Solid NavigationMenu component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -1101,7 +1101,7 @@
       "type": "registry:item",
       "title": "Native Select",
       "description": "moduix Solid Native Select component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/icons"],
       "files": [
         {
@@ -1126,7 +1126,7 @@
       "type": "registry:item",
       "title": "NumberInput",
       "description": "moduix Solid NumberInput component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/icons"],
       "files": [
         {
@@ -1151,7 +1151,7 @@
       "type": "registry:item",
       "title": "Pagination",
       "description": "moduix Solid Pagination component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/icons"],
       "files": [
         {
@@ -1176,7 +1176,7 @@
       "type": "registry:item",
       "title": "PinInput",
       "description": "moduix Solid PinInput component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/icons"],
       "files": [
         {
@@ -1201,7 +1201,7 @@
       "type": "registry:item",
       "title": "Popover",
       "description": "moduix Solid Popover component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-solid/a11y-labels",
         "@moduix-solid/close-button",
@@ -1231,7 +1231,7 @@
       "type": "registry:item",
       "title": "ProgressLinear",
       "description": "moduix Solid ProgressLinear component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -1256,7 +1256,7 @@
       "type": "registry:item",
       "title": "ProgressCircular",
       "description": "moduix Solid ProgressCircular component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -1281,7 +1281,7 @@
       "type": "registry:item",
       "title": "QR Code",
       "description": "moduix Solid QR Code component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -1306,7 +1306,7 @@
       "type": "registry:item",
       "title": "Radio Group",
       "description": "moduix Solid RadioGroup component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -1331,7 +1331,7 @@
       "type": "registry:item",
       "title": "RatingGroup",
       "description": "moduix Solid RatingGroup component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-solid/foundation",
         "@moduix-solid/icons",
@@ -1360,7 +1360,7 @@
       "type": "registry:item",
       "title": "Select",
       "description": "moduix Solid Select component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-solid/a11y-labels",
         "@moduix-solid/close-button",
@@ -1391,7 +1391,7 @@
       "type": "registry:item",
       "title": "Signature Pad",
       "description": "moduix Solid Signature Pad component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-solid/foundation",
         "@moduix-solid/close-button",
@@ -1420,7 +1420,7 @@
       "type": "registry:item",
       "title": "Carousel",
       "description": "moduix Solid Carousel component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/icons"],
       "files": [
         {
@@ -1445,7 +1445,7 @@
       "type": "registry:item",
       "title": "Spinner",
       "description": "moduix Solid Spinner component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/a11y-labels", "@moduix-solid/foundation"],
       "files": [
         {
@@ -1470,7 +1470,7 @@
       "type": "registry:item",
       "title": "Text",
       "description": "moduix Solid Text component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -1495,7 +1495,7 @@
       "type": "registry:item",
       "title": "Typeset",
       "description": "moduix Solid Typeset component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -1520,7 +1520,7 @@
       "type": "registry:item",
       "title": "TreeView",
       "description": "moduix Solid TreeView component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/icons"],
       "files": [
         {
@@ -1545,7 +1545,7 @@
       "type": "registry:item",
       "title": "Textarea",
       "description": "moduix Solid Textarea component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/default-values", "@moduix-solid/foundation"],
       "files": [
         {
@@ -1570,7 +1570,7 @@
       "type": "registry:item",
       "title": "Timer",
       "description": "moduix Solid Timer component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -1595,7 +1595,7 @@
       "type": "registry:item",
       "title": "Toast",
       "description": "moduix Solid Toast component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-solid/a11y-labels",
         "@moduix-solid/close-button",
@@ -1626,7 +1626,7 @@
       "type": "registry:item",
       "title": "Table of Contents",
       "description": "moduix Solid Table of Contents component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -1651,7 +1651,7 @@
       "type": "registry:item",
       "title": "Toggle",
       "description": "moduix Solid Toggle component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -1676,7 +1676,7 @@
       "type": "registry:item",
       "title": "ToggleGroup",
       "description": "moduix Solid ToggleGroup component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/toggle"],
       "files": [
         {
@@ -1701,7 +1701,7 @@
       "type": "registry:item",
       "title": "Tooltip",
       "description": "moduix Solid Tooltip component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/overlay-portal"],
       "files": [
         {
@@ -1726,7 +1726,7 @@
       "type": "registry:item",
       "title": "Kbd",
       "description": "moduix Solid Kbd component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -1751,7 +1751,7 @@
       "type": "registry:item",
       "title": "List",
       "description": "moduix Solid List component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -1776,7 +1776,7 @@
       "type": "registry:item",
       "title": "Listbox",
       "description": "moduix Solid Listbox component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-solid/a11y-labels",
         "@moduix-solid/close-button",
@@ -1806,7 +1806,7 @@
       "type": "registry:item",
       "title": "ScrollArea",
       "description": "moduix Solid ScrollArea component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -1831,7 +1831,7 @@
       "type": "registry:item",
       "title": "Separator",
       "description": "moduix Solid Separator component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -1856,7 +1856,7 @@
       "type": "registry:item",
       "title": "Sidebar",
       "description": "moduix Solid Sidebar component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-solid/a11y-labels",
         "@moduix-solid/icons",
@@ -1889,7 +1889,7 @@
       "type": "registry:item",
       "title": "SegmentGroup",
       "description": "moduix Solid SegmentGroup component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -1914,7 +1914,7 @@
       "type": "registry:item",
       "title": "Skeleton",
       "description": "moduix Solid Skeleton component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -1939,7 +1939,7 @@
       "type": "registry:item",
       "title": "Simple Grid",
       "description": "Responsive CSS Grid layout with fixed or intrinsic equal-width columns.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -1964,7 +1964,7 @@
       "type": "registry:item",
       "title": "Slider",
       "description": "moduix Solid Slider component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -1989,7 +1989,7 @@
       "type": "registry:item",
       "title": "Splitter",
       "description": "moduix Solid Splitter component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -2014,7 +2014,7 @@
       "type": "registry:item",
       "title": "Table",
       "description": "moduix Solid Table component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/a11y-labels", "@moduix-solid/foundation"],
       "files": [
         {
@@ -2039,7 +2039,7 @@
       "type": "registry:item",
       "title": "Switch",
       "description": "moduix Solid Switch component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -2064,7 +2064,7 @@
       "type": "registry:item",
       "title": "Stack",
       "description": "moduix Solid Stack component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -2089,7 +2089,7 @@
       "type": "registry:item",
       "title": "SplitButton",
       "description": "moduix Solid SplitButton component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-solid/a11y-labels",
         "@moduix-solid/button",
@@ -2121,7 +2121,7 @@
       "type": "registry:item",
       "title": "Steps",
       "description": "moduix Solid Steps component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/icons"],
       "files": [
         {
@@ -2146,7 +2146,7 @@
       "type": "registry:item",
       "title": "Tabs",
       "description": "moduix Solid Tabs component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -2171,7 +2171,7 @@
       "type": "registry:item",
       "title": "CommandPalette",
       "description": "moduix Solid CommandPalette component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-solid/a11y-labels",
         "@moduix-solid/close-button",
@@ -2205,7 +2205,7 @@
       "type": "registry:item",
       "title": "Dialog",
       "description": "moduix Solid Dialog component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-solid/a11y-labels",
         "@moduix-solid/close-button",
@@ -2235,7 +2235,7 @@
       "type": "registry:item",
       "title": "Lightbox",
       "description": "moduix Solid Lightbox component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-solid/a11y-labels",
         "@moduix-solid/close-button",
@@ -2266,7 +2266,7 @@
       "type": "registry:item",
       "title": "HoverCard",
       "description": "moduix Solid HoverCard component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/overlay-portal"],
       "files": [
         {
@@ -2291,7 +2291,7 @@
       "type": "registry:item",
       "title": "ImageCropper",
       "description": "moduix Solid ImageCropper component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -2316,7 +2316,7 @@
       "type": "registry:item",
       "title": "Marquee",
       "description": "moduix Solid Marquee component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -2341,7 +2341,7 @@
       "type": "registry:item",
       "title": "Swap",
       "description": "moduix Solid Swap component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -2366,7 +2366,7 @@
       "type": "registry:item",
       "title": "Tag",
       "description": "moduix Solid Tag component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-solid/a11y-labels",
         "@moduix-solid/close-button",
@@ -2395,7 +2395,7 @@
       "type": "registry:item",
       "title": "TagsInput",
       "description": "moduix Solid TagsInput component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-solid/foundation",
         "@moduix-solid/close-button",
@@ -2424,7 +2424,7 @@
       "type": "registry:item",
       "title": "Tour",
       "description": "moduix Solid Tour component.",
-      "dependencies": ["@ark-ui/solid", "clsx"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-solid/a11y-labels",
         "@moduix-solid/close-button",

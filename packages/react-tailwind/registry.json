@@ -21,7 +21,12 @@
           "utils": "@/lib/utils"
         }
       },
-      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/react@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-react-tailwind/foundation"]
     },
     {
@@ -30,15 +35,20 @@
       "title": "moduix React Tailwind core",
       "description": "Shared runtime dependencies and foundation styles for moduix Tailwind components.",
       "docs": "Import '@/lib/moduix/styles/style.css' once before Tailwind in your application stylesheet. Tailwind Preflight provides the reset layer.",
-      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
-      "registryDependencies": ["https://moduix.dev/r/foundation/core.json"]
+      "dependencies": [
+        "@ark-ui/react@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
+      "registryDependencies": ["https://moduix.dev/r/foundation/core-tailwind.json"]
     },
     {
       "name": "cn",
       "type": "registry:item",
       "title": "moduix class name utility",
       "description": "Merges conditional and conflicting Tailwind class names.",
-      "dependencies": ["clsx", "tailwind-merge"],
+      "dependencies": ["clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "files": [
         {
           "path": "src/internal/cn.ts",
@@ -66,7 +76,7 @@
       "type": "registry:item",
       "title": "moduix icons",
       "description": "Internal icons used by moduix React Tailwind components.",
-      "dependencies": ["lucide-react"],
+      "dependencies": ["lucide-react@^1.77.0"],
       "files": [
         {
           "path": "src/internal/icons/ui/index.ts",
@@ -122,7 +132,7 @@
       "type": "registry:item",
       "title": "Accordion",
       "description": "moduix React Tailwind Accordion component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -146,7 +156,12 @@
       "type": "registry:item",
       "title": "Alert",
       "description": "moduix React Tailwind Alert component.",
-      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/react@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -166,7 +181,7 @@
       "type": "registry:item",
       "title": "AngleSlider",
       "description": "moduix React Tailwind AngleSlider component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -186,7 +201,7 @@
       "type": "registry:item",
       "title": "AspectRatio",
       "description": "moduix React Tailwind AspectRatio component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -206,7 +221,12 @@
       "type": "registry:item",
       "title": "Avatar",
       "description": "moduix React Tailwind Avatar component.",
-      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/react@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -226,7 +246,12 @@
       "type": "registry:item",
       "title": "Badge",
       "description": "moduix React Tailwind Badge component.",
-      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/react@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -246,7 +271,12 @@
       "type": "registry:item",
       "title": "Bleed",
       "description": "moduix React Tailwind Bleed component.",
-      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/react@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -266,7 +296,7 @@
       "type": "registry:item",
       "title": "Breadcrumbs",
       "description": "moduix React Tailwind Breadcrumbs component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -291,7 +321,12 @@
       "type": "registry:item",
       "title": "Button",
       "description": "moduix React Tailwind Button component.",
-      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/react@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -311,7 +346,12 @@
       "type": "registry:item",
       "title": "Card",
       "description": "moduix React Tailwind Card component.",
-      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/react@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -331,7 +371,7 @@
       "type": "registry:item",
       "title": "Checkbox",
       "description": "moduix React Tailwind Checkbox component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -355,7 +395,7 @@
       "type": "registry:item",
       "title": "Clipboard",
       "description": "moduix React Tailwind Clipboard component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -379,7 +419,7 @@
       "type": "registry:item",
       "title": "CloseButton",
       "description": "moduix React Tailwind CloseButton component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -404,7 +444,7 @@
       "type": "registry:item",
       "title": "Collapsible",
       "description": "moduix React Tailwind Collapsible component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -428,7 +468,7 @@
       "type": "registry:item",
       "title": "Combobox",
       "description": "moduix React Tailwind Combobox component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -455,7 +495,7 @@
       "type": "registry:item",
       "title": "ColorPicker",
       "description": "moduix React Tailwind ColorPicker component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -480,7 +520,12 @@
       "type": "registry:item",
       "title": "DateInput",
       "description": "moduix React Tailwind DateInput component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/react@^5.40.0",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1",
+        "@internationalized/date@^3.12.4"
+      ],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -500,7 +545,12 @@
       "type": "registry:item",
       "title": "DatePicker",
       "description": "moduix React Tailwind DatePicker component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/react@^5.40.0",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1",
+        "@internationalized/date@^3.12.4"
+      ],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -526,7 +576,7 @@
       "type": "registry:item",
       "title": "Dialog",
       "description": "moduix React Tailwind Dialog component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -552,7 +602,7 @@
       "type": "registry:item",
       "title": "Drawer",
       "description": "moduix React Tailwind Drawer component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -578,7 +628,7 @@
       "type": "registry:item",
       "title": "Lightbox",
       "description": "moduix React Tailwind Lightbox component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -604,7 +654,7 @@
       "type": "registry:item",
       "title": "Listbox",
       "description": "moduix React Tailwind Listbox component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -630,7 +680,12 @@
       "type": "registry:item",
       "title": "List",
       "description": "moduix React Tailwind List component.",
-      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/react@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -650,7 +705,7 @@
       "type": "registry:item",
       "title": "Empty",
       "description": "Composable empty-state surface for no-results, no-data, and first-run screens.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -670,7 +725,7 @@
       "type": "registry:item",
       "title": "Editable",
       "description": "moduix React Tailwind Editable component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -694,7 +749,7 @@
       "type": "registry:item",
       "title": "Carousel",
       "description": "moduix React Tailwind Carousel component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -718,7 +773,7 @@
       "type": "registry:item",
       "title": "Field",
       "description": "moduix React Tailwind Field component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -738,7 +793,7 @@
       "type": "registry:item",
       "title": "Fieldset",
       "description": "moduix React Tailwind Fieldset component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -758,7 +813,7 @@
       "type": "registry:item",
       "title": "FileUpload",
       "description": "moduix React Tailwind FileUpload component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -782,7 +837,7 @@
       "type": "registry:item",
       "title": "FloatingPanel",
       "description": "moduix React Tailwind FloatingPanel component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -809,7 +864,12 @@
       "type": "registry:item",
       "title": "Heading",
       "description": "moduix React Tailwind Heading component.",
-      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/react@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -829,7 +889,7 @@
       "type": "registry:item",
       "title": "Highlight",
       "description": "moduix React Tailwind Highlight component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -849,7 +909,7 @@
       "type": "registry:item",
       "title": "ProgressCircular",
       "description": "moduix React Tailwind ProgressCircular component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -869,7 +929,7 @@
       "type": "registry:item",
       "title": "ProgressLinear",
       "description": "moduix React Tailwind ProgressLinear component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -889,7 +949,7 @@
       "type": "registry:item",
       "title": "HoverCard",
       "description": "moduix React Tailwind HoverCard component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -913,7 +973,7 @@
       "type": "registry:item",
       "title": "QR Code",
       "description": "moduix React Tailwind QR Code component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -933,7 +993,13 @@
       "type": "registry:item",
       "title": "Image",
       "description": "moduix React Tailwind Image component.",
-      "dependencies": ["@unpic/core", "@unpic/react", "clsx", "tailwind-merge", "unpic"],
+      "dependencies": [
+        "@unpic/core@^1.0.3",
+        "@unpic/react@^1.0.2",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1",
+        "unpic@^4.2.2"
+      ],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -953,7 +1019,7 @@
       "type": "registry:item",
       "title": "ImageCropper",
       "description": "moduix React Tailwind ImageCropper component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -973,7 +1039,7 @@
       "type": "registry:item",
       "title": "JsonTreeView",
       "description": "moduix React Tailwind JsonTreeView component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -997,7 +1063,12 @@
       "type": "registry:item",
       "title": "Input",
       "description": "moduix React Tailwind Input component.",
-      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/react@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -1017,7 +1088,12 @@
       "type": "registry:item",
       "title": "InputGroup",
       "description": "moduix React Tailwind InputGroup component.",
-      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/react@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": [
         "@moduix-react-tailwind/icons",
         "@moduix-react-tailwind/close-button",
@@ -1046,7 +1122,7 @@
       "type": "registry:item",
       "title": "PasswordInput",
       "description": "moduix React Tailwind PasswordInput component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -1070,7 +1146,12 @@
       "type": "registry:item",
       "title": "Chart",
       "description": "moduix React Tailwind Chart component backed by TanStack Charts.",
-      "dependencies": ["@ark-ui/react", "@tanstack/charts", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/react@^5.40.0",
+        "@tanstack/charts@^1.5.0",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -1090,7 +1171,7 @@
       "type": "registry:item",
       "title": "CommandPalette",
       "description": "moduix React Tailwind CommandPalette component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -1118,7 +1199,12 @@
       "type": "registry:item",
       "title": "Container",
       "description": "moduix React Tailwind Container component.",
-      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/react@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -1138,7 +1224,7 @@
       "type": "registry:item",
       "title": "Kbd",
       "description": "moduix React Tailwind Kbd component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -1158,7 +1244,12 @@
       "type": "registry:item",
       "title": "Marquee",
       "description": "moduix React Tailwind Marquee component.",
-      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/react@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -1178,7 +1269,12 @@
       "type": "registry:item",
       "title": "Menu",
       "description": "moduix React Tailwind Menu component.",
-      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/react@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -1208,7 +1304,7 @@
       "type": "registry:item",
       "title": "RadioGroup",
       "description": "moduix React Tailwind RadioGroup component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -1228,7 +1324,7 @@
       "type": "registry:item",
       "title": "RatingGroup",
       "description": "moduix React Tailwind RatingGroup component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -1252,7 +1348,7 @@
       "type": "registry:item",
       "title": "ScrollArea",
       "description": "moduix React Tailwind ScrollArea component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -1272,7 +1368,7 @@
       "type": "registry:item",
       "title": "Sidebar",
       "description": "moduix React Tailwind Sidebar component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -1301,7 +1397,7 @@
       "type": "registry:item",
       "title": "NavigationMenu",
       "description": "moduix React Tailwind NavigationMenu component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -1321,7 +1417,7 @@
       "type": "registry:item",
       "title": "NativeSelect",
       "description": "moduix React Tailwind NativeSelect component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -1345,7 +1441,7 @@
       "type": "registry:item",
       "title": "NumberInput",
       "description": "moduix React Tailwind NumberInput component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -1369,7 +1465,7 @@
       "type": "registry:item",
       "title": "Pagination",
       "description": "moduix React Tailwind Pagination component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -1393,7 +1489,7 @@
       "type": "registry:item",
       "title": "Popover",
       "description": "moduix React Tailwind Popover component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -1419,7 +1515,7 @@
       "type": "registry:item",
       "title": "PinInput",
       "description": "moduix React Tailwind PinInput component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -1443,7 +1539,7 @@
       "type": "registry:item",
       "title": "Select",
       "description": "moduix React Tailwind Select component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -1470,7 +1566,12 @@
       "type": "registry:item",
       "title": "Separator",
       "description": "moduix React Tailwind Separator component.",
-      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/react@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -1490,7 +1591,7 @@
       "type": "registry:item",
       "title": "Simple Grid",
       "description": "moduix React Tailwind Simple Grid component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -1510,7 +1611,7 @@
       "type": "registry:item",
       "title": "Skeleton",
       "description": "moduix React Tailwind Skeleton component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -1530,7 +1631,7 @@
       "type": "registry:item",
       "title": "SegmentGroup",
       "description": "moduix React Tailwind SegmentGroup component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -1550,7 +1651,7 @@
       "type": "registry:item",
       "title": "SignaturePad",
       "description": "moduix React Tailwind SignaturePad component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -1575,7 +1676,7 @@
       "type": "registry:item",
       "title": "Slider",
       "description": "moduix React Tailwind Slider component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -1595,7 +1696,12 @@
       "type": "registry:item",
       "title": "Spinner",
       "description": "moduix React Tailwind Spinner component.",
-      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/react@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -1619,7 +1725,12 @@
       "type": "registry:item",
       "title": "SplitButton",
       "description": "moduix React Tailwind SplitButton component.",
-      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/react@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -1647,7 +1758,7 @@
       "type": "registry:item",
       "title": "Splitter",
       "description": "moduix React Tailwind Splitter component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -1667,7 +1778,7 @@
       "type": "registry:item",
       "title": "Steps",
       "description": "moduix React Tailwind Steps component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -1691,7 +1802,7 @@
       "type": "registry:item",
       "title": "Switch",
       "description": "moduix React Tailwind Switch component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -1711,7 +1822,7 @@
       "type": "registry:item",
       "title": "Swap",
       "description": "moduix React Tailwind Swap component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -1731,7 +1842,12 @@
       "type": "registry:item",
       "title": "Stack",
       "description": "moduix React Tailwind Stack component.",
-      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/react@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -1751,7 +1867,12 @@
       "type": "registry:item",
       "title": "Table",
       "description": "moduix React Tailwind Table component.",
-      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/react@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -1775,7 +1896,7 @@
       "type": "registry:item",
       "title": "Tabs",
       "description": "moduix React Tailwind Tabs component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -1795,7 +1916,12 @@
       "type": "registry:item",
       "title": "Tag",
       "description": "moduix React Tailwind Tag component.",
-      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/react@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -1820,7 +1946,12 @@
       "type": "registry:item",
       "title": "Toggle",
       "description": "moduix React Tailwind Toggle component.",
-      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/react@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -1845,7 +1976,12 @@
       "type": "registry:item",
       "title": "ToggleGroup",
       "description": "moduix React Tailwind ToggleGroup component.",
-      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/react@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -1869,7 +2005,12 @@
       "type": "registry:item",
       "title": "Text",
       "description": "moduix React Tailwind Text component.",
-      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/react@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -1889,7 +2030,7 @@
       "type": "registry:item",
       "title": "Textarea",
       "description": "moduix React Tailwind Textarea component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -1909,7 +2050,7 @@
       "type": "registry:item",
       "title": "Timer",
       "description": "moduix React Tailwind Timer component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -1929,7 +2070,7 @@
       "type": "registry:item",
       "title": "Toast",
       "description": "moduix React Tailwind Toast component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -1956,7 +2097,7 @@
       "type": "registry:item",
       "title": "Table of Contents",
       "description": "moduix React Tailwind Table of Contents component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -1976,7 +2117,7 @@
       "type": "registry:item",
       "title": "TagsInput",
       "description": "moduix React Tailwind TagsInput component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -2001,7 +2142,7 @@
       "type": "registry:item",
       "title": "Tooltip",
       "description": "moduix React Tailwind Tooltip component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -2025,7 +2166,7 @@
       "type": "registry:item",
       "title": "Tree View",
       "description": "moduix React Tailwind Tree View component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -2049,7 +2190,7 @@
       "type": "registry:item",
       "title": "Tour",
       "description": "moduix React Tailwind Tour component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
@@ -2075,7 +2216,7 @@
       "type": "registry:item",
       "title": "Typeset",
       "description": "moduix React Tailwind Typeset component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {

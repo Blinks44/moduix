@@ -18,6 +18,7 @@
     "@tanstack/charts": "catalog:",
     "@types/d3-shape": "catalog:",
     "@types/node": "catalog:",
+    "@unpic/core": "catalog:",
     "d3-shape": "catalog:",
     "storybook": "catalog:",
     "svelte": "catalog:",
@@ -25,6 +26,7 @@
     "tailwind-merge": "catalog:",
     "tailwindcss": "catalog:",
     "typescript": "~6.0.3",
+    "unpic": "catalog:",
     "vite": "catalog:"
   }
 }

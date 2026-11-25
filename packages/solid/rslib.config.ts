@@ -63,7 +63,7 @@ export default defineConfig({
       {
         from: '../foundation/src/styles',
         globOptions: {
-          ignore: ['**/variables-ark.css'],
+          ignore: ['**/variables-ark.css', '**/tailwind*.css'],
         },
         to: 'styles',
       },

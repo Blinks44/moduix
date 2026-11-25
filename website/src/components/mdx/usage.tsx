@@ -7,7 +7,7 @@ import styles from './usage.module.css';
 function UsageCode({ sources }: { sources: Record<'react' | 'solid' | 'vue' | 'svelte', string> }) {
   const { framework, styling } = useExampleSelection();
 
-  if (import.meta.env.SSG_MD) return `\n\`\`\`tsx\n${sources.react}\n\`\`\`\n`;
+  if (import.meta.env.SSG_MD) return null;
 
   return (
     <div className={styles.code}>

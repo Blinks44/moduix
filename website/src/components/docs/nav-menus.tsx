@@ -121,41 +121,43 @@ function LanguageMenu() {
   if (locales.length < 2) return null;
 
   return (
-    <Menu.Root positioning={{ placement: 'bottom-end', gutter: 4 }}>
-      <Menu.Trigger className={styles.trigger} aria-label={t('languagesText')}>
-        <Languages aria-hidden="true" />
-        {lang.toUpperCase()}
-        <ChevronDown className={styles.chevron} aria-hidden="true" />
-      </Menu.Trigger>
-      <Portal>
-        <Menu.Positioner>
-          <Menu.Content className={styles.content}>
-            {locales.map((item) => (
-              <Menu.Item
-                key={item.lang}
-                value={item.lang}
-                asChild
-                className={styles.languageItem}
-                data-current={item.lang === lang ? '' : undefined}
-              >
-                <a
-                  href={`${getLocalizedPath(pagePath, item.lang)}${search}${hash}`}
-                  hrefLang={item.lang}
-                  lang={item.lang}
-                  aria-current={item.lang === lang ? 'true' : undefined}
+    <li className={`${styles.desktop} ${styles.language}`}>
+      <Menu.Root positioning={{ placement: 'bottom-end', gutter: 4 }}>
+        <Menu.Trigger className={styles.trigger} aria-label={t('languagesText')}>
+          <Languages aria-hidden="true" />
+          {lang.toUpperCase()}
+          <ChevronDown className={styles.chevron} aria-hidden="true" />
+        </Menu.Trigger>
+        <Portal>
+          <Menu.Positioner>
+            <Menu.Content className={styles.content}>
+              {locales.map((item) => (
+                <Menu.Item
+                  key={item.lang}
+                  value={item.lang}
+                  asChild
+                  className={styles.languageItem}
+                  data-current={item.lang === lang ? '' : undefined}
                 >
-                  {item.lang === lang ? (
-                    <Check className={styles.check} aria-hidden="true" />
-                  ) : null}
-                  <span className={styles.languageName}>{item.label}</span>
-                  <span className={styles.languageCode}>{item.lang.toUpperCase()}</span>
-                </a>
-              </Menu.Item>
-            ))}
-          </Menu.Content>
-        </Menu.Positioner>
-      </Portal>
-    </Menu.Root>
+                  <a
+                    href={`${getLocalizedPath(pagePath, item.lang)}${search}${hash}`}
+                    hrefLang={item.lang}
+                    lang={item.lang}
+                    aria-current={item.lang === lang ? 'true' : undefined}
+                  >
+                    {item.lang === lang ? (
+                      <Check className={styles.check} aria-hidden="true" />
+                    ) : null}
+                    <span className={styles.languageName}>{item.label}</span>
+                    <span className={styles.languageCode}>{item.lang.toUpperCase()}</span>
+                  </a>
+                </Menu.Item>
+              ))}
+            </Menu.Content>
+          </Menu.Positioner>
+        </Portal>
+      </Menu.Root>
+    </li>
   );
 }
 
@@ -170,9 +172,7 @@ export function NavMenus() {
       <li className={styles.desktop}>
         <PresetMenu />
       </li>
-      <li className={`${styles.desktop} ${styles.language}`}>
-        <LanguageMenu />
-      </li>
+      <LanguageMenu />
       <li className={styles.screen}>
         <PresetGrid />
       </li>

@@ -4,7 +4,7 @@ import { pluginSvelte } from '@rsbuild/plugin-svelte';
 import { pluginVue } from '@rsbuild/plugin-vue';
 import { defineConfig } from '@rspress/core';
 import { pluginPreview } from '@rspress/plugin-preview';
-import { globSync } from 'node:fs';
+import { globSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { pluginLastUpdatedDate } from './plugins/last-updated-date';
@@ -15,6 +15,7 @@ const brandName = 'moduix';
 const defaultTitle = brandName;
 const defaultDescription =
   'Accessible React, Solid, Vue, and Svelte components built on Ark UI. One API across frameworks, styled with CSS Modules or Tailwind CSS. Install from npm or copy the source with the shadcn CLI.';
+// FR and RU docs remain frozen in `docs/fr` and `docs/ru`; only English is built and exposed.
 const locales = [
   {
     lang: 'en',
@@ -22,25 +23,25 @@ const locales = [
     title: defaultTitle,
     description: defaultDescription,
   },
-  {
-    lang: 'fr',
-    label: 'Français',
-    title: brandName,
-    description:
-      'Composants React, Solid, Vue et Svelte accessibles basés sur Ark UI. Une même API pour chaque framework, avec des styles CSS Modules ou Tailwind CSS. Installation via npm ou copie du code avec la CLI shadcn.',
-  },
-  {
-    lang: 'ru',
-    label: 'Русский',
-    title: brandName,
-    description:
-      'Доступные компоненты для React, Solid, Vue и Svelte на базе Ark UI. Один API во всех фреймворках, стили на CSS Modules или Tailwind CSS. Установка из npm или копирование исходников через CLI shadcn.',
-  },
 ];
+const websiteDir = fileURLToPath(new URL('.', import.meta.url));
 const blockStyles = new Map(
   globSync('src/components/blocks/**/*.module.css', {
-    cwd: fileURLToPath(new URL('.', import.meta.url)),
+    cwd: websiteDir,
   }).map((file) => [`./${path.basename(file)}`, fileURLToPath(new URL(file, import.meta.url))]),
+);
+// Build a compact map of block slug -> UI component slugs so BlockInstall does not bundle the full
+// 117 KB `registry.json` into the client.
+const blockRegistry = JSON.parse(readFileSync(path.join(websiteDir, 'registry.json'), 'utf8')) as {
+  items: { name: string; registryDependencies?: string[] }[];
+};
+const blockDependencies = Object.fromEntries(
+  blockRegistry.items.map((item) => [
+    item.name,
+    (item.registryDependencies ?? []).map((url) =>
+      (url.split('/').pop() ?? '').replace(/\.json$/, ''),
+    ),
+  ]),
 );
 const socialImage = `${siteOrigin}/banner.jpg`;
 const socialImageAlt = 'moduix component library';
@@ -57,6 +58,7 @@ export default defineConfig({
   },
   mediumZoom: false,
   route: {
+    exclude: ['fr/**', 'ru/**'],
     // In dev, hover prefetch triggers lazy compilation of the hovered page, and the HMR update of
     // the route list remounts the current page. Production builds keep prefetching.
     prefetchLink: process.env.NODE_ENV !== 'development',
@@ -104,15 +106,16 @@ export default defineConfig({
       },
       // The anchor check skips headings nested in JSX, such as `<Steps>` sections.
       checkAnchors: {
-        excludes: [
-          '/docs/quick-start#add-styles',
-          '/docs/quick-start#ajouter-les-styles',
-          '/docs/quick-start#подключите-стили',
-        ],
+        excludes: ['/docs/quick-start#add-styles'],
       },
     },
   },
   builderConfig: {
+    source: {
+      define: {
+        __MODUIX_BLOCK_DEPS__: JSON.stringify(blockDependencies),
+      },
+    },
     dev: {
       // Live previews import snippets and framework runtimes on demand. Lazily compiled, they arrive
       // as hot updates that fail on the first load in dev, so they compile with their page instead.

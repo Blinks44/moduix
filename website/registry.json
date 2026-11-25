@@ -33,7 +33,7 @@
       "type": "registry:block",
       "title": "Sidebar dashboard",
       "description": "Dashboard with a resizable sidebar, nested navigation, and a workspace menu.",
-      "dependencies": ["lucide-react"],
+      "dependencies": ["lucide-react@^1.77.0"],
       "registryDependencies": [
         "https://moduix.dev/r/react-tailwind/button.json",
         "https://moduix.dev/r/react-tailwind/card.json",
@@ -59,7 +59,7 @@
       "type": "registry:block",
       "title": "Projects dashboard",
       "description": "Project tracker with a resizable sidebar, nested navigation, live metrics, a table, and a dialog form with toast feedback.",
-      "dependencies": ["lucide-react"],
+      "dependencies": ["lucide-react@^1.77.0"],
       "registryDependencies": [
         "https://moduix.dev/r/react-tailwind/badge.json",
         "https://moduix.dev/r/react-tailwind/button.json",
@@ -151,7 +151,7 @@
       "type": "registry:block",
       "title": "App header",
       "description": "Responsive header with navigation, command search, and an account menu.",
-      "dependencies": ["lucide-react"],
+      "dependencies": ["lucide-react@^1.77.0"],
       "registryDependencies": [
         "https://moduix.dev/r/react-tailwind/avatar.json",
         "https://moduix.dev/r/react-tailwind/button.json",
@@ -273,7 +273,7 @@
       "type": "registry:block",
       "title": "Data table",
       "description": "Payments table with search, sorting, column visibility, selection, and pagination.",
-      "dependencies": ["@tanstack/react-table@^9.2.4", "lucide-react"],
+      "dependencies": ["@tanstack/react-table@^9.2.4", "lucide-react@^1.77.0"],
       "registryDependencies": [
         "https://moduix.dev/r/react-tailwind/badge.json",
         "https://moduix.dev/r/react-tailwind/button.json",
@@ -322,7 +322,7 @@
       "type": "registry:block",
       "title": "Analytics overview",
       "description": "KPI cards with sparklines above a weekly revenue chart built with TanStack Charts.",
-      "dependencies": ["@tanstack/charts"],
+      "dependencies": ["@tanstack/charts@^1.5.0"],
       "registryDependencies": [
         "https://moduix.dev/r/react-tailwind/badge.json",
         "https://moduix.dev/r/react-tailwind/card.json",
@@ -409,7 +409,7 @@
       "type": "registry:block",
       "title": "Sidebar dashboard",
       "description": "Dashboard with a resizable sidebar, nested navigation, and a workspace menu.",
-      "dependencies": ["lucide-react"],
+      "dependencies": ["lucide-react@^1.77.0"],
       "registryDependencies": [
         "https://moduix.dev/r/react/button.json",
         "https://moduix.dev/r/react/card.json",
@@ -435,7 +435,7 @@
       "type": "registry:block",
       "title": "Projects dashboard",
       "description": "Project tracker with a resizable sidebar, nested navigation, live metrics, a table, and a dialog form with toast feedback.",
-      "dependencies": ["lucide-react"],
+      "dependencies": ["lucide-react@^1.77.0"],
       "registryDependencies": [
         "https://moduix.dev/r/react/badge.json",
         "https://moduix.dev/r/react/button.json",
@@ -527,7 +527,7 @@
       "type": "registry:block",
       "title": "App header",
       "description": "Responsive header with navigation, command search, and an account menu.",
-      "dependencies": ["lucide-react"],
+      "dependencies": ["lucide-react@^1.77.0"],
       "registryDependencies": [
         "https://moduix.dev/r/react/avatar.json",
         "https://moduix.dev/r/react/button.json",
@@ -649,7 +649,7 @@
       "type": "registry:block",
       "title": "Data table",
       "description": "Payments table with search, sorting, column visibility, selection, and pagination.",
-      "dependencies": ["@tanstack/react-table@^9.2.4", "lucide-react"],
+      "dependencies": ["@tanstack/react-table@^9.2.4", "lucide-react@^1.77.0"],
       "registryDependencies": [
         "https://moduix.dev/r/react/badge.json",
         "https://moduix.dev/r/react/button.json",
@@ -698,7 +698,7 @@
       "type": "registry:block",
       "title": "Analytics overview",
       "description": "KPI cards with sparklines above a weekly revenue chart built with TanStack Charts.",
-      "dependencies": ["@tanstack/charts"],
+      "dependencies": ["@tanstack/charts@^1.5.0"],
       "registryDependencies": [
         "https://moduix.dev/r/react/badge.json",
         "https://moduix.dev/r/react/card.json",
@@ -785,7 +785,7 @@
       "type": "registry:block",
       "title": "Sidebar dashboard",
       "description": "Dashboard with a resizable sidebar, nested navigation, and a workspace menu.",
-      "dependencies": ["lucide-solid"],
+      "dependencies": ["lucide-solid@^1.77.0"],
       "registryDependencies": [
         "https://moduix.dev/r/solid-tailwind/button.json",
         "https://moduix.dev/r/solid-tailwind/card.json",
@@ -811,7 +811,7 @@
       "type": "registry:block",
       "title": "Projects dashboard",
       "description": "Project tracker with a resizable sidebar, nested navigation, live metrics, a table, and a dialog form with toast feedback.",
-      "dependencies": ["lucide-solid"],
+      "dependencies": ["lucide-solid@^1.77.0"],
       "registryDependencies": [
         "https://moduix.dev/r/solid-tailwind/badge.json",
         "https://moduix.dev/r/solid-tailwind/button.json",
@@ -903,7 +903,7 @@
       "type": "registry:block",
       "title": "App header",
       "description": "Responsive header with navigation, command search, and an account menu.",
-      "dependencies": ["lucide-solid"],
+      "dependencies": ["lucide-solid@^1.77.0"],
       "registryDependencies": [
         "https://moduix.dev/r/solid-tailwind/avatar.json",
         "https://moduix.dev/r/solid-tailwind/button.json",
@@ -1025,7 +1025,7 @@
       "type": "registry:block",
       "title": "Data table",
       "description": "Payments table with search, sorting, column visibility, selection, and pagination.",
-      "dependencies": ["@tanstack/solid-table@^9.2.4", "lucide-solid"],
+      "dependencies": ["@tanstack/solid-table@^9.2.4", "lucide-solid@^1.77.0"],
       "registryDependencies": [
         "https://moduix.dev/r/solid-tailwind/badge.json",
         "https://moduix.dev/r/solid-tailwind/button.json",
@@ -1074,7 +1074,7 @@
       "type": "registry:block",
       "title": "Analytics overview",
       "description": "KPI cards with sparklines above a weekly revenue chart built with TanStack Charts.",
-      "dependencies": ["@tanstack/charts"],
+      "dependencies": ["@tanstack/charts@^1.5.0"],
       "registryDependencies": [
         "https://moduix.dev/r/solid-tailwind/badge.json",
         "https://moduix.dev/r/solid-tailwind/card.json",
@@ -1161,7 +1161,7 @@
       "type": "registry:block",
       "title": "Sidebar dashboard",
       "description": "Dashboard with a resizable sidebar, nested navigation, and a workspace menu.",
-      "dependencies": ["lucide-solid"],
+      "dependencies": ["lucide-solid@^1.77.0"],
       "registryDependencies": [
         "https://moduix.dev/r/solid/button.json",
         "https://moduix.dev/r/solid/card.json",
@@ -1187,7 +1187,7 @@
       "type": "registry:block",
       "title": "Projects dashboard",
       "description": "Project tracker with a resizable sidebar, nested navigation, live metrics, a table, and a dialog form with toast feedback.",
-      "dependencies": ["lucide-solid"],
+      "dependencies": ["lucide-solid@^1.77.0"],
       "registryDependencies": [
         "https://moduix.dev/r/solid/badge.json",
         "https://moduix.dev/r/solid/button.json",
@@ -1279,7 +1279,7 @@
       "type": "registry:block",
       "title": "App header",
       "description": "Responsive header with navigation, command search, and an account menu.",
-      "dependencies": ["lucide-solid"],
+      "dependencies": ["lucide-solid@^1.77.0"],
       "registryDependencies": [
         "https://moduix.dev/r/solid/avatar.json",
         "https://moduix.dev/r/solid/button.json",
@@ -1401,7 +1401,7 @@
       "type": "registry:block",
       "title": "Data table",
       "description": "Payments table with search, sorting, column visibility, selection, and pagination.",
-      "dependencies": ["@tanstack/solid-table@^9.2.4", "lucide-solid"],
+      "dependencies": ["@tanstack/solid-table@^9.2.4", "lucide-solid@^1.77.0"],
       "registryDependencies": [
         "https://moduix.dev/r/solid/badge.json",
         "https://moduix.dev/r/solid/button.json",
@@ -1450,7 +1450,7 @@
       "type": "registry:block",
       "title": "Analytics overview",
       "description": "KPI cards with sparklines above a weekly revenue chart built with TanStack Charts.",
-      "dependencies": ["@tanstack/charts"],
+      "dependencies": ["@tanstack/charts@^1.5.0"],
       "registryDependencies": [
         "https://moduix.dev/r/solid/badge.json",
         "https://moduix.dev/r/solid/card.json",
@@ -1537,7 +1537,7 @@
       "type": "registry:block",
       "title": "Sidebar dashboard",
       "description": "Dashboard with a resizable sidebar, nested navigation, and a workspace menu.",
-      "dependencies": ["@lucide/vue"],
+      "dependencies": ["@lucide/vue@^1.77.0"],
       "registryDependencies": [
         "https://moduix.dev/r/vue-tailwind/button.json",
         "https://moduix.dev/r/vue-tailwind/card.json",
@@ -1563,7 +1563,7 @@
       "type": "registry:block",
       "title": "Projects dashboard",
       "description": "Project tracker with a resizable sidebar, nested navigation, live metrics, a table, and a dialog form with toast feedback.",
-      "dependencies": ["@lucide/vue"],
+      "dependencies": ["@lucide/vue@^1.77.0"],
       "registryDependencies": [
         "https://moduix.dev/r/vue-tailwind/badge.json",
         "https://moduix.dev/r/vue-tailwind/button.json",
@@ -1660,7 +1660,7 @@
       "type": "registry:block",
       "title": "App header",
       "description": "Responsive header with navigation, command search, and an account menu.",
-      "dependencies": ["@lucide/vue"],
+      "dependencies": ["@lucide/vue@^1.77.0"],
       "registryDependencies": [
         "https://moduix.dev/r/vue-tailwind/avatar.json",
         "https://moduix.dev/r/vue-tailwind/button.json",
@@ -1782,7 +1782,7 @@
       "type": "registry:block",
       "title": "Data table",
       "description": "Payments table with search, sorting, column visibility, selection, and pagination.",
-      "dependencies": ["@lucide/vue", "@tanstack/vue-table@^9.2.4"],
+      "dependencies": ["@lucide/vue@^1.77.0", "@tanstack/vue-table@^9.2.4"],
       "registryDependencies": [
         "https://moduix.dev/r/vue-tailwind/badge.json",
         "https://moduix.dev/r/vue-tailwind/button.json",
@@ -1831,7 +1831,7 @@
       "type": "registry:block",
       "title": "Analytics overview",
       "description": "KPI cards with sparklines above a weekly revenue chart built with TanStack Charts.",
-      "dependencies": ["@tanstack/charts"],
+      "dependencies": ["@tanstack/charts@^1.5.0"],
       "registryDependencies": [
         "https://moduix.dev/r/vue-tailwind/badge.json",
         "https://moduix.dev/r/vue-tailwind/card.json",
@@ -1918,7 +1918,7 @@
       "type": "registry:block",
       "title": "Sidebar dashboard",
       "description": "Dashboard with a resizable sidebar, nested navigation, and a workspace menu.",
-      "dependencies": ["@lucide/vue"],
+      "dependencies": ["@lucide/vue@^1.77.0"],
       "registryDependencies": [
         "https://moduix.dev/r/vue/button.json",
         "https://moduix.dev/r/vue/card.json",
@@ -1944,7 +1944,7 @@
       "type": "registry:block",
       "title": "Projects dashboard",
       "description": "Project tracker with a resizable sidebar, nested navigation, live metrics, a table, and a dialog form with toast feedback.",
-      "dependencies": ["@lucide/vue"],
+      "dependencies": ["@lucide/vue@^1.77.0"],
       "registryDependencies": [
         "https://moduix.dev/r/vue/badge.json",
         "https://moduix.dev/r/vue/button.json",
@@ -2041,7 +2041,7 @@
       "type": "registry:block",
       "title": "App header",
       "description": "Responsive header with navigation, command search, and an account menu.",
-      "dependencies": ["@lucide/vue"],
+      "dependencies": ["@lucide/vue@^1.77.0"],
       "registryDependencies": [
         "https://moduix.dev/r/vue/avatar.json",
         "https://moduix.dev/r/vue/button.json",
@@ -2163,7 +2163,7 @@
       "type": "registry:block",
       "title": "Data table",
       "description": "Payments table with search, sorting, column visibility, selection, and pagination.",
-      "dependencies": ["@lucide/vue", "@tanstack/vue-table@^9.2.4"],
+      "dependencies": ["@lucide/vue@^1.77.0", "@tanstack/vue-table@^9.2.4"],
       "registryDependencies": [
         "https://moduix.dev/r/vue/badge.json",
         "https://moduix.dev/r/vue/button.json",
@@ -2212,7 +2212,7 @@
       "type": "registry:block",
       "title": "Analytics overview",
       "description": "KPI cards with sparklines above a weekly revenue chart built with TanStack Charts.",
-      "dependencies": ["@tanstack/charts"],
+      "dependencies": ["@tanstack/charts@^1.5.0"],
       "registryDependencies": [
         "https://moduix.dev/r/vue/badge.json",
         "https://moduix.dev/r/vue/card.json",
@@ -2299,7 +2299,7 @@
       "type": "registry:block",
       "title": "Sidebar dashboard",
       "description": "Dashboard with a resizable sidebar, nested navigation, and a workspace menu.",
-      "dependencies": ["@lucide/svelte"],
+      "dependencies": ["@lucide/svelte@^1.77.0"],
       "registryDependencies": [
         "https://moduix.dev/r/svelte-tailwind/button.json",
         "https://moduix.dev/r/svelte-tailwind/card.json",
@@ -2325,7 +2325,7 @@
       "type": "registry:block",
       "title": "Projects dashboard",
       "description": "Project tracker with a resizable sidebar, nested navigation, live metrics, a table, and a dialog form with toast feedback.",
-      "dependencies": ["@lucide/svelte"],
+      "dependencies": ["@lucide/svelte@^1.77.0"],
       "registryDependencies": [
         "https://moduix.dev/r/svelte-tailwind/badge.json",
         "https://moduix.dev/r/svelte-tailwind/button.json",
@@ -2422,7 +2422,7 @@
       "type": "registry:block",
       "title": "App header",
       "description": "Responsive header with navigation, command search, and an account menu.",
-      "dependencies": ["@lucide/svelte"],
+      "dependencies": ["@lucide/svelte@^1.77.0"],
       "registryDependencies": [
         "https://moduix.dev/r/svelte-tailwind/avatar.json",
         "https://moduix.dev/r/svelte-tailwind/button.json",
@@ -2544,7 +2544,7 @@
       "type": "registry:block",
       "title": "Data table",
       "description": "Payments table with search, sorting, column visibility, selection, and pagination.",
-      "dependencies": ["@lucide/svelte", "@tanstack/svelte-table@^9.3.1"],
+      "dependencies": ["@lucide/svelte@^1.77.0", "@tanstack/svelte-table@^9.3.1"],
       "registryDependencies": [
         "https://moduix.dev/r/svelte-tailwind/badge.json",
         "https://moduix.dev/r/svelte-tailwind/button.json",
@@ -2593,7 +2593,7 @@
       "type": "registry:block",
       "title": "Analytics overview",
       "description": "KPI cards with sparklines above a weekly revenue chart built with TanStack Charts.",
-      "dependencies": ["@tanstack/charts"],
+      "dependencies": ["@tanstack/charts@^1.5.0"],
       "registryDependencies": [
         "https://moduix.dev/r/svelte-tailwind/badge.json",
         "https://moduix.dev/r/svelte-tailwind/card.json",
@@ -2680,7 +2680,7 @@
       "type": "registry:block",
       "title": "Sidebar dashboard",
       "description": "Dashboard with a resizable sidebar, nested navigation, and a workspace menu.",
-      "dependencies": ["@lucide/svelte"],
+      "dependencies": ["@lucide/svelte@^1.77.0"],
       "registryDependencies": [
         "https://moduix.dev/r/svelte/button.json",
         "https://moduix.dev/r/svelte/card.json",
@@ -2706,7 +2706,7 @@
       "type": "registry:block",
       "title": "Projects dashboard",
       "description": "Project tracker with a resizable sidebar, nested navigation, live metrics, a table, and a dialog form with toast feedback.",
-      "dependencies": ["@lucide/svelte"],
+      "dependencies": ["@lucide/svelte@^1.77.0"],
       "registryDependencies": [
         "https://moduix.dev/r/svelte/badge.json",
         "https://moduix.dev/r/svelte/button.json",
@@ -2803,7 +2803,7 @@
       "type": "registry:block",
       "title": "App header",
       "description": "Responsive header with navigation, command search, and an account menu.",
-      "dependencies": ["@lucide/svelte"],
+      "dependencies": ["@lucide/svelte@^1.77.0"],
       "registryDependencies": [
         "https://moduix.dev/r/svelte/avatar.json",
         "https://moduix.dev/r/svelte/button.json",
@@ -2925,7 +2925,7 @@
       "type": "registry:block",
       "title": "Data table",
       "description": "Payments table with search, sorting, column visibility, selection, and pagination.",
-      "dependencies": ["@lucide/svelte", "@tanstack/svelte-table@^9.3.1"],
+      "dependencies": ["@lucide/svelte@^1.77.0", "@tanstack/svelte-table@^9.3.1"],
       "registryDependencies": [
         "https://moduix.dev/r/svelte/badge.json",
         "https://moduix.dev/r/svelte/button.json",
@@ -2974,7 +2974,7 @@
       "type": "registry:block",
       "title": "Analytics overview",
       "description": "KPI cards with sparklines above a weekly revenue chart built with TanStack Charts.",
-      "dependencies": ["@tanstack/charts"],
+      "dependencies": ["@tanstack/charts@^1.5.0"],
       "registryDependencies": [
         "https://moduix.dev/r/svelte/badge.json",
         "https://moduix.dev/r/svelte/card.json",

@@ -5,7 +5,12 @@ import { cpSync } from 'node:fs';
 import { basename } from 'node:path';
 
 const skipped = new Set(['variables-ark.css']);
-if (process.argv.includes('--no-reset')) skipped.add('reset.css');
+if (process.argv.includes('--no-reset')) {
+  skipped.add('reset.css');
+} else {
+  skipped.add('tailwind.css');
+  skipped.add('tailwind-theme.css');
+}
 
 cpSync('../foundation/src/styles', 'dist/styles', {
   recursive: true,

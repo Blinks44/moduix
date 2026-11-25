@@ -8,7 +8,12 @@
       "type": "registry:item",
       "title": "Text",
       "description": "moduix Vue Tailwind Text component.",
-      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/vue@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -28,7 +33,7 @@
       "type": "registry:item",
       "title": "SplitButton",
       "description": "moduix Vue SplitButton component.",
-      "dependencies": ["@ark-ui/vue", "class-variance-authority"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "class-variance-authority@^0.7.1"],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/button",
@@ -86,7 +91,7 @@
       "type": "registry:item",
       "title": "SimpleGrid",
       "description": "moduix Vue Tailwind SimpleGrid component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -106,7 +111,7 @@
       "type": "registry:item",
       "title": "Skeleton",
       "description": "moduix Vue Tailwind Skeleton component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -139,7 +144,12 @@
           "utils": "@/lib/utils"
         }
       },
-      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/vue@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-vue-tailwind/foundation"]
     },
     {
@@ -147,7 +157,7 @@
       "type": "registry:item",
       "title": "Clipboard",
       "description": "moduix Vue Tailwind Clipboard component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
@@ -206,7 +216,7 @@
       "type": "registry:item",
       "title": "Timer",
       "description": "moduix Vue Tailwind Timer component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -261,7 +271,7 @@
       "type": "registry:item",
       "title": "Accordion",
       "description": "moduix Vue Tailwind Accordion component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
@@ -315,7 +325,7 @@
       "type": "registry:item",
       "title": "Swap",
       "description": "moduix Vue Tailwind Swap component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -345,7 +355,12 @@
       "type": "registry:item",
       "title": "TreeView",
       "description": "moduix Vue Tailwind TreeView component.",
-      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/vue@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
@@ -459,7 +474,12 @@
       "type": "registry:item",
       "title": "Toggle",
       "description": "moduix Vue Tailwind Toggle component.",
-      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/vue@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -489,7 +509,12 @@
       "type": "registry:item",
       "title": "ToggleGroup",
       "description": "moduix Vue Tailwind ToggleGroup component.",
-      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/vue@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
@@ -533,7 +558,7 @@
       "type": "registry:item",
       "title": "Tooltip",
       "description": "moduix Vue Tailwind Tooltip component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
@@ -597,7 +622,7 @@
       "type": "registry:item",
       "title": "Toast",
       "description": "moduix Vue Tailwind Toast component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
@@ -649,7 +674,7 @@
       "type": "registry:item",
       "title": "Steps",
       "description": "moduix Vue Tailwind Steps component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
@@ -728,7 +753,12 @@
       "type": "registry:item",
       "title": "Table of Contents",
       "description": "moduix Vue Tailwind Table of Contents component.",
-      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/vue@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -803,7 +833,7 @@
       "type": "registry:item",
       "title": "SegmentGroup",
       "description": "moduix Vue Tailwind SegmentGroup component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -858,7 +888,12 @@
       "type": "registry:item",
       "title": "Table",
       "description": "moduix Vue Tailwind Table component.",
-      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/vue@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
@@ -937,7 +972,7 @@
       "type": "registry:item",
       "title": "QR Code",
       "description": "moduix Vue Tailwind QR Code component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -982,7 +1017,7 @@
       "type": "registry:item",
       "title": "ProgressLinear",
       "description": "moduix Vue Tailwind ProgressLinear component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -1032,7 +1067,7 @@
       "type": "registry:item",
       "title": "PinInput",
       "description": "moduix Vue Tailwind PinInput component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
@@ -1091,7 +1126,7 @@
       "type": "registry:item",
       "title": "Pagination",
       "description": "moduix Vue Tailwind Pagination component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
@@ -1155,7 +1190,12 @@
       "type": "registry:item",
       "title": "Listbox",
       "description": "moduix Vue Tailwind Listbox component.",
-      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/vue@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": [
         "@moduix-vue-tailwind/close-button",
         "@moduix-vue-tailwind/cn",
@@ -1261,7 +1301,12 @@
       "type": "registry:item",
       "title": "Marquee",
       "description": "moduix Vue Tailwind Marquee component.",
-      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/vue@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -1306,7 +1351,7 @@
       "type": "registry:item",
       "title": "Lightbox",
       "description": "moduix Vue Tailwind Lightbox component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
@@ -1417,7 +1462,7 @@
       "type": "registry:item",
       "title": "NavigationMenu",
       "description": "moduix Vue Tailwind NavigationMenu component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -1492,7 +1537,12 @@
       "type": "registry:item",
       "title": "List",
       "description": "moduix Vue Tailwind List component.",
-      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/vue@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -1522,7 +1572,7 @@
       "type": "registry:item",
       "title": "HoverCard",
       "description": "moduix Vue Tailwind HoverCard component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
@@ -1586,7 +1636,7 @@
       "type": "registry:item",
       "title": "Popover",
       "description": "moduix Vue Tailwind Popover component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
@@ -1692,7 +1742,7 @@
       "type": "registry:item",
       "title": "ImageCropper",
       "description": "moduix Vue Tailwind ImageCropper component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -1747,7 +1797,7 @@
       "type": "registry:item",
       "title": "FloatingPanel",
       "description": "moduix Vue Tailwind FloatingPanel component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-vue-tailwind/close-button",
         "@moduix-vue-tailwind/cn",
@@ -1859,7 +1909,7 @@
       "type": "registry:item",
       "title": "Editable",
       "description": "moduix Vue Tailwind Editable component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
@@ -1933,7 +1983,7 @@
       "type": "registry:item",
       "title": "FileUpload",
       "description": "moduix Vue Tailwind FileUpload component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
@@ -2037,7 +2087,12 @@
       "type": "registry:item",
       "title": "Heading",
       "description": "moduix Vue Tailwind Heading component.",
-      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/vue@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -2057,7 +2112,7 @@
       "type": "registry:item",
       "title": "Highlight",
       "description": "moduix Vue Tailwind Highlight component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -2077,7 +2132,12 @@
       "type": "registry:item",
       "title": "DatePicker",
       "description": "moduix Vue Tailwind DatePicker component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/vue@^5.40.0",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1",
+        "@internationalized/date@^3.12.4"
+      ],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
@@ -2273,7 +2333,12 @@
       "type": "registry:item",
       "title": "DateInput",
       "description": "moduix Vue Tailwind DateInput component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/vue@^5.40.0",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1",
+        "@internationalized/date@^3.12.4"
+      ],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -2328,7 +2393,7 @@
       "type": "registry:item",
       "title": "Switch",
       "description": "moduix Vue Tailwind Switch component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -2368,7 +2433,7 @@
       "type": "registry:item",
       "title": "Select",
       "description": "moduix Vue Tailwind Select component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
@@ -2490,7 +2555,7 @@
       "type": "registry:item",
       "title": "Native Select",
       "description": "moduix Vue Tailwind Native Select component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
@@ -2514,7 +2579,7 @@
       "type": "registry:item",
       "title": "RadioGroup",
       "description": "moduix Vue Tailwind RadioGroup component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -2569,7 +2634,7 @@
       "type": "registry:item",
       "title": "NumberInput",
       "description": "moduix Vue Tailwind NumberInput component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-vue-tailwind/cn",
         "@moduix-vue-tailwind/foundation",
@@ -2638,7 +2703,7 @@
       "type": "registry:item",
       "title": "RatingGroup",
       "description": "moduix Vue Tailwind RatingGroup component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
@@ -2692,7 +2757,7 @@
       "type": "registry:item",
       "title": "Fieldset",
       "description": "moduix Vue Tailwind Fieldset component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -2732,7 +2797,12 @@
       "type": "registry:item",
       "title": "Input",
       "description": "moduix Vue Tailwind Input component.",
-      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/vue@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -2752,7 +2822,12 @@
       "type": "registry:item",
       "title": "InputGroup",
       "description": "moduix Vue Tailwind InputGroup component.",
-      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/vue@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": [
         "@moduix-vue-tailwind/icons",
         "@moduix-vue-tailwind/close-button",
@@ -2821,7 +2896,7 @@
       "type": "registry:item",
       "title": "Kbd",
       "description": "moduix Vue Tailwind Kbd component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -2846,7 +2921,7 @@
       "type": "registry:item",
       "title": "Textarea",
       "description": "moduix Vue Tailwind Textarea component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -2866,7 +2941,7 @@
       "type": "registry:item",
       "title": "Combobox",
       "description": "moduix Vue Tailwind Combobox component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
@@ -2988,7 +3063,7 @@
       "type": "registry:item",
       "title": "CommandPalette",
       "description": "moduix Vue Tailwind CommandPalette component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/icons",
@@ -3161,7 +3236,12 @@
       "type": "registry:item",
       "title": "Tag",
       "description": "moduix Vue Tailwind Tag component.",
-      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/vue@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": [
         "@moduix-vue-tailwind/close-button",
         "@moduix-vue-tailwind/cn",
@@ -3206,7 +3286,7 @@
       "type": "registry:item",
       "title": "Tags Input",
       "description": "moduix Vue Tailwind Tags Input component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
@@ -3286,7 +3366,7 @@
       "type": "registry:item",
       "title": "Scroll Area",
       "description": "moduix Vue Tailwind Scroll Area component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -3336,7 +3416,12 @@
       "type": "registry:item",
       "title": "Container",
       "description": "moduix Vue Tailwind Container component.",
-      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/vue@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -3356,7 +3441,7 @@
       "type": "registry:item",
       "title": "Collapsible",
       "description": "moduix Vue Tailwind Collapsible component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
@@ -3405,7 +3490,7 @@
       "type": "registry:item",
       "title": "Dialog",
       "description": "moduix Vue Tailwind Dialog component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
@@ -3496,7 +3581,7 @@
       "type": "registry:item",
       "title": "Drawer",
       "description": "moduix Vue Tailwind Drawer component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
@@ -3612,7 +3697,7 @@
       "type": "registry:item",
       "title": "Field",
       "description": "moduix Vue Tailwind Field component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -3667,7 +3752,7 @@
       "type": "registry:item",
       "title": "Checkbox",
       "description": "moduix Vue Tailwind Checkbox component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
@@ -3721,7 +3806,12 @@
       "type": "registry:item",
       "title": "Alert",
       "description": "moduix Vue Tailwind Alert component.",
-      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/vue@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -3766,7 +3856,7 @@
       "type": "registry:item",
       "title": "AngleSlider",
       "description": "moduix Vue Tailwind AngleSlider component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -3831,7 +3921,7 @@
       "type": "registry:item",
       "title": "AspectRatio",
       "description": "moduix Vue Tailwind AspectRatio component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -3851,7 +3941,7 @@
       "type": "registry:item",
       "title": "SignaturePad",
       "description": "moduix Vue Tailwind SignaturePad component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
@@ -3921,7 +4011,7 @@
       "type": "registry:item",
       "title": "Slider",
       "description": "moduix Vue Tailwind Slider component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -3996,7 +4086,12 @@
       "type": "registry:item",
       "title": "Separator",
       "description": "moduix Vue Tailwind Separator component.",
-      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/vue@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -4016,7 +4111,12 @@
       "type": "registry:item",
       "title": "Avatar",
       "description": "moduix Vue Tailwind Avatar component.",
-      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/vue@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -4061,7 +4161,12 @@
       "type": "registry:item",
       "title": "Badge",
       "description": "moduix Vue Tailwind Badge component.",
-      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/vue@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -4091,7 +4196,7 @@
       "type": "registry:item",
       "title": "Breadcrumbs",
       "description": "moduix Vue Tailwind Breadcrumbs component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-vue-tailwind/a11y-labels",
         "@moduix-vue-tailwind/foundation",
@@ -4151,7 +4256,12 @@
       "type": "registry:item",
       "title": "Button",
       "description": "moduix Vue Tailwind Button component.",
-      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/vue@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -4171,7 +4281,12 @@
       "type": "registry:item",
       "title": "Card",
       "description": "moduix Vue Tailwind Card component.",
-      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/vue@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -4236,7 +4351,7 @@
       "type": "registry:item",
       "title": "Carousel",
       "description": "moduix Vue Tailwind Carousel component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
@@ -4320,7 +4435,12 @@
       "type": "registry:item",
       "title": "Image",
       "description": "moduix Vue Tailwind Image component.",
-      "dependencies": ["@unpic/core", "clsx", "tailwind-merge", "unpic"],
+      "dependencies": [
+        "@unpic/core@^1.0.3",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1",
+        "unpic@^4.2.2"
+      ],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -4345,7 +4465,12 @@
       "type": "registry:item",
       "title": "Bleed",
       "description": "moduix Vue Tailwind Bleed component.",
-      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/vue@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -4365,7 +4490,12 @@
       "type": "registry:item",
       "title": "Menu",
       "description": "moduix Vue Tailwind Menu component.",
-      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/vue@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
@@ -4510,7 +4640,12 @@
       "type": "registry:item",
       "title": "Spinner",
       "description": "moduix Vue Tailwind Spinner component.",
-      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/vue@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
@@ -4534,7 +4669,12 @@
       "type": "registry:item",
       "title": "Stack",
       "description": "moduix Vue Tailwind Stack component.",
-      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/vue@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -4554,7 +4694,7 @@
       "type": "registry:item",
       "title": "Splitter",
       "description": "moduix Vue Tailwind Splitter component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -4594,7 +4734,7 @@
       "type": "registry:item",
       "title": "Sidebar",
       "description": "moduix Vue Tailwind Sidebar component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
@@ -4748,7 +4888,7 @@
       "type": "registry:item",
       "title": "CloseButton",
       "description": "moduix Vue Tailwind CloseButton component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
@@ -4773,7 +4913,12 @@
       "type": "registry:item",
       "title": "Chart",
       "description": "moduix Vue Tailwind Chart component backed by TanStack Charts.",
-      "dependencies": ["@ark-ui/vue", "@tanstack/charts", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/vue@^5.40.0",
+        "@tanstack/charts@^1.5.0",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -4823,7 +4968,7 @@
       "type": "registry:item",
       "title": "ColorPicker",
       "description": "moduix Vue Tailwind ColorPicker component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
@@ -4988,7 +5133,7 @@
       "type": "registry:item",
       "title": "Empty",
       "description": "Composable empty-state surface for no-results, no-data, and first-run screens.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -5033,7 +5178,7 @@
       "type": "registry:item",
       "title": "PasswordInput",
       "description": "moduix Vue Tailwind PasswordInput component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
@@ -5097,7 +5242,7 @@
       "type": "registry:item",
       "title": "ProgressCircular",
       "description": "moduix Vue Tailwind ProgressCircular component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -5162,7 +5307,7 @@
       "type": "registry:item",
       "title": "Tabs",
       "description": "moduix Vue Tailwind Tabs component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -5208,15 +5353,20 @@
       "title": "moduix Vue Tailwind core",
       "description": "Shared runtime dependencies and foundation styles for moduix Tailwind components.",
       "docs": "Import '@/lib/moduix/styles/style.css' once before Tailwind in your application stylesheet. Tailwind Preflight provides the reset layer.",
-      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
-      "registryDependencies": ["https://moduix.dev/r/foundation/core.json"]
+      "dependencies": [
+        "@ark-ui/vue@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
+      "registryDependencies": ["https://moduix.dev/r/foundation/core-tailwind.json"]
     },
     {
       "name": "cn",
       "type": "registry:item",
       "title": "moduix class name utility",
       "description": "Merges conditional and conflicting Tailwind class names.",
-      "dependencies": ["clsx", "tailwind-merge"],
+      "dependencies": ["clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "files": [
         {
           "path": "src/internal/cn.ts",
@@ -5244,7 +5394,7 @@
       "type": "registry:item",
       "title": "moduix icons",
       "description": "Internal icons used by moduix Vue Tailwind components.",
-      "dependencies": ["@lucide/vue"],
+      "dependencies": ["@lucide/vue@^1.77.0"],
       "files": [
         {
           "path": "src/internal/icons/ui/index.ts",
@@ -5315,7 +5465,7 @@
       "type": "registry:item",
       "title": "Tour",
       "description": "moduix Vue Tailwind Tour component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
@@ -5416,7 +5566,7 @@
       "type": "registry:item",
       "title": "JsonTreeView",
       "description": "moduix Vue Tailwind JsonTreeView component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
@@ -5455,7 +5605,7 @@
       "type": "registry:item",
       "title": "Typeset",
       "description": "moduix Vue Tailwind Typeset component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {

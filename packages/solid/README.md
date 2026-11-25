@@ -46,6 +46,7 @@ import {
   AccordionItem,
   AccordionItemBody,
   AccordionItemContent,
+  AccordionItemIndicator,
   AccordionItemTrigger,
 } from '@moduix/solid/accordion';
 
@@ -53,7 +54,10 @@ export function Example() {
   return (
     <Accordion defaultValue={['first']}>
       <AccordionItem value="first">
-        <AccordionItemTrigger>What is moduix?</AccordionItemTrigger>
+        <AccordionItemTrigger>
+          What is moduix?
+          <AccordionItemIndicator />
+        </AccordionItemTrigger>
         <AccordionItemContent>
           <AccordionItemBody>
             A component library built on accessible Ark UI primitives.

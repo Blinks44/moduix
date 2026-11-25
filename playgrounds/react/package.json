@@ -16,11 +16,14 @@
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
+    "@unpic/core": "catalog:",
+    "@unpic/react": "catalog:",
     "d3-shape": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
     "storybook": "catalog:",
     "typescript": "~7.0.2",
+    "unpic": "catalog:",
     "vite": "catalog:"
   }
 }

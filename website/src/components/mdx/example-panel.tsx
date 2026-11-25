@@ -51,10 +51,15 @@ function useExampleSelection() {
   };
 }
 
+function toDisplayCode(code: string) {
+  return code.replaceAll(/@\/registry\/\w+\/ui\//g, '@/components/ui/');
+}
+
 function toStyling(code: string, framework: Framework, styling: string) {
+  const normalized = toDisplayCode(code);
   return styling === 'tailwind'
-    ? code.replaceAll(`'@moduix/${framework}/`, `'@moduix/${framework}-tailwind/`)
-    : code;
+    ? normalized.replaceAll(`'@moduix/${framework}/`, `'@moduix/${framework}-tailwind/`)
+    : normalized;
 }
 
 function PanelSelect({
@@ -108,7 +113,8 @@ function ExamplePanel({
     return (
       <>
         {frameworks.map(
-          (item) => `\n**${item.label}**\n\n\`\`\`${item.lang}\n${sources[item.value]}\n\`\`\`\n`,
+          (item) =>
+            `\n**${item.label}**\n\n\`\`\`${item.lang}\n${toDisplayCode(sources[item.value])}\n\`\`\`\n`,
         )}
         {files.map((file) => `\n\`\`\`css title="${file.name}"\n${file.code}\n\`\`\`\n`)}
       </>
@@ -221,7 +227,7 @@ function FrameworkCode({ sources, name }: { sources: Record<Framework, string>; 
       <>
         {frameworks.map(
           (item) =>
-            `\n\`\`\`${item.lang} title="${name}.${item.lang}"\n${sources[item.value]}\n\`\`\`\n`,
+            `\n\`\`\`${item.lang} title="${name}.${item.lang}"\n${toDisplayCode(sources[item.value])}\n\`\`\`\n`,
         )}
       </>
     );
@@ -231,7 +237,7 @@ function FrameworkCode({ sources, name }: { sources: Record<Framework, string>; 
     <CodeBlockRuntime
       lang={framework.lang}
       title={`${name}.${framework.lang}`}
-      code={sources[framework.value]}
+      code={toDisplayCode(sources[framework.value])}
     />
   );
 }

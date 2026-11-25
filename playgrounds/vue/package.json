@@ -15,10 +15,12 @@
     "@tanstack/charts": "catalog:",
     "@types/d3-shape": "catalog:",
     "@types/node": "catalog:",
+    "@unpic/core": "catalog:",
     "@vitejs/plugin-vue": "catalog:",
     "d3-shape": "catalog:",
     "storybook": "catalog:",
     "typescript": "~6.0.3",
+    "unpic": "catalog:",
     "vite": "catalog:",
     "vue": "catalog:",
     "vue-tsc": "catalog:"

@@ -21,7 +21,7 @@
           "utils": "@/lib/utils"
         }
       },
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"]
     },
     {
@@ -45,7 +45,7 @@
       "type": "registry:item",
       "title": "moduix icons",
       "description": "Internal icon components required only by registry components that render them.",
-      "dependencies": ["lucide-react"],
+      "dependencies": ["lucide-react@^1.77.0"],
       "files": [
         {
           "path": "src/internal/icons/ui/index.ts",
@@ -91,7 +91,7 @@
       "type": "registry:item",
       "title": "moduix React core",
       "description": "Shared runtime dependencies installed by every moduix registry component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["https://moduix.dev/r/foundation/core.json"]
     },
     {
@@ -123,7 +123,7 @@
       "type": "registry:item",
       "title": "Accordion",
       "description": "moduix React Accordion component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
@@ -148,7 +148,7 @@
       "type": "registry:item",
       "title": "AngleSlider",
       "description": "moduix React AngleSlider component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -173,7 +173,7 @@
       "type": "registry:item",
       "title": "Alert",
       "description": "moduix React Alert component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -198,7 +198,7 @@
       "type": "registry:item",
       "title": "AspectRatio",
       "description": "moduix React AspectRatio component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -223,7 +223,7 @@
       "type": "registry:item",
       "title": "Avatar",
       "description": "moduix React Avatar component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -248,7 +248,7 @@
       "type": "registry:item",
       "title": "Badge",
       "description": "moduix React Badge component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -273,7 +273,7 @@
       "type": "registry:item",
       "title": "Bleed",
       "description": "moduix React Bleed component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -298,7 +298,7 @@
       "type": "registry:item",
       "title": "Breadcrumbs",
       "description": "moduix React Breadcrumbs component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-react/a11y-labels",
         "@moduix-react/foundation",
@@ -327,7 +327,7 @@
       "type": "registry:item",
       "title": "Button",
       "description": "moduix React Button component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -352,7 +352,7 @@
       "type": "registry:item",
       "title": "Card",
       "description": "moduix React Card component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -377,7 +377,7 @@
       "type": "registry:item",
       "title": "Chart",
       "description": "moduix React Chart component backed by TanStack Charts.",
-      "dependencies": ["@tanstack/charts", "clsx"],
+      "dependencies": ["@tanstack/charts@^1.5.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -402,7 +402,7 @@
       "type": "registry:item",
       "title": "Checkbox",
       "description": "moduix React Checkbox component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
@@ -427,7 +427,7 @@
       "type": "registry:item",
       "title": "CloseButton",
       "description": "moduix React CloseButton component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-react/a11y-labels",
         "@moduix-react/foundation",
@@ -456,7 +456,7 @@
       "type": "registry:item",
       "title": "Collapsible",
       "description": "moduix React Collapsible component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
@@ -481,7 +481,7 @@
       "type": "registry:item",
       "title": "Combobox",
       "description": "moduix React Combobox component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-react/a11y-labels",
         "@moduix-react/close-button",
@@ -512,7 +512,7 @@
       "type": "registry:item",
       "title": "ColorPicker",
       "description": "moduix React ColorPicker component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-react/foundation",
         "@moduix-react/icons",
@@ -541,7 +541,7 @@
       "type": "registry:item",
       "title": "CommandPalette",
       "description": "moduix React CommandPalette component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-react/a11y-labels",
         "@moduix-react/close-button",
@@ -574,7 +574,7 @@
       "type": "registry:item",
       "title": "Container",
       "description": "moduix React Container component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -599,7 +599,7 @@
       "type": "registry:item",
       "title": "DateInput",
       "description": "moduix React DateInput component.",
-      "dependencies": ["@ark-ui/react", "@internationalized/date", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "@internationalized/date@^3.12.4", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -624,7 +624,7 @@
       "type": "registry:item",
       "title": "DatePicker",
       "description": "moduix React DatePicker component.",
-      "dependencies": ["@ark-ui/react", "@internationalized/date", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "@internationalized/date@^3.12.4", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-react/foundation",
         "@moduix-react/close-button",
@@ -654,7 +654,7 @@
       "type": "registry:item",
       "title": "Clipboard",
       "description": "moduix React Clipboard component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
@@ -679,7 +679,7 @@
       "type": "registry:item",
       "title": "Dialog",
       "description": "moduix React Dialog component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-react/a11y-labels",
         "@moduix-react/close-button",
@@ -709,7 +709,7 @@
       "type": "registry:item",
       "title": "Drawer",
       "description": "moduix React Drawer component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-react/a11y-labels",
         "@moduix-react/close-button",
@@ -739,7 +739,7 @@
       "type": "registry:item",
       "title": "Empty",
       "description": "Composable empty-state surface for no-results, no-data, and first-run screens.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -764,7 +764,7 @@
       "type": "registry:item",
       "title": "Editable",
       "description": "moduix React Editable component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
@@ -789,7 +789,7 @@
       "type": "registry:item",
       "title": "Field",
       "description": "moduix React Field component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -814,7 +814,7 @@
       "type": "registry:item",
       "title": "FileUpload",
       "description": "moduix React FileUpload component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
@@ -839,7 +839,7 @@
       "type": "registry:item",
       "title": "Fieldset",
       "description": "moduix React Fieldset component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -864,7 +864,7 @@
       "type": "registry:item",
       "title": "FloatingPanel",
       "description": "moduix React FloatingPanel component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-react/a11y-labels",
         "@moduix-react/close-button",
@@ -895,7 +895,7 @@
       "type": "registry:item",
       "title": "Heading",
       "description": "moduix React Heading component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -920,7 +920,7 @@
       "type": "registry:item",
       "title": "Highlight",
       "description": "moduix React Highlight component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -945,7 +945,7 @@
       "type": "registry:item",
       "title": "Image",
       "description": "moduix React Image component.",
-      "dependencies": ["@unpic/core", "@unpic/react", "clsx", "unpic"],
+      "dependencies": ["@unpic/core@^1.0.3", "@unpic/react@^1.0.2", "clsx@^2.1.1", "unpic@^4.2.2"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -970,7 +970,7 @@
       "type": "registry:item",
       "title": "JsonTreeView",
       "description": "moduix React JsonTreeView component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
@@ -995,7 +995,7 @@
       "type": "registry:item",
       "title": "ImageCropper",
       "description": "moduix React ImageCropper component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -1020,7 +1020,7 @@
       "type": "registry:item",
       "title": "Input",
       "description": "moduix React Input component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -1045,7 +1045,7 @@
       "type": "registry:item",
       "title": "InputGroup",
       "description": "moduix React InputGroup component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-react/icons",
         "@moduix-react/close-button",
@@ -1078,7 +1078,7 @@
       "type": "registry:item",
       "title": "Kbd",
       "description": "moduix React Kbd component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -1103,7 +1103,7 @@
       "type": "registry:item",
       "title": "Lightbox",
       "description": "moduix React Lightbox component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-react/a11y-labels",
         "@moduix-react/close-button",
@@ -1133,7 +1133,7 @@
       "type": "registry:item",
       "title": "List",
       "description": "moduix React List component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -1158,7 +1158,7 @@
       "type": "registry:item",
       "title": "Listbox",
       "description": "moduix React Listbox component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-react/a11y-labels",
         "@moduix-react/close-button",
@@ -1188,7 +1188,7 @@
       "type": "registry:item",
       "title": "TreeView",
       "description": "moduix React TreeView component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
@@ -1213,7 +1213,7 @@
       "type": "registry:item",
       "title": "Marquee",
       "description": "moduix React Marquee component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -1238,7 +1238,7 @@
       "type": "registry:item",
       "title": "Menu",
       "description": "moduix React Menu component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-react/foundation",
         "@moduix-react/icons",
@@ -1267,7 +1267,7 @@
       "type": "registry:item",
       "title": "Navigation Menu",
       "description": "moduix React Navigation Menu component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -1292,7 +1292,7 @@
       "type": "registry:item",
       "title": "Native Select",
       "description": "moduix React Native Select component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
@@ -1317,7 +1317,7 @@
       "type": "registry:item",
       "title": "NumberInput",
       "description": "moduix React NumberInput component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
@@ -1342,7 +1342,7 @@
       "type": "registry:item",
       "title": "PinInput",
       "description": "moduix React PinInput component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
@@ -1367,7 +1367,7 @@
       "type": "registry:item",
       "title": "Pagination",
       "description": "moduix React Pagination component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
@@ -1392,7 +1392,7 @@
       "type": "registry:item",
       "title": "PasswordInput",
       "description": "moduix React PasswordInput component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
@@ -1417,7 +1417,7 @@
       "type": "registry:item",
       "title": "Popover",
       "description": "moduix React Popover component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-react/a11y-labels",
         "@moduix-react/close-button",
@@ -1447,7 +1447,7 @@
       "type": "registry:item",
       "title": "HoverCard",
       "description": "moduix React HoverCard component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation", "@moduix-react/overlay-portal"],
       "files": [
         {
@@ -1472,7 +1472,7 @@
       "type": "registry:item",
       "title": "ProgressCircular",
       "description": "moduix React ProgressCircular component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -1497,7 +1497,7 @@
       "type": "registry:item",
       "title": "ProgressLinear",
       "description": "moduix React ProgressLinear component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -1522,7 +1522,7 @@
       "type": "registry:item",
       "title": "QR Code",
       "description": "moduix React QR Code component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -1547,7 +1547,7 @@
       "type": "registry:item",
       "title": "Radio Group",
       "description": "moduix React RadioGroup component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -1572,7 +1572,7 @@
       "type": "registry:item",
       "title": "RatingGroup",
       "description": "moduix React RatingGroup component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
@@ -1597,7 +1597,7 @@
       "type": "registry:item",
       "title": "ScrollArea",
       "description": "moduix React ScrollArea component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -1622,7 +1622,7 @@
       "type": "registry:item",
       "title": "SegmentGroup",
       "description": "moduix React SegmentGroup component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -1647,7 +1647,7 @@
       "type": "registry:item",
       "title": "Signature Pad",
       "description": "moduix React Signature Pad component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-react/foundation",
         "@moduix-react/close-button",
@@ -1676,7 +1676,7 @@
       "type": "registry:item",
       "title": "Select",
       "description": "moduix React Select component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-react/a11y-labels",
         "@moduix-react/close-button",
@@ -1707,7 +1707,7 @@
       "type": "registry:item",
       "title": "Separator",
       "description": "moduix React Separator component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -1732,7 +1732,7 @@
       "type": "registry:item",
       "title": "Simple Grid",
       "description": "Responsive CSS Grid layout with fixed or intrinsic equal-width columns.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -1757,7 +1757,7 @@
       "type": "registry:item",
       "title": "Skeleton",
       "description": "moduix React Skeleton component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -1782,7 +1782,7 @@
       "type": "registry:item",
       "title": "Slider",
       "description": "moduix React Slider component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -1807,7 +1807,7 @@
       "type": "registry:item",
       "title": "Splitter",
       "description": "moduix React Splitter component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -1832,7 +1832,7 @@
       "type": "registry:item",
       "title": "Sidebar",
       "description": "moduix React Sidebar component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-react/a11y-labels",
         "@moduix-react/icons",
@@ -1864,7 +1864,7 @@
       "type": "registry:item",
       "title": "Carousel",
       "description": "moduix React Carousel component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
@@ -1889,7 +1889,7 @@
       "type": "registry:item",
       "title": "Spinner",
       "description": "moduix React Spinner component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/a11y-labels", "@moduix-react/foundation"],
       "files": [
         {
@@ -1914,7 +1914,7 @@
       "type": "registry:item",
       "title": "SplitButton",
       "description": "moduix React SplitButton component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-react/a11y-labels",
         "@moduix-react/button",
@@ -1946,7 +1946,7 @@
       "type": "registry:item",
       "title": "Stack",
       "description": "moduix React Stack component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -1971,7 +1971,7 @@
       "type": "registry:item",
       "title": "Steps",
       "description": "moduix React Steps component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
@@ -1996,7 +1996,7 @@
       "type": "registry:item",
       "title": "Swap",
       "description": "moduix React Swap component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -2021,7 +2021,7 @@
       "type": "registry:item",
       "title": "Switch",
       "description": "moduix React Switch component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -2046,7 +2046,7 @@
       "type": "registry:item",
       "title": "Tag",
       "description": "moduix React Tag component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-react/a11y-labels",
         "@moduix-react/close-button",
@@ -2075,7 +2075,7 @@
       "type": "registry:item",
       "title": "TagsInput",
       "description": "moduix React TagsInput component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-react/foundation",
         "@moduix-react/close-button",
@@ -2104,7 +2104,7 @@
       "type": "registry:item",
       "title": "Table",
       "description": "moduix React Table component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/a11y-labels", "@moduix-react/foundation"],
       "files": [
         {
@@ -2129,7 +2129,7 @@
       "type": "registry:item",
       "title": "Table of Contents",
       "description": "moduix React Table of Contents component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -2154,7 +2154,7 @@
       "type": "registry:item",
       "title": "Tabs",
       "description": "moduix React Tabs component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -2179,7 +2179,7 @@
       "type": "registry:item",
       "title": "Text",
       "description": "moduix React Text component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -2204,7 +2204,7 @@
       "type": "registry:item",
       "title": "Textarea",
       "description": "moduix React Textarea component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -2229,7 +2229,7 @@
       "type": "registry:item",
       "title": "Timer",
       "description": "moduix React Timer component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -2254,7 +2254,7 @@
       "type": "registry:item",
       "title": "Typeset",
       "description": "moduix React Typeset component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -2279,7 +2279,7 @@
       "type": "registry:item",
       "title": "Toast",
       "description": "moduix React Toast component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-react/a11y-labels",
         "@moduix-react/close-button",
@@ -2310,7 +2310,7 @@
       "type": "registry:item",
       "title": "Toggle",
       "description": "moduix React Toggle component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {
@@ -2335,7 +2335,7 @@
       "type": "registry:item",
       "title": "ToggleGroup",
       "description": "moduix React ToggleGroup component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation", "@moduix-react/toggle"],
       "files": [
         {
@@ -2360,7 +2360,7 @@
       "type": "registry:item",
       "title": "Tooltip",
       "description": "moduix React Tooltip component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": ["@moduix-react/foundation", "@moduix-react/overlay-portal"],
       "files": [
         {
@@ -2385,7 +2385,7 @@
       "type": "registry:item",
       "title": "Tour",
       "description": "moduix React Tour component.",
-      "dependencies": ["@ark-ui/react", "clsx"],
+      "dependencies": ["@ark-ui/react@^5.40.0", "clsx@^2.1.1"],
       "registryDependencies": [
         "@moduix-react/a11y-labels",
         "@moduix-react/close-button",

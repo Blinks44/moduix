@@ -14,6 +14,7 @@
     "@tanstack/charts": "catalog:",
     "@types/d3-shape": "catalog:",
     "@types/node": "catalog:",
+    "@unpic/core": "catalog:",
     "clsx": "catalog:",
     "d3-shape": "catalog:",
     "solid-js": "catalog:",
@@ -22,6 +23,7 @@
     "tailwind-merge": "catalog:",
     "tailwindcss": "catalog:",
     "typescript": "~7.0.2",
+    "unpic": "catalog:",
     "vite": "catalog:",
     "vite-plugin-solid": "catalog:"
   }

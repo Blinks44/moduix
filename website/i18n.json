@@ -182,7 +182,7 @@
     "fr": "Importez les composants depuis des sous-chemins, par exemple {subpath}."
   },
   "installRegistryNote": {
-    "en": "The CLI copies the component source and its styles into your project.",
+    "en": "Requires the moduix registry in components.json. The CLI copies the component source and its styles into your project.",
     "ru": "CLI копирует исходники компонента и его стили в ваш проект.",
     "fr": "La CLI copie le code source du composant et ses styles dans votre projet."
   },

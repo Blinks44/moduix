@@ -21,7 +21,12 @@
           "utils": "@/lib/utils"
         }
       },
-      "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/solid@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-solid-tailwind/foundation"]
     },
     {
@@ -30,15 +35,20 @@
       "title": "moduix Solid Tailwind core",
       "description": "Shared runtime dependencies and foundation styles for moduix Tailwind components.",
       "docs": "Import '@/lib/moduix/styles/style.css' once before Tailwind in your application stylesheet. Tailwind Preflight provides the reset layer.",
-      "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
-      "registryDependencies": ["https://moduix.dev/r/foundation/core.json"]
+      "dependencies": [
+        "@ark-ui/solid@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
+      "registryDependencies": ["https://moduix.dev/r/foundation/core-tailwind.json"]
     },
     {
       "name": "cn",
       "type": "registry:item",
       "title": "moduix class name utility",
       "description": "Merges conditional and conflicting Tailwind class names.",
-      "dependencies": ["clsx", "tailwind-merge"],
+      "dependencies": ["clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "files": [
         {
           "path": "src/internal/cn.ts",
@@ -79,7 +89,7 @@
       "type": "registry:item",
       "title": "moduix icons",
       "description": "Internal icons used by moduix Solid Tailwind components.",
-      "dependencies": ["lucide-solid"],
+      "dependencies": ["lucide-solid@^1.77.0"],
       "files": [
         {
           "path": "src/internal/icons/ui/index.ts",
@@ -135,7 +145,7 @@
       "type": "registry:item",
       "title": "Accordion",
       "description": "moduix Solid Tailwind Accordion component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -159,7 +169,12 @@
       "type": "registry:item",
       "title": "Alert",
       "description": "moduix Solid Tailwind Alert component.",
-      "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/solid@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -179,7 +194,7 @@
       "type": "registry:item",
       "title": "AngleSlider",
       "description": "moduix Solid Tailwind AngleSlider component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -203,7 +218,7 @@
       "type": "registry:item",
       "title": "AspectRatio",
       "description": "moduix Solid Tailwind AspectRatio component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -223,7 +238,12 @@
       "type": "registry:item",
       "title": "Avatar",
       "description": "moduix Solid Tailwind Avatar component.",
-      "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/solid@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -243,7 +263,12 @@
       "type": "registry:item",
       "title": "Badge",
       "description": "moduix Solid Tailwind Badge component.",
-      "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/solid@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -263,7 +288,12 @@
       "type": "registry:item",
       "title": "Bleed",
       "description": "moduix Solid Tailwind Bleed component.",
-      "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/solid@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -283,7 +313,7 @@
       "type": "registry:item",
       "title": "Breadcrumbs",
       "description": "moduix Solid Tailwind Breadcrumbs component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -308,7 +338,12 @@
       "type": "registry:item",
       "title": "Button",
       "description": "moduix Solid Tailwind Button component.",
-      "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/solid@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -328,7 +363,12 @@
       "type": "registry:item",
       "title": "Card",
       "description": "moduix Solid Tailwind Card component.",
-      "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/solid@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -348,7 +388,7 @@
       "type": "registry:item",
       "title": "Checkbox",
       "description": "moduix Solid Tailwind Checkbox component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -372,7 +412,7 @@
       "type": "registry:item",
       "title": "Clipboard",
       "description": "moduix Solid Tailwind Clipboard component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -396,7 +436,7 @@
       "type": "registry:item",
       "title": "CloseButton",
       "description": "moduix Solid Tailwind CloseButton component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -422,7 +462,7 @@
       "type": "registry:item",
       "title": "Collapsible",
       "description": "moduix Solid Tailwind Collapsible component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -446,7 +486,7 @@
       "type": "registry:item",
       "title": "Combobox",
       "description": "moduix Solid Tailwind Combobox component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -473,7 +513,7 @@
       "type": "registry:item",
       "title": "ColorPicker",
       "description": "moduix Solid Tailwind ColorPicker component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -498,7 +538,12 @@
       "type": "registry:item",
       "title": "DateInput",
       "description": "moduix Solid Tailwind DateInput component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/solid@^5.40.0",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1",
+        "@internationalized/date@^3.12.4"
+      ],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -518,7 +563,12 @@
       "type": "registry:item",
       "title": "DatePicker",
       "description": "moduix Solid Tailwind DatePicker component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/solid@^5.40.0",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1",
+        "@internationalized/date@^3.12.4"
+      ],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -544,7 +594,7 @@
       "type": "registry:item",
       "title": "Dialog",
       "description": "moduix Solid Tailwind Dialog component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -570,7 +620,7 @@
       "type": "registry:item",
       "title": "Drawer",
       "description": "moduix Solid Tailwind Drawer component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -596,7 +646,7 @@
       "type": "registry:item",
       "title": "Lightbox",
       "description": "moduix Solid Tailwind Lightbox component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -623,7 +673,12 @@
       "type": "registry:item",
       "title": "Listbox",
       "description": "moduix Solid Tailwind Listbox component.",
-      "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/solid@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -649,7 +704,12 @@
       "type": "registry:item",
       "title": "List",
       "description": "moduix Solid Tailwind List component.",
-      "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/solid@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -669,7 +729,7 @@
       "type": "registry:item",
       "title": "Empty",
       "description": "Composable empty-state surface for no-results, no-data, and first-run screens.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -689,7 +749,7 @@
       "type": "registry:item",
       "title": "Editable",
       "description": "moduix Solid Tailwind Editable component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -713,7 +773,7 @@
       "type": "registry:item",
       "title": "Carousel",
       "description": "moduix Solid Tailwind Carousel component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -737,7 +797,7 @@
       "type": "registry:item",
       "title": "Field",
       "description": "moduix Solid Tailwind Field component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -757,7 +817,7 @@
       "type": "registry:item",
       "title": "Fieldset",
       "description": "moduix Solid Tailwind Fieldset component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -777,7 +837,7 @@
       "type": "registry:item",
       "title": "FileUpload",
       "description": "moduix Solid Tailwind FileUpload component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -801,7 +861,7 @@
       "type": "registry:item",
       "title": "FloatingPanel",
       "description": "moduix Solid Tailwind FloatingPanel component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -828,7 +888,12 @@
       "type": "registry:item",
       "title": "Heading",
       "description": "moduix Solid Tailwind Heading component.",
-      "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/solid@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -848,7 +913,7 @@
       "type": "registry:item",
       "title": "Highlight",
       "description": "moduix Solid Tailwind Highlight component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -868,7 +933,7 @@
       "type": "registry:item",
       "title": "ProgressCircular",
       "description": "moduix Solid Tailwind ProgressCircular component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -888,7 +953,7 @@
       "type": "registry:item",
       "title": "ProgressLinear",
       "description": "moduix Solid Tailwind ProgressLinear component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -908,7 +973,7 @@
       "type": "registry:item",
       "title": "HoverCard",
       "description": "moduix Solid Tailwind HoverCard component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -932,7 +997,7 @@
       "type": "registry:item",
       "title": "QR Code",
       "description": "moduix Solid Tailwind QR Code component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -952,7 +1017,12 @@
       "type": "registry:item",
       "title": "Image",
       "description": "moduix Solid Tailwind Image component.",
-      "dependencies": ["@unpic/core", "clsx", "tailwind-merge", "unpic"],
+      "dependencies": [
+        "@unpic/core@^1.0.3",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1",
+        "unpic@^4.2.2"
+      ],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -972,7 +1042,7 @@
       "type": "registry:item",
       "title": "ImageCropper",
       "description": "moduix Solid Tailwind ImageCropper component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -992,7 +1062,7 @@
       "type": "registry:item",
       "title": "JsonTreeView",
       "description": "moduix Solid Tailwind JsonTreeView component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -1016,7 +1086,12 @@
       "type": "registry:item",
       "title": "Input",
       "description": "moduix Solid Tailwind Input component.",
-      "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/solid@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -1036,7 +1111,12 @@
       "type": "registry:item",
       "title": "InputGroup",
       "description": "moduix Solid Tailwind InputGroup component.",
-      "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/solid@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": [
         "@moduix-solid-tailwind/icons",
         "@moduix-solid-tailwind/close-button",
@@ -1065,7 +1145,7 @@
       "type": "registry:item",
       "title": "PasswordInput",
       "description": "moduix Solid Tailwind PasswordInput component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -1089,7 +1169,12 @@
       "type": "registry:item",
       "title": "Chart",
       "description": "moduix Solid Tailwind Chart component backed by TanStack Charts.",
-      "dependencies": ["@ark-ui/solid", "@tanstack/charts", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/solid@^5.40.0",
+        "@tanstack/charts@^1.5.0",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -1109,7 +1194,7 @@
       "type": "registry:item",
       "title": "CommandPalette",
       "description": "moduix Solid Tailwind CommandPalette component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -1138,7 +1223,12 @@
       "type": "registry:item",
       "title": "Container",
       "description": "moduix Solid Tailwind Container component.",
-      "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/solid@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -1158,7 +1248,7 @@
       "type": "registry:item",
       "title": "Kbd",
       "description": "moduix Solid Tailwind Kbd component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -1178,7 +1268,12 @@
       "type": "registry:item",
       "title": "Marquee",
       "description": "moduix Solid Tailwind Marquee component.",
-      "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/solid@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -1198,7 +1293,12 @@
       "type": "registry:item",
       "title": "Menu",
       "description": "moduix Solid Tailwind Menu component.",
-      "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/solid@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -1228,7 +1328,7 @@
       "type": "registry:item",
       "title": "RadioGroup",
       "description": "moduix Solid Tailwind RadioGroup component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -1248,7 +1348,7 @@
       "type": "registry:item",
       "title": "RatingGroup",
       "description": "moduix Solid Tailwind RatingGroup component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -1273,7 +1373,7 @@
       "type": "registry:item",
       "title": "ScrollArea",
       "description": "moduix Solid Tailwind ScrollArea component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -1293,7 +1393,7 @@
       "type": "registry:item",
       "title": "Sidebar",
       "description": "moduix Solid Tailwind Sidebar component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -1323,7 +1423,7 @@
       "type": "registry:item",
       "title": "NavigationMenu",
       "description": "moduix Solid Tailwind NavigationMenu component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -1343,7 +1443,7 @@
       "type": "registry:item",
       "title": "NativeSelect",
       "description": "moduix Solid Tailwind NativeSelect component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -1367,7 +1467,7 @@
       "type": "registry:item",
       "title": "NumberInput",
       "description": "moduix Solid Tailwind NumberInput component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -1391,7 +1491,7 @@
       "type": "registry:item",
       "title": "Pagination",
       "description": "moduix Solid Tailwind Pagination component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -1415,7 +1515,7 @@
       "type": "registry:item",
       "title": "Popover",
       "description": "moduix Solid Tailwind Popover component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -1441,7 +1541,7 @@
       "type": "registry:item",
       "title": "PinInput",
       "description": "moduix Solid Tailwind PinInput component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -1465,7 +1565,7 @@
       "type": "registry:item",
       "title": "Select",
       "description": "moduix Solid Tailwind Select component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -1492,7 +1592,12 @@
       "type": "registry:item",
       "title": "Separator",
       "description": "moduix Solid Tailwind Separator component.",
-      "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/solid@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -1512,7 +1617,7 @@
       "type": "registry:item",
       "title": "Simple Grid",
       "description": "moduix Solid Tailwind Simple Grid component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -1532,7 +1637,7 @@
       "type": "registry:item",
       "title": "Skeleton",
       "description": "moduix Solid Tailwind Skeleton component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -1552,7 +1657,7 @@
       "type": "registry:item",
       "title": "SegmentGroup",
       "description": "moduix Solid Tailwind SegmentGroup component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -1572,7 +1677,7 @@
       "type": "registry:item",
       "title": "SignaturePad",
       "description": "moduix Solid Tailwind SignaturePad component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -1597,7 +1702,7 @@
       "type": "registry:item",
       "title": "Slider",
       "description": "moduix Solid Tailwind Slider component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -1617,7 +1722,12 @@
       "type": "registry:item",
       "title": "Spinner",
       "description": "moduix Solid Tailwind Spinner component.",
-      "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/solid@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -1641,7 +1751,12 @@
       "type": "registry:item",
       "title": "SplitButton",
       "description": "moduix Solid Tailwind SplitButton component.",
-      "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/solid@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -1669,7 +1784,7 @@
       "type": "registry:item",
       "title": "Splitter",
       "description": "moduix Solid Tailwind Splitter component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -1689,7 +1804,7 @@
       "type": "registry:item",
       "title": "Steps",
       "description": "moduix Solid Tailwind Steps component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -1713,7 +1828,7 @@
       "type": "registry:item",
       "title": "Switch",
       "description": "moduix Solid Tailwind Switch component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -1733,7 +1848,7 @@
       "type": "registry:item",
       "title": "Swap",
       "description": "moduix Solid Tailwind Swap component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -1753,7 +1868,12 @@
       "type": "registry:item",
       "title": "Stack",
       "description": "moduix Solid Tailwind Stack component.",
-      "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/solid@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -1773,7 +1893,12 @@
       "type": "registry:item",
       "title": "Table",
       "description": "moduix Solid Tailwind Table component.",
-      "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/solid@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -1797,7 +1922,7 @@
       "type": "registry:item",
       "title": "Tabs",
       "description": "moduix Solid Tailwind Tabs component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -1817,7 +1942,12 @@
       "type": "registry:item",
       "title": "Tag",
       "description": "moduix Solid Tailwind Tag component.",
-      "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/solid@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -1842,7 +1972,12 @@
       "type": "registry:item",
       "title": "Toggle",
       "description": "moduix Solid Tailwind Toggle component.",
-      "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/solid@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -1867,7 +2002,12 @@
       "type": "registry:item",
       "title": "ToggleGroup",
       "description": "moduix Solid Tailwind ToggleGroup component.",
-      "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/solid@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -1891,7 +2031,12 @@
       "type": "registry:item",
       "title": "Text",
       "description": "moduix Solid Tailwind Text component.",
-      "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/solid@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -1911,7 +2056,7 @@
       "type": "registry:item",
       "title": "Textarea",
       "description": "moduix Solid Tailwind Textarea component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -1931,7 +2076,7 @@
       "type": "registry:item",
       "title": "Timer",
       "description": "moduix Solid Tailwind Timer component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -1951,7 +2096,7 @@
       "type": "registry:item",
       "title": "Toast",
       "description": "moduix Solid Tailwind Toast component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -1978,7 +2123,12 @@
       "type": "registry:item",
       "title": "Table of Contents",
       "description": "moduix Solid Tailwind Table of Contents component.",
-      "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/solid@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -1998,7 +2148,7 @@
       "type": "registry:item",
       "title": "TagsInput",
       "description": "moduix Solid Tailwind TagsInput component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -2023,7 +2173,7 @@
       "type": "registry:item",
       "title": "Tooltip",
       "description": "moduix Solid Tailwind Tooltip component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -2047,7 +2197,12 @@
       "type": "registry:item",
       "title": "Tree View",
       "description": "moduix Solid Tailwind Tree View component.",
-      "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "@ark-ui/solid@^5.40.0",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.1"
+      ],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -2071,7 +2226,7 @@
       "type": "registry:item",
       "title": "Tour",
       "description": "moduix Solid Tailwind Tour component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -2097,7 +2252,7 @@
       "type": "registry:item",
       "title": "Typeset",
       "description": "moduix Solid Tailwind Typeset component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid@^5.40.0", "clsx@^2.1.1", "tailwind-merge@^3.7.1"],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {

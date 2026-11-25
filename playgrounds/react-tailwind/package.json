@@ -17,6 +17,8 @@
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
+    "@unpic/core": "catalog:",
+    "@unpic/react": "catalog:",
     "clsx": "catalog:",
     "d3-shape": "catalog:",
     "react": "catalog:",
@@ -25,6 +27,7 @@
     "tailwind-merge": "catalog:",
     "tailwindcss": "catalog:",
     "typescript": "~7.0.2",
+    "unpic": "catalog:",
     "vite": "catalog:"
   }
 }
