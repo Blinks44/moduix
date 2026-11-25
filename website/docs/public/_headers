@@ -34,5 +34,5 @@
 /ru/llms-full.txt
   X-Robots-Tag: noindex
 
-/r/react/*.json
+/r/*
   X-Robots-Tag: noindex

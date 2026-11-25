@@ -2,6 +2,7 @@
 // Sizes include Ark UI and CSS; the framework itself is excluded. Limits are [CSS Modules, Tailwind].
 import { readdirSync } from 'node:fs';
 
+// Svelte adapters ship compiled .svelte source via @sveltejs/package rather than bundled JS.
 const frameworkPackages = { react: ['react', 'react-dom'], solid: ['solid-js'], vue: ['vue'] };
 const limits = {
   button: ['3 kB', '11 kB'],

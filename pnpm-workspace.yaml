@@ -80,6 +80,3 @@ catalog:
   'vite-plugin-solid': '^2.11.16'
   'vue': '^3.5.45'
   'vue-tsc': '3.3.11'
-
-minimumReleaseAgeExclude:
-  - '@lucide/svelte@1.69.0'

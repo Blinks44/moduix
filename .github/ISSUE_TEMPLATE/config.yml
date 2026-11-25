@@ -3,3 +3,6 @@ contact_links:
   - name: Documentation
     url: https://moduix.dev/
     about: Setup guides, components, themes, and tokens.
+  - name: Report a Security Vulnerability
+    url: https://github.com/Blinks44/moduix/security/advisories/new
+    about: Privately report security issues instead of opening a public issue.

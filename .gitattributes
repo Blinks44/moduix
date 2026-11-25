@@ -1,0 +1,18 @@
+* text=auto eol=lf
+
+# Binary assets
+*.gif binary
+*.ico binary
+*.jpeg binary
+*.jpg binary
+*.png binary
+*.ttf binary
+*.webp binary
+*.woff2 binary
+
+# Generated or lock files: collapse in GitHub diffs and exclude from language stats.
+pnpm-lock.yaml linguist-generated=true
+starters/*/pnpm-lock.yaml linguist-generated=true
+packages/*/registry.json linguist-generated=true
+website/registry.json linguist-generated=true
+packages/*/CHANGELOG.md linguist-generated=true

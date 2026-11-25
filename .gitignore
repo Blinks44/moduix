@@ -15,6 +15,7 @@ storybook-static/
 website/docs/public/r/
 
 # Test output
+.rstest/
 coverage/
 test-results/
 playwright-report/
@@ -29,8 +30,10 @@ blob-report/
 !.env.example
 .dev.vars*
 
-# Personal Claude Code settings
+# Personal agent settings and runtime artifacts
 .claude/settings.local.json
+.claude/scheduled_tasks.lock
+/skills/system/
 
 # Logs
 *.log

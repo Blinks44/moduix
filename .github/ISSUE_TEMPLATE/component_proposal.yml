@@ -19,7 +19,7 @@ body:
         primitive if one exists.
     validations:
       required: true
-  - type: checkboxes
+  - type: textarea
     id: alternatives
     attributes:
       label: Alternatives
@@ -29,5 +29,5 @@ body:
     attributes:
       label: Scope
       options:
-        - label: This should ship to every framework adapter (React, Solid, and planned adapters)
+        - label: This should ship to every framework adapter (React, Solid, Vue, Svelte)
         - label: This should also be available through the shadcn registry

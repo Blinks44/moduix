@@ -1,7 +1,7 @@
 ![moduix banner](https://raw.githubusercontent.com/Blinks44/moduix/main/website/docs/public/banner.jpg)
 
 [![npm](https://img.shields.io/npm/v/@moduix/svelte-tailwind?logo=npm&label=npm)](https://www.npmjs.com/package/@moduix/svelte-tailwind)
-[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE.md)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/Blinks44/moduix/blob/main/LICENSE.md)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
 # @moduix/svelte-tailwind
@@ -118,4 +118,4 @@ aliases, and SSR integration.
 
 ## License
 
-[MIT](./LICENSE.md)
+[MIT](https://github.com/Blinks44/moduix/blob/main/LICENSE.md)

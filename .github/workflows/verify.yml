@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -159,6 +160,7 @@ jobs:
 
       # Preview builds on pkg.pr.new; pnpm pack resolves catalog: versions.
       - name: Publish preview packages
+        if: github.event_name == 'pull_request'
         run: pnpm exec pkg-pr-new publish --pnpm --packageManager=pnpm './packages/*'
 
   starters:

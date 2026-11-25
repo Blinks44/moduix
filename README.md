@@ -139,6 +139,19 @@ and `contrast`.
 See [Styling](https://moduix.dev/docs/styling), [Themes](https://moduix.dev/docs/themes), and
 [Tokens](https://moduix.dev/docs/tokens) for customization.
 
+## AI and coding agents
+
+moduix ships an Agent Skill in [`skills/moduix`](skills/moduix/SKILL.md) that helps coding agents
+detect the project's framework, styling track, and install method before editing components:
+
+```bash
+pnpm dlx skills add https://github.com/Blinks44/moduix --skill moduix
+```
+
+Machine-readable documentation is also available at [`llms.txt`](https://moduix.dev/llms.txt) and
+[`llms-full.txt`](https://moduix.dev/llms-full.txt). See [AI tools](https://moduix.dev/docs/ai) for
+details.
+
 ## Versioning
 
 moduix follows semantic versioning. The 3.x API is stable: breaking changes ship only in major
@@ -169,6 +182,12 @@ moduix is possible because of the work and ideas of these projects:
 - [Rstack](https://rstack.rs/) for its Rust-based ecosystem: Rspress for documentation, Rslib for
   library builds, and Rstest for tests.
 - [VoidZero](https://voidzero.dev/) for the JavaScript tooling used throughout the workspace.
+
+## Also by Sergey V.
+
+- [**Hearth**](https://hearth.moduix.dev): Local dev environment dashboard for runtimes, projects, Docker, Kubernetes, databases, and AI agents.
+- [**Monny**](https://monny.moduix.dev): Native macOS system monitor for CPU, memory, disk, network, Apple silicon sensors, and AI usage quotas.
+- [**Rebind**](https://rebind.moduix.dev): Native macOS utility for remapping keys, mouse buttons, Logitech mice, and trackpad gestures.
 
 ## License
 
