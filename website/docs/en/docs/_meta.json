@@ -635,6 +635,26 @@
   },
   {
     "type": "custom-link",
+    "label": "llms-react.txt",
+    "link": "https://moduix.dev/llms-react.txt"
+  },
+  {
+    "type": "custom-link",
+    "label": "llms-solid.txt",
+    "link": "https://moduix.dev/llms-solid.txt"
+  },
+  {
+    "type": "custom-link",
+    "label": "llms-vue.txt",
+    "link": "https://moduix.dev/llms-vue.txt"
+  },
+  {
+    "type": "custom-link",
+    "label": "llms-svelte.txt",
+    "link": "https://moduix.dev/llms-svelte.txt"
+  },
+  {
+    "type": "custom-link",
     "label": "llms-full.txt",
     "link": "https://moduix.dev/llms-full.txt"
   }

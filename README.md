@@ -58,7 +58,7 @@ Use a standalone Vite starter with TypeScript and CSS Modules:
 ```bash
 pnpm dlx giget@latest gh:Blinks44/moduix/starters/react-vite my-app
 cd my-app
-pnpm install --frozen-lockfile
+pnpm install
 pnpm dev
 ```
 
@@ -90,8 +90,10 @@ export function Example() {
 }
 ```
 
-There is no package-root export. Only the optional Chart integration requires `@tanstack/charts`.
-The [package README](packages/react/README.md) shows how to compose a component from named parts.
+There is no package-root export. Optional integrations (`Chart` with `@tanstack/charts` and `Image`
+with `@unpic/core`, `unpic`, plus `@unpic/react` on React) install their peer dependencies only when
+you use them. The [package README](packages/react/README.md) shows how to compose a component from
+named parts.
 
 ### Own the source with the registry
 
@@ -119,15 +121,15 @@ The registry preserves the same component contracts and design tokens as the pub
 `components.json` aliases determine the destination paths.
 
 The registry also installs [blocks](https://moduix.dev/blocks), including sign-in forms, a sidebar
-dashboard, and a data table. Each block includes its source, a shared layout CSS Module, and the
-required UI components. After the same registry setup, install a block with one command:
+dashboard, settings, pricing, AI chat, and a data table. CSS Modules blocks include their source, a
+layout CSS Module, and required UI components; Tailwind blocks ship pure Tailwind utility markup
+with zero `.module.css` files. After the same registry setup, install a block with one command:
 
 ```bash
 pnpm dlx shadcn@latest add @moduix-react/login-simple
 ```
 
 Choose the matching framework and styling namespace, such as `@moduix-vue-tailwind/login-simple`.
-Tailwind blocks use Tailwind UI components and the same layout CSS Module.
 
 ## Styling and theming
 

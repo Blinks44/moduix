@@ -11,8 +11,8 @@ markup and interaction model.
 
 ## Import
 
-The hook is provided by Ark UI, not re-exported by moduix. Import it from the collection entry point
-for the framework in your application:
+Import `createListCollection` and `useListSelection` from the collection subpath for your framework
+(or from `@ark-ui/<framework>/collection` directly when using copied registry source):
 
 <Tabs
   groupId="framework"
@@ -27,28 +27,28 @@ for the framework in your application:
   <Tab value="react">
 
 ```tsx
-import { createListCollection, useListSelection } from '@ark-ui/react/collection';
+import { createListCollection, useListSelection } from '@moduix/react/collection';
 ```
 
   </Tab>
   <Tab value="solid">
 
 ```tsx
-import { createListCollection, useListSelection } from '@ark-ui/solid/collection';
+import { createListCollection, useListSelection } from '@moduix/solid/collection';
 ```
 
   </Tab>
   <Tab value="vue">
 
 ```ts
-import { createListCollection, useListSelection } from '@ark-ui/vue/collection';
+import { createListCollection, useListSelection } from '@moduix/vue/collection';
 ```
 
   </Tab>
   <Tab value="svelte">
 
 ```ts
-import { createListCollection, useListSelection } from '@ark-ui/svelte/collection';
+import { createListCollection, useListSelection } from '@moduix/svelte/collection';
 ```
 
   </Tab>

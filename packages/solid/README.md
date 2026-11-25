@@ -24,7 +24,7 @@ pnpm add @moduix/solid @ark-ui/solid
 ```
 
 Import components from subpaths such as `@moduix/solid/accordion`; there is no package-root
-export. Only the optional Chart integration requires an additional peer: `pnpm add @tanstack/charts`.
+export. Optional integrations (`Chart` with `@tanstack/charts` and `Image` with `@unpic/core`, `unpic`) require their peer dependencies only when used.
 
 ## Add styles
 

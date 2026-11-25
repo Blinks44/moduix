@@ -25,7 +25,7 @@ pnpm add @moduix/vue-tailwind @ark-ui/vue
 ```
 
 Import components from subpaths such as `@moduix/vue-tailwind/accordion`; there is no package-root
-export. Only the optional Chart integration requires an additional peer: `pnpm add @tanstack/charts`.
+export. Optional integrations (`Chart` with `@tanstack/charts` and `Image` with `@unpic/core`, `unpic`) require their peer dependencies only when used.
 
 ## Add styles
 

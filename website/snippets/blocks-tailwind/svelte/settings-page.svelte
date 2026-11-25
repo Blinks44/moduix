@@ -100,7 +100,7 @@
               <SwitchControl>
                 <SwitchThumb />
               </SwitchControl>
-              <SwitchHiddenInput />
+              <SwitchHiddenInput aria-label="Release notes" />
             </Switch>
           </div>
           <div class="flex items-center justify-between gap-4 border-b border-border pb-4">
@@ -114,7 +114,7 @@
               <SwitchControl>
                 <SwitchThumb />
               </SwitchControl>
-              <SwitchHiddenInput />
+              <SwitchHiddenInput aria-label="Security alerts" />
             </Switch>
           </div>
           <div class="flex items-center justify-between gap-4">
@@ -128,7 +128,7 @@
               <SwitchControl>
                 <SwitchThumb />
               </SwitchControl>
-              <SwitchHiddenInput />
+              <SwitchHiddenInput aria-label="Weekly digest" />
             </Switch>
           </div>
         </CardBody>

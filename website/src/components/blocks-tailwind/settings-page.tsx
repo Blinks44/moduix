@@ -110,7 +110,7 @@ export function SettingsPage() {
                   <SwitchControl>
                     <SwitchThumb />
                   </SwitchControl>
-                  <SwitchHiddenInput />
+                  <SwitchHiddenInput aria-label="Release notes" />
                 </Switch>
               </div>
               <div className="flex items-center justify-between gap-4 border-b border-border pb-4">
@@ -127,7 +127,7 @@ export function SettingsPage() {
                   <SwitchControl>
                     <SwitchThumb />
                   </SwitchControl>
-                  <SwitchHiddenInput />
+                  <SwitchHiddenInput aria-label="Security alerts" />
                 </Switch>
               </div>
               <div className="flex items-center justify-between gap-4">
@@ -144,7 +144,7 @@ export function SettingsPage() {
                   <SwitchControl>
                     <SwitchThumb />
                   </SwitchControl>
-                  <SwitchHiddenInput />
+                  <SwitchHiddenInput aria-label="Weekly digest" />
                 </Switch>
               </div>
             </CardBody>

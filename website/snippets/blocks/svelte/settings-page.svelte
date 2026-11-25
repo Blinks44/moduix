@@ -97,7 +97,7 @@
               <SwitchControl>
                 <SwitchThumb />
               </SwitchControl>
-              <SwitchHiddenInput />
+              <SwitchHiddenInput aria-label="Release notes" />
             </Switch>
           </div>
           <div class={styles.toggleRow}>
@@ -109,7 +109,7 @@
               <SwitchControl>
                 <SwitchThumb />
               </SwitchControl>
-              <SwitchHiddenInput />
+              <SwitchHiddenInput aria-label="Security alerts" />
             </Switch>
           </div>
           <div class={styles.toggleRow}>
@@ -121,7 +121,7 @@
               <SwitchControl>
                 <SwitchThumb />
               </SwitchControl>
-              <SwitchHiddenInput />
+              <SwitchHiddenInput aria-label="Weekly digest" />
             </Switch>
           </div>
         </CardBody>

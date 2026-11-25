@@ -62,7 +62,15 @@ import { Textarea } from '@moduix/react/textarea';
 import { useI18n } from '@rspress/core/runtime';
 import { CodeBlockRuntime } from '@rspress/core/theme';
 import { Check, Link2, RotateCcw, Upload } from 'lucide-react';
-import { type CSSProperties, useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
+import {
+  type CSSProperties,
+  useEffect,
+  useId,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import contrastCss from '../../../../packages/foundation/src/presets/contrast.css?raw';
 import denseCss from '../../../../packages/foundation/src/presets/dense.css?raw';
 import softCss from '../../../../packages/foundation/src/presets/soft.css?raw';
@@ -70,6 +78,7 @@ import colorsCss from '../../../../packages/foundation/src/styles/colors.css?raw
 import sizingCss from '../../../../packages/foundation/src/styles/sizing.css?raw';
 import spacingCss from '../../../../packages/foundation/src/styles/spacing.css?raw';
 import { ColorControl, RangeControl, toHex } from '../mdx/customize';
+import { useExampleSelection } from '../mdx/example-panel';
 import styles from './theme-builder.module.css';
 
 // Theme builder page: controls layer token overrides on a preset, the preview renders them,
@@ -228,14 +237,25 @@ function parseShadcn(css: string): Tokens {
   return tokens;
 }
 
-function formatTailwindTheme(tokens: Tokens) {
+const HEX_COLOR_RE = /^#[0-9a-fA-F]{6}$/;
+
+function isHexColor(value: unknown): value is string {
+  return typeof value === 'string' && HEX_COLOR_RE.test(value);
+}
+
+const appliedSiteKeys = new Set<string>();
+
+function formatTailwindTheme(tokens: Tokens, framework: string) {
+  const pkg = `@moduix/${framework}-tailwind`;
   const themeLines: string[] = [];
   for (const [name, value] of Object.entries(tokens)) {
     if (name === '--moduix-radius') {
       themeLines.push(`  --radius-md: ${value};`);
-      themeLines.push(`  --radius-lg: calc(${value} + 2px);`);
     } else if (name === '--moduix-font-sans') {
       themeLines.push(`  --font-sans: ${value};`);
+    } else if (name.startsWith('--moduix-shadow-')) {
+      const short = name.slice('--moduix-shadow-'.length);
+      themeLines.push(`  --shadow-${short}: var(${name});`);
     } else if (
       name.startsWith('--moduix-') &&
       !name.startsWith('--moduix-spacing-') &&
@@ -252,8 +272,9 @@ function formatTailwindTheme(tokens: Tokens) {
 
   return [
     '/* styles.css · Tailwind CSS v4 */',
-    "@import '@moduix/react-tailwind/style.css';",
+    `@import '${pkg}/style.css';`,
     "@import 'tailwindcss';",
+    `@source '../node_modules/${pkg}/dist/components';`,
     '',
     '[data-moduix-theme="brand"] {',
     overrides,
@@ -571,10 +592,10 @@ function decodeShareState(raw: string): ShareState | null {
 
 function ThemeBuilder() {
   const t = useI18n<typeof import('i18n')>();
+  const { framework } = useExampleSelection();
   const modeId = useId();
   const exportId = useId();
   const previewRef = useRef<HTMLDivElement>(null);
-  const appliedKeysRef = useRef<string[]>([]);
 
   const [base, setBase] = useState<Preset>('calm');
   const [primary, setPrimary] = useState<string | null>(null);
@@ -587,7 +608,7 @@ function ThemeBuilder() {
   const [font, setFont] = useState<FontChoice>('default');
   const [imported, setImported] = useState<Tokens>({});
   const [mode, setMode] = useState<'light' | 'dark'>('light');
-  const [applyToSite, setApplyToSite] = useState(false);
+  const [applyToSite, setApplyToSite] = useState(() => appliedSiteKeys.size > 0);
   const [exportFormat, setExportFormat] = useState<ExportFormat>('css');
   const [basePrimary, setBasePrimary] = useState('#000000');
   const [copied, setCopied] = useState(false);
@@ -600,51 +621,63 @@ function ThemeBuilder() {
     const state = decodeShareState(param);
     if (!state) return;
     if (state.b && state.b in presets) setBase(state.b);
-    if (state.p) setPrimary(state.p);
-    if (typeof state.h === 'number') setHue(state.h);
-    if (typeof state.r === 'number') setRadius(state.r);
+    if (isHexColor(state.p)) setPrimary(state.p);
+    if (typeof state.h === 'number' && Number.isFinite(state.h) && state.h >= 0 && state.h <= 360) {
+      setHue(state.h);
+    }
+    if (typeof state.r === 'number' && Number.isFinite(state.r) && state.r >= 0 && state.r <= 24) {
+      setRadius(state.r);
+    }
     if (state.d && ['compact', 'default', 'comfortable'].includes(state.d)) setDensity(state.d);
     if (state.f && fontOptions.some((item) => item.value === state.f)) setFont(state.f);
-    if (state.x) setDestructive(state.x);
-    if (state.s) setSuccess(state.s);
-    if (state.c) setChartAccent(state.c);
+    if (isHexColor(state.x)) setDestructive(state.x);
+    if (isHexColor(state.s)) setSuccess(state.s);
+    if (isHexColor(state.c)) setChartAccent(state.c);
   }, []);
 
   const selectedFont = fontOptions.find((item) => item.value === font);
 
   // Untouched controls show the values of the preset and the imported theme.
-  const tokens: Tokens = {
-    ...presets[base].tokens,
-    ...(hue === null ? {} : neutrals(hue)),
-    ...imported,
-    ...(density === null ? {} : densityTokens(density)),
-    ...(radius === null ? {} : { '--moduix-radius': `${radius / 16}rem` }),
-    ...(selectedFont?.stack ? { '--moduix-font-sans': selectedFont.stack } : {}),
-    ...(primary === null ? {} : colorPair(primary, '--moduix-primary', true)),
-    ...(destructive === null ? {} : colorPair(destructive, '--moduix-destructive', true)),
-    ...(success === null ? {} : colorPair(success, '--moduix-success', true)),
-    ...(chartAccent === null ? {} : chartTokens(chartAccent)),
-  };
+  const tokens: Tokens = useMemo(
+    () => ({
+      ...presets[base].tokens,
+      ...(hue === null ? {} : neutrals(hue)),
+      ...imported,
+      ...(density === null ? {} : densityTokens(density)),
+      ...(radius === null ? {} : { '--moduix-radius': `${radius / 16}rem` }),
+      ...(selectedFont?.stack ? { '--moduix-font-sans': selectedFont.stack } : {}),
+      ...(primary === null ? {} : colorPair(primary, '--moduix-primary', true)),
+      ...(destructive === null ? {} : colorPair(destructive, '--moduix-destructive', true)),
+      ...(success === null ? {} : colorPair(success, '--moduix-success', true)),
+      ...(chartAccent === null ? {} : chartTokens(chartAccent)),
+    }),
+    [
+      base,
+      hue,
+      imported,
+      density,
+      radius,
+      selectedFont,
+      primary,
+      destructive,
+      success,
+      chartAccent,
+    ],
+  );
 
   // Optional live site-wide application of custom tokens onto <html>.
+  // Intentionally persists across docs navigation until turned off or reset.
   useEffect(() => {
     const root = document.documentElement;
-    for (const key of appliedKeysRef.current) {
+    for (const key of appliedSiteKeys) {
       root.style.removeProperty(key);
     }
-    appliedKeysRef.current = [];
+    appliedSiteKeys.clear();
     if (!applyToSite) return;
-    const keys = Object.keys(tokens);
     for (const [key, value] of Object.entries(tokens)) {
       root.style.setProperty(key, value);
+      appliedSiteKeys.add(key);
     }
-    appliedKeysRef.current = keys;
-    return () => {
-      for (const key of appliedKeysRef.current) {
-        root.style.removeProperty(key);
-      }
-      appliedKeysRef.current = [];
-    };
   }, [applyToSite, tokens]);
 
   const css = `/* brand.css · after the foundation styles */\n[data-moduix-theme='brand'] {\n${
@@ -653,7 +686,8 @@ function ThemeBuilder() {
       .join('\n') || '  /* No changes from Calm yet */'
   }\n}`;
 
-  const outputCode = exportFormat === 'tailwind' ? formatTailwindTheme(tokens) : css;
+  const outputCode =
+    exportFormat === 'tailwind' ? formatTailwindTheme(tokens, framework.value) : css;
 
   // The light primary of the current tokens, read from the preview.
   useLayoutEffect(() => {
@@ -859,9 +893,13 @@ function ThemeBuilder() {
             onImport={(next) => {
               setImported(next);
               setPrimary(null);
+              setDestructive(null);
+              setSuccess(null);
+              setChartAccent(null);
               setHue(null);
               setRadius(null);
               setDensity(null);
+              setFont('default');
             }}
           />
         </div>

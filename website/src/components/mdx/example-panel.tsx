@@ -77,8 +77,20 @@ function toDisplayCode(code: string) {
     .replaceAll(/@\/components\/examples\/(?:[^/'"]+\/)*([^/'"]+\.module\.css)/g, './$1');
 }
 
-function applyImportStyle(code: string, framework: Framework, importStyle: ImportStyle) {
-  if (importStyle !== 'registry') return code;
+function applyImportStyle(
+  code: string,
+  framework: Framework,
+  importStyle: ImportStyle,
+  styling = 'css-modules',
+) {
+  const pkg = styling === 'tailwind' ? `${framework}-tailwind` : framework;
+
+  if (importStyle === 'package') {
+    return code.replaceAll(
+      /(['"])@\/components\/ui\/([^'"]+)\1/g,
+      (_, quote: string, subpath: string) => `${quote}@moduix/${pkg}/${subpath}${quote}`,
+    );
+  }
 
   return code.replaceAll(
     new RegExp(`(['"])@moduix/${framework}(?:-tailwind)?/([^'"]+)\\1`, 'g'),
@@ -86,8 +98,8 @@ function applyImportStyle(code: string, framework: Framework, importStyle: Impor
       if (subpath === 'style.css' || subpath === 'reset.css') {
         return `${quote}@/lib/moduix/styles/${subpath}${quote}`;
       }
-      if (subpath === 'locale') {
-        return `${quote}@/lib/moduix/locale${quote}`;
+      if (subpath === 'locale' || subpath === 'collection') {
+        return `${quote}@ark-ui/${framework}/${subpath}${quote}`;
       }
       return `${quote}@/components/ui/${subpath}${quote}`;
     },
@@ -103,9 +115,12 @@ function toStyling(
   const normalized = toDisplayCode(code);
   const styled =
     styling === 'tailwind'
-      ? normalized.replaceAll(`'@moduix/${framework}/`, `'@moduix/${framework}-tailwind/`)
+      ? normalized.replaceAll(
+          new RegExp(`(['"])@moduix/${framework}/`, 'g'),
+          `$1@moduix/${framework}-tailwind/`,
+        )
       : normalized;
-  return applyImportStyle(styled, framework, importStyle);
+  return applyImportStyle(styled, framework, importStyle, styling);
 }
 
 function PanelSelect({
@@ -148,7 +163,7 @@ const optionalBlockDeps: Record<string, string> = {
   'lucide-solid': '^1.77.0',
   '@lucide/vue': '^1.77.0',
   '@lucide/svelte': '^1.77.0',
-  '@tanstack/charts': '^0.1.0',
+  '@tanstack/charts': '^1.5.0',
   '@tanstack/react-table': '^9.3.1',
   '@tanstack/solid-table': '^9.3.1',
   '@tanstack/vue-table': '^9.3.1',
@@ -168,7 +183,8 @@ function buildBlockProject(
     (_, quote: string, subpath: string) => `${quote}@moduix/${framework}/${subpath}${quote}`,
   );
   if ((framework === 'react' || framework === 'solid') && !/\bexport\s+default\b/.test(entryCode)) {
-    const match = entryCode.match(/export\s+function\s+(\w+)/);
+    const match =
+      entryCode.match(/export\s+function\s+(\w+)/) ?? entryCode.match(/export\s*\{\s*([A-Z]\w*)\b/);
     if (match) {
       entryCode = `${entryCode.trimEnd()}\n\nexport default ${match[1]};\n`;
     }
@@ -220,7 +236,7 @@ function ExamplePanel({
     isTailwind && tailwindSources ? tailwindSources[framework.value] : sources[framework.value];
   const code =
     isTailwind && tailwindSources
-      ? applyImportStyle(toDisplayCode(rawSource), framework.value, importStyle.value)
+      ? applyImportStyle(toDisplayCode(rawSource), framework.value, importStyle.value, 'tailwind')
       : toStyling(rawSource, framework.value, styling.value, importStyle.value);
   const visibleFiles = isTailwind
     ? (tailwindFiles ??

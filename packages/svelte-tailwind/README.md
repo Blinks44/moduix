@@ -25,8 +25,7 @@ pnpm add @moduix/svelte-tailwind @ark-ui/svelte
 ```
 
 Import components from subpaths such as `@moduix/svelte-tailwind/accordion`; there is no
-package-root export. Only the optional Chart integration requires an additional peer:
-`pnpm add @tanstack/charts`.
+package-root export. Optional integrations (`Chart` with `@tanstack/charts` and `Image` with `@unpic/core`, `unpic`) require their peer dependencies only when used.
 
 ## Add styles
 

@@ -39,6 +39,9 @@ jobs:
       - name: Check CSS Modules parity
         run: pnpm run check:css-modules
 
+      - name: Check package exports
+        run: pnpm run check:exports
+
   test:
     name: Test
     runs-on: ubuntu-latest

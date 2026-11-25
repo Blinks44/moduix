@@ -18,7 +18,10 @@ const FW_BLOCK_RE =
 const defaultOutDir = fileURLToPath(new URL('../doc_build', import.meta.url));
 
 function normalizeMarkdown(markdown: string): string {
-  return `${markdown.replace(/\n{3,}/g, '\n\n').trimEnd()}\n`;
+  return `${markdown
+    .replace(/\n## Usage\n+(?=## )/g, '\n')
+    .replace(/\n{3,}/g, '\n\n')
+    .trimEnd()}\n`;
 }
 
 function filterForFramework(
@@ -115,7 +118,7 @@ export function pluginLlmsPerFramework(): RspressPlugin {
             `> Complete moduix documentation filtered to ${fw.label} installation commands and examples. ` +
             `Other frameworks: ${FRAMEWORKS.filter((item) => item.id !== fw.id)
               .map((item) => `[${item.label}](${siteOrigin}/llms-${item.id}.txt)`)
-              .join(', ')}.\n\n---\n\n`;
+              .join(', ')}.\n\n`;
           writeFileSync(path.join(outDir, `llms-${fw.id}.txt`), `${header}${content}`, 'utf8');
         }
         writeFileSync(llmsFullPath, stripMarkersOnly(rawFull), 'utf8');

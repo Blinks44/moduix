@@ -79,20 +79,17 @@ const controlCatalog: CssControls = {
   '--moduix-tag-bg': 'color',
   '--moduix-tag-color': 'color',
   '--moduix-tag-border-color': 'color',
-  '--moduix-tag-radius': [0, 18, 1, 'px'],
   // Progress Linear
-  '--moduix-progress-track-bg': 'color',
-  '--moduix-progress-range-bg': 'color',
-  '--moduix-progress-track-height': [2, 16, 1, 'px'],
-  '--moduix-progress-radius': [0, 12, 1, 'px'],
+  '--moduix-progress-linear-track-bg': 'color',
+  '--moduix-progress-linear-range-bg': 'color',
+  '--moduix-progress-linear-track-size': [2, 16, 1, 'px'],
   // Radio Group
   '--moduix-radio-bg': 'color',
   '--moduix-radio-border-color': 'color',
-  '--moduix-radio-indicator-bg': 'color',
+  '--moduix-radio-indicator-color': 'color',
   '--moduix-radio-size': [14, 28, 1, 'px'],
   // Textarea
   '--moduix-textarea-radius': [0, 20, 1, 'px'],
-  '--moduix-textarea-min-height': [60, 180, 10, 'px'],
 };
 
 export function resolveDefaultControls(rows: CssProperty[]): CssControls | undefined {

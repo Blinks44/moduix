@@ -16,8 +16,8 @@ chooses the list structure and status UI.
 
 ## Import
 
-This hook is provided by Ark UI, not re-exported by moduix. Use the collection entry point for the
-framework in your application:
+Import `useAsyncList` from the collection subpath for your framework (or from
+`@ark-ui/<framework>/collection` directly when using copied registry source):
 
 <Tabs
   groupId="framework"
@@ -32,28 +32,28 @@ framework in your application:
   <Tab value="react">
 
 ```tsx
-import { useAsyncList } from '@ark-ui/react/collection';
+import { useAsyncList } from '@moduix/react/collection';
 ```
 
   </Tab>
   <Tab value="solid">
 
 ```tsx
-import { useAsyncList } from '@ark-ui/solid/collection';
+import { useAsyncList } from '@moduix/solid/collection';
 ```
 
   </Tab>
   <Tab value="vue">
 
 ```ts
-import { useAsyncList } from '@ark-ui/vue/collection';
+import { useAsyncList } from '@moduix/vue/collection';
 ```
 
   </Tab>
   <Tab value="svelte">
 
 ```ts
-import { useAsyncList } from '@ark-ui/svelte/collection';
+import { useAsyncList } from '@moduix/svelte/collection';
 ```
 
   </Tab>

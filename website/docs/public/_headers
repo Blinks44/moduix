@@ -7,18 +7,6 @@
 /blocks/*.md
   X-Robots-Tag: noindex
 
-/fr/index.md
-  X-Robots-Tag: noindex
-
-/fr/docs/*.md
-  X-Robots-Tag: noindex
-
-/ru/index.md
-  X-Robots-Tag: noindex
-
-/ru/docs/*.md
-  X-Robots-Tag: noindex
-
 /llms.txt
   X-Robots-Tag: noindex
 
@@ -35,18 +23,6 @@
   X-Robots-Tag: noindex
 
 /llms-full.txt
-  X-Robots-Tag: noindex
-
-/fr/llms.txt
-  X-Robots-Tag: noindex
-
-/fr/llms-full.txt
-  X-Robots-Tag: noindex
-
-/ru/llms.txt
-  X-Robots-Tag: noindex
-
-/ru/llms-full.txt
   X-Robots-Tag: noindex
 
 /r/*
