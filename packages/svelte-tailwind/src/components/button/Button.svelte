@@ -46,7 +46,7 @@
           xs: 'min-h-control-xs px-2.5 py-0.5 text-xs',
           sm: 'min-h-control-sm px-3 py-1 text-sm',
           md: 'min-h-control-md px-4 py-1 text-sm',
-          lg: 'min-h-control-lg px-5 py-1.5 text-md',
+          lg: 'min-h-control-lg px-5 py-1.5 text-base',
           xl: 'min-h-control-xl px-6 py-2 text-lg',
           'icon-sm': 'size-control-sm min-w-control-sm gap-0 p-0',
           'icon-md': 'size-control-md min-w-control-md gap-0 p-0',

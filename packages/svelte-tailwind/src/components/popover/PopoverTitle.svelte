@@ -8,6 +8,6 @@
 <PopoverTitle
   {...props}
   bind:ref
-  class={cn('text-md font-semibold', className)}
+  class={cn('text-base font-semibold', className)}
   data-slot="popover-title"
 />

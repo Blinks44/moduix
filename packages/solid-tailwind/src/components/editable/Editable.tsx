@@ -12,7 +12,7 @@ const rootClass =
   'grid w-full grid-cols-[minmax(0,1fr)_auto] items-start gap-1 text-foreground has-data-autoresize:w-fit has-data-autoresize:max-w-full has-data-disabled:opacity-disabled [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100';
 
 const triggerClass =
-  'inline-flex size-control-md shrink-0 cursor-pointer items-center justify-center rounded-sm border border-border bg-background text-foreground outline-focus-inset outline-offset-focus-inset outline-transparent transition-[background-color,outline-color] duration-normal ease-in-out focus-visible:outline-ring active:bg-accent disabled:pointer-events-none [&>svg]:size-4 [&>svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent';
+  'inline-flex size-control-md shrink-0 cursor-pointer items-center justify-center rounded-sm border border-border bg-background text-foreground outline-focus-inset outline-offset-focus-inset outline-transparent transition-[background-color,outline-color] duration-normal ease-in-out focus-visible:outline-ring active:bg-accent disabled:pointer-events-none [&>svg]:size-4 [&>svg]:shrink-0 hover:bg-accent';
 
 function Editable(props: ComponentProps<typeof EditablePrimitive.Root>) {
   const [local, others] = splitProps(props, ['activationMode', 'class']);
@@ -60,7 +60,7 @@ function EditableArea(props: ComponentProps<typeof EditablePrimitive.Area>) {
   return (
     <EditablePrimitive.Area
       class={cn(
-        'flex min-h-control-md min-w-0 items-center rounded-md border border-input bg-background px-3.5 py-1 text-md leading-6 outline-focus-halo outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out has-focus-visible:border-ring has-focus-visible:outline-ring/50 has-data-invalid:border-destructive has-data-invalid:has-focus-visible:outline-destructive/20 data-disabled:pointer-events-none data-focus:border-ring data-focus:outline-ring/50 has-data-invalid:data-focus:outline-destructive/20',
+        'flex min-h-control-md min-w-0 items-center rounded-md border border-input bg-background px-3.5 py-1 text-base leading-6 outline-focus-halo outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out has-focus-visible:border-ring has-focus-visible:outline-ring/50 has-data-invalid:border-destructive has-data-invalid:has-focus-visible:outline-destructive/20 data-disabled:pointer-events-none data-focus:border-ring data-focus:outline-ring/50 has-data-invalid:data-focus:outline-destructive/20',
         local.class,
       )}
       {...others}

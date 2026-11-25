@@ -10,7 +10,7 @@
   {...props}
   bind:ref
   class={cn(
-    '[--arrow-background:var(--color-popover)] [--arrow-size:var(--spacing-2_5)]',
+    '[--arrow-background:var(--color-popover)] [--arrow-size:calc(var(--spacing)*2.5)]',
     className,
   )}
   data-slot="tour-arrow"

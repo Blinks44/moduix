@@ -15,7 +15,7 @@ export const inputGroupRootVariants = cva(
       size: {
         xs: 'min-h-control-xs text-xs leading-4',
         sm: 'min-h-control-sm text-sm leading-5',
-        md: 'min-h-control-md text-md leading-6',
+        md: 'min-h-control-md text-base leading-6',
         lg: 'min-h-control-lg text-lg leading-7',
         xl: 'min-h-control-xl text-lg leading-7',
       },

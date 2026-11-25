@@ -13,15 +13,21 @@ import projectsDashboardSvelte from '../../../snippets/blocks/svelte/projects-da
 import projectsDashboardReact from '../../../src/components/blocks/projects-dashboard.tsx?raw';
 import projectsDashboardCss from '../../../src/components/blocks/projects-dashboard.module.css?raw';
 export const projectsDashboardLive = { solid: () => import('../../../snippets/blocks/solid/projects-dashboard.tsx').then((module) => ({ default: module.ProjectsDashboard })), vue: () => import('../../../snippets/blocks/vue/projects-dashboard.vue'), svelte: () => import('../../../snippets/blocks/svelte/projects-dashboard.svelte') };
+import projectsDashboardReactTailwind from '../../../src/components/blocks-tailwind/projects-dashboard.tsx?raw';
+import projectsDashboardSolidTailwind from '../../../snippets/blocks-tailwind/solid/projects-dashboard.tsx?raw';
+import projectsDashboardVueTailwind from '../../../snippets/blocks-tailwind/vue/projects-dashboard.vue?raw';
+import projectsDashboardSvelteTailwind from '../../../snippets/blocks-tailwind/svelte/projects-dashboard.svelte?raw';
+export const projectsDashboardLiveTailwind = { react: () => import('@/components/blocks-tailwind/projects-dashboard').then((module) => ({ default: module.ProjectsDashboard })), solid: () => import('../../../snippets/blocks-tailwind/solid/projects-dashboard.tsx').then((module) => ({ default: module.ProjectsDashboard })), vue: () => import('../../../snippets/blocks-tailwind/vue/projects-dashboard.vue'), svelte: () => import('../../../snippets/blocks-tailwind/svelte/projects-dashboard.svelte') };
 
 # Projects dashboard
 
 <ExamplePanel
   clientOnly
   sources={{ react: projectsDashboardReact, solid: projectsDashboardSolid, vue: projectsDashboardVue, svelte: projectsDashboardSvelte }}
+  tailwindSources={{ react: projectsDashboardReactTailwind, solid: projectsDashboardSolidTailwind, vue: projectsDashboardVueTailwind, svelte: projectsDashboardSvelteTailwind }}
   files={[{ name: 'projects-dashboard.module.css', code: projectsDashboardCss }]}
 >
-  <FrameworkPreview live={projectsDashboardLive}>
+  <FrameworkPreview live={projectsDashboardLive} liveTailwind={projectsDashboardLiveTailwind}>
     <ProjectsDashboard />
   </FrameworkPreview>
 </ExamplePanel>

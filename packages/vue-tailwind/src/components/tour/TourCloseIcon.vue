@@ -26,7 +26,7 @@ const attrs = useAttrs();
       :aria-label="ariaLabel ?? a11yLabels.closeTour"
       :class="
         cn(
-          'absolute end-4 top-4 rounded-md [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-popover-foreground',
+          'absolute end-4 top-4 rounded-md not-data-disabled:hover:bg-accent not-data-disabled:hover:text-popover-foreground',
           className,
         )
       "

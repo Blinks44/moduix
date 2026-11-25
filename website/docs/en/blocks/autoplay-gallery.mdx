@@ -13,15 +13,21 @@ import autoplayGallerySvelte from '../../../snippets/blocks/svelte/autoplay-gall
 import autoplayGalleryReact from '../../../src/components/blocks/autoplay-gallery.tsx?raw';
 import autoplayGalleryCss from '../../../src/components/blocks/autoplay-gallery.module.css?raw';
 export const autoplayGalleryLive = { solid: () => import('../../../snippets/blocks/solid/autoplay-gallery.tsx').then((module) => ({ default: module.AutoplayGallery })), vue: () => import('../../../snippets/blocks/vue/autoplay-gallery.vue'), svelte: () => import('../../../snippets/blocks/svelte/autoplay-gallery.svelte') };
+import autoplayGalleryReactTailwind from '../../../src/components/blocks-tailwind/autoplay-gallery.tsx?raw';
+import autoplayGallerySolidTailwind from '../../../snippets/blocks-tailwind/solid/autoplay-gallery.tsx?raw';
+import autoplayGalleryVueTailwind from '../../../snippets/blocks-tailwind/vue/autoplay-gallery.vue?raw';
+import autoplayGallerySvelteTailwind from '../../../snippets/blocks-tailwind/svelte/autoplay-gallery.svelte?raw';
+export const autoplayGalleryLiveTailwind = { react: () => import('@/components/blocks-tailwind/autoplay-gallery').then((module) => ({ default: module.AutoplayGallery })), solid: () => import('../../../snippets/blocks-tailwind/solid/autoplay-gallery.tsx').then((module) => ({ default: module.AutoplayGallery })), vue: () => import('../../../snippets/blocks-tailwind/vue/autoplay-gallery.vue'), svelte: () => import('../../../snippets/blocks-tailwind/svelte/autoplay-gallery.svelte') };
 
 # Autoplay gallery
 
 <ExamplePanel
   clientOnly
   sources={{ react: autoplayGalleryReact, solid: autoplayGallerySolid, vue: autoplayGalleryVue, svelte: autoplayGallerySvelte }}
+  tailwindSources={{ react: autoplayGalleryReactTailwind, solid: autoplayGallerySolidTailwind, vue: autoplayGalleryVueTailwind, svelte: autoplayGallerySvelteTailwind }}
   files={[{ name: 'autoplay-gallery.module.css', code: autoplayGalleryCss }]}
 >
-  <FrameworkPreview live={autoplayGalleryLive}>
+  <FrameworkPreview live={autoplayGalleryLive} liveTailwind={autoplayGalleryLiveTailwind}>
     <AutoplayGallery />
   </FrameworkPreview>
 </ExamplePanel>

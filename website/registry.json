@@ -17,14 +17,9 @@
       ],
       "files": [
         {
-          "path": "src/components/blocks/login-simple/login-simple.tsx",
+          "path": "src/components/blocks-tailwind/login-simple/login-simple.tsx",
           "type": "registry:component",
           "target": "@components/blocks/login-simple/login-simple.tsx"
-        },
-        {
-          "path": "src/components/blocks/login-simple/login-simple-form.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/login-simple/login-simple-form.module.css"
         }
       ]
     },
@@ -43,14 +38,9 @@
       ],
       "files": [
         {
-          "path": "src/components/blocks/sidebar-dashboard.tsx",
+          "path": "src/components/blocks-tailwind/sidebar-dashboard.tsx",
           "type": "registry:component",
           "target": "@components/blocks/sidebar-dashboard/sidebar-dashboard.tsx"
-        },
-        {
-          "path": "src/components/blocks/sidebar-dashboard.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/sidebar-dashboard/sidebar-dashboard.module.css"
         }
       ]
     },
@@ -76,14 +66,9 @@
       ],
       "files": [
         {
-          "path": "src/components/blocks/projects-dashboard.tsx",
+          "path": "src/components/blocks-tailwind/projects-dashboard.tsx",
           "type": "registry:component",
           "target": "@components/blocks/projects-dashboard/projects-dashboard.tsx"
-        },
-        {
-          "path": "src/components/blocks/projects-dashboard.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/projects-dashboard/projects-dashboard.module.css"
         }
       ]
     },
@@ -98,29 +83,9 @@
       ],
       "files": [
         {
-          "path": "src/components/blocks/app-shell/app-shell.tsx",
+          "path": "src/components/blocks-tailwind/app-shell/app-shell.tsx",
           "type": "registry:component",
           "target": "@components/blocks/app-shell/app-shell.tsx"
-        },
-        {
-          "path": "src/components/blocks/app-shell/app-shell.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/app-shell/app-shell.module.css"
-        },
-        {
-          "path": "src/components/blocks/app-shell/icons/menu.svg",
-          "type": "registry:file",
-          "target": "@components/blocks/app-shell/icons/menu.svg"
-        },
-        {
-          "path": "src/components/blocks/app-shell/icons/sun.svg",
-          "type": "registry:file",
-          "target": "@components/blocks/app-shell/icons/sun.svg"
-        },
-        {
-          "path": "src/components/blocks/app-shell/icons/github.svg",
-          "type": "registry:file",
-          "target": "@components/blocks/app-shell/icons/github.svg"
         }
       ]
     },
@@ -135,14 +100,9 @@
       ],
       "files": [
         {
-          "path": "src/components/blocks/file-upload-manager.tsx",
+          "path": "src/components/blocks-tailwind/file-upload-manager.tsx",
           "type": "registry:component",
           "target": "@components/blocks/file-upload-manager/file-upload-manager.tsx"
-        },
-        {
-          "path": "src/components/blocks/file-upload-manager.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/file-upload-manager/file-upload-manager.module.css"
         }
       ]
     },
@@ -160,14 +120,9 @@
       ],
       "files": [
         {
-          "path": "src/components/blocks/app-header.tsx",
+          "path": "src/components/blocks-tailwind/app-header.tsx",
           "type": "registry:component",
           "target": "@components/blocks/app-header/app-header.tsx"
-        },
-        {
-          "path": "src/components/blocks/app-header.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/app-header/app-header.module.css"
         }
       ]
     },
@@ -185,14 +140,9 @@
       ],
       "files": [
         {
-          "path": "src/components/blocks/sign-up/sign-up.tsx",
+          "path": "src/components/blocks-tailwind/sign-up/sign-up.tsx",
           "type": "registry:component",
           "target": "@components/blocks/sign-up/sign-up.tsx"
-        },
-        {
-          "path": "src/components/blocks/sign-up/sign-up-form.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/sign-up/sign-up-form.module.css"
         }
       ]
     },
@@ -209,14 +159,9 @@
       ],
       "files": [
         {
-          "path": "src/components/blocks/forgot-password/forgot-password.tsx",
+          "path": "src/components/blocks-tailwind/forgot-password/forgot-password.tsx",
           "type": "registry:component",
           "target": "@components/blocks/forgot-password/forgot-password.tsx"
-        },
-        {
-          "path": "src/components/blocks/forgot-password/forgot-password-form.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/forgot-password/forgot-password-form.module.css"
         }
       ]
     },
@@ -233,14 +178,9 @@
       ],
       "files": [
         {
-          "path": "src/components/blocks/reset-password/reset-password.tsx",
+          "path": "src/components/blocks-tailwind/reset-password/reset-password.tsx",
           "type": "registry:component",
           "target": "@components/blocks/reset-password/reset-password.tsx"
-        },
-        {
-          "path": "src/components/blocks/reset-password/reset-password-form.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/reset-password/reset-password-form.module.css"
         }
       ]
     },
@@ -257,14 +197,9 @@
       ],
       "files": [
         {
-          "path": "src/components/blocks/verification-code/verification-code.tsx",
+          "path": "src/components/blocks-tailwind/verification-code/verification-code.tsx",
           "type": "registry:component",
           "target": "@components/blocks/verification-code/verification-code.tsx"
-        },
-        {
-          "path": "src/components/blocks/verification-code/verification-code-form.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/verification-code/verification-code-form.module.css"
         }
       ]
     },
@@ -284,14 +219,9 @@
       ],
       "files": [
         {
-          "path": "src/components/blocks/data-table.tsx",
+          "path": "src/components/blocks-tailwind/data-table.tsx",
           "type": "registry:component",
           "target": "@components/blocks/data-table/data-table.tsx"
-        },
-        {
-          "path": "src/components/blocks/data-table.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/data-table/data-table.module.css"
         }
       ]
     },
@@ -306,14 +236,9 @@
       ],
       "files": [
         {
-          "path": "src/components/blocks/expandable-avatar-group.tsx",
+          "path": "src/components/blocks-tailwind/expandable-avatar-group.tsx",
           "type": "registry:component",
           "target": "@components/blocks/expandable-avatar-group/expandable-avatar-group.tsx"
-        },
-        {
-          "path": "src/components/blocks/expandable-avatar-group.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/expandable-avatar-group/expandable-avatar-group.module.css"
         }
       ]
     },
@@ -330,14 +255,9 @@
       ],
       "files": [
         {
-          "path": "src/components/blocks/analytics-overview.tsx",
+          "path": "src/components/blocks-tailwind/analytics-overview.tsx",
           "type": "registry:component",
           "target": "@components/blocks/analytics-overview/analytics-overview.tsx"
-        },
-        {
-          "path": "src/components/blocks/analytics-overview.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/analytics-overview/analytics-overview.module.css"
         }
       ]
     },
@@ -349,14 +269,9 @@
       "registryDependencies": ["https://moduix.dev/r/react-tailwind/carousel.json"],
       "files": [
         {
-          "path": "src/components/blocks/autoplay-gallery.tsx",
+          "path": "src/components/blocks-tailwind/autoplay-gallery.tsx",
           "type": "registry:component",
           "target": "@components/blocks/autoplay-gallery/autoplay-gallery.tsx"
-        },
-        {
-          "path": "src/components/blocks/autoplay-gallery.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/autoplay-gallery/autoplay-gallery.module.css"
         }
       ]
     },
@@ -368,14 +283,9 @@
       "registryDependencies": ["https://moduix.dev/r/react-tailwind/card.json"],
       "files": [
         {
-          "path": "src/components/blocks/parallax-card.tsx",
+          "path": "src/components/blocks-tailwind/parallax-card.tsx",
           "type": "registry:component",
           "target": "@components/blocks/parallax-card/parallax-card.tsx"
-        },
-        {
-          "path": "src/components/blocks/parallax-card.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/parallax-card/parallax-card.module.css"
         }
       ]
     },
@@ -769,14 +679,9 @@
       ],
       "files": [
         {
-          "path": "snippets/blocks/solid/login-simple.tsx",
+          "path": "snippets/blocks-tailwind/solid/login-simple.tsx",
           "type": "registry:component",
           "target": "@components/blocks/login-simple/login-simple.tsx"
-        },
-        {
-          "path": "src/components/blocks/login-simple/login-simple-form.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/login-simple/login-simple-form.module.css"
         }
       ]
     },
@@ -795,14 +700,9 @@
       ],
       "files": [
         {
-          "path": "snippets/blocks/solid/sidebar-dashboard.tsx",
+          "path": "snippets/blocks-tailwind/solid/sidebar-dashboard.tsx",
           "type": "registry:component",
           "target": "@components/blocks/sidebar-dashboard/sidebar-dashboard.tsx"
-        },
-        {
-          "path": "src/components/blocks/sidebar-dashboard.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/sidebar-dashboard/sidebar-dashboard.module.css"
         }
       ]
     },
@@ -828,14 +728,9 @@
       ],
       "files": [
         {
-          "path": "snippets/blocks/solid/projects-dashboard.tsx",
+          "path": "snippets/blocks-tailwind/solid/projects-dashboard.tsx",
           "type": "registry:component",
           "target": "@components/blocks/projects-dashboard/projects-dashboard.tsx"
-        },
-        {
-          "path": "src/components/blocks/projects-dashboard.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/projects-dashboard/projects-dashboard.module.css"
         }
       ]
     },
@@ -850,29 +745,9 @@
       ],
       "files": [
         {
-          "path": "snippets/blocks/solid/app-shell.tsx",
+          "path": "snippets/blocks-tailwind/solid/app-shell.tsx",
           "type": "registry:component",
           "target": "@components/blocks/app-shell/app-shell.tsx"
-        },
-        {
-          "path": "src/components/blocks/app-shell/app-shell.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/app-shell/app-shell.module.css"
-        },
-        {
-          "path": "src/components/blocks/app-shell/icons/menu.svg",
-          "type": "registry:file",
-          "target": "@components/blocks/app-shell/icons/menu.svg"
-        },
-        {
-          "path": "src/components/blocks/app-shell/icons/sun.svg",
-          "type": "registry:file",
-          "target": "@components/blocks/app-shell/icons/sun.svg"
-        },
-        {
-          "path": "src/components/blocks/app-shell/icons/github.svg",
-          "type": "registry:file",
-          "target": "@components/blocks/app-shell/icons/github.svg"
         }
       ]
     },
@@ -887,14 +762,9 @@
       ],
       "files": [
         {
-          "path": "snippets/blocks/solid/file-upload-manager.tsx",
+          "path": "snippets/blocks-tailwind/solid/file-upload-manager.tsx",
           "type": "registry:component",
           "target": "@components/blocks/file-upload-manager/file-upload-manager.tsx"
-        },
-        {
-          "path": "src/components/blocks/file-upload-manager.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/file-upload-manager/file-upload-manager.module.css"
         }
       ]
     },
@@ -912,14 +782,9 @@
       ],
       "files": [
         {
-          "path": "snippets/blocks/solid/app-header.tsx",
+          "path": "snippets/blocks-tailwind/solid/app-header.tsx",
           "type": "registry:component",
           "target": "@components/blocks/app-header/app-header.tsx"
-        },
-        {
-          "path": "src/components/blocks/app-header.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/app-header/app-header.module.css"
         }
       ]
     },
@@ -937,14 +802,9 @@
       ],
       "files": [
         {
-          "path": "snippets/blocks/solid/sign-up.tsx",
+          "path": "snippets/blocks-tailwind/solid/sign-up.tsx",
           "type": "registry:component",
           "target": "@components/blocks/sign-up/sign-up.tsx"
-        },
-        {
-          "path": "src/components/blocks/sign-up/sign-up-form.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/sign-up/sign-up-form.module.css"
         }
       ]
     },
@@ -961,14 +821,9 @@
       ],
       "files": [
         {
-          "path": "snippets/blocks/solid/forgot-password.tsx",
+          "path": "snippets/blocks-tailwind/solid/forgot-password.tsx",
           "type": "registry:component",
           "target": "@components/blocks/forgot-password/forgot-password.tsx"
-        },
-        {
-          "path": "src/components/blocks/forgot-password/forgot-password-form.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/forgot-password/forgot-password-form.module.css"
         }
       ]
     },
@@ -985,14 +840,9 @@
       ],
       "files": [
         {
-          "path": "snippets/blocks/solid/reset-password.tsx",
+          "path": "snippets/blocks-tailwind/solid/reset-password.tsx",
           "type": "registry:component",
           "target": "@components/blocks/reset-password/reset-password.tsx"
-        },
-        {
-          "path": "src/components/blocks/reset-password/reset-password-form.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/reset-password/reset-password-form.module.css"
         }
       ]
     },
@@ -1009,14 +859,9 @@
       ],
       "files": [
         {
-          "path": "snippets/blocks/solid/verification-code.tsx",
+          "path": "snippets/blocks-tailwind/solid/verification-code.tsx",
           "type": "registry:component",
           "target": "@components/blocks/verification-code/verification-code.tsx"
-        },
-        {
-          "path": "src/components/blocks/verification-code/verification-code-form.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/verification-code/verification-code-form.module.css"
         }
       ]
     },
@@ -1036,14 +881,9 @@
       ],
       "files": [
         {
-          "path": "snippets/blocks/solid/data-table-component-catalog.tsx",
+          "path": "snippets/blocks-tailwind/solid/data-table-component-catalog.tsx",
           "type": "registry:component",
           "target": "@components/blocks/data-table/data-table.tsx"
-        },
-        {
-          "path": "src/components/blocks/data-table.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/data-table/data-table.module.css"
         }
       ]
     },
@@ -1058,14 +898,9 @@
       ],
       "files": [
         {
-          "path": "snippets/blocks/solid/expandable-avatar-group.tsx",
+          "path": "snippets/blocks-tailwind/solid/expandable-avatar-group.tsx",
           "type": "registry:component",
           "target": "@components/blocks/expandable-avatar-group/expandable-avatar-group.tsx"
-        },
-        {
-          "path": "src/components/blocks/expandable-avatar-group.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/expandable-avatar-group/expandable-avatar-group.module.css"
         }
       ]
     },
@@ -1082,14 +917,9 @@
       ],
       "files": [
         {
-          "path": "snippets/blocks/solid/analytics-overview.tsx",
+          "path": "snippets/blocks-tailwind/solid/analytics-overview.tsx",
           "type": "registry:component",
           "target": "@components/blocks/analytics-overview/analytics-overview.tsx"
-        },
-        {
-          "path": "src/components/blocks/analytics-overview.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/analytics-overview/analytics-overview.module.css"
         }
       ]
     },
@@ -1101,14 +931,9 @@
       "registryDependencies": ["https://moduix.dev/r/solid-tailwind/carousel.json"],
       "files": [
         {
-          "path": "snippets/blocks/solid/autoplay-gallery.tsx",
+          "path": "snippets/blocks-tailwind/solid/autoplay-gallery.tsx",
           "type": "registry:component",
           "target": "@components/blocks/autoplay-gallery/autoplay-gallery.tsx"
-        },
-        {
-          "path": "src/components/blocks/autoplay-gallery.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/autoplay-gallery/autoplay-gallery.module.css"
         }
       ]
     },
@@ -1120,14 +945,9 @@
       "registryDependencies": ["https://moduix.dev/r/solid-tailwind/card.json"],
       "files": [
         {
-          "path": "snippets/blocks/solid/parallax-card.tsx",
+          "path": "snippets/blocks-tailwind/solid/parallax-card.tsx",
           "type": "registry:component",
           "target": "@components/blocks/parallax-card/parallax-card.tsx"
-        },
-        {
-          "path": "src/components/blocks/parallax-card.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/parallax-card/parallax-card.module.css"
         }
       ]
     },
@@ -1521,14 +1341,9 @@
       ],
       "files": [
         {
-          "path": "snippets/blocks/vue/login-simple.vue",
+          "path": "snippets/blocks-tailwind/vue/login-simple.vue",
           "type": "registry:component",
           "target": "@components/blocks/login-simple/login-simple.vue"
-        },
-        {
-          "path": "src/components/blocks/login-simple/login-simple-form.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/login-simple/login-simple-form.module.css"
         }
       ]
     },
@@ -1547,14 +1362,9 @@
       ],
       "files": [
         {
-          "path": "snippets/blocks/vue/sidebar-dashboard.vue",
+          "path": "snippets/blocks-tailwind/vue/sidebar-dashboard.vue",
           "type": "registry:component",
           "target": "@components/blocks/sidebar-dashboard/sidebar-dashboard.vue"
-        },
-        {
-          "path": "src/components/blocks/sidebar-dashboard.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/sidebar-dashboard/sidebar-dashboard.module.css"
         }
       ]
     },
@@ -1580,14 +1390,9 @@
       ],
       "files": [
         {
-          "path": "snippets/blocks/vue/projects-dashboard.vue",
+          "path": "snippets/blocks-tailwind/vue/projects-dashboard.vue",
           "type": "registry:component",
           "target": "@components/blocks/projects-dashboard/projects-dashboard.vue"
-        },
-        {
-          "path": "src/components/blocks/projects-dashboard.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/projects-dashboard/projects-dashboard.module.css"
         }
       ]
     },
@@ -1602,34 +1407,14 @@
       ],
       "files": [
         {
-          "path": "snippets/blocks/vue/app-shell.vue",
+          "path": "snippets/blocks-tailwind/vue/app-shell.vue",
           "type": "registry:component",
           "target": "@components/blocks/app-shell/app-shell.vue"
         },
         {
-          "path": "snippets/blocks/vue/app-shell-navigation.vue",
+          "path": "snippets/blocks-tailwind/vue/app-shell-navigation.vue",
           "type": "registry:component",
           "target": "@components/blocks/app-shell/app-shell-navigation.vue"
-        },
-        {
-          "path": "src/components/blocks/app-shell/app-shell.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/app-shell/app-shell.module.css"
-        },
-        {
-          "path": "src/components/blocks/app-shell/icons/menu.svg",
-          "type": "registry:file",
-          "target": "@components/blocks/app-shell/icons/menu.svg"
-        },
-        {
-          "path": "src/components/blocks/app-shell/icons/sun.svg",
-          "type": "registry:file",
-          "target": "@components/blocks/app-shell/icons/sun.svg"
-        },
-        {
-          "path": "src/components/blocks/app-shell/icons/github.svg",
-          "type": "registry:file",
-          "target": "@components/blocks/app-shell/icons/github.svg"
         }
       ]
     },
@@ -1644,14 +1429,9 @@
       ],
       "files": [
         {
-          "path": "snippets/blocks/vue/file-upload-manager.vue",
+          "path": "snippets/blocks-tailwind/vue/file-upload-manager.vue",
           "type": "registry:component",
           "target": "@components/blocks/file-upload-manager/file-upload-manager.vue"
-        },
-        {
-          "path": "src/components/blocks/file-upload-manager.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/file-upload-manager/file-upload-manager.module.css"
         }
       ]
     },
@@ -1669,14 +1449,9 @@
       ],
       "files": [
         {
-          "path": "snippets/blocks/vue/app-header.vue",
+          "path": "snippets/blocks-tailwind/vue/app-header.vue",
           "type": "registry:component",
           "target": "@components/blocks/app-header/app-header.vue"
-        },
-        {
-          "path": "src/components/blocks/app-header.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/app-header/app-header.module.css"
         }
       ]
     },
@@ -1694,14 +1469,9 @@
       ],
       "files": [
         {
-          "path": "snippets/blocks/vue/sign-up.vue",
+          "path": "snippets/blocks-tailwind/vue/sign-up.vue",
           "type": "registry:component",
           "target": "@components/blocks/sign-up/sign-up.vue"
-        },
-        {
-          "path": "src/components/blocks/sign-up/sign-up-form.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/sign-up/sign-up-form.module.css"
         }
       ]
     },
@@ -1718,14 +1488,9 @@
       ],
       "files": [
         {
-          "path": "snippets/blocks/vue/forgot-password.vue",
+          "path": "snippets/blocks-tailwind/vue/forgot-password.vue",
           "type": "registry:component",
           "target": "@components/blocks/forgot-password/forgot-password.vue"
-        },
-        {
-          "path": "src/components/blocks/forgot-password/forgot-password-form.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/forgot-password/forgot-password-form.module.css"
         }
       ]
     },
@@ -1742,14 +1507,9 @@
       ],
       "files": [
         {
-          "path": "snippets/blocks/vue/reset-password.vue",
+          "path": "snippets/blocks-tailwind/vue/reset-password.vue",
           "type": "registry:component",
           "target": "@components/blocks/reset-password/reset-password.vue"
-        },
-        {
-          "path": "src/components/blocks/reset-password/reset-password-form.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/reset-password/reset-password-form.module.css"
         }
       ]
     },
@@ -1766,14 +1526,9 @@
       ],
       "files": [
         {
-          "path": "snippets/blocks/vue/verification-code.vue",
+          "path": "snippets/blocks-tailwind/vue/verification-code.vue",
           "type": "registry:component",
           "target": "@components/blocks/verification-code/verification-code.vue"
-        },
-        {
-          "path": "src/components/blocks/verification-code/verification-code-form.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/verification-code/verification-code-form.module.css"
         }
       ]
     },
@@ -1793,14 +1548,9 @@
       ],
       "files": [
         {
-          "path": "snippets/blocks/vue/data-table.vue",
+          "path": "snippets/blocks-tailwind/vue/data-table.vue",
           "type": "registry:component",
           "target": "@components/blocks/data-table/data-table.vue"
-        },
-        {
-          "path": "src/components/blocks/data-table.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/data-table/data-table.module.css"
         }
       ]
     },
@@ -1815,14 +1565,9 @@
       ],
       "files": [
         {
-          "path": "snippets/blocks/vue/expandable-avatar-group.vue",
+          "path": "snippets/blocks-tailwind/vue/expandable-avatar-group.vue",
           "type": "registry:component",
           "target": "@components/blocks/expandable-avatar-group/expandable-avatar-group.vue"
-        },
-        {
-          "path": "src/components/blocks/expandable-avatar-group.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/expandable-avatar-group/expandable-avatar-group.module.css"
         }
       ]
     },
@@ -1839,14 +1584,9 @@
       ],
       "files": [
         {
-          "path": "snippets/blocks/vue/analytics-overview.vue",
+          "path": "snippets/blocks-tailwind/vue/analytics-overview.vue",
           "type": "registry:component",
           "target": "@components/blocks/analytics-overview/analytics-overview.vue"
-        },
-        {
-          "path": "src/components/blocks/analytics-overview.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/analytics-overview/analytics-overview.module.css"
         }
       ]
     },
@@ -1858,14 +1598,9 @@
       "registryDependencies": ["https://moduix.dev/r/vue-tailwind/carousel.json"],
       "files": [
         {
-          "path": "snippets/blocks/vue/autoplay-gallery.vue",
+          "path": "snippets/blocks-tailwind/vue/autoplay-gallery.vue",
           "type": "registry:component",
           "target": "@components/blocks/autoplay-gallery/autoplay-gallery.vue"
-        },
-        {
-          "path": "src/components/blocks/autoplay-gallery.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/autoplay-gallery/autoplay-gallery.module.css"
         }
       ]
     },
@@ -1877,14 +1612,9 @@
       "registryDependencies": ["https://moduix.dev/r/vue-tailwind/card.json"],
       "files": [
         {
-          "path": "snippets/blocks/vue/parallax-card.vue",
+          "path": "snippets/blocks-tailwind/vue/parallax-card.vue",
           "type": "registry:component",
           "target": "@components/blocks/parallax-card/parallax-card.vue"
-        },
-        {
-          "path": "src/components/blocks/parallax-card.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/parallax-card/parallax-card.module.css"
         }
       ]
     },
@@ -2283,14 +2013,9 @@
       ],
       "files": [
         {
-          "path": "snippets/blocks/svelte/login-simple.svelte",
+          "path": "snippets/blocks-tailwind/svelte/login-simple.svelte",
           "type": "registry:component",
           "target": "@components/blocks/login-simple/login-simple.svelte"
-        },
-        {
-          "path": "src/components/blocks/login-simple/login-simple-form.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/login-simple/login-simple-form.module.css"
         }
       ]
     },
@@ -2309,14 +2034,9 @@
       ],
       "files": [
         {
-          "path": "snippets/blocks/svelte/sidebar-dashboard.svelte",
+          "path": "snippets/blocks-tailwind/svelte/sidebar-dashboard.svelte",
           "type": "registry:component",
           "target": "@components/blocks/sidebar-dashboard/sidebar-dashboard.svelte"
-        },
-        {
-          "path": "src/components/blocks/sidebar-dashboard.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/sidebar-dashboard/sidebar-dashboard.module.css"
         }
       ]
     },
@@ -2342,14 +2062,9 @@
       ],
       "files": [
         {
-          "path": "snippets/blocks/svelte/projects-dashboard.svelte",
+          "path": "snippets/blocks-tailwind/svelte/projects-dashboard.svelte",
           "type": "registry:component",
           "target": "@components/blocks/projects-dashboard/projects-dashboard.svelte"
-        },
-        {
-          "path": "src/components/blocks/projects-dashboard.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/projects-dashboard/projects-dashboard.module.css"
         }
       ]
     },
@@ -2364,34 +2079,14 @@
       ],
       "files": [
         {
-          "path": "snippets/blocks/svelte/app-shell.svelte",
+          "path": "snippets/blocks-tailwind/svelte/app-shell.svelte",
           "type": "registry:component",
           "target": "@components/blocks/app-shell/app-shell.svelte"
         },
         {
-          "path": "snippets/blocks/svelte/app-shell-navigation.svelte",
+          "path": "snippets/blocks-tailwind/svelte/app-shell-navigation.svelte",
           "type": "registry:component",
           "target": "@components/blocks/app-shell/app-shell-navigation.svelte"
-        },
-        {
-          "path": "src/components/blocks/app-shell/app-shell.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/app-shell/app-shell.module.css"
-        },
-        {
-          "path": "src/components/blocks/app-shell/icons/menu.svg",
-          "type": "registry:file",
-          "target": "@components/blocks/app-shell/icons/menu.svg"
-        },
-        {
-          "path": "src/components/blocks/app-shell/icons/sun.svg",
-          "type": "registry:file",
-          "target": "@components/blocks/app-shell/icons/sun.svg"
-        },
-        {
-          "path": "src/components/blocks/app-shell/icons/github.svg",
-          "type": "registry:file",
-          "target": "@components/blocks/app-shell/icons/github.svg"
         }
       ]
     },
@@ -2406,14 +2101,9 @@
       ],
       "files": [
         {
-          "path": "snippets/blocks/svelte/file-upload-manager.svelte",
+          "path": "snippets/blocks-tailwind/svelte/file-upload-manager.svelte",
           "type": "registry:component",
           "target": "@components/blocks/file-upload-manager/file-upload-manager.svelte"
-        },
-        {
-          "path": "src/components/blocks/file-upload-manager.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/file-upload-manager/file-upload-manager.module.css"
         }
       ]
     },
@@ -2431,14 +2121,9 @@
       ],
       "files": [
         {
-          "path": "snippets/blocks/svelte/app-header.svelte",
+          "path": "snippets/blocks-tailwind/svelte/app-header.svelte",
           "type": "registry:component",
           "target": "@components/blocks/app-header/app-header.svelte"
-        },
-        {
-          "path": "src/components/blocks/app-header.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/app-header/app-header.module.css"
         }
       ]
     },
@@ -2456,14 +2141,9 @@
       ],
       "files": [
         {
-          "path": "snippets/blocks/svelte/sign-up.svelte",
+          "path": "snippets/blocks-tailwind/svelte/sign-up.svelte",
           "type": "registry:component",
           "target": "@components/blocks/sign-up/sign-up.svelte"
-        },
-        {
-          "path": "src/components/blocks/sign-up/sign-up-form.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/sign-up/sign-up-form.module.css"
         }
       ]
     },
@@ -2480,14 +2160,9 @@
       ],
       "files": [
         {
-          "path": "snippets/blocks/svelte/forgot-password.svelte",
+          "path": "snippets/blocks-tailwind/svelte/forgot-password.svelte",
           "type": "registry:component",
           "target": "@components/blocks/forgot-password/forgot-password.svelte"
-        },
-        {
-          "path": "src/components/blocks/forgot-password/forgot-password-form.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/forgot-password/forgot-password-form.module.css"
         }
       ]
     },
@@ -2504,14 +2179,9 @@
       ],
       "files": [
         {
-          "path": "snippets/blocks/svelte/reset-password.svelte",
+          "path": "snippets/blocks-tailwind/svelte/reset-password.svelte",
           "type": "registry:component",
           "target": "@components/blocks/reset-password/reset-password.svelte"
-        },
-        {
-          "path": "src/components/blocks/reset-password/reset-password-form.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/reset-password/reset-password-form.module.css"
         }
       ]
     },
@@ -2528,14 +2198,9 @@
       ],
       "files": [
         {
-          "path": "snippets/blocks/svelte/verification-code.svelte",
+          "path": "snippets/blocks-tailwind/svelte/verification-code.svelte",
           "type": "registry:component",
           "target": "@components/blocks/verification-code/verification-code.svelte"
-        },
-        {
-          "path": "src/components/blocks/verification-code/verification-code-form.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/verification-code/verification-code-form.module.css"
         }
       ]
     },
@@ -2555,14 +2220,9 @@
       ],
       "files": [
         {
-          "path": "snippets/blocks/svelte/data-table.svelte",
+          "path": "snippets/blocks-tailwind/svelte/data-table.svelte",
           "type": "registry:component",
           "target": "@components/blocks/data-table/data-table.svelte"
-        },
-        {
-          "path": "src/components/blocks/data-table.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/data-table/data-table.module.css"
         }
       ]
     },
@@ -2577,14 +2237,9 @@
       ],
       "files": [
         {
-          "path": "snippets/blocks/svelte/expandable-avatar-group.svelte",
+          "path": "snippets/blocks-tailwind/svelte/expandable-avatar-group.svelte",
           "type": "registry:component",
           "target": "@components/blocks/expandable-avatar-group/expandable-avatar-group.svelte"
-        },
-        {
-          "path": "src/components/blocks/expandable-avatar-group.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/expandable-avatar-group/expandable-avatar-group.module.css"
         }
       ]
     },
@@ -2601,14 +2256,9 @@
       ],
       "files": [
         {
-          "path": "snippets/blocks/svelte/analytics-overview.svelte",
+          "path": "snippets/blocks-tailwind/svelte/analytics-overview.svelte",
           "type": "registry:component",
           "target": "@components/blocks/analytics-overview/analytics-overview.svelte"
-        },
-        {
-          "path": "src/components/blocks/analytics-overview.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/analytics-overview/analytics-overview.module.css"
         }
       ]
     },
@@ -2620,14 +2270,9 @@
       "registryDependencies": ["https://moduix.dev/r/svelte-tailwind/carousel.json"],
       "files": [
         {
-          "path": "snippets/blocks/svelte/autoplay-gallery.svelte",
+          "path": "snippets/blocks-tailwind/svelte/autoplay-gallery.svelte",
           "type": "registry:component",
           "target": "@components/blocks/autoplay-gallery/autoplay-gallery.svelte"
-        },
-        {
-          "path": "src/components/blocks/autoplay-gallery.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/autoplay-gallery/autoplay-gallery.module.css"
         }
       ]
     },
@@ -2639,14 +2284,9 @@
       "registryDependencies": ["https://moduix.dev/r/svelte-tailwind/card.json"],
       "files": [
         {
-          "path": "snippets/blocks/svelte/parallax-card.svelte",
+          "path": "snippets/blocks-tailwind/svelte/parallax-card.svelte",
           "type": "registry:component",
           "target": "@components/blocks/parallax-card/parallax-card.svelte"
-        },
-        {
-          "path": "src/components/blocks/parallax-card.module.css",
-          "type": "registry:file",
-          "target": "@components/blocks/parallax-card/parallax-card.module.css"
         }
       ]
     },

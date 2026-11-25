@@ -7,7 +7,7 @@ export const avatarVariants = cva(
       size: {
         xs: 'size-control-xs text-xs',
         sm: 'size-control-sm text-sm',
-        md: 'size-control-md text-md',
+        md: 'size-control-md text-base',
         lg: 'size-control-lg text-lg',
         xl: 'size-control-xl text-lg',
       },

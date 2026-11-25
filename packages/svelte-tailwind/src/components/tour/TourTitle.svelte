@@ -8,6 +8,6 @@
 <TourTitle
   {...props}
   bind:ref
-  class={cn('pe-6 text-md font-semibold', className)}
+  class={cn('pe-6 text-base font-semibold', className)}
   data-slot="tour-title"
 />

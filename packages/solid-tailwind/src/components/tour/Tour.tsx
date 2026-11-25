@@ -118,7 +118,7 @@ function TourArrow(props: ComponentProps<typeof TourPrimitive.Arrow>) {
   return (
     <TourPrimitive.Arrow
       class={cn(
-        '[--arrow-background:var(--color-popover)] [--arrow-size:var(--spacing-2_5)]',
+        '[--arrow-background:var(--color-popover)] [--arrow-size:calc(var(--spacing)*2.5)]',
         local.class,
       )}
       {...others}
@@ -146,7 +146,7 @@ function TourTitle(props: ComponentProps<typeof TourPrimitive.Title>) {
 
   return (
     <TourPrimitive.Title
-      class={cn('pe-6 text-md font-semibold', local.class)}
+      class={cn('pe-6 text-base font-semibold', local.class)}
       {...others}
       data-slot="tour-title"
     />
@@ -204,7 +204,7 @@ function TourCloseIcon(props: TourCloseIconProps) {
           data-slot="tour-close-icon"
           aria-label={local['aria-label'] ?? a11yLabels.closeTour}
           class={cn(
-            'absolute end-4 top-4 rounded-md [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-popover-foreground',
+            'absolute end-4 top-4 rounded-md not-data-disabled:hover:bg-accent not-data-disabled:hover:text-popover-foreground',
             local.class,
           )}
         >
@@ -236,7 +236,7 @@ function TourActionTrigger(props: ComponentProps<typeof TourPrimitive.ActionTrig
       asChild={local.asChild}
       class={cn(
         !local.asChild &&
-          "inline-flex min-h-control-sm cursor-pointer items-center justify-center gap-2 rounded-md border border-border bg-background px-3 py-1.5 text-sm font-medium whitespace-nowrap text-foreground outline-0 transition-[background-color,color] duration-normal ease-in-out focus-visible:outline-focus-inset focus-visible:outline-offset-focus-inset focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-disabled data-[type=close]:border-transparent data-[type=close]:bg-primary data-[type=close]:text-primary-foreground data-[type=next]:border-transparent data-[type=next]:bg-primary data-[type=next]:text-primary-foreground [@media(hover:hover)]:[&:is([data-type='next'],[data-type='close']):not(:disabled):hover]:bg-[color-mix(in_oklab,var(--color-primary),black_12%)] [@media(hover:hover)]:[&:not(:disabled):hover]:bg-accent",
+          'inline-flex min-h-control-sm cursor-pointer items-center justify-center gap-2 rounded-md border border-border bg-background px-3 py-1.5 text-sm font-medium whitespace-nowrap text-foreground outline-0 transition-[background-color,color] duration-normal ease-in-out not-disabled:hover:bg-accent focus-visible:outline-focus-inset focus-visible:outline-offset-focus-inset focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-disabled data-[type=close]:border-transparent data-[type=close]:bg-primary data-[type=close]:text-primary-foreground data-[type=close]:not-disabled:hover:bg-primary/88 data-[type=next]:border-transparent data-[type=next]:bg-primary data-[type=next]:text-primary-foreground data-[type=next]:not-disabled:hover:bg-primary/88',
         local.class,
       )}
       {...others}

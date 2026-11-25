@@ -1,4 +1,5 @@
 import { Tabs as TabsPrimitive, useTabs, useTabsContext } from '@ark-ui/solid/tabs';
+import { cva } from 'class-variance-authority';
 import type { ComponentProps } from 'solid-js';
 import { splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
@@ -9,15 +10,28 @@ type TabsStyleProps = { variant?: TabsVariant; size?: TabsSize; fitted?: boolean
 type TabsRootProps = ComponentProps<typeof TabsPrimitive.Root> & TabsStyleProps;
 type TabsRootProviderProps = ComponentProps<typeof TabsPrimitive.RootProvider> & TabsStyleProps;
 
+const tabsRootVariants = cva(
+  'group/tabs flex w-full min-w-0 flex-col gap-3 text-foreground data-[orientation=vertical]:flex-row',
+  {
+    variants: {
+      size: {
+        sm: '[--_tabs-size:var(--moduix-size-sm)]',
+        md: '[--_tabs-size:var(--moduix-size-md)]',
+        lg: '[--_tabs-size:var(--moduix-size-lg)]',
+      },
+    },
+    defaultVariants: {
+      size: 'md',
+    },
+  },
+);
+
 function Tabs(props: TabsRootProps) {
   const [local, others] = splitProps(props, ['class', 'variant', 'size', 'fitted']);
 
   return (
     <TabsPrimitive.Root
-      class={cn(
-        'group/tabs flex w-full min-w-0 flex-col gap-3 text-foreground [--_tabs-size:var(--moduix-size-md)] data-[orientation=vertical]:flex-row data-[size=lg]:[--_tabs-size:var(--moduix-size-lg)] data-[size=sm]:[--_tabs-size:var(--moduix-size-sm)]',
-        local.class,
-      )}
+      class={cn(tabsRootVariants({ size: local.size }), local.class)}
       {...others}
       data-variant={local.variant ?? 'default'}
       data-size={local.size ?? 'md'}
@@ -32,10 +46,7 @@ function TabsRootProvider(props: TabsRootProviderProps) {
 
   return (
     <TabsPrimitive.RootProvider
-      class={cn(
-        'group/tabs flex w-full min-w-0 flex-col gap-3 text-foreground [--_tabs-size:var(--moduix-size-md)] data-[orientation=vertical]:flex-row data-[size=lg]:[--_tabs-size:var(--moduix-size-lg)] data-[size=sm]:[--_tabs-size:var(--moduix-size-sm)]',
-        local.class,
-      )}
+      class={cn(tabsRootVariants({ size: local.size }), local.class)}
       {...others}
       data-variant={local.variant ?? 'default'}
       data-size={local.size ?? 'md'}
@@ -51,7 +62,13 @@ function TabsList(props: ComponentProps<typeof TabsPrimitive.List>) {
   return (
     <TabsPrimitive.List
       class={cn(
-        'relative isolate inline-flex w-fit max-w-full gap-1 rounded-lg border border-border bg-muted p-1 group-data-[variant=line]/tabs:rounded-none group-data-[variant=line]/tabs:border-0 group-data-[variant=line]/tabs:bg-transparent data-[orientation=horizontal]:overflow-x-auto group-data-fitted/tabs:data-[orientation=horizontal]:w-full group-data-[variant=line]/tabs:data-[orientation=horizontal]:w-full group-data-[variant=line]/tabs:data-[orientation=horizontal]:border-b group-data-[variant=line]/tabs:data-[orientation=horizontal]:px-0 data-[orientation=vertical]:w-[min(12rem,40%)] data-[orientation=vertical]:flex-col group-data-[variant=line]/tabs:data-[orientation=vertical]:border-e group-data-[variant=line]/tabs:data-[orientation=vertical]:py-0',
+        [
+          'relative isolate inline-flex w-fit max-w-full gap-1 rounded-lg border border-border bg-muted p-1',
+          'data-[orientation=horizontal]:overflow-x-auto group-data-fitted/tabs:data-[orientation=horizontal]:w-full data-[orientation=vertical]:w-[min(12rem,40%)] data-[orientation=vertical]:flex-col',
+          'group-data-[variant=line]/tabs:rounded-none group-data-[variant=line]/tabs:border-0 group-data-[variant=line]/tabs:bg-transparent',
+          'group-data-[variant=line]/tabs:data-[orientation=horizontal]:w-full group-data-[variant=line]/tabs:data-[orientation=horizontal]:border-b group-data-[variant=line]/tabs:data-[orientation=horizontal]:px-0',
+          'group-data-[variant=line]/tabs:data-[orientation=vertical]:border-e group-data-[variant=line]/tabs:data-[orientation=vertical]:py-0',
+        ],
         local.class,
       )}
       {...others}
@@ -66,7 +83,12 @@ function TabsTrigger(props: ComponentProps<typeof TabsPrimitive.Trigger>) {
   return (
     <TabsPrimitive.Trigger
       class={cn(
-        "inline-flex h-[calc(var(--_tabs-size)-2*var(--moduix-spacing-1)-2*var(--moduix-border-width-sm))] cursor-pointer items-center justify-center gap-2 rounded-md border-0 bg-transparent px-2.5 text-sm font-medium whitespace-nowrap text-muted-foreground no-underline outline-0 transition-[color] duration-normal ease-in-out select-none group-data-[size=lg]/tabs:px-3 group-data-[size=lg]/tabs:text-md group-data-[size=sm]/tabs:px-2 focus-visible:outline-focus-inset focus-visible:outline-offset-focus-inset focus-visible:outline-ring data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-disabled data-selected:text-foreground group-data-fitted/tabs:data-[orientation=horizontal]:flex-1 [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4 [@media(hover:hover)]:hover:text-foreground",
+        [
+          'inline-flex h-[calc(var(--_tabs-size)-2*var(--moduix-spacing-1)-2*var(--moduix-border-width-sm))] cursor-pointer items-center justify-center gap-2 rounded-md border-0 bg-transparent px-2.5 text-sm font-medium whitespace-nowrap text-muted-foreground no-underline outline-0 transition-[color] duration-normal ease-in-out select-none',
+          'group-data-[size=lg]/tabs:px-3 group-data-[size=lg]/tabs:text-base group-data-[size=sm]/tabs:px-2 group-data-fitted/tabs:data-[orientation=horizontal]:flex-1',
+          'hover:text-foreground focus-visible:outline-focus-inset focus-visible:outline-offset-focus-inset focus-visible:outline-ring data-selected:text-foreground',
+          "data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-disabled [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4",
+        ],
         local.class,
       )}
       {...others}
@@ -81,7 +103,12 @@ function TabsIndicator(props: ComponentProps<typeof TabsPrimitive.Indicator>) {
   return (
     <TabsPrimitive.Indicator
       class={cn(
-        'pointer-events-none top-(--top) left-(--left) -z-1 h-(--height) w-(--width) rounded-md bg-background shadow-sm [--transition-duration:var(--moduix-duration-normal)] [--transition-timing-function:var(--moduix-ease-in-out)] group-data-[variant=line]/tabs:rounded-full group-data-[variant=line]/tabs:bg-foreground group-data-[variant=line]/tabs:shadow-none group-data-[variant=line]/tabs:data-[orientation=horizontal]:top-auto group-data-[variant=line]/tabs:data-[orientation=horizontal]:bottom-0 group-data-[variant=line]/tabs:data-[orientation=horizontal]:h-0.5 group-data-[variant=line]/tabs:data-[orientation=vertical]:start-auto group-data-[variant=line]/tabs:data-[orientation=vertical]:end-0 group-data-[variant=line]/tabs:data-[orientation=vertical]:w-0.5',
+        [
+          'pointer-events-none top-(--top) left-(--left) -z-1 h-(--height) w-(--width) rounded-md bg-background shadow-sm [--transition-duration:var(--moduix-duration-normal)] [--transition-timing-function:var(--moduix-ease-in-out)]',
+          'group-data-[variant=line]/tabs:rounded-full group-data-[variant=line]/tabs:bg-foreground group-data-[variant=line]/tabs:shadow-none',
+          'group-data-[variant=line]/tabs:data-[orientation=horizontal]:top-auto group-data-[variant=line]/tabs:data-[orientation=horizontal]:bottom-0 group-data-[variant=line]/tabs:data-[orientation=horizontal]:h-0.5',
+          'group-data-[variant=line]/tabs:data-[orientation=vertical]:start-auto group-data-[variant=line]/tabs:data-[orientation=vertical]:end-0 group-data-[variant=line]/tabs:data-[orientation=vertical]:w-0.5',
+        ],
         local.class,
       )}
       {...others}
@@ -96,7 +123,11 @@ function TabsContent(props: ComponentProps<typeof TabsPrimitive.Content>) {
   return (
     <TabsPrimitive.Content
       class={cn(
-        'min-w-0 flex-1 rounded-lg border border-border bg-background p-4 text-sm leading-5 outline-0 group-data-[variant=line]/tabs:rounded-none group-data-[variant=line]/tabs:border-0 group-data-[variant=line]/tabs:bg-transparent group-data-[variant=line]/tabs:p-0 focus-visible:outline-focus-inset focus-visible:outline-offset-focus-inset focus-visible:outline-ring',
+        [
+          'min-w-0 flex-1 rounded-lg border border-border bg-background p-4 text-sm leading-5 outline-0',
+          'group-data-[variant=line]/tabs:rounded-none group-data-[variant=line]/tabs:border-0 group-data-[variant=line]/tabs:bg-transparent group-data-[variant=line]/tabs:p-0',
+          'focus-visible:outline-focus-inset focus-visible:outline-offset-focus-inset focus-visible:outline-ring',
+        ],
         local.class,
       )}
       {...others}

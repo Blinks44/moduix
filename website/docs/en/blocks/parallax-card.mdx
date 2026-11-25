@@ -13,16 +13,22 @@ import parallaxCardSvelte from '../../../snippets/blocks/svelte/parallax-card.sv
 import parallaxCardReact from '../../../src/components/blocks/parallax-card.tsx?raw';
 import parallaxCardCss from '../../../src/components/blocks/parallax-card.module.css?raw';
 export const parallaxCardLive = { solid: () => import('../../../snippets/blocks/solid/parallax-card.tsx').then((module) => ({ default: module.ParallaxCard })), vue: () => import('../../../snippets/blocks/vue/parallax-card.vue'), svelte: () => import('../../../snippets/blocks/svelte/parallax-card.svelte') };
+import parallaxCardReactTailwind from '../../../src/components/blocks-tailwind/parallax-card.tsx?raw';
+import parallaxCardSolidTailwind from '../../../snippets/blocks-tailwind/solid/parallax-card.tsx?raw';
+import parallaxCardVueTailwind from '../../../snippets/blocks-tailwind/vue/parallax-card.vue?raw';
+import parallaxCardSvelteTailwind from '../../../snippets/blocks-tailwind/svelte/parallax-card.svelte?raw';
+export const parallaxCardLiveTailwind = { react: () => import('@/components/blocks-tailwind/parallax-card').then((module) => ({ default: module.ParallaxCard })), solid: () => import('../../../snippets/blocks-tailwind/solid/parallax-card.tsx').then((module) => ({ default: module.ParallaxCard })), vue: () => import('../../../snippets/blocks-tailwind/vue/parallax-card.vue'), svelte: () => import('../../../snippets/blocks-tailwind/svelte/parallax-card.svelte') };
 
 # Parallax card
 
 <ExamplePanel
   clientOnly
   sources={{ react: parallaxCardReact, solid: parallaxCardSolid, vue: parallaxCardVue, svelte: parallaxCardSvelte }}
+  tailwindSources={{ react: parallaxCardReactTailwind, solid: parallaxCardSolidTailwind, vue: parallaxCardVueTailwind, svelte: parallaxCardSvelteTailwind }}
   files={[{ name: 'parallax-card.module.css', code: parallaxCardCss }]}
 >
   <PreviewFrame maxWidth="sm">
-    <FrameworkPreview live={parallaxCardLive}>
+    <FrameworkPreview live={parallaxCardLive} liveTailwind={parallaxCardLiveTailwind}>
       <ParallaxCard />
     </FrameworkPreview>
   </PreviewFrame>

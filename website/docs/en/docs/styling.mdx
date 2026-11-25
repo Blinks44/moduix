@@ -322,6 +322,11 @@ For a reusable look in a Tailwind package, put the utilities in your own wrapper
 way as [your own variant](#add-your-own-variant) above. Because of `tailwind-merge`, a utility such as
 `bg-violet-600` replaces the default background instead of fighting it.
 
+The Tailwind theme stylesheet only maps semantic tokens (colors, control heights, radii, shadows,
+focus rings, and animations) through `@theme inline`. It preserves Tailwind v4’s native spacing and
+typography scales, so adding `@moduix/*-tailwind` to an existing Tailwind v4 or shadcn project does
+not override your application’s `p-*`, `gap-*`, `text-*`, or `font-*` utilities.
+
 Keep Tailwind's `@source` entry for the selected package so its shipped classes are generated. See
 [Quick start](/docs/quick-start) for the complete stylesheet setup.
 

@@ -40,6 +40,7 @@ import {
 } from 'lucide-react';
 import { Children, isValidElement, useEffect, type ComponentProps, type SVGProps } from 'react';
 import './index.css';
+import './tailwind-preview.css';
 import {
   BlockLinks,
   ComponentBreadcrumb,

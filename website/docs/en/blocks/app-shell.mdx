@@ -17,16 +17,22 @@ import routeSolid from '../../../snippets/blocks/solid/app-shell-route.tsx?raw';
 import routeVue from '../../../snippets/blocks/vue/app-shell-route.vue?raw';
 import routeSvelte from '../../../snippets/blocks/svelte/app-shell-route.svelte?raw';
 export const shellLive = { solid: () => import('../../../snippets/blocks/solid/app-shell-route.tsx').then((module) => ({ default: module.WorkspaceRoute })), vue: () => import('../../../snippets/blocks/vue/app-shell-route.vue'), svelte: () => import('../../../snippets/blocks/svelte/app-shell-route.svelte') };
+import shellReactTailwind from '../../../src/components/blocks-tailwind/app-shell/app-shell.tsx?raw';
+import shellSolidTailwind from '../../../snippets/blocks-tailwind/solid/app-shell.tsx?raw';
+import shellVueTailwind from '../../../snippets/blocks-tailwind/vue/app-shell.vue?raw';
+import shellSvelteTailwind from '../../../snippets/blocks-tailwind/svelte/app-shell.svelte?raw';
+export const shellLiveTailwind = { react: () => import('@/components/blocks-tailwind/app-shell/app-shell-example').then((module) => ({ default: module.AppShellExample })), solid: () => import('../../../snippets/blocks-tailwind/solid/app-shell-route.tsx').then((module) => ({ default: module.WorkspaceRoute })), vue: () => import('../../../snippets/blocks-tailwind/vue/app-shell-route.vue'), svelte: () => import('../../../snippets/blocks-tailwind/svelte/app-shell-route.svelte') };
 
 # App shell
 
 <ExamplePanel
   clientOnly
   sources={{ react: shellReact, solid: shellSolid, vue: shellVue, svelte: shellSvelte }}
+  tailwindSources={{ react: shellReactTailwind, solid: shellSolidTailwind, vue: shellVueTailwind, svelte: shellSvelteTailwind }}
   files={[{ name: 'app-shell.module.css', code: shellCss }]}
 >
   <AppShellPreview>
-    <FrameworkPreview live={shellLive}>
+    <FrameworkPreview live={shellLive} liveTailwind={shellLiveTailwind}>
       <AppShellExample />
     </FrameworkPreview>
   </AppShellPreview>

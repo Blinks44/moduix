@@ -13,7 +13,7 @@
   {...props}
   bind:ref
   class={cn(
-    'text-inherit no-underline after:absolute after:inset-0 after:rounded-lg focus-visible:outline-0 focus-visible:after:outline-focus focus-visible:after:outline-offset-focus focus-visible:after:outline-ring',
+    'text-inherit no-underline after:absolute after:inset-0 after:rounded-[inherit] focus-visible:outline-0 focus-visible:after:outline-focus focus-visible:after:outline-offset-focus focus-visible:after:outline-ring',
     className,
   )}
   data-scope="card"

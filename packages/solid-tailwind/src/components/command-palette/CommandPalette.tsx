@@ -187,7 +187,7 @@ function CommandPaletteTitle(props: ComponentProps<typeof DialogPrimitive.Title>
 
   return (
     <DialogPrimitive.Title
-      class={cn('text-md leading-6 font-semibold', local.class)}
+      class={cn('text-base leading-6 font-semibold', local.class)}
       {...others}
       data-slot="command-palette-title"
     />
@@ -331,7 +331,7 @@ function CommandPaletteClearTrigger(props: ComponentProps<typeof ComboboxPrimiti
       }
       aria-labelledby={local['aria-labelledby']}
       class={cn(
-        "m-0 inline-flex size-control-xs shrink-0 cursor-pointer appearance-none items-center justify-center rounded-sm border-0 bg-transparent p-0 text-muted-foreground transition-[background-color,color,opacity] duration-normal ease-in-out select-none focus-visible:outline-focus focus-visible:outline-offset-focus focus-visible:outline-ring data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-disabled [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-muted [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-foreground",
+        "m-0 inline-flex size-control-xs shrink-0 cursor-pointer appearance-none items-center justify-center rounded-sm border-0 bg-transparent p-0 text-muted-foreground transition-[background-color,color,opacity] duration-normal ease-in-out select-none not-data-disabled:hover:bg-muted not-data-disabled:hover:text-foreground focus-visible:outline-focus focus-visible:outline-offset-focus focus-visible:outline-ring data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-disabled [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4",
         local.class,
       )}
       {...others}

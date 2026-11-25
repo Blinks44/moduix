@@ -170,14 +170,6 @@
   }
 }
 
-.renderer {
-  position: absolute;
-  inset-block-end: 8px;
-  inset-inline-start: 12px;
-  color: var(--rp-c-text-3);
-  font-size: 12px;
-}
-
 /* The panel is the only scroll container, in both directions. Rspress gives each block its own
    scroll (`defaultCodeOverflow` sets an inline max-height), and a wheel or trackpad gesture that
    latched onto a nested block stalled the panel. The grid column takes the widest block, so every

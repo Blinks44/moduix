@@ -8,4 +8,4 @@
   let { class: className, ref = $bindable(null), ...props }: Props = $props();
 </script>
 
-<Ark as="div" {...props} bind:ref class={cn('mt-4 text-md', className)} data-slot="dialog-body" />
+<Ark as="div" {...props} bind:ref class={cn('mt-4 text-base', className)} data-slot="dialog-body" />

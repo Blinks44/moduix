@@ -26,7 +26,7 @@ const attrs = useAttrs();
       :aria-label="ariaLabel ?? a11yLabels.closePopover"
       :class="
         cn(
-          'absolute end-3 top-3 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-popover-foreground',
+          'absolute end-3 top-3 not-data-disabled:hover:bg-accent not-data-disabled:hover:text-popover-foreground',
           className,
         )
       "

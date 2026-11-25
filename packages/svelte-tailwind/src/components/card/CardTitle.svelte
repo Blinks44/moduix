@@ -13,7 +13,7 @@
   {...props}
   bind:ref
   class={cn(
-    'min-w-0 text-lg font-semibold wrap-anywhere group-data-[size=lg]/card:text-xl group-data-[size=sm]/card:text-md',
+    'min-w-0 text-lg font-semibold wrap-anywhere group-data-[size=lg]/card:text-xl group-data-[size=sm]/card:text-base',
     className,
   )}
   data-scope="card"

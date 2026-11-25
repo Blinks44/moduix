@@ -17,7 +17,7 @@ const attrs = useAttrs();
 </script>
 
 <template>
-  <ark.div v-bind="attrs" :class="cn('mt-4 text-md', className)" data-slot="dialog-body">
+  <ark.div v-bind="attrs" :class="cn('mt-4 text-base', className)" data-slot="dialog-body">
     <slot />
   </ark.div>
 </template>

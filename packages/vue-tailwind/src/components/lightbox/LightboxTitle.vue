@@ -20,7 +20,7 @@ const attrs = useAttrs();
 <template>
   <ArkDialogTitle
     v-bind="attrs"
-    :class="cn('m-0 text-md leading-6 font-semibold text-foreground', className)"
+    :class="cn('m-0 text-base leading-6 font-semibold text-foreground', className)"
     data-slot="lightbox-title"
   >
     <slot />

@@ -68,7 +68,7 @@ type DatePickerYearTableProps = DatePickerTableSugarProps;
 const rootClass =
   "group/date-picker inline-flex w-75 max-w-full flex-col items-start gap-1 text-foreground has-[input[data-index='1']]:w-96 data-disabled:opacity-disabled [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100";
 const actionClass =
-  'inline-flex shrink-0 cursor-pointer items-center justify-center rounded-sm bg-transparent p-0 leading-none text-muted-foreground outline-focus-inset outline-offset-focus-inset outline-transparent transition-[background-color,color,outline-color] duration-normal ease-in-out focus-visible:outline-ring disabled:cursor-default [&>svg]:block [&>svg]:size-4 [@media(hover:hover)]:[&:not(:disabled):hover]:bg-muted [@media(hover:hover)]:[&:not(:disabled):hover]:text-foreground';
+  'inline-flex shrink-0 cursor-pointer items-center justify-center rounded-sm bg-transparent p-0 leading-none text-muted-foreground outline-focus-inset outline-offset-focus-inset outline-transparent transition-[background-color,color,outline-color] duration-normal ease-in-out focus-visible:outline-ring disabled:cursor-default [&>svg]:block [&>svg]:size-4 not-disabled:hover:bg-muted not-disabled:hover:text-foreground';
 const tableHeaderClass =
   'h-7 w-control-sm text-center text-xs leading-4 font-medium text-muted-foreground tabular-nums';
 const selectControlClass = 'relative grid min-w-0';
@@ -215,7 +215,7 @@ const DatePickerInput = forwardRef<
     <DatePickerPrimitive.Input
       ref={ref}
       className={cn(
-        "h-control-md w-full min-w-30 flex-1 rounded-md border border-input bg-background py-1 ps-3.5 pe-17 text-md leading-6 text-current outline-focus-halo outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out group-has-[input[data-index='1']]/date-picker:not-data-[index='1']:pe-3.5 placeholder:text-muted-foreground read-only:cursor-default focus:border-ring focus:outline-ring/50 disabled:cursor-default data-invalid:border-destructive data-invalid:focus:outline-destructive/20",
+        "h-control-md w-full min-w-30 flex-1 rounded-md border border-input bg-background py-1 ps-3.5 pe-17 text-base leading-6 text-current outline-focus-halo outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out group-has-[input[data-index='1']]/date-picker:not-data-[index='1']:pe-3.5 placeholder:text-muted-foreground read-only:cursor-default focus:border-ring focus:outline-ring/50 disabled:cursor-default data-invalid:border-destructive data-invalid:focus:outline-destructive/20",
         className,
       )}
       {...props}
@@ -526,7 +526,7 @@ const DatePickerTableCellTrigger = forwardRef<
     <DatePickerPrimitive.TableCellTrigger
       ref={ref}
       className={cn(
-        'inline-flex h-control-sm w-full min-w-control-sm cursor-pointer items-center justify-center rounded-sm border border-transparent bg-transparent p-0 text-sm leading-5 outline-focus-inset outline-offset-focus-inset outline-transparent transition-[background-color,border-color,color,outline-color] duration-normal ease-in-out focus-visible:outline-ring data-disabled:cursor-default data-disabled:opacity-disabled data-in-hover-range:bg-muted data-in-hover-range:text-foreground data-in-range:bg-muted data-in-range:text-foreground data-outside-range:not-data-disabled:text-muted-foreground data-selected:bg-primary data-selected:text-primary-foreground data-today:border-ring [@media(hover:hover)]:[&:not([data-disabled]):not([data-selected]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):not([data-selected]):hover]:text-accent-foreground',
+        'inline-flex h-control-sm w-full min-w-control-sm cursor-pointer items-center justify-center rounded-sm border border-transparent bg-transparent p-0 text-sm leading-5 outline-focus-inset outline-offset-focus-inset outline-transparent transition-[background-color,border-color,color,outline-color] duration-normal ease-in-out not-data-disabled:not-data-selected:hover:bg-accent not-data-disabled:not-data-selected:hover:text-accent-foreground focus-visible:outline-ring data-disabled:cursor-default data-disabled:opacity-disabled data-in-hover-range:bg-muted data-in-hover-range:text-foreground data-in-range:bg-muted data-in-range:text-foreground data-outside-range:not-data-disabled:text-muted-foreground data-selected:bg-primary data-selected:text-primary-foreground data-today:border-ring',
         className,
       )}
       {...props}
@@ -703,7 +703,7 @@ const DatePickerPresetTrigger = forwardRef<
       className={cn(
         !asChild && [
           actionClass,
-          'min-h-control-sm bg-muted px-2 text-sm leading-5 text-foreground disabled:opacity-disabled [@media(hover:hover)]:[&:not(:disabled):hover]:bg-accent [@media(hover:hover)]:[&:not(:disabled):hover]:text-accent-foreground',
+          'min-h-control-sm bg-muted px-2 text-sm leading-5 text-foreground not-disabled:hover:bg-accent not-disabled:hover:text-accent-foreground disabled:opacity-disabled',
         ],
         className,
       )}

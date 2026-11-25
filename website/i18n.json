@@ -251,10 +251,20 @@
     "ru": "Скопировано",
     "fr": "Copié"
   },
-  "exampleRenderer": {
-    "en": "Preview uses CSS Modules",
-    "ru": "Превью использует CSS Modules",
-    "fr": "L’aperçu utilise CSS Modules"
+  "cssVariablesTailwindNotice": {
+    "en": "Component CSS variables apply to the CSS Modules packages. Tailwind CSS packages use utility classes and shared theme tokens.",
+    "ru": "CSS-переменные компонентов относятся к пакетам CSS Modules. Пакеты Tailwind CSS используют утилитарные классы и общие токены темы.",
+    "fr": "Les variables CSS de composant s’appliquent aux paquets CSS Modules. Les paquets Tailwind CSS utilisent des classes utilitaires et les jetons de thème partagés."
+  },
+  "cssVariablesTailwindGuide": {
+    "en": "Tailwind styling guide",
+    "ru": "Гайд по Tailwind",
+    "fr": "Guide Tailwind"
+  },
+  "cssVariablesSwitchToCssModules": {
+    "en": "Switch to CSS Modules",
+    "ru": "Переключить на CSS Modules",
+    "fr": "Passer à CSS Modules"
   },
   "showCode": {
     "en": "Show code",

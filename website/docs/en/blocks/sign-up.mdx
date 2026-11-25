@@ -17,16 +17,22 @@ import signUpRouteSvelte from '../../../snippets/blocks/svelte/sign-up-route.sve
 import signUpReact from '../../../src/components/blocks/sign-up/sign-up.tsx?raw';
 import signUpCss from '../../../src/components/blocks/sign-up/sign-up-form.module.css?raw';
 export const signUpLive = { solid: () => import('../../../snippets/blocks/solid/sign-up.tsx').then((module) => ({ default: module.SignUp })), vue: () => import('../../../snippets/blocks/vue/sign-up.vue'), svelte: () => import('../../../snippets/blocks/svelte/sign-up.svelte') };
+import signUpReactTailwind from '../../../src/components/blocks-tailwind/sign-up/sign-up.tsx?raw';
+import signUpSolidTailwind from '../../../snippets/blocks-tailwind/solid/sign-up.tsx?raw';
+import signUpVueTailwind from '../../../snippets/blocks-tailwind/vue/sign-up.vue?raw';
+import signUpSvelteTailwind from '../../../snippets/blocks-tailwind/svelte/sign-up.svelte?raw';
+export const signUpLiveTailwind = { react: () => import('@/components/blocks-tailwind/sign-up/sign-up').then((module) => ({ default: module.SignUp })), solid: () => import('../../../snippets/blocks-tailwind/solid/sign-up.tsx').then((module) => ({ default: module.SignUp })), vue: () => import('../../../snippets/blocks-tailwind/vue/sign-up.vue'), svelte: () => import('../../../snippets/blocks-tailwind/svelte/sign-up.svelte') };
 
 # Sign up
 
 <ExamplePanel
   clientOnly
   sources={{ react: signUpReact, solid: signUpSolid, vue: signUpVue, svelte: signUpSvelte }}
+  tailwindSources={{ react: signUpReactTailwind, solid: signUpSolidTailwind, vue: signUpVueTailwind, svelte: signUpSvelteTailwind }}
   files={[{ name: 'sign-up-form.module.css', code: signUpCss }]}
 >
   <PreviewFrame maxWidth="sm">
-    <FrameworkPreview live={signUpLive}>
+    <FrameworkPreview live={signUpLive} liveTailwind={signUpLiveTailwind}>
       <SignUp onSubmit={(event) => event.preventDefault()} />
     </FrameworkPreview>
   </PreviewFrame>

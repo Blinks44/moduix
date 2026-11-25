@@ -11,6 +11,7 @@ import type { ReactNode } from 'react';
 import { useLocalizedPath } from '@/utils/localized-path';
 import styles from './Components.module.css';
 import type { CssControls } from './customize';
+import { useExampleSelection } from './example-panel';
 import { AnatomyInspector, CssVariablesInspector } from './inspector';
 import { ExampleFrame, PreviewFrame, type CssPropertyInput } from './reference';
 
@@ -129,6 +130,28 @@ function CssPropertiesSection({
   properties: CssPropertyInput[];
   controls?: CssControls;
 }) {
+  const t = useI18n<typeof import('i18n')>();
+  const { styling, selectStyling } = useExampleSelection();
+  const stylingHref = useLocalizedPath('/docs/styling#style-with-tailwind-css');
+
+  if (!import.meta.env.SSG_MD && styling.value === 'tailwind') {
+    return (
+      <div className={styles.tailwindCssNote}>
+        <p>{t('cssVariablesTailwindNotice')}</p>
+        <div className={styles.tailwindCssNoteActions}>
+          <Link href={stylingHref}>{t('cssVariablesTailwindGuide')}</Link>
+          <button
+            type="button"
+            className={styles.tailwindCssNoteButton}
+            onClick={() => selectStyling('css-modules')}
+          >
+            {t('cssVariablesSwitchToCssModules')}
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <CssVariablesInspector properties={properties} controls={controls}>
       {children}

@@ -43,7 +43,7 @@ const resolvedAriaLabel = computed(() =>
       :aria-labelledby="ariaLabelledby"
       :class="
         cn(
-          'absolute end-2 top-2 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-[color:var(--_toast-hover,var(--color-muted))]',
+          'absolute end-2 top-2 not-data-disabled:hover:bg-[color:var(--_toast-hover,var(--color-muted))]',
           className,
         )
       "

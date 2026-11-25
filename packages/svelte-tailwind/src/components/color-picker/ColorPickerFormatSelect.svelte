@@ -25,7 +25,7 @@
   />
   <span
     aria-hidden="true"
-    class="pointer-events-none absolute end-3 top-1/2 inline-flex size-4 -translate-y-1/2 rounded-sm text-muted-foreground transition-[background-color,color] duration-normal ease-in-out forced-colors:hidden [&>svg]:size-full [@media(hover:hover)]:peer-[:not(:disabled):hover]/format-select:bg-muted [@media(hover:hover)]:peer-[:not(:disabled):hover]/format-select:text-foreground"
+    class="pointer-events-none absolute end-3 top-1/2 inline-flex size-4 -translate-y-1/2 rounded-sm text-muted-foreground transition-[background-color,color] duration-normal ease-in-out peer-not-disabled/format-select:peer-hover/format-select:bg-muted peer-not-disabled/format-select:peer-hover/format-select:text-foreground forced-colors:hidden [&>svg]:size-full"
   >
     <ChevronDownIcon />
   </span>

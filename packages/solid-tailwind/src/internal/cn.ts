@@ -5,8 +5,7 @@ const twMerge = extendTailwindMerge({
   extend: {
     theme: {
       spacing: ['control-xs', 'control-sm', 'control-md', 'control-lg', 'control-xl'],
-      text: ['2xs', 'md'],
-      'font-weight': ['regular'],
+      text: ['2xs'],
       ease: ['spring', 'toast-in', 'toast-out'],
     },
     classGroups: {

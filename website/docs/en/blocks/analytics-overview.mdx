@@ -13,15 +13,21 @@ import analyticsOverviewSvelte from '../../../snippets/blocks/svelte/analytics-o
 import analyticsOverviewReact from '../../../src/components/blocks/analytics-overview.tsx?raw';
 import analyticsOverviewCss from '../../../src/components/blocks/analytics-overview.module.css?raw';
 export const analyticsOverviewLive = { solid: () => import('../../../snippets/blocks/solid/analytics-overview.tsx'), vue: () => import('../../../snippets/blocks/vue/analytics-overview.vue'), svelte: () => import('../../../snippets/blocks/svelte/analytics-overview.svelte') };
+import analyticsOverviewReactTailwind from '../../../src/components/blocks-tailwind/analytics-overview.tsx?raw';
+import analyticsOverviewSolidTailwind from '../../../snippets/blocks-tailwind/solid/analytics-overview.tsx?raw';
+import analyticsOverviewVueTailwind from '../../../snippets/blocks-tailwind/vue/analytics-overview.vue?raw';
+import analyticsOverviewSvelteTailwind from '../../../snippets/blocks-tailwind/svelte/analytics-overview.svelte?raw';
+export const analyticsOverviewLiveTailwind = { react: () => import('@/components/blocks-tailwind/analytics-overview').then((module) => ({ default: module.AnalyticsOverview })), solid: () => import('../../../snippets/blocks-tailwind/solid/analytics-overview.tsx'), vue: () => import('../../../snippets/blocks-tailwind/vue/analytics-overview.vue'), svelte: () => import('../../../snippets/blocks-tailwind/svelte/analytics-overview.svelte') };
 
 # Analytics overview
 
 <ExamplePanel
   clientOnly
   sources={{ react: analyticsOverviewReact, solid: analyticsOverviewSolid, vue: analyticsOverviewVue, svelte: analyticsOverviewSvelte }}
+  tailwindSources={{ react: analyticsOverviewReactTailwind, solid: analyticsOverviewSolidTailwind, vue: analyticsOverviewVueTailwind, svelte: analyticsOverviewSvelteTailwind }}
   files={[{ name: 'analytics-overview.module.css', code: analyticsOverviewCss }]}
 >
-  <FrameworkPreview live={analyticsOverviewLive}>
+  <FrameworkPreview live={analyticsOverviewLive} liveTailwind={analyticsOverviewLiveTailwind}>
     <AnalyticsOverview />
   </FrameworkPreview>
 </ExamplePanel>

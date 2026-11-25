@@ -76,7 +76,7 @@ const PopoverTrigger = forwardRef<
       asChild={asChild}
       className={cn(
         !asChild &&
-          'inline-flex min-h-control-md cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3.5 py-1 text-md text-foreground outline-0 transition-[background-color,border-color,color] duration-normal ease-in-out select-none focus-visible:outline-focus-inset focus-visible:outline-offset-focus-inset focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-disabled data-[state=open]:not-data-[value]:bg-accent data-[current]:data-[state=open]:bg-accent [@media(hover:hover)]:hover:bg-accent',
+          'inline-flex min-h-control-md cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3.5 py-1 text-base text-foreground outline-0 transition-[background-color,border-color,color] duration-normal ease-in-out select-none hover:bg-accent focus-visible:outline-focus-inset focus-visible:outline-offset-focus-inset focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-disabled data-[state=open]:not-data-[value]:bg-accent data-[current]:data-[state=open]:bg-accent',
         className,
       )}
       {...props}
@@ -136,7 +136,7 @@ const PopoverArrow = forwardRef<
     <PopoverPrimitive.Arrow
       ref={ref}
       className={cn(
-        '[--arrow-background:var(--color-popover)] [--arrow-size:var(--spacing-2_5)]',
+        '[--arrow-background:var(--color-popover)] [--arrow-size:calc(var(--spacing)*2.5)]',
         className,
       )}
       {...props}
@@ -168,7 +168,7 @@ const PopoverTitle = forwardRef<
   return (
     <PopoverPrimitive.Title
       ref={ref}
-      className={cn('text-md font-semibold', className)}
+      className={cn('text-base font-semibold', className)}
       {...props}
       data-slot="popover-title"
     />
@@ -199,7 +199,7 @@ const PopoverCloseTrigger = forwardRef<
       asChild={asChild}
       className={cn(
         !asChild &&
-          'inline-flex min-h-control-md cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3.5 py-1 text-md text-foreground outline-0 transition-[background-color,border-color,color] duration-normal ease-in-out select-none focus-visible:outline-focus-inset focus-visible:outline-offset-focus-inset focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-disabled [@media(hover:hover)]:hover:bg-accent',
+          'inline-flex min-h-control-md cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3.5 py-1 text-base text-foreground outline-0 transition-[background-color,border-color,color] duration-normal ease-in-out select-none hover:bg-accent focus-visible:outline-focus-inset focus-visible:outline-offset-focus-inset focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-disabled',
         className,
       )}
       {...props}
@@ -222,7 +222,7 @@ const PopoverCloseIcon = forwardRef<
         data-slot="popover-close-icon"
         aria-label={ariaLabel}
         className={cn(
-          'absolute end-3 top-3 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-popover-foreground',
+          'absolute end-3 top-3 not-data-disabled:hover:bg-accent not-data-disabled:hover:text-popover-foreground',
           className,
         )}
       >

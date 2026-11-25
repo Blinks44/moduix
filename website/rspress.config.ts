@@ -1,6 +1,7 @@
 import { pluginBabel } from '@rsbuild/plugin-babel';
 import { pluginSolid } from '@rsbuild/plugin-solid';
 import { pluginSvelte } from '@rsbuild/plugin-svelte';
+import { pluginTailwindcss } from '@rsbuild/plugin-tailwindcss';
 import { pluginVue } from '@rsbuild/plugin-vue';
 import { defineConfig } from '@rspress/core';
 import { pluginPreview } from '@rspress/plugin-preview';
@@ -126,12 +127,13 @@ export default defineConfig({
     },
     plugins: [
       // Solid JSX goes through Babel before SWC compiles the React JSX of the rest of the site. The
-      // `.jsx` files are the Solid builds of `@moduix/solid`, Ark Solid, and Lucide Solid.
+      // `.jsx` files are the Solid builds of `@moduix/solid`, `@moduix/solid-tailwind`, Ark Solid, and Lucide Solid.
       pluginBabel({ include: [/[\\/]snippets[\\/].+[\\/]solid[\\/].+\.tsx$/, /\.jsx$/] }),
       pluginSolid(),
       pluginVue(),
       // Svelte 5 strips TypeScript itself; svelte-preprocess would downlevel `$props()` destructuring.
       pluginSvelte({ svelteLoaderOptions: { preprocess: [] } }),
+      pluginTailwindcss(),
     ],
     resolve: {
       alias: {
@@ -161,18 +163,34 @@ export default defineConfig({
           new rspack.NormalModuleReplacementPlugin(
             /^(?:@\/|\.\/[\w-]+\.module\.css$)/,
             (resource) => {
-              const framework = resource.context.match(
-                /[\\/]snippets[\\/].+[\\/](solid|vue|svelte)$/,
-              )?.[1];
-              if (!framework) return;
+              if (/[\\/]src[\\/]components[\\/]blocks-tailwind(?:[\\/]|$)/.test(resource.context)) {
+                const component = resource.request.match(/^@\/registry\/react\/ui\/(.+)$/)?.[1];
+                if (component) resource.request = `@moduix/react-tailwind/${component}`;
+                return;
+              }
+              const match = resource.context.match(
+                /[\\/]snippets[\\/](blocks-tailwind|.+)[\\/](solid|vue|svelte)$/,
+              );
+              if (!match) return;
+              const [, scope, framework] = match;
               const component = resource.request.match(
                 /^@\/(?:components|registry\/\w+)\/ui\/(.+)$/,
               )?.[1];
-              if (component) resource.request = `@moduix/${framework}/${component}`;
-              else resource.request = blockStyles.get(resource.request) ?? resource.request;
+              if (component) {
+                const pkg = scope === 'blocks-tailwind' ? `${framework}-tailwind` : framework;
+                resource.request = `@moduix/${pkg}/${component}`;
+              } else {
+                resource.request = blockStyles.get(resource.request) ?? resource.request;
+              }
             },
           ),
         );
+        addRules({
+          test: /\.(?:tsx|vue|svelte)$/,
+          resourceQuery: /[?&]tailwind(?:&|=|$)/,
+          enforce: 'pre',
+          loader: fileURLToPath(new URL('./plugins/tailwind-example-loader.js', import.meta.url)),
+        });
         addRules({
           test: /\.mdx$/,
           enforce: 'pre',

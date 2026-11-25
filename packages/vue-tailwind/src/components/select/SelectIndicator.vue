@@ -23,7 +23,7 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="
       cn(
-        'pointer-events-none absolute end-2 top-1/2 inline-flex size-control-xs -translate-y-1/2 items-center justify-center rounded-sm text-muted-foreground transition-[background-color,color] duration-normal ease-in-out [&>svg]:size-4 [@media(hover:hover)]:peer-[:enabled:hover]/select-trigger:bg-muted [@media(hover:hover)]:peer-[:enabled:hover]/select-trigger:text-foreground',
+        'pointer-events-none absolute end-(--_select-action-offset) top-1/2 inline-flex size-(--_select-action-size) -translate-y-1/2 items-center justify-center rounded-sm text-muted-foreground transition-[background-color,color] duration-normal ease-in-out peer-enabled/select-trigger:peer-hover/select-trigger:bg-muted peer-enabled/select-trigger:peer-hover/select-trigger:text-foreground [&>svg]:size-4',
         className,
       )
     "

@@ -19,7 +19,7 @@ const attrs = useAttrs();
 <template>
   <ArkDialogTitle
     v-bind="attrs"
-    :class="cn('text-md leading-6 font-semibold', className)"
+    :class="cn('text-base leading-6 font-semibold', className)"
     data-slot="command-palette-title"
   >
     <slot />

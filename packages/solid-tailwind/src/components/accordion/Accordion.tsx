@@ -59,7 +59,7 @@ function AccordionItemTrigger(props: ComponentProps<typeof AccordionPrimitive.It
   return (
     <AccordionPrimitive.ItemTrigger
       class={cn(
-        'flex w-full cursor-pointer items-center justify-between gap-4 bg-transparent px-3 py-2 text-start text-md outline-0 transition-colors duration-normal select-none focus-visible:relative focus-visible:z-1 focus-visible:outline-focus focus-visible:outline-offset-focus-inset focus-visible:outline-ring disabled:cursor-default disabled:opacity-disabled data-[orientation=horizontal]:h-full data-[orientation=horizontal]:w-10 data-[orientation=horizontal]:justify-center data-[orientation=horizontal]:[writing-mode:sideways-lr] [&:not(:disabled):active]:bg-muted [@media(hover:hover)]:[&:not(:disabled):hover]:bg-muted',
+        'flex w-full cursor-pointer items-center justify-between gap-4 bg-transparent px-3 py-2 text-start text-base outline-0 transition-colors duration-normal select-none not-disabled:hover:bg-muted focus-visible:relative focus-visible:z-1 focus-visible:outline-focus focus-visible:outline-offset-focus-inset focus-visible:outline-ring disabled:cursor-default disabled:opacity-disabled data-[orientation=horizontal]:h-full data-[orientation=horizontal]:w-10 data-[orientation=horizontal]:justify-center data-[orientation=horizontal]:[writing-mode:sideways-lr] [&:not(:disabled):active]:bg-muted',
         local.class,
       )}
       {...others}
@@ -92,7 +92,7 @@ function AccordionItemContent(props: ComponentProps<typeof AccordionPrimitive.It
   return (
     <AccordionPrimitive.ItemContent
       class={cn(
-        'overflow-hidden text-md text-muted-foreground data-[state=closed]:data-[orientation=horizontal]:animate-moduix-accordion-closed-horizontal data-[state=closed]:data-[orientation=vertical]:animate-moduix-accordion-closed data-[state=open]:data-[orientation=horizontal]:animate-moduix-accordion-open-horizontal data-[state=open]:data-[orientation=vertical]:animate-moduix-accordion-open motion-reduce:data-[state]:data-[orientation]:animate-none data-[orientation=horizontal]:[&>*]:w-64',
+        'overflow-hidden text-base text-muted-foreground data-[state=closed]:data-[orientation=horizontal]:animate-moduix-accordion-closed-horizontal data-[state=closed]:data-[orientation=vertical]:animate-moduix-accordion-closed data-[state=open]:data-[orientation=horizontal]:animate-moduix-accordion-open-horizontal data-[state=open]:data-[orientation=vertical]:animate-moduix-accordion-open motion-reduce:data-[state]:data-[orientation]:animate-none data-[orientation=horizontal]:[&>*]:w-64',
         local.class,
       )}
       {...others}

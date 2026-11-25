@@ -1,44 +1,8 @@
 @theme inline {
   --font-sans: var(--moduix-font-sans);
   --font-mono: var(--moduix-font-mono);
-  --font-weight-normal: var(--moduix-weight-regular);
-  --font-weight-regular: var(--moduix-weight-regular);
-  --font-weight-medium: var(--moduix-weight-medium);
-  --font-weight-semibold: var(--moduix-weight-semibold);
-  --font-weight-bold: var(--moduix-weight-bold);
   --text-2xs: var(--moduix-text-2xs);
   --text-2xs--line-height: var(--moduix-line-height-text-2xs);
-  --text-xs: var(--moduix-text-xs);
-  --text-xs--line-height: var(--moduix-line-height-text-xs);
-  --text-sm: var(--moduix-text-sm);
-  --text-sm--line-height: var(--moduix-line-height-text-sm);
-  --text-base: var(--moduix-text-md);
-  --text-base--line-height: var(--moduix-line-height-text-md);
-  --text-md: var(--moduix-text-md);
-  --text-md--line-height: var(--moduix-line-height-text-md);
-  --text-lg: var(--moduix-text-lg);
-  --text-lg--line-height: var(--moduix-line-height-text-lg);
-  --text-xl: var(--moduix-text-xl);
-  --text-xl--line-height: var(--moduix-line-height-text-xl);
-  --text-2xl: var(--moduix-text-2xl);
-  --text-2xl--line-height: var(--moduix-line-height-text-2xl);
-  --text-3xl: var(--moduix-text-3xl);
-  --text-3xl--line-height: var(--moduix-line-height-text-3xl);
-  --spacing-0: var(--moduix-spacing-0);
-  --spacing-0_5: var(--moduix-spacing-0-5);
-  --spacing-1: var(--moduix-spacing-1);
-  --spacing-1_5: var(--moduix-spacing-1-5);
-  --spacing-2: var(--moduix-spacing-2);
-  --spacing-2_5: var(--moduix-spacing-2-5);
-  --spacing-3: var(--moduix-spacing-3);
-  --spacing-3_5: var(--moduix-spacing-3-5);
-  --spacing-4: var(--moduix-spacing-4);
-  --spacing-4_5: var(--moduix-spacing-4-5);
-  --spacing-5: var(--moduix-spacing-5);
-  --spacing-6: var(--moduix-spacing-6);
-  --spacing-7: var(--moduix-spacing-7);
-  --spacing-8: var(--moduix-spacing-8);
-  --spacing-10: var(--moduix-spacing-10);
   --spacing-control-xs: var(--moduix-size-xs);
   --spacing-control-sm: var(--moduix-size-sm);
   --spacing-control-md: var(--moduix-size-md);
@@ -61,7 +25,6 @@
   --outline-width-focus-halo: var(--moduix-focus-ring-halo-width);
   --outline-offset-focus: var(--moduix-focus-ring-offset);
   --outline-offset-focus-inset: var(--moduix-focus-ring-inset-offset);
-  --default-border-width: var(--moduix-border-width-sm);
   --transition-duration-fast: var(--moduix-duration-fast);
   --transition-duration-normal: var(--moduix-duration-normal);
   --transition-duration-slow: var(--moduix-duration-slow);
@@ -201,4 +164,51 @@
     var(--moduix-transition-spring);
   --animate-moduix-drawer-content-out-right: moduix-drawer-content-out-right
     var(--moduix-transition-spring) forwards;
+}
+
+@utility moduix-card-interactive-elevation {
+  &:has([data-slot='card-link'])
+    :is(
+      a,
+      button,
+      input,
+      select,
+      textarea,
+      summary,
+      audio[controls],
+      video[controls],
+      iframe,
+      [contenteditable='true'],
+      [role='button'],
+      [role='checkbox'],
+      [role='menuitem'],
+      [role='switch'],
+      [tabindex]:not([tabindex='-1'])
+    ):not([data-slot='card-link']) {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+@utility moduix-dialog-nested {
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+    background-color: rgb(0 0 0 / 0.05);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--moduix-transition-default);
+  }
+
+  &[data-has-nested] {
+    scale: calc(1 - 0.05 * var(--nested-layer-count, 0));
+    translate: 0 calc(var(--moduix-spacing-10) * var(--nested-layer-count, 0));
+
+    &::after {
+      opacity: 1;
+    }
+  }
 }

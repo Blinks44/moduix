@@ -14,7 +14,8 @@
     ...props
   }: SelectClearTriggerProps = $props();
 
-  const clearClass = 'absolute inset-y-0 end-[2.125rem] my-auto size-control-xs';
+  const clearClass =
+    'absolute inset-y-0 end-[calc(var(--_select-action-offset)+var(--_select-action-size)+0.125rem)] my-auto size-(--_select-action-size)';
 </script>
 
 {#if asChild}

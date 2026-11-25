@@ -24,7 +24,7 @@ const listIndicatorClass =
 
 const listVariants = cva(
   [
-    'flex flex-col gap-(--_list-gap) ps-5 font-regular tracking-normal break-words',
+    'flex flex-col gap-(--_list-gap) ps-5 font-normal tracking-normal break-words',
     '[&>li>:is(ul,ol)]:mt-(--_list-gap)',
     '[&>li:has(>[data-slot=list-indicator])]:flex [&>li:has(>[data-slot=list-indicator])]:items-start',
   ],
@@ -46,7 +46,7 @@ const listVariants = cva(
       size: {
         xs: 'text-xs',
         sm: 'text-sm',
-        md: 'text-md',
+        md: 'text-base',
         lg: 'text-lg',
         xl: 'text-xl',
       },

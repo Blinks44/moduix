@@ -20,7 +20,7 @@ const attrs = useAttrs();
 <template>
   <ArkTourTitle
     v-bind="attrs"
-    :class="cn('pe-6 text-md font-semibold', className)"
+    :class="cn('pe-6 text-base font-semibold', className)"
     data-slot="tour-title"
   >
     <template v-if="slots.default" #default>

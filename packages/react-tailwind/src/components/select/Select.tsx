@@ -110,7 +110,7 @@ const SelectControl = forwardRef<
     <SelectPrimitive.Control
       ref={ref}
       className={cn(
-        'group/select-control relative flex w-full min-w-0 items-center data-disabled:opacity-disabled',
+        'group/select-control relative flex w-full min-w-0 items-center [--_select-action-offset:0.5rem] [--_select-action-size:var(--moduix-size-xs)] data-disabled:opacity-disabled',
         className,
       )}
       {...props}
@@ -128,8 +128,13 @@ const SelectTrigger = forwardRef<
       ref={ref}
       asChild={asChild}
       className={cn(
-        !asChild &&
-          'peer/select-trigger inline-flex h-control-md w-full min-w-0 cursor-pointer items-center rounded-md border border-input bg-background px-3.5 pe-[2.875rem] text-start text-inherit outline-focus-halo outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out select-none [font:inherit] group-has-[>[data-slot=select-clear-trigger]:not([hidden])]/select-control:pe-[4.25rem] group-data-invalid/select-control:border-destructive focus-visible:border-ring focus-visible:outline-ring/50 group-data-invalid/select-control:focus-visible:outline-destructive/20 disabled:cursor-default data-placeholder-shown:text-muted-foreground data-[state=open]:border-ring data-[state=open]:outline-ring/50 group-data-invalid/select-control:data-[state=open]:outline-destructive/20',
+        !asChild && [
+          'peer/select-trigger inline-flex h-control-md w-full min-w-0 cursor-pointer items-center rounded-md border border-input bg-background px-3.5 pe-[calc(var(--_select-action-offset)+var(--_select-action-size)+0.875rem)] text-start text-inherit outline-focus-halo outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out select-none [font:inherit]',
+          'group-has-[>[data-slot=select-clear-trigger]:not([hidden])]/select-control:pe-[calc(var(--_select-action-offset)+var(--_select-action-size)*2+0.75rem)]',
+          'disabled:cursor-default data-placeholder-shown:text-muted-foreground',
+          'focus-visible:border-ring focus-visible:outline-ring/50 data-[state=open]:border-ring data-[state=open]:outline-ring/50',
+          'group-data-invalid/select-control:border-destructive group-data-invalid/select-control:focus-visible:outline-destructive/20 group-data-invalid/select-control:data-[state=open]:outline-destructive/20',
+        ],
         className,
       )}
       {...props}
@@ -145,7 +150,10 @@ const SelectValueText = forwardRef<
   return (
     <SelectPrimitive.ValueText
       ref={ref}
-      className={cn('min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap', className)}
+      className={cn(
+        'min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap [&>svg]:me-2 [&>svg]:inline-block [&>svg]:size-4 [&>svg]:align-middle',
+        className,
+      )}
       {...props}
       data-slot="select-value-text"
     />
@@ -170,7 +178,10 @@ const SelectClearTrigger = forwardRef<
     <SelectPrimitive.ClearTrigger
       ref={ref}
       asChild
-      className={cn('absolute inset-y-0 end-[2.125rem] my-auto size-control-xs', className)}
+      className={cn(
+        'absolute inset-y-0 end-[calc(var(--_select-action-offset)+var(--_select-action-size)+0.125rem)] my-auto size-(--_select-action-size)',
+        className,
+      )}
       aria-label={asChild ? ariaLabel : undefined}
       aria-labelledby={asChild ? ariaLabelledBy : undefined}
       {...props}
@@ -198,7 +209,7 @@ const SelectIndicator = forwardRef<
     <SelectPrimitive.Indicator
       ref={ref}
       className={cn(
-        'pointer-events-none absolute end-2 top-1/2 inline-flex size-control-xs -translate-y-1/2 items-center justify-center rounded-sm text-muted-foreground transition-[background-color,color] duration-normal ease-in-out [&>svg]:size-4 [@media(hover:hover)]:peer-[:enabled:hover]/select-trigger:bg-muted [@media(hover:hover)]:peer-[:enabled:hover]/select-trigger:text-foreground',
+        'pointer-events-none absolute end-(--_select-action-offset) top-1/2 inline-flex size-(--_select-action-size) -translate-y-1/2 items-center justify-center rounded-sm text-muted-foreground transition-[background-color,color] duration-normal ease-in-out peer-enabled/select-trigger:peer-hover/select-trigger:bg-muted peer-enabled/select-trigger:peer-hover/select-trigger:text-foreground [&>svg]:size-4',
         className,
       )}
       {...props}

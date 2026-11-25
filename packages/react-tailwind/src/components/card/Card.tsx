@@ -17,7 +17,11 @@ type CardRootProps = HTMLArkProps<'div'> & {
 };
 
 const cardRootVariants = cva(
-  'group/card relative flex w-full min-w-0 flex-col rounded-lg text-card-foreground focus-visible:outline-focus focus-visible:outline-offset-focus focus-visible:outline-ring has-[>[data-slot=card-background]]:isolate [&:has([data-slot=card-link])_:is(a,button,input,select,textarea,summary,audio[controls],video[controls],iframe,[contenteditable=true],[role=button],[role=checkbox],[role=menuitem],[role=switch],[tabindex]:not([tabindex=-1])):not([data-slot=card-link])]:relative [&:has([data-slot=card-link])_:is(a,button,input,select,textarea,summary,audio[controls],video[controls],iframe,[contenteditable=true],[role=button],[role=checkbox],[role=menuitem],[role=switch],[tabindex]:not([tabindex=-1])):not([data-slot=card-link])]:z-1',
+  [
+    'group/card moduix-card-interactive-elevation relative flex w-full min-w-0 flex-col rounded-lg text-card-foreground',
+    'focus-visible:outline-focus focus-visible:outline-offset-focus focus-visible:outline-ring',
+    'has-[>[data-slot=card-background]]:isolate',
+  ],
   {
     variants: {
       size: {
@@ -156,7 +160,7 @@ const CardTitle = forwardRef<ComponentRef<typeof ark.h3>, HTMLArkProps<'h3'>>(fu
     <ark.h3
       ref={ref}
       className={cn(
-        'min-w-0 text-lg font-semibold wrap-anywhere group-data-[size=lg]/card:text-xl group-data-[size=sm]/card:text-md',
+        'min-w-0 text-lg font-semibold wrap-anywhere group-data-[size=lg]/card:text-xl group-data-[size=sm]/card:text-base',
         className,
       )}
       {...props}
@@ -208,7 +212,7 @@ const CardLink = forwardRef<ComponentRef<typeof ark.a>, HTMLArkProps<'a'>>(funct
     <ark.a
       ref={ref}
       className={cn(
-        'text-inherit no-underline after:absolute after:inset-0 after:rounded-lg focus-visible:outline-0 focus-visible:after:outline-focus focus-visible:after:outline-offset-focus focus-visible:after:outline-ring',
+        'text-inherit no-underline after:absolute after:inset-0 after:rounded-[inherit] focus-visible:outline-0 focus-visible:after:outline-focus focus-visible:after:outline-offset-focus focus-visible:after:outline-ring',
         className,
       )}
       {...props}

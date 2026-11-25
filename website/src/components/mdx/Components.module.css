@@ -289,3 +289,52 @@
   gap: 1rem;
   margin-block: 1.125rem 1.5rem;
 }
+
+.tailwindCssNote {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1.25rem;
+  margin-block: 1rem 1.5rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--rp-c-divider);
+  border-radius: 0.75rem;
+  background: var(--rp-c-bg-soft);
+  color: var(--rp-c-text-2);
+  font-size: 0.875rem;
+  line-height: 1.5;
+
+  p {
+    margin: 0;
+  }
+}
+
+.tailwindCssNoteActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.tailwindCssNoteButton {
+  height: 2rem;
+  border: 1px solid var(--moduix-doc-border-strong);
+  border-radius: 0.5rem;
+  padding: 0 0.75rem;
+  background: var(--rp-c-bg);
+  color: var(--rp-c-text-1);
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--rp-c-bg-mute);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--rp-c-brand);
+    outline-offset: 2px;
+  }
+}

@@ -13,16 +13,22 @@ import expandableAvatarGroupSvelte from '../../../snippets/blocks/svelte/expanda
 import expandableAvatarGroupReact from '../../../src/components/blocks/expandable-avatar-group.tsx?raw';
 import expandableAvatarGroupCss from '../../../src/components/blocks/expandable-avatar-group.module.css?raw';
 export const expandableAvatarGroupLive = { solid: () => import('../../../snippets/blocks/solid/expandable-avatar-group.tsx').then((module) => ({ default: module.ExpandableAvatarGroup })), vue: () => import('../../../snippets/blocks/vue/expandable-avatar-group.vue'), svelte: () => import('../../../snippets/blocks/svelte/expandable-avatar-group.svelte') };
+import expandableAvatarGroupReactTailwind from '../../../src/components/blocks-tailwind/expandable-avatar-group.tsx?raw';
+import expandableAvatarGroupSolidTailwind from '../../../snippets/blocks-tailwind/solid/expandable-avatar-group.tsx?raw';
+import expandableAvatarGroupVueTailwind from '../../../snippets/blocks-tailwind/vue/expandable-avatar-group.vue?raw';
+import expandableAvatarGroupSvelteTailwind from '../../../snippets/blocks-tailwind/svelte/expandable-avatar-group.svelte?raw';
+export const expandableAvatarGroupLiveTailwind = { react: () => import('@/components/blocks-tailwind/expandable-avatar-group').then((module) => ({ default: module.ExpandableAvatarGroup })), solid: () => import('../../../snippets/blocks-tailwind/solid/expandable-avatar-group.tsx').then((module) => ({ default: module.ExpandableAvatarGroup })), vue: () => import('../../../snippets/blocks-tailwind/vue/expandable-avatar-group.vue'), svelte: () => import('../../../snippets/blocks-tailwind/svelte/expandable-avatar-group.svelte') };
 
 # Expandable avatar group
 
 <ExamplePanel
   clientOnly
   sources={{ react: expandableAvatarGroupReact, solid: expandableAvatarGroupSolid, vue: expandableAvatarGroupVue, svelte: expandableAvatarGroupSvelte }}
+  tailwindSources={{ react: expandableAvatarGroupReactTailwind, solid: expandableAvatarGroupSolidTailwind, vue: expandableAvatarGroupVueTailwind, svelte: expandableAvatarGroupSvelteTailwind }}
   files={[{ name: 'expandable-avatar-group.module.css', code: expandableAvatarGroupCss }]}
 >
   <PreviewFrame maxWidth="sm">
-    <FrameworkPreview live={expandableAvatarGroupLive}>
+    <FrameworkPreview live={expandableAvatarGroupLive} liveTailwind={expandableAvatarGroupLiveTailwind}>
       <ExpandableAvatarGroup />
     </FrameworkPreview>
   </PreviewFrame>

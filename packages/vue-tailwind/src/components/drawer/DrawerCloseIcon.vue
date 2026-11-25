@@ -18,7 +18,7 @@ const { ariaLabel, class: className } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 const attrs = useAttrs();
 const closeIconClass =
-  'rounded-md [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-popover-foreground';
+  'rounded-md not-data-disabled:hover:bg-accent not-data-disabled:hover:text-popover-foreground';
 </script>
 
 <template>

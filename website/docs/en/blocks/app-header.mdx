@@ -13,15 +13,21 @@ import appHeaderSvelte from '../../../snippets/blocks/svelte/app-header.svelte?r
 import appHeaderReact from '../../../src/components/blocks/app-header.tsx?raw';
 import appHeaderCss from '../../../src/components/blocks/app-header.module.css?raw';
 export const appHeaderLive = { solid: () => import('../../../snippets/blocks/solid/app-header.tsx').then((module) => ({ default: module.AppHeader })), vue: () => import('../../../snippets/blocks/vue/app-header.vue'), svelte: () => import('../../../snippets/blocks/svelte/app-header.svelte') };
+import appHeaderReactTailwind from '../../../src/components/blocks-tailwind/app-header.tsx?raw';
+import appHeaderSolidTailwind from '../../../snippets/blocks-tailwind/solid/app-header.tsx?raw';
+import appHeaderVueTailwind from '../../../snippets/blocks-tailwind/vue/app-header.vue?raw';
+import appHeaderSvelteTailwind from '../../../snippets/blocks-tailwind/svelte/app-header.svelte?raw';
+export const appHeaderLiveTailwind = { react: () => import('@/components/blocks-tailwind/app-header').then((module) => ({ default: module.AppHeader })), solid: () => import('../../../snippets/blocks-tailwind/solid/app-header.tsx').then((module) => ({ default: module.AppHeader })), vue: () => import('../../../snippets/blocks-tailwind/vue/app-header.vue'), svelte: () => import('../../../snippets/blocks-tailwind/svelte/app-header.svelte') };
 
 # App header
 
 <ExamplePanel
   clientOnly
   sources={{ react: appHeaderReact, solid: appHeaderSolid, vue: appHeaderVue, svelte: appHeaderSvelte }}
+  tailwindSources={{ react: appHeaderReactTailwind, solid: appHeaderSolidTailwind, vue: appHeaderVueTailwind, svelte: appHeaderSvelteTailwind }}
   files={[{ name: 'app-header.module.css', code: appHeaderCss }]}
 >
-  <FrameworkPreview live={appHeaderLive}>
+  <FrameworkPreview live={appHeaderLive} liveTailwind={appHeaderLiveTailwind}>
     <AppHeader />
   </FrameworkPreview>
 </ExamplePanel>

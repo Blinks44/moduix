@@ -7,6 +7,6 @@
 <DialogTitle
   {...props}
   bind:ref
-  class={cn('text-md leading-6 font-semibold', className)}
+  class={cn('text-base leading-6 font-semibold', className)}
   data-slot="command-palette-title"
 />

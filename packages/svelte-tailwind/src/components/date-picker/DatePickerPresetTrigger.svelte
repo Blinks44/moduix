@@ -20,7 +20,7 @@
   class={cn(
     !asChild && [
       actionClass,
-      'min-h-control-sm bg-muted px-2 text-sm leading-5 text-foreground disabled:opacity-disabled [@media(hover:hover)]:[&:not(:disabled):hover]:bg-accent [@media(hover:hover)]:[&:not(:disabled):hover]:text-accent-foreground',
+      'min-h-control-sm bg-muted px-2 text-sm leading-5 text-foreground not-disabled:hover:bg-accent not-disabled:hover:text-accent-foreground disabled:opacity-disabled',
     ],
     className,
   )}

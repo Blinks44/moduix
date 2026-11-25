@@ -152,7 +152,7 @@ const DrawerGrabberIndicator = forwardRef<
     <DrawerPrimitive.GrabberIndicator
       ref={ref}
       className={cn(
-        'h-1 w-12 rounded-full bg-muted-foreground opacity-[0.45] transition-opacity duration-normal ease-in-out [@media(hover:hover)]:group-hover/grabber:opacity-70',
+        'h-1 w-12 rounded-full bg-muted-foreground opacity-[0.45] transition-opacity duration-normal ease-in-out group-hover/grabber:opacity-70',
         className,
       )}
       {...props}
@@ -182,7 +182,7 @@ const DrawerDescription = forwardRef<
   return (
     <DrawerPrimitive.Description
       ref={ref}
-      className={cn('text-md text-muted-foreground', className)}
+      className={cn('text-base text-muted-foreground', className)}
       {...props}
       data-slot="drawer-description"
     />
@@ -210,7 +210,7 @@ const DrawerCloseIcon = forwardRef<
         data-slot="drawer-close-icon"
         aria-label={ariaLabel}
         className={cn(
-          'rounded-md [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-popover-foreground',
+          'rounded-md not-data-disabled:hover:bg-accent not-data-disabled:hover:text-popover-foreground',
           className,
         )}
       >
@@ -295,7 +295,7 @@ const DrawerBody = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function Draw
   return (
     <ark.div
       ref={ref}
-      className={cn('mt-4 min-h-0 overflow-y-auto text-md', className)}
+      className={cn('mt-4 min-h-0 overflow-y-auto text-base', className)}
       {...props}
       data-slot="drawer-body"
     />

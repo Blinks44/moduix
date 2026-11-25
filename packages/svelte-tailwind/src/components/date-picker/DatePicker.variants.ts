@@ -1,7 +1,7 @@
 export const rootClass =
   "group/date-picker inline-flex w-75 max-w-full flex-col items-start gap-1 text-foreground has-[input[data-index='1']]:w-96 data-disabled:opacity-disabled [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100";
 export const actionClass =
-  'inline-flex shrink-0 cursor-pointer items-center justify-center rounded-sm bg-transparent p-0 leading-none text-muted-foreground outline-focus-inset outline-offset-focus-inset outline-transparent transition-[background-color,color,outline-color] duration-normal ease-in-out focus-visible:outline-ring disabled:cursor-default [&>svg]:block [&>svg]:size-4 [@media(hover:hover)]:[&:not(:disabled):hover]:bg-muted [@media(hover:hover)]:[&:not(:disabled):hover]:text-foreground';
+  'inline-flex shrink-0 cursor-pointer items-center justify-center rounded-sm bg-transparent p-0 leading-none text-muted-foreground outline-focus-inset outline-offset-focus-inset outline-transparent transition-[background-color,color,outline-color] duration-normal ease-in-out focus-visible:outline-ring disabled:cursor-default [&>svg]:block [&>svg]:size-4 not-disabled:hover:bg-muted not-disabled:hover:text-foreground';
 export const tableHeaderClass =
   'h-7 w-control-sm text-center text-xs leading-4 font-medium text-muted-foreground tabular-nums';
 export const selectControlClass = 'relative grid min-w-0';

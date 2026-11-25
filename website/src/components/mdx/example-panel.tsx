@@ -52,7 +52,7 @@ function useExampleSelection() {
 }
 
 function toDisplayCode(code: string) {
-  return code.replaceAll(/@\/registry\/\w+\/ui\//g, '@/components/ui/');
+  return code.replaceAll(/@\/registry\/[\w-]+\/ui\//g, '@/components/ui/');
 }
 
 function toStyling(code: string, framework: Framework, styling: string) {
@@ -92,13 +92,17 @@ function PanelSelect({
 function ExamplePanel({
   children,
   sources,
+  tailwindSources,
   files = [],
+  tailwindFiles,
   projects,
   ...frameProps
 }: {
   children: ReactNode;
   sources: Record<Framework, string>;
+  tailwindSources?: Record<Framework, string>;
   files?: { name: string; code: string }[];
+  tailwindFiles?: { name: string; code: string }[];
   projects?: Record<Framework, ExampleProject>;
 } & Omit<ComponentProps<typeof ExampleFrame>, 'children' | 'variant'>) {
   const t = useI18n<typeof import('i18n')>();
@@ -106,7 +110,14 @@ function ExamplePanel({
   const [tab, setTab] = useState<'preview' | 'code'>('preview');
   const [run, setRun] = useState(0);
   const [copied, setCopied] = useState(false);
-  const code = toStyling(sources[framework.value], framework.value, styling.value);
+  const isTailwind = styling.value === 'tailwind';
+  const code =
+    isTailwind && tailwindSources
+      ? toDisplayCode(tailwindSources[framework.value])
+      : toStyling(sources[framework.value], framework.value, styling.value);
+  const visibleFiles = isTailwind
+    ? (tailwindFiles ?? files.filter((file) => !file.name.endsWith('.module.css')))
+    : files;
   const project = projects?.[framework.value];
 
   if (import.meta.env.SSG_MD) {
@@ -202,14 +213,11 @@ function ExamplePanel({
           <ExampleFrame key={run} variant="component" {...frameProps}>
             {children}
           </ExampleFrame>
-          {styling.value !== 'css-modules' ? (
-            <span className={styles.renderer}>{t('exampleRenderer')}</span>
-          ) : null}
         </div>
       ) : (
         <div className={styles.code}>
           <CodeBlockRuntime lang={framework.lang} code={code} />
-          {files.map((file) => (
+          {visibleFiles.map((file) => (
             <CodeBlockRuntime key={file.name} lang="css" title={file.name} code={file.code} />
           ))}
         </div>

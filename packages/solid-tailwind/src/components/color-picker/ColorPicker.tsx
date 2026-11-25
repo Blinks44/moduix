@@ -319,7 +319,7 @@ function ColorPickerEyeDropperTrigger(
   return (
     <ColorPickerPrimitive.EyeDropperTrigger
       class={cn(
-        'inline-flex h-control-md min-w-control-md shrink-0 cursor-pointer items-center justify-center gap-2 rounded-md border border-input bg-transparent px-2 text-sm text-muted-foreground outline-focus-halo outline-transparent transition-[border-color,outline-color,background-color,color] duration-normal ease-in-out focus-visible:border-ring focus-visible:outline-ring/50 disabled:cursor-default data-readonly:cursor-default [&>svg]:size-4 [&>svg]:shrink-0 [@media(hover:hover)]:[&:not(:disabled):not([data-readonly]):hover]:bg-muted [@media(hover:hover)]:[&:not(:disabled):not([data-readonly]):hover]:text-foreground',
+        'inline-flex h-control-md min-w-control-md shrink-0 cursor-pointer items-center justify-center gap-2 rounded-md border border-input bg-transparent px-2 text-sm text-muted-foreground outline-focus-halo outline-transparent transition-[border-color,outline-color,background-color,color] duration-normal ease-in-out not-disabled:not-data-readonly:hover:bg-muted not-disabled:not-data-readonly:hover:text-foreground focus-visible:border-ring focus-visible:outline-ring/50 disabled:cursor-default data-readonly:cursor-default [&>svg]:size-4 [&>svg]:shrink-0',
         local.class,
       )}
       {...others}
@@ -345,7 +345,7 @@ function ColorPickerFormatSelect(props: ComponentProps<typeof ColorPickerPrimiti
       />
       <span
         aria-hidden="true"
-        class="pointer-events-none absolute end-3 top-1/2 inline-flex size-4 -translate-y-1/2 rounded-sm text-muted-foreground transition-[background-color,color] duration-normal ease-in-out forced-colors:hidden [&>svg]:size-full [@media(hover:hover)]:peer-[:not(:disabled):hover]/format-select:bg-muted [@media(hover:hover)]:peer-[:not(:disabled):hover]/format-select:text-foreground"
+        class="pointer-events-none absolute end-3 top-1/2 inline-flex size-4 -translate-y-1/2 rounded-sm text-muted-foreground transition-[background-color,color] duration-normal ease-in-out peer-not-disabled/format-select:peer-hover/format-select:bg-muted peer-not-disabled/format-select:peer-hover/format-select:text-foreground forced-colors:hidden [&>svg]:size-full"
       >
         <ChevronDownIcon />
       </span>
@@ -361,7 +361,7 @@ function ColorPickerFormatTrigger(
   return (
     <ColorPickerPrimitive.FormatTrigger
       class={cn(
-        'inline-flex h-control-md min-w-control-md shrink-0 cursor-pointer items-center justify-center gap-2 rounded-md border border-input bg-transparent px-2 text-sm text-muted-foreground outline-focus-halo outline-transparent transition-[border-color,outline-color,background-color,color] duration-normal ease-in-out focus-visible:border-ring focus-visible:outline-ring/50 disabled:cursor-default data-readonly:cursor-default [&>svg]:size-4 [&>svg]:shrink-0 [@media(hover:hover)]:[&:not(:disabled):not([data-readonly]):hover]:bg-muted [@media(hover:hover)]:[&:not(:disabled):not([data-readonly]):hover]:text-foreground',
+        'inline-flex h-control-md min-w-control-md shrink-0 cursor-pointer items-center justify-center gap-2 rounded-md border border-input bg-transparent px-2 text-sm text-muted-foreground outline-focus-halo outline-transparent transition-[border-color,outline-color,background-color,color] duration-normal ease-in-out not-disabled:not-data-readonly:hover:bg-muted not-disabled:not-data-readonly:hover:text-foreground focus-visible:border-ring focus-visible:outline-ring/50 disabled:cursor-default data-readonly:cursor-default [&>svg]:size-4 [&>svg]:shrink-0',
         local.class,
       )}
       {...others}

@@ -85,7 +85,7 @@ function PasswordInputInput(props: PasswordInputInputProps) {
       {...{ 'prop:defaultValue': local.defaultValue }}
       data-slot="password-input-input"
       class={cn(
-        'min-w-0 flex-auto bg-transparent px-3 py-1 text-md text-foreground outline-0 group-data-[size=lg]/password-input:px-4 group-data-[size=lg]/password-input:text-lg group-data-[size=sm]/password-input:px-2 group-data-[size=sm]/password-input:text-sm group-data-[size=xl]/password-input:px-4 group-data-[size=xl]/password-input:py-2 group-data-[size=xl]/password-input:text-lg group-data-[size=xs]/password-input:px-2 group-data-[size=xs]/password-input:py-0.5 group-data-[size=xs]/password-input:text-xs placeholder:text-muted-foreground',
+        'min-w-0 flex-auto bg-transparent px-3 py-1 text-base text-foreground outline-0 group-data-[size=lg]/password-input:px-4 group-data-[size=lg]/password-input:text-lg group-data-[size=sm]/password-input:px-2 group-data-[size=sm]/password-input:text-sm group-data-[size=xl]/password-input:px-4 group-data-[size=xl]/password-input:py-2 group-data-[size=xl]/password-input:text-lg group-data-[size=xs]/password-input:px-2 group-data-[size=xs]/password-input:py-0.5 group-data-[size=xs]/password-input:text-xs placeholder:text-muted-foreground',
         local.class,
       )}
     />
@@ -100,7 +100,7 @@ function PasswordInputVisibilityTrigger(
   return (
     <PasswordInputPrimitive.VisibilityTrigger
       class={cn(
-        'group/password-input-trigger inline-flex size-control-sm shrink-0 cursor-pointer items-center justify-center rounded-sm bg-transparent text-muted-foreground outline-focus-inset outline-offset-focus-inset outline-transparent transition-[color,outline-color] duration-normal ease-in-out group-data-[size=sm]/password-input:size-6 group-data-[size=xl]/password-input:size-10 group-data-[size=xs]/password-input:size-5 focus-visible:outline-ring data-disabled:cursor-default data-readonly:cursor-default [@media(hover:hover)]:[&:not([data-disabled],[data-readonly]):hover]:text-foreground',
+        'group/password-input-trigger inline-flex size-control-sm shrink-0 cursor-pointer items-center justify-center rounded-sm bg-transparent text-muted-foreground outline-focus-inset outline-offset-focus-inset outline-transparent transition-[color,outline-color] duration-normal ease-in-out group-data-[size=sm]/password-input:size-6 group-data-[size=xl]/password-input:size-10 group-data-[size=xs]/password-input:size-5 not-data-disabled:not-data-readonly:hover:text-foreground focus-visible:outline-ring data-disabled:cursor-default data-readonly:cursor-default',
         local.class,
       )}
       {...others}

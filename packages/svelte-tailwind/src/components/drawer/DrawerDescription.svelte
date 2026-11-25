@@ -8,6 +8,6 @@
 <DrawerDescription
   {...props}
   bind:ref
-  class={cn('text-md text-muted-foreground', className)}
+  class={cn('text-base text-muted-foreground', className)}
   data-slot="drawer-description"
 />

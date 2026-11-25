@@ -23,14 +23,14 @@ const headingVariants = cva('m-0 text-foreground tracking-normal text-balance wr
   variants: {
     size: {
       xs: 'text-sm',
-      sm: 'text-md',
+      sm: 'text-base',
       md: 'text-lg',
       lg: 'text-xl',
       xl: 'text-2xl',
       '2xl': 'text-3xl',
     },
     weight: {
-      regular: 'font-regular',
+      regular: 'font-normal',
       medium: 'font-medium',
       semibold: 'font-semibold',
       bold: 'font-bold',

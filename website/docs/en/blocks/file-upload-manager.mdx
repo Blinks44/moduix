@@ -13,15 +13,21 @@ import fileUploadManagerSvelte from '../../../snippets/blocks/svelte/file-upload
 import fileUploadManagerReact from '../../../src/components/blocks/file-upload-manager.tsx?raw';
 import fileUploadManagerCss from '../../../src/components/blocks/file-upload-manager.module.css?raw';
 export const fileUploadManagerLive = { solid: () => import('../../../snippets/blocks/solid/file-upload-manager.tsx').then((module) => ({ default: module.FileUploadManager })), vue: () => import('../../../snippets/blocks/vue/file-upload-manager.vue'), svelte: () => import('../../../snippets/blocks/svelte/file-upload-manager.svelte') };
+import fileUploadManagerReactTailwind from '../../../src/components/blocks-tailwind/file-upload-manager.tsx?raw';
+import fileUploadManagerSolidTailwind from '../../../snippets/blocks-tailwind/solid/file-upload-manager.tsx?raw';
+import fileUploadManagerVueTailwind from '../../../snippets/blocks-tailwind/vue/file-upload-manager.vue?raw';
+import fileUploadManagerSvelteTailwind from '../../../snippets/blocks-tailwind/svelte/file-upload-manager.svelte?raw';
+export const fileUploadManagerLiveTailwind = { react: () => import('@/components/blocks-tailwind/file-upload-manager').then((module) => ({ default: module.FileUploadManager })), solid: () => import('../../../snippets/blocks-tailwind/solid/file-upload-manager.tsx').then((module) => ({ default: module.FileUploadManager })), vue: () => import('../../../snippets/blocks-tailwind/vue/file-upload-manager.vue'), svelte: () => import('../../../snippets/blocks-tailwind/svelte/file-upload-manager.svelte') };
 
 # File upload manager
 
 <ExamplePanel
   clientOnly
   sources={{ react: fileUploadManagerReact, solid: fileUploadManagerSolid, vue: fileUploadManagerVue, svelte: fileUploadManagerSvelte }}
+  tailwindSources={{ react: fileUploadManagerReactTailwind, solid: fileUploadManagerSolidTailwind, vue: fileUploadManagerVueTailwind, svelte: fileUploadManagerSvelteTailwind }}
   files={[{ name: 'file-upload-manager.module.css', code: fileUploadManagerCss }]}
 >
-  <FrameworkPreview live={fileUploadManagerLive}>
+  <FrameworkPreview live={fileUploadManagerLive} liveTailwind={fileUploadManagerLiveTailwind}>
     <FileUploadManager />
   </FrameworkPreview>
 </ExamplePanel>

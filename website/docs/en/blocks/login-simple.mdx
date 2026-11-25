@@ -17,16 +17,22 @@ import loginRouteSolid from '../../../snippets/blocks/solid/login-route.tsx?raw'
 import loginRouteVue from '../../../snippets/blocks/vue/login-route.vue?raw';
 import loginRouteSvelte from '../../../snippets/blocks/svelte/login-route.svelte?raw';
 export const loginSimpleLive = { solid: () => import('../../../snippets/blocks/solid/login-simple.tsx').then((module) => ({ default: module.LoginSimple })), vue: () => import('../../../snippets/blocks/vue/login-simple.vue'), svelte: () => import('../../../snippets/blocks/svelte/login-simple.svelte') };
+import loginSimpleReactTailwind from '../../../src/components/blocks-tailwind/login-simple/login-simple.tsx?raw';
+import loginSimpleSolidTailwind from '../../../snippets/blocks-tailwind/solid/login-simple.tsx?raw';
+import loginSimpleVueTailwind from '../../../snippets/blocks-tailwind/vue/login-simple.vue?raw';
+import loginSimpleSvelteTailwind from '../../../snippets/blocks-tailwind/svelte/login-simple.svelte?raw';
+export const loginSimpleLiveTailwind = { react: () => import('@/components/blocks-tailwind/login-simple/login-simple').then((module) => ({ default: module.LoginSimple })), solid: () => import('../../../snippets/blocks-tailwind/solid/login-simple.tsx').then((module) => ({ default: module.LoginSimple })), vue: () => import('../../../snippets/blocks-tailwind/vue/login-simple.vue'), svelte: () => import('../../../snippets/blocks-tailwind/svelte/login-simple.svelte') };
 
 # Sign in
 
 <ExamplePanel
   clientOnly
   sources={{ react: loginSimpleReact, solid: loginSimpleSolid, vue: loginSimpleVue, svelte: loginSimpleSvelte }}
+  tailwindSources={{ react: loginSimpleReactTailwind, solid: loginSimpleSolidTailwind, vue: loginSimpleVueTailwind, svelte: loginSimpleSvelteTailwind }}
   files={[{ name: 'login-simple-form.module.css', code: loginSimpleCss }]}
 >
   <PreviewFrame maxWidth="sm">
-    <FrameworkPreview live={loginSimpleLive}>
+    <FrameworkPreview live={loginSimpleLive} liveTailwind={loginSimpleLiveTailwind}>
       <LoginSimple onSubmit={(event) => event.preventDefault()} />
     </FrameworkPreview>
   </PreviewFrame>

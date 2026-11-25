@@ -3,9 +3,18 @@
   import { cn } from '@/lib/moduix/cn';
 
   let { class: className, ref = $bindable(null), ...props }: TabContentProps = $props();
-
-  const contentClass =
-    'min-w-0 flex-1 rounded-lg border border-border bg-background p-4 text-sm leading-5 outline-0 group-data-[variant=line]/tabs:rounded-none group-data-[variant=line]/tabs:border-0 group-data-[variant=line]/tabs:bg-transparent group-data-[variant=line]/tabs:p-0 focus-visible:outline-focus-inset focus-visible:outline-offset-focus-inset focus-visible:outline-ring';
 </script>
 
-<TabContent {...props} bind:ref class={cn(contentClass, className)} data-slot="tabs-content" />
+<TabContent
+  {...props}
+  bind:ref
+  class={cn(
+    [
+      'min-w-0 flex-1 rounded-lg border border-border bg-background p-4 text-sm leading-5 outline-0',
+      'group-data-[variant=line]/tabs:rounded-none group-data-[variant=line]/tabs:border-0 group-data-[variant=line]/tabs:bg-transparent group-data-[variant=line]/tabs:p-0',
+      'focus-visible:outline-focus-inset focus-visible:outline-offset-focus-inset focus-visible:outline-ring',
+    ],
+    className,
+  )}
+  data-slot="tabs-content"
+/>

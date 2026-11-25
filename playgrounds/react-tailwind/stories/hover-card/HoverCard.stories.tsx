@@ -69,7 +69,7 @@ function ProfileCard({ profile }: { profile: Profile }) {
         src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=640&q=80"
       />
       <div className="mt-2 grid gap-1">
-        <p className="m-0 text-md leading-6 font-bold text-popover-foreground">{profile.name}</p>
+        <p className="text-md m-0 leading-6 font-bold text-popover-foreground">{profile.name}</p>
         <p className="m-0 text-sm leading-5 text-muted-foreground">{profile.bio}</p>
       </div>
     </div>

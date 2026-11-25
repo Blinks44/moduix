@@ -23,7 +23,7 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="
       cn(
-        '[--arrow-background:var(--color-foreground)] [--arrow-size:var(--spacing-2_5)]',
+        '[--arrow-background:var(--color-foreground)] [--arrow-size:calc(var(--spacing)*2.5)]',
         className,
       )
     "

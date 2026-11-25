@@ -140,7 +140,7 @@ function TooltipArrow(props: ComponentProps<typeof TooltipPrimitive.Arrow>) {
   return (
     <TooltipPrimitive.Arrow
       class={cn(
-        '[--arrow-background:var(--color-foreground)] [--arrow-size:var(--spacing-2_5)]',
+        '[--arrow-background:var(--color-foreground)] [--arrow-size:calc(var(--spacing)*2.5)]',
         local.class,
       )}
       {...others}

@@ -32,7 +32,7 @@ const tableVariants = cva('group/table isolate w-full border-collapse text-start
     size: {
       sm: 'text-xs leading-4',
       md: 'text-sm leading-5',
-      lg: 'text-md leading-6',
+      lg: 'text-base leading-6',
     },
   },
   defaultVariants: {

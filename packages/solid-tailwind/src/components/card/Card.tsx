@@ -14,7 +14,11 @@ type CardRootProps = HTMLArkProps<'div'> & {
 };
 
 const cardRootVariants = cva(
-  'group/card relative flex w-full min-w-0 flex-col rounded-lg text-card-foreground focus-visible:outline-focus focus-visible:outline-offset-focus focus-visible:outline-ring has-[>[data-slot=card-background]]:isolate [&:has([data-slot=card-link])_:is(a,button,input,select,textarea,summary,audio[controls],video[controls],iframe,[contenteditable=true],[role=button],[role=checkbox],[role=menuitem],[role=switch],[tabindex]:not([tabindex=-1])):not([data-slot=card-link])]:relative [&:has([data-slot=card-link])_:is(a,button,input,select,textarea,summary,audio[controls],video[controls],iframe,[contenteditable=true],[role=button],[role=checkbox],[role=menuitem],[role=switch],[tabindex]:not([tabindex=-1])):not([data-slot=card-link])]:z-1',
+  [
+    'group/card moduix-card-interactive-elevation relative flex w-full min-w-0 flex-col rounded-lg text-card-foreground',
+    'focus-visible:outline-focus focus-visible:outline-offset-focus focus-visible:outline-ring',
+    'has-[>[data-slot=card-background]]:isolate',
+  ],
   {
     variants: {
       size: {
@@ -136,7 +140,7 @@ function CardTitle(props: HTMLArkProps<'h3'>) {
   return (
     <ark.h3
       class={cn(
-        'min-w-0 text-lg font-semibold wrap-anywhere group-data-[size=lg]/card:text-xl group-data-[size=sm]/card:text-md',
+        'min-w-0 text-lg font-semibold wrap-anywhere group-data-[size=lg]/card:text-xl group-data-[size=sm]/card:text-base',
         local.class,
       )}
       {...others}
@@ -181,7 +185,7 @@ function CardLink(props: HTMLArkProps<'a'>) {
   return (
     <ark.a
       class={cn(
-        'text-inherit no-underline after:absolute after:inset-0 after:rounded-lg focus-visible:outline-0 focus-visible:after:outline-focus focus-visible:after:outline-offset-focus focus-visible:after:outline-ring',
+        'text-inherit no-underline after:absolute after:inset-0 after:rounded-[inherit] focus-visible:outline-0 focus-visible:after:outline-focus focus-visible:after:outline-offset-focus focus-visible:after:outline-ring',
         local.class,
       )}
       {...others}

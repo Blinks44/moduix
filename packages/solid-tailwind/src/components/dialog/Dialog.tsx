@@ -1,6 +1,7 @@
 import { Dialog as DialogPrimitive, useDialog, useDialogContext } from '@ark-ui/solid/dialog';
 import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
+import { cva } from 'class-variance-authority';
 import type { ComponentProps } from 'solid-js';
 import { splitProps } from 'solid-js';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
@@ -110,13 +111,62 @@ function DialogPositioner(props: ComponentProps<typeof DialogPrimitive.Positione
   );
 }
 
+const dialogContentVariants = cva(
+  [
+    'moduix-dialog-nested relative z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] max-w-full origin-top',
+    'rounded-lg border border-border bg-popover p-6 text-popover-foreground shadow-lg outline-0',
+    'transition-[scale,translate] duration-normal ease-in-out motion-reduce:transition-none',
+    'data-[state=closed]:animate-moduix-popup-out data-[state=open]:animate-moduix-popup-in motion-reduce:data-[state]:animate-none',
+    '[&:has([data-slot=dialog-close-icon])_[data-slot=dialog-title]]:pe-7',
+  ],
+  {
+    variants: {
+      size: {
+        sm: 'w-[min(24rem,calc(100vw-var(--moduix-spacing-8)))]',
+        md: 'w-[min(28rem,calc(100vw-var(--moduix-spacing-8)))]',
+        lg: 'w-[min(32rem,calc(100vw-var(--moduix-spacing-8)))]',
+        xl: 'w-[min(36rem,calc(100vw-var(--moduix-spacing-8)))]',
+        full: 'min-h-full w-full max-w-none rounded-none border-0',
+      },
+      placement: {
+        center: '',
+        top: 'self-start',
+        bottom: 'self-end',
+      },
+      scrollBehavior: {
+        outside: '',
+        inside: [
+          'flex max-h-[calc(100dvh-2*var(--moduix-spacing-4))] flex-col',
+          '[&>[data-slot=dialog-body]]:min-h-0 [&>[data-slot=dialog-body]]:flex-auto [&>[data-slot=dialog-body]]:overflow-y-auto',
+        ],
+      },
+    },
+    compoundVariants: [
+      {
+        size: 'full',
+        scrollBehavior: 'inside',
+        className: 'max-h-dvh',
+      },
+    ],
+    defaultVariants: {
+      size: 'md',
+      placement: 'center',
+      scrollBehavior: 'outside',
+    },
+  },
+);
+
 function DialogContent(props: DialogContentProps) {
   const [local, others] = splitProps(props, ['class', 'placement', 'scrollBehavior', 'size']);
 
   return (
     <DialogPrimitive.Content
       class={cn(
-        "relative z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] w-[min(28rem,calc(100vw-2rem))] max-w-full origin-top rounded-lg border border-border bg-popover p-6 text-popover-foreground shadow-lg outline-0 transition-[scale,translate] duration-normal ease-in-out after:pointer-events-none after:absolute after:inset-0 after:z-1 after:rounded-[inherit] after:bg-black/5 after:opacity-0 after:transition-opacity after:duration-normal after:ease-in-out after:content-[''] data-[has-nested]:[translate:0_calc(2.5rem*var(--nested-layer-count,0))] data-[has-nested]:[scale:calc(1-0.05*var(--nested-layer-count,0))] data-[has-nested]:after:opacity-100 data-[placement=bottom]:self-end data-[placement=top]:self-start data-[scroll-behavior=inside]:flex data-[scroll-behavior=inside]:max-h-[calc(100dvh-2rem)] data-[scroll-behavior=inside]:flex-col data-[size=full]:min-h-full data-[size=full]:w-full data-[size=full]:max-w-none data-[size=full]:rounded-none data-[size=full]:border-0 data-[size=full]:data-[scroll-behavior=inside]:max-h-dvh data-[size=lg]:w-[min(32rem,calc(100vw-2rem))] data-[size=sm]:w-[min(24rem,calc(100vw-2rem))] data-[size=xl]:w-[min(36rem,calc(100vw-2rem))] data-[state=closed]:animate-moduix-popup-out data-[state=open]:animate-moduix-popup-in motion-reduce:data-[state]:animate-none [&:has([data-slot=dialog-close-icon])_[data-slot=dialog-title]]:pe-7 data-[scroll-behavior=inside]:[&>[data-slot=dialog-body]]:min-h-0 data-[scroll-behavior=inside]:[&>[data-slot=dialog-body]]:flex-auto data-[scroll-behavior=inside]:[&>[data-slot=dialog-body]]:overflow-y-auto",
+        dialogContentVariants({
+          size: local.size,
+          placement: local.placement,
+          scrollBehavior: local.scrollBehavior,
+        }),
         local.class,
       )}
       {...others}
@@ -145,7 +195,7 @@ function DialogDescription(props: ComponentProps<typeof DialogPrimitive.Descript
 
   return (
     <DialogPrimitive.Description
-      class={cn('text-md text-muted-foreground', local.class)}
+      class={cn('text-base text-muted-foreground', local.class)}
       {...others}
       data-slot="dialog-description"
     />
@@ -167,7 +217,7 @@ function DialogCloseIcon(props: DialogCloseIconProps) {
           data-slot="dialog-close-icon"
           aria-label={local['aria-label'] ?? a11yLabels.closeDialog}
           class={cn(
-            'absolute end-4 top-4 z-2 rounded-md [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-popover-foreground',
+            'absolute end-4 top-4 z-2 rounded-md not-data-disabled:hover:bg-accent not-data-disabled:hover:text-popover-foreground',
             local.class,
           )}
         >
@@ -188,7 +238,7 @@ function DialogHeader(props: HTMLArkProps<'div'>) {
 function DialogBody(props: HTMLArkProps<'div'>) {
   const [local, others] = splitProps(props, ['class']);
 
-  return <ark.div class={cn('mt-4 text-md', local.class)} {...others} data-slot="dialog-body" />;
+  return <ark.div class={cn('mt-4 text-base', local.class)} {...others} data-slot="dialog-body" />;
 }
 
 function DialogFooter(props: HTMLArkProps<'div'>) {

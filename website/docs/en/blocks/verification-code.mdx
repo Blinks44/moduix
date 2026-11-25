@@ -13,16 +13,22 @@ import verificationCodeSvelte from '../../../snippets/blocks/svelte/verification
 import verificationCodeReact from '../../../src/components/blocks/verification-code/verification-code.tsx?raw';
 import verificationCodeCss from '../../../src/components/blocks/verification-code/verification-code-form.module.css?raw';
 export const verificationCodeLive = { solid: () => import('../../../snippets/blocks/solid/verification-code.tsx').then((module) => ({ default: module.VerificationCode })), vue: () => import('../../../snippets/blocks/vue/verification-code.vue'), svelte: () => import('../../../snippets/blocks/svelte/verification-code.svelte') };
+import verificationCodeReactTailwind from '../../../src/components/blocks-tailwind/verification-code/verification-code.tsx?raw';
+import verificationCodeSolidTailwind from '../../../snippets/blocks-tailwind/solid/verification-code.tsx?raw';
+import verificationCodeVueTailwind from '../../../snippets/blocks-tailwind/vue/verification-code.vue?raw';
+import verificationCodeSvelteTailwind from '../../../snippets/blocks-tailwind/svelte/verification-code.svelte?raw';
+export const verificationCodeLiveTailwind = { react: () => import('@/components/blocks-tailwind/verification-code/verification-code').then((module) => ({ default: module.VerificationCode })), solid: () => import('../../../snippets/blocks-tailwind/solid/verification-code.tsx').then((module) => ({ default: module.VerificationCode })), vue: () => import('../../../snippets/blocks-tailwind/vue/verification-code.vue'), svelte: () => import('../../../snippets/blocks-tailwind/svelte/verification-code.svelte') };
 
 # Verification code
 
 <ExamplePanel
   clientOnly
   sources={{ react: verificationCodeReact, solid: verificationCodeSolid, vue: verificationCodeVue, svelte: verificationCodeSvelte }}
+  tailwindSources={{ react: verificationCodeReactTailwind, solid: verificationCodeSolidTailwind, vue: verificationCodeVueTailwind, svelte: verificationCodeSvelteTailwind }}
   files={[{ name: 'verification-code-form.module.css', code: verificationCodeCss }]}
 >
   <PreviewFrame maxWidth="sm">
-    <FrameworkPreview live={verificationCodeLive}>
+    <FrameworkPreview live={verificationCodeLive} liveTailwind={verificationCodeLiveTailwind}>
       <VerificationCode onSubmit={(event) => event.preventDefault()} />
     </FrameworkPreview>
   </PreviewFrame>

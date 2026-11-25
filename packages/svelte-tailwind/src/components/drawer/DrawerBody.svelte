@@ -12,6 +12,6 @@
   as="div"
   {...props}
   bind:ref
-  class={cn('mt-4 min-h-0 overflow-y-auto text-md', className)}
+  class={cn('mt-4 min-h-0 overflow-y-auto text-base', className)}
   data-slot="drawer-body"
 />

@@ -70,9 +70,12 @@ export default function exampleLoader(source) {
     .replace(examplePattern, (_, name, attributes) => {
       const { identifier, reactFile, solidFile, vueFile, svelteFile, dir, base } = addSources(name);
       imports.add(`import ${identifier} from '@/components/examples/${dir}/${base}.tsx';`);
-      // A module-level object keeps the loaders stable across renders of the panel.
+      // Module-level objects keep the loaders stable across renders of the panel.
       imports.add(
         `export const ${identifier}Live = { solid: () => import('${relative(solidFile)}'), vue: () => import('${relative(previewFile(vueFile))}'), svelte: () => import('${relative(previewFile(svelteFile))}') };`,
+      );
+      imports.add(
+        `export const ${identifier}LiveTailwind = { react: () => import('@/components/examples/${dir}/${base}.tsx?tailwind'), solid: () => import('${relative(solidFile)}?tailwind'), vue: () => import('${relative(previewFile(vueFile))}?tailwind'), svelte: () => import('${relative(previewFile(svelteFile))}?tailwind') };`,
       );
       const files = cssImports(reactFile).map((file, index) => {
         imports.add(`import ${identifier}Css${index} from '${relative(file)}?raw';`);
@@ -101,7 +104,7 @@ export default function exampleLoader(source) {
         }
       }
       return `<ExamplePanel${attributes} projects={${JSON.stringify(projects)}} sources=${sources(identifier)} files={[${files.join(', ')}]}>
-  <FrameworkPreview live={${identifier}Live}>
+  <FrameworkPreview live={${identifier}Live} liveTailwind={${identifier}LiveTailwind}>
     <${identifier} />
   </FrameworkPreview>
 </ExamplePanel>`;

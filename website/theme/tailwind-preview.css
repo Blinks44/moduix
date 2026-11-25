@@ -1,0 +1,14 @@
+/* Tailwind v4 utilities for live Tailwind component and block previews.
+   Preflight is intentionally omitted because `@moduix/react/reset.css` already provides the
+   layered reset (`@layer moduix.reset`) used by the docs site. */
+@layer theme, base, moduix.reset, moduix.tokens, components, moduix.components, utilities;
+@import 'tailwindcss/theme.css' layer(theme);
+@import '../../packages/foundation/src/styles/tailwind-theme.css';
+@import 'tailwindcss/utilities.css' layer(utilities);
+
+@source '../../packages/react-tailwind/dist/components';
+@source '../../packages/solid-tailwind/dist/components';
+@source '../../packages/vue-tailwind/dist/components';
+@source '../../packages/svelte-tailwind/dist/components';
+@source '../src/components/blocks-tailwind';
+@source '../snippets/blocks-tailwind';

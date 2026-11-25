@@ -13,7 +13,7 @@
   {...props}
   bind:ref
   class={cn(
-    'block max-w-full min-w-0 truncate rounded-sm px-1 text-inherit no-underline transition-[color] duration-normal ease-in-out outline-none focus-visible:ring-(length:--moduix-focus-ring-inset-width) focus-visible:ring-ring [@media(hover:hover)]:hover:text-foreground',
+    'block max-w-full min-w-0 truncate rounded-sm px-1 text-inherit no-underline transition-[color] duration-normal ease-in-out outline-none hover:text-foreground focus-visible:ring-(length:--moduix-focus-ring-inset-width) focus-visible:ring-ring',
     className,
   )}
   data-slot="breadcrumbs-link"

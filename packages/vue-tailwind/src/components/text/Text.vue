@@ -17,12 +17,12 @@ const textVariants = cva('m-0 tracking-normal wrap-anywhere', {
     size: {
       xs: 'text-xs',
       sm: 'text-sm',
-      md: 'text-md',
+      md: 'text-base',
       lg: 'text-lg',
       xl: 'text-xl',
     },
     weight: {
-      regular: 'font-regular',
+      regular: 'font-normal',
       medium: 'font-medium',
       semibold: 'font-semibold',
       bold: 'font-bold',
