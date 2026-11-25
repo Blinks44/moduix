@@ -1,5 +1,5 @@
 @layer moduix.components {
-  .root {
+  .root[data-slot='sidebar-root'] {
     --moduix-splitter-resize-trigger-line-color: var(--moduix-sidebar-border);
     --moduix-splitter-resize-trigger-size: var(--moduix-spacing-3);
 
@@ -11,7 +11,7 @@
     isolation: isolate;
   }
 
-  .panel {
+  .panel[data-slot='sidebar-panel'] {
     position: relative;
     padding: 0;
     display: flex;
@@ -72,14 +72,14 @@
     }
   }
 
-  .inset {
+  .inset[data-slot='sidebar-inset'] {
     position: relative;
     padding: 0;
     background-color: var(--moduix-background);
     color: var(--moduix-foreground);
   }
 
-  .resizeTrigger {
+  .resizeTrigger[data-slot='sidebar-resize-trigger'] {
     z-index: 2;
   }
 
@@ -406,11 +406,11 @@
     }
   }
 
-  .input {
+  .input[data-slot='sidebar-input'] {
     width: 100%;
   }
 
-  .separator {
+  .separator[data-slot='sidebar-separator'] {
     --moduix-separator-color: var(--moduix-sidebar-border);
   }
 }

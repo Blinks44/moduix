@@ -1,7 +1,7 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
   import { Tag, TagCloseTrigger, TagEndElement, TagLabel, TagStartElement } from '@/components/tag';
-  import { CheckIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import styles from './Tag.stories.module.css';
 
   const { Story } = defineMeta({
@@ -71,11 +71,11 @@
 <Story name="With Leading Icon" exportName="WithLeadingIcon" asChild>
   <div class={styles.row}>
     <Tag>
-      <TagStartElement><CheckIcon /></TagStartElement>
+      <TagStartElement><UiIcon icon="check" /></TagStartElement>
       <TagLabel>Selected</TagLabel>
     </Tag>
     <Tag variant="outline">
-      <TagStartElement><CheckIcon /></TagStartElement>
+      <TagStartElement><UiIcon icon="check" /></TagStartElement>
       <TagLabel>Deployed</TagLabel>
       <TagEndElement><TagCloseTrigger aria-label="Remove deployed tag" /></TagEndElement>
     </Tag>
@@ -102,7 +102,7 @@
 <Story name="Custom Styling" exportName="CustomStyling" asChild>
   <div class={styles.row}>
     <Tag class={styles.customSoft}>
-      <TagStartElement><CheckIcon /></TagStartElement>
+      <TagStartElement><UiIcon icon="check" /></TagStartElement>
       <TagLabel>Priority</TagLabel>
       <TagEndElement><TagCloseTrigger aria-label="Remove priority tag" /></TagEndElement>
     </Tag>

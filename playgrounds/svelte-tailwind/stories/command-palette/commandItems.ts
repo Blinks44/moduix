@@ -1,6 +1,6 @@
 import type { Component } from 'svelte';
-import { PlusIcon } from '@/lib/moduix/icons/ui';
 import ArrowUpRightIcon from './ArrowUpRightIcon.svelte';
+import PlusIcon from './PlusIcon.svelte';
 import StarIcon from './StarIcon.svelte';
 
 export type CommandItem = {

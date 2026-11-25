@@ -27,9 +27,13 @@
     "moduix-docs#dev": {
       "dependsOn": [
         "@moduix/react#build",
+        "@moduix/react-tailwind#build",
         "@moduix/solid#build",
+        "@moduix/solid-tailwind#build",
         "@moduix/vue#build",
-        "@moduix/svelte#build"
+        "@moduix/vue-tailwind#build",
+        "@moduix/svelte#build",
+        "@moduix/svelte-tailwind#build"
       ],
       "cache": false,
       "persistent": true
@@ -37,9 +41,13 @@
     "moduix-docs#build": {
       "dependsOn": [
         "@moduix/react#build",
+        "@moduix/react-tailwind#build",
         "@moduix/solid#build",
+        "@moduix/solid-tailwind#build",
         "@moduix/vue#build",
+        "@moduix/vue-tailwind#build",
         "@moduix/svelte#build",
+        "@moduix/svelte-tailwind#build",
         "//#build:registry"
       ],
       "outputs": ["doc_build/**"]

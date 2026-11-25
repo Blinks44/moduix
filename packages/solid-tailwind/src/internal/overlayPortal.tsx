@@ -23,7 +23,9 @@ function resolvePortalMount(portalRef: PortalRef | undefined): HTMLElement | und
   return typeof portalRef === 'function' ? (portalRef() ?? undefined) : portalRef;
 }
 
-export function OverlayPortal(props: OverlayPortalProps & { children: JSX.Element }) {
+export function OverlayPortal(
+  props: OverlayPortalProps & { children: JSX.Element; liveAnnouncer?: boolean },
+) {
   const context = useContext(OverlayPortalContext);
   const content = children(() => props.children);
   const portalled = () => props.portalled ?? context.portalled;
@@ -31,10 +33,19 @@ export function OverlayPortal(props: OverlayPortalProps & { children: JSX.Elemen
 
   // Solid's Portal mounts a wrapper element. Create it only with content: a modal dialog hides the
   // wrappers that exist when it opens, and a lazily mounted overlay would then render inside one.
+  // Live regions like ToastToaster stay mounted, so mark their wrapper as a live announcer so
+  // `@zag-js/aria-hidden` excludes it when a modal dialog opens.
   return (
     <Show when={portalled() !== false} fallback={content()}>
       <Show when={content.toArray().length > 0}>
-        <Portal mount={resolvePortalMount(portalRef())}>{content()}</Portal>
+        <Portal
+          mount={resolvePortalMount(portalRef())}
+          ref={(el) => {
+            if (props.liveAnnouncer) el.setAttribute('data-live-announcer', '');
+          }}
+        >
+          {content()}
+        </Portal>
       </Show>
     </Show>
   );

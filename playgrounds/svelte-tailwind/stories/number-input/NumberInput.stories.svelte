@@ -15,7 +15,7 @@
     NumberInputValueText,
     useNumberInput,
   } from '@/components/number-input';
-  import { ChevronDownIcon, ChevronUpIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
 
   const { Story } = defineMeta({
     title: 'Components/NumberInput',
@@ -177,11 +177,11 @@
     <NumberInputLabel>Floors</NumberInputLabel>
     <NumberInputControl>
       <NumberInputDecrementTrigger class={customButtonClass}>
-        <ChevronDownIcon />
+        <UiIcon icon="chevron-down" />
       </NumberInputDecrementTrigger>
       <NumberInputInput class={customInputClass} />
       <NumberInputIncrementTrigger class={customButtonClass}>
-        <ChevronUpIcon />
+        <UiIcon icon="chevron-up" />
       </NumberInputIncrementTrigger>
     </NumberInputControl>
   </NumberInput>

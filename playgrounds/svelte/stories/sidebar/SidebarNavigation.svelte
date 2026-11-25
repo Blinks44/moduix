@@ -36,7 +36,7 @@
     SidebarTooltip,
     useSidebar,
   } from '@/components/sidebar';
-  import { FileIcon, FolderIcon, PlusIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import AccountMenu from './AccountMenu.svelte';
   import styles from './Sidebar.stories.module.css';
   import WorkspaceSelect from './WorkspaceSelect.svelte';
@@ -58,7 +58,7 @@
     <SidebarGroupHeader>
       <SidebarGroupLabel>Workspace</SidebarGroupLabel>
       <SidebarGroupAction aria-label="Create workspace item" title="Create workspace item">
-        <PlusIcon />
+        <UiIcon icon="plus" />
       </SidebarGroupAction>
     </SidebarGroupHeader>
     <SidebarNavigationList>
@@ -68,7 +68,7 @@
             <SidebarNavigationButton {...tooltipProps()} active>
               {#snippet asChild(buttonProps)}
                 <a {...buttonProps()} href="#overview"
-                  ><FolderIcon /><SidebarLabel>Overview</SidebarLabel></a
+                  ><UiIcon icon="folder" /><SidebarLabel>Overview</SidebarLabel></a
                 >
               {/snippet}
             </SidebarNavigationButton>
@@ -84,7 +84,8 @@
                 <CollapsibleTrigger>
                   {#snippet asChild(triggerProps)}
                     <SidebarNavigationButton {...tooltipProps(triggerProps())}>
-                      <FolderIcon /><SidebarLabel>Projects</SidebarLabel><CollapsibleIndicator />
+                      <UiIcon icon="folder" /><SidebarLabel>Projects</SidebarLabel
+                      ><CollapsibleIndicator />
                     </SidebarNavigationButton>
                   {/snippet}
                 </CollapsibleTrigger>
@@ -116,7 +117,7 @@
                   aria-label="Open projects"
                   title="Projects"
                 >
-                  <FolderIcon />
+                  <UiIcon icon="folder" />
                 </SidebarNavigationButton>
               {/snippet}
             </MenuTrigger>
@@ -143,7 +144,7 @@
             <SidebarNavigationButton {...tooltipProps()}>
               {#snippet asChild(buttonProps)}
                 <a {...buttonProps()} href="#documents"
-                  ><FileIcon /><SidebarLabel>Documents</SidebarLabel></a
+                  ><UiIcon icon="file" /><SidebarLabel>Documents</SidebarLabel></a
                 >
               {/snippet}
             </SidebarNavigationButton>

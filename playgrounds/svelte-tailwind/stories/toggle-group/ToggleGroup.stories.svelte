@@ -8,7 +8,7 @@
     ToggleGroupRootProvider,
     useToggleGroup,
   } from '@/components/toggle-group';
-  import { CheckIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import ContextItem from './ContextItem.svelte';
 
   const rowClass = 'flex items-center gap-2';
@@ -139,7 +139,7 @@
   <div class={stackClass}>
     <ToggleGroup bind:value aria-label="Controlled options" multiple>
       <ToggleGroupItem value="favorites">
-        {#if value.includes('favorites')}<CheckIcon />{:else}<Star
+        {#if value.includes('favorites')}<UiIcon icon="check" />{:else}<Star
             aria-hidden="true"
             focusable="false"
           />{/if}

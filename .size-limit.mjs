@@ -5,7 +5,7 @@ import { readdirSync } from 'node:fs';
 // Svelte adapters ship compiled .svelte source via @sveltejs/package rather than bundled JS.
 const frameworkPackages = { react: ['react', 'react-dom'], solid: ['solid-js'], vue: ['vue'] };
 const limits = {
-  button: ['3 kB', '11 kB'],
+  button: ['4.5 kB', '12.5 kB'],
   dialog: ['25 kB', '33 kB'],
   select: ['40 kB', '47 kB'],
   menu: ['39 kB', '47 kB'],

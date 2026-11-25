@@ -3,7 +3,7 @@
   import Star from '@lucide/svelte/icons/star';
   import { defineMeta } from '@storybook/addon-svelte-csf';
   import { Toggle, ToggleIndicator } from '@/components/toggle';
-  import { CheckIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import ToggleStateLabel from './ToggleStateLabel.svelte';
 
   const { Story } = defineMeta({
@@ -53,7 +53,7 @@
       <Star aria-hidden="true" focusable="false" />
     </Toggle>
     <Toggle size="icon-md" variant="ghost" aria-label="Enabled" defaultPressed>
-      <CheckIcon />
+      <UiIcon icon="check" />
     </Toggle>
   </div>
 </Story>
@@ -88,7 +88,7 @@
 <Story name="Indicator" asChild>
   <Toggle aria-label="Favorite" size="icon-md" variant="outline">
     <ToggleIndicator>
-      <CheckIcon />
+      <UiIcon icon="check" />
       {#snippet fallback()}<Star aria-hidden="true" focusable="false" />{/snippet}
     </ToggleIndicator>
   </Toggle>
@@ -105,7 +105,7 @@
   <Toggle variant="outline" defaultPressed>
     {#snippet asChild(props)}
       <button {...props({ class: 'border-dashed' })} type="button">
-        <CheckIcon />
+        <UiIcon icon="check" />
         Custom button
       </button>
     {/snippet}
@@ -118,7 +118,7 @@
     variant="outline"
     defaultPressed
   >
-    <CheckIcon />
+    <UiIcon icon="check" />
     Styled with a class
   </Toggle>
 </Story>

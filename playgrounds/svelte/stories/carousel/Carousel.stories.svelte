@@ -16,7 +16,7 @@
     CarouselPrevTrigger,
     CarouselProgressText,
   } from '@/components/carousel';
-  import { PlusIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import styles from './Carousel.stories.module.css';
   import ImageSlide from './ImageSlide.svelte';
   import RootProviderDemo from './RootProviderDemo.svelte';
@@ -120,7 +120,7 @@
         disabled={dynamicCount === slides.length}
         onclick={() => (dynamicCount = Math.min(slides.length, dynamicCount + 1))}
       >
-        <PlusIcon />
+        <UiIcon icon="plus" />
         Add slide
       </Button>
     </div>

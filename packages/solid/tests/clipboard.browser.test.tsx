@@ -117,7 +117,7 @@ test('forwards refs and renders the default copy affordance', async () => {
   expect(inputRef).toBe(screen.getByRole('textbox', { name: 'Copy this link' }));
   expect(triggerRef).toBe(screen.getByRole('button', { name: 'Copy to clipboard' }));
   await expect
-    .element(page.locator('[data-slot="clipboard-indicator"] > svg[class*="copy"]'))
+    .element(page.locator('[data-slot="clipboard-indicator"] > svg:has(rect)'))
     .toBeAttached();
   expect(
     document.querySelector('[data-slot="clipboard-indicator"] > svg')?.getAttribute('stroke-width'),
@@ -130,10 +130,10 @@ test('forwards refs and renders the default copy affordance', async () => {
     .toHaveAttribute('data-copied');
   await expect.poll(() => navigator.clipboard.readText()).toBe('https://moduix.dev/docs/clipboard');
   await expect
-    .element(page.locator('[data-slot="clipboard-indicator"] > svg[class*="copy"]'))
+    .element(page.locator('[data-slot="clipboard-indicator"] > svg:has(rect)'))
     .toHaveCount(0);
   await expect
-    .element(page.locator('[data-slot="clipboard-indicator"] > svg[class*="check"]'))
+    .element(page.locator('[data-slot="clipboard-indicator"] > svg > path[d="M20 6 9 17l-5-5"]'))
     .toBeAttached();
 });
 

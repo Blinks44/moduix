@@ -10,7 +10,7 @@
     TreeViewItemText,
     TreeViewNode,
   } from '@/components/tree-view';
-  import { FileIcon, FolderIcon, FolderOpenIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import type { FileNode } from './files';
   import FileTreeNode from './FileTreeNode.svelte';
 
@@ -24,7 +24,9 @@
         <TreeViewBranchControl>
           <TreeViewBranchIndicator />
           <TreeViewBranchText>
-            {#if state.expanded}<FolderOpenIcon />{:else}<FolderIcon />{/if}{currentNode.name}
+            {#if state.expanded}<UiIcon icon="folder-open" />{:else}<UiIcon
+                icon="folder"
+              />{/if}{currentNode.name}
           </TreeViewBranchText>
         </TreeViewBranchControl>
         <TreeViewBranchContent>
@@ -36,7 +38,7 @@
       </TreeViewBranch>
     {:else}
       <TreeViewItem>
-        <TreeViewItemText><FileIcon />{currentNode.name}</TreeViewItemText>
+        <TreeViewItemText><UiIcon icon="file" />{currentNode.name}</TreeViewItemText>
       </TreeViewItem>
     {/if}
   {/snippet}

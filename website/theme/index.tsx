@@ -38,7 +38,15 @@ import {
   TextAlignStart,
   X,
 } from 'lucide-react';
-import { Children, isValidElement, useEffect, type ComponentProps, type SVGProps } from 'react';
+import {
+  Children,
+  Fragment,
+  isValidElement,
+  useEffect,
+  type ComponentProps,
+  type ReactElement,
+  type SVGProps,
+} from 'react';
 import './index.css';
 import './tailwind-preview.css';
 import {
@@ -320,9 +328,73 @@ const mdxComponents = {
   UsageCode,
 };
 
+const frameworkTabIds = new Set(['react', 'solid', 'vue', 'svelte']);
+
 // Framework and styling tabs from the Sketch layout: the native Tabs keep their behavior, and the
 // wrapper exposes the group and tab values so CSS can draw the framework switcher with its dots.
 function Tabs(props: ComponentProps<typeof OriginalTabs>) {
+  if (import.meta.env.SSG_MD) {
+    const items = Children.toArray(props.children).filter(
+      (child): child is ReactElement<{ label?: string; value?: string }> => isValidElement(child),
+    );
+    const valuesList = Array.isArray(props.values) ? props.values : undefined;
+    const entries = items.map((item, index) => {
+      const valueSpec = valuesList?.[index];
+      const specLabel =
+        typeof valueSpec === 'string'
+          ? valueSpec
+          : typeof valueSpec === 'object' && valueSpec !== null && 'label' in valueSpec
+            ? String(valueSpec.label)
+            : undefined;
+      const specValue =
+        typeof valueSpec === 'string'
+          ? valueSpec
+          : typeof valueSpec === 'object' && valueSpec !== null && 'value' in valueSpec
+            ? String(valueSpec.value)
+            : undefined;
+      const label = item.props.label ?? specLabel ?? item.props.value ?? specValue ?? '';
+      const id = (item.props.value ?? specValue ?? label).toLowerCase();
+      return { item, label, id };
+    });
+    const isFrameworkGroup =
+      props.groupId === 'framework' ||
+      (entries.length > 0 && entries.every((entry) => frameworkTabIds.has(entry.id)));
+
+    if (isFrameworkGroup) {
+      return (
+        <>
+          {entries.map(({ item, label, id }, index) =>
+            frameworkTabIds.has(id) ? (
+              <Fragment key={id}>
+                {`\n<!-- moduix-fw:${id} -->\n`}
+                <div>
+                  {label ? (
+                    <p>
+                      <strong>{label}</strong>
+                    </p>
+                  ) : null}
+                  {item}
+                </div>
+                {'\n<!-- /moduix-fw -->\n'}
+              </Fragment>
+            ) : (
+              <div key={index}>
+                {label ? (
+                  <p>
+                    <strong>{label}</strong>
+                  </p>
+                ) : null}
+                {item}
+              </div>
+            ),
+          )}
+        </>
+      );
+    }
+
+    return <OriginalTabs {...props} />;
+  }
+
   const values = Children.toArray(props.children)
     .map((child) => (isValidElement<{ value?: string }>(child) ? child.props.value : undefined))
     .join(' ');

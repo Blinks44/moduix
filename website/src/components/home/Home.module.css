@@ -1093,7 +1093,6 @@
   /* Home · Mobile frame: stacked hero actions, a Code toggle instead of the code card, one API
      card with framework tabs, a tile carousel, four setups and a one-line footer. */
   .heroCode,
-  .startActions .startGhost,
   .startEyebrow + h2 + p,
   .quietHours,
   .lead:has(+ .componentsBar),
@@ -1238,18 +1237,24 @@
 
   .startActions {
     order: 2;
+    flex-direction: column;
     margin-top: 16px;
 
-    .startPrimary {
+    .startPrimary,
+    .startGhost {
       width: 100%;
       justify-content: center;
+    }
+
+    .startGhost {
+      border: 1px solid rgb(255 255 255 / 14%);
     }
   }
 
   .footer .footerPhone {
     display: flex;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 10px 16px;
     margin: 16px 0 0;
     padding: 0;
     list-style: none;

@@ -8,7 +8,7 @@ import {
   useA11yLabels,
   type A11yLabels,
   type LabelsProviderProps,
-} from './internal/a11yLabels';
+} from '@/lib/moduix/a11yLabels';
 
 export interface ModuixProviderProps {
   children?: ReactNode;

@@ -135,7 +135,7 @@ function ToastToaster(props: ToasterProps) {
   ]);
 
   return (
-    <OverlayPortal portalled={local.portalled} portalRef={local.portalRef}>
+    <OverlayPortal liveAnnouncer portalled={local.portalled} portalRef={local.portalRef}>
       <ToasterPrimitive
         class={cn(
           '[@media(max-width:40rem)]:w-[calc(100vw-env(safe-area-inset-left,0px)-env(safe-area-inset-right,0px)-var(--viewport-offset-left)-var(--viewport-offset-right))]',

@@ -1,19 +1,21 @@
 <script lang="ts">
   import { TimerActionTrigger, TimerControl } from '@/components/timer';
-  import { PauseIcon, PlayIcon, RotateCcwIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
 
   let { actionClassName }: { actionClassName?: string } = $props();
 </script>
 
 <TimerControl>
-  <TimerActionTrigger action="start" class={actionClassName}><PlayIcon /> Start</TimerActionTrigger>
+  <TimerActionTrigger action="start" class={actionClassName}
+    ><UiIcon icon="play" /> Start</TimerActionTrigger
+  >
   <TimerActionTrigger action="resume" class={actionClassName}>
-    <PlayIcon /> Resume
+    <UiIcon icon="play" /> Resume
   </TimerActionTrigger>
   <TimerActionTrigger action="pause" class={actionClassName}>
-    <PauseIcon /> Pause
+    <UiIcon icon="pause" /> Pause
   </TimerActionTrigger>
   <TimerActionTrigger action="reset" class={actionClassName}>
-    <RotateCcwIcon /> Reset
+    <UiIcon icon="rotate-ccw" /> Reset
   </TimerActionTrigger>
 </TimerControl>

@@ -14,7 +14,7 @@
     NavigationMenuViewportPositioner,
     useNavigationMenu,
   } from '@/components/navigation-menu';
-  import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import NavigationMenuParts from './NavigationMenuParts.svelte';
 
   const { Story } = defineMeta({
@@ -53,7 +53,7 @@
       <NavigationMenuItem value="products">
         <NavigationMenuTrigger>
           Products
-          <ChevronDownIcon />
+          <UiIcon icon="chevron-down" />
         </NavigationMenuTrigger>
         <NavigationMenuContent class="w-80">
           <div class="grid grid-cols-2">
@@ -67,7 +67,7 @@
       <NavigationMenuItem value="company">
         <NavigationMenuTrigger>
           Company
-          <ChevronDownIcon />
+          <UiIcon icon="chevron-down" />
         </NavigationMenuTrigger>
         <NavigationMenuContent class="w-56">
           <NavigationMenuLink href="#about">About</NavigationMenuLink>
@@ -78,7 +78,7 @@
       <NavigationMenuItem value="resources">
         <NavigationMenuTrigger>
           Resources
-          <ChevronDownIcon />
+          <UiIcon icon="chevron-down" />
         </NavigationMenuTrigger>
         <NavigationMenuContent class="w-72">
           <NavigationMenuLink href="#blog">Blog</NavigationMenuLink>

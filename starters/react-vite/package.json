@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "pnpm run tsc:check && vite build",
+    "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "tsc:check": "tsc --noEmit"
   },

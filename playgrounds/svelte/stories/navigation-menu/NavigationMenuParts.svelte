@@ -6,7 +6,7 @@
     NavigationMenuList,
     NavigationMenuTrigger,
   } from '@/components/navigation-menu';
-  import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
 </script>
 
 <NavigationMenuList>
@@ -16,7 +16,7 @@
   <NavigationMenuItem value="products">
     <NavigationMenuTrigger>
       Products
-      <ChevronDownIcon />
+      <UiIcon icon="chevron-down" />
     </NavigationMenuTrigger>
     <NavigationMenuContent>
       <NavigationMenuLink href="#analytics">Analytics</NavigationMenuLink>
@@ -26,7 +26,7 @@
   <NavigationMenuItem value="docs">
     <NavigationMenuTrigger>
       Docs
-      <ChevronDownIcon />
+      <UiIcon icon="chevron-down" />
     </NavigationMenuTrigger>
     <NavigationMenuContent>
       <NavigationMenuLink href="#guides">Guides</NavigationMenuLink>

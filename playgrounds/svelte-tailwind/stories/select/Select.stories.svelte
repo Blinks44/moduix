@@ -11,7 +11,7 @@
     SelectRootProvider,
     useSelect,
   } from '@/components/select';
-  import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import { fruits, languages, longLabels, produce, themeOptions } from './collections';
   import InfoIcon from './InfoIcon.svelte';
   import ItemRows from './ItemRows.svelte';
@@ -33,7 +33,7 @@
   const select = useSelect({ collection: fruits, defaultValue: ['banana'] });
 </script>
 
-{#snippet chevronDown()}<ChevronDownIcon />{/snippet}
+{#snippet chevronDown()}<UiIcon icon="chevron-down" />{/snippet}
 {#snippet infoIcon()}<InfoIcon />{/snippet}
 
 <Story name="Basic" asChild>

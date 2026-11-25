@@ -11,7 +11,7 @@
     type CreateToasterReturn,
     type ToastPlacement,
   } from '@/components/toast';
-  import { CloseIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import InfoIcon from './InfoIcon.svelte';
   import ToastRenderer from './ToastRenderer.svelte';
 
@@ -308,7 +308,7 @@
         <ToastCloseTrigger
           class="!text-primary-foreground [@media(hover:hover)]:hover:!bg-primary-foreground/14 [@media(hover:hover)]:hover:!text-primary-foreground"
         >
-          <CloseIcon class={closeIconClass} />
+          <UiIcon icon="close" class={closeIconClass} />
         </ToastCloseTrigger>
       </Toast>
     {/snippet}

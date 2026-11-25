@@ -136,7 +136,7 @@ function ToastToaster(props: ToasterProps) {
   ]);
 
   return (
-    <OverlayPortal portalled={local.portalled} portalRef={local.portalRef}>
+    <OverlayPortal liveAnnouncer portalled={local.portalled} portalRef={local.portalRef}>
       <ToasterPrimitive
         class={clsx(styles.toaster, local.class)}
         toaster={local.toaster ?? defaultToaster}

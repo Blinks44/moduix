@@ -55,77 +55,84 @@
 
 .controls {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 8px;
   padding-block: 8px;
 }
 
 .select {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
+  --moduix-select-width: auto;
+  --moduix-select-control-height: 32px;
+  --moduix-select-radius: 8px;
+  --moduix-select-action-size: 16px;
+}
 
-  select {
-    height: 32px;
-    appearance: none;
-    border: 1px solid var(--moduix-doc-border-strong);
-    border-radius: 8px;
-    padding: 0 36px 0 12px;
-    background: var(--rp-c-bg);
-    color: var(--rp-c-text-1);
-    font: inherit;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
+.selectTrigger {
+  gap: 6px;
+  border: 1px solid var(--moduix-doc-border-strong);
+  padding-inline: 12px 32px;
+  background: var(--rp-c-bg);
+  color: var(--rp-c-text-1);
+  font-size: 13px;
+  font-weight: 500;
 
-    &:hover {
-      background: var(--rp-c-bg-mute);
-    }
-
-    &:focus-visible {
-      outline: 2px solid var(--rp-c-brand);
-      outline-offset: 2px;
-    }
+  &:hover {
+    background: var(--rp-c-bg-mute);
   }
 
-  &[data-dot] select {
-    padding-inline-start: 26px;
-  }
-
-  &[data-dot]::before {
-    position: absolute;
-    inset-inline-start: 12px;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--moduix-doc-framework-color);
-    content: '';
-    pointer-events: none;
-  }
-
-  > svg {
-    position: absolute;
-    inset-inline-end: 10px;
-    width: 16px;
-    height: 16px;
-    color: var(--rp-c-text-3);
-    pointer-events: none;
+  &:focus-visible {
+    outline: 2px solid var(--rp-c-brand);
+    outline-offset: 2px;
   }
 }
 
-.select[data-dot='react'] {
+.selectIndicator {
+  inset-inline-end: 9px;
+  color: var(--rp-c-text-3);
+}
+
+.selectPositioner {
+  z-index: 120;
+}
+
+.selectContent {
+  --moduix-z-popup: 120;
+
+  min-width: max(var(--reference-width), 8.5rem);
+}
+
+.selectOption {
+  font-size: 13px;
+}
+
+.optionLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--moduix-doc-framework-color);
+}
+
+.dot[data-dot='react'] {
   --moduix-doc-framework-color: #38bdf8;
 }
 
-.select[data-dot='solid'] {
+.dot[data-dot='solid'] {
   --moduix-doc-framework-color: #4f7fd0;
 }
 
-.select[data-dot='vue'] {
+.dot[data-dot='vue'] {
   --moduix-doc-framework-color: #34c38f;
 }
 
-.select[data-dot='svelte'] {
+.dot[data-dot='svelte'] {
   --moduix-doc-framework-color: #ff3e00;
 }
 

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { ToggleGroupItem, useToggleGroupContext } from '@/components/toggle-group';
-  import { CheckIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
 
   let { value }: { value: string } = $props();
 
@@ -8,6 +8,6 @@
 </script>
 
 <ToggleGroupItem {value}>
-  {#if toggleGroup().value.includes(value)}<CheckIcon />{/if}
+  {#if toggleGroup().value.includes(value)}<UiIcon icon="check" />{/if}
   {value}
 </ToggleGroupItem>

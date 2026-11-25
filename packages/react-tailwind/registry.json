@@ -76,6 +76,21 @@
       ]
     },
     {
+      "name": "locale",
+      "type": "registry:component",
+      "title": "ModuixProvider & Locale",
+      "description": "moduix React ModuixProvider, LabelsProvider, and Ark UI locale utilities.",
+      "dependencies": ["@ark-ui/react@^5.40.0"],
+      "registryDependencies": ["@moduix-react-tailwind/a11y-labels"],
+      "files": [
+        {
+          "path": "src/locale.ts",
+          "target": "@components/ui/locale/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "icons",
       "type": "registry:item",
       "title": "moduix icons",
@@ -125,7 +140,10 @@
       "title": "Contrast theme",
       "description": "High-clarity moduix tokens with stronger borders and focus states for technical interfaces.",
       "docs": "Import '@/lib/moduix/styles/style.css' once, then import '@/lib/moduix/presets/contrast.css'. Put data-moduix-theme=\"contrast\" on the document root.",
-      "registryDependencies": ["https://moduix.dev/r/foundation/theme-contrast.json"]
+      "registryDependencies": [
+        "https://moduix.dev/r/foundation/core-tailwind.json",
+        "https://moduix.dev/r/foundation/theme-contrast.json"
+      ]
     },
     {
       "name": "theme-dense",
@@ -133,7 +151,10 @@
       "title": "Dense theme",
       "description": "Compact moduix tokens with a structured blue palette for admin and data-heavy interfaces.",
       "docs": "Import '@/lib/moduix/styles/style.css' once, then import '@/lib/moduix/presets/dense.css'. Put data-moduix-theme=\"dense\" on the document root.",
-      "registryDependencies": ["https://moduix.dev/r/foundation/theme-dense.json"]
+      "registryDependencies": [
+        "https://moduix.dev/r/foundation/core-tailwind.json",
+        "https://moduix.dev/r/foundation/theme-dense.json"
+      ]
     },
     {
       "name": "theme-soft",
@@ -141,7 +162,10 @@
       "title": "Soft theme",
       "description": "Rounded moduix tokens with a warmer violet palette for product workflows.",
       "docs": "Import '@/lib/moduix/styles/style.css' once, then import '@/lib/moduix/presets/soft.css'. Put data-moduix-theme=\"soft\" on the document root.",
-      "registryDependencies": ["https://moduix.dev/r/foundation/theme-soft.json"]
+      "registryDependencies": [
+        "https://moduix.dev/r/foundation/core-tailwind.json",
+        "https://moduix.dev/r/foundation/theme-soft.json"
+      ]
     },
     {
       "name": "accordion",

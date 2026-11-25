@@ -106,21 +106,25 @@ const fontOptions = [
     value: 'inter',
     label: 'Inter',
     stack: "'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif",
+    googleFont: 'Inter:wght@400;500;600;700',
   },
   {
     value: 'geist',
     label: 'Geist Sans',
     stack: "'Geist', ui-sans-serif, system-ui, -apple-system, sans-serif",
+    googleFont: 'Geist:wght@400;500;600;700',
   },
   {
     value: 'jakarta',
     label: 'Plus Jakarta Sans',
     stack: "'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif",
+    googleFont: 'Plus+Jakarta+Sans:wght@400;500;600;700',
   },
   {
     value: 'ibm',
     label: 'IBM Plex Sans',
     stack: "'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif",
+    googleFont: 'IBM+Plex+Sans:wght@400;500;600;700',
   },
   {
     value: 'mono',
@@ -244,6 +248,22 @@ function isHexColor(value: unknown): value is string {
 }
 
 const appliedSiteKeys = new Set<string>();
+
+type PersistedBuilderState = {
+  base: Preset;
+  primary: string | null;
+  destructive: string | null;
+  success: string | null;
+  chartAccent: string | null;
+  hue: number | null;
+  radius: number | null;
+  density: Density | null;
+  font: FontChoice;
+  imported: Tokens;
+  applyToSite: boolean;
+};
+
+let persistedBuilderState: PersistedBuilderState | null = null;
 
 function formatTailwindTheme(tokens: Tokens, framework: string) {
   const pkg = `@moduix/${framework}-tailwind`;
@@ -597,18 +617,30 @@ function ThemeBuilder() {
   const exportId = useId();
   const previewRef = useRef<HTMLDivElement>(null);
 
-  const [base, setBase] = useState<Preset>('calm');
-  const [primary, setPrimary] = useState<string | null>(null);
-  const [destructive, setDestructive] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
-  const [chartAccent, setChartAccent] = useState<string | null>(null);
-  const [hue, setHue] = useState<number | null>(null);
-  const [radius, setRadius] = useState<number | null>(null);
-  const [density, setDensity] = useState<Density | null>(null);
-  const [font, setFont] = useState<FontChoice>('default');
-  const [imported, setImported] = useState<Tokens>({});
+  const [base, setBase] = useState<Preset>(() => persistedBuilderState?.base ?? 'calm');
+  const [primary, setPrimary] = useState<string | null>(
+    () => persistedBuilderState?.primary ?? null,
+  );
+  const [destructive, setDestructive] = useState<string | null>(
+    () => persistedBuilderState?.destructive ?? null,
+  );
+  const [success, setSuccess] = useState<string | null>(
+    () => persistedBuilderState?.success ?? null,
+  );
+  const [chartAccent, setChartAccent] = useState<string | null>(
+    () => persistedBuilderState?.chartAccent ?? null,
+  );
+  const [hue, setHue] = useState<number | null>(() => persistedBuilderState?.hue ?? null);
+  const [radius, setRadius] = useState<number | null>(() => persistedBuilderState?.radius ?? null);
+  const [density, setDensity] = useState<Density | null>(
+    () => persistedBuilderState?.density ?? null,
+  );
+  const [font, setFont] = useState<FontChoice>(() => persistedBuilderState?.font ?? 'default');
+  const [imported, setImported] = useState<Tokens>(() => persistedBuilderState?.imported ?? {});
   const [mode, setMode] = useState<'light' | 'dark'>('light');
-  const [applyToSite, setApplyToSite] = useState(() => appliedSiteKeys.size > 0);
+  const [applyToSite, setApplyToSite] = useState(
+    () => persistedBuilderState?.applyToSite ?? appliedSiteKeys.size > 0,
+  );
   const [exportFormat, setExportFormat] = useState<ExportFormat>('css');
   const [basePrimary, setBasePrimary] = useState('#000000');
   const [copied, setCopied] = useState(false);
@@ -620,22 +652,70 @@ function ThemeBuilder() {
     if (!param) return;
     const state = decodeShareState(param);
     if (!state) return;
-    if (state.b && state.b in presets) setBase(state.b);
-    if (isHexColor(state.p)) setPrimary(state.p);
-    if (typeof state.h === 'number' && Number.isFinite(state.h) && state.h >= 0 && state.h <= 360) {
-      setHue(state.h);
-    }
-    if (typeof state.r === 'number' && Number.isFinite(state.r) && state.r >= 0 && state.r <= 24) {
-      setRadius(state.r);
-    }
-    if (state.d && ['compact', 'default', 'comfortable'].includes(state.d)) setDensity(state.d);
-    if (state.f && fontOptions.some((item) => item.value === state.f)) setFont(state.f);
-    if (isHexColor(state.x)) setDestructive(state.x);
-    if (isHexColor(state.s)) setSuccess(state.s);
-    if (isHexColor(state.c)) setChartAccent(state.c);
+    setBase(state.b && state.b in presets ? state.b : 'calm');
+    setPrimary(isHexColor(state.p) ? state.p : null);
+    setHue(
+      typeof state.h === 'number' && Number.isFinite(state.h) && state.h >= 0 && state.h <= 360
+        ? state.h
+        : null,
+    );
+    setRadius(
+      typeof state.r === 'number' && Number.isFinite(state.r) && state.r >= 0 && state.r <= 24
+        ? state.r
+        : null,
+    );
+    setDensity(state.d && ['compact', 'default', 'comfortable'].includes(state.d) ? state.d : null);
+    setFont(state.f && fontOptions.some((item) => item.value === state.f) ? state.f : 'default');
+    setDestructive(isHexColor(state.x) ? state.x : null);
+    setSuccess(isHexColor(state.s) ? state.s : null);
+    setChartAccent(isHexColor(state.c) ? state.c : null);
+    setImported({});
   }, []);
 
   const selectedFont = fontOptions.find((item) => item.value === font);
+
+  // Keep builder state across SPA route changes so returning to `/docs/themes` does not reset
+  // active customizations or wipe tokens applied to `<html>`.
+  useEffect(() => {
+    persistedBuilderState = {
+      base,
+      primary,
+      destructive,
+      success,
+      chartAccent,
+      hue,
+      radius,
+      density,
+      font,
+      imported,
+      applyToSite,
+    };
+  }, [
+    base,
+    primary,
+    destructive,
+    success,
+    chartAccent,
+    hue,
+    radius,
+    density,
+    font,
+    imported,
+    applyToSite,
+  ]);
+
+  // Load web fonts on demand when selected in the builder so preview and site-wide apply render
+  // the actual typeface instead of falling back to system-ui.
+  useEffect(() => {
+    if (!selectedFont || !('googleFont' in selectedFont)) return;
+    const id = `moduix-theme-font-${selectedFont.value}`;
+    if (document.getElementById(id)) return;
+    const link = document.createElement('link');
+    link.id = id;
+    link.rel = 'stylesheet';
+    link.href = `https://fonts.googleapis.com/css2?family=${selectedFont.googleFont}&display=swap`;
+    document.head.appendChild(link);
+  }, [selectedFont]);
 
   // Untouched controls show the values of the preset and the imported theme.
   const tokens: Tokens = useMemo(
@@ -700,6 +780,7 @@ function ThemeBuilder() {
   }, []);
 
   const handleReset = () => {
+    persistedBuilderState = null;
     setBase('calm');
     setPrimary(null);
     setDestructive(null);

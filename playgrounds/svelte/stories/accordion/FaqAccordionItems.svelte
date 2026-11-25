@@ -6,7 +6,7 @@
     AccordionItemIndicator,
     AccordionItemTrigger,
   } from '@/components/accordion';
-  import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import { faqItems } from './faqItems';
 
   let {
@@ -21,7 +21,9 @@
     <AccordionItemTrigger>
       {item.title}
       {#if customIcon}
-        <AccordionItemIndicator class={iconClass}><ChevronDownIcon /></AccordionItemIndicator>
+        <AccordionItemIndicator class={iconClass}
+          ><UiIcon icon="chevron-down" /></AccordionItemIndicator
+        >
       {:else}
         <AccordionItemIndicator />
       {/if}

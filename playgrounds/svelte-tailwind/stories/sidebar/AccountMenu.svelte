@@ -14,7 +14,7 @@
     MenuViewport,
   } from '@/components/menu';
   import { SidebarLabel, SidebarNavigationButton } from '@/components/sidebar';
-  import { ChevronUpDownIcon, PencilIcon, RestartIcon, TrashIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import { classes } from './classes';
 
   let { accentClass }: { accentClass?: string } = $props();
@@ -34,7 +34,7 @@
           <strong>Alex Morgan</strong>
           <span>alex@acme.dev</span>
         </SidebarLabel>
-        <MenuIndicator><ChevronUpDownIcon /></MenuIndicator>
+        <MenuIndicator><UiIcon icon="chevron-up-down" /></MenuIndicator>
       </SidebarNavigationButton>
     {/snippet}
   </MenuTrigger>
@@ -44,15 +44,15 @@
         <MenuItemGroup>
           <MenuItemGroupLabel>Acme Inc.</MenuItemGroupLabel>
           <MenuItem value="profile">
-            <MenuItemText><PencilIcon />Profile</MenuItemText>
+            <MenuItemText><UiIcon icon="pencil" />Profile</MenuItemText>
           </MenuItem>
           <MenuItem value="settings">
-            <MenuItemText><RestartIcon />Settings</MenuItemText>
+            <MenuItemText><UiIcon icon="restart" />Settings</MenuItemText>
           </MenuItem>
         </MenuItemGroup>
         <MenuSeparator />
         <MenuItem value="sign-out" tone="destructive">
-          <MenuItemText><TrashIcon />Sign out</MenuItemText>
+          <MenuItemText><UiIcon icon="trash" />Sign out</MenuItemText>
         </MenuItem>
       </MenuViewport>
     </MenuContent>

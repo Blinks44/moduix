@@ -9,7 +9,7 @@
     SplitButtonPositioner,
     SplitButtonTrigger,
   } from '@/components/split-button';
-  import { PlusIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import styles from './SplitButton.stories.module.css';
 
   const { Story } = defineMeta({
@@ -83,7 +83,7 @@
 
 <Story name="With Icons" exportName="WithIcons" asChild>
   <SplitButton aria-label="Create actions">
-    <SplitButtonAction><PlusIcon />Create Item</SplitButtonAction>
+    <SplitButtonAction><UiIcon icon="plus" />Create Item</SplitButtonAction>
     <SplitButtonTrigger aria-label="More create actions" />
     <SplitButtonPositioner>
       <SplitButtonContent>

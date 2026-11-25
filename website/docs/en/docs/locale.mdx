@@ -81,6 +81,8 @@ import {
 
 `Format.Number`, `Format.Time`, and other `Format` utilities remain imports from `@ark-ui/react`, `@ark-ui/solid`, `@ark-ui/vue`, or `@ark-ui/svelte`.
 
+Using the shadcn CLI? Install the provider and locale re-exports into your project with `pnpm dlx shadcn@latest add @moduix-react/locale` (replace `react` with `solid`, `vue`, `svelte`, or the `-tailwind` variant) and import `ModuixProvider`, `LabelsProvider`, and `LocaleProvider` from `@/components/ui/locale`.
+
 ## Set a locale
 
 Wrap the part of the interface that shares a locale. Formatters and locale-aware components below the provider read

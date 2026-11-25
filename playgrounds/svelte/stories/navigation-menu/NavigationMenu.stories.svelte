@@ -14,7 +14,7 @@
     NavigationMenuViewportPositioner,
     useNavigationMenu,
   } from '@/components/navigation-menu';
-  import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import styles from './NavigationMenu.stories.module.css';
   import NavigationMenuParts from './NavigationMenuParts.svelte';
 
@@ -54,7 +54,7 @@
       <NavigationMenuItem value="products">
         <NavigationMenuTrigger>
           Products
-          <ChevronDownIcon />
+          <UiIcon icon="chevron-down" />
         </NavigationMenuTrigger>
         <NavigationMenuContent style="width: 20rem">
           <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr))">
@@ -68,7 +68,7 @@
       <NavigationMenuItem value="company">
         <NavigationMenuTrigger>
           Company
-          <ChevronDownIcon />
+          <UiIcon icon="chevron-down" />
         </NavigationMenuTrigger>
         <NavigationMenuContent style="width: 14rem">
           <NavigationMenuLink href="#about">About</NavigationMenuLink>
@@ -79,7 +79,7 @@
       <NavigationMenuItem value="resources">
         <NavigationMenuTrigger>
           Resources
-          <ChevronDownIcon />
+          <UiIcon icon="chevron-down" />
         </NavigationMenuTrigger>
         <NavigationMenuContent style="width: 18rem">
           <NavigationMenuLink href="#blog">Blog</NavigationMenuLink>

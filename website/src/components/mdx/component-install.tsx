@@ -6,10 +6,21 @@ import {
   AccordionItemIndicator,
   AccordionItemTrigger,
 } from '@moduix/react/accordion';
+import {
+  Select,
+  SelectContent,
+  SelectControl,
+  SelectIndicator,
+  SelectOption,
+  SelectPositioner,
+  SelectTrigger,
+  SelectValueText,
+  createListCollection,
+} from '@moduix/react/select';
 import { useFrontmatter, useI18n, withBase } from '@rspress/core/runtime';
 import { CodeBlockRuntime, Link, PackageManagerTabs, Tab, Tabs } from '@rspress/core/theme';
 import { ChevronDown } from 'lucide-react';
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { useLocalizedPath } from '@/utils/localized-path';
 import styles from './component-install.module.css';
 import { useExampleSelection } from './example-panel';
@@ -107,6 +118,59 @@ function formatRegistryDep(dep: string) {
     );
   }
   return dep;
+}
+
+function FileSelect({
+  files,
+  label,
+  selectedIndex,
+  onSelect,
+}: {
+  files: RegistryFile[];
+  label: string;
+  selectedIndex: number;
+  onSelect: (index: number) => void;
+}) {
+  const options = useMemo(
+    () =>
+      files.map((file, index) => {
+        const target = formatTargetPath(file);
+        return { value: String(index), label: fileBasename(target), key: target };
+      }),
+    [files],
+  );
+  const collection = useMemo(() => createListCollection({ items: options }), [options]);
+
+  return (
+    <Select
+      className={styles.fileSelect}
+      collection={collection}
+      value={[String(selectedIndex)]}
+      onValueChange={(details) => {
+        const next = details.value[0];
+        if (next !== undefined) onSelect(Number(next));
+      }}
+      positioning={{ sameWidth: false, placement: 'bottom-end' }}
+    >
+      <SelectControl>
+        <SelectTrigger aria-label={label} className={styles.fileSelectTrigger}>
+          <SelectValueText />
+        </SelectTrigger>
+        <SelectIndicator className={styles.fileSelectIndicator}>
+          <ChevronDown aria-hidden="true" />
+        </SelectIndicator>
+      </SelectControl>
+      <SelectPositioner className={styles.fileSelectPositioner}>
+        <SelectContent className={styles.fileSelectContent}>
+          {options.map((option) => (
+            <SelectOption key={option.key} item={option} className={styles.fileSelectOption}>
+              {option.label}
+            </SelectOption>
+          ))}
+        </SelectContent>
+      </SelectPositioner>
+    </Select>
+  );
 }
 
 function ManualInstallPanel({
@@ -212,23 +276,12 @@ function ManualInstallPanel({
                 })}
               </div>
             ) : (
-              <span className={styles.fileSelect}>
-                <select
-                  aria-label={t('installManualFiles')}
-                  value={String(safeIndex)}
-                  onChange={(event) => setSelectedIndex(Number(event.target.value))}
-                >
-                  {files.map((file, index) => {
-                    const target = formatTargetPath(file);
-                    return (
-                      <option key={target} value={String(index)}>
-                        {fileBasename(target)}
-                      </option>
-                    );
-                  })}
-                </select>
-                <ChevronDown aria-hidden="true" />
-              </span>
+              <FileSelect
+                files={files}
+                label={t('installManualFiles')}
+                selectedIndex={safeIndex}
+                onSelect={setSelectedIndex}
+              />
             )}
           </div>
 

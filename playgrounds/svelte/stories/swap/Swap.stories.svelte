@@ -8,7 +8,7 @@
     type SwapAnimation,
     useSwap,
   } from '@/components/swap';
-  import { CheckIcon, PauseIcon, PlayIcon, UploadIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import styles from './Swap.stories.module.css';
 
   const { Story } = defineMeta({
@@ -40,8 +40,8 @@
 <Story name="Icons" asChild>
   <Button aria-label={uploaded ? 'Uploaded' : 'Upload'} onclick={() => (uploaded = !uploaded)}>
     <Swap swap={uploaded}>
-      <SwapIndicator aria-hidden="true" type="off"><UploadIcon /></SwapIndicator>
-      <SwapIndicator aria-hidden="true" type="on"><CheckIcon /></SwapIndicator>
+      <SwapIndicator aria-hidden="true" type="off"><UiIcon icon="upload" /></SwapIndicator>
+      <SwapIndicator aria-hidden="true" type="on"><UiIcon icon="check" /></SwapIndicator>
     </Swap>
   </Button>
 </Story>
@@ -55,11 +55,11 @@
   >
     <Swap class={styles.feedbackSwap} swap={playing}>
       <SwapIndicator aria-hidden="true" class={styles.compactIndicator} type="off">
-        <PlayIcon />
+        <UiIcon icon="play" />
         Play
       </SwapIndicator>
       <SwapIndicator aria-hidden="true" class={styles.compactIndicator} type="on">
-        <PauseIcon />
+        <UiIcon icon="pause" />
         Pause
       </SwapIndicator>
     </Swap>
@@ -71,8 +71,8 @@
     {#each animations as animationName (animationName)}
       <Button aria-label={animationName + ' animation'} onclick={() => (swapped = !swapped)}>
         <Swap animation={animationName} swap={swapped}>
-          <SwapIndicator aria-hidden="true" type="off"><UploadIcon /></SwapIndicator>
-          <SwapIndicator aria-hidden="true" type="on"><CheckIcon /></SwapIndicator>
+          <SwapIndicator aria-hidden="true" type="off"><UiIcon icon="upload" /></SwapIndicator>
+          <SwapIndicator aria-hidden="true" type="on"><UiIcon icon="check" /></SwapIndicator>
         </Swap>
       </Button>
     {/each}
@@ -88,8 +88,8 @@
           aria-label={providerSwapped ? 'Uploaded' : 'Upload'}
           onclick={() => (providerSwapped = !providerSwapped)}
         >
-          <SwapIndicator aria-hidden="true" type="off"><UploadIcon /></SwapIndicator>
-          <SwapIndicator aria-hidden="true" type="on"><CheckIcon /></SwapIndicator>
+          <SwapIndicator aria-hidden="true" type="off"><UiIcon icon="upload" /></SwapIndicator>
+          <SwapIndicator aria-hidden="true" type="on"><UiIcon icon="check" /></SwapIndicator>
         </Button>
       {/snippet}
     </SwapRootProvider>
@@ -109,7 +109,7 @@
     onpointerleave={() => (hovered = false)}
   >
     <span class={styles.compactContent}>
-      <UploadIcon aria-hidden="true" />
+      <UiIcon icon="upload" aria-hidden="true" />
       <Swap class={styles.compactLabel} swap={expanded}>
         <SwapIndicator aria-hidden="true" type="off" />
         <SwapIndicator aria-hidden="true" type="on">Download</SwapIndicator>

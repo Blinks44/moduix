@@ -9,7 +9,7 @@
     AlertTitle,
   } from '@/components/alert';
   import { Button } from '@/components/button';
-  import { CheckIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import styles from './Alert.stories.module.css';
   import InfoIcon from './InfoIcon.svelte';
 
@@ -65,7 +65,7 @@
   <div class={styles.stack}>
     {#each statuses as status (status)}<Alert {status}>
         <AlertIndicator>
-          {#if status === 'success'}<CheckIcon />{:else}<InfoIcon />{/if}
+          {#if status === 'success'}<UiIcon icon="check" />{:else}<InfoIcon />{/if}
         </AlertIndicator>
         <AlertContent>
           <AlertTitle>{status}</AlertTitle>

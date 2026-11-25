@@ -167,41 +167,52 @@
 }
 
 .fileSelect {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
+  --moduix-select-width: auto;
+  --moduix-select-control-height: 30px;
+  --moduix-select-radius: 8px;
+  --moduix-select-action-size: 14px;
+}
 
-  select {
-    height: 30px;
-    appearance: none;
-    border: 1px solid var(--moduix-doc-border-strong);
-    border-radius: 8px;
-    padding: 0 32px 0 10px;
-    background: var(--rp-c-bg);
-    color: var(--rp-c-text-1);
-    font: inherit;
-    font-size: 12px;
-    font-weight: 500;
-    cursor: pointer;
+.fileSelectTrigger {
+  border: 1px solid var(--moduix-doc-border-strong);
+  padding-inline: 10px 30px;
+  background: var(--rp-c-bg);
+  color: var(--rp-c-text-1);
+  font-size: 12px;
+  font-weight: 500;
 
-    &:hover {
-      background: var(--rp-c-bg-mute);
-    }
-
-    &:focus-visible {
-      outline: 2px solid var(--rp-c-brand);
-      outline-offset: 2px;
-    }
+  &:hover {
+    background: var(--rp-c-bg-mute);
   }
+
+  &:focus-visible {
+    outline: 2px solid var(--rp-c-brand);
+    outline-offset: 2px;
+  }
+}
+
+.fileSelectIndicator {
+  inset-inline-end: 8px;
+  color: var(--rp-c-text-3);
 
   > svg {
-    position: absolute;
-    inset-inline-end: 8px;
     width: 14px;
     height: 14px;
-    color: var(--rp-c-text-3);
-    pointer-events: none;
   }
+}
+
+.fileSelectPositioner {
+  z-index: 80;
+}
+
+.fileSelectContent {
+  --moduix-z-popup: 80;
+
+  min-width: max(var(--reference-width), 11rem);
+}
+
+.fileSelectOption {
+  font-size: 12px;
 }
 
 .fileListAccordion {

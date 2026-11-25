@@ -9,7 +9,7 @@
     CollapsibleTrigger,
     useCollapsible,
   } from '@/components/collapsible';
-  import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import RecoveryKeys from './RecoveryKeys.svelte';
 
   const { Story } = defineMeta({
@@ -137,7 +137,7 @@
         >
           <span class="min-w-0">Styled recovery keys</span>
           <CollapsibleIndicator class="text-primary">
-            <ChevronDownIcon />
+            <UiIcon icon="chevron-down" />
           </CollapsibleIndicator>
         </button>
       {/snippet}

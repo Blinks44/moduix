@@ -1,3 +1,14 @@
+import {
+  Select,
+  SelectContent,
+  SelectControl,
+  SelectIndicator,
+  SelectOption,
+  SelectPositioner,
+  SelectTrigger,
+  SelectValueText,
+  createListCollection,
+} from '@moduix/react/select';
 import { useI18n, usePage } from '@rspress/core/runtime';
 import { CodeBlockRuntime, useStorageValue } from '@rspress/core/theme';
 import sdk from '@stackblitz/sdk';
@@ -13,7 +24,7 @@ import {
   Smartphone,
   Tablet,
 } from 'lucide-react';
-import { useEffect, useState, type ComponentProps, type ReactNode } from 'react';
+import { useEffect, useMemo, useState, type ComponentProps, type ReactNode } from 'react';
 import styles from './example-panel.module.css';
 import { createExampleProject, type ExampleProject } from './example-project';
 import { ExampleFrame } from './reference';
@@ -98,7 +109,7 @@ function applyImportStyle(
       if (subpath === 'style.css' || subpath === 'reset.css') {
         return `${quote}@/lib/moduix/styles/${subpath}${quote}`;
       }
-      if (subpath === 'locale' || subpath === 'collection') {
+      if (subpath === 'collection') {
         return `${quote}@ark-ui/${framework}/${subpath}${quote}`;
       }
       return `${quote}@/components/ui/${subpath}${quote}`;
@@ -136,17 +147,45 @@ function PanelSelect({
   value: string;
   onChange: (value: string) => void;
 }) {
+  const collection = useMemo(() => createListCollection({ items: [...options] }), [options]);
+
   return (
-    <span className={styles.select} data-dot={dot}>
-      <select aria-label={label} value={value} onChange={(event) => onChange(event.target.value)}>
-        {options.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </select>
-      <ChevronDown aria-hidden="true" />
-    </span>
+    <Select
+      className={styles.select}
+      collection={collection}
+      value={[value]}
+      onValueChange={(details) => {
+        const next = details.value[0];
+        if (next) onChange(next);
+      }}
+      positioning={{ sameWidth: false, placement: 'bottom-start' }}
+    >
+      <SelectControl>
+        <SelectTrigger aria-label={label} className={styles.selectTrigger}>
+          {dot ? <span className={styles.dot} data-dot={dot} aria-hidden="true" /> : null}
+          <SelectValueText />
+        </SelectTrigger>
+        <SelectIndicator className={styles.selectIndicator}>
+          <ChevronDown aria-hidden="true" />
+        </SelectIndicator>
+      </SelectControl>
+      <SelectPositioner className={styles.selectPositioner}>
+        <SelectContent className={styles.selectContent}>
+          {options.map((option) => (
+            <SelectOption key={option.value} item={option} className={styles.selectOption}>
+              {dot ? (
+                <span className={styles.optionLabel}>
+                  <span className={styles.dot} data-dot={option.value} aria-hidden="true" />
+                  <span>{option.label}</span>
+                </span>
+              ) : (
+                option.label
+              )}
+            </SelectOption>
+          ))}
+        </SelectContent>
+      </SelectPositioner>
+    </Select>
   );
 }
 

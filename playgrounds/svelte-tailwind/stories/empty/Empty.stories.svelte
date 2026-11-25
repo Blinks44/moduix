@@ -9,7 +9,7 @@
     EmptyIcon,
     EmptyTitle,
   } from '@/components/empty';
-  import { FileIcon, FolderIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
 
   const emptyClass = 'w-[min(28rem,calc(100vw-2rem))]';
   const customEmptyClass =
@@ -25,7 +25,7 @@
 
 <Story name="Basic" asChild>
   <Empty class={emptyClass}>
-    <EmptyIcon><FolderIcon /></EmptyIcon>
+    <EmptyIcon><UiIcon icon="folder" /></EmptyIcon>
     <EmptyContent>
       <EmptyTitle>No deployments yet</EmptyTitle>
       <EmptyDescription
@@ -41,7 +41,7 @@
 
 <Story name="Without Actions" asChild>
   <Empty class={emptyClass}>
-    <EmptyIcon><FileIcon /></EmptyIcon>
+    <EmptyIcon><UiIcon icon="file" /></EmptyIcon>
     <EmptyContent>
       <EmptyTitle>No saved places</EmptyTitle>
       <EmptyDescription
@@ -65,7 +65,7 @@
 
 <Story name="Custom Styles" asChild>
   <Empty class={customEmptyClass}>
-    <EmptyIcon class={customIconClass}><FolderIcon /></EmptyIcon>
+    <EmptyIcon class={customIconClass}><UiIcon icon="folder" /></EmptyIcon>
     <EmptyContent>
       <EmptyTitle>Invite your team</EmptyTitle>
       <EmptyDescription

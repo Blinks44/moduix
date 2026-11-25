@@ -35,7 +35,7 @@
     SidebarSeparator,
     SidebarTooltip,
   } from '@/components/sidebar';
-  import { FileIcon, FolderIcon, PlusIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import AccountMenu from './AccountMenu.svelte';
   import { classes } from './classes';
   import WorkspaceSelect from './WorkspaceSelect.svelte';
@@ -61,7 +61,7 @@
         title="Create workspace item"
         class={accentClass}
       >
-        <PlusIcon />
+        <UiIcon icon="plus" />
       </SidebarGroupAction>
     </SidebarGroupHeader>
     <SidebarNavigationList>
@@ -71,7 +71,7 @@
             <SidebarNavigationButton {...tooltipProps()} active class={accentClass}>
               {#snippet asChild(buttonProps)}
                 <a {...buttonProps()} href="#overview"
-                  ><FolderIcon /><SidebarLabel>Overview</SidebarLabel></a
+                  ><UiIcon icon="folder" /><SidebarLabel>Overview</SidebarLabel></a
                 >
               {/snippet}
             </SidebarNavigationButton>
@@ -87,7 +87,8 @@
                 <CollapsibleTrigger>
                   {#snippet asChild(triggerProps)}
                     <SidebarNavigationButton {...tooltipProps(triggerProps())} class={accentClass}>
-                      <FolderIcon /><SidebarLabel>Projects</SidebarLabel><CollapsibleIndicator />
+                      <UiIcon icon="folder" /><SidebarLabel>Projects</SidebarLabel
+                      ><CollapsibleIndicator />
                     </SidebarNavigationButton>
                   {/snippet}
                 </CollapsibleTrigger>
@@ -120,7 +121,7 @@
                   title="Projects"
                   class={accentClass}
                 >
-                  <FolderIcon />
+                  <UiIcon icon="folder" />
                 </SidebarNavigationButton>
               {/snippet}
             </MenuTrigger>
@@ -147,7 +148,7 @@
             <SidebarNavigationButton {...tooltipProps()} class={accentClass}>
               {#snippet asChild(buttonProps)}
                 <a {...buttonProps()} href="#documents"
-                  ><FileIcon /><SidebarLabel>Documents</SidebarLabel></a
+                  ><UiIcon icon="file" /><SidebarLabel>Documents</SidebarLabel></a
                 >
               {/snippet}
             </SidebarNavigationButton>

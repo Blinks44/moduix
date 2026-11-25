@@ -7,7 +7,7 @@
     HoverCardTrigger,
     useHoverCard,
   } from '@/components/hover-card';
-  import { ChevronDownIcon, ChevronUpIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import storyStyles from './HoverCard.stories.module.css';
   import HoverCardSurface from './HoverCardSurface.svelte';
   import { profiles } from './profiles';
@@ -124,7 +124,9 @@
             {#snippet asChild(props)}
               <a {...props()} href="#profile">
                 @sarah_chen
-                {#if context().open}<ChevronUpIcon />{:else}<ChevronDownIcon />{/if}
+                {#if context().open}<UiIcon icon="chevron-up" />{:else}<UiIcon
+                    icon="chevron-down"
+                  />{/if}
               </a>
             {/snippet}
           </HoverCardTrigger>

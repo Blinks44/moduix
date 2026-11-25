@@ -15,7 +15,7 @@
     useSignaturePad,
     type SignaturePadDrawEndDetails,
   } from '@/components/signature-pad';
-  import { RotateCcwIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import SignaturePadParts from './SignaturePadParts.svelte';
 
   const { Story } = defineMeta({
@@ -90,7 +90,7 @@
       <SignaturePadControl>
         <SignaturePadSegment class="text-primary" />
         <SignaturePadClearTrigger>
-          <RotateCcwIcon class="size-4" aria-hidden="true" />
+          <UiIcon icon="rotate-ccw" class="size-4" aria-hidden="true" />
         </SignaturePadClearTrigger>
         <SignaturePadGuide class="border-primary/45" />
       </SignaturePadControl>

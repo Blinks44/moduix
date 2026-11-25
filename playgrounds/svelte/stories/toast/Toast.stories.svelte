@@ -11,7 +11,7 @@
     type CreateToasterReturn,
     type ToastPlacement,
   } from '@/components/toast';
-  import { CloseIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import InfoIcon from './InfoIcon.svelte';
   import styles from './Toast.stories.module.css';
   import ToastRenderer from './ToastRenderer.svelte';
@@ -297,7 +297,7 @@
           <ToastDescription />
         </div>
         <ToastCloseTrigger>
-          <CloseIcon class={styles.closeIcon} />
+          <UiIcon icon="close" class={styles.closeIcon} />
         </ToastCloseTrigger>
       </Toast>
     {/snippet}

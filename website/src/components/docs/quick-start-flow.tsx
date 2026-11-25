@@ -131,7 +131,7 @@ export function QuickStartFlow() {
           const fw = item.value;
           return [
             `\n<!-- moduix-fw:${fw} -->`,
-            '## Install as a package',
+            '### Install as a package',
             '',
             `1. Install \`@moduix/${fw}\` (or \`@moduix/${fw}-tailwind\`) and \`@ark-ui/${fw}\`.`,
             '2. Import styles once in your entry point:',
@@ -143,7 +143,7 @@ export function QuickStartFlow() {
             packageSnippets[fw]['css-modules'].trim(),
             '```',
             '',
-            '## Install with the shadcn CLI',
+            '### Install with the shadcn CLI',
             '',
             `1. Initialize: \`pnpm dlx shadcn@latest init https://moduix.dev/r/${fw}/init.json\` (or \`${fw}-tailwind\` for Tailwind CSS).`,
             `2. Add a component: \`pnpm dlx shadcn@latest add @moduix-${fw}/accordion\` and import \`@/lib/moduix/styles/style.css\` (plus \`reset.css\` for CSS Modules).`,

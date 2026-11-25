@@ -9,7 +9,7 @@
     CollapsibleTrigger,
     useCollapsible,
   } from '@/components/collapsible';
-  import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import styles from './Collapsible.stories.module.css';
   import RecoveryKeys from './RecoveryKeys.svelte';
 
@@ -132,7 +132,7 @@
         <button {...props({ class: styles.customTrigger })} type="button">
           <span class={styles.triggerLabel}>Styled recovery keys</span>
           <CollapsibleIndicator class={styles.customIndicator}>
-            <ChevronDownIcon />
+            <UiIcon icon="chevron-down" />
           </CollapsibleIndicator>
         </button>
       {/snippet}

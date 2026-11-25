@@ -3,6 +3,12 @@ import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
 import {
+  Dialog,
+  DialogBackdrop,
+  DialogContent,
+  DialogPositioner,
+  DialogTitle,
+  DialogTrigger,
   Toast,
   ToastActionTrigger,
   ToastCloseTrigger,
@@ -296,3 +302,34 @@ test.each(
     }
   },
 );
+
+test('keeps portalled toasts exposed to assistive technology when a modal dialog opens', async () => {
+  const toaster = createToaster({ placement: 'bottom', duration: Infinity });
+
+  render(() => (
+    <>
+      <ToastToaster toaster={toaster} />
+      <Dialog>
+        <DialogTrigger>Open modal</DialogTrigger>
+        <DialogBackdrop />
+        <DialogPositioner>
+          <DialogContent>
+            <DialogTitle>Modal dialog</DialogTitle>
+          </DialogContent>
+        </DialogPositioner>
+      </Dialog>
+    </>
+  ));
+
+  await page.getByRole('button', { name: 'Open modal', exact: true }).click();
+  await expect.element(page.getByRole('dialog', { name: 'Modal dialog' })).toBeVisible();
+
+  toaster.create({ title: 'Saved inside modal' });
+  const toastTitle = await screen.findByText('Saved inside modal');
+
+  let node: HTMLElement | null = toastTitle;
+  while (node && node !== document.body) {
+    expect(node.getAttribute('aria-hidden')).not.toBe('true');
+    node = node.parentElement;
+  }
+});

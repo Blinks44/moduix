@@ -1,7 +1,7 @@
 <script module lang="ts">
   import { defineMeta } from '@storybook/addon-svelte-csf';
   import { Badge, BadgeDot, BadgeLabel } from '@/components/badge';
-  import { ChevronRightIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import styles from './Badge.stories.module.css';
 
   const variants = ['default', 'secondary', 'destructive', 'outline', 'ghost', 'link'] as const;
@@ -46,12 +46,12 @@
   <div class={styles.row}>
     {#each iconBadges as item (item.label)}<Badge variant={item.variant}>
         <BadgeLabel>{item.label}</BadgeLabel>
-        <ChevronRightIcon />
+        <UiIcon icon="chevron-right" />
       </Badge>{/each}
     <Badge variant="link"
       >{#snippet asChild(props)}<a {...props()} href="#badge-link-story">
           <BadgeLabel>Styling guide</BadgeLabel>
-          <ChevronRightIcon />
+          <UiIcon icon="chevron-right" />
         </a>{/snippet}</Badge
     >
   </div>

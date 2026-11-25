@@ -15,6 +15,18 @@ type FrameworkId = (typeof FRAMEWORKS)[number]['id'];
 const FW_BLOCK_RE =
   /\n?<!-- moduix-fw:(react|solid|vue|svelte) -->\n([\s\S]*?)<!-- \/moduix-fw -->\n?/g;
 
+const PAGE_FRAMEWORKS: Record<string, readonly FrameworkId[]> = {
+  '/docs/installation/nextjs.md': ['react'],
+  '/docs/installation/react-router.md': ['react'],
+  '/docs/installation/tanstack-start.md': ['react', 'solid'],
+  '/docs/installation/nuxt.md': ['vue'],
+  '/docs/installation/solid-start.md': ['solid'],
+  '/docs/installation/sveltekit.md': ['svelte'],
+  '/docs/react-hook-form.md': ['react'],
+  '/docs/vee-validate.md': ['vue'],
+  '/docs/superforms.md': ['svelte'],
+};
+
 const defaultOutDir = fileURLToPath(new URL('../doc_build', import.meta.url));
 
 function normalizeMarkdown(markdown: string): string {
@@ -22,6 +34,24 @@ function normalizeMarkdown(markdown: string): string {
     .replace(/\n## Usage\n+(?=## )/g, '\n')
     .replace(/\n{3,}/g, '\n\n')
     .trimEnd()}\n`;
+}
+
+function filterPagesForFramework(markdown: string, keep: FrameworkId): string {
+  const sections = markdown.split(/(?=^---\nurl: )/m);
+  return sections
+    .filter((section) => {
+      const urlMatch = section.match(/^---\nurl: ([^\n]+)\n---/);
+      if (!urlMatch) return true;
+      let pathname: string;
+      try {
+        pathname = new URL(urlMatch[1]).pathname;
+      } catch {
+        pathname = urlMatch[1];
+      }
+      const allowed = PAGE_FRAMEWORKS[pathname];
+      return !allowed || allowed.includes(keep);
+    })
+    .join('');
 }
 
 function filterForFramework(
@@ -33,7 +63,7 @@ function filterForFramework(
   let stripped = false;
   const filtered = markdown.replace(FW_BLOCK_RE, (_match, fw: FrameworkId, body: string) => {
     if (fw === keep) {
-      const trimmed = body.trimEnd();
+      const trimmed = body.trim();
       const withoutRedundantLabel =
         labelPrefix && trimmed.startsWith(labelPrefix)
           ? trimmed.slice(labelPrefix.length)
@@ -48,7 +78,7 @@ function filterForFramework(
 
 function stripMarkersOnly(markdown: string): string {
   const cleaned = markdown.replace(FW_BLOCK_RE, (_match, _fw: FrameworkId, body: string) => {
-    return `\n${body.trimEnd()}\n`;
+    return `\n${body.trim()}\n`;
   });
   return normalizeMarkdown(cleaned);
 }
@@ -59,7 +89,7 @@ function injectFrameworkNote(markdown: string, siteOrigin: string): string {
     FRAMEWORKS.map((fw) => `[${fw.label}](${siteOrigin}/llms-${fw.id}.txt)`).join(' | ') +
     '.';
   if (markdown.includes(note)) return markdown;
-  const match = markdown.match(/^(# [^\n]+\n(?:\n[^\n#`>*][^\n]*\n)?)/);
+  const match = markdown.match(/^(# [^\n]+\n(?:\n(?:[^\n#`>*][^\n]*\n)+)?)/);
   if (!match) return `${note}\n\n${markdown}`;
   const head = match[1].trimEnd();
   const rest = markdown.slice(match[1].length).replace(/^\n+/, '');
@@ -111,17 +141,20 @@ export function pluginLlmsPerFramework(): RspressPlugin {
       const llmsFullPath = path.join(outDir, 'llms-full.txt');
       if (existsSync(llmsFullPath)) {
         const rawFull = readFileSync(llmsFullPath, 'utf8');
-        for (const fw of FRAMEWORKS) {
-          const { content } = filterForFramework(rawFull, fw.id);
-          const header =
-            `# moduix (${fw.label} Documentation)\n\n` +
-            `> Complete moduix documentation filtered to ${fw.label} installation commands and examples. ` +
-            `Other frameworks: ${FRAMEWORKS.filter((item) => item.id !== fw.id)
-              .map((item) => `[${item.label}](${siteOrigin}/llms-${item.id}.txt)`)
-              .join(', ')}.\n\n`;
-          writeFileSync(path.join(outDir, `llms-${fw.id}.txt`), `${header}${content}`, 'utf8');
+        if (rawFull.includes('<!-- moduix-fw:')) {
+          for (const fw of FRAMEWORKS) {
+            const scoped = filterPagesForFramework(rawFull, fw.id);
+            const { content } = filterForFramework(scoped, fw.id);
+            const header =
+              `# moduix (${fw.label} Documentation)\n\n` +
+              `> Complete moduix documentation filtered to ${fw.label} installation commands and examples. ` +
+              `Other frameworks: ${FRAMEWORKS.filter((item) => item.id !== fw.id)
+                .map((item) => `[${item.label}](${siteOrigin}/llms-${item.id}.txt)`)
+                .join(', ')}.\n\n`;
+            writeFileSync(path.join(outDir, `llms-${fw.id}.txt`), `${header}${content}`, 'utf8');
+          }
+          writeFileSync(llmsFullPath, stripMarkersOnly(rawFull), 'utf8');
         }
-        writeFileSync(llmsFullPath, stripMarkersOnly(rawFull), 'utf8');
       }
 
       for (const subdir of ['docs', 'blocks']) {

@@ -20,12 +20,12 @@ export {
   setA11yLabels,
   useA11yLabels,
   type A11yLabels,
-} from './internal/a11yLabels';
+} from '@/lib/moduix/a11yLabels';
 export {
   default as LabelsProvider,
   type LabelsProviderProps,
-} from './internal/LabelsProvider.svelte';
+} from '@/lib/moduix/LabelsProvider.svelte';
 export {
   default as ModuixProvider,
   type ModuixProviderProps,
-} from './internal/ModuixProvider.svelte';
+} from '@/lib/moduix/ModuixProvider.svelte';

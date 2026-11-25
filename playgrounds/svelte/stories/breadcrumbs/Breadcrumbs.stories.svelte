@@ -18,7 +18,7 @@
     MenuTrigger,
     MenuViewport,
   } from '@/components/menu';
-  import { SeparatorMarkIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
 
   const { Story } = defineMeta({
     title: 'Components/Breadcrumbs',
@@ -49,7 +49,7 @@
 </script>
 
 {#snippet customSeparator()}
-  <SeparatorMarkIcon style="width: 0.75rem; height: 0.25rem" />
+  <UiIcon icon="separator-mark" style="width: 0.75rem; height: 0.25rem" />
 {/snippet}
 
 {#snippet longCurrentPage()}
@@ -162,7 +162,7 @@
         </BreadcrumbsLink>
       </BreadcrumbsItem>
       <BreadcrumbsSeparator>
-        <SeparatorMarkIcon style="width: 0.75rem; height: 0.25rem" />
+        <UiIcon icon="separator-mark" style="width: 0.75rem; height: 0.25rem" />
       </BreadcrumbsSeparator>
       <BreadcrumbsItem>
         <BreadcrumbsPage><span title={longCurrentLabel}>{longCurrentLabel}</span></BreadcrumbsPage>

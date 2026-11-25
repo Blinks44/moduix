@@ -11,14 +11,7 @@
     useImageCropper,
   } from '@/components/image-cropper';
   import { cn } from '@/lib/moduix/cn';
-  import {
-    FlipHorizontalIcon,
-    RestartIcon,
-    RotateCcwIcon,
-    RotateCwIcon,
-    ZoomInIcon,
-    ZoomOutIcon,
-  } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
   import CropperCanvas from './CropperCanvas.svelte';
 
   const { Story } = defineMeta({
@@ -87,14 +80,14 @@
         class={cn(buttonClassName, iconButtonClassName)}
         type="button"
         aria-label="Zoom out"
-        onclick={() => (zoom = Math.max(0.5, zoom - 0.1))}><ZoomOutIcon /></button
+        onclick={() => (zoom = Math.max(0.5, zoom - 0.1))}><UiIcon icon="zoom-out" /></button
       >
       <output class={outputClassName}>{zoom.toFixed(1)}x</output>
       <button
         class={cn(buttonClassName, iconButtonClassName)}
         type="button"
         aria-label="Zoom in"
-        onclick={() => (zoom = Math.min(3, zoom + 0.1))}><ZoomInIcon /></button
+        onclick={() => (zoom = Math.min(3, zoom + 0.1))}><UiIcon icon="zoom-in" /></button
       >
     </div>
     <CropperCanvas bind:zoom minZoom={0.5} maxZoom={3} />
@@ -111,37 +104,37 @@
               class={cn(buttonClassName, iconButtonClassName)}
               type="button"
               aria-label="Zoom out"
-              onclick={() => context().zoomBy(-0.1)}><ZoomOutIcon /></button
+              onclick={() => context().zoomBy(-0.1)}><UiIcon icon="zoom-out" /></button
             >
             <button
               class={cn(buttonClassName, iconButtonClassName)}
               type="button"
               aria-label="Zoom in"
-              onclick={() => context().zoomBy(0.1)}><ZoomInIcon /></button
+              onclick={() => context().zoomBy(0.1)}><UiIcon icon="zoom-in" /></button
             >
             <button
               class={cn(buttonClassName, iconButtonClassName)}
               type="button"
               aria-label="Rotate counterclockwise"
-              onclick={() => context().rotateBy(-90)}><RotateCcwIcon /></button
+              onclick={() => context().rotateBy(-90)}><UiIcon icon="rotate-ccw" /></button
             >
             <button
               class={cn(buttonClassName, iconButtonClassName)}
               type="button"
               aria-label="Rotate clockwise"
-              onclick={() => context().rotateBy(90)}><RotateCwIcon /></button
+              onclick={() => context().rotateBy(90)}><UiIcon icon="rotate-cw" /></button
             >
             <button
               class={cn(buttonClassName, iconButtonClassName)}
               type="button"
               aria-label="Flip horizontally"
-              onclick={() => context().flipHorizontally()}><FlipHorizontalIcon /></button
+              onclick={() => context().flipHorizontally()}><UiIcon icon="flip-horizontal" /></button
             >
             <button
               class={cn(buttonClassName, iconButtonClassName)}
               type="button"
               aria-label="Reset crop"
-              onclick={() => context().reset()}><RestartIcon /></button
+              onclick={() => context().reset()}><UiIcon icon="restart" /></button
             >
           </div>
         {/snippet}
@@ -166,7 +159,7 @@
       class={cn(buttonClassName, iconButtonClassName)}
       type="button"
       aria-label="Reset crop"
-      onclick={() => providerCropper().reset()}><RestartIcon /></button
+      onclick={() => providerCropper().reset()}><UiIcon icon="restart" /></button
     >
   </div>
 </Story>

@@ -911,6 +911,9 @@ function Footer({ t }: { t: T }) {
     ['Docs', getLocalizedPath('/docs/', lang)],
     [t('homeFooterComponents'), getLocalizedPath('/docs/components', lang)],
     [t('homeFooterBlocks'), getLocalizedPath('/blocks/', lang)],
+    [t('homeFooterThemes'), getLocalizedPath('/docs/themes', lang)],
+    [t('homeFooterCompare'), getLocalizedPath('/docs/comparison', lang)],
+    ['llms.txt', '/llms.txt'],
     ['GitHub', 'https://github.com/Blinks44/moduix'],
   ];
 
@@ -954,6 +957,42 @@ export function Home() {
   const [pm, setPm] = useState<PackageManager>('pnpm');
   const categories = getComponentCategories();
   const count = categories.reduce((total, category) => total + category.count, 0);
+
+  if (import.meta.env.SSG_MD) {
+    return (
+      <>
+        {[
+          '# moduix',
+          '',
+          `One accessible UI component system (${count} components) for React, Solid, Vue, and Svelte, built on Ark UI and Zag.js, available in CSS Modules and Tailwind CSS v4 as npm packages or a shadcn-compatible registry.`,
+          '',
+          '## Quick install',
+          '',
+          '- npm package: `pnpm add @moduix/react @ark-ui/react` (replace `react` with `solid`, `vue`, or `svelte`, or append `-tailwind` for Tailwind CSS v4).',
+          '- shadcn CLI: `pnpm dlx shadcn@latest init https://moduix.dev/r/react/init.json`',
+          '',
+          '## Documentation',
+          '',
+          '- [Introduction](https://moduix.dev/docs/index.md)',
+          '- [Quick start](https://moduix.dev/docs/quick-start.md)',
+          `- [Components (${count})](https://moduix.dev/docs/components.md)`,
+          '- [Blocks](https://moduix.dev/blocks/index.md)',
+          '- [Themes](https://moduix.dev/docs/themes.md)',
+          '- [Tokens](https://moduix.dev/docs/tokens.md)',
+          '- [Styling](https://moduix.dev/docs/styling.md)',
+          '- [Migrate from shadcn](https://moduix.dev/docs/migrate-from-shadcn.md)',
+          '- [Comparison](https://moduix.dev/docs/comparison.md)',
+          '',
+          '## Framework-specific documentation for AI agents',
+          '',
+          '- [React](https://moduix.dev/llms-react.txt)',
+          '- [Solid](https://moduix.dev/llms-solid.txt)',
+          '- [Vue](https://moduix.dev/llms-vue.txt)',
+          '- [Svelte](https://moduix.dev/llms-svelte.txt)',
+        ].join('\n')}
+      </>
+    );
+  }
 
   return (
     <div className={styles.home}>

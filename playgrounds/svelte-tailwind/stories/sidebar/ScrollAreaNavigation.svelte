@@ -7,7 +7,7 @@
     SidebarNavigationItem,
     SidebarNavigationList,
   } from '@/components/sidebar';
-  import { FileIcon, FolderIcon, FolderOpenIcon } from '@/lib/moduix/icons/ui';
+  import { UiIcon } from '@/lib/moduix/icons/ui';
 
   const projects = [
     'Website',
@@ -30,17 +30,17 @@
   <SidebarNavigationList>
     <SidebarNavigationItem>
       <SidebarNavigationButton active
-        ><FolderOpenIcon /><SidebarLabel>Overview</SidebarLabel></SidebarNavigationButton
+        ><UiIcon icon="folder-open" /><SidebarLabel>Overview</SidebarLabel></SidebarNavigationButton
       >
     </SidebarNavigationItem>
     <SidebarNavigationItem>
       <SidebarNavigationButton
-        ><FolderIcon /><SidebarLabel>Projects</SidebarLabel></SidebarNavigationButton
+        ><UiIcon icon="folder" /><SidebarLabel>Projects</SidebarLabel></SidebarNavigationButton
       >
     </SidebarNavigationItem>
     <SidebarNavigationItem>
       <SidebarNavigationButton
-        ><FileIcon /><SidebarLabel>Documents</SidebarLabel></SidebarNavigationButton
+        ><UiIcon icon="file" /><SidebarLabel>Documents</SidebarLabel></SidebarNavigationButton
       >
     </SidebarNavigationItem>
   </SidebarNavigationList>
@@ -51,7 +51,7 @@
     {#each projects as project (project)}
       <SidebarNavigationItem>
         <SidebarNavigationButton
-          ><FileIcon /><SidebarLabel>{project}</SidebarLabel></SidebarNavigationButton
+          ><UiIcon icon="file" /><SidebarLabel>{project}</SidebarLabel></SidebarNavigationButton
         >
       </SidebarNavigationItem>
     {/each}

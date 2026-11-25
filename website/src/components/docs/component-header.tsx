@@ -121,19 +121,33 @@ export function PageBreadcrumb() {
   );
 }
 
-const blockSources = {
-  react: (block: string) => `website/src/components/blocks/${block}`,
-  solid: (block: string) => `website/snippets/blocks/solid/${block}.tsx`,
-  vue: (block: string) => `website/snippets/blocks/vue/${block}.vue`,
-  svelte: (block: string) => `website/snippets/blocks/svelte/${block}.svelte`,
-};
+const reactBlockDirs = new Set([
+  'app-shell',
+  'data-table',
+  'forgot-password',
+  'login-simple',
+  'reset-password',
+  'sign-up',
+  'verification-code',
+]);
+
+function getBlockSourceUrl(block: string, framework: string, styling: string): string {
+  const dir = styling === 'tailwind' ? 'blocks-tailwind' : 'blocks';
+  if (framework === 'react') {
+    return reactBlockDirs.has(block)
+      ? `${repository}/tree/main/website/src/components/${dir}/${block}`
+      : `${repository}/blob/main/website/src/components/${dir}/${block}.tsx`;
+  }
+  const ext = framework === 'solid' ? 'tsx' : framework;
+  return `${repository}/blob/main/website/snippets/${dir}/${framework}/${block}.${ext}`;
+}
 
 export function BlockLinks({ block }: { block: string }) {
   const t = useI18n<typeof import('i18n')>();
   const { page } = usePage();
-  const { framework } = useExampleSelection();
+  const { framework, styling } = useExampleSelection();
   const links = [
-    [t('componentSource'), `${repository}/tree/main/${blockSources[framework.value](block)}`],
+    [t('componentSource'), getBlockSourceUrl(block, framework.value, styling.value)],
     [
       t('componentReportIssue'),
       `${repository}/issues/new?title=${encodeURIComponent(`[${page.title}] `)}`,
