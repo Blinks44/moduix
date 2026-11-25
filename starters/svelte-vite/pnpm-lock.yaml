@@ -168,29 +168,29 @@ importers:
     dependencies:
       '@ark-ui/svelte':
         specifier: ^5.25.1
-        version: 5.25.1(svelte@5.57.3)
+        version: 5.25.1(svelte@5.59.1)
       '@fontsource-variable/noto-sans':
         specifier: ^5.3.0
         version: 5.3.0
       '@moduix/svelte':
-        specifier: ^3.2.2
-        version: 3.2.2(@ark-ui/svelte@5.25.1(svelte@5.57.3))(svelte@5.57.3)
+        specifier: ^3.3.2
+        version: 3.3.2(@ark-ui/svelte@5.25.1(svelte@5.59.1))(svelte@5.59.1)
       svelte:
-        specifier: ^5.57.3
-        version: 5.57.3
+        specifier: ^5.59.1
+        version: 5.59.1
     devDependencies:
       '@sveltejs/vite-plugin-svelte':
         specifier: ^7.3.1
-        version: 7.3.1(svelte@5.57.3)(vite@8.3.7)
+        version: 7.3.1(svelte@5.59.1)(vite@8.3.8)
       svelte-check:
         specifier: ^4.7.8
-        version: 4.7.8(picomatch@4.0.7)(svelte@5.57.3)(typescript@6.0.3)
+        version: 4.7.8(picomatch@4.0.7)(svelte@5.59.1)(typescript@6.0.3)
       typescript:
         specifier: ~6.0.3
         version: 6.0.3
       vite:
-        specifier: ^8.3.4
-        version: 8.3.7
+        specifier: ^8.3.8
+        version: 8.3.8
 
 packages:
 
@@ -233,13 +233,13 @@ packages:
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
 
-  '@lucide/svelte@1.71.0':
-    resolution: {integrity: sha512-m1a8SzMcEqjrG/uIEWCzbWqxK7yVn9q4ukaU4adVIFM7MW6rBg1+UbpeRQSBsXyuqIzIqCr1Ty0g2rrMTdQWYA==}
+  '@lucide/svelte@1.77.0':
+    resolution: {integrity: sha512-gXjmQ4VK3Mh/M11Nn/XCeln3XZByR4MxX5o+NMfr/Wg9MQs+BffvXTnW+0WvmjV1u58TXJhXvgJZHrMASUnqow==}
     peerDependencies:
       svelte: ^5
 
-  '@moduix/svelte@3.2.2':
-    resolution: {integrity: sha512-xTVsI8WMDxlETHHzXXYBETQpaJQ/V/bbD4BPJNTmw9q+IcOtWd8rQFCWQhXckRs/vKxbVmruoTVNR4rFihKS5w==}
+  '@moduix/svelte@3.3.2':
+    resolution: {integrity: sha512-8NHioamBTgdeEclVtKpRKqJ2vegwr/nW/VSy4FQ6NtptumNQfSy2i6oPeIF1tzkrRkSPBlt6EilRmmjNqxBfUA==}
     peerDependencies:
       '@ark-ui/svelte': ^5.25.1
       '@tanstack/charts': ^1.1.0
@@ -649,8 +649,8 @@ packages:
   esm-env@1.2.2:
     resolution: {integrity: sha512-Epxrv+Nr/CaL4ZcFGPJIYLWFom+YeV1DqMLHJoEd9SYRxNbaFruBwfEX/kkHUJf55j2+TUbmDcmuilbP1TmXHA==}
 
-  esrap@2.4.0:
-    resolution: {integrity: sha512-CQPcneEHw/czj32uwQC52nYnax8H4SXt25FCM+LIwGZ49cMIxpOj3bP8wmzcI+Z0HIy5KkClaPhRLfCySzwHPA==}
+  esrap@2.4.2:
+    resolution: {integrity: sha512-WpVZsWnSheHBy+fGrO/0duwnbe6ODZH1QyBbjupreSCJGojaBWRncrq+HVeIJ8eHQjEwSJg9hC4yPJyNVOrpqg==}
     peerDependencies:
       '@typescript-eslint/types': ^8.2.0
     peerDependenciesMeta:
@@ -815,8 +815,8 @@ packages:
       svelte: ^4.0.0 || ^5.0.0-next.0
       typescript: ^5.0.0 || ^6.0.0
 
-  svelte@5.57.3:
-    resolution: {integrity: sha512-5mAftM3SoDV9X0zdF386F9p2pv8iKOwi/KfBS1XnBAkVCKFzVOLHUoa8iGWAt4buoicLmyWVRpuuD5wplXOQsg==}
+  svelte@5.59.1:
+    resolution: {integrity: sha512-ADG20W/jYSQut/79AavRRfbXQYebFKMVWT/xAbjVVZfZA4XzIoFfcpanEfYTyN+uWQUaPP+nstFx4qVKwEVnQQ==}
     engines: {node: '>=18'}
 
   tinyglobby@0.2.17:
@@ -834,8 +834,8 @@ packages:
   uqr@0.1.3:
     resolution: {integrity: sha512-0rjE8iEJe4YmT9TOhwsZtqCMRLc5DXZUI2UEYUUg63ikBkqqE5EYWaI0etFe/5KUcmcYwLih2RND1kq+hrUJXA==}
 
-  vite@8.3.7:
-    resolution: {integrity: sha512-oxh0dMxrayBr33ScJvvBJ2HBQ2jc1TBrXKR2NyL/MJ9WPuX19mN2DXWUmywKdyw5RFVQBo8hmtb2FMC0LHrnng==}
+  vite@8.3.8:
+    resolution: {integrity: sha512-LzOn3h9rG/0vhLdXrV4yJ4QFA9eEoqCl+Yx+kGJd7aB9w6nfNgVHKSYwLPZUHrz4ZGa+t+kXjV9itvcHDLQouA==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
     peerDependencies:
@@ -890,7 +890,7 @@ packages:
 
 snapshots:
 
-  '@ark-ui/svelte@5.25.1(svelte@5.57.3)':
+  '@ark-ui/svelte@5.25.1(svelte@5.59.1)':
     dependencies:
       '@internationalized/date': 3.12.4
       '@zag-js/accordion': 1.47.0
@@ -947,7 +947,7 @@ snapshots:
       '@zag-js/slider': 1.47.0
       '@zag-js/splitter': 1.47.0
       '@zag-js/steps': 1.47.0
-      '@zag-js/svelte': 1.47.0(svelte@5.57.3)
+      '@zag-js/svelte': 1.47.0(svelte@5.59.1)
       '@zag-js/switch': 1.47.0
       '@zag-js/tabs': 1.47.0
       '@zag-js/tags-input': 1.47.0
@@ -961,7 +961,7 @@ snapshots:
       '@zag-js/tree-view': 1.47.0
       '@zag-js/types': 1.47.0
       '@zag-js/utils': 1.47.0
-      svelte: 5.57.3
+      svelte: 5.59.1
 
   '@floating-ui/core@1.8.0':
     dependencies:
@@ -1003,17 +1003,17 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.6.0
 
-  '@lucide/svelte@1.71.0(svelte@5.57.3)':
+  '@lucide/svelte@1.77.0(svelte@5.59.1)':
     dependencies:
-      svelte: 5.57.3
+      svelte: 5.59.1
 
-  '@moduix/svelte@3.2.2(@ark-ui/svelte@5.25.1(svelte@5.57.3))(svelte@5.57.3)':
+  '@moduix/svelte@3.3.2(@ark-ui/svelte@5.25.1(svelte@5.59.1))(svelte@5.59.1)':
     dependencies:
-      '@ark-ui/svelte': 5.25.1(svelte@5.57.3)
-      '@lucide/svelte': 1.71.0(svelte@5.57.3)
+      '@ark-ui/svelte': 5.25.1(svelte@5.59.1)
+      '@lucide/svelte': 1.77.0(svelte@5.59.1)
       '@unpic/core': 1.0.3
       clsx: 2.1.1
-      svelte: 5.57.3
+      svelte: 5.59.1
       unpic: 4.2.2
 
   '@oxc-project/types@0.156.0': {}
@@ -1071,14 +1071,14 @@ snapshots:
 
   '@sveltejs/load-config@0.2.3': {}
 
-  '@sveltejs/vite-plugin-svelte@7.3.1(svelte@5.57.3)(vite@8.3.7)':
+  '@sveltejs/vite-plugin-svelte@7.3.1(svelte@5.59.1)(vite@8.3.8)':
     dependencies:
       deepmerge: 4.3.1
       magic-string: 1.4.5
       obug: 2.2.1
-      svelte: 5.57.3
-      vite: 8.3.7
-      vitefu: 1.1.3(vite@8.3.7)
+      svelte: 5.59.1
+      vite: 8.3.8
+      vitefu: 1.1.3(vite@8.3.8)
 
   '@swc/helpers@0.5.24': {}
 
@@ -1546,12 +1546,12 @@ snapshots:
       '@zag-js/types': 1.47.0
       '@zag-js/utils': 1.47.0
 
-  '@zag-js/svelte@1.47.0(svelte@5.57.3)':
+  '@zag-js/svelte@1.47.0(svelte@5.59.1)':
     dependencies:
       '@zag-js/core': 1.47.0
       '@zag-js/types': 1.47.0
       '@zag-js/utils': 1.47.0
-      svelte: 5.57.3
+      svelte: 5.59.1
 
   '@zag-js/switch@1.47.0':
     dependencies:
@@ -1681,7 +1681,7 @@ snapshots:
 
   esm-env@1.2.2: {}
 
-  esrap@2.4.0:
+  esrap@2.4.2:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.6.0
 
@@ -1808,7 +1808,7 @@ snapshots:
 
   source-map-js@1.2.2: {}
 
-  svelte-check@4.7.8(picomatch@4.0.7)(svelte@5.57.3)(typescript@6.0.3):
+  svelte-check@4.7.8(picomatch@4.0.7)(svelte@5.59.1)(typescript@6.0.3):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
       '@sveltejs/load-config': 0.2.3
@@ -1816,12 +1816,12 @@ snapshots:
       fdir: 6.5.0(picomatch@4.0.7)
       picocolors: 1.1.1
       sade: 1.8.1
-      svelte: 5.57.3
+      svelte: 5.59.1
       typescript: 6.0.3
     transitivePeerDependencies:
       - picomatch
 
-  svelte@5.57.3:
+  svelte@5.59.1:
     dependencies:
       '@jridgewell/remapping': 2.3.5
       '@jridgewell/sourcemap-codec': 1.6.0
@@ -1833,7 +1833,7 @@ snapshots:
       clsx: 2.1.1
       devalue: 5.9.4
       esm-env: 1.2.2
-      esrap: 2.4.0
+      esrap: 2.4.2
       is-reference: 3.0.3
       locate-character: 3.0.0
       magic-string: 0.30.21
@@ -1852,7 +1852,7 @@ snapshots:
 
   uqr@0.1.3: {}
 
-  vite@8.3.7:
+  vite@8.3.8:
     dependencies:
       lightningcss: 1.33.0
       picomatch: 4.0.7
@@ -1862,8 +1862,8 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.3
 
-  vitefu@1.1.3(vite@8.3.7):
+  vitefu@1.1.3(vite@8.3.8):
     optionalDependencies:
-      vite: 8.3.7
+      vite: 8.3.8
 
   zimmerframe@1.1.5: {}
