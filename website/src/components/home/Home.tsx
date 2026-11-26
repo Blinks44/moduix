@@ -45,20 +45,12 @@ import styles from './Home.module.css';
 
 type T = ReturnType<typeof useI18n<typeof import('i18n')>>;
 type Framework = 'react' | 'solid' | 'vue' | 'svelte';
-type PackageManager = 'pnpm' | 'npm' | 'yarn' | 'bun';
 
 const frameworks = [
   { value: 'react', label: 'React' },
   { value: 'solid', label: 'Solid' },
   { value: 'vue', label: 'Vue' },
   { value: 'svelte', label: 'Svelte' },
-] as const;
-
-const packageManagers = [
-  { value: 'pnpm', label: 'pnpm', add: 'pnpm add', dlx: 'pnpm dlx' },
-  { value: 'npm', label: 'npm', add: 'npm install', dlx: 'npx' },
-  { value: 'yarn', label: 'yarn', add: 'yarn add', dlx: 'yarn dlx' },
-  { value: 'bun', label: 'bun', add: 'bun add', dlx: 'bunx' },
 ] as const;
 
 const arkMajor = reactPackage.peerDependencies['@ark-ui/react'].match(/\d+/)?.[0];
@@ -68,9 +60,14 @@ const switchCode: Record<Framework, { file: string; lang: string; code: string }
   react: {
     file: 'Notifications.tsx',
     lang: 'tsx',
-    code: `import { Switch, SwitchControl, SwitchHiddenInput, SwitchLabel } from '@moduix/react/switch';
+    code: `import {
+  Switch,
+  SwitchControl,
+  SwitchHiddenInput,
+  SwitchLabel,
+} from '@moduix/react/switch';
 
-<Switch checked={product} onCheckedChange={({ checked }) => setProduct(checked)}>
+<Switch defaultChecked>
   <SwitchLabel>Product updates</SwitchLabel>
   <SwitchControl />
   <SwitchHiddenInput />
@@ -79,9 +76,14 @@ const switchCode: Record<Framework, { file: string; lang: string; code: string }
   solid: {
     file: 'Notifications.tsx',
     lang: 'tsx',
-    code: `import { Switch, SwitchControl, SwitchHiddenInput, SwitchLabel } from '@moduix/solid/switch';
+    code: `import {
+  Switch,
+  SwitchControl,
+  SwitchHiddenInput,
+  SwitchLabel,
+} from '@moduix/solid/switch';
 
-<Switch checked={product()} onCheckedChange={({ checked }) => setProduct(checked)}>
+<Switch defaultChecked>
   <SwitchLabel>Product updates</SwitchLabel>
   <SwitchControl />
   <SwitchHiddenInput />
@@ -91,11 +93,16 @@ const switchCode: Record<Framework, { file: string; lang: string; code: string }
     file: 'Notifications.vue',
     lang: 'vue',
     code: `<script setup>
-import { Switch, SwitchControl, SwitchHiddenInput, SwitchLabel } from '@moduix/vue/switch';
+import {
+  Switch,
+  SwitchControl,
+  SwitchHiddenInput,
+  SwitchLabel,
+} from '@moduix/vue/switch';
 </script>
 
 <template>
-  <Switch v-model:checked="product">
+  <Switch default-checked>
     <SwitchLabel>Product updates</SwitchLabel>
     <SwitchControl />
     <SwitchHiddenInput />
@@ -106,10 +113,15 @@ import { Switch, SwitchControl, SwitchHiddenInput, SwitchLabel } from '@moduix/v
     file: 'Notifications.svelte',
     lang: 'svelte',
     code: `<script>
-  import { Switch, SwitchControl, SwitchHiddenInput, SwitchLabel } from '@moduix/svelte/switch';
+  import {
+    Switch,
+    SwitchControl,
+    SwitchHiddenInput,
+    SwitchLabel,
+  } from '@moduix/svelte/switch';
 </script>
 
-<Switch bind:checked={product}>
+<Switch defaultChecked>
   <SwitchLabel>Product updates</SwitchLabel>
   <SwitchControl />
   <SwitchHiddenInput />
@@ -275,51 +287,28 @@ function Eyebrow({ index, children }: { index: string; children: string }) {
   );
 }
 
-function CopyCommand({
-  framework,
-  pm,
-  onPmChange,
-}: {
-  framework: Framework;
-  pm: PackageManager;
-  onPmChange: (value: PackageManager) => void;
-}) {
+function CopyCommand({ framework }: { framework: Framework }) {
   const t = useI18n<typeof import('i18n')>();
   const [copied, setCopied] = useState(false);
-  const currentPm = packageManagers.find((item) => item.value === pm) ?? packageManagers[0];
-  const command = `${currentPm.add} @moduix/${framework} @ark-ui/${framework}`;
+  const command = `pnpm add @moduix/${framework} @ark-ui/${framework}`;
 
   return (
-    <div className={styles.commandWrap}>
-      <div className={styles.pmTabs} role="group" aria-label="Package manager">
-        {packageManagers.map((item) => (
-          <button
-            key={item.value}
-            type="button"
-            aria-pressed={pm === item.value}
-            onClick={() => onPmChange(item.value)}
-          >
-            {item.label}
-          </button>
-        ))}
-      </div>
-      <div className={styles.command}>
-        <code>
-          <span aria-hidden="true">$ </span>
-          {command}
-        </code>
-        <button
-          type="button"
-          aria-label={t(copied ? 'exampleCopied' : 'exampleCopy')}
-          onClick={async () => {
-            await navigator.clipboard.writeText(command);
-            setCopied(true);
-            setTimeout(() => setCopied(false), 1500);
-          }}
-        >
-          {copied ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />}
-        </button>
-      </div>
+    <div className={styles.command}>
+      <code>
+        <span aria-hidden="true">$ </span>
+        {command}
+      </code>
+      <button
+        type="button"
+        aria-label={t(copied ? 'exampleCopied' : 'exampleCopy')}
+        onClick={async () => {
+          await navigator.clipboard.writeText(command);
+          setCopied(true);
+          setTimeout(() => setCopied(false), 1500);
+        }}
+      >
+        {copied ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />}
+      </button>
     </div>
   );
 }
@@ -440,15 +429,11 @@ function Hero({
   count,
   framework,
   onFrameworkChange,
-  pm,
-  onPmChange,
 }: {
   t: T;
   count: number;
   framework: Framework;
   onFrameworkChange: (value: Framework) => void;
-  pm: PackageManager;
-  onPmChange: (value: PackageManager) => void;
 }) {
   const lang = useLang();
   // Phones have no room for the overlapping code card, so the demo toolbar switches to the code.
@@ -476,21 +461,14 @@ function Hero({
             </Link>
           </Button>
         </div>
-        <CopyCommand framework={framework} pm={pm} onPmChange={onPmChange} />
+        <CopyCommand framework={framework} />
         <div className={styles.works}>
           <p>{t('homeWorksWith')}</p>
           <ul>
             {frameworks.map((item) => (
-              <li key={item.value}>
-                <button
-                  type="button"
-                  className={styles.frameworkChip}
-                  aria-pressed={framework === item.value}
-                  onClick={() => onFrameworkChange(item.value)}
-                >
-                  <FrameworkDot framework={item.value} />
-                  {item.label}
-                </button>
+              <li key={item.value} className={styles.frameworkChip}>
+                <FrameworkDot framework={item.value} />
+                {item.label}
               </li>
             ))}
           </ul>
@@ -591,18 +569,7 @@ function OneApi({
   );
 }
 
-function Install({
-  t,
-  framework,
-  onFrameworkChange,
-  pm,
-}: {
-  t: T;
-  framework: Framework;
-  onFrameworkChange: (value: Framework) => void;
-  pm: PackageManager;
-}) {
-  const currentPm = packageManagers.find((item) => item.value === pm) ?? packageManagers[0];
+function Install({ t, framework }: { t: T; framework: Framework }) {
   const rows = [
     {
       name: 'CSS Modules',
@@ -624,20 +591,6 @@ function Install({
         <Eyebrow index="02">{t('homeInstallEyebrow')}</Eyebrow>
         <h2 className={styles.title}>{t('homeInstallTitle')}</h2>
         <p className={styles.lead}>{t('homeInstallText')}</p>
-        <div className={styles.installFrameworks} role="group" aria-label={t('exampleFramework')}>
-          {frameworks.map((item) => (
-            <button
-              key={item.value}
-              type="button"
-              className={styles.frameworkChip}
-              aria-pressed={framework === item.value}
-              onClick={() => onFrameworkChange(item.value)}
-            >
-              <FrameworkDot framework={item.value} />
-              {item.label}
-            </button>
-          ))}
-        </div>
       </div>
       <div>
         <div className={styles.installTableWrap}>
@@ -663,10 +616,10 @@ function Install({
                     <span>{t(row.noteKey)}</span>
                   </th>
                   <td>
-                    <CopyCell prefix={currentPm.add} target={row.pkg} />
+                    <CopyCell prefix="pnpm add" target={row.pkg} />
                   </td>
                   <td>
-                    <CopyCell prefix={`${currentPm.dlx} shadcn@latest add`} target={row.registry} />
+                    <CopyCell prefix="pnpm dlx shadcn@latest add" target={row.registry} />
                   </td>
                 </tr>
               ))}
@@ -954,7 +907,6 @@ function Footer({ t }: { t: T }) {
 export function Home() {
   const t = useI18n<typeof import('i18n')>();
   const [framework, setFramework] = useState<Framework>('react');
-  const [pm, setPm] = useState<PackageManager>('pnpm');
   const categories = getComponentCategories();
   const count = categories.reduce((total, category) => total + category.count, 0);
 
@@ -997,16 +949,9 @@ export function Home() {
   return (
     <div className={styles.home}>
       <ToastToaster />
-      <Hero
-        t={t}
-        count={count}
-        framework={framework}
-        onFrameworkChange={setFramework}
-        pm={pm}
-        onPmChange={setPm}
-      />
+      <Hero t={t} count={count} framework={framework} onFrameworkChange={setFramework} />
       <OneApi t={t} framework={framework} onFrameworkChange={setFramework} />
-      <Install t={t} framework={framework} onFrameworkChange={setFramework} pm={pm} />
+      <Install t={t} framework={framework} />
       <Components t={t} count={count} categories={categories} />
       <Themes t={t} />
       <Start t={t} />

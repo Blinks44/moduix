@@ -143,53 +143,12 @@
   }
 }
 
-.commandWrap {
-  display: inline-flex;
-  max-width: 100%;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 24px;
-}
-
-.pmTabs {
-  display: inline-flex;
-  width: fit-content;
-  gap: 2px;
-  border-radius: 8px;
-  padding: 2px;
-  background: var(--rp-c-bg-mute);
-
-  button {
-    height: 24px;
-    border: 0;
-    border-radius: 6px;
-    padding: 0 9px;
-    background: transparent;
-    color: var(--rp-c-text-3);
-    font-family: var(--rp-font-family-mono);
-    font-size: 12px;
-    cursor: pointer;
-    transition:
-      background-color 0.15s ease,
-      color 0.15s ease;
-
-    &:hover {
-      color: var(--rp-c-text-1);
-    }
-
-    &[aria-pressed='true'] {
-      background: var(--rp-c-bg);
-      box-shadow: 0 1px 2px rgb(9 9 11 / 8%);
-      color: var(--rp-c-text-0);
-    }
-  }
-}
-
 .command {
   display: inline-flex;
   height: 40px;
   align-items: center;
   gap: 16px;
+  margin-top: 24px;
   border: 1px solid var(--rp-c-divider);
   border-radius: 10px;
   padding: 0 6px 0 14px;
@@ -231,7 +190,7 @@
 }
 
 .works {
-  margin-top: 32px;
+  margin-top: 40px;
 
   p {
     margin: 0 0 10px;
@@ -262,24 +221,8 @@
   padding: 0 12px;
   background: var(--rp-c-bg);
   color: var(--rp-c-text-1);
-  font-family: inherit;
   font-size: 13px;
   font-weight: 500;
-  cursor: pointer;
-  transition:
-    border-color 0.15s ease,
-    background-color 0.15s ease,
-    color 0.15s ease;
-
-  &:hover {
-    border-color: var(--moduix-doc-border-strong);
-  }
-
-  &[aria-pressed='true'] {
-    border-color: var(--rp-c-text-0);
-    background: var(--rp-c-text-0);
-    color: var(--rp-c-bg);
-  }
 }
 
 .works .worksNote {
@@ -496,13 +439,6 @@
   display: grid;
   grid-template-columns: minmax(0, 380px) minmax(0, 1fr);
   gap: 40px;
-}
-
-.installFrameworks {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 20px;
 }
 
 .installTableWrap {
