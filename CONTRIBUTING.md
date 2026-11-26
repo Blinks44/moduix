@@ -47,20 +47,20 @@ For headed tests, omit `--only-shell`.
 | `pnpm run check:a11y [component…]`         | Run axe on built playground stories                                  |
 
 `compare:stories` and `check:a11y` read the built storybooks, so run
-`pnpm --filter './playgrounds/*' run build:storybook` first. Both scripts run on demand locally;
-CI runs Storybook smoke builds across every shipped playground.
+`pnpm --filter './playgrounds/*' run build:storybook` first. Playground storybooks build on demand
+locally; CI typechecks every playground instead of running full Storybook builds.
 
 Behavior tests for a framework live in its CSS Modules package (`packages/<framework>/tests`), and
 the Tailwind package runs the same files. Style-specific tests live in `tests/styles` of each package.
 
 Starters have separate lockfiles and install from npm. Run `pnpm run check:starters` to install,
 typecheck, and build every starter. They are intentionally outside the workspace so local package
-builds cannot hide publishing problems. CI runs this check in a separate job.
+builds cannot hide publishing problems. CI runs this check when files under `starters/` change.
 
 ## Before opening a pull request
 
 1. Run the required validation from the repository root: `fmt:fix`, `lint:check`, `tsc:check`.
-   CI runs the same checks plus docs, registry, Storybook, and package-contract builds.
+   CI runs the same checks plus docs, registry, tests, and package-contract checks for affected paths.
 2. Add a changeset for any consumer-facing change:
 
    ```bash

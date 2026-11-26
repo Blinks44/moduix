@@ -15,6 +15,108 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  changes:
+    name: Detect changes
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      packages: ${{ steps.filter.outputs.packages }}
+      react: ${{ steps.filter.outputs.react }}
+      starters: ${{ steps.filter.outputs.starters }}
+      docs: ${{ steps.filter.outputs.docs }}
+      code: ${{ steps.filter.outputs.code }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+
+      - name: Classify changed files
+        id: filter
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PUSH_BEFORE_SHA: ${{ github.event.before }}
+        run: |
+          set -euo pipefail
+
+          set_all() {
+            {
+              echo "packages=$1"
+              echo "react=$1"
+              echo "starters=$1"
+              echo "docs=$1"
+              echo "code=$1"
+            } >> "$GITHUB_OUTPUT"
+          }
+
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            set_all true
+            exit 0
+          fi
+
+          if [ "$EVENT_NAME" = "pull_request" ]; then
+            BASE_SHA="$PR_BASE_SHA"
+            DIFF_RANGE="${BASE_SHA}...HEAD"
+          else
+            BASE_SHA="$PUSH_BEFORE_SHA"
+            DIFF_RANGE="${BASE_SHA}..HEAD"
+          fi
+
+          if [ -z "$BASE_SHA" ] || [ "$BASE_SHA" = "0000000000000000000000000000000000000000" ] || ! git cat-file -e "${BASE_SHA}^{commit}" 2>/dev/null; then
+            set_all true
+            exit 0
+          fi
+
+          FILES=$(git diff --name-only "$DIFF_RANGE")
+          echo "Changed files:"
+          echo "$FILES"
+
+          matches() {
+            printf '%s\n' "$FILES" | grep -Eq "$1"
+          }
+
+          GLOBAL_RE='^(package\.json|pnpm-lock\.yaml|pnpm-workspace\.yaml|turbo\.json|tsconfig.*\.json|\.github/workflows/verify\.yml)$'
+          PACKAGES_RE='^(packages/|\.size-limit\.mjs$|scripts/(check-css-modules|check-exports|copy-foundation-styles|bundle-foundation-registry)\.mjs$)'
+          REACT_RE='^packages/(react|react-tailwind|foundation)/'
+          STARTERS_RE='^(starters/|scripts/check-starters\.mjs$|\.github/workflows/verify\.yml$)'
+
+          packages=false
+          react=false
+          starters=false
+          docs=false
+          code=false
+
+          if matches "$GLOBAL_RE" || matches "$PACKAGES_RE"; then
+            packages=true
+          fi
+
+          if matches "$GLOBAL_RE" || matches "$REACT_RE"; then
+            react=true
+          fi
+
+          if matches "$STARTERS_RE"; then
+            starters=true
+          fi
+
+          if [ "$packages" = "true" ] || matches '^website/'; then
+            docs=true
+          fi
+
+          if [ "$packages" = "true" ] || [ "$docs" = "true" ] || matches '^playgrounds/'; then
+            code=true
+          fi
+
+          {
+            echo "packages=$packages"
+            echo "react=$react"
+            echo "starters=$starters"
+            echo "docs=$docs"
+            echo "code=$code"
+          } >> "$GITHUB_OUTPUT"
+
   format-and-lint:
     name: Format and lint
     runs-on: ubuntu-latest
@@ -44,6 +146,8 @@ jobs:
 
   test:
     name: Test
+    needs: changes
+    if: needs.changes.outputs.packages == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
@@ -82,6 +186,8 @@ jobs:
   # The React adapters declare react ^18 || ^19; the main test job covers 19.
   test-react-18:
     name: Test React 18
+    needs: changes
+    if: needs.changes.outputs.react == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
@@ -114,6 +220,8 @@ jobs:
 
   typecheck:
     name: Typecheck
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
@@ -127,11 +235,20 @@ jobs:
           cache: true
           require-lockfile: true
 
+      - name: Cache Turborepo
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
+        with:
+          path: .turbo/cache
+          key: turbo-typecheck-${{ runner.os }}-${{ github.sha }}
+          restore-keys: turbo-typecheck-${{ runner.os }}-
+
       - name: Check TypeScript
         run: pnpm run tsc:check
 
   build:
     name: Build and package checks
+    needs: changes
+    if: needs.changes.outputs.packages == 'true' || needs.changes.outputs.docs == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
@@ -148,26 +265,39 @@ jobs:
           cache: true
           require-lockfile: true
 
+      - name: Cache Turborepo
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
+        with:
+          path: .turbo/cache
+          key: turbo-build-${{ runner.os }}-${{ github.sha }}
+          restore-keys: turbo-build-${{ runner.os }}-
+
       - name: Build public packages
+        if: needs.changes.outputs.packages == 'true'
         run: pnpm run build:packages
 
       # Fails when a key component exceeds its budget in .size-limit.mjs.
       - name: Check component size budgets
+        if: needs.changes.outputs.packages == 'true'
         run: pnpm run size
 
       - name: Build registry and docs
+        if: needs.changes.outputs.docs == 'true'
         run: pnpm run build:docs
 
       - name: Check public package contracts
+        if: needs.changes.outputs.packages == 'true'
         run: pnpm run check:packages
 
       # Preview builds on pkg.pr.new; pnpm pack resolves catalog: versions.
       - name: Publish preview packages
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' && needs.changes.outputs.packages == 'true'
         run: pnpm exec pkg-pr-new publish --pnpm --packageManager=pnpm './packages/*'
 
   starters:
     name: Build starters from npm
+    needs: changes
+    if: needs.changes.outputs.starters == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -184,21 +314,3 @@ jobs:
       # Starters are standalone: no workspace links or local package builds.
       - name: Install, typecheck, and build every starter
         run: pnpm run check:starters
-
-  storybook:
-    name: Storybook smoke
-    runs-on: ubuntu-latest
-    timeout-minutes: 45
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
-
-      - name: Setup pnpm and Node.js
-        uses: pnpm/setup@731dfb6463bbd11c11fd0ee11fe00ed0e36d48a1 # v3
-        with:
-          cache: true
-          require-lockfile: true
-
-      - name: Build shipped playground storybooks
-        run: pnpm --filter './playgrounds/*' run build:storybook

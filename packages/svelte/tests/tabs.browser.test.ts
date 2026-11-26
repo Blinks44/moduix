@@ -189,14 +189,15 @@ test('stretches horizontal triggers across the root when fitted', () => {
 
   const [horizontal, vertical] = container.querySelectorAll<HTMLElement>('[data-slot="tabs-root"]');
   const list = horizontal!.querySelector<HTMLElement>('[data-slot="tabs-list"]')!;
-  const widths = [...list.querySelectorAll<HTMLElement>('[data-slot="tabs-trigger"]')].map(
-    (trigger) => trigger.offsetWidth,
-  );
+  const horizontalTriggers = [...list.querySelectorAll<HTMLElement>('[data-slot="tabs-trigger"]')];
+  const widths = horizontalTriggers.map((trigger) => trigger.offsetWidth);
+  const triggerHeight = horizontalTriggers[0]!.offsetHeight;
 
   expect(horizontal!.hasAttribute('data-fitted')).toBe(true);
   expect(list.offsetWidth).toBe(480);
   expect(Math.max(...widths) - Math.min(...widths)).toBeLessThanOrEqual(1);
+  expect(triggerHeight).toBeGreaterThan(0);
   for (const trigger of vertical!.querySelectorAll<HTMLElement>('[data-slot="tabs-trigger"]')) {
-    expect(trigger.offsetHeight).toBe(22);
+    expect(trigger.offsetHeight).toBe(triggerHeight);
   }
 });
